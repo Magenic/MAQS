@@ -1,0 +1,71 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseDatabaseTest", "BaseDatabaseTest\BaseDatabaseTest.csproj", "{44C5417D-F2B6-4D8D-A2BE-4F43F75FEBC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NugetSetup", "NugetSetup\NugetSetup.csproj", "{8661B7E1-7454-4E97-88F7-0A31FC4ADA40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{949364A1-08D7-4E79-8CA2-228EA925438F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8661B7E1-7454-4E97-88F7-0A31FC4ADA40} = {8661B7E1-7454-4E97-88F7-0A31FC4ADA40}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseUnitTests", "DatabaseUnitTests\DatabaseUnitTests.csproj", "{2904E8F9-09EC-4F47-A1F9-C459E071C7EE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D659B2CA-53DC-429C-8837-1056ABD4B0A8}"
+	ProjectSection(SolutionItems) = preProject
+		Parallel.testsettings = Parallel.testsettings
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://magenic.visualstudio.com/defaultcollection
+		SccProjectUniqueName0 = BaseDatabaseTest\\BaseDatabaseTest.csproj
+		SccProjectName0 = BaseDatabaseTest
+		SccAuxPath0 = https://magenic.visualstudio.com/defaultcollection
+		SccLocalPath0 = BaseDatabaseTest
+		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName1 = NugetSetup\\NugetSetup.csproj
+		SccProjectName1 = NugetSetup
+		SccAuxPath1 = https://magenic.visualstudio.com/defaultcollection
+		SccLocalPath1 = NugetSetup
+		SccProvider1 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName2 = Utilities\\Utilities.csproj
+		SccProjectName2 = Utilities
+		SccAuxPath2 = https://magenic.visualstudio.com/defaultcollection
+		SccLocalPath2 = Utilities
+		SccProvider2 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName3 = DatabaseUnitTests\\DatabaseUnitTests.csproj
+		SccProjectName3 = DatabaseUnitTests
+		SccAuxPath3 = https://magenic.visualstudio.com/defaultcollection
+		SccLocalPath3 = DatabaseUnitTests
+		SccProvider3 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{44C5417D-F2B6-4D8D-A2BE-4F43F75FEBC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44C5417D-F2B6-4D8D-A2BE-4F43F75FEBC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44C5417D-F2B6-4D8D-A2BE-4F43F75FEBC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44C5417D-F2B6-4D8D-A2BE-4F43F75FEBC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8661B7E1-7454-4E97-88F7-0A31FC4ADA40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8661B7E1-7454-4E97-88F7-0A31FC4ADA40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8661B7E1-7454-4E97-88F7-0A31FC4ADA40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8661B7E1-7454-4E97-88F7-0A31FC4ADA40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{949364A1-08D7-4E79-8CA2-228EA925438F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{949364A1-08D7-4E79-8CA2-228EA925438F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{949364A1-08D7-4E79-8CA2-228EA925438F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{949364A1-08D7-4E79-8CA2-228EA925438F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2904E8F9-09EC-4F47-A1F9-C459E071C7EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2904E8F9-09EC-4F47-A1F9-C459E071C7EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2904E8F9-09EC-4F47-A1F9-C459E071C7EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2904E8F9-09EC-4F47-A1F9-C459E071C7EE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
