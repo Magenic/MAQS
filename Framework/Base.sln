@@ -33,6 +33,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilitiesUnitTests", "Utili
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documentation", "Documentation\Documentation.shfbproj", "{9BB741DF-05E2-4542-86F0-881C639EFCB1}"
 	ProjectSection(ProjectDependencies) = postProject
+		{86A25804-71A8-40E5-8F87-5E4726DEF076} = {86A25804-71A8-40E5-8F87-5E4726DEF076}
 		{1BA45429-E47E-465F-999C-9C6D413D3E20} = {1BA45429-E47E-465F-999C-9C6D413D3E20}
 		{36C9B036-114E-4E85-BE8F-5D7F5661C432} = {36C9B036-114E-4E85-BE8F-5D7F5661C432}
 		{6E551C39-5307-4371-8315-8FD5B9381AED} = {6E551C39-5307-4371-8315-8FD5B9381AED}
@@ -50,6 +51,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NugetSetup", "NugetSetup\Nu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NugetBuild", "NugetBuild\NugetBuild.csproj", "{988DFCFF-49AE-4677-9B50-D61C14008E49}"
 	ProjectSection(ProjectDependencies) = postProject
+		{86A25804-71A8-40E5-8F87-5E4726DEF076} = {86A25804-71A8-40E5-8F87-5E4726DEF076}
 		{9BB741DF-05E2-4542-86F0-881C639EFCB1} = {9BB741DF-05E2-4542-86F0-881C639EFCB1}
 	EndProjectSection
 EndProject
@@ -450,62 +452,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 18
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://magenic.visualstudio.com/
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = Utilities\\Utilities.csproj
-		SccProjectName1 = Utilities
-		SccLocalPath1 = Utilities
-		SccProjectUniqueName2 = BaseSeleniumTest\\BaseSeleniumTest.csproj
-		SccProjectName2 = BaseSeleniumTest
-		SccLocalPath2 = BaseSeleniumTest
-		SccProjectUniqueName3 = SeleniumUnitTesting\\SeleniumUnitTests.csproj
-		SccProjectName3 = SeleniumUnitTesting
-		SccLocalPath3 = SeleniumUnitTesting
-		SccProjectUniqueName4 = BaseWebServiceTest\\BaseWebServiceTest.csproj
-		SccProjectName4 = BaseWebServiceTest
-		SccLocalPath4 = BaseWebServiceTest
-		SccProjectUniqueName5 = WebServiceTesterUnitTesting\\WebServiceUnitTests.csproj
-		SccProjectName5 = WebServiceTesterUnitTesting
-		SccLocalPath5 = WebServiceTesterUnitTesting
-		SccProjectUniqueName6 = UtilitiesUnitTests\\UtilitiesUnitTests.csproj
-		SccProjectName6 = UtilitiesUnitTests
-		SccLocalPath6 = UtilitiesUnitTests
-		SccProjectUniqueName7 = Documentation\\Documentation.shfbproj
-		SccProjectName7 = Documentation
-		SccLocalPath7 = Documentation
-		SccProjectUniqueName8 = NugetSetup\\NugetSetup.csproj
-		SccProjectName8 = NugetSetup
-		SccLocalPath8 = NugetSetup
-		SccProjectUniqueName9 = NugetBuild\\NugetBuild.csproj
-		SccProjectName9 = NugetBuild
-		SccLocalPath9 = NugetBuild
-		SccProjectUniqueName10 = BaseDatabaseTest\\BaseDatabaseTest.csproj
-		SccProjectName10 = BaseDatabaseTest
-		SccLocalPath10 = BaseDatabaseTest
-		SccProjectUniqueName11 = DatabaseUnitTests\\DatabaseUnitTests.csproj
-		SccProjectName11 = DatabaseUnitTests
-		SccLocalPath11 = DatabaseUnitTests
-		SccProjectUniqueName12 = VSUnitTestShim\\VSUnitTestShim.csproj
-		SccProjectName12 = VSUnitTestShim
-		SccLocalPath12 = VSUnitTestShim
-		SccProjectUniqueName13 = BaseEmailTest\\BaseEmailTest.csproj
-		SccProjectName13 = BaseEmailTest
-		SccLocalPath13 = BaseEmailTest
-		SccProjectUniqueName14 = EmailUnitTests\\EmailUnitTests.csproj
-		SccProjectName14 = EmailUnitTests
-		SccLocalPath14 = EmailUnitTests
-		SccProjectUniqueName15 = BaseAppiumTest\\BaseAppiumTest.csproj
-		SccProjectName15 = BaseAppiumTest
-		SccLocalPath15 = BaseAppiumTest
-		SccProjectUniqueName16 = BaseMongoDBTest\\BaseMongoDBTest.csproj
-		SccProjectName16 = BaseMongoDBTest
-		SccLocalPath16 = BaseMongoDBTest
-		SccProjectUniqueName17 = MongoDBUnitTests\\MongoDBUnitTests.csproj
-		SccProjectName17 = MongoDBUnitTests
-		SccLocalPath17 = MongoDBUnitTests
 	EndGlobalSection
 EndGlobal
