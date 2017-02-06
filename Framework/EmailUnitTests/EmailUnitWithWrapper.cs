@@ -649,9 +649,21 @@ namespace EmailUnitTests
 
                 foreach (string file in attchments)
                 {
-                    // Put the files in the same folder to address a weird compile server issue
                     string tempDownload = Path.Combine(downloadLocation, Guid.NewGuid().ToString());
-                    File.Copy(Path.Combine(testFilePath, Path.GetFileName(file)), tempDownload);
+                    
+                    // Fix weird Git related CRLF issue
+                    if(file.EndsWith(".cs"))
+                    {
+                        string value = File.ReadAllText(Path.Combine(testFilePath, Path.GetFileName(file))).Replace("\r\n", "\n").Replace("\n", "\r\n");
+                        File.WriteAllText(tempDownload, value);
+
+                        value = File.ReadAllText(file).Replace("\r\n", "\n").Replace("\n", "\r\n");
+                        File.WriteAllText(file, value);
+                    }
+                    else
+                    {
+                        File.Copy(Path.Combine(testFilePath, Path.GetFileName(file)), tempDownload);
+                    }
 
                     string downloadFileHash = this.GetFileHash(file);
                     string testFileHash = this.GetFileHash(tempDownload);
