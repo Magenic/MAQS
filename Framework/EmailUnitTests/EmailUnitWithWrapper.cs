@@ -649,8 +649,12 @@ namespace EmailUnitTests
 
                 foreach (string file in attchments)
                 {
+                    // Put the files in the same folder to address a weird compile server issue
+                    string tempDownload = Path.Combine(downloadLocation, Guid.NewGuid().ToString());
+                    File.Copy(Path.Combine(testFilePath, Path.GetFileName(file)), tempDownload);
+
                     string downloadFileHash = this.GetFileHash(file);
-                    string testFileHash = this.GetFileHash(Path.Combine(testFilePath, Path.GetFileName(file)));
+                    string testFileHash = this.GetFileHash(tempDownload);
 
                     Assert.AreEqual(testFileHash, downloadFileHash, Path.GetFileName(file) + " test file and download file do not match");
                 }
