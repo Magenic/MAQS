@@ -31,6 +31,6 @@
     <file src="..\..\BaseSeleniumTest\bin\ReleaseShim\Magenic.MaqsFramework.BaseSeleniumTest.dll" target="lib\net45" />
     <file src="..\..\BaseWebServiceTest\bin\ReleaseShim\Magenic.MaqsFramework.WebServiceTester.dll" target="lib\net45" />
     <file src="..\..\Documentation\Help\Maqs.chm" target="help"/>
-    <file src="..\..\VisualStudioQatExtension\License.txt" target=""/>
+    <file src="..\..\..\Extensions\VisualStudioQatExtension\License.txt" target=""/>
   </files>
 </package>

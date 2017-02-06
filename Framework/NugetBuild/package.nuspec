@@ -29,6 +29,6 @@
     <file src="..\..\NugetBuild\bin\Release\Magenic.MaqsFramework.WebServiceTester.*" target="lib\net45" />
     <file src="..\..\NugetBuild\bin\Release\Magenic.MaqsFramework.Utilities.*" target="lib\net45" />
     <file src="..\..\Documentation\Help\Maqs.chm" target="help"/>
-    <file src="..\..\VisualStudioQatExtension\License.txt" target=""/>
+    <file src="..\..\..\Extensions\VisualStudioQatExtension\License.txt" target=""/>
   </files>
 </package>
