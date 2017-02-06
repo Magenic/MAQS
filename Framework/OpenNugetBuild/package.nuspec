@@ -16,8 +16,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\..\NugetBuild\bin\Release\Magenic.MaqsFramework.BaseSeleniumTest.*" target="lib\net45" />
-    <file src="..\..\NugetBuild\bin\Release\Magenic.MaqsFramework.Utilities.*" target="lib\net45" />
+    <file src="..\..\OpenNugetBuild\bin\Release\Magenic.MaqsFramework.BaseSeleniumTest.*" target="lib\net45" />
+    <file src="..\..\OpenNugetBuild\bin\Release\Magenic.MaqsFramework.Utilities.*" target="lib\net45" />
     <file src="..\..\OpenDocumentation\Help\Maqs.chm" target="help"/>
     <file src="..\..\..\Extensions\VisualStudioQatExtension\License.txt" target=""/>
   </files>
