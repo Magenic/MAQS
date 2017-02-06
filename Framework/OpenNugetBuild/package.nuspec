@@ -1,0 +1,24 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Magenic.Open.Maqs</id>
+    <version>4.0.0</version>
+    <title>Open MAQS</title>
+    <authors>Magenic</authors>
+    <owners>Magenic</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Magenic's automation quick start open source framework</description>
+    <copyright>Copyright © Magenic 2017</copyright>
+    <licenseUrl>http://magenicautomation.azurewebsites.net/content/license.txt</licenseUrl>
+    <iconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</iconUrl>
+    <dependencies>
+      <dependency id="NUnit" version="3.6.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\..\NugetBuild\bin\Release\Magenic.MaqsFramework.BaseSeleniumTest.*" target="lib\net45" />
+    <file src="..\..\NugetBuild\bin\Release\Magenic.MaqsFramework.Utilities.*" target="lib\net45" />
+    <file src="..\..\OpenDocumentation\Help\Maqs.chm" target="help"/>
+    <file src="..\..\..\Extensions\VisualStudioQatExtension\License.txt" target=""/>
+  </files>
+</package>

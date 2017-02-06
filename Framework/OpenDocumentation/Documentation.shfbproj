@@ -6,16 +6,16 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9BB741DF-05E2-4542-86F0-881C639EFCB1}</ProjectGuid>
+    <ProjectGuid>{9BB741DF-05E2-4542-BBBB-881C639EFCB1}</ProjectGuid>
     <SHFBSchemaVersion>2015.6.5.0</SHFBSchemaVersion>
     <!-- AssemblyName, Name, and RootNamespace are not used by SHFB but Visual Studio adds them anyway -->
-    <AssemblyName>Maqs</AssemblyName>
+    <AssemblyName>Open MAQS</AssemblyName>
     <RootNamespace>Documentation</RootNamespace>
-    <Name>Maqs</Name>
+    <Name>Open MAQS</Name>
     <!-- SHFB properties -->
     <ComponentPath>$(MSBuildThisFileDirectory)..\packages\EWSoftware.SHFB.NETFramework.4.6.2</ComponentPath>
     <OutputPath>.\Help\</OutputPath>
-    <HtmlHelpName>Maqs</HtmlHelpName>
+    <HtmlHelpName>MAQS</HtmlHelpName>
     <Language>en-US</Language>
     <BuildAssemblerVerbosity>OnlyErrors</BuildAssemblerVerbosity>
     <HelpFileFormat>HtmlHelp1</HelpFileFormat>
@@ -25,21 +25,11 @@
     <CleanIntermediates>True</CleanIntermediates>
     <DocumentationSources>
       <DocumentationSource sourceFile="..\Utilities\Utilities.csproj" />
-      <DocumentationSource sourceFile="..\BaseAppiumTest\BaseAppiumTest.csproj" />
       <DocumentationSource sourceFile="..\BaseSeleniumTest\BaseSeleniumTest.csproj" />
-      <DocumentationSource sourceFile="..\BaseWebServiceTest\BaseWebServiceTest.csproj" />
-      <DocumentationSource sourceFile="..\BaseDatabaseTest\BaseDatabaseTest.csproj" />
-      <DocumentationSource sourceFile="..\BaseEmailTest\BaseEmailTest.csproj" />
-	  <DocumentationSource sourceFile="..\BaseMongoDBTest\BaseMongoDBTest.csproj" />
       <DocumentationSource sourceFile="..\packages\Selenium.WebDriver.3.0.1\lib\net40\WebDriver.dll" />
       <DocumentationSource sourceFile="..\packages\Selenium.WebDriver.3.0.1\lib\net40\WebDriver.xml" />
       <DocumentationSource sourceFile="..\packages\Selenium.Support.3.0.1\lib\net40\WebDriver.Support.dll" />
       <DocumentationSource sourceFile="..\packages\Selenium.Support.3.0.1\lib\net40\WebDriver.Support.xml" />
-      <DocumentationSource sourceFile="..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll" />
-      <DocumentationSource sourceFile="..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.xml" />
-      <DocumentationSource sourceFile="..\packages\Appium.WebDriver.3.0.0.2\lib\net45\appium-dotnet-driver.dll" />
-      <DocumentationSource sourceFile="..\packages\Appium.WebDriver.3.0.0.2\lib\net45\appium-dotnet-driver.XML" />
-      <DocumentationSource sourceFile="..\packages\AE.Net.Mail.1.7.10.0\lib\net45\AE.Net.Mail.dll" />
     </DocumentationSources>
     <HelpFileVersion>4.0.0</HelpFileVersion>
     <MaximumGroupParts>2</MaximumGroupParts>
@@ -50,7 +40,7 @@
     <PresentationStyle>VS2013</PresentationStyle>
     <Preliminary>False</Preliminary>
     <NamingMethod>Guid</NamingMethod>
-    <HelpTitle>Maqs Help</HelpTitle>
+    <HelpTitle>MAQS Help</HelpTitle>
     <ContentPlacement>AboveNamespaces</ContentPlacement>
     <MissingTags>Parameter, Returns, AutoDocumentCtors, TypeParameter, AutoDocumentDispose</MissingTags>
     <SccProjectName>SAK</SccProjectName>
@@ -72,7 +62,7 @@
         </configuration>
       </PlugInConfig>
     </PlugInConfigurations>
-    <RootNamespaceTitle>Maqs</RootNamespaceTitle>
+    <RootNamespaceTitle>MAQS</RootNamespaceTitle>
     <ProjectSummary>&amp;lt%3bh2&amp;gt%3bMagenic&amp;#39%3bs automation quick start&amp;lt%3b/h2&amp;gt%3b
 &amp;lt%3bp&amp;gt%3bA modular automation testing framework&amp;lt%3b/p&amp;gt%3b</ProjectSummary>
   </PropertyGroup>
@@ -98,6 +88,26 @@
   <PropertyGroup>
     <!-- NOTE: Update the version number in the path (YYYY.M.D.R) to match the package version -->
     <SHFBROOT>$(SolutionDir)packages\EWSoftware.SHFB.2017.1.28.0\tools</SHFBROOT>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseShim|AnyCPU'">
+    <OutputPath>bin\ReleaseShim\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseShim|x86'">
+    <OutputPath>bin\x86\ReleaseShim\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseShim|x64'">
+    <OutputPath>bin\x64\ReleaseShim\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseShim|Win32'">
+    <OutputPath>bin\Win32\ReleaseShim\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <!-- Import the SHFB build targets -->
   <Import Project="$(SolutionDir)packages\EWSoftware.SHFB.2017.1.28.0\tools\SandcastleHelpFileBuilder.targets" />
