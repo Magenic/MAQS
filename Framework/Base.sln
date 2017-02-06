@@ -436,14 +436,12 @@ Global
 		{C802FBC0-51DA-4E59-8829-90549066FA6E}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{C802FBC0-51DA-4E59-8829-90549066FA6E}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{C802FBC0-51DA-4E59-8829-90549066FA6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C802FBC0-51DA-4E59-8829-90549066FA6E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C802FBC0-51DA-4E59-8829-90549066FA6E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C802FBC0-51DA-4E59-8829-90549066FA6E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{C802FBC0-51DA-4E59-8829-90549066FA6E}.Release|Win32.ActiveCfg = Release|Any CPU
 		{C802FBC0-51DA-4E59-8829-90549066FA6E}.Release|x64.ActiveCfg = Release|Any CPU
 		{C802FBC0-51DA-4E59-8829-90549066FA6E}.Release|x86.ActiveCfg = Release|Any CPU
 		{C802FBC0-51DA-4E59-8829-90549066FA6E}.ReleaseShim|Any CPU.ActiveCfg = Release|Any CPU
-		{C802FBC0-51DA-4E59-8829-90549066FA6E}.ReleaseShim|Any CPU.Build.0 = Release|Any CPU
 		{C802FBC0-51DA-4E59-8829-90549066FA6E}.ReleaseShim|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C802FBC0-51DA-4E59-8829-90549066FA6E}.ReleaseShim|Mixed Platforms.Build.0 = Release|Any CPU
 		{C802FBC0-51DA-4E59-8829-90549066FA6E}.ReleaseShim|Win32.ActiveCfg = Release|Any CPU
