@@ -16,9 +16,9 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\..\BaseSeleniumTest\bin\Release\Magenic.MaqsFramework.BaseSeleniumTest.*" target="lib\net45" />
-    <file src="..\..\BaseSeleniumTest\bin\Release\Magenic.MaqsFramework.Utilities.*" target="lib\net45" />
-    <file src="..\..\OpenDocumentation\Help\Maqs.chm" target="help"/>
-    <file src="..\..\..\Extensions\VisualStudioQatExtension\License.txt" target=""/>
+    <file src="..\BaseSeleniumTest\bin\Release\Magenic.MaqsFramework.BaseSeleniumTest.*" target="lib\net45" />
+    <file src="..\BaseSeleniumTest\bin\Release\Magenic.MaqsFramework.Utilities.*" target="lib\net45" />
+    <file src="..\OpenDocumentation\Help\Maqs.chm" target="help"/>
+    <file src="..\..\Extensions\VisualStudioQatExtension\License.txt" target=""/>
   </files>
 </package>
