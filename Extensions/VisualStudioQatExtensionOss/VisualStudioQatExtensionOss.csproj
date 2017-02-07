@@ -153,7 +153,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="ProjectTemplates\Magenic%27s Open Test\VSTest\QATSeleniumTemplate.zip">
+    <Content Include="ProjectTemplates\Magenic%27s Open Test\QATSeleniumTemplate.zip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
@@ -161,11 +161,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="ItemTemplates\Magenic%27s Open Test\NUnit\QATNUnitSeleniumTest.zip">
+    <Content Include="ItemTemplates\Magenic%27s Open Test\NUnit Only\QATNUnitSeleniumTest.zip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="ItemTemplates\Magenic%27s Open Test\VSTest\QATVisualStudioSeleniumTest.zip">
+    <Content Include="ItemTemplates\Magenic%27s Open Test\QATVisualStudioSeleniumTest.zip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
@@ -173,7 +173,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="ProjectTemplates\Magenic%27s Open Test\NUnit\QATNUnitSeleniumTemplate.zip">
+    <Content Include="ProjectTemplates\Magenic%27s Open Test\NUnit Only\QATNUnitSeleniumTemplate.zip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
