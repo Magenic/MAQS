@@ -5,12 +5,14 @@
 // <summary>Product definition for Json</summary>
 //--------------------------------------------------
 using Newtonsoft.Json;
+using System.Diagnostics.CodeAnalysis;
 
 namespace WebServiceTesterUnitTesting.Model
 {
     /// <summary>
     /// Definition of a product in jason
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class ProductJson
     {
         /// <summary>

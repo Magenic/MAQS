@@ -5,12 +5,14 @@
 // <summary>Obejct for string products</summary>
 //--------------------------------------------------
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace WebServiceTesterUnitTesting.Model
 {
     /// <summary>
     /// Class for product
     /// </summary>
+    [ExcludeFromCodeCoverage]
     [Serializable]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.datacontract.org/2004/07/AutomationTestSite.Models")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://schemas.datacontract.org/2004/07/AutomationTestSite.Models", IsNullable = false)]

@@ -9,6 +9,7 @@ using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Text;
@@ -20,6 +21,7 @@ namespace WebServiceTesterUnitTesting
     /// Test web service base test
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class WebServiceBaseTests : BaseWebServiceTest
     {
         /// <summary>

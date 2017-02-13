@@ -9,6 +9,7 @@ using Magenic.MaqsFramework.BaseSeleniumTest.Extensions;
 using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SeleniumUnitTests
 {
@@ -16,6 +17,7 @@ namespace SeleniumUnitTests
     /// Unit tests for the ActionBuilder class
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class ActionBuilderUnitTests : BaseSeleniumTest
     {
         /// <summary>

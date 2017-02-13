@@ -9,6 +9,7 @@ using Magenic.MaqsFramework.Utilities.BaseTest;
 using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace WebServiceTesterUnitTesting
@@ -17,6 +18,7 @@ namespace WebServiceTesterUnitTesting
     /// Configuration override via properties tests
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class WebServiceWrapperConfig : BaseWebServiceTest
     {
         /// <summary>

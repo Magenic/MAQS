@@ -13,9 +13,10 @@
 // 
 namespace WebServiceTesterUnitTesting.Model
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Xml.Serialization;
-    
-    
+
+
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
     [System.SerializableAttribute()]
@@ -23,6 +24,7 @@ namespace WebServiceTesterUnitTesting.Model
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://schemas.datacontract.org/2004/07/AutomationTestSite.Models")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="http://schemas.datacontract.org/2004/07/AutomationTestSite.Models", IsNullable=false)]
+    [ExcludeFromCodeCoverage]
     public partial class ArrayOfProduct : object, System.ComponentModel.INotifyPropertyChanged {
         
         private ArrayOfProductProduct[] productField;

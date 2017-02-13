@@ -6,12 +6,14 @@
 //--------------------------------------------------
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MongoDBUnitTests
 {
     /// <summary>
     /// Stores the elements used in MongoDB
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class MongoDBElements
     {
         /// <summary>

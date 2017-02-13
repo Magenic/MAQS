@@ -8,6 +8,7 @@ using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace UtilitiesUnitTesting
 {
@@ -15,6 +16,7 @@ namespace UtilitiesUnitTesting
     /// Test class for soft asserts
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class GenericWaitTests
     {
         /// <summary>

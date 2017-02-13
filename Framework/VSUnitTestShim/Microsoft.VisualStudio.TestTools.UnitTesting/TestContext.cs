@@ -7,12 +7,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.VisualStudio.TestTools.UnitTesting
 {
     /// <summary>
     /// TestContext shim
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public abstract class TestContext
     {
         /// <summary>

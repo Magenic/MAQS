@@ -10,6 +10,7 @@ using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.PhantomJS;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
 
@@ -19,6 +20,7 @@ namespace SeleniumUnitTests
     /// Test the selenium framework
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class SeleniumCustomConfigUnitTest : BaseSeleniumTest
     {
         /// <summary>

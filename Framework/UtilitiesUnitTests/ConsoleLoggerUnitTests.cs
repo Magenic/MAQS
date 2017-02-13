@@ -7,6 +7,7 @@
 using Magenic.MaqsFramework.Utilities.Helper;
 using Magenic.MaqsFramework.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace UtilitiesUnitTesting
 {
@@ -14,6 +15,7 @@ namespace UtilitiesUnitTesting
     /// Console logger unit tests
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class ConsoleLoggerUnitTests
     {
         /// <summary>

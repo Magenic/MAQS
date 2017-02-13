@@ -7,6 +7,7 @@
 using Magenic.MaqsFramework.BaseWebServiceTest;
 using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -18,6 +19,7 @@ namespace WebServiceTesterUnitTesting
     /// Test web service gets using the base test wrapper
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class WebServiceWithWrapperPut : BaseWebServiceTest
     {
         /// <summary>

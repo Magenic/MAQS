@@ -11,6 +11,7 @@ using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
 using System.Security.Cryptography;
@@ -24,6 +25,7 @@ namespace EmailUnitTests
     /// Test basic email testing with the base email test
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class EmailUnitWithWrapper : BaseEmailTest
     {
         /// <summary>
@@ -650,9 +652,9 @@ namespace EmailUnitTests
                 foreach (string file in attchments)
                 {
                     string tempDownload = Path.Combine(downloadLocation, Guid.NewGuid().ToString());
-                    
+
                     // Fix weird Git related CRLF issue
-                    if(file.EndsWith(".cs"))
+                    if (file.EndsWith(".cs"))
                     {
                         string value = File.ReadAllText(Path.Combine(testFilePath, Path.GetFileName(file))).Replace("\r\n", "\n").Replace("\n", "\r\n");
                         File.WriteAllText(tempDownload, value);

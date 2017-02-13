@@ -8,6 +8,7 @@ using Magenic.MaqsFramework.BaseWebServiceTest;
 using Magenic.MaqsFramework.Utilities.Helper;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace WebServiceTesterUnitTesting
@@ -16,6 +17,7 @@ namespace WebServiceTesterUnitTesting
     /// Configuration nunit override via properties tests
     /// </summary>
     [TestFixture]
+    [ExcludeFromCodeCoverage]
     public class WebServiceWrapperNUnitConfig : BaseWebServiceTest
     {
         /// <summary>

@@ -9,6 +9,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace MongoDBUnitTests
@@ -16,6 +17,7 @@ namespace MongoDBUnitTests
     /// <summary>
     /// Mongo database methods used for testing
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class MongoDBMethods
     {
         /// <summary>

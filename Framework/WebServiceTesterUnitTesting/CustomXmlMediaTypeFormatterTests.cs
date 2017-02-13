@@ -8,6 +8,7 @@ using Magenic.MaqsFramework.BaseWebServiceTest;
 using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 
 namespace WebServiceTesterUnitTesting
@@ -16,6 +17,7 @@ namespace WebServiceTesterUnitTesting
     /// Test the CustomXMLMediaTypeFormatter class
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class CustomXmlMediaTypeFormatterTests : CustomXmlMediaTypeFormatter
     {
         /// <summary>

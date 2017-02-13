@@ -8,6 +8,7 @@ using Magenic.MaqsFramework.BaseWebServiceTest;
 using Magenic.MaqsFramework.Utilities.Helper;
 using NUnit.Framework;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using WebServiceTesterUnitTesting.Model;
 
 namespace WebServiceTesterUnitTesting
@@ -16,6 +17,7 @@ namespace WebServiceTesterUnitTesting
     /// Test web service gets
     /// </summary>
     [TestFixture]
+    [ExcludeFromCodeCoverage]
     public class WebServiceNUnit
     {
         /// <summary>

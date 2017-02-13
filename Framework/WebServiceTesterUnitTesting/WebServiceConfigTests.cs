@@ -8,6 +8,7 @@ using Magenic.MaqsFramework.BaseWebServiceTest;
 using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace WebServiceTesterUnitTesting
 {
@@ -15,6 +16,7 @@ namespace WebServiceTesterUnitTesting
     /// Test class for web service configurations
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class WebServiceConfigTests
     {
         /// <summary>

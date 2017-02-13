@@ -8,6 +8,7 @@ using Magenic.MaqsFramework.BaseMongoDBTest;
 using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Configuration;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MongoDBUnitTests
 {
@@ -15,6 +16,7 @@ namespace MongoDBUnitTests
     /// Test basic database base test functionality
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class MongoDBUnitTestsWithWrapper : BaseMongoDBTest
     {
         /// <summary>

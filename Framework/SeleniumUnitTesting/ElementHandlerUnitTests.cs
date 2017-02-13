@@ -12,6 +12,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace SeleniumUnitTests
@@ -20,6 +21,7 @@ namespace SeleniumUnitTests
     /// Unit tests for the ElementHandler class
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class ElementHandlerUnitTests : BaseSeleniumTest
     {
         /// <summary>

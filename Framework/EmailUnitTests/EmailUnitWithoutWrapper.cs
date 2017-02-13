@@ -7,6 +7,7 @@
 using Magenic.MaqsFramework.BaseEmailTest;
 using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace EmailUnitTests
 {
@@ -14,6 +15,7 @@ namespace EmailUnitTests
     /// Test basic email testing without a base test
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class EmailUnitWithoutWrapper
     {
         /// <summary>

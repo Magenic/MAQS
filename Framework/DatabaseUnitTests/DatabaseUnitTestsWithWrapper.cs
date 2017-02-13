@@ -10,6 +10,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace DatabaseUnitTests
@@ -18,6 +19,7 @@ namespace DatabaseUnitTests
     /// Test basic database base test functionality
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class DatabaseUnitTestsWithWrapper : BaseDatabaseTest
     {
         /// <summary>

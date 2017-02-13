@@ -68,18 +68,10 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                     break;
 
                 case "FIREFOX":
-                    string firefoxPath = GetDriverLocation("firefox.exe", GetProgramFilesFolder("Mozilla Firefox", "firefox.exe"), false);
-
-                    if (string.IsNullOrEmpty(firefoxPath))
-                    {
-                        // Firefox driver location not found by framework so let Selenium try to find it
-                        webDriver = new FirefoxDriver();
-                    }
-                    else
-                    {
-                        webDriver = new FirefoxDriver(new FirefoxBinary(Path.Combine(firefoxPath, "firefox.exe")), new FirefoxProfile());
-                    }
-
+                    FirefoxDriverService service = FirefoxDriverService.CreateDefaultService(GetDriverLocation("geckodriver.exe"), "geckodriver.exe");
+                    FirefoxOptions firefoxOptions = new FirefoxOptions();
+                    firefoxOptions.Profile = new FirefoxProfile();
+                    webDriver = new FirefoxDriver(service, firefoxOptions, GetTimeoutTime());
                     break;
 
                 case "CHROME":
@@ -94,13 +86,14 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                 case "EDGE":
                     EdgeOptions edgeOptions = new EdgeOptions();
                     edgeOptions.PageLoadStrategy = EdgePageLoadStrategy.Normal;
+                   
                     webDriver = new EdgeDriver(GetDriverLocation("MicrosoftWebDriver.exe", GetProgramFilesFolder("Microsoft Web Driver", "MicrosoftWebDriver.exe")), edgeOptions);
                     break;
 
                 case "PHANTOMJS":
-                    PhantomJSOptions options = new PhantomJSOptions();
-                    options.AddAdditionalCapability("phantomjs.page.settings.userAgent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:26.0) Gecko/20100101 Firefox/26.0");
-                    webDriver = new PhantomJSDriver(GetDriverLocation("phantomjs.exe"), options);
+                    PhantomJSOptions phantomOptions = new PhantomJSOptions();
+                    phantomOptions.AddAdditionalCapability("phantomjs.page.settings.userAgent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:26.0) Gecko/20100101 Firefox/26.0");
+                    webDriver = new PhantomJSDriver(GetDriverLocation("phantomjs.exe"), phantomOptions);
                     break;
 
                 case "REMOTE":
@@ -187,10 +180,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// </example>
         public static WebDriverWait GetWaitDriver(IWebDriver driver)
         {
-            int waitTime = Convert.ToInt32(Config.GetValue("WaitTime", "0"));
-            int timeoutTime = Convert.ToInt32(Config.GetValue("Timeout", "0"));
-
-            return new WebDriverWait(new SystemClock(), driver, TimeSpan.FromMilliseconds(timeoutTime), TimeSpan.FromMilliseconds(waitTime));
+            return new WebDriverWait(new SystemClock(), driver, GetTimeoutTime(), GetWaitTime());
         }
 
         /// <summary>
@@ -214,9 +204,9 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// </example>
         public static void SetTimeouts(IWebDriver driver)
         {
-            int timeoutTime = Convert.ToInt32(Config.GetValue("Timeout", "0"));
-            driver.Manage().Timeouts().SetScriptTimeout(TimeSpan.FromMilliseconds(timeoutTime));
-            driver.Manage().Timeouts().SetPageLoadTimeout(TimeSpan.FromMilliseconds(timeoutTime));
+            TimeSpan timeoutTime = GetTimeoutTime();
+            driver.Manage().Timeouts().SetScriptTimeout(timeoutTime);
+            driver.Manage().Timeouts().SetPageLoadTimeout(timeoutTime);
         }
 
         /// <summary>
@@ -372,6 +362,26 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
             }
 
             return dc;
+        }
+
+        /// <summary>
+        /// Get the timeout timespan
+        /// </summary>
+        /// <returns>The timeout time span</returns>
+        private static TimeSpan GetTimeoutTime()
+        {
+            int timeoutTime = Convert.ToInt32(Config.GetValue("Timeout", "0"));
+            return TimeSpan.FromMilliseconds(timeoutTime);
+        }
+
+        /// <summary>
+        /// Get the wait timespan
+        /// </summary>
+        /// <returns>The wait time span</returns>
+        private static TimeSpan GetWaitTime()
+        {
+            int waitTime = Convert.ToInt32(Config.GetValue("WaitTime", "0"));
+            return TimeSpan.FromMilliseconds(waitTime);
         }
     }
 }

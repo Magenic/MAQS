@@ -7,6 +7,7 @@
 using Magenic.MaqsFramework.Utilities.Data;
 using Magenic.MaqsFramework.Utilities.Logging;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace WebServiceTesterUnitTesting
@@ -14,6 +15,7 @@ namespace WebServiceTesterUnitTesting
     /// <summary>
     /// Helper class for tests
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public static class TestHelper
     {
         /// <summary>

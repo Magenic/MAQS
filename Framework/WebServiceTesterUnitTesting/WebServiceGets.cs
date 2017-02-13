@@ -9,6 +9,7 @@ using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Net.Http;
 using WebServiceTesterUnitTesting.Model;
@@ -19,6 +20,7 @@ namespace WebServiceTesterUnitTesting
     /// Test web service gets
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class WebServiceGets
     {
         /// <summary>

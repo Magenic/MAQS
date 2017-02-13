@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using MongoDB.Driver;
 using System.Configuration;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MongoDBUnitTests
 {
@@ -18,6 +19,7 @@ namespace MongoDBUnitTests
     /// Test basic database base test functionality
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class MongoDBUnitTests
     {
         /// <summary>

@@ -74,6 +74,7 @@
     <Compile Include="ActionBuilder.cs" />
     <Compile Include="Extensions\Extend.cs" />
     <Compile Include="ElementHandler.cs" />
+    <Compile Include="Extensions\FluentElement.cs" />
     <Compile Include="SeleniumTestObject.cs" />
     <Compile Include="SeleniumSoftAssert.cs" />
     <Compile Include="SeleniumUtilities.cs" />

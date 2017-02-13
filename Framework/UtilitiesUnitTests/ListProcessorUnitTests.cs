@@ -9,6 +9,7 @@ using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace UtilitiesUnitTesting
@@ -17,6 +18,7 @@ namespace UtilitiesUnitTesting
     /// Unit Tests for the ListProcessor class
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class ListProcessorUnitTests
     {
         /// <summary>

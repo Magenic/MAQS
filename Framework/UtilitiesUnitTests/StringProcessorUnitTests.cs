@@ -7,6 +7,7 @@
 using Magenic.MaqsFramework.Utilities.Data;
 using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace UtilitiesUnitTesting
 {
@@ -14,6 +15,7 @@ namespace UtilitiesUnitTesting
     /// Initializes a new instance of the StringProcessorUnitTests class
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class StringProcessorUnitTests
     {
         /// <summary>

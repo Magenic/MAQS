@@ -8,6 +8,7 @@ using Magenic.MaqsFramework.BaseDatabaseTest;
 using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DatabaseUnitTests
 {
@@ -15,6 +16,7 @@ namespace DatabaseUnitTests
     /// Test class for database configurations
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class DatabaseConfigUnitTests
     {
         /// <summary>

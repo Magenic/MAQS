@@ -7,6 +7,7 @@
 using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace UtilitiesUnitTesting
 {
@@ -14,6 +15,7 @@ namespace UtilitiesUnitTesting
     /// Configuration unit test class
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class ConfigUnitTests
     {
         /// <summary>
