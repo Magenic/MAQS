@@ -541,8 +541,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         {
             return driver =>
             {
-                var element = driver.FindElement(by);
-                return (element != null && element.Displayed) ? element : null;
+                return driver.FindElement(by);
             };
         }
 

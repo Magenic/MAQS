@@ -7,6 +7,7 @@
 using Magenic.MaqsFramework.BaseSeleniumTest;
 using Magenic.MaqsFramework.Utilities.Helper;
 using NUnit.Framework;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SeleniumUnitTests
 {
@@ -14,6 +15,7 @@ namespace SeleniumUnitTests
     /// Test the selenium framework for NUnit
     /// </summary>
     [TestFixture]
+    [ExcludeFromCodeCoverage]
     public class SeleniumNUnitTest : BaseSeleniumTest
     {
         /// <summary>

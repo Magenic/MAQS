@@ -11,6 +11,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
 
@@ -20,6 +21,7 @@ namespace UnitTests
     /// Test class
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class SeleniumConfigTests
     {
         /// <summary>

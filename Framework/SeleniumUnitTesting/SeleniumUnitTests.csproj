@@ -88,6 +88,7 @@
   <ItemGroup>
     <Compile Include="ActionBuilderUnitTests.cs" />
     <Compile Include="ElementHandlerUnitTests.cs" />
+    <Compile Include="FluentElementUnitTests.cs" />
     <Compile Include="SeleniumNUnitTest.cs" />
     <Compile Include="SeleniumCustomConfigUnitTest.cs" />
     <Compile Include="SeleniumUnitTest.cs" />
@@ -136,8 +137,11 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(SolutionDir)packages\chromedriver.exe"') do copy /Y "%25%25m" "$(TargetDir)"
+
 FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(SolutionDir)packages\phantomjs.exe"') do copy /Y "%25%25m" "$(TargetDir)"
-FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(SolutionDir)packages\IEDriverServer.exe"') do copy /Y "%25%25m" "$(TargetDir)"</PostBuildEvent>
+
+FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(SolutionDir)packages\IEDriverServer.exe"') do copy /Y "%25%25m" "$(TargetDir)"
+FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(SolutionDir)packages\geckodriver.exe"') do copy /Y "%25%25m" "$(TargetDir)"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -148,10 +152,12 @@ FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(SolutionDir)packages\IEDriverServ
     <Error Condition="!Exists('..\packages\Selenium.WebDriver.ChromeDriver.2.27.0\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Selenium.WebDriver.ChromeDriver.2.27.0\build\Selenium.WebDriver.ChromeDriver.targets'))" />
     <Error Condition="!Exists('..\packages\Selenium.WebDriver.IEDriver.3.0.0.1\build\Selenium.WebDriver.IEDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Selenium.WebDriver.IEDriver.3.0.0.1\build\Selenium.WebDriver.IEDriver.targets'))" />
     <Error Condition="!Exists('..\packages\StyleCop.MSBuild.4.7.55.0\build\StyleCop.MSBuild.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\StyleCop.MSBuild.4.7.55.0\build\StyleCop.MSBuild.Targets'))" />
+    <Error Condition="!Exists('..\packages\Selenium.WebDriver.GeckoDriver.Win32.0.14.0\build\Selenium.WebDriver.GeckoDriver.Win32.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Selenium.WebDriver.GeckoDriver.Win32.0.14.0\build\Selenium.WebDriver.GeckoDriver.Win32.targets'))" />
   </Target>
   <Import Project="..\packages\Selenium.WebDriver.ChromeDriver.2.27.0\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('..\packages\Selenium.WebDriver.ChromeDriver.2.27.0\build\Selenium.WebDriver.ChromeDriver.targets')" />
   <Import Project="..\packages\Selenium.WebDriver.IEDriver.3.0.0.1\build\Selenium.WebDriver.IEDriver.targets" Condition="Exists('..\packages\Selenium.WebDriver.IEDriver.3.0.0.1\build\Selenium.WebDriver.IEDriver.targets')" />
   <Import Project="..\packages\StyleCop.MSBuild.4.7.55.0\build\StyleCop.MSBuild.Targets" Condition="Exists('..\packages\StyleCop.MSBuild.4.7.55.0\build\StyleCop.MSBuild.Targets')" />
+  <Import Project="..\packages\Selenium.WebDriver.GeckoDriver.Win32.0.14.0\build\Selenium.WebDriver.GeckoDriver.Win32.targets" Condition="Exists('..\packages\Selenium.WebDriver.GeckoDriver.Win32.0.14.0\build\Selenium.WebDriver.GeckoDriver.Win32.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

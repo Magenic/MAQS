@@ -12,6 +12,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace SeleniumUnitTests
@@ -20,6 +21,7 @@ namespace SeleniumUnitTests
     /// Test the selenium framework
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class SeleniumWebElementTest : BaseSeleniumTest
     {
         /// <summary>

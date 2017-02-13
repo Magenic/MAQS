@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Runtime.ExceptionServices;
+using System.Text;
 using NUnitTestContext = NUnit.Framework.TestContext;
 using VSTestContext = Microsoft.VisualStudio.TestTools.UnitTesting.TestContext;
 
@@ -533,6 +534,31 @@ namespace Magenic.MaqsFramework.Utilities.BaseTest
                 Console.WriteLine(formattedMessage);
                 Console.WriteLine("Logging failed because: " + e);
             }
+        }
+
+        /// <summary>
+        /// Log a verbose message and include the automation specific call stack data
+        /// </summary>
+        /// <param name="message">The message text</param>
+        /// <param name="args">String format arguments</param>
+        protected void LogVerbose(string message, params object[] args)
+        {
+            StringBuilder messages = new StringBuilder();
+            messages.AppendLine(StringProcessor.SafeFormatter(message, args));
+
+            var methodInfo = System.Reflection.MethodBase.GetCurrentMethod();
+            var fullName = methodInfo.DeclaringType.FullName + "." + methodInfo.Name;
+
+            foreach (string stackLevel in Environment.StackTrace.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
+            {
+                string trimmed = stackLevel.Trim();
+                if (!trimmed.StartsWith("at Microsoft.") && !trimmed.StartsWith("at System.") && !trimmed.StartsWith("at NUnit.") && !trimmed.StartsWith("at " + fullName))
+                {
+                    messages.AppendLine(stackLevel);
+                }
+            }
+
+            this.Log.LogMessage(MessageType.VERBOSE, messages.ToString());
         }
 
         /// <summary>

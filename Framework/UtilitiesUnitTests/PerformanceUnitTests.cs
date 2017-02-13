@@ -11,6 +11,7 @@ using Magenic.MaqsFramework.Utilities.Performance;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace UtilitiesUnitTesting
@@ -19,6 +20,7 @@ namespace UtilitiesUnitTesting
     /// Response time test class
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class PerformanceUnitTests : BaseWebServiceTest
     {
         /// <summary>

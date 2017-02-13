@@ -11,6 +11,7 @@ using Magenic.MaqsFramework.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -21,6 +22,7 @@ namespace UtilitiesUnitTesting
     /// File logger unit tests
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class FileLoggerUnitTests
     {
         /// <summary>

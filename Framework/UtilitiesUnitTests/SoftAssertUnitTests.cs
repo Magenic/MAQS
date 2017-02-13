@@ -9,6 +9,7 @@ using Magenic.MaqsFramework.Utilities.Helper;
 using Magenic.MaqsFramework.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace UtilitiesUnitTesting
 {
@@ -16,6 +17,7 @@ namespace UtilitiesUnitTesting
     /// Test class for soft asserts
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class SoftAssertUnitTests
     {
         /// <summary>

@@ -5,6 +5,7 @@
 // <summary>Shim for TestClassAttribute</summary>
 //--------------------------------------------------
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.VisualStudio.TestTools.UnitTesting
 {
@@ -12,6 +13,7 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting
     /// Holder for usage attribute
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
+    [ExcludeFromCodeCoverage]
     public sealed class TestClassAttribute : Attribute
     {
     }

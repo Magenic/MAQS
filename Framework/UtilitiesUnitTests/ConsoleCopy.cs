@@ -5,6 +5,7 @@
 // <summary>Copy console output to a file for testing. Copied off the internet.</summary>
 //--------------------------------------------------
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 
@@ -13,6 +14,7 @@ namespace UtilitiesUnitTesting
     /// <summary>
     /// Class to copy console output to a file
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class ConsoleCopy : IDisposable
     {
         /// <summary>

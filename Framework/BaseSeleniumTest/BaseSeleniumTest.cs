@@ -11,6 +11,7 @@ using Magenic.MaqsFramework.Utilities.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.Events;
 using System;
+using System.Text;
 
 namespace Magenic.MaqsFramework.BaseSeleniumTest
 {
@@ -233,7 +234,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_NavigatingForward(object sender, WebDriverNavigationEventArgs e)
         {
-            this.Log.LogMessage(MessageType.INFORMATION, "Navigating to: {0}", e.Url);
+            this.LogVerbose("Navigating to: {0}", e.Url);
         }
 
         /// <summary>
@@ -243,11 +244,11 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_NavigatingBack(object sender, WebDriverNavigationEventArgs e)
         {
-            this.Log.LogMessage(MessageType.INFORMATION, "Navigating back to: {0}", e.Url);
+            this.LogVerbose("Navigating back to: {0}", e.Url);
         }
 
         /// <summary>
-        /// Event for webdriver that is navigating forward
+        /// Event for webdriver that has navigated forward
         /// </summary>
         /// <param name="sender">Sender object</param>
         /// <param name="e">Event object</param>
@@ -273,7 +274,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_Navigating(object sender, WebDriverNavigationEventArgs e)
         {
-            this.Log.LogMessage(MessageType.INFORMATION, "Navigating to: {0}", e.Url);
+            this.LogVerbose("Navigating to: {0}", e.Url);
         }
 
         /// <summary>
@@ -283,7 +284,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_ScriptExecuting(object sender, WebDriverScriptEventArgs e)
         {
-            this.Log.LogMessage(MessageType.INFORMATION, "Script executing: {0}", e.Script);
+            this.LogVerbose("Script executing: {0}", e.Script);
         }
 
         /// <summary>
@@ -293,7 +294,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_FindingElement(object sender, FindElementEventArgs e)
         {
-            this.Log.LogMessage(MessageType.INFORMATION, "Finding element: {0}", e.FindMethod);
+            this.LogVerbose("Finding element: {0}", e.FindMethod);
         }
 
         /// <summary>
@@ -303,7 +304,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_ElementValueChanging(object sender, WebElementEventArgs e)
         {
-            this.Log.LogMessage(MessageType.INFORMATION, "Value of element changing: {0}", e.Element);
+            this.LogVerbose("Value of element changing: {0}", e.Element);
         }
 
         /// <summary>
@@ -313,7 +314,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_ElementClicking(object sender, WebElementEventArgs e)
         {
-            this.Log.LogMessage(MessageType.INFORMATION, "Element clicking: {0} Text:{1} Location: X:{2} Y:{3}", e.Element, e.Element.Text, e.Element.Location.X, e.Element.Location.Y);
+            this.LogVerbose("Element clicking: {0} Text:{1} Location: X:{2} Y:{3}", e.Element, e.Element.Text, e.Element.Location.X, e.Element.Location.Y);
         }
 
         /// <summary>
@@ -323,7 +324,8 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_ExceptionThrown(object sender, WebDriverExceptionEventArgs e)
         {
-            this.Log.LogMessage(MessageType.ERROR, "Exception thrown: {0}", e.ThrownException);
+            // First chance handler catches these when it is a real error - These are typically retry loops
+            this.Log.LogMessage(MessageType.VERBOSE, "Exception thrown: {0}", e.ThrownException);
         }
 
         /// <summary>
@@ -337,7 +339,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         }
 
         /// <summary>
-        /// Event for webdriver that is executing a script
+        /// Event for webdriver has executed a script
         /// </summary>
         /// <param name="sender">Sender object</param>
         /// <param name="e">Event object</param>
@@ -374,7 +376,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_ElementClicked(object sender, WebElementEventArgs e)
         {
-            this.Log.LogMessage(MessageType.INFORMATION, "Clicked element");
+            this.LogVerbose("Element clicked: {0} Text:{1} Location: X:{2} Y:{3}", e.Element, e.Element.Text, e.Element.Location.X, e.Element.Location.Y);
         }
     }
 }
