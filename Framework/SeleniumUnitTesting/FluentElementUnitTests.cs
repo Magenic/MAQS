@@ -60,7 +60,7 @@ namespace SeleniumUnitTests
         /// </summary>
         private FluentElement SubmitButton
         {
-            get { return new FluentElement(this.TestObject, By.CssSelector("[type='submit']"), "Submit button"); }
+            get { return new FluentElement(this.TestObject, By.CssSelector("[class='btn btn-default'][type='submit']"), "Submit button"); }
         }
 
         /// <summary>
@@ -166,6 +166,8 @@ namespace SeleniumUnitTests
         public void FluentElementSubmit()
         {
             this.WebDriver.Navigate().GoToUrl(Config.GetValue("WebSiteBase") + "Employees/Edit/380");
+            this.WebDriver.Wait().ForPageLoad();
+
             this.SubmitButton.Submit();
             Assert.IsTrue(this.WebDriver.Wait().UntilAbsentElement(By.CssSelector("#[type='submit']")), "Submit did not go away");
         }

@@ -326,6 +326,11 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
                     // The element is missing all together
                     return true;
                 }
+                catch(InvalidElementStateException)
+                {
+                    // The element is being cached but not present
+                    return true;
+                }
                 catch
                 {
                     // Could be several exceptions

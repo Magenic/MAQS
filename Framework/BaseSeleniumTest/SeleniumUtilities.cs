@@ -117,18 +117,15 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
             // Extract the web driver from the element
             IWebDriver driver = null;
 
-            try
-            {
-                // Get the parent driver - this is a protected property so we need to user reflection to access it
-                var eventFiringPropertyInfo = element.GetType().GetProperty("ParentDriver", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetProperty);
+            // Get the parent driver - this is a protected property so we need to user reflection to access it
+            var eventFiringPropertyInfo = element.GetType().GetProperty("ParentDriver", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetProperty);
 
-                if (eventFiringPropertyInfo != null)
-                {
-                    // This means we are using an event firing web driver
-                    driver = (IWebDriver)eventFiringPropertyInfo.GetValue(element, null);
-                }
+            if (eventFiringPropertyInfo != null)
+            {
+                // This means we are using an event firing web driver
+                driver = (IWebDriver)eventFiringPropertyInfo.GetValue(element, null);
             }
-            catch
+            else
             {
                 // We failed to get the event firing web driver so they to get the wrapped web driver
                 var propertyInfo = element.GetType().GetProperty("WrappedElement");
