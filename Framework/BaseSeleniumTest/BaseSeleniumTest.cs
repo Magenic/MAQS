@@ -314,7 +314,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_ElementClicking(object sender, WebElementEventArgs e)
         {
-            this.LogVerbose("Element clicking: {0} Text:{1} Location: X:{2} Y:{3}", e.Element, e.Element.Text, e.Element.Location.X, e.Element.Location.Y);
+            this.Log.LogMessage(MessageType.INFORMATION, "Element clicking: {0} Text:{1} Location: X:{2} Y:{3}", e.Element, e.Element.Text, e.Element.Location.X, e.Element.Location.Y);
         }
 
         /// <summary>
@@ -376,7 +376,14 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_ElementClicked(object sender, WebElementEventArgs e)
         {
-            this.LogVerbose("Element clicked: {0} Text:{1} Location: X:{2} Y:{3}", e.Element, e.Element.Text, e.Element.Location.X, e.Element.Location.Y);
+            try
+            {
+                this.LogVerbose("Element clicked: {0} Text:{1} Location: X:{2} Y:{3}", e.Element, e.Element.Text, e.Element.Location.X, e.Element.Location.Y);
+            }
+            catch
+            {
+                this.LogVerbose("Element clicked");
+            }
         }
     }
 }

@@ -1080,7 +1080,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void SeleniumNavigationEventListeners()
         {
-            this.Log = new FileLogger(true, string.Empty, "SeleniumNavigatorEventListenersFileLog.txt", MessageType.INFORMATION);
+            this.Log = new FileLogger(true, string.Empty, "SeleniumNavigatorEventListenersFileLog.txt", MessageType.VERBOSE);
             this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
             this.WebDriver.Navigate().Back();
             this.WebDriver.Navigate().Forward();
