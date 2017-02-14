@@ -25,11 +25,6 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         private SeleniumTestObject testObject;
 
         /// <summary>
-        /// The 'by' selector for the element
-        /// </summary>
-        private By locator;
-
-        /// <summary>
         /// A user friendly name, for logging purposes
         /// </summary>
         private string userFriendlyName;
@@ -46,9 +41,17 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         public FluentElement(SeleniumTestObject testObject, By locator, string userFriendlyName)
         {
             this.testObject = testObject;
-            this.locator = locator;
+            this.By = locator;
             this.userFriendlyName = userFriendlyName;
         }
+
+        /// <summary>
+        /// Gets a the 'by' selector for the element
+        /// </summary>
+        /// <example>
+        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementGetBy" lang="C#" />
+        /// </example>
+        public By By { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether the fluent element is enabled
@@ -244,7 +247,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public IWebElement GetTheVisibleElement()
         {
-            return this.testObject.WebDriver.Wait().ForVisibleElement(this.locator);
+            return this.testObject.WebDriver.Wait().ForVisibleElement(this.By);
         }
 
         /// <summary>
@@ -256,7 +259,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public IWebElement GetTheClickableElement()
         {
-            return this.testObject.WebDriver.Wait().ForClickableElement(this.locator);
+            return this.testObject.WebDriver.Wait().ForClickableElement(this.By);
         }
 
         /// <summary>
@@ -268,7 +271,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public IWebElement GetTheExistingElement()
         {
-            return this.testObject.WebDriver.Wait().ForElementExist(this.locator);
+            return this.testObject.WebDriver.Wait().ForElementExist(this.By);
         }
 
         /// <summary>
@@ -281,7 +284,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         {
             try
             {
-                this.testObject.Log.LogMessage(MessageType.VERBOSE, "Performing fluent wrapper find on: " + this.locator);
+                this.testObject.Log.LogMessage(MessageType.VERBOSE, "Performing fluent wrapper find on: " + this.By);
                 return getElement();
             }
             catch (Exception e)
@@ -289,7 +292,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
                 StringBuilder messageBuilder = new StringBuilder();
 
                 messageBuilder.AppendLine("Failed to find: " + this.userFriendlyName);
-                messageBuilder.AppendLine("Locator: " + this.locator);
+                messageBuilder.AppendLine("Locator: " + this.By);
                 messageBuilder.AppendLine("Because: " + e.Message);
 
                 throw new Exception(messageBuilder.ToString(), e);
@@ -314,7 +317,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
                 StringBuilder messageBuilder = new StringBuilder();
 
                 messageBuilder.AppendLine("Failed to " + caller + ": " + this.userFriendlyName);
-                messageBuilder.AppendLine("Locator: " + this.locator);
+                messageBuilder.AppendLine("Locator: " + this.By);
                 messageBuilder.AppendLine("Because: " + e.Message);
 
                 throw new Exception(messageBuilder.ToString(), e);

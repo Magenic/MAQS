@@ -121,6 +121,21 @@ namespace SeleniumUnitTests
         #endregion
 
         /// <summary>
+        /// Verify Fluent Element get By test
+        /// </summary>
+        #region FluentElementGetBy
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void FluentElementGetBy()
+        {
+            By testBy = By.CssSelector("#ItemsToAutomate");
+            FluentElement testFluentElement = new FluentElement(this.TestObject, testBy, "TEST");
+
+            Assert.AreEqual(testBy, testFluentElement.By);
+        }
+        #endregion
+
+        /// <summary>
         /// Verify Fluent Element GetAttribute test
         /// </summary>
         #region FluentElementGetAttribute
