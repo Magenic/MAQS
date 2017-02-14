@@ -9,6 +9,7 @@ using Magenic.MaqsFramework.Utilities.BaseTest;
 using Magenic.MaqsFramework.Utilities.Data;
 using Magenic.MaqsFramework.Utilities.Logging;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.Events;
 using System;
 using System.Text;
@@ -106,13 +107,26 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         {
             try
             {
-                if (SeleniumConfig.GetBrowserName().Equals("Remote", StringComparison.CurrentCultureIgnoreCase))
+                IWebDriver driver = Extend.GetLowLevelDriver(this.WebDriver);
+                string browserType;
+
+                // Get info on what type of brower we are using
+                if (driver is RemoteWebDriver)
                 {
-                    this.Log.LogMessage(MessageType.INFORMATION, "Remote driver: {0}", SeleniumConfig.GetRemoteBrowserName());
+                    browserType = ((RemoteWebDriver)driver).Capabilities.ToString();
                 }
                 else
                 {
-                    this.Log.LogMessage(MessageType.INFORMATION, "Loaded driver: {0}", SeleniumConfig.GetBrowserName());
+                    browserType = driver.GetType().ToString();
+                }
+
+                if (SeleniumConfig.GetBrowserName().Equals("Remote", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    this.Log.LogMessage(MessageType.INFORMATION, "Remote driver: " + browserType);
+                }
+                else
+                {
+                    this.Log.LogMessage(MessageType.INFORMATION, "Local driver: " + browserType);
                 }
 
                 this.WebDriver.SetWaitDriver(SeleniumConfig.GetWaitDriver(this.WebDriver));
