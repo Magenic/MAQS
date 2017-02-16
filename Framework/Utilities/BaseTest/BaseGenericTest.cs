@@ -255,12 +255,6 @@ namespace Magenic.MaqsFramework.Utilities.BaseTest
 
             try
             {
-                // File loggers should append
-                if (this.Log is FileLogger)
-                {
-                    ((FileLogger)this.Log).Append = true;
-                }
-
                 // Only use event firing if we are logging
                 if (LoggingConfig.GetLoggingEnabledSetting() != LoggingEnabled.NO)
                 {
