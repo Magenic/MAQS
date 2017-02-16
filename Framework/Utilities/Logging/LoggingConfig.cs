@@ -83,7 +83,10 @@ namespace Magenic.MaqsFramework.Utilities.Logging
                 case "CONSOLE":
                     return new ConsoleLogger(GetLoggingLevelSetting());
                 case "TXT":
-                    return new FileLogger(false, logDirectory, fileName, GetLoggingLevelSetting());
+                    return new FileLogger(logDirectory, fileName, GetLoggingLevelSetting());
+                case "HTML":
+                case "HTM":
+                    return new HtmlFileLogger(logDirectory, fileName, GetLoggingLevelSetting());
                 default:
                     throw new ArgumentException(StringProcessor.SafeFormatter("Log type '{0}' is not a valid option", Config.GetValue("LogType", "CONSOLE")));
             }

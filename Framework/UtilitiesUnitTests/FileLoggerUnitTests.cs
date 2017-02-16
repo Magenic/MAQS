@@ -12,7 +12,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 
@@ -87,7 +86,22 @@ namespace UtilitiesUnitTesting
             DataAccessMethod.Sequential)]
         public void TestHierarchicalTxtFileLogger()
         {
-            FileLogger logger = new FileLogger(true, LoggingConfig.GetLogDirectory(), this.GetFileName("TestHierarchicalTxtFileLogger", "txt"));
+            FileLogger logger = new FileLogger(LoggingConfig.GetLogDirectory(), this.GetFileName("TestHierarchicalTxtFileLogger", "txt"), MessageType.GENERIC, true);
+            this.TestHierarchicalLogging(logger, logger.FilePath);
+        }
+
+        /// <summary>
+        /// Verify the html file logger respects hierarchical logging
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV",
+            @"|DataDirectory|\TestData\HierarchicalLoggingData.csv",
+            "HierarchicalLoggingData#csv",
+            DataAccessMethod.Sequential)]
+        public void TestHierarchicalHtmlFileLogger()
+        {
+            HtmlFileLogger logger = new HtmlFileLogger(LoggingConfig.GetLogDirectory(), this.GetFileName("TestHierarchicalHtmlFileLogger", "html"), MessageType.GENERIC, true);
             this.TestHierarchicalLogging(logger, logger.FilePath);
         }
 
@@ -100,7 +114,7 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void TestFileLogger()
         {
-            FileLogger logger = new FileLogger(false, string.Empty, "TestFileLogger");
+            FileLogger logger = new FileLogger(string.Empty, "TestFileLogger");
             logger.LogMessage(MessageType.WARNING, "Hello");
             File.Delete(logger.FilePath);
         }
@@ -116,9 +130,8 @@ namespace UtilitiesUnitTesting
             string count = null;
 
             // Start logging
-            FileLogger logger = new FileLogger(true, LoggingConfig.GetLogDirectory(), this.GetFileName("TestHierarchicalTxtFileLogger", "txt"));
+            FileLogger logger = new FileLogger(LoggingConfig.GetLogDirectory(), this.GetFileName("TestHierarchicalTxtFileLogger", "txt"), MessageType.GENERIC, true);
             logger.SetLoggingLevel(MessageType.VERBOSE);
-            logger.Append = true;
 
             logger.LogMessage(MessageType.VERBOSE, "HellO");
 
@@ -158,7 +171,7 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void WriteToFileLogger()
         {
-            FileLogger logger = new FileLogger(false, string.Empty, "WriteToFileLogger");
+            FileLogger logger = new FileLogger(string.Empty, "WriteToFileLogger");
             logger.LogMessage(MessageType.WARNING, "Hello, this is a test.");
             File.Delete(logger.FilePath);
         }
@@ -172,7 +185,7 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void WriteToExistingFileLogger()
         {
-            FileLogger logger = new FileLogger(true, string.Empty, "WriteToExistingFileLogger");
+            FileLogger logger = new FileLogger(string.Empty, "WriteToExistingFileLogger", MessageType.GENERIC, true);
             logger.LogMessage(MessageType.WARNING, "This is a test to write to an existing file.");
             File.Delete(logger.FilePath);
         }
@@ -184,10 +197,9 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void FileLoggerConstructorCreateDirectory()
         {
-            FileLogger logger = new FileLogger(true, "FileLoggerCreateDirectory", "FileLoggerCreateDirectory");
+            FileLogger logger = new FileLogger("FileLoggerCreateDirectory", "FileLoggerCreateDirectory", MessageType.GENERIC, true);
             logger.LogMessage(MessageType.WARNING, "Test to ensure that the file in the created directory can be written to.");
             Assert.IsTrue(File.ReadAllText(logger.FilePath).Contains("Test to ensure that the file in the created directory can be written to."));
-            Assert.IsTrue(logger.Append);
             File.Delete(logger.FilePath);
             Directory.Delete(Path.GetDirectoryName(logger.FilePath));
         }
@@ -199,7 +211,7 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void FileLoggerLogMessage()
         {
-            FileLogger logger = new FileLogger(true, string.Empty, "FileLoggerLogMessage");
+            FileLogger logger = new FileLogger(string.Empty, "FileLoggerLogMessage", MessageType.GENERIC, true);
             logger.LogMessage("Test to ensure LogMessage works as expected.");
             Assert.IsTrue(File.ReadAllText(logger.FilePath).Contains("Test to ensure LogMessage works as expected."));
             File.Delete(logger.FilePath);
@@ -212,7 +224,7 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void FileLoggerSetFilePath()
         {
-            FileLogger logger = new FileLogger(true, string.Empty, "FileLoggerSetFilePath");
+            FileLogger logger = new FileLogger(string.Empty, "FileLoggerSetFilePath", MessageType.GENERIC, true);
             logger.FilePath = "test file path";
             Assert.AreEqual(logger.FilePath, "test file path");
         }
@@ -224,7 +236,7 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void FileLoggerCatchThrownException()
         {
-            FileLogger logger = new FileLogger(true, string.Empty, "FileLoggerCatchThrownException");
+            FileLogger logger = new FileLogger(string.Empty, "FileLoggerCatchThrownException", MessageType.GENERIC, true);
             logger.FilePath = "<>";
             logger.LogMessage(MessageType.GENERIC, "test throws error");
         }

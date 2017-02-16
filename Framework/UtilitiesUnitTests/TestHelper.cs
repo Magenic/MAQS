@@ -69,6 +69,11 @@ namespace UtilitiesUnitTesting
                             f.Delete();
                         }
 
+                        foreach (FileInfo f in new DirectoryInfo(directory).GetFiles(unitTestBaseName + ".html"))
+                        {
+                            f.Delete();
+                        }
+
                         foreach (FileInfo f in new DirectoryInfo(directory).GetFiles(unitTestBaseName + ".xml"))
                         {
                             f.Delete();

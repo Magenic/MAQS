@@ -4,7 +4,6 @@
 // </copyright>
 // <summary>Writes event logs to plain text file</summary>
 //--------------------------------------------------
-
 using Magenic.MaqsFramework.Utilities.Data;
 using System;
 using System.Globalization;
@@ -29,11 +28,6 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         private const string DEFAULTLOGNAME = "FileLog.txt";
 
         /// <summary>
-        ///  Creates a private boolean of append
-        /// </summary>
-        private bool append;
-
-        /// <summary>
         /// Create a private string for the path of the file
         /// </summary>
         private string filePath;
@@ -46,11 +40,11 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         /// <summary>
         ///  Initializes a new instance of the FileLogger class
         /// </summary>
-        /// <param name="append">Append document if true</param>
         /// <param name="logFolder">Where log files should be saved</param>
         /// <param name="name">File Name</param>
-        /// <param name="messageLevel">Message level</param>
-        public FileLogger(bool append = false, string logFolder = "", string name = DEFAULTLOGNAME, MessageType messageLevel = MessageType.GENERIC)
+        /// <param name="messageLevel">Messaging level</param>
+        /// <param name="append">True to append to an existing log file or false to overwrite it - If the file does not exist this, flag will have no affect</param>
+        public FileLogger(string logFolder = "", string name = DEFAULTLOGNAME, MessageType messageLevel = MessageType.GENERIC, bool append = false)
             : base(messageLevel)
         {
             if (string.IsNullOrEmpty(logFolder))
@@ -67,23 +61,20 @@ namespace Magenic.MaqsFramework.Utilities.Logging
                 Directory.CreateDirectory(this.directory);
             }
 
-            this.append = append;
-
-            if (!name.EndsWith(".txt", StringComparison.CurrentCultureIgnoreCase))
+            if (!name.EndsWith(this.Extension, StringComparison.CurrentCultureIgnoreCase))
             {
-                name += ".txt";
+                name += this.Extension;
             }
 
             this.filePath = Path.Combine(this.directory, MakeValidFileName(name));
-        }
 
-        /// <summary>
-        ///  Gets or sets a value indicating whether to append the value
-        /// </summary>
-        public bool Append
-        {
-            get { return this.append; }
-            set { this.append = value; }
+            if (File.Exists(this.filePath) && !append)
+            {
+                StreamWriter writer = new StreamWriter(this.filePath, false);
+                writer.Write(string.Empty);
+                writer.Flush();
+                writer.Close();
+            }
         }
 
         /// <summary>
@@ -93,6 +84,14 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         {
             get { return this.filePath; }
             set { this.filePath = value; }
+        }
+
+        /// <summary>
+        /// Gets the file extension
+        /// </summary>
+        protected virtual string Extension
+        {
+            get { return ".txt"; }
         }
 
         /// <summary>
@@ -119,10 +118,10 @@ namespace Magenic.MaqsFramework.Utilities.Logging
                 // Log the message
                 try
                 {
-                    StreamWriter writer = new StreamWriter(this.filePath, this.append);
+                    StreamWriter writer = new StreamWriter(this.filePath, true);
 
                     string date = DateTime.UtcNow.ToString(Logger.DEFAULTDATEFORMAT, CultureInfo.InvariantCulture);
-                    writer.WriteLine(StringProcessor.SafeFormatter("{0}{1}", System.Environment.NewLine, date));
+                    writer.WriteLine(StringProcessor.SafeFormatter("{0}{1}", Environment.NewLine, date));
                     writer.Write(StringProcessor.SafeFormatter("{0}:\t", messageType.ToString()));
 
                     writer.WriteLine(StringProcessor.SafeFormatter(message, args));

@@ -244,7 +244,7 @@ namespace UtilitiesUnitTesting
             PerfTimerCollection p = new PerfTimerCollection("<>");
             p.StartTimer("testTimer");
             p.EndTimer("testTimer");
-            FileLogger log = new FileLogger(true, "PerfTimerWriteException", "PerfTimerWriteException");
+            FileLogger log = new FileLogger("PerfTimerWriteException", "PerfTimerWriteException", MessageType.GENERIC, true);
             p.Write(log);
             Assert.IsTrue(File.ReadAllText(log.FilePath).Contains("Could not save response time file.  Error was:"));
         }

@@ -51,6 +51,11 @@ namespace SeleniumUnitTests
                             f.Delete();
                         }
 
+                        foreach (FileInfo f in new DirectoryInfo(directory).GetFiles(unitTestBaseName + ".html"))
+                        {
+                            f.Delete();
+                        }
+
                         foreach (FileInfo f in new DirectoryInfo(directory).GetFiles(unitTestBaseName + ".rtf"))
                         {
                             f.Delete();

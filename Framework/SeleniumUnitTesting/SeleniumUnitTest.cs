@@ -624,7 +624,7 @@ namespace SeleniumUnitTests
         public void SeleniumSoftAssertIsTrueFalseCondition()
         {
             this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            this.Log = new FileLogger(true, string.Empty, "SeleniumSoftAssertIsTrueFalseConditionFileLog.txt");
+            this.Log = new FileLogger(string.Empty, "SeleniumSoftAssertIsTrueFalseConditionFileLog.txt", MessageType.GENERIC, true);
             SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(this.WebDriver, this.Log);
             string logLocation = ((FileLogger)this.Log).FilePath;
             string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " (1).png";
@@ -1022,7 +1022,7 @@ namespace SeleniumUnitTests
         public void SeleniumPostSetupLoggingThrownException()
         {
             this.Teardown(); // delete the existing TestObject
-            this.Log = new FileLogger(true, string.Empty, "SeleniumPostSetupLoggingThrowExceptionFileLog.txt");
+            this.Log = new FileLogger(string.Empty, "SeleniumPostSetupLoggingThrowExceptionFileLog.txt", MessageType.GENERIC, true);
             this.PostSetupLogging(); // exception is caught
 
             string log = this.GetAndRemoveCustomFileLog();
@@ -1038,7 +1038,7 @@ namespace SeleniumUnitTests
         {
             this.Teardown();
             TestResultType trt = TestResultType.FAIL;
-            this.Log = new FileLogger(true, string.Empty, "SeleniumBeforeLoggingTeardownThrowExceptionFileLog.txt");
+            this.Log = new FileLogger(string.Empty, "SeleniumBeforeLoggingTeardownThrowExceptionFileLog.txt", MessageType.GENERIC, true);
             this.BeforeLoggingTeardown(trt);
 
             string log = this.GetAndRemoveCustomFileLog();
@@ -1080,7 +1080,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void SeleniumNavigationEventListeners()
         {
-            this.Log = new FileLogger(true, string.Empty, "SeleniumNavigatorEventListenersFileLog.txt", MessageType.VERBOSE);
+            this.Log = new FileLogger(string.Empty, "SeleniumNavigatorEventListenersFileLog.txt", MessageType.VERBOSE, true);
             this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
             this.WebDriver.Navigate().Back();
             this.WebDriver.Navigate().Forward();

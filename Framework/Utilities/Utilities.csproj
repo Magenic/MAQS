@@ -95,6 +95,7 @@
     <Compile Include="Helper\FakerData.cs" />
     <Compile Include="Helper\GenericWait.cs" />
     <Compile Include="Helper\ListProcessor.cs" />
+    <Compile Include="Logging\HtmlFileLogger.cs" />
     <Compile Include="Logging\LoggingConfig.cs" />
     <Compile Include="Performance\PerfTimer.cs" />
     <Compile Include="Performance\PerfTimerCollection.cs" />
