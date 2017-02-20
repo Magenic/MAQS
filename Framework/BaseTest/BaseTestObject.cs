@@ -8,12 +8,12 @@ using Magenic.MaqsFramework.Utilities.Logging;
 using Magenic.MaqsFramework.Utilities.Performance;
 using System.Collections.Generic;
 
-namespace Magenic.MaqsFramework.Utilities.BaseTest
+namespace Magenic.MaqsFramework.BaseTest
 {
     /// <summary>
     /// Base test context data
     /// </summary>
-    public abstract class BaseTestObject
+    public class BaseTestObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseTestObject" /> class
@@ -21,7 +21,7 @@ namespace Magenic.MaqsFramework.Utilities.BaseTest
         /// <param name="logger">The test's logger</param>
         /// <param name="softAssert">The test's soft assert</param>
         /// <param name="perfTimerCollection">The test's performance timer collection</param>
-        protected BaseTestObject(Logger logger, SoftAssert softAssert, PerfTimerCollection perfTimerCollection)
+        public BaseTestObject(Logger logger, SoftAssert softAssert, PerfTimerCollection perfTimerCollection)
         {
             this.Log = logger;
             this.SoftAssert = softAssert;

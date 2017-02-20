@@ -163,6 +163,9 @@ namespace Magenic.MaqsFramework.Utilities.Logging
                 case MessageType.WARNING:
                     SetConsoleColor(ConsoleColor.Yellow);
                     break;
+                case MessageType.SUSPENDED:
+                    // Suspended so we do nothing
+                    break;
                 default:
                     SetConsoleColor(ConsoleColor.Yellow);
                     Console.WriteLine(this.UnknownMessageTypeMessage(type));

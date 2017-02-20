@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>This is the base database test class</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.BaseTest;
+using Magenic.MaqsFramework.BaseTest;
 using Magenic.MaqsFramework.Utilities.Logging;
 using System.Data.SqlClient;
 
@@ -13,7 +13,7 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
     /// <summary>
     /// Generic base database test class
     /// </summary>
-    public class BaseDatabaseTest : BaseGenericTest<DatabaseConnectionWrapper, DatabaseTestObject>
+    public class BaseDatabaseTest : BaseExtendableTest<DatabaseConnectionWrapper, DatabaseTestObject>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseDatabaseTest"/> class.

@@ -5,7 +5,7 @@
 // <summary>This is the base Selenium test class</summary>
 //--------------------------------------------------
 using Magenic.MaqsFramework.BaseSeleniumTest.Extensions;
-using Magenic.MaqsFramework.Utilities.BaseTest;
+using Magenic.MaqsFramework.BaseTest;
 using Magenic.MaqsFramework.Utilities.Data;
 using Magenic.MaqsFramework.Utilities.Logging;
 using OpenQA.Selenium;
@@ -19,7 +19,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
     /// <summary>
     /// Generic base Selenium test class
     /// </summary>
-    public class BaseSeleniumTest : BaseGenericTest<IWebDriver, SeleniumTestObject>, IDisposable
+    public class BaseSeleniumTest : BaseExtendableTest<IWebDriver, SeleniumTestObject>, IDisposable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseSeleniumTest"/> class.

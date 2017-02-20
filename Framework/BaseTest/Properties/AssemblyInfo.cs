@@ -1,21 +1,20 @@
-﻿//--------------------------------------------------
+﻿//------------------------------------------------
 // <copyright file="AssemblyInfo.cs" company="Magenic">
 //  Copyright 2017 Magenic, All rights Reserved
 // </copyright>
 // <summary>This is the assembly info class</summary>
 //--------------------------------------------------
-
 using System.Reflection;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("BaseSeleniumTest")]
+[assembly: AssemblyTitle("BaseTest")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Magenic")]
-[assembly: AssemblyProduct("BaseSeleniumTest")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("BaseTest")]
 [assembly: AssemblyCopyright("Copyright © Magenic 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -26,7 +25,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("079bdb28-32eb-4c49-95cd-34704a2c253e")]
+[assembly: Guid("60f10d47-3546-4b4b-b49b-5a361ddc1bcb")]
 
 // Version information for an assembly consists of the following four values:
 //

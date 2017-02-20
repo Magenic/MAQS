@@ -19,6 +19,7 @@
     <file src="..\BaseAppiumTest\**\*.cs;..\BaseAppiumTest\**\*.csproj;..\BaseAppiumTest\**\packages.config" target="help\source\BaseAppiumTest" exclude="..\BaseAppiumTest\**\obj\**\*.*;..\BaseAppiumTest\**\bin\**\*.*;*.vspscc" />
     <file src="..\BaseEmailTest\**\*.cs;..\BaseEmailTest\**\*.csproj;..\BaseEmailTest\**\packages.config" target="help\source\BaseEmailTest" exclude="..\BaseEmailTest\**\obj\**\*.*;..\BaseEmailTest\**\bin\**\*.*;*.vspscc" />
     <file src="..\BaseSeleniumTest\**\*.cs;..\BaseSeleniumTest\**\*.csproj;..\BaseSeleniumTest\**\packages.config" target="help\source\BaseSeleniumTest" exclude="..\BaseSeleniumTest\**\obj\**\*.*;..\BaseSeleniumTest\**\bin\**\*.*;*.vspscc" />
+    <file src="..\BaseTest\**\*.cs;..\BaseTest\**\*.csproj;..\BaseTest\**\packages.config" target="help\source\BaseTest" exclude="..\BaseTest\**\obj\**\*.*;..\BaseTest\**\bin\**\*.*;*.vspscc" />
     <file src="..\BaseWebServiceTest\**\*.cs;..\BaseWebServiceTest\**\*.csproj;..\BaseWebServiceTest\**\packages.config" target="help\source\BaseWebServiceTest" exclude="..\BaseWebServiceTest\**\obj\**\*.*;..\BaseWebServiceTest\**\bin\**\*.*;*.vspscc" />
     <file src="..\BaseDatabaseTest\**\*.cs;..\BaseDatabaseTest\**\*.csproj;..\BaseDatabaseTest\**\packages.config" target="help\source\BaseDatabaseTest" exclude="..\BaseDatabaseTest\**\obj\**\*.*;..\BaseDatabaseTest\**\bin\**\*.*;*.vspscc" />
     <file src="..\Utilities\**\*.cs;..\Utilities\*.csproj;..\Utilities\packages.config" target="help\source\Utilities" exclude="..\Utilities\**\obj\**\*.*;..\Utilities\**\bin\**\*.*;*.vspscc" />
@@ -26,6 +27,7 @@
     <file src="..\BaseDatabaseTest\bin\Release\Magenic.MaqsFramework.BaseDatabaseTest.*" target="lib\net45" />
     <file src="..\BaseEmailTest\bin\Release\Magenic.MaqsFramework.BaseEmailTest.*" target="lib\net45" />
     <file src="..\BaseSeleniumTest\bin\Release\Magenic.MaqsFramework.BaseSeleniumTest.*" target="lib\net45" />
+    <file src="..\BaseTest\bin\Release\Magenic.MaqsFramework.BaseTest.*" target="lib\net45" />
     <file src="..\BaseWebServiceTest\bin\Release\Magenic.MaqsFramework.WebServiceTester.*" target="lib\net45" />
     <file src="..\BaseDatabaseTest\bin\Release\Magenic.MaqsFramework.Utilities.*" target="lib\net45" />
     <file src="..\Documentation\Help\Maqs.chm" target="help"/>

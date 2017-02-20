@@ -28,7 +28,20 @@ namespace MongoDBUnitTests
             #region GetConnection
             string connection = MongoDBConfig.GetConnectionString();
             #endregion
-            Assert.AreEqual(connection, "mongodb://10.155.45.36:27017");
+            Assert.AreEqual("mongodb://10.155.45.36:27017", connection);
+        }
+
+        /// <summary>
+        /// Gets the database string
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Database)]
+        public void GetDatabaseStringTest()
+        {
+            #region GetDatabaseString
+            string databaseString = MongoDBConfig.GetDatabaseString();
+            #endregion
+            Assert.AreEqual("MongoDatabaseTest", databaseString);
         }
 
         /// <summary>
@@ -41,7 +54,7 @@ namespace MongoDBUnitTests
             #region GetQueryTimeout
             int databaseTimeout = MongoDBConfig.GetQueryTimeout();
             #endregion
-            Assert.AreEqual(databaseTimeout, 30);
+            Assert.AreEqual(30, databaseTimeout);
         }
     }
 }

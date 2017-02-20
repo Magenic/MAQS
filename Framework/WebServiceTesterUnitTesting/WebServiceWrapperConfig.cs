@@ -5,7 +5,6 @@
 // <summary>Configuration override tests</summary>
 //--------------------------------------------------
 using Magenic.MaqsFramework.BaseWebServiceTest;
-using Magenic.MaqsFramework.Utilities.BaseTest;
 using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
@@ -56,7 +55,7 @@ namespace WebServiceTesterUnitTesting
             this.TestContext.Properties.Add("SetupTest2", "Setup2");
             this.TestContext.Properties.Add("OverrideTest", "Overridden");
 
-            MethodInfo dynMethod = typeof(BaseWebServiceTest).BaseType.GetMethod("UpdateConfigParameters", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo dynMethod = typeof(BaseWebServiceTest).BaseType.BaseType.GetMethod("UpdateConfigParameters", BindingFlags.NonPublic | BindingFlags.Instance);
             dynMethod.Invoke(this, null);
         }
 

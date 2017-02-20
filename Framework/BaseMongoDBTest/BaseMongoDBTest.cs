@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>This is the base MongoDB test class</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.BaseTest;
+using Magenic.MaqsFramework.BaseTest;
 using Magenic.MaqsFramework.Utilities.Logging;
 using MongoDB.Driver;
 
@@ -13,7 +13,7 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
     /// <summary>
     /// Generic base MongoDB test class
     /// </summary>
-    public class BaseMongoDBTest : BaseGenericTest<MongoDBConnectionWrapper, MongoTestObject>
+    public class BaseMongoDBTest : BaseExtendableTest<MongoDBConnectionWrapper, MongoTestObject>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseMongoDBTest"/> class.

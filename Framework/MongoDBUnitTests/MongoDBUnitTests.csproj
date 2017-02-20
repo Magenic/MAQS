@@ -57,6 +57,10 @@
       <Project>{86a25804-71a8-40e5-8f87-5e4726def076}</Project>
       <Name>BaseMongoDBTest</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BaseTest\BaseTest.csproj">
+      <Project>{60f10d47-3546-4b4b-b49b-5a361ddc1bcb}</Project>
+      <Name>BaseTest</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Utilities\Utilities.csproj">
       <Project>{949364a1-08d7-4e79-8ca2-228ea925438f}</Project>
       <Name>Utilities</Name>

@@ -19,6 +19,7 @@
     <file src="..\BaseSeleniumTest\bin\ReleaseShim\VisualStudioUnitTestShim.dll" target="lib\net45" />
     <file src="..\BaseSeleniumTest\bin\ReleaseShim\Magenic.MaqsFramework.Utilities.dll" target="lib\net45" />
     <file src="..\BaseSeleniumTest\bin\ReleaseShim\Magenic.MaqsFramework.BaseSeleniumTest.dll" target="lib\net45" />
+    <file src="..\BaseSeleniumTest\bin\ReleaseShim\Magenic.MaqsFramework.BaseTest.dll" target="lib\net45" />
     <file src="..\OpenDocumentation\Help\Maqs.chm" target="help"/>
     <file src="..\..\Extensions\VisualStudioQatExtension\License.txt" target=""/>
   </files>

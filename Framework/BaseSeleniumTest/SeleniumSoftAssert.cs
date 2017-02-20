@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>Selenium override for the soft asserts</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.BaseTest;
+using Magenic.MaqsFramework.BaseTest;
 using Magenic.MaqsFramework.Utilities.Data;
 using Magenic.MaqsFramework.Utilities.Helper;
 using Magenic.MaqsFramework.Utilities.Logging;

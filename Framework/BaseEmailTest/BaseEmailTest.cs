@@ -5,7 +5,7 @@
 // <summary>This is the base email test class</summary>
 //--------------------------------------------------
 using AE.Net.Mail;
-using Magenic.MaqsFramework.Utilities.BaseTest;
+using Magenic.MaqsFramework.BaseTest;
 using Magenic.MaqsFramework.Utilities.Data;
 using Magenic.MaqsFramework.Utilities.Helper;
 using Magenic.MaqsFramework.Utilities.Logging;
@@ -16,7 +16,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
     /// <summary>
     /// Generic base email test class
     /// </summary>
-    public class BaseEmailTest : BaseGenericTest<EmailConnectionWrapper, EmailTestObject>
+    public class BaseEmailTest : BaseExtendableTest<EmailConnectionWrapper, EmailTestObject>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseEmailTest"/> class.

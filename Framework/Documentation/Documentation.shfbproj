@@ -27,6 +27,7 @@
       <DocumentationSource sourceFile="..\Utilities\Utilities.csproj" />
       <DocumentationSource sourceFile="..\BaseAppiumTest\BaseAppiumTest.csproj" />
       <DocumentationSource sourceFile="..\BaseSeleniumTest\BaseSeleniumTest.csproj" />
+	  <DocumentationSource sourceFile="..\BaseTest\BaseTest.csproj" /> 
       <DocumentationSource sourceFile="..\BaseWebServiceTest\BaseWebServiceTest.csproj" />
       <DocumentationSource sourceFile="..\BaseDatabaseTest\BaseDatabaseTest.csproj" />
       <DocumentationSource sourceFile="..\BaseEmailTest\BaseEmailTest.csproj" />

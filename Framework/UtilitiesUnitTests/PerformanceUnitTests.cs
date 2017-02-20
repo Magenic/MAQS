@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>PerformanceTests class</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseWebServiceTest;
+using Magenic.MaqsFramework.BaseTest;
 using Magenic.MaqsFramework.Utilities.Helper;
 using Magenic.MaqsFramework.Utilities.Logging;
 using Magenic.MaqsFramework.Utilities.Performance;
@@ -21,7 +21,7 @@ namespace UtilitiesUnitTesting
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class PerformanceUnitTests : BaseWebServiceTest
+    public class PerformanceUnitTests : BaseTest
     {
         /// <summary>
         /// Did the logging folder exist at the start of the test run

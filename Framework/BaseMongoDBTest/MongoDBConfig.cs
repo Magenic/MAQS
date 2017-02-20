@@ -21,7 +21,7 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
         /// </summary>
         /// <returns>The the connection type</returns>
         /// <example>
-        /// <code source="../DatabaseUnitTests/DatabaseCoC:\MaqsFramework\Development\Version4\Source\BaseMongoDBTest\MongoDBConfig.csnfigUnitTests.cs" region="GetConnection" lang="C#" />
+        /// <code source="../MongoDBUnitTests/MongoDBConfigUnitTests.cs" region="GetConnection" lang="C#" />
         /// </example>
         public static string GetConnectionString()
         {
@@ -33,7 +33,7 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
         /// </summary>
         /// <returns>The database name</returns>
         /// <example>
-        /// <code source="../DatabaseUnitTests/DatabaseCoC:\MaqsFramework\Development\Version4\Source\BaseMongoDBTest\MongoDBConfig.csnfigUnitTests.cs" region="GetDatabaseName" lang="C#" />
+        /// <code source="../MongoDBUnitTests/MongoDBConfigUnitTests.cs" region="GetDatabaseString" lang="C#" />
         /// </example>
         public static string GetDatabaseString()
         {
@@ -45,7 +45,7 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
         /// </summary>
         /// <returns>The timeout in seconds from the config file or default of 30 seconds when no app.config key is found</returns>
         /// <example>
-        /// <code source="../DatabaseUnitTests/DatabaseConfigUnitTests.cs" region="GetQueryTimeout" lang="C#" />
+        /// <code source="../MongoDBUnitTests/MongoDBConfigUnitTests.cs" region="GetQueryTimeout" lang="C#" />
         /// </example>
         public static int GetQueryTimeout()
         {

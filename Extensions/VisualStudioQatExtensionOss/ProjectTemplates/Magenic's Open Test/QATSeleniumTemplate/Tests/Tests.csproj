@@ -40,6 +40,9 @@
     <Reference Include="Magenic.MaqsFramework.BaseSeleniumTest">
       <HintPath>..\..\packages\Magenic.Open.Maqs.4.0.0\lib\net45\Magenic.MaqsFramework.BaseSeleniumTest.dll</HintPath>
     </Reference>
+    <Reference Include="Magenic.MaqsFramework.BaseTest">
+      <HintPath>..\..\packages\Magenic.Open.Maqs.4.0.0\lib\net45\Magenic.MaqsFramework.BaseTest.dll</HintPath>
+    </Reference>
     <Reference Include="Magenic.MaqsFramework.Utilities">
       <HintPath>..\..\packages\Magenic.Open.Maqs.4.0.0\lib\net45\Magenic.MaqsFramework.Utilities.dll</HintPath>
     </Reference>

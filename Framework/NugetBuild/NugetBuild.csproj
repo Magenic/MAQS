@@ -64,9 +64,17 @@
       <Project>{6e551c39-5307-4371-8315-8fd5b9381aed}</Project>
       <Name>BaseEmailTest</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BaseMongoDBTest\BaseMongoDBTest.csproj">
+      <Project>{86a25804-71a8-40e5-8f87-5e4726def076}</Project>
+      <Name>BaseMongoDBTest</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BaseSeleniumTest\BaseSeleniumTest.csproj">
       <Project>{cf21dfef-3fce-4766-b261-f2225b5442ec}</Project>
       <Name>BaseSeleniumTest</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BaseTest\BaseTest.csproj">
+      <Project>{60f10d47-3546-4b4b-b49b-5a361ddc1bcb}</Project>
+      <Name>BaseTest</Name>
     </ProjectReference>
     <ProjectReference Include="..\BaseWebServiceTest\BaseWebServiceTest.csproj">
       <Project>{36c9b036-114e-4e85-be8f-5d7f5661c432}</Project>

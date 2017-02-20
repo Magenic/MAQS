@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>This is the base web service test class</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.BaseTest;
+using Magenic.MaqsFramework.BaseTest;
 using Magenic.MaqsFramework.Utilities.Logging;
 using System;
 using System.Net.Http;
@@ -15,7 +15,7 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
     /// <summary>
     /// Generic base web service test class
     /// </summary>
-    public class BaseWebServiceTest : BaseGenericTest<HttpClientWrapper, WebServiceTestObject>
+    public class BaseWebServiceTest : BaseExtendableTest<HttpClientWrapper, WebServiceTestObject>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseWebServiceTest"/> class.

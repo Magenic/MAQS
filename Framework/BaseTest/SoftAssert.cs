@@ -9,7 +9,7 @@ using Magenic.MaqsFramework.Utilities.Logging;
 using System;
 using System.Collections.Generic;
 
-namespace Magenic.MaqsFramework.Utilities.BaseTest
+namespace Magenic.MaqsFramework.BaseTest
 {
     /// <summary>
     /// SoftAssert class

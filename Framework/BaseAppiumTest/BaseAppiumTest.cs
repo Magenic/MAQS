@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>This is the base Appium test class</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.BaseTest;
+using Magenic.MaqsFramework.BaseTest;
 using Magenic.MaqsFramework.Utilities.Data;
 using Magenic.MaqsFramework.Utilities.Logging;
 using OpenQA.Selenium.Appium;
@@ -15,7 +15,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
     /// <summary>
     /// Generic base Appium test class
     /// </summary>
-    public class BaseAppiumTest : BaseGenericTest<AppiumDriver<AppiumWebElement>, AppiumTestObject>, IDisposable
+    public class BaseAppiumTest : BaseExtendableTest<AppiumDriver<AppiumWebElement>, AppiumTestObject>, IDisposable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseAppiumTest"/> class.
