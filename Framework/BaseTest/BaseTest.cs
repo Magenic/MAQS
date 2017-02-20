@@ -1,8 +1,8 @@
 ﻿//--------------------------------------------------
-// <copyright file="BaseGenericTest.cs" company="Magenic">
+// <copyright file="BaseTest.cs" company="Magenic">
 //  Copyright 2017 Magenic, All rights Reserved
 // </copyright>
-// <summary>Base code for test classes that setup test objects like web drivers or database connections</summary>
+// <summary>Base code for tests without a system under test object like web drivers or database connections</summary>
 //--------------------------------------------------
 using Magenic.MaqsFramework.Utilities.Data;
 using Magenic.MaqsFramework.Utilities.Helper;
@@ -22,15 +22,13 @@ using System.Text;
 using NUnitTestContext = NUnit.Framework.TestContext;
 using VSTestContext = Microsoft.VisualStudio.TestTools.UnitTesting.TestContext;
 
-namespace Magenic.MaqsFramework.Utilities.BaseTest
+namespace Magenic.MaqsFramework.BaseTest
 {
     /// <summary>
-    /// Base code for test classes that setup test objects like web drivers or database connections
+    /// Base for tests without a defined system under test
     /// </summary>
-    /// <typeparam name="T">Type of object under test, such as web driver and web service wrapper</typeparam>
-    /// <typeparam name="U">Test object type</typeparam>
     [TestClass]
-    public abstract class BaseGenericTest<T, U> where T : class where U : BaseTestObject
+    public class BaseTest
     {
         /// <summary>
         /// The Visual Studio TestContext
@@ -38,16 +36,15 @@ namespace Magenic.MaqsFramework.Utilities.BaseTest
         private VSTestContext testContextInstance;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseGenericTest{T, U}" /> class
+        /// Initializes a new instance of the <see cref="BaseTest" /> class
         /// </summary>
-        public BaseGenericTest()
+        public BaseTest()
         {
-            this.ObjectsUnderTest = new ConcurrentDictionary<string, T>();
             this.Loggers = new ConcurrentDictionary<string, Logger>();
             this.LoggedExceptions = new ConcurrentDictionary<string, List<string>>();
             this.SoftAsserts = new ConcurrentDictionary<string, SoftAssert>();
             this.PerfTimerCollectionSet = new ConcurrentDictionary<string, PerfTimerCollection>();
-            this.BaseTestObjects = new ConcurrentDictionary<string, U>();
+            this.BaseTestObjects = new ConcurrentDictionary<string, BaseTestObject>();
         }
 
         /// <summary>
@@ -158,26 +155,14 @@ namespace Magenic.MaqsFramework.Utilities.BaseTest
         }
 
         /// <summary>
-        /// Gets or sets the object under test
+        /// Gets or sets the BaseContext objects
         /// </summary>
-        protected T ObjectUnderTest
-        {
-            get
-            {
-                return this.ObjectsUnderTest[this.GetFullyQualifiedTestClassName()];
-            }
-
-            set
-            {
-                string key = this.GetFullyQualifiedTestClassName();
-                this.ObjectsUnderTest.AddOrUpdate(this.GetFullyQualifiedTestClassName(), value, (oldkey, oldvalue) => value);
-            }
-        }
+        internal ConcurrentDictionary<string, BaseTestObject> BaseTestObjects { get; set; }
 
         /// <summary>
         /// Gets or sets the test object 
         /// </summary>
-        protected U TestObject
+        protected BaseTestObject TestObject
         {
             get
             {
@@ -207,11 +192,6 @@ namespace Magenic.MaqsFramework.Utilities.BaseTest
         private ConcurrentDictionary<string, PerfTimerCollection> PerfTimerCollectionSet { get; set; }
 
         /// <summary>
-        /// Gets or sets the testing object - Selenium driver, web client, database connection, etc.
-        /// </summary>
-        private ConcurrentDictionary<string, T> ObjectsUnderTest { get; set; }
-
-        /// <summary>
         /// Gets or sets the logging objects
         /// </summary>
         private ConcurrentDictionary<string, Logger> Loggers { get; set; }
@@ -227,20 +207,6 @@ namespace Magenic.MaqsFramework.Utilities.BaseTest
         private ConcurrentDictionary<string, SoftAssert> SoftAsserts { get; set; }
 
         /// <summary>
-        /// Gets or sets the BaseContext objects
-        /// </summary>
-        private ConcurrentDictionary<string, U> BaseTestObjects { get; set; }
-
-        /// <summary>
-        /// Check if the test object is stored
-        /// </summary>
-        /// <returns>True if the test object is stored</returns>
-        public bool IsObjectUnderTestStored()
-        {
-            return this.ObjectsUnderTest.ContainsKey(this.GetFullyQualifiedTestClassName());
-        }
-
-        /// <summary>
         /// Setup before a test
         /// </summary>
         [TestInitialize]
@@ -252,29 +218,6 @@ namespace Magenic.MaqsFramework.Utilities.BaseTest
 
             // Make sure the logging works
             this.SetupLogging();
-
-            try
-            {
-                // Only use event firing if we are logging
-                if (LoggingConfig.GetLoggingEnabledSetting() != LoggingEnabled.NO)
-                {
-                    this.SetupEventFiringTester();
-                }
-                else
-                {
-                    this.SetupNoneEventFiringTester();
-                }
-            }
-            catch (Exception e)
-            {
-                this.TryToLog(MessageType.ERROR, "Setup failed because: {0}\r\n{1}", e.Message, e.StackTrace);
-
-                // Make sure we do the standard teardown
-                this.Teardown();
-                throw e;
-            }
-
-            this.PostSetupLogging();
         }
 
         /// <summary>
@@ -290,15 +233,6 @@ namespace Magenic.MaqsFramework.Utilities.BaseTest
             if (!this.SoftAssert.DidUserCheck())
             {
                 this.TryToLog(MessageType.WARNING, "User did not check for soft asserts");
-            }
-
-            try
-            {
-                this.BeforeLoggingTeardown(resultType);
-            }
-            catch (Exception e)
-            {
-                this.TryToLog(MessageType.WARNING, "Failed before logging teardown because: {0}", e.Message);
             }
 
             // Log the test result
@@ -336,11 +270,6 @@ namespace Magenic.MaqsFramework.Utilities.BaseTest
             // Get the Fully Qualified Test Name
             string fullyQualifiedTestName = this.GetFullyQualifiedTestClassName();
 
-            // Release the test object
-            T testObject;
-            this.ObjectsUnderTest.TryRemove(fullyQualifiedTestName, out testObject);
-            testObject = null;
-
             // Find the PerfTimerCollection for this test
             string key = fullyQualifiedTestName;
             if (this.PerfTimerCollectionSet.ContainsKey(key))
@@ -369,59 +298,11 @@ namespace Magenic.MaqsFramework.Utilities.BaseTest
             SoftAssert softAssert;
             this.SoftAsserts.TryRemove(fullyQualifiedTestName, out softAssert);
             softAssert = null;
-        }
 
-        /// <summary>
-        /// Setup event firing test object 
-        /// </summary>
-        /// <example>  
-        /// This sample shows what an overload for the <see cref="SetupEventFiringTester"/> method may look like
-        /// <code> 
-        /// protected override void SetupEventFiringTester()
-        /// {
-        ///    this.WebDriver = this.GetBrowser();
-        ///    this.WebDriver = new EventFiringWebDriver(this.WebDriver);
-        ///    this.MapEvents((EventFiringWebDriver)this.WebDriver);
-        /// }
-        /// </code> 
-        /// </example> 
-        protected abstract void SetupEventFiringTester();
-
-        /// <summary>
-        /// Setup none event firing test object 
-        /// </summary>
-        /// <example>  
-        /// This sample shows what an overload for the <see cref="SetupNoneEventFiringTester"/> method may look like
-        /// <code> 
-        /// protected override void SetupNoneEventFiringTester()
-        /// {
-        ///    this.WebDriver = this.GetBrowser();
-        /// }
-        /// </code> 
-        /// </example> 
-        protected abstract void SetupNoneEventFiringTester();
-
-        /// <summary>
-        /// Create a test object
-        /// </summary>
-        protected abstract void CreateNewTestObject();
-
-        /// <summary>
-        /// Overload function for doing post setup logging
-        /// </summary>
-        /// <remarks> 
-        /// If not override no post setup logging will be done 
-        /// </remarks> 
-        protected virtual void PostSetupLogging()
-        {
-        }
-
-        /// <summary>
-        /// Steps to do before logging teardown results - If not override nothing is done before logging the results
-        /// </summary>
-        /// <param name="resultType">The test result</param>
-        protected virtual void BeforeLoggingTeardown(TestResultType resultType)
-        {
+            // Relese the base test object
+            BaseTestObject baseTestObject;
+            this.BaseTestObjects.TryRemove(fullyQualifiedTestName, out baseTestObject);
+            baseTestObject = null;
         }
 
         /// <summary>
@@ -556,6 +437,14 @@ namespace Magenic.MaqsFramework.Utilities.BaseTest
         }
 
         /// <summary>
+        /// Create a Selenium test object
+        /// </summary>
+        protected virtual void CreateNewTestObject()
+        {
+            this.TestObject = new BaseTestObject(this.Log, this.SoftAssert, this.PerfTimerCollection);
+        }
+
+        /// <summary>
         /// Get the fully qualified test name
         /// </summary>
         /// <returns>The test name including class</returns>
@@ -594,7 +483,7 @@ namespace Magenic.MaqsFramework.Utilities.BaseTest
                 string message = inner.Message + Environment.NewLine + innerStack;
                 List<string> messages = this.LoggedExceptionList;
 
-                string setupNamespace = typeof(BaseGenericTest<T, U>).Namespace;
+                string setupNamespace = typeof(BaseTest).Namespace;
 
                 // Make sure this error is associated with the current test and that we have not logged it yet
                 if (innerStack.Contains(setupNamespace) ||

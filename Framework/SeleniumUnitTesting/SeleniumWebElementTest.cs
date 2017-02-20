@@ -312,7 +312,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitUntilExactText()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
+            this.TestObject.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
             IWebElement element = this.WebDriver.Wait().ForVisibleElement(bodyCssSelector);
             Assert.IsTrue(element.Wait().UntilExactText(automationShowDialog1, "Show dialog"), "Failed to find element");
         }

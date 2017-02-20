@@ -102,6 +102,10 @@
       <Project>{cf21dfef-3fce-4766-b261-f2225b5442ec}</Project>
       <Name>BaseSeleniumTest</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BaseTest\BaseTest.csproj">
+      <Project>{60f10d47-3546-4b4b-b49b-5a361ddc1bcb}</Project>
+      <Name>BaseTest</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Utilities\Utilities.csproj">
       <Project>{949364a1-08d7-4e79-8ca2-228ea925438f}</Project>
       <Name>Utilities</Name>

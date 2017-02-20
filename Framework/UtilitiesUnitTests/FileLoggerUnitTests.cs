@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>Test the file logger</summary>
 //-----------------------------------------------------
-using Magenic.MaqsFramework.Utilities.BaseTest;
+using Magenic.MaqsFramework.BaseTest;
 using Magenic.MaqsFramework.Utilities.Data;
 using Magenic.MaqsFramework.Utilities.Helper;
 using Magenic.MaqsFramework.Utilities.Logging;
@@ -73,6 +73,8 @@ namespace UtilitiesUnitTesting
                 ConsoleLogger console = new ConsoleLogger();
                 this.TestHierarchicalLogging(console, path);
             }
+
+            File.Delete(path);
         }
 
         /// <summary>
@@ -88,6 +90,8 @@ namespace UtilitiesUnitTesting
         {
             FileLogger logger = new FileLogger(LoggingConfig.GetLogDirectory(), this.GetFileName("TestHierarchicalTxtFileLogger", "txt"), MessageType.GENERIC, true);
             this.TestHierarchicalLogging(logger, logger.FilePath);
+
+            File.Delete(logger.FilePath);
         }
 
         /// <summary>
@@ -103,6 +107,8 @@ namespace UtilitiesUnitTesting
         {
             HtmlFileLogger logger = new HtmlFileLogger(LoggingConfig.GetLogDirectory(), this.GetFileName("TestHierarchicalHtmlFileLogger", "html"), MessageType.GENERIC, true);
             this.TestHierarchicalLogging(logger, logger.FilePath);
+
+            File.Delete(logger.FilePath);
         }
 
         /// <summary>

@@ -6,7 +6,7 @@
 //-----------------------------------------------------
 using Magenic.MaqsFramework.BaseSeleniumTest;
 using Magenic.MaqsFramework.BaseSeleniumTest.Extensions;
-using Magenic.MaqsFramework.Utilities.BaseTest;
+using Magenic.MaqsFramework.BaseTest;
 using Magenic.MaqsFramework.Utilities.Helper;
 using Magenic.MaqsFramework.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -1011,7 +1011,7 @@ namespace SeleniumUnitTests
         {
             this.Teardown(); // delete the existing TestObject
             SoftAssert baseSoftAssert = this.GetSoftAssert();
-            Assert.AreEqual(baseSoftAssert.ToString(), "Magenic.MaqsFramework.Utilities.BaseTest.SoftAssert");
+            Assert.AreEqual(baseSoftAssert.ToString(), "Magenic.MaqsFramework.BaseTest.SoftAssert");
         }
 
         /// <summary>
