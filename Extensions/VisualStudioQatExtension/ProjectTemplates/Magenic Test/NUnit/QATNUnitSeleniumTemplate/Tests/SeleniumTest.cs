@@ -37,6 +37,7 @@ namespace $safeprojectname$
         /// <summary>
         /// Enter credentials test
         /// </summary>
+		[Test]
 		public void EnterInvalidCredentials()
         {
             string username = "NOT";

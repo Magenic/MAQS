@@ -14,7 +14,7 @@ namespace $safeprojectname$
         /// <summary>
         /// The page url
         /// </summary>
-        private static readonly string PageUrl = Config.GetValue("WebSiteBase") + "loginpage.html";
+        private static readonly string PageUrl = Config.GetValue("WebSiteBase") + "Static/Training3/loginpage.html";
 
         /// <summary>
         /// Selenium test object

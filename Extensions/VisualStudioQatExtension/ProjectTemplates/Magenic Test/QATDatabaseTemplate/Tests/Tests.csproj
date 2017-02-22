@@ -40,6 +40,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.XML" />
+	<Reference Include="Magenic.MaqsFramework.BaseTest">
+      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.0\lib\net45\Magenic.MaqsFramework.BaseTest.dll</HintPath>
+    </Reference>
     <Reference Include="Magenic.MaqsFramework.BaseDatabaseTest">
       <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.0\lib\net45\Magenic.MaqsFramework.BaseDatabaseTest.dll</HintPath>
     </Reference>

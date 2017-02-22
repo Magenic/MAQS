@@ -37,6 +37,9 @@
     <Reference Include="appium-dotnet-driver">
       <HintPath>..\..\packages\Appium.WebDriver.2.0.1.1\lib\net45\appium-dotnet-driver.dll</HintPath>
     </Reference>
+	<Reference Include="Magenic.MaqsFramework.BaseTest">
+      <HintPath>..\..\packages\Magenic.MaqsFramework.NunitOnly.4.0.0\lib\net45\Magenic.MaqsFramework.BaseTest.dll</HintPath>
+    </Reference>
     <Reference Include="Magenic.MaqsFramework.BaseAppiumTest">
       <HintPath>..\..\packages\Magenic.MaqsFramework.NunitOnly.4.0.0\lib\net45\Magenic.MaqsFramework.BaseAppiumTest.dll</HintPath>
     </Reference>
@@ -59,7 +62,7 @@
       <HintPath>..\..\packages\Magenic.MaqsFramework.NunitOnly.4.0.0\lib\net45\Magenic.MaqsFramework.WebServiceTester.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0">
+    <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>

@@ -110,6 +110,12 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <!-- Import the SHFB build targets -->
   <Import Project="$(SolutionDir)packages\EWSoftware.SHFB.2017.1.28.0\tools\SandcastleHelpFileBuilder.targets" />
   <!-- The pre-build and post-build event properties must appear *after* the targets file import in order to be

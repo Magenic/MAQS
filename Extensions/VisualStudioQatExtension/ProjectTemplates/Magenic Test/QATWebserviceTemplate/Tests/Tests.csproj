@@ -37,13 +37,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+	<Reference Include="Magenic.MaqsFramework.BaseTest">
+      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.0\lib\net45\Magenic.MaqsFramework.BaseTest.dll</HintPath>
+    </Reference>
     <Reference Include="Magenic.MaqsFramework.WebServiceTester">
       <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.0\lib\net45\Magenic.MaqsFramework.WebServiceTester.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.MaqsFramework.Utilities">
       <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.0\lib\net45\Magenic.MaqsFramework.Utilities.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">

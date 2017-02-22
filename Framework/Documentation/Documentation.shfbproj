@@ -27,11 +27,11 @@
       <DocumentationSource sourceFile="..\Utilities\Utilities.csproj" />
       <DocumentationSource sourceFile="..\BaseAppiumTest\BaseAppiumTest.csproj" />
       <DocumentationSource sourceFile="..\BaseSeleniumTest\BaseSeleniumTest.csproj" />
-	  <DocumentationSource sourceFile="..\BaseTest\BaseTest.csproj" /> 
+      <DocumentationSource sourceFile="..\BaseTest\BaseTest.csproj" />
       <DocumentationSource sourceFile="..\BaseWebServiceTest\BaseWebServiceTest.csproj" />
       <DocumentationSource sourceFile="..\BaseDatabaseTest\BaseDatabaseTest.csproj" />
       <DocumentationSource sourceFile="..\BaseEmailTest\BaseEmailTest.csproj" />
-	  <DocumentationSource sourceFile="..\BaseMongoDBTest\BaseMongoDBTest.csproj" />
+      <DocumentationSource sourceFile="..\BaseMongoDBTest\BaseMongoDBTest.csproj" />
       <DocumentationSource sourceFile="..\packages\Selenium.WebDriver.3.0.1\lib\net40\WebDriver.dll" />
       <DocumentationSource sourceFile="..\packages\Selenium.WebDriver.3.0.1\lib\net40\WebDriver.xml" />
       <DocumentationSource sourceFile="..\packages\Selenium.Support.3.0.1\lib\net40\WebDriver.Support.dll" />
@@ -99,6 +99,12 @@
   <PropertyGroup>
     <!-- NOTE: Update the version number in the path (YYYY.M.D.R) to match the package version -->
     <SHFBROOT>$(SolutionDir)packages\EWSoftware.SHFB.2017.1.28.0\tools</SHFBROOT>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <!-- Import the SHFB build targets -->
   <Import Project="$(SolutionDir)packages\EWSoftware.SHFB.2017.1.28.0\tools\SandcastleHelpFileBuilder.targets" />

@@ -51,7 +51,7 @@
       <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.0\lib\net45\Magenic.MaqsFramework.Utilities.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0">
+    <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>

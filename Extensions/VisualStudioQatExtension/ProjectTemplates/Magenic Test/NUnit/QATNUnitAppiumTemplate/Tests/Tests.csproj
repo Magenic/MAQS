@@ -37,6 +37,9 @@
     <Reference Include="appium-dotnet-driver">
       <HintPath>..\..\packages\Appium.WebDriver.2.0.1.1\lib\net45\appium-dotnet-driver.dll</HintPath>
     </Reference>
+	<Reference Include="Magenic.MaqsFramework.BaseTest">
+      <HintPath>..\..\packages\Magenic.MaqsFramework.NunitOnly.4.0.0\lib\net45\Magenic.MaqsFramework.BaseTest.dll</HintPath>
+    </Reference>
     <Reference Include="Magenic.MaqsFramework.BaseAppiumTest">
       <HintPath>..\..\packages\Magenic.MaqsFramework.NunitOnly.4.0.0\lib\net45\Magenic.MaqsFramework.BaseAppiumTest.dll</HintPath>
       <Private>True</Private>
