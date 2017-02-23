@@ -54,6 +54,7 @@
     <Compile Include="MongoDBUnitTests.cs" />
     <Compile Include="MongoDBUnitTestsWithWrapper.cs" />
     <Compile Include="TestHelper.cs" />
+    <Compile Include="TestMongoMethods.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BaseMongoDBTest\BaseMongoDBTest.csproj">

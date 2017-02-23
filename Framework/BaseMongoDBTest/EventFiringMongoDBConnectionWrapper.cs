@@ -35,24 +35,6 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
         public event EventHandler<string> DatabaseErrorEvent;
 
         /// <summary>
-        /// Dispose of the database connection
-        /// </summary>
-        public override void Dispose()
-        {
-            try
-            {
-                this.OnEvent(StringProcessor.SafeFormatter("Releasing connection"));
-                base.Dispose();
-                this.OnEvent(StringProcessor.SafeFormatter("Released connection"));
-            }
-            catch (Exception ex)
-            {
-                this.RaiseErrorMessage(ex);
-                throw ex;
-            }
-        }
-
-        /// <summary>
         /// Database event
         /// </summary>
         /// <param name="message">event message</param>

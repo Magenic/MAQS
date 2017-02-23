@@ -60,18 +60,6 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
         }
 
         /// <summary>
-        /// Close the database connection
-        /// </summary>
-        /// <param name="resultType">The test result</param>
-        protected override void BeforeLoggingTeardown(TestResultType resultType)
-        {
-            if (this.IsObjectUnderTestStored())
-            {
-                this.MongoDBWrapper.Dispose();
-            }
-        }
-
-        /// <summary>
         /// Setup the event firing database connection
         /// </summary>
         protected override void SetupEventFiringTester()
