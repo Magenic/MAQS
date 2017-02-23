@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace UtilitiesUnitTesting
 {
@@ -73,7 +74,8 @@ namespace UtilitiesUnitTesting
                 ConsoleLogger console = new ConsoleLogger();
                 this.TestHierarchicalLogging(console, path);
             }
-
+            
+            Thread.Sleep(100);
             File.Delete(path);
         }
 
@@ -291,7 +293,10 @@ namespace UtilitiesUnitTesting
                     softAssert.AreEqual(keyValue.Value, count, "Looking for " + keyValue.Key);
                 }
             }
-
+            
+            // Give the write time
+            Thread.Sleep(1000);
+            
             // Set the log level so that the soft asserts log
             logger.SetLoggingLevel(MessageType.VERBOSE);
 
