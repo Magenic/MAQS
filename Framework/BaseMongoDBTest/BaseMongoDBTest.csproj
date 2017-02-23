@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseMongoDBTest.cs" />
+    <Compile Include="MongoDBCollectionWrapper.cs" />
     <Compile Include="MongoTestObject.cs" />
     <Compile Include="MongoDBConfig.cs" />
     <Compile Include="MongoDBConnectionWrapper.cs" />

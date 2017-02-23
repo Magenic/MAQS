@@ -17,7 +17,7 @@ namespace MongoDBUnitTests
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class MongoDBUnitTestsWithWrapper : BaseMongoDBTest
+    public class MongoDBUnitTestsWithWrapper : Magenic.MaqsFramework.BaseMongoDBTest.BaseMongoDBTest
     {
         /// <summary>
         /// Did the logging folder exist at the start of the test run

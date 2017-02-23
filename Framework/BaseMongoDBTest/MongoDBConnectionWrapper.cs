@@ -12,7 +12,7 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
     /// <summary>
     /// Wraps the basic database interactions
     /// </summary>
-    public class MongoDBConnectionWrapper : IDisposable
+    public class MongoDBConnectionWrapper
     {
         /// <summary>
         /// the mongoClient through the mongoURL is created here
@@ -33,18 +33,6 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
         {
             this.client = this.SetupMongoDBClient(connectionString);
             this.database = this.SetUpMongoDBDatabase(databaseName);
-        }
-
-        /// <summary>
-        /// Dispose of the database connection
-        /// </summary>
-        public virtual void Dispose()
-        {
-            // Make sure the connection exists and is open before trying to close it
-            if (this.database != null)
-            {
-                this.database.Client.DropDatabase(string.Empty);
-            }
         }
 
         /// <summary>

@@ -40,6 +40,11 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
             return Config.GetValue("MongoDatabase");
         }
 
+        public static string GetCollectionString()
+        {
+            return Config.GetValue();
+        }
+
         /// <summary>
         /// Get the database timeout in seconds
         /// </summary>
