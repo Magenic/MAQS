@@ -13,7 +13,7 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
     /// <summary>
     /// Mongo test context data
     /// </summary>
-    public class MongoTestObject : BaseTestObject
+    public class MongoTestObject<T> : BaseTestObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MongoTestObject" /> class
@@ -22,14 +22,11 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
         /// <param name="logger">The test's logger</param>
         /// <param name="softAssert">The test's soft assert</param>
         /// <param name="perfTimerCollection">The test's performance timer collection</param>
-        public MongoTestObject(MongoDBConnectionWrapper mongoConnection, Logger logger, SoftAssert softAssert, PerfTimerCollection perfTimerCollection) : base(logger, softAssert, perfTimerCollection)
+        public MongoTestObject(MongoDBCollectionWrapper<T> mongoCollection, Logger logger, SoftAssert softAssert, PerfTimerCollection perfTimerCollection) : base(logger, softAssert, perfTimerCollection)
         {
-            this.MongoDBWrapper = mongoConnection;
+            this.MongoDBCollectionWrapper = mongoCollection;
         }
 
-        /// <summary>
-        /// Gets the MongoDB connection wrapper
-        /// </summary>
-        public MongoDBConnectionWrapper MongoDBWrapper { get; private set; }
+        public MongoDBCollectionWrapper<T> MongoDBCollectionWrapper { get; private set; }
     }
 }
