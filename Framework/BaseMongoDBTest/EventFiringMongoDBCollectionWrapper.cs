@@ -12,15 +12,15 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
     /// <summary>
     /// Wrap basic firing database interactions
     /// </summary>
-    public class EventFiringMongoDBConnectionWrapper : MongoDBConnectionWrapper
+    public class EventFiringMongoDBCollectionWrapper<T> : MongoDBCollectionWrapper<T>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EventFiringMongoDBConnectionWrapper" /> class
         /// </summary>
         /// <param name="connectionString">The mongoDB client connection string</param>
         /// <param name="databaseName">the mongo database name string</param>
-        public EventFiringMongoDBConnectionWrapper(string connectionString, string databaseName)
-            : base(connectionString, databaseName)
+        public EventFiringMongoDBCollectionWrapper(string connectionString, string databaseName, string collectionString)
+            : base(connectionString, databaseName, collectionString)
         {
         }
 

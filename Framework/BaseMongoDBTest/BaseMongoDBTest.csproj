@@ -61,11 +61,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseMongoDBTest.cs" />
+    <Compile Include="EventFiringMongoDBCollectionWrapper.cs" />
     <Compile Include="MongoDBCollectionWrapper.cs" />
     <Compile Include="MongoTestObject.cs" />
     <Compile Include="MongoDBConfig.cs" />
-    <Compile Include="MongoDBConnectionWrapper.cs" />
-    <Compile Include="EventFiringMongoDBConnectionWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

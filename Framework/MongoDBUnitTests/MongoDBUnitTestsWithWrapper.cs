@@ -7,6 +7,7 @@
 using Magenic.MaqsFramework.BaseMongoDBTest;
 using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MongoDB.Bson;
 using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
 
@@ -17,7 +18,7 @@ namespace MongoDBUnitTests
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class MongoDBUnitTestsWithWrapper : Magenic.MaqsFramework.BaseMongoDBTest.BaseMongoDBTest
+    public class MongoDBUnitTestsWithWrapper : BaseMongoDBTest<BsonDocument>
     {
         /// <summary>
         /// Did the logging folder exist at the start of the test run
@@ -63,11 +64,9 @@ namespace MongoDBUnitTests
                 ConfigurationManager.AppSettings["MongoDatabase"]);
             this.mongoDBMethods = new MongoDBMethods(this.connectionWrapper.ReturnMongoDBDatabase(), 
                 ConfigurationManager.AppSettings["MongoCollection"]);*/
-
+            var collectionWrapper = new MongoDBCollectionWrapper<BsonDocument>();
             this.mongoDBMethods = new MongoDBMethods(
-                new MongoDBConnectionWrapper(
-                    ConfigurationManager.AppSettings["MongoConnectionString"],
-                    ConfigurationManager.AppSettings["MongoDatabase"]).ReturnMongoDBDatabase(),
+                collectionWrapper.ReturnMongoDBDatabase(),
                     ConfigurationManager.AppSettings["MongoCollection"]);
         }
 
@@ -153,7 +152,7 @@ namespace MongoDBUnitTests
             Assert.AreEqual(this.TestObject.Log, this.Log, "Logs don't match");
             Assert.AreEqual(this.TestObject.SoftAssert, this.SoftAssert, "Soft asserts don't match");
             Assert.AreEqual(this.TestObject.PerfTimerCollection, this.PerfTimerCollection, "Soft asserts don't match");
-            Assert.AreEqual(this.TestObject.MongoDBWrapper, this.MongoDBWrapper, "Web service wrapper don't match");
+            Assert.AreEqual(this.TestObject.MongoDBCollectionWrapper, this.MongoDBWrapper, "Web service wrapper don't match");
         }
     }
 }

@@ -40,9 +40,13 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
             return Config.GetValue("MongoDatabase");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public static string GetCollectionString()
         {
-            return Config.GetValue();
+            return Config.GetValue("MongoCollection");
         }
 
         /// <summary>
