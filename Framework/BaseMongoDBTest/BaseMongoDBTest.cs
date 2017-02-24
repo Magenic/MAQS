@@ -63,6 +63,15 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
         /// Get the base web service url
         /// </summary>
         /// <returns>The base web service url</returns>
+        protected virtual string GetBaseDatabaseString()
+        {
+            return MongoDBConfig.GetDatabaseString();
+        }
+
+        /// <summary>
+        /// Get the base web service url
+        /// </summary>
+        /// <returns>The base web service url</returns>
         protected virtual string GetBaseCollectionString()
         {
             return MongoDBConfig.GetCollectionString();

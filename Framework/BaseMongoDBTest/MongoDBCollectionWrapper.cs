@@ -1,4 +1,5 @@
 ﻿using Magenic.MaqsFramework.BaseMongoDBTest;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -14,11 +15,11 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
         /// stores the mongo Collection
         /// </summary>
 
-        private IMongoClient client;
+        public IMongoClient client;
 
-        private IMongoDatabase database;
+        public IMongoDatabase database;
 
-        private IMongoCollection<T> collection;
+        public IMongoCollection<T> collection;
 
         public MongoDBCollectionWrapper(string connectionString, string databaseString, string collectionString){
             this.client = new MongoClient(new MongoUrl(connectionString));
@@ -99,6 +100,19 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
         public int CountAllItemsInCollection()
         {
             return int.Parse(this.collection.Find<T>(_ => true).Count().ToString());
+        }
+
+        public List<T> QueryAndReturnList(string key, string value) {
+            var filter = Builders<T>.Filter.Eq(key, value);
+            var retValue = this.collection.Find(filter).ToList();
+            return retValue;
+        }
+
+        public T QueryAndReturnFirst(string key, string value)
+        {
+            var filter = Builders<T>.Filter.Eq(key, value);
+            var retValue = this.collection.Find(filter).ToList()[0];
+            return retValue;
         }
     }
 }
