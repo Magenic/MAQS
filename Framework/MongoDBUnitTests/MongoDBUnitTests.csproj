@@ -50,9 +50,6 @@
   <ItemGroup>
     <Compile Include="MongoDBConfigUnitTests.cs" />
     <Compile Include="MongoDBElements.cs" />
-    <Compile Include="MongoDBMethods.cs" />
-    <Compile Include="MongoDBUnitTests.cs" />
-    <Compile Include="MongoDBUnitTestsWithWrapper.cs" />
     <Compile Include="TestHelper.cs" />
     <Compile Include="TestMongoMethods.cs" />
   </ItemGroup>
