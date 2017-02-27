@@ -1,4 +1,42 @@
-Maqs Framework Release Notes:
+MAQS Release Notes:
+
+4.0.0 - 2017/2/27
+	- Add new base test type, which does not include a system under test
+	- Add TestObject to base tests
+	- Add remote capability settings to app config - Needed for Sauce Labs support
+	- Selenium wait/find resturcture
+	- Added FluentElement
+	- Added basic Mongo support	
+	- Fixed Firefox settings to use Gecko, without this change Firefox will not work with Selenium 3
+	- Add support for logging supression
+	- Removed deprecated event and RTF loggers
+	- Removed deprecated ResponseTimes
+	- Updated
+		Appium.WebDriver to 3.0.0.2
+		Selenium.Support to 3.0.1
+		Selenium.WebDriver to 3.0.1
+		Selenium.WebDriver.ChromeDriver to 2.27.0
+		Selenium.WebDriver.IEDriver to 3.0.0.1
+	- Added
+		Selenium.WebDriver.GeckoDriver.Win32 0.14.0
+		MongoDB.Bson 2.4.2
+		MongoDB.Driver 2.4.2
+		MongoDB.Driver.Core 2.4.2
+
+3.4.1 - 2017/1/25
+	- Fix hierarchical logging
+	- Fix missing web service logging
+
+3.4.0 - 2016/12/9
+	- Add hierarchical logging support
+	- Update PerfTimer schema
+	- Templates now point to Magenic test site
+	- Fix email time based search
+	- Extend SoftAssert to support IsTrue and IsFalse
+	- Updated 
+		Selenium.WebDriver.ChromeDriver to 2.26.0
+		Selenium.WebDriver.IEDriver to 3.0.0.1
+
 3.3.0 - 2016/9/28
 	- Deprecate EventLogger
 	- Add PerfTimer and Deprecate ResponseTimes
@@ -40,7 +78,7 @@ Maqs Framework Release Notes:
 	-Added generic wait for/until functionality
 	-Made Selenium page model template test runner agnostic
 	-Made nuget.config update more robust
-	-Allow nuget check to be skipped in the nuget.config file gets removed the solution created using the Maqs templates
+	-Allow nuget check to be skipped in the nuget.config file gets removed the solution created using the MAQS templates
 	-Updated
 		Selenium.Support to 2.53.0
 		Selenium.WebDriver to 2.53.0

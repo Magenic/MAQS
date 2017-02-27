@@ -1,4 +1,6 @@
 ﻿using Magenic.MaqsFramework.BaseSeleniumTest;
+using Magenic.MaqsFramework.BaseSeleniumTest.Extensions;
+using Magenic.MaqsFramework.Utilities.Helper;
 using OpenQA.Selenium;
 
 namespace $rootnamespace$
