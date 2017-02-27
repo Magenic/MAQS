@@ -41,5 +41,33 @@ namespace MongoDBUnitTests
             var value = this.ObjectUnderTest.collection.Find(filter).ToList()[0]["lid"].ToString();
             Assert.AreEqual(value, "test3");
         }
+
+        [TestMethod]
+        [TestCategory(TestCategories.MongoDB)]
+        public void TestQueryAndReturnFirst() {
+            BsonDocument document = this.ObjectUnderTest.QueryAndReturnFirst("lid", "test3");
+            Assert.AreEqual(document["lid"].ToString(), "test3");
+        }
+
+        [TestMethod]
+        [TestCategory(TestCategories.MongoDB)]
+        public void TestFindListWithKey() {
+            List<BsonDocument> documentList = this.ObjectUnderTest.FindListWithKey("lid");
+            foreach (BsonDocument documents in documentList) {
+                Assert.AreNotEqual(documents["lid"].ToString(), "");
+            }
+            Assert.AreEqual(documentList.Count, 4);
+        }
+
+        [TestMethod]
+        [TestCategory(TestCategories.MongoDB)]
+        public void TestQueryAndReturnList() {
+            List<BsonDocument> documentList = this.ObjectUnderTest.QueryAndReturnList("lid", "test3");
+            foreach (BsonDocument documents in documentList)
+            {
+                Assert.AreEqual(documents["lid"].ToString(), "test3");
+            }
+            Assert.AreEqual(documentList.Count, 1);
+        }
     }
 }

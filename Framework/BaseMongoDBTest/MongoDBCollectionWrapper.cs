@@ -102,6 +102,10 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
             return int.Parse(this.collection.Find<T>(_ => true).Count().ToString());
         }
 
+        public int CountItemsInCollectionWithRecord(string key, string value) {
+            return QueryAndReturnList(key, value).Count;
+        }
+
         public List<T> QueryAndReturnList(string key, string value) {
             var filter = Builders<T>.Filter.Eq(key, value);
             var retValue = this.collection.Find(filter).ToList();
@@ -113,6 +117,17 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
             var filter = Builders<T>.Filter.Eq(key, value);
             var retValue = this.collection.Find(filter).ToList()[0];
             return retValue;
+        }
+
+        public List<T> FindListWithKey(string key) {
+            var filter = Builders<T>.Filter.Exists(key);
+            var retValue = this.collection.Find(filter).ToList();
+            return retValue;
+        }
+
+        public T FindFirstItemWithKey(string key) {
+            var filter = Builders<T>.Filter.Exists(key);
+            return this.collection.Find(filter).ToList().First();
         }
     }
 }
