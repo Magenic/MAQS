@@ -205,8 +205,8 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         public static void SetTimeouts(IWebDriver driver)
         {
             TimeSpan timeoutTime = GetTimeoutTime();
-            driver.Manage().Timeouts().SetScriptTimeout(timeoutTime);
-            driver.Manage().Timeouts().SetPageLoadTimeout(timeoutTime);
+            driver.Manage().Timeouts().PageLoad = timeoutTime;
+            driver.Manage().Timeouts().AsynchronousJavaScript = timeoutTime;
         }
 
         /// <summary>

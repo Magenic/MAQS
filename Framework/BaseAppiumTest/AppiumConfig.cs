@@ -147,8 +147,8 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         public static void SetTimeouts(AppiumDriver<AppiumWebElement> driver)
         {
             int timeoutTime = Convert.ToInt32(Config.GetValue("Timeout", "0"));
-            driver.Manage().Timeouts().SetScriptTimeout(TimeSpan.FromMilliseconds(timeoutTime));
-            driver.Manage().Timeouts().SetPageLoadTimeout(TimeSpan.FromMilliseconds(timeoutTime));
+            driver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromMilliseconds(timeoutTime);
+            driver.Manage().Timeouts().PageLoad = TimeSpan.FromMilliseconds(timeoutTime);
         }
 
         /// <summary>

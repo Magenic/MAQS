@@ -7,9 +7,7 @@
 using Magenic.MaqsFramework.Utilities.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
-using OpenQA.Selenium.Support.Events;
 using System;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Reflection;
 
@@ -82,7 +80,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
             string path = Path.Combine(directory, fileNameWithoutExtension + ".png");
 
             // Save the screenshot
-            screenShot.SaveAsFile(path, ImageFormat.Png);
+            screenShot.SaveAsFile(path, ScreenshotImageFormat.Png);
 
             return path;
         }
