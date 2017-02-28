@@ -1,133 +1,140 @@
-﻿using Magenic.MaqsFramework.BaseMongoDBTest;
-using MongoDB.Bson;
+﻿// <copyright file="MongoDBCollectionWrapper.cs" company="Magenic">
+//  Copyright 2017 Magenic, All rights Reserved
+// </copyright>
+// <summary>This is the wrapper for the mongo collection object</summary>
+//--------------------------------------------------
 using MongoDB.Driver;
-using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Magenic.MaqsFramework.BaseMongoDBTest
 {
+    /// <summary>
+    /// Class to wrap the IMongoCollection and related helper functions
+    /// </summary>
+    /// <typeparam name="T">Generic T-Document</typeparam>
     public class MongoDBCollectionWrapper<T>
     {
         /// <summary>
-        /// stores the mongo Collection
+        /// The mongo client object
         /// </summary>
+        private IMongoClient client;
 
-        public IMongoClient client;
+        /// <summary>
+        /// The mongo database object
+        /// </summary>
+        private IMongoDatabase database;
 
-        public IMongoDatabase database;
+        /// <summary>
+        /// The mongo collection object
+        /// </summary>
+        private IMongoCollection<T> collection;
 
-        public IMongoCollection<T> collection;
-
-        public MongoDBCollectionWrapper(string connectionString, string databaseString, string collectionString){
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MongoDBCollectionWrapper{T}" /> class
+        /// </summary>
+        /// <param name="connectionString">Server address</param>
+        /// <param name="databaseString">Name of the database</param>
+        /// <param name="collectionString">Name of the collection</param>
+        public MongoDBCollectionWrapper(string connectionString, string databaseString, string collectionString)
+        {
             this.client = new MongoClient(new MongoUrl(connectionString));
-            this.database = client.GetDatabase(databaseString);
-            this.collection = database.GetCollection<T>(collectionString);
+            this.database = this.client.GetDatabase(databaseString);
+            this.collection = this.database.GetCollection<T>(collectionString);
         }
 
-        public MongoDBCollectionWrapper(string collectionString){
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MongoDBCollectionWrapper{T}" /> class
+        /// </summary>
+        /// <param name="collectionString">Name of the collection</param>
+        public MongoDBCollectionWrapper(string collectionString)
+        {
             this.client = new MongoClient(new MongoUrl(MongoDBConfig.GetConnectionString()));
-            this.database = client.GetDatabase(MongoDBConfig.GetDatabaseString());
-            this.collection = database.GetCollection<T>(collectionString);
+            this.database = this.client.GetDatabase(MongoDBConfig.GetDatabaseString());
+            this.collection = this.database.GetCollection<T>(collectionString);
         }
 
-        public MongoDBCollectionWrapper() {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MongoDBCollectionWrapper{T}" /> class
+        /// </summary>
+        public MongoDBCollectionWrapper()
+        {
             this.client = new MongoClient(new MongoUrl(MongoDBConfig.GetConnectionString()));
-            this.database = client.GetDatabase(MongoDBConfig.GetDatabaseString());
-            this.collection = database.GetCollection<T>(MongoDBConfig.GetCollectionString());
+            this.database = this.client.GetDatabase(MongoDBConfig.GetDatabaseString());
+            this.collection = this.database.GetCollection<T>(MongoDBConfig.GetCollectionString());
         }
 
         /// <summary>
-        /// Returns the MongoDB database 
+        /// Gets or sets the client object
         /// </summary>
-        /// <returns>accessed mongoDB database from the client</returns>
-        public IMongoClient ReturnMongoDBClient()
+        public IMongoClient Client
         {
-            return this.client;
+            get
+            {
+                return this.client;
+            }
+
+            set
+            {
+            }
         }
 
         /// <summary>
-        /// Returns the MongoDB database 
+        /// Gets or sets the database object
         /// </summary>
-        /// <returns>accessed mongoDB database from the client</returns>
-        public IMongoDatabase ReturnMongoDBDatabase()
+        public IMongoDatabase Database
         {
-            return this.database;
+            get
+            {
+                return this.database;
+            }
+
+            set
+            {
+            }
         }
 
         /// <summary>
-        /// Returns the MongoDB database 
+        ///  Gets or sets the collection object
         /// </summary>
-        /// <returns>accessed mongoDB database from the client</returns>
-        public IMongoCollection<T> ReturnMongoDBCollection()
+        public IMongoCollection<T> Collection
         {
-            return this.collection;
-        }
+            get
+            {
+                return this.collection;
+            }
 
-        /// <summary> 
-        /// Default client connection setup - Override this function to create your own connection
-        /// </summary>
-        /// <param name="connectionString">The mongo database client name string</param>
-        /// <returns>The mongo database client</returns>
-        protected virtual IMongoClient SetupMongoDBClient(string connectionString)
-        {
-            MongoUrl mongoURL = new MongoUrl(connectionString);
-            return new MongoClient(mongoURL);
+            set
+            {
+            }
         }
 
         /// <summary>
-        /// returns a database from the mongo client
+        /// List all of the items in the collection
         /// </summary>
-        /// <param name="databaseName">the mongo database name string</param>
-        /// <returns>The mongo database client</returns>
-        protected virtual IMongoDatabase SetUpMongoDBDatabase(string databaseName)
+        /// <returns>List of the items in the collection</returns>
+        public virtual List<T> ListAllCollectionItems()
         {
-            return this.client.GetDatabase(databaseName);
-        }
-
-
-        public List<T> ListAllCollectionItems() {
             return this.collection.Find<T>(_ => true).ToList();
         }
 
-        public bool IsCollectionEmpty()
+        /// <summary>
+        /// Checks if the collection contains any records
+        /// </summary>
+        /// <returns>True if the collection is empty, false otherwise</returns>
+        public virtual bool IsCollectionEmpty()
         {
             return !this.collection.Find<T>(_ => true).Any();
         }
 
-        public int CountAllItemsInCollection()
+        /// <summary>
+        /// Counts all of the items in the collection
+        /// </summary>
+        /// <returns>Number of items in the collection</returns>
+        public virtual int CountAllItemsInCollection()
         {
-            return int.Parse(this.collection.Find<T>(_ => true).Count().ToString());
-        }
-
-        public int CountItemsInCollectionWithRecord(string key, string value) {
-            return QueryAndReturnList(key, value).Count;
-        }
-
-        public List<T> QueryAndReturnList(string key, string value) {
-            var filter = Builders<T>.Filter.Eq(key, value);
-            var retValue = this.collection.Find(filter).ToList();
-            return retValue;
-        }
-
-        public T QueryAndReturnFirst(string key, string value)
-        {
-            var filter = Builders<T>.Filter.Eq(key, value);
-            var retValue = this.collection.Find(filter).ToList()[0];
-            return retValue;
-        }
-
-        public List<T> FindListWithKey(string key) {
-            var filter = Builders<T>.Filter.Exists(key);
-            var retValue = this.collection.Find(filter).ToList();
-            return retValue;
-        }
-
-        public T FindFirstItemWithKey(string key) {
-            var filter = Builders<T>.Filter.Exists(key);
-            return this.collection.Find(filter).ToList().First();
+            return int.Parse(this.collection.Count(_ => true).ToString());
         }
     }
 }
