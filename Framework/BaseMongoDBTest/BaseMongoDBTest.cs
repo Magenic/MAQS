@@ -14,7 +14,7 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
     /// Generic base MongoDB test class
     /// </summary>
     /// <typeparam name="T">The mongo collection type</typeparam>
-    public class BaseMongoDBTest<T> : BaseGenericTest<MongoDBCollectionWrapper<T>, MongoTestObject<T>>
+    public class BaseMongoDBTest<T> : BaseExtendableTest<MongoDBCollectionWrapper<T>, MongoTestObject<T>>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseMongoDBTest{T}"/> class.
