@@ -68,6 +68,22 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         }
 
         /// <summary>
+        /// Whether or not the mobile browser is being used
+        /// </summary>
+        /// <returns>boolean for using browser</returns>
+        public static bool UsingMobileBrowser()
+        {
+            if (Config.GetValue("MobileBrowser").ToUpper().Equals("YES"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Get the mobile device
         /// <para>If no browser is provide in the project configuration file we default to Android</para>
         /// </summary>
@@ -105,7 +121,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
                     break;
 
                 default:
-                    throw new Exception(StringProcessor.SafeFormatter("Browser type '{0}' is not supported", mobileDeviceOS));
+                    throw new Exception(StringProcessor.SafeFormatter("Mobile OS type '{0}' is not supported", mobileDeviceOS));
             }
 
             return appiumDriver;
@@ -148,24 +164,47 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
             {
                 case "ANDROID":
                     capabilities = DesiredCapabilities.Android();
-                    break;
+                        break;
 
                 case "IOS":
                     capabilities = DesiredCapabilities.IPhone();
                     break;
 
                 default:
-                    throw new Exception(StringProcessor.SafeFormatter("Remote browser type '{0}' is not supported", mobileDeivceOS));
+                    throw new Exception(StringProcessor.SafeFormatter("Mobile OS type '{0}' is not supported", mobileDeivceOS));
             }
 
-            capabilities.SetCapability(CapabilityType.Version, GetOSVersion());
-            capabilities.SetCapability(CapabilityType.BrowserName, GetDeviceName());
-            capabilities.SetCapability(MobileCapabilityType.AutomationName, "Appium");
-            capabilities.SetCapability(MobileCapabilityType.PlatformVersion, GetOSVersion());
-            capabilities.SetCapability("udid", GetMobileDeviceUDID());
-            capabilities.SetCapability("appId", GetBundleId());
+
             capabilities.SetCapability("deviceName", GetDeviceName());
+            capabilities.SetCapability(CapabilityType.Version, GetOSVersion());
+            capabilities.SetCapability(MobileCapabilityType.PlatformVersion, GetOSVersion());
+            capabilities.SetCapability(CapabilityType.Platform, GetMobileDeviceOS().ToUpper());
+
+            if (UsingMobileBrowser())
+            {
+                switch (mobileDeivceOS.ToUpper())
+                {
+                    case "ANDROID":
+                        capabilities.SetCapability(MobileCapabilityType.BrowserName, MobileBrowserType.Chrome);
+                        break;
+
+                    case "IOS":
+
+                        capabilities.SetCapability(MobileCapabilityType.BrowserName, MobileBrowserType.Safari);
+                        capabilities.SetCapability(CapabilityType.Platform, "MAC");
+                        break;
+                }
+            }
+            else
+            {
+                capabilities.SetCapability("appId", GetBundleId());
+                capabilities.SetCapability(CapabilityType.BrowserName, GetDeviceName());
+                capabilities.SetCapability(MobileCapabilityType.AutomationName, "Appium");
+                capabilities.SetCapability("udid", GetMobileDeviceUDID());
+            }
+
             return capabilities;
         }
     }
 }
+
