@@ -1,26 +1,45 @@
 ﻿//--------------------------------------------------
-// <copyright file="EventFiringMongoDBConnectionWrapper.cs" company="Magenic">
+// <copyright file="EventFiringMongoDBCollectionWrapper.cs" company="Magenic">
 //  Copyright 2017 Magenic, All rights Reserved
 // </copyright>
 // <summary>The event firing mongoDB collection interactions</summary>
 //--------------------------------------------------
 using Magenic.MaqsFramework.Utilities.Data;
 using System;
+using System.Collections.Generic;
 
 namespace Magenic.MaqsFramework.BaseMongoDBTest
 {
     /// <summary>
     /// Wrap basic firing database interactions
     /// </summary>
+    /// <typeparam name="T">The mongo collection type</typeparam>
     public class EventFiringMongoDBCollectionWrapper<T> : MongoDBCollectionWrapper<T>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EventFiringMongoDBConnectionWrapper" /> class
+        /// Initializes a new instance of the <see cref="EventFiringMongoDBCollectionWrapper{T}" /> class
         /// </summary>
         /// <param name="connectionString">The mongoDB client connection string</param>
         /// <param name="databaseName">the mongo database name string</param>
+        /// <param name="collectionString">the mongo database collection string</param>
         public EventFiringMongoDBCollectionWrapper(string connectionString, string databaseName, string collectionString)
             : base(connectionString, databaseName, collectionString)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventFiringMongoDBCollectionWrapper{T}" /> class
+        /// </summary>
+        /// <param name="collectionString">Name of the collection</param>
+        public EventFiringMongoDBCollectionWrapper(string collectionString)
+             : base(collectionString)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventFiringMongoDBCollectionWrapper{T}" /> class
+        /// </summary>
+        public EventFiringMongoDBCollectionWrapper() : base()
         {
         }
 
@@ -33,6 +52,60 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
         /// database error event
         /// </summary>
         public event EventHandler<string> DatabaseErrorEvent;
+
+        /// <summary>
+        /// List all of the items in the collection
+        /// </summary>
+        /// <returns>List of the items in the collection</returns>
+        public override List<T> ListAllCollectionItems()
+        {
+            try
+            {
+                this.RaiseEvent("list all collection items");
+                return base.ListAllCollectionItems();
+            }
+            catch (Exception ex)
+            {
+                this.RaiseErrorMessage(ex);
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Checks if the collection contains any records
+        /// </summary>
+        /// <returns>True if the collection is empty, false otherwise</returns>
+        public override bool IsCollectionEmpty()
+        {
+            try
+            {
+                this.RaiseEvent("Is collection empty");
+                return base.IsCollectionEmpty();
+            }
+            catch (Exception ex)
+            {
+                this.RaiseErrorMessage(ex);
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Counts all of the items in the collection
+        /// </summary>
+        /// <returns>Number of items in the collection</returns>
+        public override int CountAllItemsInCollection()
+        {
+            try
+            {
+                this.RaiseEvent("Count all items in collection");
+                return base.CountAllItemsInCollection();
+            }
+            catch (Exception ex)
+            {
+                this.RaiseErrorMessage(ex);
+                throw ex;
+            }
+        }
 
         /// <summary>
         /// Database event
@@ -62,12 +135,11 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
         /// Raise an event message
         /// </summary>
         /// <param name="actionType">The type of action</param>
-        /// <param name="query">The query string</param>
-        private void RaiseEvent(string actionType, string query)
+        private void RaiseEvent(string actionType)
         {
             try
             {
-                this.OnEvent(StringProcessor.SafeFormatter("Performing {0} with:\r\n{1}", actionType, query));
+                this.OnEvent(StringProcessor.SafeFormatter("Performing {0}.", actionType));
             }
             catch (Exception e)
             {

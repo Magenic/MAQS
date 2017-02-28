@@ -41,9 +41,9 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
         }
 
         /// <summary>
-        /// 
+        /// Get the mongo collection string
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The mongo collection string</returns>
         public static string GetCollectionString()
         {
             return Config.GetValue("MongoCollection");

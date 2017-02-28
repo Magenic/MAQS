@@ -13,10 +13,11 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
     /// <summary>
     /// Generic base MongoDB test class
     /// </summary>
+    /// <typeparam name="T">The mongo collection type</typeparam>
     public class BaseMongoDBTest<T> : BaseGenericTest<MongoDBCollectionWrapper<T>, MongoTestObject<T>>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseMongoDBTest"/> class.
+        /// Initializes a new instance of the <see cref="BaseMongoDBTest{T}"/> class.
         /// Setup the database client for each test class
         /// </summary>
         public BaseMongoDBTest()
@@ -37,6 +38,17 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
             {
                 this.ObjectUnderTest = value;
             }
+        }
+
+        /// <summary>
+        /// Get the client
+        /// </summary>
+        /// <returns>The database connection</returns>
+        protected virtual IMongoClient GetMongoDBClient()
+        {
+            var mongoURL = new MongoUrl(this.GetBaseConnectionString());
+            IMongoClient client = new MongoClient(mongoURL);
+            return client;
         }
 
         /// <summary>
