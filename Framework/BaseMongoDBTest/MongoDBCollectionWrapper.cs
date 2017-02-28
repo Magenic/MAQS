@@ -66,7 +66,7 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
         }
 
         /// <summary>
-        /// Gets or sets the client object
+        /// Gets the client object
         /// </summary>
         public IMongoClient Client
         {
@@ -74,14 +74,10 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
             {
                 return this.client;
             }
-
-            set
-            {
-            }
         }
 
         /// <summary>
-        /// Gets or sets the database object
+        /// Gets the database object
         /// </summary>
         public IMongoDatabase Database
         {
@@ -89,24 +85,16 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
             {
                 return this.database;
             }
-
-            set
-            {
-            }
         }
 
         /// <summary>
-        ///  Gets or sets the collection object
+        ///  Gets the collection object
         /// </summary>
         public IMongoCollection<T> Collection
         {
             get
             {
                 return this.collection;
-            }
-
-            set
-            {
             }
         }
 
