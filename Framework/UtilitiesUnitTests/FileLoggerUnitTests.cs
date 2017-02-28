@@ -65,8 +65,11 @@ namespace UtilitiesUnitTesting
             DataAccessMethod.Sequential)]
         public void TestHierarchicalConsoleLogger()
         {
+            // Get the next row of data
+            Dictionary<string, string> rowDictionary = this.GetCurrentRow();
+
             // Calculate a file path
-            string path = Path.Combine(LoggingConfig.GetLogDirectory(), this.GetFileName("TestHierarchicalConsoleLogger", "txt"));
+            string path = Path.Combine(LoggingConfig.GetLogDirectory(), this.GetFileName("TestHierarchicalConsoleLogger" + rowDictionary["LogLevel"], "txt"));
 
             // Pipe the console to this file
             using (var cc = new ConsoleCopy(path))
@@ -74,8 +77,7 @@ namespace UtilitiesUnitTesting
                 ConsoleLogger console = new ConsoleLogger();
                 this.TestHierarchicalLogging(console, path);
             }
-            
-            Thread.Sleep(100);
+
             File.Delete(path);
         }
 
@@ -90,7 +92,10 @@ namespace UtilitiesUnitTesting
             DataAccessMethod.Sequential)]
         public void TestHierarchicalTxtFileLogger()
         {
-            FileLogger logger = new FileLogger(LoggingConfig.GetLogDirectory(), this.GetFileName("TestHierarchicalTxtFileLogger", "txt"), MessageType.GENERIC, true);
+            // Get the next row of data
+            Dictionary<string, string> rowDictionary = this.GetCurrentRow();
+
+            FileLogger logger = new FileLogger(LoggingConfig.GetLogDirectory(), this.GetFileName("TestHierarchicalTxtFileLogger" + rowDictionary["LogLevel"], "txt"), MessageType.GENERIC, true);
             this.TestHierarchicalLogging(logger, logger.FilePath);
 
             File.Delete(logger.FilePath);
@@ -107,7 +112,10 @@ namespace UtilitiesUnitTesting
             DataAccessMethod.Sequential)]
         public void TestHierarchicalHtmlFileLogger()
         {
-            HtmlFileLogger logger = new HtmlFileLogger(LoggingConfig.GetLogDirectory(), this.GetFileName("TestHierarchicalHtmlFileLogger", "html"), MessageType.GENERIC, true);
+            // Get the next row of data
+            Dictionary<string, string> rowDictionary = this.GetCurrentRow();
+
+            HtmlFileLogger logger = new HtmlFileLogger(LoggingConfig.GetLogDirectory(), this.GetFileName("TestHierarchicalHtmlFileLogger" + rowDictionary["LogLevel"], "html"), MessageType.GENERIC, true);
             this.TestHierarchicalLogging(logger, logger.FilePath);
 
             File.Delete(logger.FilePath);
