@@ -46,15 +46,6 @@ namespace MongoDBUnitTests
         }
 
         /// <summary>
-        /// Initialize the object under test
-        /// </summary>
-        [TestInitialize]
-        public void SetupCollectionWrapper()
-        {
-            this.SetupNoneEventFiringTester();
-        }
-
-        /// <summary>
         /// Test the list all collection items helper function
         /// </summary>
         [TestMethod]
@@ -155,20 +146,14 @@ namespace MongoDBUnitTests
         }
 
         /// <summary>
-        /// Make sure the test objects map properly
+        /// Test the event firing collection wrapper
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.MongoDB)]
         public void MongoDBTestSetupEventFiringTestObject()
         {
             this.SetupEventFiringTester();
-            List<BsonDocument> collectionItems = this.ObjectUnderTest.ListAllCollectionItems();
-            foreach (BsonDocument bson in collectionItems)
-            {
-                Assert.IsTrue(bson.Contains("lid"));
-            }
-
-            Assert.AreEqual(4, collectionItems.Count);
+            Assert.AreEqual(4, this.ObjectUnderTest.CountAllItemsInCollection());
         }
     }
 }
