@@ -51,7 +51,7 @@ namespace MongoDBUnitTests
         [TestInitialize]
         public void SetupCollectionWrapper()
         {
-            this.ObjectUnderTest = new MongoDBCollectionWrapper<BsonDocument>();
+            this.SetupNoneEventFiringTester();
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace MongoDBUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.MongoDB)]
-        public void ListAllCollectionItems()
+        public void TestMongoListAllCollectionItems()
         {
             List<BsonDocument> collectionItems = this.ObjectUnderTest.ListAllCollectionItems();
             foreach (BsonDocument bson in collectionItems)
@@ -67,7 +67,7 @@ namespace MongoDBUnitTests
                 Assert.IsTrue(bson.Contains("lid"));
             }
 
-            Assert.AreEqual(4, collectionItems);
+            Assert.AreEqual(4, collectionItems.Count);
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace MongoDBUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.MongoDB)]
-        public void TestCountItemsInCollection()
+        public void TestMongoCountItemsInCollection()
         {
             Assert.AreEqual(4, this.ObjectUnderTest.CountAllItemsInCollection());
         }
@@ -85,7 +85,7 @@ namespace MongoDBUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.MongoDB)]
-        public void GetLoginID()
+        public void TestMongoGetLoginID()
         {
             var filter = Builders<BsonDocument>.Filter.Eq("lid", "test3");
 
@@ -98,7 +98,7 @@ namespace MongoDBUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.MongoDB)]
-        public void TestQueryAndReturnFirst()
+        public void TestMongoQueryAndReturnFirst()
         {
             var filter = Builders<BsonDocument>.Filter.Eq("lid", "test3");
             BsonDocument document = this.ObjectUnderTest.Collection.Find(filter).ToList().First();
@@ -110,7 +110,7 @@ namespace MongoDBUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.MongoDB)]
-        public void TestFindListWithKey()
+        public void TestMongoFindListWithKey()
         {
             var filter = Builders<BsonDocument>.Filter.Exists("lid");
             List<BsonDocument> documentList = this.ObjectUnderTest.Collection.Find(filter).ToList();
@@ -127,7 +127,7 @@ namespace MongoDBUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.MongoDB)]
-        public void LinqQuery()
+        public void TestMongoLinqQuery()
         {
             IMongoQueryable<BsonDocument> query =
                 from e in this.ObjectUnderTest.Collection.AsQueryable<BsonDocument>()
@@ -146,12 +146,29 @@ namespace MongoDBUnitTests
         [TestMethod]
         [TestCategory(TestCategories.MongoDB)]
         [TestCategory(TestCategories.Utilities)]
-        public void DatabaseTestObjectMapCorrectly()
+        public void TestMongoDBTestObjectMapCorrectly()
         {
             Assert.AreEqual(this.TestObject.Log, this.Log, "Logs don't match");
             Assert.AreEqual(this.TestObject.SoftAssert, this.SoftAssert, "Soft asserts don't match");
             Assert.AreEqual(this.TestObject.PerfTimerCollection, this.PerfTimerCollection, "Soft asserts don't match");
             Assert.AreEqual(this.TestObject.MongoDBCollectionWrapper, this.MongoDBWrapper, "Web service wrapper don't match");
+        }
+
+        /// <summary>
+        /// Make sure the test objects map properly
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.MongoDB)]
+        public void MongoDBTestSetupEventFiringTestObject()
+        {
+            this.SetupEventFiringTester();
+            List<BsonDocument> collectionItems = this.ObjectUnderTest.ListAllCollectionItems();
+            foreach (BsonDocument bson in collectionItems)
+            {
+                Assert.IsTrue(bson.Contains("lid"));
+            }
+
+            Assert.AreEqual(4, collectionItems.Count);
         }
     }
 }
