@@ -41,6 +41,15 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
         }
 
         /// <summary>
+        /// Get the mongo collection string
+        /// </summary>
+        /// <returns>The mongo collection string</returns>
+        public static string GetCollectionString()
+        {
+            return Config.GetValue("MongoCollection");
+        }
+
+        /// <summary>
         /// Get the database timeout in seconds
         /// </summary>
         /// <returns>The timeout in seconds from the config file or default of 30 seconds when no app.config key is found</returns>

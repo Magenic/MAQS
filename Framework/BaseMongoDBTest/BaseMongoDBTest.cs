@@ -13,10 +13,11 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
     /// <summary>
     /// Generic base MongoDB test class
     /// </summary>
-    public class BaseMongoDBTest : BaseExtendableTest<MongoDBConnectionWrapper, MongoTestObject>
+    /// <typeparam name="T">The mongo collection type</typeparam>
+    public class BaseMongoDBTest<T> : BaseExtendableTest<MongoDBCollectionWrapper<T>, MongoTestObject<T>>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseMongoDBTest"/> class.
+        /// Initializes a new instance of the <see cref="BaseMongoDBTest{T}"/> class.
         /// Setup the database client for each test class
         /// </summary>
         public BaseMongoDBTest()
@@ -26,17 +27,28 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
         /// <summary>
         /// Gets or sets the web service wrapper
         /// </summary>
-        public MongoDBConnectionWrapper MongoDBWrapper
+        public MongoDBCollectionWrapper<T> MongoDBWrapper
         {
             get
             {
-                return (MongoDBConnectionWrapper)this.ObjectUnderTest;
+                return (MongoDBCollectionWrapper<T>)this.ObjectUnderTest;
             }
 
             set
             {
                 this.ObjectUnderTest = value;
             }
+        }
+
+        /// <summary>
+        /// Get the client
+        /// </summary>
+        /// <returns>The database connection</returns>
+        protected virtual IMongoClient GetMongoDBClient()
+        {
+            var mongoURL = new MongoUrl(this.GetBaseConnectionString());
+            IMongoClient client = new MongoClient(mongoURL);
+            return client;
         }
 
         /// <summary>
@@ -60,15 +72,21 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
         }
 
         /// <summary>
-        /// Close the database connection
+        /// Get the base web service url
         /// </summary>
-        /// <param name="resultType">The test result</param>
-        protected override void BeforeLoggingTeardown(TestResultType resultType)
+        /// <returns>The base web service url</returns>
+        protected virtual string GetBaseDatabaseString()
         {
-            if (this.IsObjectUnderTestStored())
-            {
-                this.MongoDBWrapper.Dispose();
-            }
+            return MongoDBConfig.GetDatabaseString();
+        }
+
+        /// <summary>
+        /// Get the base web service url
+        /// </summary>
+        /// <returns>The base web service url</returns>
+        protected virtual string GetBaseCollectionString()
+        {
+            return MongoDBConfig.GetCollectionString();
         }
 
         /// <summary>
@@ -77,8 +95,8 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
         protected override void SetupEventFiringTester()
         {
             this.Log.LogMessage(MessageType.INFORMATION, "Getting event logging database wrapper");
-            this.MongoDBWrapper = new EventFiringMongoDBConnectionWrapper(MongoDBConfig.GetConnectionString(), MongoDBConfig.GetDatabaseString());
-            this.MapEvents((EventFiringMongoDBConnectionWrapper)this.MongoDBWrapper);
+            this.MongoDBWrapper = new EventFiringMongoDBCollectionWrapper<T>(MongoDBConfig.GetConnectionString(), MongoDBConfig.GetDatabaseString(), MongoDBConfig.GetCollectionString());
+            this.MapEvents((EventFiringMongoDBCollectionWrapper<T>)this.MongoDBWrapper);
         } 
 
         /// <summary>
@@ -87,7 +105,7 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
         protected override void SetupNoneEventFiringTester()
         {
             this.Log.LogMessage(MessageType.INFORMATION, "Getting database wrapper");
-            this.MongoDBWrapper = new MongoDBConnectionWrapper(MongoDBConfig.GetConnectionString(), MongoDBConfig.GetDatabaseString());
+            this.MongoDBWrapper = new MongoDBCollectionWrapper<T>(MongoDBConfig.GetConnectionString(), MongoDBConfig.GetDatabaseString(), MongoDBConfig.GetCollectionString());
         }
 
         /// <summary>
@@ -95,14 +113,14 @@ namespace Magenic.MaqsFramework.BaseMongoDBTest
         /// </summary>
         protected override void CreateNewTestObject()
         {
-            this.TestObject = new MongoTestObject(this.MongoDBWrapper, this.Log, this.SoftAssert, this.PerfTimerCollection);
+            this.TestObject = new MongoTestObject<T>(this.MongoDBWrapper, this.Log, this.SoftAssert, this.PerfTimerCollection);
         }
 
         /// <summary>
         /// Map database events to log events
         /// </summary>
         /// <param name="eventFiringConnectionWrapper">The event firing database wrapper that we want mapped</param>
-        private void MapEvents(EventFiringMongoDBConnectionWrapper eventFiringConnectionWrapper)
+        private void MapEvents(EventFiringMongoDBCollectionWrapper<T> eventFiringConnectionWrapper)
         {
             if (this.LoggingEnabledSetting == LoggingEnabled.YES || this.LoggingEnabledSetting == LoggingEnabled.ONFAIL)
             {
