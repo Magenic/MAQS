@@ -9,6 +9,7 @@
     <GettingStartedGuide>Getting Started Guide.doc</GettingStartedGuide>
     <ReleaseNotes>ReleaseNotes.txt</ReleaseNotes>
     <Icon>QATTest.ico</Icon>
+    <PreviewImage>QATTest.ico</PreviewImage>
     <Tags>Test Automation Selenium</Tags>
   </Metadata>
   <Installation>

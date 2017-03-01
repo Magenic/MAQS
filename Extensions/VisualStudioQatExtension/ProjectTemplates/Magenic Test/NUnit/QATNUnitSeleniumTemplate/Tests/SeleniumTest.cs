@@ -5,7 +5,7 @@ using PageModel;
 namespace $safeprojectname$
 {
     /// <summary>
-    /// $safeprojectname$ test class
+    /// $safeitemname$ test class
     /// </summary>
     [TestFixture]
     public class $safeitemname$ : BaseSeleniumTest

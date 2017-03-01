@@ -4,7 +4,7 @@ MAQS Release Notes:
 	- Add new base test type, which does not include a system under test
 	- Add TestObject to base tests
 	- Add remote capability settings to app config - Needed for Sauce Labs support
-	- Selenium wait/find resturcture
+	- Selenium wait/find restructure
 	- Added FluentElement
 	- Added basic Mongo support	
 	- Fixed Firefox settings to use Gecko, without this change Firefox will not work with Selenium 3
