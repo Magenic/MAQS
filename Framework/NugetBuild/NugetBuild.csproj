@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{988DFCFF-49AE-4677-9B50-D61C14008E49}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NugetBuild</RootNamespace>
+    <AssemblyName>NugetBuild</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>0</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseShim|AnyCPU'">
+    <OutputPath>bin\ReleaseShim\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BaseAppiumTest\BaseAppiumTest.csproj">
+      <Project>{b7d2643d-6848-4233-bd60-e52db10a6200}</Project>
+      <Name>BaseAppiumTest</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BaseDatabaseTest\BaseDatabaseTest.csproj">
+      <Project>{44c5417d-f2b6-4d8d-a2be-4f43f75febc7}</Project>
+      <Name>BaseDatabaseTest</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BaseEmailTest\BaseEmailTest.csproj">
+      <Project>{6e551c39-5307-4371-8315-8fd5b9381aed}</Project>
+      <Name>BaseEmailTest</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BaseMongoDBTest\BaseMongoDBTest.csproj">
+      <Project>{86a25804-71a8-40e5-8f87-5e4726def076}</Project>
+      <Name>BaseMongoDBTest</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BaseSeleniumTest\BaseSeleniumTest.csproj">
+      <Project>{cf21dfef-3fce-4766-b261-f2225b5442ec}</Project>
+      <Name>BaseSeleniumTest</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BaseTest\BaseTest.csproj">
+      <Project>{60f10d47-3546-4b4b-b49b-5a361ddc1bcb}</Project>
+      <Name>BaseTest</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BaseWebServiceTest\BaseWebServiceTest.csproj">
+      <Project>{36c9b036-114e-4e85-be8f-5d7f5661c432}</Project>
+      <Name>BaseWebServiceTest</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{949364a1-08d7-4e79-8ca2-228ea925438f}</Project>
+      <Name>Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packageNunit.nuspec">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="package.nuspec">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Settings.StyleCop" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup Condition=" '$(Configuration)' == 'ReleaseShim'">
+    <PostBuildEvent>"$(SolutionDir).nuget\NuGet.exe" pack "$(ProjectDir)packageNunit.nuspec" -IncludeReferencedProjects -BasePath "$(ProjectDir)packageNunit.nuspec" -NonInteractive -OutputDirectory "$(TargetDir) "  -Symbols -Prop Configuration=$(Configuration);OutputPath="$(OutDir) "</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' != 'ReleaseShim'">
+    <PostBuildEvent>"$(SolutionDir).nuget\NuGet.exe" pack "$(ProjectDir)package.nuspec" -IncludeReferencedProjects -BasePath "$(ProjectDir)package.nuspec" -NonInteractive -OutputDirectory "$(TargetDir) "  -Symbols -Prop Configuration=$(Configuration);OutputPath="$(OutDir) "</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

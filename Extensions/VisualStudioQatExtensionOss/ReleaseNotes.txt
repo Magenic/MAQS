@@ -1,0 +1,18 @@
+Maqs Framework Release Notes:
+
+4.0.0 - 2017/3/1 
+	Initial release to open source community
+	- Supports both Visual Studio and NUnit based tests
+	- Visual Studio and NUnit test project templates
+	- Supports Selenium based tests
+	- Selenium extensions
+		Wait for/until elopement state
+		Element handler for interacting with elements
+		Action builder for common Selenium actions
+	- Selenium utilities
+		Screenshots
+		Web element to web driver
+		Web element or driver to JavaScript Executor
+	- Selenium event logging support
+	- Console, TXT and HTML logging support
+	- Configuration support
