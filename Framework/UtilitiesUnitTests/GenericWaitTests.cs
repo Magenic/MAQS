@@ -78,7 +78,7 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void PassStringsEqual()
         {
-            Assert.IsTrue(GenericWait.WaitUntil<string>(this.FunctionTestString, "test string").Equals("string"));
+            Assert.IsTrue(GenericWait.WaitUntil<string>(this.FunctionTestString, "test string").Equals("test string"));
         }
         #endregion
 
@@ -322,7 +322,7 @@ namespace UtilitiesUnitTesting
         /// <returns>Always returns a specific string</returns>
         private string FunctionTestString()
         {
-            return "Test String";
+            return "test string";
         }
 
         /// <summary>
