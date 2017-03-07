@@ -71,6 +71,18 @@ namespace UtilitiesUnitTesting
         #endregion
 
         /// <summary>
+        /// Test wait until function returns expected value, then returns the value
+        /// </summary>
+        #region WaitUntilFunctionEqualsExpected
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void PassStringsEqual()
+        {
+            Assert.IsTrue(GenericWait.WaitUntil<string>(this.FunctionTestString, "test string").Equals("string"));
+        }
+        #endregion
+
+        /// <summary>
         /// Test wait for with one parameter works when the wait function returns true
         /// </summary>
         #region WaitForWithType
@@ -269,7 +281,7 @@ namespace UtilitiesUnitTesting
         {
             return true;
         }
-
+        
         /// <summary>
         /// Test function that always returns false
         /// </summary>
@@ -302,6 +314,15 @@ namespace UtilitiesUnitTesting
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Test function that always returns a specific string
+        /// </summary>
+        /// <returns>Always returns a specific string</returns>
+        private string FunctionTestString()
+        {
+            return "Test String";
         }
 
         /// <summary>
