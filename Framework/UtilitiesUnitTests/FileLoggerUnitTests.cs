@@ -72,7 +72,7 @@ namespace UtilitiesUnitTesting
             string path = Path.Combine(LoggingConfig.GetLogDirectory(), this.GetFileName("TestHierarchicalConsoleLogger" + rowDictionary["LogLevel"], "txt"));
 
             // Pipe the console to this file
-            using (var cc = new ConsoleCopy(path))
+            using (ConsoleCopy consoleCopy = new ConsoleCopy(path))
             {
                 ConsoleLogger console = new ConsoleLogger();
                 this.TestHierarchicalLogging(console, path);
@@ -288,6 +288,9 @@ namespace UtilitiesUnitTesting
             logger.LogMessage(MessageType.WARNING, logLine, MessageType.WARNING);
             logger.LogMessage(MessageType.ERROR, logLine, MessageType.ERROR);
 
+            // Give the write time
+            Thread.Sleep(250);
+            
             // Get the file content
             string logContents = this.ReadTextFile(filePath);
 
@@ -302,14 +305,11 @@ namespace UtilitiesUnitTesting
                 }
             }
             
-            // Give the write time
-            Thread.Sleep(1000);
-            
             // Set the log level so that the soft asserts log
             logger.SetLoggingLevel(MessageType.VERBOSE);
 
             // Fail test if any soft asserts failed
-            softAssert.FailTestIfAssertFailed();
+            softAssert.FailTestIfAssertFailed(logContents);
         }
 
         /// <summary>
