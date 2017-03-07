@@ -60,31 +60,103 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <None Include="ItemTemplates\Magenic Test\NUnit\QATNUnitAppiumTest.zip" />
-    <None Include="ItemTemplates\Magenic Test\NUnit\QATNUnitDatabaseTest.zip" />
-    <None Include="ItemTemplates\Magenic Test\NUnit\QATNUnitEmailTest.zip" />
-    <None Include="ItemTemplates\Magenic Test\NUnit\QATNUnitSeleniumTest.zip" />
-    <None Include="ItemTemplates\Magenic Test\NUnit\QATNUnitWebServiceTest.zip" />
-    <None Include="ItemTemplates\Magenic Test\QATAppiumModel.zip" />
-    <None Include="ItemTemplates\Magenic Test\QATSeleniumModel.zip" />
-    <None Include="ItemTemplates\Magenic Test\QATVisualStudioAppiumTest.zip" />
-    <None Include="ItemTemplates\Magenic Test\QATVisualStudioDatabaseTest.zip" />
-    <None Include="ItemTemplates\Magenic Test\QATVisualStudioEmailTest.zip" />
-    <None Include="ItemTemplates\Magenic Test\QATVisualStudioSeleniumTest.zip" />
-    <None Include="ItemTemplates\Magenic Test\QATVisualStudioWebServiceTest.zip" />
-    <None Include="Key.snk" />
-    <None Include="ProjectTemplates\Magenic Test\NUnit\QATNUnitAppiumTemplate.zip" />
-    <None Include="ProjectTemplates\Magenic Test\NUnit\QATNUnitCompositeTemplate.zip" />
-    <None Include="ProjectTemplates\Magenic Test\NUnit\QATNUnitDatabaseTemplate.zip" />
-    <None Include="ProjectTemplates\Magenic Test\NUnit\QATNUnitEmailTemplate.zip" />
-    <None Include="ProjectTemplates\Magenic Test\NUnit\QATNUnitSeleniumTemplate.zip" />
-    <None Include="ProjectTemplates\Magenic Test\NUnit\QATNUnitWebServiceTemplate.zip" />
-    <None Include="ProjectTemplates\Magenic Test\QATAppiumTemplate.zip" />
-    <None Include="ProjectTemplates\Magenic Test\QATCompositeTemplate.zip" />
-    <None Include="ProjectTemplates\Magenic Test\QATDatabaseTemplate.zip" />
-    <None Include="ProjectTemplates\Magenic Test\QATEmailTemplate.zip" />
-    <None Include="ProjectTemplates\Magenic Test\QATSeleniumTemplate.zip" />
-    <None Include="ProjectTemplates\Magenic Test\QATWebserviceTemplate.zip" />
+    <Content Include="ItemTemplates\Magenic Test\NUnit\QATNUnitAppiumTest.zip" >
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ItemTemplates\Magenic Test\NUnit\QATNUnitDatabaseTest.zip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ItemTemplates\Magenic Test\NUnit\QATNUnitEmailTest.zip" >
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ItemTemplates\Magenic Test\NUnit\QATNUnitSeleniumTest.zip" >
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ItemTemplates\Magenic Test\NUnit\QATNUnitWebServiceTest.zip" >
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ItemTemplates\Magenic Test\QATAppiumModel.zip" >
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ItemTemplates\Magenic Test\QATSeleniumModel.zip" >
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ItemTemplates\Magenic Test\QATVisualStudioAppiumTest.zip" >
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ItemTemplates\Magenic Test\QATVisualStudioDatabaseTest.zip" >
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ItemTemplates\Magenic Test\QATVisualStudioEmailTest.zip" >
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ItemTemplates\Magenic Test\QATVisualStudioSeleniumTest.zip" >
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ItemTemplates\Magenic Test\QATVisualStudioWebServiceTest.zip" >
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Key.snk" />
+    <Content Include="ProjectTemplates\Magenic Test\NUnit\QATNUnitAppiumTemplate.zip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\Magenic Test\NUnit\QATNUnitCompositeTemplate.zip" >
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\Magenic Test\NUnit\QATNUnitDatabaseTemplate.zip" >
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\Magenic Test\NUnit\QATNUnitEmailTemplate.zip" >
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\Magenic Test\NUnit\QATNUnitSeleniumTemplate.zip" >
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\Magenic Test\NUnit\QATNUnitWebServiceTemplate.zip" >
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\Magenic Test\QATAppiumTemplate.zip" >
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\Magenic Test\QATCompositeTemplate.zip" >
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\Magenic Test\QATDatabaseTemplate.zip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\Magenic Test\QATEmailTemplate.zip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\Magenic Test\QATSeleniumTemplate.zip" >
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\Magenic Test\QATWebserviceTemplate.zip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
