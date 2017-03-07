@@ -87,38 +87,12 @@ namespace Magenic.MaqsFramework.Utilities.Helper
         }
 
         /// <summary>
-        /// Checks that the objects all match
-        /// </summary>
-        /// <param name="param">objects passed in</param>
-        /// <returns></returns>
-        private static bool ParamsEqual(params object[] param)
-        {
-            // For each item
-            foreach (var item in param)
-            {
-                // and each item
-                foreach (var item2 in param)
-                {
-                    // Compare each item
-                    if (item != item2)
-                    {
-                        // If any do not match, then they are not equal
-                        return false;
-                    }
-                }
-            }
-
-            // If we get here, then we had no mismatches
-            return true;
-        }
-
-        /// <summary>
         /// Waits for a function with a return type T to return a value that is to an argument of the same type.  If it times out it returns the value of the function.
         /// </summary>
         /// <typeparam name="T">Type returned</typeparam>
         /// <param name="waitForTrue">Function that returns type T</param>
         /// <param name="comparativeValue">value of the same type as T</param>
-        /// <returns></returns>
+        /// <returns>if it returned before the timeout occurred</returns>
         public static T WaitUntil<T>(Func<T> waitForTrue, T comparativeValue)
         {
             // Set start time and exception holder
@@ -132,6 +106,7 @@ namespace Magenic.MaqsFramework.Utilities.Helper
             {
                 // Check if they are equal (running them through another function because we can't use an operator with T
                 paramsAreEqual = ParamsEqual(waitForTrue(), comparativeValue);
+
                 // If they aren't, wait
                 Thread.Sleep(retryTimeFromConfig);
             }
@@ -339,6 +314,32 @@ namespace Magenic.MaqsFramework.Utilities.Helper
             while ((DateTime.Now - start) < timeout);
 
             throw new Exception("Timed out waiting for " + waitFor.Method.Name + " to return", exception);
+        }
+
+        /// <summary>
+        /// Checks that the objects all match
+        /// </summary>
+        /// <param name="param">objects passed in</param>
+        /// <returns>parameters are all equal as a boolean</returns>
+        private static bool ParamsEqual(params object[] param)
+        {
+            // For each item
+            foreach (var item in param)
+            {
+                // and each item
+                foreach (var item2 in param)
+                {
+                    // Compare each item
+                    if (item != item2)
+                    {
+                        // If any do not match, then they are not equal
+                        return false;
+                    }
+                }
+            }
+
+            // If we get here, then we had no mismatches
+            return true;
         }
     }
 }
