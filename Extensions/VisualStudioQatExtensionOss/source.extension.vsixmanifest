@@ -13,7 +13,7 @@
     <Tags>Test Automation Selenium</Tags>
   </Metadata>
   <Installation>
-    <InstallationTarget Version="[10.0,]" Id="Microsoft.VisualStudio.Pro" />
+    <InstallationTarget Version="[11.0,]" Id="Microsoft.VisualStudio.Pro" />
   </Installation>
   <Dependencies>
     <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
