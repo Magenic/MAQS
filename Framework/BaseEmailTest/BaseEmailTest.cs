@@ -5,6 +5,7 @@
 // <summary>This is the base email test class</summary>
 //--------------------------------------------------
 using AE.Net.Mail;
+using MailKit;
 using Magenic.MaqsFramework.BaseTest;
 using Magenic.MaqsFramework.Utilities.Data;
 using Magenic.MaqsFramework.Utilities.Helper;
