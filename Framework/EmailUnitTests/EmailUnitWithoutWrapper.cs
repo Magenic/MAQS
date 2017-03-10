@@ -25,7 +25,7 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void BasicConnectionTest()
         {
-            using (EmailConnectionWrapper test = new EmailConnectionWrapper("imap.gmail.com", "maqsbaseemailtest@gmail.com", "Magenic3", 993, 10000, true, true))
+            using (EmailConnectionWrapper test = new EmailConnectionWrapper("imap.gmail.com", "maqsbaseemailtest@gmail.com", "Magenic3", 993, 10000, true, false))
             {
                 test.EmailConnection.NoOp();
             }

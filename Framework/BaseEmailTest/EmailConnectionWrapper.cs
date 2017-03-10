@@ -68,6 +68,11 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         public string CurrentMailBox { get; private set; }
 
         /// <summary>
+        /// Gets the current folder
+        /// </summary>
+        public IMailFolder CurrentFolder { get; private set; }
+
+        /// <summary>
         /// Dispose of the database connection
         /// </summary>
         public virtual void Dispose()
@@ -120,12 +125,9 @@ namespace Magenic.MaqsFramework.BaseEmailTest
             List<string> mailBoxes = new List<string>();
 
             // Get all mailboxes
-            foreach (FolderNamespace folderNamespace in this.EmailConnection.PersonalNamespaces)
+            foreach (IMailFolder mailbox in this.EmailConnection.GetFolders(this.BaseNamespace()))
             {
-                foreach (IMailFolder mailbox in this.EmailConnection.GetFolders(folderNamespace))
-                {
-                    mailBoxes.Add(mailbox.FullName);
-                }
+                mailBoxes.Add(mailbox.FullName);
             }
 
             return mailBoxes;
@@ -160,20 +162,23 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         public virtual IMailFolder GetMailbox(string mailbox)
         {
             this.CurrentMailBox = mailbox;
-            return this.EmailConnection.GetFolder(mailbox);
+            this.CurrentFolder = this.EmailConnection.GetFolder(mailbox);
+            this.CurrentFolder.Open(FolderAccess.ReadWrite);
+            return this.CurrentFolder;
         }
 
         /// <summary>
         /// Select a mailbox by name
         /// </summary>
-        /// <param name="mailBox">The name of the mailbox</param>
+        /// <param name="mailbox">The name of the mailbox</param>
         /// <example>
         /// <code source="../EmailUnitTests/EmailUnitWithWrapper.cs" region="SelectMailbox" lang="C#" />
         /// </example> 
-        public virtual void SelectMailbox(string mailBox)
+        public virtual void SelectMailbox(string mailbox)
         {
-            this.CurrentMailBox = mailBox;
-            this.EmailConnection.GetFolder(mailBox).Open(FolderAccess.ReadWrite);
+            this.CurrentMailBox = mailbox;
+            this.CurrentFolder = this.EmailConnection.GetFolder(mailbox);
+            this.CurrentFolder.Open(FolderAccess.ReadWrite);
         }
 
         /// <summary>
@@ -323,8 +328,6 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         public virtual void MoveMailMessage(string uid, string destinationMailbox)
         {
             IMailFolder folder = this.GetCurrentFolder();
-            var uID = new UniqueId(uint.Parse(uid));
-            var testfolder = this.EmailConnection.GetFolder(destinationMailbox);
             folder.MoveTo(new UniqueId(uint.Parse(uid)), this.EmailConnection.GetFolder(destinationMailbox));
         }
 
@@ -632,7 +635,6 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <returns>The default folder namespace</returns>
         private FolderNamespace BaseNamespace()
         {
-            var namepsace = this.EmailConnection.PersonalNamespaces[0];
             return this.EmailConnection.PersonalNamespaces[0];
         }
 
@@ -642,9 +644,8 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <returns>The folder representing the CurrentMailBox</returns>
         private IMailFolder GetCurrentFolder()
         {
-            var folder = this.EmailConnection.GetFolder(this.CurrentMailBox);
-            folder.Check();
-            return folder;
+            this.CurrentFolder.Check();
+            return this.CurrentFolder;
         }
     }
 }
