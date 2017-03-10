@@ -115,7 +115,7 @@ namespace Magenic.MaqsFramework.BaseTest
 
             this.PostSetupLogging();
         }
-
+         
         /// <summary>
         /// Tear down after a test
         /// </summary>

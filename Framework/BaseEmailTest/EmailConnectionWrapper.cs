@@ -4,20 +4,17 @@
 // </copyright>
 // <summary>The basic email interactions</summary>
 //--------------------------------------------------
-//using AE.Net.Mail;
-//using AE.Net.Mail.Imap;
-using MailKit;
-using MailKit.Net.Imap;
-using MimeKit;
-using MailKit.Search;
-using MailKit.Net.Pop3;
-using MailKit.Security;
 using Magenic.MaqsFramework.Utilities.Data;
 using Magenic.MaqsFramework.Utilities.Helper;
+using MailKit;
+using MailKit.Net.Imap;
+using MailKit.Search;
+using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 
 namespace Magenic.MaqsFramework.BaseEmailTest
@@ -27,8 +24,6 @@ namespace Magenic.MaqsFramework.BaseEmailTest
     /// </summary>
     public class EmailConnectionWrapper : IDisposable
     {
-        string TemphostVar;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="EmailConnectionWrapper" /> class
         /// </summary>
@@ -42,15 +37,12 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         public EmailConnectionWrapper(string host, string username, string password, int port, int serverTimeout = 10000, bool isSSL = true, bool skipSslCheck = false)
         {
             // Get the email connection and make sure it is live
-            //this.EmailConnection = new ImapClient(host, username, password, AuthMethods.Login, port, isSSL, skipSslCheck);
-            //this.EmailConnection.ServerTimeout = serverTimeout;
             var client = new ImapClient();
             client.ServerCertificateValidationCallback = (s, c, h, e) => isSSL;
             client.Connect(host, port, true);
             client.Authenticate(username, password);
             client.Timeout = serverTimeout;
             this.EmailConnection = client;
-            this.TemphostVar = host;
 
             this.DefaultToInboxIfExists();
         }
@@ -88,7 +80,6 @@ namespace Magenic.MaqsFramework.BaseEmailTest
             // Make sure the connection exists and is open before trying to close it
             if (this.EmailConnection.IsConnected)
             {
-                //this.EmailConnection.Logout();
                 this.EmailConnection.Disconnect(true);
             }
 
@@ -106,8 +97,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         {
             try
             {
-                //return this.EmailConnection.IsConnected && this.EmailConnection.GetMessageCount() > -2;
-                return this.EmailConnection.IsConnected && this.EmailConnection.Inbox.Count > -2; //not convinced this works, want all messages not just whats in the inbox
+                return this.EmailConnection.IsConnected && this.GetCurrentFolder().Count > -2;
             }
             catch
             {
@@ -130,13 +120,30 @@ namespace Magenic.MaqsFramework.BaseEmailTest
             List<string> mailBoxes = new List<string>();
 
             // Get all mailboxes
-            //foreach (Mailbox mailbox in this.EmailConnection.ListMailboxes(string.Empty, "*"))
-            for(int i = 0; i < this.EmailConnection.PersonalNamespaces.Count; i++)
+            foreach (FolderNamespace folderNamespace in this.EmailConnection.PersonalNamespaces)
             {
-                foreach (IMailFolder mailbox in this.EmailConnection.GetFolders(this.EmailConnection.PersonalNamespaces[i]))
+                foreach (IMailFolder mailbox in this.EmailConnection.GetFolders(folderNamespace))
                 {
-                    mailBoxes.Add(mailbox.Name);
+                    mailBoxes.Add(mailbox.FullName);
                 }
+            }
+
+            return mailBoxes;
+        }
+
+        /// <summary>
+        /// Get the list of mailbox names in a specific namespace
+        /// </summary>
+        /// /// <param name="folderNamespace">The folderNamespace</param>
+        /// <returns>A list of mailbox names in a specific namespace</returns>
+        public virtual List<string> GetMailBoxNamesInNamespace(FolderNamespace folderNamespace)
+        {
+            List<string> mailBoxes = new List<string>();
+
+            // Get all mailboxes in folderNamespace
+            foreach (IMailFolder mailbox in this.EmailConnection.GetFolders(folderNamespace))
+            {
+                mailBoxes.Add(mailbox.FullName);
             }
 
             return mailBoxes;
@@ -150,10 +157,10 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <example>
         /// <code source="../EmailUnitTests/EmailUnitWithWrapper.cs" region="GetMailbox" lang="C#" />
         /// </example> 
-        public virtual IMailFolder GetMailbox(string mailBox)
+        public virtual IMailFolder GetMailbox(string mailbox)
         {
-            this.CurrentMailBox = mailBox;
-            return this.EmailConnection.GetFolder(mailBox);
+            this.CurrentMailBox = mailbox;
+            return this.EmailConnection.GetFolder(mailbox);
         }
 
         /// <summary>
@@ -166,8 +173,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         public virtual void SelectMailbox(string mailBox)
         {
             this.CurrentMailBox = mailBox;
-            //this.EmailConnection.SelectMailbox(mailBox);
-            this.EmailConnection.GetFolder(mailBox);
+            this.EmailConnection.GetFolder(mailBox).Open(FolderAccess.ReadWrite);
         }
 
         /// <summary>
@@ -180,11 +186,9 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         public virtual void CreateMailbox(string newMailBox)
         {
             this.CurrentMailBox = newMailBox;
-            //this.EmailConnection.CreateMailbox(newMailBox);
-            var topFolder = this.EmailConnection.GetFolder(this.EmailConnection.PersonalNamespaces[0]);
+            var topFolder = this.EmailConnection.GetFolder(this.BaseNamespace());
             topFolder.Create(newMailBox, true);
         }
-
         #endregion
 
         #region Messages
@@ -220,8 +224,19 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// </example>
         public virtual MimeMessage GetMessage(string uid, bool headerOnly = false, bool markRead = false)
         {
-            //MimeMessage GetMessage(UniqueId uid, CancellationToken cancellationToken = default(CancellationToken), ITransferProgress progress = null);
-            return this.EmailConnection.Inbox.GetMessage(new UniqueId(UInt32.Parse(uid)));
+            UniqueId uniqueID = new UniqueId(uint.Parse(uid));
+            if (markRead)
+            {
+                this.GetCurrentFolder().AddFlags(uniqueID, MessageFlags.Seen, true);
+            }
+
+            MimeMessage message = this.GetCurrentFolder().GetMessage(uniqueID);
+            if (headerOnly)
+            {
+                message.Body = null;
+            }
+
+            return message;
         }
 
         /// <summary>
@@ -247,7 +262,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         public virtual List<MimeMessage> GetAllMessageHeaders(string mailBox)
         {
             this.SelectMailbox(mailBox);
-            return this.SearchMessages(SearchCondition.From("*"));
+            return this.SearchMessages(SearchQuery.All);
         }
 
         /// <summary>
@@ -259,17 +274,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// </example>
         public virtual void DeleteMessage(MimeMessage message)
         {
-            foreach (var folder in this.EmailConnection.GetFolders(this.BaseNamespace())) {
-                var items = folder.Fetch(0, -1, MessageSummaryItems.UniqueId | MessageSummaryItems.Flags);
-                foreach(var item in items) {
-
-                    var currentMessage = folder.GetMessage(item.UniqueId);
-                    if (currentMessage.Equals(message)){
-                        folder.AddFlags(item.UniqueId, MessageFlags.Deleted, true);
-                    }
-                }
-                folder.Expunge();
-            }
+            this.DeleteMessage(this.GetUniqueIDString(message));
         }
 
         /// <summary>
@@ -281,9 +286,16 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// </example>
         public virtual void DeleteMessage(string uid)
         {
-            //this.EmailConnection.DeleteMessage(uid);
-            foreach (var folder in this.EmailConnection.GetFolders(this.BaseNamespace())) {
-                folder.Expunge(new UniqueId[] { new UniqueId(UInt32.Parse(uid))});
+            var folder = this.GetCurrentFolder();
+            var items = folder.Fetch(0, -1, MessageSummaryItems.UniqueId | MessageSummaryItems.Flags);
+            foreach (var item in items)
+            {
+                if (uid.Equals(item.UniqueId.Id.ToString()))
+                {
+                    folder.AddFlags(item.UniqueId, MessageFlags.Deleted, true);
+                }
+
+                folder.Expunge();
             }
         }
 
@@ -297,7 +309,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// </example>  
         public virtual void MoveMailMessage(MimeMessage message, string destinationMailbox)
         {
-            this.MoveMailMessage(message.MessageId, destinationMailbox);
+            this.MoveMailMessage(this.GetUniqueIDString(message), destinationMailbox);
         }
 
         /// <summary>
@@ -310,19 +322,10 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// </example>
         public virtual void MoveMailMessage(string uid, string destinationMailbox)
         {
-            try
-            {
-                //this.EmailConnection.MoveMessage(uid, destinationMailbox);
-                this.FolderContaining(uid).MoveTo(new UniqueId(UInt32.Parse(uid)), this.EmailConnection.GetFolder(uid));
-            }
-            catch
-            {
-                // Handle gmail move bug
-                Thread.Sleep(1000);
-                //this.EmailConnection.MoveMessage(uid, destinationMailbox);
-                this.FolderContaining(uid).MoveTo(new UniqueId(UInt32.Parse(uid)), this.EmailConnection.GetFolder(uid));
-                Thread.Sleep(100);
-            }
+            IMailFolder folder = this.GetCurrentFolder();
+            var uID = new UniqueId(uint.Parse(uid));
+            var testfolder = this.EmailConnection.GetFolder(destinationMailbox);
+            folder.MoveTo(new UniqueId(uint.Parse(uid)), this.EmailConnection.GetFolder(destinationMailbox));
         }
 
         #endregion
@@ -354,8 +357,8 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         public virtual List<MimeEntity> GetAttachments(string mailBox, string uid)
         {
             this.SelectMailbox(mailBox);
-            return this.GetAttachments(this.GetMessage(uid));
-
+            var folder = this.GetCurrentFolder();
+            return this.GetAttachments(folder.GetMessage(new UniqueId(uint.Parse(uid))));
         }
 
         /// <summary>
@@ -402,18 +405,14 @@ namespace Magenic.MaqsFramework.BaseEmailTest
             }
 
             List<string> paths = new List<string>();
-            var messages = client.Inbox.Fetch(0, -1, MessageSummaryItems.Full | MessageSummaryItems.BodyStructure | MessageSummaryItems.UniqueId);
-            foreach (var message in messages) {
-
-            }
-
-            foreach (IEnumerable<MimeEntity> attachment in message.Attachments)
+            foreach (MimePart attachment in message.Attachments)
             {
-                //string destination = Path.Combine(downloadFolder, attachment.Filename);
-                var mime = (MimePart)client.Inbox.GetBodyPart(message.UniqueId.Value, attachment);
-                var fileName = mime.FileName;
-                string destination = Path.Combine(downloadFolder, FileName);
-                attachment.Save(destination);
+                string destination = Path.Combine(downloadFolder, attachment.FileName);
+                using (var stream = File.Create(destination))
+                {
+                    attachment.ContentObject.DecodeTo(stream);
+                }
+
                 paths.Add(destination);
             }
 
@@ -453,18 +452,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// </example>
         public virtual List<MimeMessage> SearchMessagesSince(DateTime time, bool headersOnly = true, bool markRead = false)
         {
-            // Add google hack
-            //if (this.EmailConnection.Host.ToLower().Equals("imap.gmail.com"))
-            if (this.TemphostVar.ToLower().Equals("imap.gmail.com"))
-            {
-                //SearchCondition condition = new SearchCondition();
-                //condition.Value = string.Format(@"X-GM-RAW ""AFTER:{0:yyyy-MM-dd}""", SearchCondition.SentSince(time).Value);
-                return this.SearchMessages(SearchQuery.SentAfter(time), headersOnly, markRead);
-            }
-            else
-            {
-                return this.SearchMessages(SearchQuery.SentAfter(time), headersOnly, markRead);
-            }
+            return this.SearchMessages(SearchQuery.SentAfter(time), headersOnly, markRead);
         }
 
         /// <summary>
@@ -517,8 +505,10 @@ namespace Magenic.MaqsFramework.BaseEmailTest
 
             foreach (MimeEntity bodyPart in message.BodyParts)
             {
-                //types.Add(attachment.ContentType);
-                types.Add(bodyPart.ContentType.Name);
+                if (!bodyPart.IsAttachment)
+                {
+                    types.Add(bodyPart.ContentType.MimeType);
+                }
             }
 
             return types;
@@ -537,13 +527,46 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         {
             foreach (MimeEntity bodyPart in message.BodyParts)
             {
-                if (bodyPart.ContentType.Name.Equals(contentType, StringComparison.CurrentCultureIgnoreCase))
+                if (bodyPart.ContentType.MimeType.Equals(contentType, StringComparison.CurrentCultureIgnoreCase))
                 {
-                    return bodyPart.ToString();
+                    MemoryStream stream = new MemoryStream();
+                    bodyPart.WriteTo(stream, true);
+                    return Encoding.ASCII.GetString(stream.ToArray());
                 }
             }
 
             throw new Exception(StringProcessor.SafeFormatter("Failed to find content type '{0}'", contentType));
+        }
+
+        /// <summary>
+        /// Get a list of flags for the email with the given uniqueID
+        /// </summary>
+        /// <param name="uid">The uniqueID for the message</param>
+        /// <returns>The list of flags</returns>
+        public List<IMessageSummary> GetEmailFlags(string uid)
+        {
+            var folder = this.GetCurrentFolder();
+            return folder.Fetch(new[] { new UniqueId(uint.Parse(uid)) }, MessageSummaryItems.Flags | MessageSummaryItems.GMailLabels).ToList();
+        }
+
+        /// <summary>
+        /// Get the UniqueID for the inputted MimeMessage
+        /// </summary>
+        /// <param name="message">MimeMessage to get the Unique ID for</param>
+        /// <returns>The UniqueID in string form</returns>
+        public string GetUniqueIDString(MimeMessage message)
+        {
+            var folder = this.GetCurrentFolder();
+            var items = folder.Fetch(0, -1, MessageSummaryItems.UniqueId | MessageSummaryItems.Flags);
+            foreach (var item in items)
+            {
+                if (message.MessageId.Equals(folder.GetMessage(item.UniqueId).MessageId))
+                {
+                    return item.UniqueId.Id.ToString();
+                }
+            }
+
+            return string.Empty;
         }
 
         /// <summary>
@@ -554,11 +577,22 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         private List<MimeMessage> GetSearchResults(params object[] args)
         {
             List<MimeMessage> messageList = new List<MimeMessage>();
-            //foreach (Lazy<MimeMessage> message in this.EmailConnection.SearchMessages((SearchCondition)args[0], (bool)args[1], (bool)args[2]))
-            foreach (UniqueId uid in this.EmailConnection.Inbox.Search((SearchQuery)args[0], default(CancellationToken)))
+            IMailFolder folder = this.GetCurrentFolder();
+            foreach (UniqueId uid in folder.Search((SearchQuery)args[0], default(CancellationToken)))
             {
-                //messageList.Add(message.Value);
-                MimeMessage message = GetMessage(uid.Id.ToString());
+                if ((bool)args[2])
+                {
+                    folder.AddFlags(uid, MessageFlags.Seen, true);
+                }
+            
+                MimeMessage message = folder.GetMessage(uid);
+                var headers = message.Headers;
+
+                if ((bool)args[1])
+                {
+                    message.Body = null;
+                }
+
                 messageList.Add(message);
             }
 
@@ -578,7 +612,6 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// </summary>
         private void DefaultToInboxIfExists()
         {
-            //Mailbox[] mailboxes = this.EmailConnection.ListMailboxes(string.Empty, "*");
             List<IMailFolder> mailboxes = this.EmailConnection.GetFolders(this.BaseNamespace()).ToList();
 
             foreach (IMailFolder mailbox in mailboxes)
@@ -593,52 +626,25 @@ namespace Magenic.MaqsFramework.BaseEmailTest
             this.SelectMailbox(mailboxes[0].Name);
         }
 
-        private FolderNamespace BaseNamespace() {
+        /// <summary>
+        /// Get the default folder namespace
+        /// </summary>
+        /// <returns>The default folder namespace</returns>
+        private FolderNamespace BaseNamespace()
+        {
+            var namepsace = this.EmailConnection.PersonalNamespaces[0];
             return this.EmailConnection.PersonalNamespaces[0];
         }
 
-        private IMailFolder FolderContaining(string uid) {
-            foreach (var folder in this.EmailConnection.GetFolders(this.BaseNamespace())) {
-                var items = folder.Fetch(0, -1, MessageSummaryItems.UniqueId | MessageSummaryItems.Flags);
-                foreach (var item in items) {
-                    if (item.UniqueId.Id == UInt32.Parse(uid)) {
-                        return folder;
-                    }
-                }
-            }
-            return null;
-        }
-
-        private IMailFolder FolderContaining(MimeMessage message)
+        /// <summary>
+        /// Gets and update the Folder representing the CurrentMailBox
+        /// </summary>
+        /// <returns>The folder representing the CurrentMailBox</returns>
+        private IMailFolder GetCurrentFolder()
         {
-            foreach (var folder in this.EmailConnection.GetFolders(this.BaseNamespace()))
-            {
-                var items = folder.Fetch(0, -1, MessageSummaryItems.UniqueId | MessageSummaryItems.Flags);
-                foreach (var item in items)
-                {
-                    if (message.MessageId.Equals(folder.GetMessage(item.UniqueId).MessageId))
-                    {
-                        return folder;
-                    }
-                }
-            }
-            return null;
+            var folder = this.EmailConnection.GetFolder(this.CurrentMailBox);
+            folder.Check();
+            return folder;
         }
-
-        private MimeMessage GetMessage(string uid) {
-
-            foreach (var folder in this.EmailConnection.GetFolders(this.BaseNamespace()))
-            {
-                var items = folder.Fetch(0, -1, MessageSummaryItems.UniqueId | MessageSummaryItems.Flags);
-                foreach (var item in items)
-                {
-                    if (item.UniqueId.Id == UInt32.Parse(uid)) {
-                        return folder.GetMessage(item.UniqueId);
-                    }
-                }
-            }
-            return null;
-        }
-
     }
 }
