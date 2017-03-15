@@ -4,12 +4,12 @@
 // </copyright>
 // <summary>Unit test email wrapper with base email test</summary>
 //--------------------------------------------------
-using MailKit;
-using MimeKit;
-using MailKit.Search;
 using Magenic.MaqsFramework.BaseEmailTest;
 using Magenic.MaqsFramework.Utilities.Helper;
+using MailKit;
+using MailKit.Search;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -690,7 +690,7 @@ namespace EmailUnitTests
         public void GetMessagesSince()
         {
             this.EmailWrapper.SelectMailbox("Test/SubTest");
-
+            
             List<MimeMessage> messages = this.EmailWrapper.SearchMessagesSince(new DateTime(2016, 3, 11), false);
             Assert.AreEqual(messages.Count, 1, "Expected 1 message in 'Test/SubTest' after the given date but found " + messages.Count);
             Assert.IsFalse(string.IsNullOrEmpty(messages[0].Body.ToString()), "Expected the full message, not just the header");
@@ -938,6 +938,7 @@ namespace EmailUnitTests
                     return true;
                 }
             }
+
             return false;
         }
 

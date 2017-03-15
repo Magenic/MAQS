@@ -38,8 +38,8 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         {
             // Get the email connection and make sure it is live
             var client = new ImapClient();
-            client.ServerCertificateValidationCallback = (s, c, h, e) => isSSL;
-            client.Connect(host, port, true);
+            client.ServerCertificateValidationCallback = (s, c, h, e) => skipSslCheck;
+            client.Connect(host, port, isSSL);
             client.Authenticate(username, password);
             client.Timeout = serverTimeout;
             this.EmailConnection = client;
@@ -587,13 +587,17 @@ namespace Magenic.MaqsFramework.BaseEmailTest
                 {
                     folder.AddFlags(uid, MessageFlags.Seen, true);
                 }
-            
-                MimeMessage message = folder.GetMessage(uid);
-                var headers = message.Headers;
+
+                MimeMessage message = null;
 
                 if ((bool)args[1])
                 {
-                    message.Body = null;
+                    HeaderList headers = HeaderList.Load(folder.GetStream(uid, string.Empty));
+                    message = new MimeMessage(headers);
+                }
+                else
+                {
+                    message = folder.GetMessage(uid);
                 }
 
                 messageList.Add(message);
