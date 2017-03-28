@@ -2,7 +2,6 @@
   <TemplateData>
     <Name>Models</Name>
     <Description>Composite model template - NUnit</Description>
-    <ProjectType>CSharp</ProjectType>
     <ProjectSubType>Magenic Test</ProjectSubType>
     <SortOrder>1000</SortOrder>
     <CreateNewFolder>true</CreateNewFolder>

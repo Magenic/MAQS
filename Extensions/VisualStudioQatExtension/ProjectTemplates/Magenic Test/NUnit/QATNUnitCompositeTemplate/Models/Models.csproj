@@ -51,6 +51,9 @@
       <HintPath>..\..\packages\Magenic.MaqsFramework.NunitOnly.4.0.0\lib\net45\Magenic.MaqsFramework.BaseAppiumTest.dll</HintPath>
 	  <Private>True</Private>
     </Reference>
+    <Reference Include="Magenic.MaqsFramework.BaseTest">
+      <HintPath>..\..\packages\Magenic.MaqsFramework.NunitOnly.4.0.0\lib\net45\Magenic.MaqsFramework.BaseTest.dll</HintPath>
+    </Reference>
     <Reference Include="Magenic.MaqsFramework.Utilities">
       <HintPath>..\..\packages\Magenic.MaqsFramework.NunitOnly.4.0.0\lib\net45\Magenic.MaqsFramework.Utilities.dll</HintPath>
       <Private>True</Private>
