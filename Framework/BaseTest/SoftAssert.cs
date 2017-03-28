@@ -213,13 +213,22 @@ namespace Magenic.MaqsFramework.BaseTest
         /// </summary>
         public void FailTestIfAssertFailed()
         {
+            this.FailTestIfAssertFailed("*See log for more details");
+        }
+
+        /// <summary>
+        /// Fail test if there were one or more failures
+        /// </summary>
+        /// <param name="message">Customer error message</param>
+        public void FailTestIfAssertFailed(string message)
+        {
             this.LogFinalAssertData();
             this.didUserCheckForFailures = true;
 
             if (this.DidSoftAssertsFail())
             {
                 string errors = string.Join(Environment.NewLine, this.listOfExceptions);
-                throw new AggregateException("Soft Asserts failed:" + Environment.NewLine + errors + Environment.NewLine + "*See log for more details");
+                throw new AggregateException("Soft Asserts failed:" + Environment.NewLine + errors + Environment.NewLine + message);
             }
         }
 
