@@ -148,6 +148,9 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         {
             switch (type)
             {
+                case MessageType.VERBOSE:
+                    SetConsoleColor(ConsoleColor.Black, ConsoleColor.White);
+                    break;
                 case MessageType.ERROR:
                     SetConsoleColor(ConsoleColor.Red);
                     break;
