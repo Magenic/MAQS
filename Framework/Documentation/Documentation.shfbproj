@@ -32,10 +32,10 @@
       <DocumentationSource sourceFile="..\BaseDatabaseTest\BaseDatabaseTest.csproj" />
       <DocumentationSource sourceFile="..\BaseEmailTest\BaseEmailTest.csproj" />
       <DocumentationSource sourceFile="..\BaseMongoDBTest\BaseMongoDBTest.csproj" />
-      <DocumentationSource sourceFile="..\packages\Selenium.WebDriver.3.2.0\lib\net40\WebDriver.dll" />
-      <DocumentationSource sourceFile="..\packages\Selenium.WebDriver.3.2.0\lib\net40\WebDriver.xml" />
-      <DocumentationSource sourceFile="..\packages\Selenium.Support.3.2.0\lib\net40\WebDriver.Support.dll" />
-      <DocumentationSource sourceFile="..\packages\Selenium.Support.3.2.0\lib\net40\WebDriver.Support.xml" />
+      <DocumentationSource sourceFile="..\packages\Selenium.WebDriver.3.3.0\lib\net40\WebDriver.dll" />
+      <DocumentationSource sourceFile="..\packages\Selenium.WebDriver.3.3.0\lib\net40\WebDriver.xml" />
+      <DocumentationSource sourceFile="..\packages\Selenium.Support.3.3.0\lib\net40\WebDriver.Support.dll" />
+      <DocumentationSource sourceFile="..\packages\Selenium.Support.3.3.0\lib\net40\WebDriver.Support.xml" />
       <DocumentationSource sourceFile="..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll" />
       <DocumentationSource sourceFile="..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.xml" />
      <DocumentationSource sourceFile="..\packages\Appium.WebDriver.3.0.0.2\lib\net45\appium-dotnet-driver.dll" />

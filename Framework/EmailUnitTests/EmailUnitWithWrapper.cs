@@ -34,7 +34,7 @@ namespace EmailUnitTests
         private static bool loggingFolderExistsBeforeRun = false;
 
         /// <summary>
-        /// Setup before we start running selenium tests
+        /// Setup before running tests
         /// </summary>
         /// <param name="context">The upcoming test context</param>
         [ClassInitialize]
