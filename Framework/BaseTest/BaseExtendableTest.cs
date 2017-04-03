@@ -22,11 +22,6 @@ namespace Magenic.MaqsFramework.BaseTest
     public abstract class BaseExtendableTest<T, U> : BaseTest where T : class where U : BaseTestObject
     {
         /// <summary>
-        /// The Visual Studio TestContext
-        /// </summary>
-        private VSTestContext testContextInstance;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="BaseExtendableTest{T, U}" /> class
         /// </summary>
         public BaseExtendableTest()
