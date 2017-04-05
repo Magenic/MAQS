@@ -26,7 +26,7 @@ namespace WebServiceTesterUnitTesting
         private static bool loggingFolderExistsBeforeRun = false;
 
         /// <summary>
-        /// Setup before we start running selenium tests
+        /// Setup before running tests
         /// </summary>
         [OneTimeSetUp]
         public static void CheckBeforeClass()
@@ -40,7 +40,7 @@ namespace WebServiceTesterUnitTesting
         }
 
         /// <summary>
-        /// Cleanup after we are done running selenium tests
+        /// Cleanup after we are done running tests
         /// </summary>
         [OneTimeTearDown]
         public static void CleanupAfterClass()

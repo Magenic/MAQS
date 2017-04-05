@@ -109,7 +109,7 @@ namespace SeleniumUnitTests
         private static By flowerTable = By.CssSelector("#FlowerTable TD");
 
         /// <summary>
-        /// Setup before we start running selenium tests
+        /// Setup before running tests
         /// </summary>
         /// <param name="context">The upcoming test context</param>
         [ClassInitialize]
@@ -119,7 +119,7 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Cleanup after we are done running selenium tests
+        /// Cleanup after we are done running tests
         /// </summary>
         [ClassCleanup]
         public static void CleanupAfterClass()
@@ -552,7 +552,7 @@ namespace SeleniumUnitTests
         public void CaptureScreenshotThrownException()
         {
             FileLogger tempLogger = new FileLogger();
-            tempLogger.FilePath = "<>"; ////illegal file path
+            tempLogger.FilePath = "<>"; // illegal file path
 
             this.WebDriver.Navigate().GoToUrl(testSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
