@@ -24,7 +24,7 @@ The main idea behind MAQS is to avoid **reinventing the wheel**. Most automation
 6. [License](#License)
 
 ## Installation
-Read our [installation guide](https://github.com/Magenic/MAQS/wiki/Installation) for installing the MAQS Framework.
+Read our [installation guide](https://github.com/Magenic/MAQS/wiki/Installation) for installing the MAQS Framework or [download](https://marketplace.visualstudio.com/items?itemName=vs-publisher-1465771.MAQSOpenFramework) the extension from Visual Studio Marketplace.
 ## Usage
 MAQS is a test automation accelerator, meaning it is used to quickly create new auotmated tests.  MAQS is a modular test automation framework which can be used as the base for your automation project or individual pieces can be used to enhance existing frameworks.​
 ## License
