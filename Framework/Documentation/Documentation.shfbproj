@@ -38,9 +38,10 @@
       <DocumentationSource sourceFile="..\packages\Selenium.Support.3.2.0\lib\net40\WebDriver.Support.xml" />
       <DocumentationSource sourceFile="..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll" />
       <DocumentationSource sourceFile="..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.xml" />
-     <DocumentationSource sourceFile="..\packages\Appium.WebDriver.3.0.0.2\lib\net45\appium-dotnet-driver.dll" />
+      <DocumentationSource sourceFile="..\packages\Appium.WebDriver.3.0.0.2\lib\net45\appium-dotnet-driver.dll" />
       <DocumentationSource sourceFile="..\packages\Appium.WebDriver.3.0.0.2\lib\net45\appium-dotnet-driver.XML" />
-      <DocumentationSource sourceFile="..\packages\AE.Net.Mail.1.7.10.0\lib\net45\AE.Net.Mail.dll" />
+      <DocumentationSource sourceFile="..\packages\AE.Net.MailKit.1.12.0\lib\net45\MailKit.dll" />
+	  <DocumentationSource sourceFile="..\packages\AE.Net.MailKit.1.12.0\lib\net45\MailKit.xml" />
     </DocumentationSources>
     <HelpFileVersion>4.0.0</HelpFileVersion>
     <MaximumGroupParts>2</MaximumGroupParts>
