@@ -113,11 +113,11 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
             switch (mobileDeviceOS.ToUpper())
             {
                 case "ANDROID":
-                    appiumDriver = new AndroidDriver<AppiumWebElement>(GetMobileHubUrl(), GetMobileCapaibilities());
+                    appiumDriver = new AndroidDriver<AppiumWebElement>(GetMobileHubUrl(), GetMobileCapabilities());
                     break;
 
                 case "IOS":
-                    appiumDriver = new IOSDriver<AppiumWebElement>(GetMobileHubUrl(), GetMobileCapaibilities());
+                    appiumDriver = new IOSDriver<AppiumWebElement>(GetMobileHubUrl(), GetMobileCapabilities());
                     break;
 
                 default:
@@ -149,13 +149,14 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
             int timeoutTime = Convert.ToInt32(Config.GetValue("Timeout", "0"));
             driver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromMilliseconds(timeoutTime);
             driver.Manage().Timeouts().PageLoad = TimeSpan.FromMilliseconds(timeoutTime);
+            
         }
 
         /// <summary>
         /// Get the mobile desired capability
         /// </summary>
         /// <returns>The mobile desired capability</returns>
-        private static DesiredCapabilities GetMobileCapaibilities()
+        private static DesiredCapabilities GetMobileCapabilities()
         {
             DesiredCapabilities capabilities;
             string mobileDeivceOS = GetMobileDeviceOS();
@@ -164,10 +165,15 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
             {
                 case "ANDROID":
                     capabilities = DesiredCapabilities.Android();
-                        break;
+                    if (!GetAvdName().Equals(String.Empty))
+                    {
+                        capabilities.SetCapability("avd", GetAvdName());
+                    }
+                    break;
 
                 case "IOS":
                     capabilities = DesiredCapabilities.IPhone();
+                    capabilities.SetCapability("udid", GetMobileDeviceUDID());
                     break;
 
                 default:
@@ -199,10 +205,15 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
                 capabilities.SetCapability("appId", GetBundleId());
                 capabilities.SetCapability(CapabilityType.BrowserName, GetDeviceName());
                 capabilities.SetCapability(MobileCapabilityType.AutomationName, "Appium");
-                capabilities.SetCapability("udid", GetMobileDeviceUDID());
+                
             }
 
             return capabilities;
+        }
+
+        public static String GetAvdName()
+        {
+            return Config.GetValue("AVDName");
         }
     }
 }
