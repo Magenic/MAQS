@@ -203,7 +203,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
             else
             {
                 capabilities.SetCapability("appId", GetBundleId());
-                capabilities.SetCapability(CapabilityType.BrowserName, GetDeviceName());
+                //capabilities.SetCapability(CapabilityType.BrowserName, GetDeviceName());
                 capabilities.SetCapability(MobileCapabilityType.AutomationName, "Appium");
                 
             }
