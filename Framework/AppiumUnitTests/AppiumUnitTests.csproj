@@ -66,16 +66,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppiumConfigTests.cs" />
-    <Compile Include="AppiumUtilitiesTests.cs" />
+    <Compile Include="AppiumTestObjectTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BaseAppiumTest\BaseAppiumTest.csproj">
       <Project>{B7D2643D-6848-4233-BD60-E52DB10A6200}</Project>
       <Name>BaseAppiumTest</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BaseTest\BaseTest.csproj">
+      <Project>{60F10D47-3546-4B4B-B49B-5A361DDC1BCB}</Project>
+      <Name>BaseTest</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utilities\Utilities.csproj">
       <Project>{949364A1-08D7-4E79-8CA2-228EA925438F}</Project>

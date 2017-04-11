@@ -211,6 +211,10 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
             return capabilities;
         }
 
+        /// <summary>
+        /// Gets the AVD Name
+        /// </summary>
+        /// <returns>AVD Name as a String</returns>
         public static String GetAvdName()
         {
             return Config.GetValue("AVDName");
