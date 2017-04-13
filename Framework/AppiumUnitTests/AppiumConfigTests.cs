@@ -1,12 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Magenic.MaqsFramework.BaseAppiumTest;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenQA.Selenium.Appium;
+﻿using Magenic.MaqsFramework.BaseAppiumTest;
 using Magenic.MaqsFramework.Utilities.Helper;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Support.UI;
 
 namespace AppiumUnitTests

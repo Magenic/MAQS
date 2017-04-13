@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="AppiumConfigTests.cs" />
     <Compile Include="AppiumTestObjectTests.cs" />
+    <Compile Include="AppiumUtilitiesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
