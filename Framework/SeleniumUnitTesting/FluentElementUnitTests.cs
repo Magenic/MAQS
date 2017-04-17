@@ -180,7 +180,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void FluentElementSubmit()
         {
-            this.WebDriver.Navigate().GoToUrl(Config.GetValue("WebSiteBase") + "Employees/Edit/380");
+            this.WebDriver.Navigate().GoToUrl(Config.GetValue("WebSiteBase") + "Employees");
+            this.WebDriver.Wait().ForClickableElement(By.CssSelector("A[href^='/Employees/Edit/']")).Click();
             this.WebDriver.Wait().ForPageLoad();
 
             this.SubmitButton.Submit();
