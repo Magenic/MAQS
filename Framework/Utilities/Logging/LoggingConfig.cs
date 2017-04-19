@@ -7,6 +7,7 @@
 using Magenic.MaqsFramework.Utilities.Data;
 using Magenic.MaqsFramework.Utilities.Helper;
 using System;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Reflection;
 
@@ -100,6 +101,39 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         {
             string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Logs");
             return Config.GetValue("FileLoggerPath", path);
+        }
+
+        /// <summary>
+        /// Gets the Screenshot Format to save images
+        /// </summary>
+        /// <returns>Desired ImageFormat Type</returns>
+        public static ImageFormat GetScreenShotFormat(string imageFormat = "ImageFormat")
+        {
+            switch (Config.GetValue(imageFormat, "PNG").ToUpper())
+            {
+                case "BMP":
+                    return ImageFormat.Bmp;
+                case "EMF":
+                    return ImageFormat.Emf;
+                case "EXIF":
+                    return ImageFormat.Exif;
+                case "GIF":
+                    return ImageFormat.Gif;
+                case "ICON":
+                    return ImageFormat.Icon;
+                case "JPEG":
+                    return ImageFormat.Jpeg;
+                case "MEMORYBMP":
+                    return ImageFormat.MemoryBmp;
+                case "PNG":
+                    return ImageFormat.Png;
+                case "TIFF":
+                    return ImageFormat.Tiff;
+                case "WMF":
+                    return ImageFormat.Wmf;
+                default:
+                    throw new ArgumentException(StringProcessor.SafeFormatter("ImageFormat '{0}' is not a valid option", Config.GetValue("ScreenShotFormat", "PNG")));
+            }
         }
     }
 }
