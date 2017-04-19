@@ -9,7 +9,6 @@ using Magenic.MaqsFramework.Utilities.Helper;
 using System;
 using System.IO;
 using System.Reflection;
-using OpenQA.Selenium;
 
 namespace Magenic.MaqsFramework.Utilities.Logging
 {
@@ -101,30 +100,6 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         {
             string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Logs");
             return Config.GetValue("FileLoggerPath", path);
-        }
-
-        /// <summary>
-        /// Gets the Screenshot Format to save images
-        /// </summary>
-        /// <returns>Desired ImageFormat Type</returns>
-        /// <param name="imageFormat">Image Format Screen format screen</param>
-        public static ScreenshotImageFormat GetScreenShotFormat(string imageFormat = "ImageFormat")
-        {
-            switch (Config.GetValue(imageFormat, "PNG").ToUpper())
-            {
-                case "BMP":
-                    return ScreenshotImageFormat.Bmp;
-                case "GIF":
-                    return ScreenshotImageFormat.Gif;
-                case "JPEG":
-                    return ScreenshotImageFormat.Jpeg;
-                case "PNG":
-                    return ScreenshotImageFormat.Png;
-                case "TIFF":
-                    return ScreenshotImageFormat.Tiff;
-                default:
-                    throw new ArgumentException(StringProcessor.SafeFormatter("ImageFormat '{0}' is not a valid option", Config.GetValue("ScreenShotFormat", "PNG")));
-            }
         }
     }
 }
