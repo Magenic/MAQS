@@ -8,6 +8,7 @@ using Magenic.MaqsFramework.Utilities.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
 using System;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Reflection;
 
@@ -38,7 +39,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                 if (!(log is FileLogger))
                 {
                     // Since this is not a file logger we will need to use a generic file name
-                    path = CaptureScreenshot(webDriver, LoggingConfig.GetLogDirectory(), "ScreenCap" + appendName);
+                    path = CaptureScreenshot(webDriver, LoggingConfig.GetLogDirectory(), "ScreenCap" + appendName, LoggingConfig.GetScreenShotFormat());
                 }
                 else
                 {
@@ -46,7 +47,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                     string fullpath = ((FileLogger)log).FilePath;
                     string directory = Path.GetDirectoryName(fullpath);
                     string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fullpath) + appendName;
-                    path = CaptureScreenshot(webDriver, directory, fileNameWithoutExtension);
+                    path = CaptureScreenshot(webDriver, directory, fileNameWithoutExtension, LoggingConfig.GetScreenShotFormat());
                 }
 
                 log.LogMessage(MessageType.INFORMATION, "Screenshot saved: " + path);
@@ -65,8 +66,9 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// <param name="webDriver">The WebDriver</param>
         /// <param name="directory">The directory file path</param>
         /// <param name="fileNameWithoutExtension">Filename without extension</param>
+        /// <param name="imageFormat">The Screenshot Image format</param>
         /// <returns>Path to the log file</returns>
-        public static string CaptureScreenshot(this IWebDriver webDriver, string directory, string fileNameWithoutExtension)
+        public static string CaptureScreenshot(this IWebDriver webDriver, string directory, string fileNameWithoutExtension, ImageFormat imageFormat)
         {
             Screenshot screenShot = ((ITakesScreenshot)webDriver).GetScreenshot();
 
@@ -77,10 +79,10 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
             }
 
             // Calculate the file name
-            string path = Path.Combine(directory, fileNameWithoutExtension + ".png");
+            string path = Path.Combine(directory, fileNameWithoutExtension + "." + imageFormat.ToString());
 
             // Save the screenshot
-            screenShot.SaveAsFile(path, ScreenshotImageFormat.Png);
+            screenShot.SaveAsFile(path, imageFormat);
 
             return path;
         }
