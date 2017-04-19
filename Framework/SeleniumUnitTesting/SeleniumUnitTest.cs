@@ -570,7 +570,7 @@ namespace SeleniumUnitTests
         {
             this.WebDriver.Navigate().GoToUrl(testSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
-            string screenShotPath = SeleniumUtilities.CaptureScreenshot(this.WebDriver, "TempTestDirectory", "TempTestFilePath", LoggingConfig.GetScreenShotFormat());
+            string screenShotPath = SeleniumUtilities.CaptureScreenshot(this.WebDriver, "TempTestDirectory", "TempTestFilePath", SeleniumUtilities.GetScreenShotFormat());
             Assert.IsTrue(File.Exists(screenShotPath), "Fail to find screenshot");
             File.Delete(screenShotPath);
         }
@@ -1191,7 +1191,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void GetImageFormatDefaultFormat()
         {
-            Assert.AreEqual(LoggingConfig.GetScreenShotFormat("XXYYZZ"), ScreenshotImageFormat.Png, "The Incorrect Default Image Format was returned, expected: " + ScreenshotImageFormat.Png.ToString());
+            Assert.AreEqual(SeleniumUtilities.GetScreenShotFormat("XXYYZZ"), ScreenshotImageFormat.Png, "The Incorrect Default Image Format was returned, expected: " + ScreenshotImageFormat.Png.ToString());
         }
 
         /// <summary>
@@ -1201,7 +1201,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void GetImageFormatFromConfig()
         {
-            Assert.AreEqual(LoggingConfig.GetScreenShotFormat(), ScreenshotImageFormat.Jpeg, "The Incorrect Image Format was returned, expected: " + Config.GetValue("ImageFormat"));
+            Assert.AreEqual(SeleniumUtilities.GetScreenShotFormat(), ScreenshotImageFormat.Jpeg, "The Incorrect Image Format was returned, expected: " + Config.GetValue("ImageFormat"));
         }
 
         /// <summary>
