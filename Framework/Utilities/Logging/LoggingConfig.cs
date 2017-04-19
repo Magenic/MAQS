@@ -107,6 +107,7 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         /// Gets the Screenshot Format to save images
         /// </summary>
         /// <returns>Desired ImageFormat Type</returns>
+        /// <param name="imageFormat">Image Format Screen format screen</param>
         public static ImageFormat GetScreenShotFormat(string imageFormat = "ImageFormat")
         {
             switch (Config.GetValue(imageFormat, "PNG").ToUpper())
