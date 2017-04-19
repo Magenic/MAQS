@@ -15,8 +15,8 @@ using OpenQA.Selenium.Internal;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
-using System.Drawing.Imaging;
 using System.Diagnostics.CodeAnalysis;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Text;
 
@@ -1094,7 +1094,7 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify that CaptureScreenshot caputed is in the Bmp format
+        /// Verify that CaptureScreenshot captured is in the bitmap image format
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
@@ -1109,7 +1109,7 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify that CaptureScreenshot caputed is in the Emf format
+        /// Verify that CaptureScreenshot captured is in the Windows Metafile format
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
@@ -1124,7 +1124,7 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify that CaptureScreenshot caputed is in the Exif format
+        /// Verify that CaptureScreenshot captured is in the Exchangeable image file format
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
@@ -1139,7 +1139,7 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify that CaptureScreenshot caputed is in the Gif format
+        /// Verify that CaptureScreenshot captured is in the Graphics Interchange Format format
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
@@ -1154,7 +1154,7 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify that CaptureScreenshot caputed is in the Icon format
+        /// Verify that CaptureScreenshot captured is in the Icon format
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
@@ -1169,7 +1169,7 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify that CaptureScreenshot caputed is in the Jpeg format
+        /// Verify that CaptureScreenshot captured is in the Joint Photographic Experts Group format
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
@@ -1184,7 +1184,7 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify that CaptureScreenshot caputed is in the MemoryBmp format
+        /// Verify that CaptureScreenshot captured is in the in Memory bitmap image file format
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
@@ -1199,7 +1199,7 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify that CaptureScreenshot caputed is in the Png format
+        /// Verify that CaptureScreenshot captured is in the Portable Network Graphics format
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
@@ -1214,7 +1214,7 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify that CaptureScreenshot caputed is in the Tiff format
+        /// Verify that CaptureScreenshot captured is in the Tagged Image File Format
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
@@ -1229,7 +1229,7 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify that CaptureScreenshot caputed is in the Wmf format
+        /// Verify that CaptureScreenshot captured is in the Windows Metafile format
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
@@ -1260,7 +1260,7 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify the GetScreenShotFormat function has defualt value
+        /// Verify the GetScreenShotFormat function has default value
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
