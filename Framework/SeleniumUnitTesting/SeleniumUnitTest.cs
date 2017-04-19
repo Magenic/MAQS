@@ -16,7 +16,6 @@ using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Text;
 
