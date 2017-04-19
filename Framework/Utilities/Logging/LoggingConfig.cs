@@ -7,9 +7,9 @@
 using Magenic.MaqsFramework.Utilities.Data;
 using Magenic.MaqsFramework.Utilities.Helper;
 using System;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Reflection;
+using OpenQA.Selenium;
 
 namespace Magenic.MaqsFramework.Utilities.Logging
 {
@@ -108,30 +108,20 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         /// </summary>
         /// <returns>Desired ImageFormat Type</returns>
         /// <param name="imageFormat">Image Format Screen format screen</param>
-        public static ImageFormat GetScreenShotFormat(string imageFormat = "ImageFormat")
+        public static ScreenshotImageFormat GetScreenShotFormat(string imageFormat = "ImageFormat")
         {
             switch (Config.GetValue(imageFormat, "PNG").ToUpper())
             {
                 case "BMP":
-                    return ImageFormat.Bmp;
-                case "EMF":
-                    return ImageFormat.Emf;
-                case "EXIF":
-                    return ImageFormat.Exif;
+                    return ScreenshotImageFormat.Bmp;
                 case "GIF":
-                    return ImageFormat.Gif;
-                case "ICON":
-                    return ImageFormat.Icon;
+                    return ScreenshotImageFormat.Gif;
                 case "JPEG":
-                    return ImageFormat.Jpeg;
-                case "MEMORYBMP":
-                    return ImageFormat.MemoryBmp;
+                    return ScreenshotImageFormat.Jpeg;
                 case "PNG":
-                    return ImageFormat.Png;
+                    return ScreenshotImageFormat.Png;
                 case "TIFF":
-                    return ImageFormat.Tiff;
-                case "WMF":
-                    return ImageFormat.Wmf;
+                    return ScreenshotImageFormat.Tiff;
                 default:
                     throw new ArgumentException(StringProcessor.SafeFormatter("ImageFormat '{0}' is not a valid option", Config.GetValue("ScreenShotFormat", "PNG")));
             }
