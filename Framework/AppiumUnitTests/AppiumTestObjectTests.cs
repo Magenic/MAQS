@@ -2,7 +2,7 @@
 // <copyright file="AppiumTestObjectTests.cs" company="Magenic">
 //  Copyright 2017 Magenic, All rights Reserved
 // </copyright>
-// <summary>Test class for config files</summary>
+// <summary>Test class for appium test object files</summary>
 //--------------------------------------------------
 using Magenic.MaqsFramework.BaseAppiumTest;
 using Magenic.MaqsFramework.Utilities.Helper;
