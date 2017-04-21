@@ -1,4 +1,10 @@
-﻿using Magenic.MaqsFramework.BaseAppiumTest;
+﻿//--------------------------------------------------
+// <copyright file="AppiumConfigTests.cs" company="Magenic">
+//  Copyright 2017 Magenic, All rights Reserved
+// </copyright>
+// <summary>Test class for config files</summary>
+//--------------------------------------------------
+using Magenic.MaqsFramework.BaseAppiumTest;
 using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium.Appium;
@@ -6,52 +12,76 @@ using OpenQA.Selenium.Support.UI;
 
 namespace AppiumUnitTests
 {
-    [TestClass()]
+    /// <summary>
+    /// Appium Config Unit Tests
+    /// </summary>
+    [TestClass]
     public class AppiumConfigTests
     {
-        [TestMethod()]
+        /// <summary>
+        /// Test for getting Mobile Device OS
+        /// </summary>
+        [TestMethod]
         [TestCategory(TestCategories.Appium)]
         public void GetMobileDeviceOSTest()
         {
             Assert.AreEqual(AppiumConfig.GetMobileDeviceOS(), "Android");
         }
 
-        [TestMethod()]
+        /// <summary>
+        /// Test for getting Mobile Device UDID
+        /// </summary>
+        [TestMethod]
         [TestCategory(TestCategories.Appium)]
         public void GetMobileDeviceUDIDTest()
         {
             Assert.AreEqual(AppiumConfig.GetMobileDeviceUDID(), "0123456789abcdef0123456789abcdef01234567");
         }
 
-        [TestMethod()]
+        /// <summary>
+        /// Test for getting Bundle ID
+        /// </summary>
+        [TestMethod]
         [TestCategory(TestCategories.Appium)]
         public void GetBundleIdTest()
         {
             Assert.AreEqual(AppiumConfig.GetBundleId(), "org.tasks");
         }
 
-        [TestMethod()]
+        /// <summary>
+        /// Test for getting mobile OS version
+        /// </summary>
+        [TestMethod]
         [TestCategory(TestCategories.Appium)]
         public void GetOSVersionTest()
         {
             Assert.AreEqual(AppiumConfig.GetOSVersion(), "7.1.1");
         }
 
-        [TestMethod()]
+        /// <summary>
+        /// Test for getting device name
+        /// </summary>
+        [TestMethod]
         [TestCategory(TestCategories.Appium)]
         public void GetDeviceNameTest()
         {
             Assert.AreEqual(AppiumConfig.GetDeviceName(), "Nexus 6P");
         }
 
-        [TestMethod()]
+        /// <summary>
+        /// Test for getting mobile browser value
+        /// </summary>
+        [TestMethod]
         [TestCategory(TestCategories.Appium)]
         public void UsingMobileBrowserTest()
         {
             Assert.AreEqual(AppiumConfig.UsingMobileBrowser(), false);
         }
 
-        [TestMethod()]
+        /// <summary>
+        /// Test for creating Mobile Device driver
+        /// </summary>
+        [TestMethod]
         [TestCategory(TestCategories.Appium)]
         public void MobileDeviceTest()
         {
@@ -65,6 +95,9 @@ namespace AppiumUnitTests
             driver.Dispose();
         }
 
+        /// <summary>
+        /// Test for getting Mobile Hub Url
+        /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Appium)]
         public void GetMobileHubUrlTest()
@@ -72,13 +105,10 @@ namespace AppiumUnitTests
             Assert.AreEqual(AppiumConfig.GetMobileHubUrl(), "http://qat-win81-pc:4444/wd/hub");
         }
 
-        //[TestMethod()]
-        //public void MobileDeviceTest1()
-        //{
-        //    //Assert.Fail();
-        //}
-
-        [TestMethod()]
+        /// <summary>
+        /// Test for getting instance of Wait Driver
+        /// </summary>
+        [TestMethod]
         [TestCategory(TestCategories.Appium)]
         public void GetWaitDriverTest()
         {
@@ -91,17 +121,10 @@ namespace AppiumUnitTests
             driver.Dispose();
         }
 
-        //[TestMethod()]
-        //[TestCategory(TestCategories.Appium)]
-        //public void SetTimeoutsTest()
-        //{    
-        //    AppiumConfig.SetTimeouts(AppiumConfig.MobileDevice());
-        //    WebDriverWait wait = AppiumConfig.GetWaitDriver(AppiumConfig.MobileDevice());
-        //    Assert.AreEqual(wait.Timeout.TotalMilliseconds.ToString(), Config.GetValue("Timeout", "0"));
-            
-        //}
-
-        [TestMethod()]
+        /// <summary>
+        /// Test for getting AVD name
+        /// </summary>
+        [TestMethod]
         [TestCategory(TestCategories.Appium)]
         public void GetAvdNameTest()
         {

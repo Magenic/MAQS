@@ -1,21 +1,42 @@
-﻿using Magenic.MaqsFramework.BaseAppiumTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Remote;
-using OpenQA.Selenium.Appium.iOS;
+﻿//--------------------------------------------------
+// <copyright file="AppiumIOSUnitTests.cs" company="Magenic">
+//  Copyright 2017 Magenic, All rights Reserved
+// </copyright>
+// <summary>Test class for config files</summary>
+//--------------------------------------------------
+using Magenic.MaqsFramework.BaseAppiumTest;
 using Magenic.MaqsFramework.Utilities.Helper;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Enums;
+using OpenQA.Selenium.Appium.iOS;
+using OpenQA.Selenium.Remote;
 
 namespace AppiumUnitTests
 {
-    [TestClass()]
-    public class AppiumIOSUnitTests: BaseAppiumTest
+    /// <summary>
+    /// iOS related Appium tests
+    /// </summary>
+    [TestClass]
+    public class AppiumIOSUnitTests : BaseAppiumTest
     {
+        /// <summary>
+        /// Tests the creation of the Appium iOS Driver
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Appium)]
+        public void AppiumIOSDriverTest()
+        {
+            Assert.IsNotNull(this.TestObject.AppiumDriver);
+            this.TestObject.AppiumDriver.CloseApp();
+            this.TestObject.AppiumDriver.Quit();
+            this.TestObject.AppiumDriver.Dispose();
+        }
+
+        /// <summary>
+        /// Sets capabilities for testing the iOS Driver creation
+        /// </summary>
+        /// <returns>iOS instance of the Appium Driver</returns>
         protected override AppiumDriver<AppiumWebElement> GetMobileDevice()
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -27,16 +48,5 @@ namespace AppiumUnitTests
             capabilities.SetCapability(MobileCapabilityType.Udid, "0C0E26E7-966B-4C89-A765-32C5C997A456");
             return new IOSDriver<AppiumWebElement>(AppiumConfig.GetMobileHubUrl(), capabilities);
         }
-
-        [TestMethod()]
-        [TestCategory(TestCategories.Appium)]
-        public void AppiumIOSDriverTest()
-        {
-            Assert.IsNotNull(this.TestObject.AppiumDriver);
-            this.TestObject.AppiumDriver.CloseApp();
-            this.TestObject.AppiumDriver.Quit();
-            this.TestObject.AppiumDriver.Dispose();
-        }
-
     }
 }

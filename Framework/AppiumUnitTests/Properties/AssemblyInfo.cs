@@ -1,3 +1,9 @@
+//--------------------------------------------------
+// <copyright file="AssemblyInfo.cs" company="Magenic">
+//  Copyright 2017 Magenic, All rights Reserved
+// </copyright>
+// <summary>Test class for config files</summary>
+//--------------------------------------------------
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
