@@ -354,7 +354,7 @@ namespace EmailUnitTests
         {
             string uniqueSubject = Guid.NewGuid().ToString();
             this.SendTestEmail(uniqueSubject);
-            if (!GenericWait.Wait<bool, string>(this.IsEmailThere, new TimeSpan(0, 0, 1), new TimeSpan(0, 0, 30), uniqueSubject))
+            if (!GenericWait.Wait<bool, string>(this.IsEmailThere, new TimeSpan(0, 0, 1), new TimeSpan(0, 1, 0), uniqueSubject))
             {
                 Assert.Fail("Failed to get message " + uniqueSubject);
             }
@@ -432,7 +432,7 @@ namespace EmailUnitTests
             string uniqueSubject = Guid.NewGuid().ToString();
             this.SendTestEmail(uniqueSubject);
 
-            GenericWait.Wait<bool, string>(this.IsEmailThere, new TimeSpan(0, 0, 1), new TimeSpan(0, 0, 30), uniqueSubject);
+            GenericWait.Wait<bool, string>(this.IsEmailThere, new TimeSpan(0, 0, 1), new TimeSpan(0, 1, 0), uniqueSubject);
 
             List<MimeMessage> messageHeaders = this.EmailWrapper.GetAllMessageHeaders();
 
