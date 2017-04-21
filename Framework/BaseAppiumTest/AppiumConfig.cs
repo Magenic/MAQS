@@ -158,13 +158,13 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// <returns>The mobile desired capability</returns>
         private static DesiredCapabilities GetMobileCapabilities()
         {
-            DesiredCapabilities capabilities;
+            DesiredCapabilities capabilities = new DesiredCapabilities();
             string mobileDeivceOS = GetMobileDeviceOS();
 
             switch (mobileDeivceOS.ToUpper())
             {
                 case "ANDROID":
-                    capabilities = DesiredCapabilities.Android();
+                    //capabilities = DesiredCapabilities.Android();
                     if (!GetAvdName().Equals(String.Empty))
                     {
                         capabilities.SetCapability("avd", GetAvdName());
@@ -182,7 +182,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
 
             capabilities.SetCapability("deviceName", GetDeviceName());
             capabilities.SetCapability(CapabilityType.Version, GetOSVersion());
-            capabilities.SetCapability(MobileCapabilityType.PlatformVersion, GetOSVersion());
+            //capabilities.SetCapability(MobileCapabilityType.PlatformVersion, GetOSVersion());
             capabilities.SetCapability(CapabilityType.Platform, GetMobileDeviceOS().ToUpper());
 
             if (UsingMobileBrowser())
@@ -203,7 +203,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
             else
             {
                 capabilities.SetCapability("appId", GetBundleId());
-                //capabilities.SetCapability(CapabilityType.BrowserName, GetDeviceName());
+                //capabilities.SetCapability(CapabilityType.BrowserName, GetMobileDeviceOS().ToUpper());
                 capabilities.SetCapability(MobileCapabilityType.AutomationName, "Appium");
                 
             }
