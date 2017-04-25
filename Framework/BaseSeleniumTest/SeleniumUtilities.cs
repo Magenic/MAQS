@@ -69,7 +69,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// <param name="fileNameWithoutExtension">Filename without extension</param>
         /// <param name="imageFormat">The Screenshot Image format</param>
         /// <returns>Path to the log file</returns>
-        public static string CaptureScreenshot(this IWebDriver webDriver, string directory, string fileNameWithoutExtension, ScreenshotImageFormat imageFormat)
+        public static string CaptureScreenshot(this IWebDriver webDriver, string directory, string fileNameWithoutExtension, ScreenshotImageFormat imageFormat = ScreenshotImageFormat.Png)
         {
             Screenshot screenShot = ((ITakesScreenshot)webDriver).GetScreenshot();
 
