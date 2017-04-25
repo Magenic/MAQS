@@ -67,7 +67,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// <param name="webDriver">The WebDriver</param>
         /// <param name="directory">The directory file path</param>
         /// <param name="fileNameWithoutExtension">Filename without extension</param>
-        /// <param name="imageFormat">Optional Screenshot Image format parameter; Default imageFormat is Portable Network Graphics</param>
+        /// <param name="imageFormat">Optional Screenshot Image format parameter; Default imageFormat is PNG</param>
         /// <returns>Path to the log file</returns>
         public static string CaptureScreenshot(this IWebDriver webDriver, string directory, string fileNameWithoutExtension, ScreenshotImageFormat imageFormat = ScreenshotImageFormat.Png)
         {
