@@ -4,6 +4,8 @@
 // </copyright>
 // <summary>Utilities class for generic selenium methods</summary>
 //--------------------------------------------------
+using Magenic.MaqsFramework.Utilities.Data;
+using Magenic.MaqsFramework.Utilities.Helper;
 using Magenic.MaqsFramework.Utilities.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
@@ -38,7 +40,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                 if (!(log is FileLogger))
                 {
                     // Since this is not a file logger we will need to use a generic file name
-                    path = CaptureScreenshot(webDriver, LoggingConfig.GetLogDirectory(), "ScreenCap" + appendName);
+                    path = CaptureScreenshot(webDriver, LoggingConfig.GetLogDirectory(), "ScreenCap" + appendName, GetScreenShotFormat());
                 }
                 else
                 {
@@ -46,7 +48,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                     string fullpath = ((FileLogger)log).FilePath;
                     string directory = Path.GetDirectoryName(fullpath);
                     string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fullpath) + appendName;
-                    path = CaptureScreenshot(webDriver, directory, fileNameWithoutExtension);
+                    path = CaptureScreenshot(webDriver, directory, fileNameWithoutExtension, GetScreenShotFormat());
                 }
 
                 log.LogMessage(MessageType.INFORMATION, "Screenshot saved: " + path);
@@ -65,8 +67,9 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// <param name="webDriver">The WebDriver</param>
         /// <param name="directory">The directory file path</param>
         /// <param name="fileNameWithoutExtension">Filename without extension</param>
+        /// <param name="imageFormat">Optional Screenshot Image format parameter; Default imageFormat is PNG</param>
         /// <returns>Path to the log file</returns>
-        public static string CaptureScreenshot(this IWebDriver webDriver, string directory, string fileNameWithoutExtension)
+        public static string CaptureScreenshot(this IWebDriver webDriver, string directory, string fileNameWithoutExtension, ScreenshotImageFormat imageFormat = ScreenshotImageFormat.Png)
         {
             Screenshot screenShot = ((ITakesScreenshot)webDriver).GetScreenshot();
 
@@ -77,10 +80,10 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
             }
 
             // Calculate the file name
-            string path = Path.Combine(directory, fileNameWithoutExtension + ".png");
+            string path = Path.Combine(directory, fileNameWithoutExtension + "." + imageFormat.ToString());
 
             // Save the screenshot
-            screenShot.SaveAsFile(path, ScreenshotImageFormat.Png);
+            screenShot.SaveAsFile(path, imageFormat);
 
             return path;
         }
@@ -141,6 +144,30 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
             }
 
             return driver;
+        }
+
+        /// <summary>
+        /// Gets the Screenshot Format to save images
+        /// </summary>
+        /// <returns>Desired ImageFormat Type</returns>
+        /// <param name="imageFormat">Image Format Screen format screen</param>
+        public static ScreenshotImageFormat GetScreenShotFormat(string imageFormat = "ImageFormat")
+        {
+            switch (Config.GetValue(imageFormat, "PNG").ToUpper())
+            {
+                case "BMP":
+                    return ScreenshotImageFormat.Bmp;
+                case "GIF":
+                    return ScreenshotImageFormat.Gif;
+                case "JPEG":
+                    return ScreenshotImageFormat.Jpeg;
+                case "PNG":
+                    return ScreenshotImageFormat.Png;
+                case "TIFF":
+                    return ScreenshotImageFormat.Tiff;
+                default:
+                    throw new ArgumentException(StringProcessor.SafeFormatter("ImageFormat '{0}' is not a valid option", Config.GetValue("ScreenShotFormat", "PNG")));
+            }
         }
     }
 }
