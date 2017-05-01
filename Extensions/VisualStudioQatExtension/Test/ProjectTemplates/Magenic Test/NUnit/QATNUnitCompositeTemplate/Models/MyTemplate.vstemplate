@@ -1,0 +1,34 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+  <TemplateData>
+    <Name>Models</Name>
+    <Description>Composite model template - NUnit</Description>
+    <ProjectSubType>Magenic Test</ProjectSubType>
+    <SortOrder>1000</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>Models</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <Icon>__TemplateIcon.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <Project TargetFileName="Models.csproj" File="Models.csproj" ReplaceParameters="true">
+      <Folder Name="Appium" TargetFolderName="Appium">
+        <ProjectItem ReplaceParameters="true" TargetFileName="ApplicationLogin.cs">ApplicationLogin.cs</ProjectItem>
+      </Folder>
+      <ProjectItem ReplaceParameters="true" TargetFileName="packages.config">packages.config</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="nuget.config">nuget.config</ProjectItem>
+      <Folder Name="Properties" TargetFolderName="Properties">
+        <ProjectItem ReplaceParameters="true" TargetFileName="AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
+      </Folder>
+      <Folder Name="WebPage" TargetFolderName="WebPage">
+        <ProjectItem ReplaceParameters="true" TargetFileName="LoginPageModel.cs">LoginPageModel.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="HomePageModel.cs">HomePageModel.cs</ProjectItem>
+      </Folder>
+      <Folder Name="WebService" TargetFolderName="WebService">
+        <ProjectItem ReplaceParameters="true" TargetFileName="ProductJson.cs">ProductJson.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="ProductXml.cs">ProductXml.cs</ProjectItem>
+      </Folder>
+    </Project>
+  </TemplateContent>
+</VSTemplate>
