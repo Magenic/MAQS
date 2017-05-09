@@ -49,7 +49,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public IWebElement ForClickableElement(By by)
         {
-            return this.webDriverWait.Until(ElementIsClickable(by));
+            return this.webDriverWait.Until(ElementIsClickable(by, this.searchItem));
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public IWebElement ForVisibleElement(By by)
         {
-            return this.webDriverWait.Until(ElementIsVisible(by));
+            return this.webDriverWait.Until(ElementIsVisible(by, this.searchItem));
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public IWebElement ForElementExist(By by)
         {
-            return this.webDriverWait.Until(ElementDoesExist(by));
+            return this.webDriverWait.Until(ElementDoesExist(by, this.searchItem));
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public IWebElement ForExactText(By by, string text)
         {
-            return this.webDriverWait.Until(ElementHasExpectedText(by, text));
+            return this.webDriverWait.Until(ElementHasExpectedText(by, text, this.searchItem));
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public IWebElement ForContainsText(By by, string text)
         {
-            return this.webDriverWait.Until(ElementContainsExpectedText(by, text));
+            return this.webDriverWait.Until(ElementContainsExpectedText(by, text, this.searchItem));
         }
 
         /// <summary>
@@ -155,7 +155,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         {
             try
             {
-                return this.webDriverWait.Until(AttributeContainsExpectedText(by, textValue, attribute));
+                return this.webDriverWait.Until(AttributeContainsExpectedText(by, textValue, attribute, this.searchItem));
             }
             catch
             {
@@ -178,7 +178,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         {
             try
             {
-                return this.webDriverWait.Until(AttributeEqualsExpectedText(by, textValue, attribute));
+                return this.webDriverWait.Until(AttributeEqualsExpectedText(by, textValue, attribute, this.searchItem));
             }
             catch
             {
@@ -231,7 +231,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public bool UntilClickableElement(By by)
         {
-            return this.DoWaitUntilCheck(ElementIsClickable, by);
+            return this.DoWaitUntilCheck(ElementIsClickable, by, this.searchItem);
         }
 
         /// <summary>
@@ -245,7 +245,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public bool UntilVisibleElement(By by)
         {
-            return this.DoWaitUntilCheck(ElementIsVisible, by);
+            return this.DoWaitUntilCheck(ElementIsVisible, by, this.searchItem);
         }
 
         /// <summary>
@@ -259,7 +259,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public bool UntilElementExist(By by)
         {
-            return this.DoWaitUntilCheck(ElementDoesExist, by);
+            return this.DoWaitUntilCheck(ElementDoesExist, by, this.searchItem);
         }
 
         /// <summary>
@@ -274,7 +274,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public bool UntilExactText(By by, string text)
         {
-            return this.DoWaitUntilCheck(ElementHasExpectedText, by, text);
+            return this.DoWaitUntilCheck(ElementHasExpectedText, by, text, this.searchItem);
         }
 
         /// <summary>
@@ -289,7 +289,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public bool UntilContainsText(By by, string text)
         {
-            return this.DoWaitUntilCheck(ElementContainsExpectedText, by, text);
+            return this.DoWaitUntilCheck(ElementContainsExpectedText, by, text, this.searchItem);
         }
 
         /// <summary>
@@ -399,7 +399,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public bool UntilAttributeTextContains(By by, string text, string attribute)
         {
-            return this.DoWaitUntilCheck(AttributeContainsExpectedText, by, text, attribute);
+            return this.DoWaitUntilCheck(AttributeContainsExpectedText, by, text, attribute, this.searchItem);
         }
 
         /// <summary>
@@ -415,7 +415,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public bool UntilAttributeTextEquals(By by, string text, string attribute)
         {
-            return this.DoWaitUntilCheck(AttributeEqualsExpectedText, by, text, attribute);
+            return this.DoWaitUntilCheck(AttributeEqualsExpectedText, by, text, attribute, this.searchItem);
         }
 
         /// <summary>
@@ -481,12 +481,13 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// <param name="by">'by' selector for the element</param>     
         /// <param name="textValue">String value that the elements attribute is expected to contain</param>
         /// <param name="attribute">Attribute name as a String</param>
+        /// <param name="searchContext">Search context  - either web driver or web element</param>
         /// <returns>Element if the check passed</returns>
-        private static Func<IWebDriver, IWebElement> AttributeContainsExpectedText(By by, string textValue, string attribute)
+        private static Func<IWebDriver, IWebElement> AttributeContainsExpectedText(By by, string textValue, string attribute, ISearchContext searchContext)
         {
             return driver =>
             {
-                var element = driver.FindElement(by);
+                var element = searchContext.FindElement(by);
                 var elementValue = element.GetAttribute(attribute);
                 return (elementValue != null && elementValue.ToUpper().Contains(textValue.ToUpper())) ? element : null;
             };
@@ -498,12 +499,13 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// <param name="by">'by' selector for the element</param>     
         /// <param name="textValue">String value that the element's attribute is expected to equal</param>
         /// <param name="attribute">Attribute name as a String</param>
+        /// <param name="searchContext">Search context  - either web driver or web element</param>
         /// <returns>Element if the check passed</returns>
-        private static Func<IWebDriver, IWebElement> AttributeEqualsExpectedText(By by, string textValue, string attribute)
+        private static Func<IWebDriver, IWebElement> AttributeEqualsExpectedText(By by, string textValue, string attribute, ISearchContext searchContext)
         {
             return driver =>
             {
-                var element = driver.FindElement(by);
+                var element = searchContext.FindElement(by);
                 var elementValue = element.GetAttribute(attribute);
                 return (elementValue != null && elementValue.Equals(textValue)) ? element : null;
             };
@@ -513,12 +515,13 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// Check if an element is clickable
         /// </summary>
         /// <param name="by">'by' selector for the element</param>
+        /// <param name="searchContext">Search context  - either web driver or web element</param>
         /// <returns>Success if the element is clickable</returns>
-        private static Func<IWebDriver, IWebElement> ElementIsClickable(By by)
+        private static Func<ISearchContext, IWebElement> ElementIsClickable(By by, ISearchContext searchContext)
         {
             return driver =>
             {
-                var element = driver.FindElement(by);
+                var element = searchContext.FindElement(by);
                 return (element != null && element.Displayed && element.Enabled) ? element : null;
             };
         }
@@ -527,12 +530,13 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// Check if an element is visible
         /// </summary>
         /// <param name="by">'by' selector for the element</param>
+        /// <param name="searchContext">Search context  - either web driver or web element</param>
         /// <returns>Success if the element is visible</returns>
-        private static Func<IWebDriver, IWebElement> ElementIsVisible(By by)
+        private static Func<IWebDriver, IWebElement> ElementIsVisible(By by, ISearchContext searchContext)
         {
             return driver =>
             {
-                var element = driver.FindElement(by);
+                var element = searchContext.FindElement(by);
                 return (element != null && element.Displayed) ? element : null;
             };
         }
@@ -541,12 +545,13 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// Checks if the element exists
         /// </summary>
         /// <param name="by">Css Selector</param>
+        /// <param name="searchContext">Search context  - either web driver or web element</param>
         /// <returns>Success if the element exists</returns>
-        private static Func<IWebDriver, IWebElement> ElementDoesExist(By by)
+        private static Func<IWebDriver, IWebElement> ElementDoesExist(By by, ISearchContext searchContext)
         {
             return driver =>
             {
-                return driver.FindElement(by);
+                return searchContext.FindElement(by);
             };
         }
 
@@ -554,12 +559,13 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// Check if an element is enabled
         /// </summary>
         /// <param name="by">'by' selector for the element</param>
+        /// <param name="searchContext">Search context  - either web driver or web element</param>
         /// <returns>Success if the element is enabled</returns>
-        private static Func<IWebDriver, IWebElement> ElementIsEnabled(By by)
+        private static Func<IWebDriver, IWebElement> ElementIsEnabled(By by, ISearchContext searchContext)
         {
             return driver =>
             {
-                var element = driver.FindElement(by);
+                var element = searchContext.FindElement(by);
                 return (element != null && element.Enabled) ? element : null;
             };
         }
@@ -569,13 +575,14 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </summary>
         /// <param name="by">'by' selector for the element</param>
         /// <param name="text">The expected text</param>
+        /// <param name="searchContext">Search context  - either web driver or web element</param>
         /// <returns>Success if the element has the expected text</returns>
-        private static Func<IWebDriver, IWebElement> ElementHasExpectedText(By by, string text)
+        private static Func<IWebDriver, IWebElement> ElementHasExpectedText(By by, string text, ISearchContext searchContext)
         {
             return driver =>
             {
-                var element = driver.FindElement(by);
-                ElementIsEnabled(by);
+                var element = searchContext.FindElement(by);
+                ElementIsEnabled(by, searchContext);
                 return (element != null && element.Displayed && element.Text.Equals(text)) ? element : null;
             };
         }
@@ -585,13 +592,14 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </summary>
         /// <param name="by">'by' selector for the element</param>
         /// <param name="text">The expected text</param>
+        /// <param name="searchContext">Search context  - either web driver or web element</param>
         /// <returns>Success if the element contains the expected text</returns>
-        private static Func<IWebDriver, IWebElement> ElementContainsExpectedText(By by, string text)
+        private static Func<IWebDriver, IWebElement> ElementContainsExpectedText(By by, string text, ISearchContext searchContext)
         {
             return driver =>
             {
-                var element = driver.FindElement(by);
-                ElementIsEnabled(by);
+                var element = searchContext.FindElement(by);
+                ElementIsEnabled(by, searchContext);
                 return (element != null && element.Displayed && element.Text.ToUpper().Contains(text.ToUpper())) ? element : null;
             };
         }
@@ -601,12 +609,13 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </summary>
         /// <param name="conditionCode">Function code to be executed by the block until successful or wait times out</param>
         /// <param name="by">'by' selector for the element</param>
+        /// <param name="searchContext">Search context  - either web driver or web element</param>
         /// <returns>True if the check passed</returns>
-        private bool DoWaitUntilCheck(Func<By, Func<IWebDriver, IWebElement>> conditionCode, By by)
+        private bool DoWaitUntilCheck(Func<By, ISearchContext, Func<IWebDriver, IWebElement>> conditionCode, By by, ISearchContext searchContext)
         {
             try
             {
-                this.webDriverWait.Until(conditionCode(by));
+                this.webDriverWait.Until(conditionCode(by, this.searchItem));
                 return true;
             }
             catch (WebDriverTimeoutException)
@@ -625,12 +634,13 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// <param name="conditionCode">The wait until check function</param>
         /// <param name="by">'by' selector for the element</param>
         /// <param name="text">Text string to pass to the function given</param>
+        /// <param name="searchContext">Search context  - either web driver or web element</param>
         /// <returns>True if the check passed</returns>
-        private bool DoWaitUntilCheck(Func<By, string, Func<IWebDriver, IWebElement>> conditionCode, By by, string text)
+        private bool DoWaitUntilCheck(Func<By, string, ISearchContext, Func<IWebDriver, IWebElement>> conditionCode, By by, string text, ISearchContext searchContext)
         {
             try
             {
-                this.webDriverWait.Until(conditionCode(by, text));
+                this.webDriverWait.Until(conditionCode(by, text, this.searchItem));
                 return true;
             }
             catch (WebDriverTimeoutException)
@@ -650,12 +660,13 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// <param name="by">'by' selector for the element</param>
         /// <param name="textOne">First text string expected for function</param>
         /// <param name="textTwo">Second text string expected for function</param>
+        /// <param name="searchContext">Search context  - either web driver or web element</param>
         /// <returns>True if check passed</returns>
-        private bool DoWaitUntilCheck(Func<By, string, string, Func<IWebDriver, IWebElement>> conditionCode, By by, string textOne, string textTwo)
+        private bool DoWaitUntilCheck(Func<By, string, string, ISearchContext, Func<IWebDriver, IWebElement>> conditionCode, By by, string textOne, string textTwo, ISearchContext searchContext)
         {
             try
             {
-                this.webDriverWait.Until(conditionCode(by, textOne, textTwo));
+                this.webDriverWait.Until(conditionCode(by, textOne, textTwo, this.searchItem));
                 return true;
             }
             catch (WebDriverTimeoutException)
