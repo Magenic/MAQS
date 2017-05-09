@@ -450,7 +450,7 @@ namespace SeleniumUnitTests
         public void FluentElementSizeWithParent()
         {
             Size size = this.DisabledInput.Size;
-            Assert.IsTrue(size.Width == 153 && size.Height == 22, "Height of 22 and width of 153, but got " + size);
+            Assert.IsTrue(size.Width > 152 && size.Height > 21, "Height of greater than 22 and width of greater than 152, but got " + size);
         }
 
         /// <summary>
