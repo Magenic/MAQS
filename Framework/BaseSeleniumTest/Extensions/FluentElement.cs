@@ -9,7 +9,6 @@ using OpenQA.Selenium;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
-using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
@@ -20,14 +19,14 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
     public class FluentElement
     {
         /// <summary>
-        /// The Selenium test object
-        /// </summary>
-        private SeleniumTestObject testObject;
-
-        /// <summary>
         /// A user friendly name, for logging purposes
         /// </summary>
         private string userFriendlyName;
+
+        /// <summary>
+        /// The parent fluent element
+        /// </summary>
+        private FluentElement parent;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FluentElement" /> class
@@ -40,9 +39,23 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public FluentElement(SeleniumTestObject testObject, By locator, string userFriendlyName)
         {
-            this.testObject = testObject;
+            this.TestObject = testObject;
             this.By = locator;
             this.userFriendlyName = userFriendlyName;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FluentElement" /> class
+        /// </summary>
+        /// <param name="parent">The parent fluent element</param>
+        /// <param name="locator">The 'by' selector for the element</param>
+        /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
+        /// <example>
+        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementCreateWithParent" lang="C#" />
+        /// </example>
+        public FluentElement(FluentElement parent, By locator, string userFriendlyName) : this(parent.TestObject, locator, userFriendlyName)
+        {
+            this.parent = parent;
         }
 
         /// <summary>
@@ -52,6 +65,14 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementGetBy" lang="C#" />
         /// </example>
         public By By { get; private set; }
+
+        /// <summary>
+        /// Gets the test object for the element
+        /// </summary>
+        /// <example>
+        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementGetTestObject" lang="C#" />
+        /// </example>
+        public SeleniumTestObject TestObject { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether the fluent element is enabled
@@ -247,7 +268,8 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public IWebElement GetTheVisibleElement()
         {
-            return this.testObject.WebDriver.Wait().ForVisibleElement(this.By);
+            return (this.parent == null) ? this.TestObject.WebDriver.Wait().ForVisibleElement(this.By) : 
+                this.parent.GetTheExistingElement().Wait().ForVisibleElement(this.By);
         }
 
         /// <summary>
@@ -259,7 +281,8 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public IWebElement GetTheClickableElement()
         {
-            return this.testObject.WebDriver.Wait().ForClickableElement(this.By);
+            return (this.parent == null) ? this.TestObject.WebDriver.Wait().ForClickableElement(this.By) :
+                this.parent.GetTheExistingElement().Wait().ForClickableElement(this.By);
         }
 
         /// <summary>
@@ -271,7 +294,8 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public IWebElement GetTheExistingElement()
         {
-            return this.testObject.WebDriver.Wait().ForElementExist(this.By);
+            return (this.parent == null) ? this.TestObject.WebDriver.Wait().ForElementExist(this.By) :
+                this.parent.GetTheExistingElement().Wait().ForElementExist(this.By);
         }
 
         /// <summary>
@@ -279,12 +303,12 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </summary>
         /// <param name="getElement">The get web element function</param>
         /// <returns>The web element</returns>
-        [ExcludeFromCodeCoverage] 
+        [ExcludeFromCodeCoverage]
         private IWebElement GetElement(Func<IWebElement> getElement)
         {
             try
             {
-                this.testObject.Log.LogMessage(MessageType.VERBOSE, "Performing fluent wrapper find on: " + this.By);
+                this.TestObject.Log.LogMessage(MessageType.VERBOSE, "Performing fluent wrapper find on: " + this.By);
                 return getElement();
             }
             catch (Exception e)
@@ -309,7 +333,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         {
             try
             {
-                this.testObject.Log.LogMessage(MessageType.VERBOSE, "Performing fluent wrapper action: " + caller);
+                this.TestObject.Log.LogMessage(MessageType.VERBOSE, "Performing fluent wrapper action: " + caller);
                 elementAction.Invoke();
             }
             catch (Exception e)
