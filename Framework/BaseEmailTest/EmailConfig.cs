@@ -4,6 +4,7 @@
 // </copyright>
 // <summary>Helper class for getting email specific configuration values</summary>
 //--------------------------------------------------
+using Magenic.MaqsFramework.Utilities;
 using Magenic.MaqsFramework.Utilities.Data;
 using Magenic.MaqsFramework.Utilities.Helper;
 using System;
