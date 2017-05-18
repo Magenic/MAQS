@@ -559,6 +559,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         public bool TryForClickableElementAndScrollIntoView(By by, int x, int y, out IWebElement element)
         {
             bool result = this.TryForClickableElement(by, out element);
+
             if (result)
             {
                 ElementHandler.ScrollIntoView(this.searchItem, by, x, y);
@@ -904,6 +905,5 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
                 return null;
             }
         }
-
     }
 }

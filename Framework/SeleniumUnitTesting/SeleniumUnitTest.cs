@@ -299,7 +299,7 @@ namespace SeleniumUnitTests
         #endregion
 
         /// <summary>
-        /// Verify TryWaitForAtrributeTextContains wait works
+        /// Verify TryWaitForAttributeTextContains wait works
         /// </summary>
         #region TryWaitForAttributeTextContains
         [TestMethod]
@@ -313,6 +313,9 @@ namespace SeleniumUnitTests
             Assert.IsNotNull(element, "Null element was returned");
         }
 
+        /// <summary>
+        /// Verify TryWaitForAttributeTextContains wait works
+        /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void TryWaitForAttributeTextContainsDontFind()
@@ -340,6 +343,9 @@ namespace SeleniumUnitTests
             Assert.IsNotNull(element, "Null element was returned");
         }
 
+        /// <summary>
+        /// Verify TryWaitForAttributeTextEquals wait works
+        /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void TryWaitForAttributeTextEqualsDontFind()
