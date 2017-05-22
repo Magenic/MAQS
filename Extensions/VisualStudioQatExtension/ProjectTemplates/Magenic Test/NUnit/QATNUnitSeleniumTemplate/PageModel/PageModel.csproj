@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="LoginPageModel.cs" />
     <Compile Include="HomePageModel.cs" />
+    <Compile Include="BasePageModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
