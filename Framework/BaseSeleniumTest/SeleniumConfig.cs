@@ -352,7 +352,11 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         private static DesiredCapabilities SetRemoteCapabilities(this DesiredCapabilities dc)
         {
             var remoteCapabilitySection = ConfigurationManager.GetSection(remoteCapabilities) as NameValueCollection;
-            if (remoteCapabilitySection == null) return dc;
+            if (remoteCapabilitySection == null)
+            {
+                return dc;
+            }
+
             var keys = remoteCapabilitySection.AllKeys;
             foreach (var key in keys)
             {
