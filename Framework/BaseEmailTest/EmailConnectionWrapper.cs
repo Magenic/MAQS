@@ -592,7 +592,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
 
                 if ((bool)args[1])
                 {
-                    HeaderList headers = HeaderList.Load(folder.GetStream(uid, string.Empty));
+                    HeaderList headers = folder.GetHeaders(uid);
                     message = new MimeMessage(headers);
                 }
                 else
