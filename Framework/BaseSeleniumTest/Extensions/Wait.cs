@@ -476,6 +476,161 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         }
 
         /// <summary>
+        /// Attempts to wait for the element attributes to contain the correct text value
+        /// </summary>
+        /// <param name="by">'by' selector for the element</param>
+        /// <param name="text">Text String expected within value of attribute</param>
+        /// <param name="attribute">Attribute name as a String</param>
+        /// <param name="element">When this method returns, IWebElement containing the element if the attribute text contains the string, else null</param>
+        /// <returns>Boolean of whether attribute contained given string</returns>
+        /// <example>
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="TryWaitForAttributeTextContains" lang="C#" />
+        /// </example>
+        public bool TryForAttributeTextContains(By by, string text, string attribute, out IWebElement element)
+        {
+            element = this.DoTryWaitUntilCheck(AttributeContainsExpectedText, by, text, attribute, this.searchItem);
+            return element != null;
+        }
+
+        /// <summary>
+        /// Attempts to wait for the element attributes to contain the correct text value
+        /// </summary>
+        /// <param name="by">'by' selector for the element</param>
+        /// <param name="text">Text String expected within value of attribute</param>
+        /// <param name="attribute">Attribute name as a String</param>
+        /// <param name="element">When this method returns, IWebElement containing the element if the attribute text matches, else null</param>
+        /// <returns>Boolean of whether attribute contained given string</returns>
+        /// <example>
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="TryWaitForAttributeTextEquals" lang="C#" />
+        /// </example>
+        public bool TryForAttributeTextEquals(By by, string text, string attribute, out IWebElement element)
+        {
+            element = this.DoTryWaitUntilCheck(AttributeEqualsExpectedText, by, text, attribute, this.searchItem);
+            return element != null;
+        }
+
+        /// <summary>
+        /// Attempts to wait for the element to be clickable
+        /// </summary>
+        /// <param name="by">'by' selector for the element</param>
+        /// <param name="element">When this method returns, IWebElement containing the element if it is clickable, else null</param>
+        /// <returns>True if the element is clickable</returns>
+        /// <example>
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="TryWaitForClickable" lang="C#" />
+        /// </example>
+        public bool TryForClickableElement(By by, out IWebElement element)
+        {
+            element = this.DoTryWaitUntilCheck(ElementIsClickable, by, this.searchItem);
+            return element != null;
+        }
+
+        /// <summary>
+        /// Attempts to wait for the element to be visible and scrolls into view
+        /// </summary>
+        /// <param name="by">'by' selector for the element</param>
+        /// <param name="element">When this method returns, IWebElement containing the element if it is clickable, else null</param>
+        /// <returns>True if the element is clickable</returns>
+        /// <example>
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="TryWaitForAndScroll" lang="C#" />
+        /// </example>
+        public bool TryForClickableElementAndScrollIntoView(By by, out IWebElement element)
+        {
+            bool result = this.TryForClickableElement(by, out element);
+
+            if (result)
+            {
+                ElementHandler.ScrollIntoView(this.searchItem, by);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Attempts to wait for the element to be visible and scrolls into view
+        /// </summary>
+        /// <param name="by">'by' selector for the element</param>
+        /// <param name="x">Horizontal offset</param>
+        /// <param name="y">Vertical offset</param>
+        /// <param name="element">When this method returns, IWebElement containing the element if it is clickable, else null</param>
+        /// <returns>True if the element is clickable</returns>
+        /// <example>
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="TryWaitForAndScroll" lang="C#" />
+        /// </example>
+        public bool TryForClickableElementAndScrollIntoView(By by, int x, int y, out IWebElement element)
+        {
+            bool result = this.TryForClickableElement(by, out element);
+
+            if (result)
+            {
+                ElementHandler.ScrollIntoView(this.searchItem, by, x, y);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Attempts to wait for the element to contain the expected (case insensitive) text
+        /// </summary>
+        /// <param name="by">'by' selector for the element</param>
+        /// <param name="text">The text we expect the element to contain - Case insensitive</param>
+        /// <param name="element">When this method returns, IWebElement containing the element if it is clickable, else null</param>
+        /// <returns>True if the element is contains the text</returns>
+        /// <example>
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="TryWaitForContainsText" lang="C#" />
+        /// </example>
+        public bool TryForContainsText(By by, string text, out IWebElement element)
+        {
+            element = this.DoTryWaitUntilCheck(ElementContainsExpectedText, by, text, this.searchItem);
+            return element != null;
+        }
+
+        /// <summary>
+        /// Attempts to wait for the element to exist
+        /// </summary>
+        /// <param name="by">'by' selector for the element</param>
+        /// <param name="element">When this method returns, IWebElement containing the element if it exists, else null</param>
+        /// <returns>True if the element exists</returns>
+        /// <example>
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="TryWaitForExist" lang="C#" />
+        /// </example>
+        public bool TryForElementExist(By by, out IWebElement element)
+        {
+            element = this.DoTryWaitUntilCheck(ElementDoesExist, by, this.searchItem);
+            return element != null;
+        }
+
+        /// <summary>
+        /// Attempts to wait for the element to have specific (case sensitive) text
+        /// </summary>
+        /// <param name="by">'by' selector for the element</param>
+        /// <param name="text">The text we expect the element to have - Case insensitive</param>
+        /// <param name="element">When this method returns, IWebElement containing the element if it has matching text, else null</param>
+        /// <returns>True if the element exists</returns>
+        /// <example>
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="TryWaitForExact" lang="C#" />
+        /// </example>
+        public bool TryForExactText(By by, string text, out IWebElement element)
+        {
+            element = this.DoTryWaitUntilCheck(ElementHasExpectedText, by, text, this.searchItem);
+            return element != null;
+        }
+
+        /// <summary>
+        /// Attempts to wait for the element to be visible
+        /// </summary>
+        /// <param name="by">'by' selector for the element</param>
+        /// <param name="element">When this method returns, IWebElement containing the element if it is visible, else null</param>
+        /// <returns>True if the element is clickable</returns>
+        /// <example>
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="TryWaitForVisible" lang="C#" />
+        /// </example>
+        public bool TryForVisibleElement(By by, out IWebElement element)
+        {
+            element = this.DoTryWaitUntilCheck(ElementIsVisible, by, this.searchItem);
+            return element != null;
+        }
+
+        /// <summary>
         /// Wait until check where we are checking text is within the value of attribute given
         /// </summary>
         /// <param name="by">'by' selector for the element</param>     
@@ -676,6 +831,78 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
             catch (NoSuchElementException)
             {
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// Do a try wait until check
+        /// </summary>
+        /// <param name="conditionCode">Function code to be executed by the block until successful or wait times out</param>
+        /// <param name="by">'by' selector for the element</param>
+        /// <param name="searchContext">Search context  - either web driver or web element</param>
+        /// <returns>True if the check passed</returns>
+        private IWebElement DoTryWaitUntilCheck(Func<By, ISearchContext, Func<IWebDriver, IWebElement>> conditionCode, By by, ISearchContext searchContext)
+        {
+            try
+            {
+                return this.webDriverWait.Until(conditionCode(by, this.searchItem));
+            }
+            catch (WebDriverTimeoutException)
+            {
+                return null;
+            }
+            catch (NoSuchElementException)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Do a try wait until check where we are checking text
+        /// </summary>
+        /// <param name="conditionCode">The wait until check function</param>
+        /// <param name="by">'by' selector for the element</param>
+        /// <param name="text">Text string to pass to the function given</param>
+        /// <param name="searchContext">Search context  - either web driver or web element</param>
+        /// <returns>True if the check passed</returns>
+        private IWebElement DoTryWaitUntilCheck(Func<By, string, ISearchContext, Func<IWebDriver, IWebElement>> conditionCode, By by, string text, ISearchContext searchContext)
+        {
+            try
+            {
+                return this.webDriverWait.Until(conditionCode(by, text, this.searchItem));
+            }
+            catch (WebDriverTimeoutException)
+            {
+                return null;
+            }
+            catch (NoSuchElementException)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Do a try wait Until the element attributes to have the correct text value
+        /// </summary>
+        /// <param name="conditionCode">The wait until check function</param>
+        /// <param name="by">'by' selector for the element</param>
+        /// <param name="textOne">First text string expected for function</param>
+        /// <param name="textTwo">Second text string expected for function</param>
+        /// <param name="searchContext">Search context  - either web driver or web element</param>
+        /// <returns>True if check passed</returns>
+        private IWebElement DoTryWaitUntilCheck(Func<By, string, string, ISearchContext, Func<IWebDriver, IWebElement>> conditionCode, By by, string textOne, string textTwo, ISearchContext searchContext)
+        {
+            try
+            {
+                return this.webDriverWait.Until(conditionCode(by, textOne, textTwo, this.searchItem));
+            }
+            catch (WebDriverTimeoutException)
+            {
+                return null;
+            }
+            catch (NoSuchElementException)
+            {
+                return null;
             }
         }
     }
