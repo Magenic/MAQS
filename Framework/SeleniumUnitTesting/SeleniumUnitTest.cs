@@ -299,6 +299,162 @@ namespace SeleniumUnitTests
         #endregion
 
         /// <summary>
+        /// Verify TryWaitForAttributeTextContains wait works
+        /// </summary>
+        #region TryWaitForAttributeTextContains
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void TryWaitForAttributeTextContains()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
+            IWebElement element = null;
+            bool found = this.WebDriver.Wait().TryForAttributeTextContains(asyncLoadingTextDiv, "none;", "style", out element);
+            Assert.IsTrue(found, "False was returned");
+            Assert.IsNotNull(element, "Null element was returned");
+        }
+
+        /// <summary>
+        /// Verify TryWaitForAttributeTextContains wait works
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void TryWaitForAttributeTextContainsDontFind()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
+            IWebElement element = null;
+            bool found = this.WebDriver.Wait().TryForAttributeTextContains(foodTable, "Flower Table", "Summmary", out element);
+            Assert.IsFalse(found, "True was unexpectedly returned");
+            Assert.IsNull(element, "Element was not null");
+        }
+        #endregion
+
+        /// <summary>
+        /// Verify TryWaitForAttributeTextEquals wait works
+        /// </summary>
+        #region TryWaitForAttributeTextEquals
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void TryWaitForAttributeTextEquals()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
+            IWebElement element = null;
+            bool found = this.WebDriver.Wait().TryForAttributeTextEquals(asyncLoadingTextDiv, "display: block;", "style", out element);
+            Assert.IsTrue(found, "False was returned");
+            Assert.IsNotNull(element, "Null element was returned");
+        }
+
+        /// <summary>
+        /// Verify TryWaitForAttributeTextEquals wait works
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void TryWaitForAttributeTextEqualsDontFind()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
+            IWebElement element = null;
+            bool found = this.WebDriver.Wait().TryForAttributeTextEquals(foodTable, "Flower Table", "Summmary", out element);
+            Assert.IsFalse(found, "True was unexpectedly returned");
+            Assert.IsNull(element, "Element was not null");
+        }
+        #endregion
+
+        /// <summary>
+        /// Verify TryWaitForClickableElement wait works
+        /// </summary>
+        #region TryWaitForClickable
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void TryWaitForClickableElement()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            IWebElement element = null;
+            bool found = this.WebDriver.Wait().TryForClickableElement(homeButtonCssSelector, out element);
+            Assert.IsTrue(found, "False was returned");
+            Assert.IsNotNull(element, "Null element was returned");
+        }
+        #endregion
+
+        /// <summary>
+        /// Test method to check the element can scroll into the view element
+        /// </summary>
+        #region TryWaitForAndScroll
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void TryScrollIntoViewElement()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
+            IWebElement element = null;
+            bool found = this.WebDriver.Wait().TryForClickableElementAndScrollIntoView(automationShowDialog1, out element);
+            Assert.IsTrue(found, "False was returned.");
+            Assert.IsNotNull(element, "Failed to find element.");
+        }
+        #endregion
+
+        /// <summary>
+        /// Verify TryWaitForContainsText wait works
+        /// </summary>
+        #region TryWaitForContainsText
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void TryWaitForContainsText()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
+            IWebElement element = null;
+            bool found = this.WebDriver.Wait().TryForContainsText(automationNamesLabel, "Name", out element);
+            Assert.IsTrue(found, "False was returned");
+            Assert.IsNotNull(element, "Null element was returned");
+        }
+        #endregion
+
+        /// <summary>
+        /// Verify TryWaitForElementExist wait works
+        /// </summary>
+        #region TryWaitForExist
+        [TestMethod]
+        [TestCategory("Selenium Unit Tests")]
+        public void TryWaitForElementExist()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            IWebElement element = null;
+            bool found = this.WebDriver.Wait().TryForElementExist(homeButtonCssSelector, out element);
+            Assert.IsTrue(found, "False was returned");
+            Assert.IsNotNull(element, "Null element was returned");
+        }
+        #endregion
+
+        /// <summary>
+        /// Verify TryWaitUntilExactText wait works
+        /// </summary>
+        #region TryWaitForExact
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void TryWaitUntilExactText()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
+            IWebElement element = null;
+            bool found = this.WebDriver.Wait().TryForExactText(asyncOptionsLabel, "Options", out element);
+            Assert.IsTrue(found, "False was returned");
+            Assert.IsNotNull(element, "Null element was returned");
+        }
+        #endregion
+
+        /// <summary>
+        /// Verify TryWaitForVisibleElement wait works
+        /// </summary>
+        #region TryWaitForVisible
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void TryWaitForVisibleElement()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
+            IWebElement element = null;
+            bool found = this.WebDriver.Wait().TryForVisibleElement(asyncDropdownCssSelector, out element);
+            Assert.IsTrue(found, "False was returned");
+            Assert.IsNotNull(element, "Null element was returned");
+        }
+        #endregion
+
+        /// <summary>
         /// Verify findElement works - validating a specific selector exists
         /// </summary>
         [TestMethod]
