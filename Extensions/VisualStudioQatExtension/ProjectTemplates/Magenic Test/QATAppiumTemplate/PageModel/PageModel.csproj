@@ -40,17 +40,17 @@
       <HintPath>..\..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.MaqsFramework.BaseAppiumTest">
-      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.0\lib\net45\Magenic.MaqsFramework.BaseAppiumTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.1\lib\net45\Magenic.MaqsFramework.BaseAppiumTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.MaqsFramework.BaseSeleniumTest">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.0\lib\net45\Magenic.MaqsFramework.BaseSeleniumTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.1\lib\net45\Magenic.MaqsFramework.BaseSeleniumTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.MaqsFramework.BaseTest">
-      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.0\lib\net45\Magenic.MaqsFramework.BaseTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.1\lib\net45\Magenic.MaqsFramework.BaseTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.MaqsFramework.Utilities">
-      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.0\lib\net45\Magenic.MaqsFramework.Utilities.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.1\lib\net45\Magenic.MaqsFramework.Utilities.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
@@ -67,11 +67,11 @@
     <Reference Include="System.Xml" />
     <Reference Include="WebDriver">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Selenium.WebDriver.3.2.0\lib\net40\WebDriver.dll</HintPath>
+      <HintPath>..\..\packages\Selenium.WebDriver.3.4.0\lib\net40\WebDriver.dll</HintPath>
     </Reference>
     <Reference Include="WebDriver.Support">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Selenium.Support.3.2.0\lib\net40\WebDriver.Support.dll</HintPath>
+      <HintPath>..\..\packages\Selenium.Support.3.4.0\lib\net40\WebDriver.Support.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Choose>
