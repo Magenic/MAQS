@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>Magenic.Open.Maqs.NunitOnly</id>
-    <version>4.0.0</version>
+    <version>4.0.1</version>
     <title>Open MAQS (NUnit only)</title>
     <authors>Magenic</authors>
     <owners>Magenic</owners>
@@ -12,14 +12,14 @@
     <licenseUrl>http://magenicautomation.azurewebsites.net/content/license.txt</licenseUrl>
     <iconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</iconUrl>
     <dependencies>
-      <dependency id="NUnit" version="3.6.0" />
+      <dependency id="NUnit" version="3.6.1" />
     </dependencies>
   </metadata>
   <files>
-    <file src="..\BaseSeleniumTest\bin\ReleaseShim\VisualStudioUnitTestShim.dll" target="lib\net45" />
-    <file src="..\BaseSeleniumTest\bin\ReleaseShim\Magenic.MaqsFramework.Utilities.dll" target="lib\net45" />
-    <file src="..\BaseSeleniumTest\bin\ReleaseShim\Magenic.MaqsFramework.BaseSeleniumTest.dll" target="lib\net45" />
-    <file src="..\BaseSeleniumTest\bin\ReleaseShim\Magenic.MaqsFramework.BaseTest.dll" target="lib\net45" />
+    <file src="..\BaseSeleniumTest\bin\ReleaseShim\VisualStudioUnitTestShim.*" target="lib\net45" />
+    <file src="..\BaseSeleniumTest\bin\ReleaseShim\Magenic.MaqsFramework.Utilities.*" target="lib\net45" />
+    <file src="..\BaseSeleniumTest\bin\ReleaseShim\Magenic.MaqsFramework.BaseSeleniumTest.*" target="lib\net45" />
+    <file src="..\BaseSeleniumTest\bin\ReleaseShim\Magenic.MaqsFramework.BaseTest.*" target="lib\net45" />
     <file src="..\OpenDocumentation\Help\Maqs.chm" target="help"/>
     <file src="..\..\Extensions\VisualStudioQatExtension\License.txt" target=""/>
   </files>
