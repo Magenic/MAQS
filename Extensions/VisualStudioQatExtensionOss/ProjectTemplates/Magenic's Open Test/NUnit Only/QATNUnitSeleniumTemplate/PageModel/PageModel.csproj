@@ -42,7 +42,7 @@
       <HintPath>..\..\packages\Magenic.Open.Maqs.NunitOnly.4.0.1\lib\net45\VisualStudioUnitTestShim.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.MaqsFramework.BaseTest">
-      <HintPath>..\..\packages\Magenic.Open.Maqs.4.0.1\lib\net45\Magenic.MaqsFramework.BaseTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Open.Maqs.NunitOnly.4.0.1\lib\net45\Magenic.MaqsFramework.BaseTest.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.3.6.1\lib\net45\nunit.framework.dll</HintPath>

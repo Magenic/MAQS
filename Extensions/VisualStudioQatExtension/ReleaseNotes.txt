@@ -30,7 +30,7 @@ MAQS Release Notes:
 	- Added FluentElement
 	- Added basic Mongo support	
 	- Fixed Firefox settings to use Gecko, without this change Firefox will not work with Selenium 3
-	- Add support for logging supression
+	- Add support for logging suppression
 	- Removed deprecated event and RTF loggers
 	- Removed deprecated ResponseTimes
 	- Updated
