@@ -51,7 +51,6 @@
 ## NUnit Only
    Cannot be mixed with Visual Studio unit test framework.  Locate this in Magenic's Open Test
    Choosing NUnit is good for: Full Microsoft Stack. or Another compile server such as Jenkins or Team City
-
 ## Logging
 - Yes, No, or On Fail and the Defaults are  Log = No, LogType = Console LogLevel = INFORMATION and FileLoggerPath = Test dll "log" subfolder    File Format options: txt, html, console
 ## Soft Asserts
