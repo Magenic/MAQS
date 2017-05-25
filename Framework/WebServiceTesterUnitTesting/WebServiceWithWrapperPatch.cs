@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------
-// <copyright file="WebServiceWithWrapperPut.cs" company="Magenic">
+// <copyright file="WebServiceWithWrapperPatch.cs" company="Magenic">
 //  Copyright 2017 Magenic, All rights Reserved
 // </copyright>
 // <summary>Put unit tests</summary>
@@ -157,20 +157,6 @@ namespace WebServiceTesterUnitTesting
             Assert.AreEqual(p.Name, result.Name);
             Assert.AreEqual(p.Price, result.Price);
         }
-
-        ///// <summary>
-        ///// Patch string without utility
-        ///// </summary>
-        //[TestMethod]
-        //[TestCategory(TestCategories.WebService)]
-        //public void PatchStringWithoutMakeContent()
-        //{
-        //    var result = this.WebServiceWrapper.Patch("/api/String/Patch/1", "text/plain", "Test", Encoding.UTF8, "text/plain");
-        //    string expectedPassed = "\"Patched Test\"";
-        //    string expectedFailed = "\"Patched ﻿Test\"";
-        //    var isEqual = expectedPassed.Equals(expectedFailed, StringComparison.InvariantCultureIgnoreCase);
-        //    Assert.AreEqual(expectedFailed, result);
-        //}
 
         /// <summary>
         /// Patch string without utility
