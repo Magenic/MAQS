@@ -57,56 +57,78 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// </example>
         public static IWebDriver Browser(string browser)
         {
-            IWebDriver webDriver;
+            IWebDriver webDriver = null;
 
-            switch (browser.ToUpper())
+            try
             {
-                case "INTERNET EXPLORER":
-                case "INTERNETEXPLORER":
-                case "IE":
-                    webDriver = new InternetExplorerDriver(GetDriverLocation("IEDriverServer.exe"));
-                    break;
+                switch (browser.ToUpper())
+                {
+                    case "INTERNET EXPLORER":
+                    case "INTERNETEXPLORER":
+                    case "IE":
+                        webDriver = new InternetExplorerDriver(GetDriverLocation("IEDriverServer.exe"));
+                        break;
 
-                case "FIREFOX":
-                    FirefoxDriverService service = FirefoxDriverService.CreateDefaultService(GetDriverLocation("geckodriver.exe"), "geckodriver.exe");
-                    FirefoxOptions firefoxOptions = new FirefoxOptions();
-                    firefoxOptions.Profile = new FirefoxProfile();
-                    webDriver = new FirefoxDriver(service, firefoxOptions, GetTimeoutTime());
-                    break;
+                    case "FIREFOX":
+                        FirefoxDriverService service = FirefoxDriverService.CreateDefaultService(GetDriverLocation("geckodriver.exe"), "geckodriver.exe");
+                        FirefoxOptions firefoxOptions = new FirefoxOptions();
+                        firefoxOptions.Profile = new FirefoxProfile();
+                        webDriver = new FirefoxDriver(service, firefoxOptions, GetTimeoutTime());
+                        break;
 
-                case "CHROME":
-                    ChromeOptions chromeOptions = new ChromeOptions();
-                    chromeOptions.AddArgument("test-type");
-                    chromeOptions.AddArguments("--disable-web-security");
-                    chromeOptions.AddArguments("--allow-running-insecure-content");
-                    chromeOptions.AddArguments("--disable-extensions");
-                    webDriver = new ChromeDriver(GetDriverLocation("chromedriver.exe"), chromeOptions);
-                    break;
+                    case "CHROME":
+                        ChromeOptions chromeOptions = new ChromeOptions();
+                        chromeOptions.AddArgument("test-type");
+                        chromeOptions.AddArguments("--disable-web-security");
+                        chromeOptions.AddArguments("--allow-running-insecure-content");
+                        chromeOptions.AddArguments("--disable-extensions");
+                        webDriver = new ChromeDriver(GetDriverLocation("chromedriver.exe"), chromeOptions);
+                        break;
 
-                case "EDGE":
-                    EdgeOptions edgeOptions = new EdgeOptions();
-                    edgeOptions.PageLoadStrategy = EdgePageLoadStrategy.Normal;
-                   
-                    webDriver = new EdgeDriver(GetDriverLocation("MicrosoftWebDriver.exe", GetProgramFilesFolder("Microsoft Web Driver", "MicrosoftWebDriver.exe")), edgeOptions);
-                    break;
+                    case "EDGE":
+                        EdgeOptions edgeOptions = new EdgeOptions();
+                        edgeOptions.PageLoadStrategy = EdgePageLoadStrategy.Normal;
 
-                case "PHANTOMJS":
-                    PhantomJSOptions phantomOptions = new PhantomJSOptions();
-                    phantomOptions.AddAdditionalCapability("phantomjs.page.settings.userAgent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:26.0) Gecko/20100101 Firefox/26.0");
-                    webDriver = new PhantomJSDriver(GetDriverLocation("phantomjs.exe"), phantomOptions);
-                    break;
+                        webDriver = new EdgeDriver(GetDriverLocation("MicrosoftWebDriver.exe", GetProgramFilesFolder("Microsoft Web Driver", "MicrosoftWebDriver.exe")), edgeOptions);
+                        break;
 
-                case "REMOTE":
-                    webDriver = new RemoteWebDriver(new Uri(Config.GetValue("HubUrl")), GetRemoteCapabilities());
-                    break;
+                    case "PHANTOMJS":
+                        PhantomJSOptions phantomOptions = new PhantomJSOptions();
+                        phantomOptions.AddAdditionalCapability("phantomjs.page.settings.userAgent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:26.0) Gecko/20100101 Firefox/26.0");
+                        webDriver = new PhantomJSDriver(GetDriverLocation("phantomjs.exe"), phantomOptions);
+                        break;
 
-                default:
-                    throw new Exception(StringProcessor.SafeFormatter("Browser type '{0}' is not supported", browser));
+                    case "REMOTE":
+                        webDriver = new RemoteWebDriver(new Uri(Config.GetValue("HubUrl")), GetRemoteCapabilities());
+                        break;
+
+                    default:
+                        throw new Exception(StringProcessor.SafeFormatter("Browser type '{0}' is not supported", browser));
+                }
+
+                // Maximize the browser and than return it
+                webDriver.Manage().Window.Maximize();
+                return webDriver;
             }
+            catch (Exception e)
+            {
+                // Make sure we have a web driver
+                if (webDriver != null)
+                {
+                    try
+                    {
+                        // Try to cleanup
+                        webDriver.Quit();
+                    }
+                    catch (Exception quitExecption)
+                    {
+                        throw new Exception("Web driver setup and teardown failed. Your web driver may be out of date", quitExecption);
+                    }
+                }
 
-            // Maximize the browser and than return it
-            webDriver.Manage().Window.Maximize();
-            return webDriver;
+                // Log that something went wrong
+                throw new Exception("Your web driver may be out of date or unsupported.", e);
+            }
         }
 
         /// <summary>
@@ -352,6 +374,11 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         private static DesiredCapabilities SetRemoteCapabilities(this DesiredCapabilities dc)
         {
             var remoteCapabilitySection = ConfigurationManager.GetSection(remoteCapabilities) as NameValueCollection;
+            if (remoteCapabilitySection == null)
+            {
+                return dc;
+            }
+
             var keys = remoteCapabilitySection.AllKeys;
             foreach (var key in keys)
             {

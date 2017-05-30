@@ -4,9 +4,11 @@
 // </copyright>
 // <summary>The basic database interactions</summary>
 //--------------------------------------------------
-using AE.Net.Mail;
-using AE.Net.Mail.Imap;
 using Magenic.MaqsFramework.Utilities.Data;
+using MailKit;
+using MailKit.Net.Imap;
+using MailKit.Search;
+using MimeKit;
 using System;
 using System.Collections.Generic;
 
@@ -103,7 +105,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <example>
         /// <code source="../EmailUnitTests/EmailUnitWithWrapper.cs" region="GetMailbox" lang="C#" />
         /// </example> 
-        public override Mailbox GetMailbox(string mailbox)
+        public override IMailFolder GetMailbox(string mailbox)
         {
             try
             {
@@ -174,7 +176,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <code source="../EmailUnitTests/EmailUnitWithWrapper.cs" region="GetMessage" lang="C#" />
         /// <code source="../EmailUnitTests/EmailUnitWithWrapper.cs" region="GetMessage1" lang="C#" />
         /// </example>
-        public override MailMessage GetMessage(string uid, bool headerOnly = false, bool markRead = false)
+        public override MimeMessage GetMessage(string uid, bool headerOnly = false, bool markRead = false)
         {
             try
             {
@@ -197,7 +199,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <example>
         /// <code source="../EmailUnitTests/EmailUnitWithWrapper.cs" region="EmailHeadersMailbox" lang="C#" />
         /// </example>   
-        public override List<MailMessage> GetAllMessageHeaders(string mailBox)
+        public override List<MimeMessage> GetAllMessageHeaders(string mailBox)
         {
             try
             {
@@ -218,7 +220,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <example>
         /// <code source="../EmailUnitTests/EmailUnitWithWrapper.cs" region="DeleteMessage" lang="C#" />
         /// </example>
-        public override void DeleteMessage(MailMessage message)
+        public override void DeleteMessage(MimeMessage message)
         {
             try
             {
@@ -261,11 +263,11 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <example>
         /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="MoveMessage" lang="C#" />
         /// </example>  
-        public override void MoveMailMessage(MailMessage message, string destinationMailbox)
+        public override void MoveMailMessage(MimeMessage message, string destinationMailbox)
         {
             try
             {
-                this.OnEvent(StringProcessor.SafeFormatter("Move message '{0}' from '{1}' recived '{2}' to mailbox '{3}'", message.Subject, message.From, message.Date, destinationMailbox));
+                this.OnEvent(StringProcessor.SafeFormatter("Move message '{0}' from '{1}' recived '{2}' to mailbox '{3}'", message.Subject, message.From.ToString(), message.Date.ToString(), destinationMailbox));
                 base.MoveMailMessage(message, destinationMailbox);
             }
             catch (Exception ex)
@@ -308,7 +310,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <example>
         /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="AttachmentsByUid" lang="C#" />
         /// </example>
-        public override List<Attachment> GetAttachments(string uid)
+        public override List<MimeEntity> GetAttachments(string uid)
         {
             try
             {
@@ -330,7 +332,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <example>
         /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="GetAttachmentsMessage" lang="C#" />
         /// </example>
-        public override List<Attachment> GetAttachments(MailMessage message)
+        public override List<MimeEntity> GetAttachments(MimeMessage message)
         {
             try
             {
@@ -354,13 +356,13 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <example>
         /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="DownloadAttachmentsToLocation" lang="C#" />
         /// </example>
-        public override List<string> DownLoadAttachments(MailMessage message, string downloadFolder)
+        public override List<string> DownloadAttachments(MimeMessage message, string downloadFolder)
         {
             try
             {
                 this.OnEvent(
                     StringProcessor.SafeFormatter("Download attachments for message '{0}' from '{1}' recived '{2}' in mailbox '{3}' to '{4}'", message.Subject, message.From, message.Date, this.CurrentMailBox, downloadFolder));
-                return base.DownLoadAttachments(message, downloadFolder);
+                return base.DownloadAttachments(message, downloadFolder);
             }
             catch (Exception ex)
             {
@@ -383,7 +385,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <example>
         /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="MessageSince" lang="C#" />
         /// </example>
-        public override List<MailMessage> SearchMessages(SearchCondition condition, bool headersOnly = true, bool markRead = false)
+        public override List<MimeMessage> SearchMessages(SearchQuery condition, bool headersOnly = true, bool markRead = false)
         {
             try
             {
@@ -408,7 +410,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <example>
         /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="GetContentTypes" lang="C#" />
         /// </example>
-        public override List<string> GetContentTypes(MailMessage message)
+        public override List<string> GetContentTypes(MimeMessage message)
         {
             try
             {
@@ -431,7 +433,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <example>
         /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="GetBodyByContent" lang="C#" />
         /// </example>
-        public override string GetBodyByContentTypes(MailMessage message, string contentType)
+        public override string GetBodyByContentTypes(MimeMessage message, string contentType)
         {
             try
             {

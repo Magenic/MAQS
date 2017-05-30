@@ -34,7 +34,7 @@ namespace UtilitiesUnitTesting
         private Tconfig tc;
 
         /// <summary>
-        /// Setup before we start running selenium tests
+        /// Setup before running tests
         /// </summary>
         /// <param name="context">The upcoming test context</param>
         [ClassInitialize]
@@ -44,7 +44,7 @@ namespace UtilitiesUnitTesting
         }
 
         /// <summary>
-        /// Cleanup after we are done running selenium tests
+        /// Cleanup after we are done running tests
         /// </summary>
         [ClassCleanup]
         public static void CleanupAfterClass()
@@ -62,13 +62,13 @@ namespace UtilitiesUnitTesting
         {
             PerfTimerCollection p = this.PerfTimerCollection;
 
-            //// build an object to store in the payloadstring of the PerfTimerCollection
+            // build an object to store in the payloadstring of the PerfTimerCollection
             this.tc = new Tconfig();
             this.tc.LogPath = Config.GetValue("FileLoggerPath");
             this.tc.Logtype = Config.GetValue("LogType");
             this.tc.WebURI = Config.GetValue("WebServiceUri");
 
-            //// store it (as a JSON string)
+            // store it (as a JSON string)
             p.PerfPayloadString = JsonConvert.SerializeObject(this.tc);
             string json_string = p.PerfPayloadString;
 

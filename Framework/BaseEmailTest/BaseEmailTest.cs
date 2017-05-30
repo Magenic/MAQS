@@ -4,11 +4,11 @@
 // </copyright>
 // <summary>This is the base email test class</summary>
 //--------------------------------------------------
-using AE.Net.Mail;
 using Magenic.MaqsFramework.BaseTest;
 using Magenic.MaqsFramework.Utilities.Data;
 using Magenic.MaqsFramework.Utilities.Helper;
 using Magenic.MaqsFramework.Utilities.Logging;
+using MailKit.Net.Imap;
 using System;
 
 namespace Magenic.MaqsFramework.BaseEmailTest
@@ -54,8 +54,8 @@ namespace Magenic.MaqsFramework.BaseEmailTest
             string username = EmailConfig.GetUserName();
             string password = EmailConfig.GetPassword();
             int port = EmailConfig.GetPort();
-            bool isSsl = EmailConfig.GetEmailViaSSL();
-            bool checkSsl = EmailConfig.GetEmailSkipSslValidation();
+            bool isSSL = EmailConfig.GetEmailViaSSL();
+            bool skipSslCheck = EmailConfig.GetEmailSkipSslValidation();
 
             if (loggingEnabled)
             {
@@ -64,9 +64,13 @@ namespace Magenic.MaqsFramework.BaseEmailTest
                     StringProcessor.SafeFormatter("Connect to email with user '{0}' on host '{1}', port '{2}'", username, host, port));
             }
 
-            ImapClient emailConnection = new ImapClient(host, username, password, AuthMethods.Login, port, isSsl, checkSsl);
-            emailConnection.Noop();
-            emailConnection.ServerTimeout = Convert.ToInt32(Config.GetValue("Timeout", "10000"));
+            ImapClient emailConnection = new ImapClient();
+            emailConnection.ServerCertificateValidationCallback = (s, c, h, e) => skipSslCheck;
+            emailConnection.Connect(host, port, isSSL);
+            emailConnection.Authenticate(username, password);
+            emailConnection.Timeout = Convert.ToInt32(Config.GetValue("Timeout", "10000"));
+
+            emailConnection.NoOp();
 
             if (loggingEnabled)
             {

@@ -28,7 +28,7 @@ namespace DatabaseUnitTests
         private static bool loggingFolderExistsBeforeRun = false;
 
         /// <summary>
-        /// Setup before we start running selenium tests
+        /// Setup before running tests
         /// </summary>
         /// <param name="context">The upcoming test context</param>
         [ClassInitialize]
@@ -38,7 +38,7 @@ namespace DatabaseUnitTests
         }
 
         /// <summary>
-        /// Cleanup after we are done running selenium tests
+        /// Cleanup after we are done running tests
         /// </summary>
         [ClassCleanup]
         public static void CleanupAfterClass()

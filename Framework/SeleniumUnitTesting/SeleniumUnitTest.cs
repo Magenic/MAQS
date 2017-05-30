@@ -109,7 +109,7 @@ namespace SeleniumUnitTests
         private static By flowerTable = By.CssSelector("#FlowerTable TD");
 
         /// <summary>
-        /// Setup before we start running selenium tests
+        /// Setup before running tests
         /// </summary>
         /// <param name="context">The upcoming test context</param>
         [ClassInitialize]
@@ -119,7 +119,7 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Cleanup after we are done running selenium tests
+        /// Cleanup after we are done running tests
         /// </summary>
         [ClassCleanup]
         public static void CleanupAfterClass()
@@ -295,6 +295,162 @@ namespace SeleniumUnitTests
         {
             this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
             Assert.IsTrue(this.WebDriver.Wait().UntilContainsText(automationShowDialog1, "dialog"), "Failed to find element");
+        }
+        #endregion
+
+        /// <summary>
+        /// Verify TryWaitForAttributeTextContains wait works
+        /// </summary>
+        #region TryWaitForAttributeTextContains
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void TryWaitForAttributeTextContains()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
+            IWebElement element = null;
+            bool found = this.WebDriver.Wait().TryForAttributeTextContains(asyncLoadingTextDiv, "none;", "style", out element);
+            Assert.IsTrue(found, "False was returned");
+            Assert.IsNotNull(element, "Null element was returned");
+        }
+
+        /// <summary>
+        /// Verify TryWaitForAttributeTextContains wait works
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void TryWaitForAttributeTextContainsDontFind()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
+            IWebElement element = null;
+            bool found = this.WebDriver.Wait().TryForAttributeTextContains(foodTable, "Flower Table", "Summmary", out element);
+            Assert.IsFalse(found, "True was unexpectedly returned");
+            Assert.IsNull(element, "Element was not null");
+        }
+        #endregion
+
+        /// <summary>
+        /// Verify TryWaitForAttributeTextEquals wait works
+        /// </summary>
+        #region TryWaitForAttributeTextEquals
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void TryWaitForAttributeTextEquals()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
+            IWebElement element = null;
+            bool found = this.WebDriver.Wait().TryForAttributeTextEquals(asyncLoadingTextDiv, "display: block;", "style", out element);
+            Assert.IsTrue(found, "False was returned");
+            Assert.IsNotNull(element, "Null element was returned");
+        }
+
+        /// <summary>
+        /// Verify TryWaitForAttributeTextEquals wait works
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void TryWaitForAttributeTextEqualsDontFind()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
+            IWebElement element = null;
+            bool found = this.WebDriver.Wait().TryForAttributeTextEquals(foodTable, "Flower Table", "Summmary", out element);
+            Assert.IsFalse(found, "True was unexpectedly returned");
+            Assert.IsNull(element, "Element was not null");
+        }
+        #endregion
+
+        /// <summary>
+        /// Verify TryWaitForClickableElement wait works
+        /// </summary>
+        #region TryWaitForClickable
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void TryWaitForClickableElement()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            IWebElement element = null;
+            bool found = this.WebDriver.Wait().TryForClickableElement(homeButtonCssSelector, out element);
+            Assert.IsTrue(found, "False was returned");
+            Assert.IsNotNull(element, "Null element was returned");
+        }
+        #endregion
+
+        /// <summary>
+        /// Test method to check the element can scroll into the view element
+        /// </summary>
+        #region TryWaitForAndScroll
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void TryScrollIntoViewElement()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
+            IWebElement element = null;
+            bool found = this.WebDriver.Wait().TryForClickableElementAndScrollIntoView(automationShowDialog1, out element);
+            Assert.IsTrue(found, "False was returned.");
+            Assert.IsNotNull(element, "Failed to find element.");
+        }
+        #endregion
+
+        /// <summary>
+        /// Verify TryWaitForContainsText wait works
+        /// </summary>
+        #region TryWaitForContainsText
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void TryWaitForContainsText()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
+            IWebElement element = null;
+            bool found = this.WebDriver.Wait().TryForContainsText(automationNamesLabel, "Name", out element);
+            Assert.IsTrue(found, "False was returned");
+            Assert.IsNotNull(element, "Null element was returned");
+        }
+        #endregion
+
+        /// <summary>
+        /// Verify TryWaitForElementExist wait works
+        /// </summary>
+        #region TryWaitForExist
+        [TestMethod]
+        [TestCategory("Selenium Unit Tests")]
+        public void TryWaitForElementExist()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            IWebElement element = null;
+            bool found = this.WebDriver.Wait().TryForElementExist(homeButtonCssSelector, out element);
+            Assert.IsTrue(found, "False was returned");
+            Assert.IsNotNull(element, "Null element was returned");
+        }
+        #endregion
+
+        /// <summary>
+        /// Verify TryWaitUntilExactText wait works
+        /// </summary>
+        #region TryWaitForExact
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void TryWaitUntilExactText()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
+            IWebElement element = null;
+            bool found = this.WebDriver.Wait().TryForExactText(asyncOptionsLabel, "Options", out element);
+            Assert.IsTrue(found, "False was returned");
+            Assert.IsNotNull(element, "Null element was returned");
+        }
+        #endregion
+
+        /// <summary>
+        /// Verify TryWaitForVisibleElement wait works
+        /// </summary>
+        #region TryWaitForVisible
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void TryWaitForVisibleElement()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
+            IWebElement element = null;
+            bool found = this.WebDriver.Wait().TryForVisibleElement(asyncDropdownCssSelector, out element);
+            Assert.IsTrue(found, "False was returned");
+            Assert.IsNotNull(element, "Null element was returned");
         }
         #endregion
 
@@ -516,7 +672,7 @@ namespace SeleniumUnitTests
             this.WebDriver.Navigate().GoToUrl(testSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
             SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.Log);
-            string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, ".png");
+            string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, ".Jpeg");
             Assert.IsTrue(File.Exists(filePath), "Fail to find screenshot");
             File.Delete(filePath);
         }
@@ -534,7 +690,7 @@ namespace SeleniumUnitTests
 
             // Create a console logger and calculate the file location
             ConsoleLogger consoleLogger = new ConsoleLogger();
-            string expectedPath = Path.Combine(LoggingConfig.GetLogDirectory(), "ScreenCapDelete.png");
+            string expectedPath = Path.Combine(LoggingConfig.GetLogDirectory(), "ScreenCapDelete.Jpeg");
 
             // Take a screenshot
             SeleniumUtilities.CaptureScreenshot(this.WebDriver, consoleLogger, "Delete");
@@ -552,7 +708,7 @@ namespace SeleniumUnitTests
         public void CaptureScreenshotThrownException()
         {
             FileLogger tempLogger = new FileLogger();
-            tempLogger.FilePath = "<>"; ////illegal file path
+            tempLogger.FilePath = "<>"; // illegal file path
 
             this.WebDriver.Navigate().GoToUrl(testSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
@@ -569,7 +725,7 @@ namespace SeleniumUnitTests
         {
             this.WebDriver.Navigate().GoToUrl(testSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
-            string screenShotPath = SeleniumUtilities.CaptureScreenshot(this.WebDriver, "TempTestDirectory", "TempTestFilePath");
+            string screenShotPath = SeleniumUtilities.CaptureScreenshot(this.WebDriver, "TempTestDirectory", "TempTestFilePath", SeleniumUtilities.GetScreenShotFormat());
             Assert.IsTrue(File.Exists(screenShotPath), "Fail to find screenshot");
             File.Delete(screenShotPath);
         }
@@ -627,7 +783,7 @@ namespace SeleniumUnitTests
             this.Log = new FileLogger(string.Empty, "SeleniumSoftAssertIsTrueFalseConditionFileLog.txt", MessageType.GENERIC, true);
             SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(this.WebDriver, this.Log);
             string logLocation = ((FileLogger)this.Log).FilePath;
-            string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " (1).png";
+            string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " (1).Jpeg";
 
             bool isFalse = seleniumSoftAssert.IsTrue(false, "testSoftAssert", "message");
 
@@ -647,7 +803,7 @@ namespace SeleniumUnitTests
         {
             SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(this.WebDriver, this.Log);
             string logLocation = ((FileLogger)this.Log).FilePath;
-            string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " (1).png";
+            string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " (1).Jpeg";
 
             bool isFalse = seleniumSoftAssert.IsFalse(true, "testSoftAssert", "message");
 
@@ -1090,6 +1246,117 @@ namespace SeleniumUnitTests
             Assert.IsTrue(log.Contains("Navigating back to: "));
             Assert.IsTrue(log.Contains("Navigated Forward: "));
             Assert.IsTrue(log.Contains("Navigated back: "));
+        }
+
+        /// <summary>
+        /// Verify that CaptureScreenshot captured is in the bitmap image format
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void CaptureScreenshotBmpFormat()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Wait().ForPageLoad();
+            string screenShotPath = SeleniumUtilities.CaptureScreenshot(this.WebDriver, "TempTestDirectory", "TempTestFilePath", ScreenshotImageFormat.Bmp);
+            Assert.IsTrue(File.Exists(screenShotPath), "Fail to find screenshot");
+            Assert.AreEqual(Path.GetExtension(screenShotPath), ".Bmp", "The screenshot format was not in '.Bmp' format");
+            File.Delete(screenShotPath);
+        }
+
+        /// <summary>
+        /// Verify that CaptureScreenshot captured is in the Graphics Interchange Format format
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void CaptureScreenshotGifFormat()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Wait().ForPageLoad();
+            string screenShotPath = SeleniumUtilities.CaptureScreenshot(this.WebDriver, "TempTestDirectory", "TempTestFilePath", ScreenshotImageFormat.Gif);
+            Assert.IsTrue(File.Exists(screenShotPath), "Fail to find screenshot");
+            Assert.AreEqual(Path.GetExtension(screenShotPath), ".Gif", "The screenshot format was not in '.Gif' format");
+            File.Delete(screenShotPath);
+        }
+
+        /// <summary>
+        /// Verify that CaptureScreenshot captured is in the Joint Photographic Experts Group format
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void CaptureScreenshotJpegFormat()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Wait().ForPageLoad();
+            string screenShotPath = SeleniumUtilities.CaptureScreenshot(this.WebDriver, "TempTestDirectory", "TempTestFilePath", ScreenshotImageFormat.Jpeg);
+            Assert.IsTrue(File.Exists(screenShotPath), "Fail to find screenshot");
+            Assert.AreEqual(Path.GetExtension(screenShotPath), ".Jpeg", "The screenshot format was not in '.Jpeg' format");
+            File.Delete(screenShotPath);
+        }
+
+        /// <summary>
+        /// Verify that CaptureScreenshot captured is in the Portable Network Graphics format
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void CaptureScreenshotPngFormat()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Wait().ForPageLoad();
+            string screenShotPath = SeleniumUtilities.CaptureScreenshot(this.WebDriver, "TempTestDirectory", "TempTestFilePath", ScreenshotImageFormat.Png);
+            Assert.IsTrue(File.Exists(screenShotPath), "Fail to find screenshot");
+            Assert.AreEqual(Path.GetExtension(screenShotPath), ".Png", "The screenshot format was not in '.Png' format");
+            File.Delete(screenShotPath);
+        }
+
+        /// <summary>
+        /// Verify that CaptureScreenshot captured is in the Tagged Image File Format
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void CaptureScreenshotTiffFormat()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Wait().ForPageLoad();
+            string screenShotPath = SeleniumUtilities.CaptureScreenshot(this.WebDriver, "TempTestDirectory", "TempTestFilePath", ScreenshotImageFormat.Tiff);
+            Assert.IsTrue(File.Exists(screenShotPath), "Fail to find screenshot");
+            Assert.AreEqual(Path.GetExtension(screenShotPath), ".Tiff", "The screenshot format was not in '.Tiff' format");
+            File.Delete(screenShotPath);
+        }
+
+        /// <summary>
+        /// Verify CaptureScreenshot works - With Modified ImageFormat Config
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void TryScreenshotImageFormat()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Wait().ForPageLoad();
+            SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.Log);
+            string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, Config.GetValue("ImageFormat").ToString());
+            Assert.IsTrue(File.Exists(filePath), "Fail to find screenshot");
+            Assert.AreEqual(Path.GetExtension(filePath), "." + Config.GetValue("ImageFormat").ToString(), "The screenshot format was not in correct Format format");
+            File.Delete(filePath);
+        }
+
+        /// <summary>
+        /// Verify the GetScreenShotFormat function has default value
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void GetImageFormatDefaultFormat()
+        {
+            Assert.AreEqual(SeleniumUtilities.GetScreenShotFormat("XXYYZZ"), ScreenshotImageFormat.Png, "The Incorrect Default Image Format was returned, expected: " + ScreenshotImageFormat.Png.ToString());
+        }
+
+        /// <summary>
+        /// Verify the GetScreenShotFormat function gets the correct value from the config
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void GetImageFormatFromConfig()
+        {
+            Assert.AreEqual(SeleniumUtilities.GetScreenShotFormat(), ScreenshotImageFormat.Jpeg, "The Incorrect Image Format was returned, expected: " + Config.GetValue("ImageFormat"));
         }
 
         /// <summary>

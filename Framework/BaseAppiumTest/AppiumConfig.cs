@@ -174,7 +174,6 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
                     throw new Exception(StringProcessor.SafeFormatter("Mobile OS type '{0}' is not supported", mobileDeivceOS));
             }
 
-
             capabilities.SetCapability("deviceName", GetDeviceName());
             capabilities.SetCapability(CapabilityType.Version, GetOSVersion());
             capabilities.SetCapability(MobileCapabilityType.PlatformVersion, GetOSVersion());
@@ -207,4 +206,3 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         }
     }
 }
-
