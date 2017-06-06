@@ -198,6 +198,18 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         }
 
         /// <summary>
+        /// Send Secret keys with no logging
+        /// </summary>
+        /// <param name="keys">The keys to send</param>
+        public void SendSecretKeys(string keys)
+        {
+            IWebElement element = this.GetElement(this.GetTheVisibleElement);
+            ElementHandler.StopLogging(this.TestObject.Log);
+            this.ExecuteEvent(() => element.SendKeys(keys), "SendKeys");
+            ElementHandler.StartLogging(this.TestObject.Log);
+        }
+
+        /// <summary>
         /// Clear the fluent element 
         /// </summary>
         /// <example>
