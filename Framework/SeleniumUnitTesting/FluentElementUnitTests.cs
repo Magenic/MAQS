@@ -7,11 +7,13 @@
 using Magenic.MaqsFramework.BaseSeleniumTest;
 using Magenic.MaqsFramework.BaseSeleniumTest.Extensions;
 using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.MaqsFramework.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
+using System.IO;
 
 namespace SeleniumUnitTests
 {
@@ -289,6 +291,30 @@ namespace SeleniumUnitTests
         {
             this.DisabledInput.SendKeys("test");
         }
+
+        /// <summary>
+        /// Verify Fluent Element SendKeys test
+        /// </summary>
+        #region FluentElementSendKeys
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void FluentElementSendSecretKeys()
+        {
+            this.InputBox.SendKeys("beforeSuspendTest");
+            this.InputBox.Clear();
+            this.InputBox.SendSecretKeys("secretKeys");
+            this.InputBox.Clear();
+            this.InputBox.SendKeys("continueTest");
+
+            FileLogger logger = (FileLogger)this.TestObject.Log;
+            string filepath = logger.FilePath;
+
+            Assert.IsTrue(File.ReadAllText(filepath).Contains("beforeSuspendTest"));
+            Assert.IsFalse(File.ReadAllText(filepath).Contains("secretKeys"));
+            Assert.IsTrue(File.ReadAllText(filepath).Contains("continueTest"));
+            File.Delete(filepath);
+        }
+        #endregion
 
         /// <summary>
         /// Verify Fluent Element Submit test
