@@ -5,7 +5,7 @@ namespace $safeprojectname$
     /// <summary>
     /// Base Page Model
     /// </summary>
-    public abstract class BasePage
+    public abstract class BasePageModel
     {
         /// <summary>
         /// Selenium test object
@@ -13,10 +13,10 @@ namespace $safeprojectname$
         protected SeleniumTestObject testObject;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BasePage" /> class.
+        /// Initializes a new instance of the <see cref="BasePageModel" /> class.
         /// </summary>
         /// <param name="testObject">The selenium test object</param>
-        public BasePage(SeleniumTestObject testObject)
+        public BasePageModel(SeleniumTestObject testObject)
         {
             this.testObject = testObject;
         }

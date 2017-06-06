@@ -7,9 +7,9 @@ using OpenQA.Selenium;
 namespace $safeprojectname$
 {
     /// <summary>
-    /// Page object for the LoginPageModel page
+    /// Page object for the Automation page
     /// </summary>
-    public class $safeitemname$
+    public class $safeitemname$ : BasePageModel
     {
         /// <summary>
         /// The page url
@@ -17,17 +17,11 @@ namespace $safeprojectname$
         private static readonly string PageUrl = Config.GetValue("WebSiteBase") + "Static/Training3/loginpage.html";
 
         /// <summary>
-        /// Selenium test object
-        /// </summary>
-        private SeleniumTestObject testObject;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="$safeitemname$" /> class.
         /// </summary>
         /// <param name="testObject">The test object</param>
-        public $safeitemname$(SeleniumTestObject testObject)
+        public $safeitemname$(SeleniumTestObject testObject) : base(testObject)
         {
-            this.testObject = testObject;
         }
 
         /// <summary>
@@ -93,9 +87,7 @@ namespace $safeprojectname$
             this.EnterCredentials(userName, password);
             this.LoginButton.Click();
 
-            HomePageModel newPage = new HomePageModel(this.testObject);
-            newPage.IsPageLoaded();
-            return newPage;
+            return new HomePageModel(this.testObject);
         }
 
         /// <summary>
@@ -117,9 +109,19 @@ namespace $safeprojectname$
         public void AssertPageLoaded()
         {
             Assert.IsTrue(
-                this.UserNameInput.Displayed && this.PasswordInput.Displayed && this.LoginButton.Displayed,
+                this.IsPageLoaded(),
                 "The web page '{0}' is not loaded",
                 PageUrl);
         }
+
+        /// <summary>
+        /// Check if the home page has been loaded
+        /// </summary>
+        /// <returns>True if the page was loaded</returns>
+        public override bool IsPageLoaded()
+        {
+            return this.UserNameInput.Displayed && this.PasswordInput.Displayed && this.LoginButton.Displayed;
+        }
     }
 }
+
