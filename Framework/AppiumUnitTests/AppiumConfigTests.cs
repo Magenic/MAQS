@@ -85,14 +85,19 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void MobileDeviceTest()
         {
-            #region MobileDevice
-             AppiumDriver<AppiumWebElement> driver = AppiumConfig.MobileDevice();
+                #region MobileDevice
+                AppiumDriver<AppiumWebElement> driver = AppiumConfig.MobileDevice();
             #endregion
 
-            Assert.IsNotNull(driver);
-            driver.CloseApp();
-            driver.Quit();
-            driver.Dispose();
+            try
+            {
+                Assert.IsNotNull(driver);
+            } finally
+            {
+                driver.Quit();
+                driver.Dispose();
+            }
+
         }
 
         /// <summary>
@@ -114,11 +119,15 @@ namespace AppiumUnitTests
         {
             AppiumDriver<AppiumWebElement> driver = AppiumConfig.MobileDevice();
             WebDriverWait wait = AppiumConfig.GetWaitDriver(driver);
-
-            Assert.IsNotNull(wait);
-            driver.CloseApp();
-            driver.Quit();
-            driver.Dispose();
+            try
+            {
+                Assert.IsNotNull(wait);
+            }
+            finally
+            {
+                driver.Quit();
+                driver.Dispose();
+            }
         }
 
         /// <summary>

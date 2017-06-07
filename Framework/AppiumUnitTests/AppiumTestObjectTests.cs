@@ -24,9 +24,6 @@ namespace AppiumUnitTests
         public void AppiumTestObjectTest()
         {
             Assert.IsNotNull(this.TestObject.AppiumDriver);
-            this.TestObject.AppiumDriver.CloseApp();
-            this.TestObject.AppiumDriver.Quit();
-            this.TestObject.AppiumDriver.Dispose();
         }
     }
 }
