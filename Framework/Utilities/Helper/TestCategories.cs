@@ -57,5 +57,10 @@ namespace Magenic.MaqsFramework.Utilities.Helper
         /// String for MongoDB type test category
         /// </summary>
         public const string MongoDB = "MongoDB Unit Tests";
+
+        /// <summary>
+        /// String for Appium type test category
+        /// </summary>
+        public const string Appium = "Appium Unit Tests";
     }
 }
