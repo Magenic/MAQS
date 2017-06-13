@@ -295,7 +295,7 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Verify Fluent Element SendKeys test
         /// </summary>
-        #region FluentElementSendKeys
+        #region FluentElementSendSecretKeys
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void FluentElementSendSecretKeys()

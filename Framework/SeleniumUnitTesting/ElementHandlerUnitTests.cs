@@ -392,6 +392,7 @@ namespace SeleniumUnitTests
         }
         #endregion
 
+        #region SendSecretKeys
         /// <summary>
         /// Verify Send Secret Keys suspends logging
         /// </summary>
@@ -431,6 +432,7 @@ namespace SeleniumUnitTests
             Assert.IsTrue(File.ReadAllText(filepath).Contains("somethingTest"));
             File.Delete(filepath);
         }
+        #endregion
 
         /// <summary>
         /// Verify two strings are equal. If not fail test

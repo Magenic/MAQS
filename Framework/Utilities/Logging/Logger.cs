@@ -56,6 +56,7 @@ namespace Magenic.MaqsFramework.Utilities.Logging
             {
                 this.logLevelSaved = this.logLevel;
                 this.logLevel = MessageType.SUSPENDED;
+                this.LogMessage(MessageType.VERBOSE, "Suspending Logging..");
             }
         }
 
@@ -72,6 +73,7 @@ namespace Magenic.MaqsFramework.Utilities.Logging
             }
 
             this.logLevelSaved = MessageType.SUSPENDED;
+            this.LogMessage(MessageType.VERBOSE, "Logging Continued..");
         }
 
         /// <summary>
