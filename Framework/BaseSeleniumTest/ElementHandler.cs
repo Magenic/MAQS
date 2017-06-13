@@ -342,35 +342,16 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
             try
             {
                 IWebElement secretElement = searchContext.Wait().ForClickableElement(by);
-                StopLogging(logger);
+                logger.SuspendLogging();
                 secretElement.SendKeys(textToEnter);
-                StartLogging(logger);
+                logger.ContinueLogging();
             }
             catch (Exception e)
             {
                 logger.ContinueLogging();
                 logger.LogMessage(MessageType.ERROR, "An error occured: " + e);
+                throw new Exception("Exception durring sending secret keys: " + e.Message);
             }
-        }
-
-        /// <summary>
-        /// Suspend the Logger
-        /// </summary>
-        /// <param name="logger">The Logging Object</param>
-        public static void StopLogging(Logger logger)
-        {
-            logger.LogMessage(MessageType.VERBOSE, "Suspending logging for sending secret keys");
-            logger.SuspendLogging();
-        }
-
-        /// <summary>
-        /// Continue the Logger
-        /// </summary>
-        /// <param name="logger">The Logging Object</param>
-        public static void StartLogging(Logger logger)
-        {
-            logger.ContinueLogging();
-            logger.LogMessage(MessageType.VERBOSE, "Logging resumed, secret keys sent to element");
         }
     }
 }
