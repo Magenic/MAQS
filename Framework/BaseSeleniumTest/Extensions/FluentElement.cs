@@ -198,6 +198,30 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         }
 
         /// <summary>
+        /// Send Secret keys with no logging
+        /// </summary>
+        /// <param name="keys">The keys to send</param>
+        /// <example>
+        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementSendSecretKeys" lang="C#" />
+        /// </example>
+        public void SendSecretKeys(string keys)
+        {
+            IWebElement element = this.GetElement(this.GetTheVisibleElement);
+            try
+            {
+                this.TestObject.Log.SuspendLogging();
+                this.ExecuteEvent(() => element.SendKeys(keys), "SendKeys");
+                this.TestObject.Log.ContinueLogging();
+            }
+            catch (Exception e)
+            {
+                this.TestObject.Log.ContinueLogging();
+                this.TestObject.Log.LogMessage(MessageType.ERROR, "An error occured: " + e);
+                throw new Exception("Exception durring sending secret keys: " + e.Message);
+            }
+        }
+
+        /// <summary>
         /// Clear the fluent element 
         /// </summary>
         /// <example>

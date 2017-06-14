@@ -6,6 +6,7 @@
 //--------------------------------------------------
 using Magenic.MaqsFramework.BaseSeleniumTest.Extensions;
 using Magenic.MaqsFramework.Utilities.Data;
+using Magenic.MaqsFramework.Utilities.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
@@ -323,6 +324,33 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
             {
                 searchContext.Wait().ForClickableElement(by).SendKeys(singleLetter.ToString());
                 System.Threading.Thread.Sleep(500);
+            }
+        }
+
+        /// <summary>
+        /// Method used to send secret keys without logging
+        /// </summary>
+        /// <param name="searchContext">Web driver or element</param>
+        /// <param name="by">By selector</param>
+        /// <param name="textToEnter">The string being entered into the text input field</param>
+        /// <param name="logger">The Logging object</param>
+        /// <example>
+        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" region="SendSecretKeys" lang="C#" />
+        /// </example>
+        public static void SendSecretKeys(this ISearchContext searchContext, By by, string textToEnter, Logger logger)
+        {
+            try
+            {
+                IWebElement secretElement = searchContext.Wait().ForClickableElement(by);
+                logger.SuspendLogging();
+                secretElement.SendKeys(textToEnter);
+                logger.ContinueLogging();
+            }
+            catch (Exception e)
+            {
+                logger.ContinueLogging();
+                logger.LogMessage(MessageType.ERROR, "An error occured: " + e);
+                throw new Exception("Exception durring sending secret keys: " + e.Message);
             }
         }
     }
