@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------
-// <copyright file="WebServiceGets.cs" company="Magenic">
+// <copyright file="WebServicePatches.cs" company="Magenic">
 //  Copyright 2017 Magenic, All rights Reserved
 // </copyright>
 // <summary>Web service get unit tests</summary>

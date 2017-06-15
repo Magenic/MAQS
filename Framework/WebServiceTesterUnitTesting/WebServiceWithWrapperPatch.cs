@@ -143,7 +143,6 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// Verify put returns an empty string
         /// </summary>
-        
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void PatchXMLWithType()
@@ -160,13 +159,10 @@ namespace WebServiceTesterUnitTesting
             Assert.AreEqual(p.Name, result.Name);
             Assert.AreEqual(p.Price, result.Price);
         }
-
         
-
         /// <summary>
         /// Patch string without utility
         /// </summary>
-
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void PatchStringWithoutMakeContent()
