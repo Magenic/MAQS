@@ -389,7 +389,7 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         /// <param name="expectSuccess">Assert a success code was returned</param>
         /// <returns>The response deserialized as - <typeparamref name="T"/></returns>
         /// <example>
-        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithWrapperPut.cs" region="PutWithType" lang="C#" />
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithWrapperPatch.cs" region="PatchWithType" lang="C#" />
         /// </example>
         public T Patch<T>(string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
         {
@@ -406,7 +406,7 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         /// <param name="expectSuccess">Assert a success code was returned</param>
         /// <returns>The response body as a string</returns>
         /// <example>
-        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithWrapperPatch.cs" lang="C#" />
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithWrapperPatch.cs" region="PatchWithString" lang="C#" />
         /// </example>
         public string Patch(string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
         {
@@ -426,7 +426,7 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         /// <param name="expectSuccess">Assert a success code was returned</param>
         /// <returns>The response body as a string</returns>
         /// <example>
-        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithWrapperPatch.cs" lang="C#" />
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithWrapperPatch.cs" region="PatchWithoutCreatingContent" lang="C#" />
         /// </example>
         public string Patch(string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, bool contentAsString = true, bool expectSuccess = true)
         {
@@ -446,7 +446,7 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         /// <param name="expectSuccess">Assert a success code was returned</param>
         /// <returns>The http response message</returns>
         /// <example>
-        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithWrapperPut.cs" region="PutWithResponse" lang="C#" />
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithWrapperPatch.cs" region="PatchWithResponse" lang="C#" />
         /// </example>
         public HttpResponseMessage PatchWithResponse(string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, bool contentAsString = true, bool expectSuccess = true)
         {
@@ -463,7 +463,7 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         /// <param name="expectSuccess">Assert a success code was returned</param>
         /// <returns>The http response message</returns>
         /// <example>
-        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithWrapperPatch.cs" lang="C#" />
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithWrapperPatch.cs" region="PatchWithResponseContent" lang="C#" />
         /// </example>
         public HttpResponseMessage PatchWithResponse(string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
         {
