@@ -380,6 +380,97 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         }
 
         /// <summary>
+        /// Execute a web service patch
+        /// </summary>
+        /// <typeparam name="T">The expected response type</typeparam>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="expectedMediaType">The type of media being requested</param>
+        /// <param name="content">The put content</param>
+        /// <param name="expectSuccess">Assert a success code was returned</param>
+        /// <returns>The response deserialized as - <typeparamref name="T"/></returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithWrapperPatch.cs" region="PatchWithType" lang="C#" />
+        /// </example>
+        public T Patch<T>(string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
+        {
+            HttpResponseMessage response = this.PatchWithResponse(requestUri, expectedMediaType, content, expectSuccess);
+            return WebServiceUtils.DeserializeResponse<T>(response, this.supportedFormatters);
+        }
+
+        /// <summary>
+        /// Execute a web service patch
+        /// </summary>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="expectedMediaType">The type of media being requested</param>
+        /// <param name="content">The put content</param>
+        /// <param name="expectSuccess">Assert a success code was returned</param>
+        /// <returns>The response body as a string</returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithWrapperPatch.cs" region="PatchWithString" lang="C#" />
+        /// </example>
+        public string Patch(string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
+        {
+            HttpResponseMessage response = this.PatchWithResponse(requestUri, expectedMediaType, content, expectSuccess);
+            return response.Content.ReadAsStringAsync().Result;
+        }
+
+        /// <summary>
+        /// Execute a web service patch
+        /// </summary>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="expectedMediaType">The type of media being requested</param>
+        /// <param name="content">The put content</param>
+        /// <param name="contentEncoding">How to encode the put content</param>
+        /// <param name="postMediaType">The type of the media being put</param>
+        /// <param name="contentAsString">If true pass content as StringContent, else pass as StreamContent</param>
+        /// <param name="expectSuccess">Assert a success code was returned</param>
+        /// <returns>The response body as a string</returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithWrapperPatch.cs" region="PatchWithoutCreatingContent" lang="C#" />
+        /// </example>
+        public string Patch(string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, bool contentAsString = true, bool expectSuccess = true)
+        {
+            HttpResponseMessage response = this.PatchWithResponse(requestUri, expectedMediaType, content, contentEncoding, postMediaType, contentAsString, expectSuccess);
+            return response.Content.ReadAsStringAsync().Result;
+        }
+
+        /// <summary>
+        /// Execute a web service patch
+        /// </summary>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="expectedMediaType">The type of media being requested</param>
+        /// <param name="content">The put content</param>
+        /// <param name="contentEncoding">How to encode the put content</param>
+        /// <param name="postMediaType">The type of the media being put</param>
+        /// <param name="contentAsString">If true pass content as StringContent, else pass as StreamContent</param>
+        /// <param name="expectSuccess">Assert a success code was returned</param>
+        /// <returns>The http response message</returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithWrapperPatch.cs" region="PatchWithResponse" lang="C#" />
+        /// </example>
+        public HttpResponseMessage PatchWithResponse(string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, bool contentAsString = true, bool expectSuccess = true)
+        {
+            HttpContent httpContent = CreateContent(content, contentEncoding, postMediaType, contentAsString);
+            return this.PatchWithResponse(requestUri, expectedMediaType, httpContent, expectSuccess);
+        }
+
+        /// <summary>
+        /// Execute a web service patch
+        /// </summary>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="expectedMediaType">The type of media being requested</param>
+        /// <param name="content">The put content</param>
+        /// <param name="expectSuccess">Assert a success code was returned</param>
+        /// <returns>The http response message</returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithWrapperPatch.cs" region="PatchWithResponseContent" lang="C#" />
+        /// </example>
+        public HttpResponseMessage PatchWithResponse(string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
+        {
+            return this.PatchContent(requestUri, expectedMediaType, content, expectSuccess).Result;
+        }
+
+        /// <summary>
         /// Execute a web service delete
         /// </summary>
         /// <typeparam name="T">The expected response type</typeparam>
@@ -481,6 +572,35 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
             HttpResponseMessage response = await client.PutAsync(requestUri, content).ConfigureAwait(false);
 
             // Should we check for success
+            if (expectSuccess)
+            {
+                EnsureSuccessStatusCode(response);
+            }
+
+            return response;
+        }
+
+        /// <summary>
+        /// Do a web service put for the given uri, content and media type
+        /// </summary>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="responseMediaType">The response media type</param>
+        /// <param name="content">The put body</param>
+        /// <param name="expectSuccess">Assert a success code was returned</param>
+        /// <returns>A http response message</returns>
+        protected async virtual Task<HttpResponseMessage> PatchContent(string requestUri, string responseMediaType, HttpContent content, bool expectSuccess = true)
+        {
+            HttpMethod method = new HttpMethod("PATCH");
+
+            HttpRequestMessage message = new HttpRequestMessage(method, requestUri)
+            {
+                Content = content
+            };
+
+            HttpClient client = this.setupClientConnection(this.BaseUriAddress, responseMediaType);
+
+            HttpResponseMessage response = await client.SendAsync(message).ConfigureAwait(false);
+
             if (expectSuccess)
             {
                 EnsureSuccessStatusCode(response);
