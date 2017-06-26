@@ -228,7 +228,7 @@ namespace UtilitiesUnitTesting
         [Category(TestCategories.Utilities)]
         public void FileLoggerLogMessage()
         {
-            FileLogger logger = new FileLogger(string.Empty, "FileLoggerLogMessage", MessageType.GENERIC, true);
+            FileLogger logger = new FileLogger(string.Empty, "FileLoggerLogMessage", MessageType.INFORMATION, true);
             logger.LogMessage("Test to ensure LogMessage works as expected.");
             Assert.IsTrue(File.ReadAllText(logger.FilePath).Contains("Test to ensure LogMessage works as expected."));
             File.Delete(logger.FilePath);

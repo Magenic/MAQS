@@ -35,7 +35,7 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         /// <param name="name">File Name</param>
         /// <param name="messageLevel">Messaging level</param>
         /// <param name="append">True to append to an existing log file or false to overwrite it - If the file does not exist this, flag will have no affect</param>
-        public HtmlFileLogger(string logFolder = "", string name = DEFAULTLOGNAME, MessageType messageLevel = MessageType.GENERIC, bool append = false)
+        public HtmlFileLogger(string logFolder = "", string name = DEFAULTLOGNAME, MessageType messageLevel = MessageType.INFORMATION, bool append = false)
             : base(logFolder, name, messageLevel, append)
         {
             StreamWriter writer = new StreamWriter(this.FilePath, true);
