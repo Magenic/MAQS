@@ -182,7 +182,7 @@ namespace Magenic.MaqsFramework.Utilities.Performance
                             this.FileName = "PerformanceTimerResults" + "-" + this.TestName + "-" + DateTime.UtcNow.ToString("O").Replace(':', '-') + ".xml";
                         }
 
-                        log.LogMessage(MessageType.GENERIC, "filename: " + LoggingConfig.GetLogDirectory() + "\\" + this.FileName);
+                        log.LogMessage(MessageType.INFORMATION, "filename: " + LoggingConfig.GetLogDirectory() + "\\" + this.FileName);
 
                         XmlWriterSettings settings = new XmlWriterSettings();
                         settings.WriteEndDocumentOnClose = true;
