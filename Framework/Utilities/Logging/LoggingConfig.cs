@@ -59,7 +59,7 @@ namespace Magenic.MaqsFramework.Utilities.Logging
                 case "SUSPENDED":
                     return MessageType.SUSPENDED;       // All logging is suspended
                 default:
-                    throw new ArgumentException(StringProcessor.SafeFormatter("Logging level value '{0}' is not a valid option", Config.GetValue("LogLevel", "ERROR")));
+                    throw new ArgumentException(StringProcessor.SafeFormatter("Logging level value '{0}' is not a valid option", Config.GetValue("LogLevel")));
             }
         }
 

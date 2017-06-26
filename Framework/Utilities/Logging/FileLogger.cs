@@ -44,7 +44,7 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         /// <param name="name">File Name</param>
         /// <param name="messageLevel">Messaging level</param>
         /// <param name="append">True to append to an existing log file or false to overwrite it - If the file does not exist this, flag will have no affect</param>
-        public FileLogger(string logFolder = "", string name = DEFAULTLOGNAME, MessageType messageLevel = MessageType.GENERIC, bool append = false)
+        public FileLogger(string logFolder = "", string name = DEFAULTLOGNAME, MessageType messageLevel = MessageType.INFORMATION, bool append = false)
             : base(messageLevel)
         {
             if (string.IsNullOrEmpty(logFolder))
@@ -101,7 +101,7 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         /// <param name="args">String format arguments</param>
         public override void LogMessage(string message, params object[] args)
         {
-            this.LogMessage(MessageType.GENERIC, message, args);
+            this.LogMessage(MessageType.INFORMATION, message, args);
         }
 
         /// <summary>
