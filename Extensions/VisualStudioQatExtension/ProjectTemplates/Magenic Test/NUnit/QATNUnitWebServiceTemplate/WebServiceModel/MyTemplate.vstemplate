@@ -11,6 +11,7 @@
     <LocationField>Enabled</LocationField>
     <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
     <Icon>__TemplateIcon.ico</Icon>
+	<Hidden>true</Hidden> 
   </TemplateData>
   <TemplateContent>
     <Project TargetFileName="WebServiceModel.csproj" File="WebServiceModel.csproj" ReplaceParameters="true">
