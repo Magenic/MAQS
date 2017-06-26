@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.0
+VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{949364A1-08D7-4E79-8CA2-228EA925438F}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -275,12 +275,14 @@ Global
 		{988DFCFF-49AE-4677-9B50-D61C14008E49}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{988DFCFF-49AE-4677-9B50-D61C14008E49}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{988DFCFF-49AE-4677-9B50-D61C14008E49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{988DFCFF-49AE-4677-9B50-D61C14008E49}.Release|Any CPU.Build.0 = Release|Any CPU
 		{988DFCFF-49AE-4677-9B50-D61C14008E49}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{988DFCFF-49AE-4677-9B50-D61C14008E49}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{988DFCFF-49AE-4677-9B50-D61C14008E49}.Release|Win32.ActiveCfg = Release|Any CPU
 		{988DFCFF-49AE-4677-9B50-D61C14008E49}.Release|x64.ActiveCfg = Release|Any CPU
 		{988DFCFF-49AE-4677-9B50-D61C14008E49}.Release|x86.ActiveCfg = Release|Any CPU
 		{988DFCFF-49AE-4677-9B50-D61C14008E49}.ReleaseShim|Any CPU.ActiveCfg = ReleaseShim|Any CPU
+		{988DFCFF-49AE-4677-9B50-D61C14008E49}.ReleaseShim|Any CPU.Build.0 = ReleaseShim|Any CPU
 		{988DFCFF-49AE-4677-9B50-D61C14008E49}.ReleaseShim|Mixed Platforms.ActiveCfg = ReleaseShim|Any CPU
 		{988DFCFF-49AE-4677-9B50-D61C14008E49}.ReleaseShim|Mixed Platforms.Build.0 = ReleaseShim|Any CPU
 		{988DFCFF-49AE-4677-9B50-D61C14008E49}.ReleaseShim|Win32.ActiveCfg = ReleaseShim|Any CPU

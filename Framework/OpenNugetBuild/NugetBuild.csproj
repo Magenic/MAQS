@@ -75,10 +75,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup Condition=" '$(Configuration)' == 'ReleaseShim'">
-    <PostBuildEvent>"$(SolutionDir).nuget\NuGet.exe" pack "$(ProjectDir)packageNunit.nuspec" -IncludeReferencedProjects -BasePath "$(ProjectDir)packageNunit.nuspec" -NonInteractive -OutputDirectory "$(TargetDir) "  -Symbols -Prop Configuration=$(Configuration);OutputPath="$(OutDir) "</PostBuildEvent>
+    <PostBuildEvent>"$(SolutionDir).nuget\NuGet.exe" pack "$(ProjectDir)packageNunit.nuspec" -IncludeReferencedProjects -BasePath "$(ProjectDir) " -NonInteractive -OutputDirectory "$(TargetDir) "  -Symbols -Prop Configuration=$(Configuration);OutputPath="$(OutDir) "</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' != 'ReleaseShim'">
-    <PostBuildEvent>"$(SolutionDir).nuget\NuGet.exe" pack "$(ProjectDir)package.nuspec" -IncludeReferencedProjects -BasePath "$(ProjectDir)package.nuspec" -NonInteractive -OutputDirectory "$(TargetDir) "  -Symbols -Prop Configuration=$(Configuration);OutputPath="$(OutDir) "</PostBuildEvent>
+    <PostBuildEvent>"$(SolutionDir).nuget\NuGet.exe" pack "$(ProjectDir)package.nuspec" -IncludeReferencedProjects -BasePath "$(ProjectDir) " -NonInteractive -OutputDirectory "$(TargetDir) "  -Symbols -Prop Configuration=$(Configuration);OutputPath="$(OutDir) "</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
