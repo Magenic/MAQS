@@ -53,7 +53,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MongoDBConfigUnitTests.cs" />
-    <Compile Include="TestHelper.cs" />
     <Compile Include="MongoDBTests.cs" />
   </ItemGroup>
   <ItemGroup>

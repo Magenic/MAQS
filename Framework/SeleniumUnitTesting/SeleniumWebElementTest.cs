@@ -25,11 +25,6 @@ namespace SeleniumUnitTests
     public class SeleniumWebElementTest : BaseSeleniumTest
     {
         /// <summary>
-        /// Did the logging folder exist at the start of the test run
-        /// </summary>
-        private static bool loggingFolderExistsBeforeRun = false;
-
-        /// <summary>
         /// Unit testing site URL - Login page
         /// </summary>
         private static string testSiteUrl = SeleniumConfig.GetWebSiteBase();
@@ -138,25 +133,6 @@ namespace SeleniumUnitTests
         /// Load content container
         /// </summary>
         private static By loadContainer = By.CssSelector("DIV.roundedcorners");
-
-        /// <summary>
-        /// Setup before running tests
-        /// </summary>
-        /// <param name="context">The upcoming test context</param>
-        [ClassInitialize]
-        public static void CheckBeforeClass(TestContext context)
-        {
-            loggingFolderExistsBeforeRun = TestHelper.DoesFolderExist();
-        }
-
-        /// <summary>
-        /// Cleanup after we are done running tests
-        /// </summary>
-        [ClassCleanup]
-        public static void CleanupAfterClass()
-        {
-            TestHelper.Cleanup(loggingFolderExistsBeforeRun);
-        }
 
         /// <summary>
         /// Make sure we can open a browser

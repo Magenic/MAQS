@@ -77,7 +77,6 @@
     <Compile Include="DatabaseUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DatabaseUnitTestsWithWrapper.cs" />
-    <Compile Include="TestHelper.cs" />
     <Compile Include="DatabaseConfigUnitTests.cs" />
   </ItemGroup>
   <ItemGroup>

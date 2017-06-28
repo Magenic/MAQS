@@ -30,28 +30,11 @@ namespace EmailUnitTests
     public class EmailUnitWithWrapper : BaseEmailTest
     {
         /// <summary>
-        /// Did the logging folder exist at the start of the test run
-        /// </summary>
-        private static bool loggingFolderExistsBeforeRun = false;
-
-        /// <summary>
-        /// Setup before running tests
-        /// </summary>
-        /// <param name="context">The upcoming test context</param>
-        [ClassInitialize]
-        public static void CheckBeforeClass(TestContext context)
-        {
-            loggingFolderExistsBeforeRun = TestHelper.DoesFolderExist();
-        }
-
-        /// <summary>
         /// Cleanup after the test run
         /// </summary>
         [ClassCleanup]
         public static void Cleanup()
         {
-            try
-            {
                 string host = EmailConfig.GetHost();
                 string username = EmailConfig.GetUserName();
                 string password = EmailConfig.GetPassword();
@@ -68,11 +51,6 @@ namespace EmailUnitTests
                         Thread.Sleep(100);
                     }
                 }
-            }
-            finally
-            {
-                TestHelper.Cleanup(loggingFolderExistsBeforeRun);
-            }
         }
 
         /// <summary>
