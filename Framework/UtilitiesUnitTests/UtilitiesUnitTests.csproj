@@ -89,12 +89,12 @@
     <Compile Include="FakerDataUnitTests.cs" />
     <Compile Include="FileLoggerUnitTests.cs" />
     <Compile Include="ListProcessorUnitTests.cs" />
+    <Compile Include="LocationLoggerUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PerformanceUnitTests.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="SoftAssertUnitTests.cs" />
-    <Compile Include="TestHelper.cs" />
     <Compile Include="StringProcessorUnitTests.cs" />
     <Compile Include="ConfigUnitTests.cs" />
   </ItemGroup>
