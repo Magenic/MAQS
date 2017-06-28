@@ -24,11 +24,6 @@ namespace SeleniumUnitTests
     public class SeleniumCustomConfigUnitTest : BaseSeleniumTest
     {
         /// <summary>
-        /// Did the logging folder exist at the start of the test run
-        /// </summary>
-        private static bool loggingFolderExistsBeforeRun = false;
-
-        /// <summary>
         /// Google URL
         /// </summary>
         private string googleUrl = "https://www.google.com";
@@ -38,25 +33,6 @@ namespace SeleniumUnitTests
         /// <para>This selector should not be included in the Phantom JS configuration this code uses</para>
         /// </summary>
         private string searchBoxCssSelector = "#lst-ib";
-
-        /// <summary>
-        /// Setup before running tests
-        /// </summary>
-        /// <param name="context">The upcoming test context</param>
-        [ClassInitialize]
-        public static void CheckBeforeClass(TestContext context)
-        {
-            loggingFolderExistsBeforeRun = TestHelper.DoesFolderExist();
-        }
-
-        /// <summary>
-        /// Cleanup after we are done running tests
-        /// </summary>
-        [ClassCleanup]
-        public static void CleanupAfterClass()
-        {
-            TestHelper.Cleanup(loggingFolderExistsBeforeRun);
-        }
 
         /// <summary>
         /// Verify WaitForAbsentElement wait works
