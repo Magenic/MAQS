@@ -100,7 +100,6 @@
     <Compile Include="Model\Product.cs" />
     <Compile Include="Model\ProductJson.cs" />
     <Compile Include="Model\ArrayOfProduct.cs" />
-    <Compile Include="TestHelper.cs" />
     <Compile Include="WebServiceWithWrapperPut.cs" />
     <Compile Include="WebServiceWithWrapperDelete.cs" />
     <Compile Include="WebServiceWithWrapperGets.cs" />

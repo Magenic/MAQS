@@ -91,7 +91,6 @@
     <Compile Include="SeleniumUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SeleniumWebElementTest.cs" />
-    <Compile Include="TestHelper.cs" />
     <Compile Include="SeleniumConfigTests.cs" />
   </ItemGroup>
   <ItemGroup>
