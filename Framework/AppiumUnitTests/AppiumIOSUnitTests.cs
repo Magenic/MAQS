@@ -28,7 +28,6 @@ namespace AppiumUnitTests
         public void AppiumIOSDriverTest()
         {
             Assert.IsNotNull(this.TestObject.AppiumDriver);
-           
         }
 
         /// <summary>
