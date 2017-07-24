@@ -25,13 +25,10 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void CaptureScreenshotTest()
         {
-            
             AppiumUtilities.CaptureScreenshot(this.TestObject.AppiumDriver, this.Log);
             string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, ".png");
             Assert.IsTrue(File.Exists(filePath), "Fail to find screenshot");
             File.Delete(filePath);
         }
-
-       
     }
 }

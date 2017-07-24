@@ -92,12 +92,12 @@ namespace AppiumUnitTests
             try
             {
                 Assert.IsNotNull(driver);
-            } finally
+            }
+            finally
             {
                 driver.Quit();
                 driver.Dispose();
             }
-
         }
 
         /// <summary>
