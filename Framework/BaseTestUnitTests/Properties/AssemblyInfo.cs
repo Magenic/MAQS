@@ -1,4 +1,4 @@
-﻿//--------------------------------------------------
+//--------------------------------------------------
 // <copyright file="AssemblyInfo.cs" company="Magenic">
 //  Copyright 2017 Magenic, All rights Reserved
 // </copyright>
@@ -8,7 +8,7 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("DatabaseUnitTests")]
+[assembly: AssemblyTitle("BaseTestUnitTests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Magenic")]
@@ -17,13 +17,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-// Setting ComVisible to false makes the types in this assembly not visible 
-// to COM components.  If you need to access a type in this assembly from 
-// COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
-// The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("079bdb28-32eb-4c49-95cd-34704a2c253e")]
+[assembly: Guid("c1d8ae56-00e8-49c8-ab0d-b822d47797a7")]
 
 // Version information for an assembly consists of the following four values:
 //
