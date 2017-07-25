@@ -228,11 +228,14 @@ namespace Magenic.MaqsFramework.BaseTest
         public void Teardown()
         {
             TestResultType resultType = this.GetResultType();
+            bool forceTestFailure = false;
 
-            // Check if Soft Alerts were checked in the test
-            if (!this.SoftAssert.DidUserCheck())
+            // Switch the test to a failure if we have a soft assert failure
+            if (!this.SoftAssert.DidUserCheck() && this.SoftAssert.DidSoftAssertsFail())
             {
-                this.TryToLog(MessageType.WARNING, "User did not check for soft asserts");
+                resultType = TestResultType.FAIL;
+                forceTestFailure = true;
+                this.SoftAssert.LogFinalAssertData();
             }
 
             // Log the test result
@@ -290,20 +293,26 @@ namespace Magenic.MaqsFramework.BaseTest
             this.LoggedExceptions.TryRemove(fullyQualifiedTestName, out loggedMessages);
             loggedMessages = null;
 
-            // Release the logger
-            Logger logger;
-            this.Loggers.TryRemove(fullyQualifiedTestName, out logger);
-            logger = null;
-
             // Relese the soft assert object
             SoftAssert softAssert;
             this.SoftAsserts.TryRemove(fullyQualifiedTestName, out softAssert);
             softAssert = null;
 
+            // Release the logger
+            Logger logger;
+            this.Loggers.TryRemove(fullyQualifiedTestName, out logger);
+            logger = null;
+
             // Relese the base test object
             BaseTestObject baseTestObject;
             this.BaseTestObjects.TryRemove(fullyQualifiedTestName, out baseTestObject);
             baseTestObject = null;
+
+            // Force the test to fail
+            if (forceTestFailure)
+            {
+                throw new Exception("Test was forced to fail in the cleanup - Likely the result of a soft assert failure.");
+            }
         }
 
         /// <summary>
