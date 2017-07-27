@@ -84,6 +84,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ActionBuilderUnitTests.cs" />
+    <Compile Include="BaseFrameworkTests.cs" />
     <Compile Include="ElementHandlerUnitTests.cs" />
     <Compile Include="FluentElementUnitTests.cs" />
     <Compile Include="SeleniumNUnitTest.cs" />
@@ -97,6 +98,10 @@
     <ProjectReference Include="..\BaseSeleniumTest\BaseSeleniumTest.csproj">
       <Project>{cf21dfef-3fce-4766-b261-f2225b5442ec}</Project>
       <Name>BaseSeleniumTest</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BaseTestUnitTests\BaseTestUnitTests.csproj">
+      <Project>{c1d8ae56-00e8-49c8-ab0d-b822d47797a7}</Project>
+      <Name>BaseTestUnitTests</Name>
     </ProjectReference>
     <ProjectReference Include="..\BaseTest\BaseTest.csproj">
       <Project>{60f10d47-3546-4b4b-b49b-5a361ddc1bcb}</Project>
