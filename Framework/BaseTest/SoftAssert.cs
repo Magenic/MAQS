@@ -8,6 +8,7 @@ using Magenic.MaqsFramework.Utilities.Data;
 using Magenic.MaqsFramework.Utilities.Logging;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Magenic.MaqsFramework.BaseTest
 {
@@ -204,28 +205,35 @@ namespace Magenic.MaqsFramework.BaseTest
         /// </summary>
         public void LogFinalAssertData()
         {
-            this.Log.LogMessage(
-                MessageType.INFORMATION,
-                "Total number of Asserts: {0}. Passed Asserts = {1} Failed Asserts = {2}",
+            StringBuilder message = new StringBuilder();
+            MessageType type;
+
+            message.AppendLine(StringProcessor.SafeFormatter(
+                "Total number of Asserts: {0}. {3}Passed Asserts = {1} {3}Failed Asserts = {2}{3}",
                 this.NumberOfAsserts,
                 this.NumberOfPassedAsserts,
-                this.NumberOfFailedAsserts);
+                this.NumberOfFailedAsserts,
+                Environment.NewLine));
 
             if (this.listOfExceptions.Count > 0)
             {
-                this.Log.LogMessage(MessageType.ERROR, "List of failed exceptions:");
+                type = MessageType.ERROR;
+                message.AppendLine("List of failed exceptions:");
 
                 foreach (string exception in this.listOfExceptions)
                 {
                     // Will log all the exceptions that were caught in Asserts to the log file.
-                    this.Log.LogMessage(MessageType.ERROR, exception);
+                    message.AppendLine(exception);
                 }
             }
             else
             {
                 // There are no exceptions that were caught in Asserts.
-                this.Log.LogMessage(MessageType.INFORMATION, "There are no failed exceptions in the Asserts.");
+                type = MessageType.INFORMATION;
+                message.AppendLine("There are no failed exceptions in the Asserts.");
             }
+
+            this.Log.LogMessage(type, message.ToString().TrimEnd());
         }
 
         /// <summary>
