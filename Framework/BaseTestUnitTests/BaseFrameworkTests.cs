@@ -39,7 +39,7 @@ namespace BaseTestUnitTests
         ///  Base test does soft assert check
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Utilities)]
+        [TestCategory(TestCategories.Framework)]
         public void SoftAssertWithNoFailure()
         {
             BaseTest tester = this.GetBaseTest();
@@ -54,7 +54,7 @@ namespace BaseTestUnitTests
         ///  Base test does soft assert check
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Utilities)]
+        [TestCategory(TestCategories.Framework)]
         [ExpectedException(typeof(System.Exception))]
         public void SoftAssertWithFailure()
         {
@@ -70,6 +70,8 @@ namespace BaseTestUnitTests
         ///  Base test does soft assert check
         /// </summary>
         [Test]
+        [Category(TestCategories.Framework)]
+        [Category(TestCategories.NUnit)]
         public void SoftAssertNUnitWithNoFailure()
         {
             BaseTest tester = this.GetBaseTest();
@@ -84,6 +86,8 @@ namespace BaseTestUnitTests
         ///  Base test does soft assert check
         /// </summary>
         [Test]
+        [Category(TestCategories.Framework)]
+        [Category(TestCategories.NUnit)]
         public void SoftAssertNUnitWithFailure()
         {
             try

@@ -25,6 +25,7 @@ namespace MongoDBUnitTests
         ///  Base test does soft assert check
         /// </summary>
         [TestMethod]
+        [TestCategory(TestCategories.Framework)]
         public new void SoftAssertWithNoFailure()
         {
             base.SoftAssertWithNoFailure();
@@ -34,7 +35,7 @@ namespace MongoDBUnitTests
         ///  Base test does soft assert check
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Utilities)]
+        [TestCategory(TestCategories.Framework)]
         [ExpectedException(typeof(System.Exception))]
         public new void SoftAssertWithFailure()
         {
@@ -45,6 +46,8 @@ namespace MongoDBUnitTests
         ///  Base test does soft assert check
         /// </summary>
         [Test]
+        [Category(TestCategories.Framework)]
+        [Category(TestCategories.NUnit)]
         public new void SoftAssertNUnitWithNoFailure()
         {
             base.SoftAssertWithNoFailure();
@@ -54,6 +57,8 @@ namespace MongoDBUnitTests
         ///  Base test does soft assert check
         /// </summary>
         [Test]
+        [Category(TestCategories.Framework)]
+        [Category(TestCategories.NUnit)]
         public new void SoftAssertNUnitWithFailure()
         {
             base.SoftAssertNUnitWithFailure();
