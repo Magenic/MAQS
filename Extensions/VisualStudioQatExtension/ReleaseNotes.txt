@@ -1,5 +1,20 @@
 MAQS Release Notes:
-
+4.0.2 - 2017/8/11
+	Bug fixes and minor enhancements
+	- Add SendSecretKeys (AKA enter, but don't log keys) support to ElementHandler and FluentElement
+	- Add support for patch web service calls
+	- Hide child project templates so they don't show up in VS 2017
+	- Fix logging bug, making sure default logging level is Informational
+	- Make test fail if there are any soft assert failures when the test ends
+	- Updated
+		NUnit 3.7.1
+		Newtonsoft.Json 10.0.3
+		Selenium.Support to 3.4.0
+		Selenium.WebDriver to 3.4.0
+		Selenium.WebDriver.ChromeDriver to 2.319.0
+		Selenium.WebDriver.GeckoDriver.Win32 0.18.0
+		MailKit 1.16.2
+	
 4.0.1 - 2017/5/24
 	- Support multiple screenshot formats
 	- Allow fluent elements to be bases off a parent fluent element

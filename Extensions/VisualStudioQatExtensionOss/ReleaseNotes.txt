@@ -1,5 +1,12 @@
 Maqs Framework Release Notes:
 
+4.0.2 - 2017/8/11
+	Bug fixes and minor enhancements
+	- Add SendSecretKeys (AKA enter, but don't log keys) support to ElementHandler and FluentElement
+	- Hide child project templates so they don't show up in VS 2017
+	- Fix logging bug, making sure default logging level is Informational
+	- Make test fail if there are any soft assert failures when the test ends
+
 4.0.1 - 2017/5/24
 	Bug fixes and minor enhancements
 	- Support multiple screenshot formats
