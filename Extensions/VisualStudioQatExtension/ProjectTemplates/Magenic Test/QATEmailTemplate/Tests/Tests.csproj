@@ -39,22 +39,22 @@
   </PropertyGroup>
   <ItemGroup>
 	<Reference Include="Magenic.MaqsFramework.BaseTest">
-      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.1\lib\net45\Magenic.MaqsFramework.BaseTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.2\lib\net45\Magenic.MaqsFramework.BaseTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.MaqsFramework.BaseEmailTest">
-      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.1\lib\net45\Magenic.MaqsFramework.BaseEmailTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.2\lib\net45\Magenic.MaqsFramework.BaseEmailTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.MaqsFramework.Utilities">
-      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.1\lib\net45\Magenic.MaqsFramework.Utilities.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.2\lib\net45\Magenic.MaqsFramework.Utilities.dll</HintPath>
     </Reference>
 	<Reference Include="MailKit">
-	  <HintPath>..\..\packages\MailKit.1.16.1\lib\net45\MailKit.dll</HintPath>
+	  <HintPath>..\..\packages\MailKit.1.16.2\lib\net45\MailKit.dll</HintPath>
     </Reference>
 	<Reference Include="MimeKit">
-	  <HintPath>..\..\packages\MimeKit.1.16.1\lib\net45\MimeKit.dll</HintPath>
+	  <HintPath>..\..\packages\MimeKit.1.16.2\lib\net45\MimeKit.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>..\..\packages\NUnit.3.6.1\lib\net45\nunit.framework.dll</HintPath>
+      <HintPath>..\..\packages\NUnit.3.7.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>

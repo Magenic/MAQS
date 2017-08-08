@@ -173,8 +173,10 @@ namespace UtilitiesUnitTesting
         #region NUnitAssert
         /// <summary>
         /// Verify soft asserts can handle a NUnit assert that passes
+        /// Known Issue: NUnit asserts throw an exception when used outside an NUnit test
+        /// URL for Issue: <c>https://github.com/nunit/nunit/issues/2336</c>
         /// </summary>
-        [TestMethod]
+        [TestMethod][Ignore]
         [TestCategory(TestCategories.Utilities)]
         public void AcceptNUnitAsserts()
         {
