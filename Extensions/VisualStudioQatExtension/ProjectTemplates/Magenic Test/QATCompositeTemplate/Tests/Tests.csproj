@@ -70,6 +70,12 @@
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.3.7.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
+	<Reference Include="MailKit">
+	  <HintPath>..\..\packages\MailKit.1.18.0\lib\net45\MailKit.dll</HintPath>
+    </Reference>
+	<Reference Include="MimeKit">
+	  <HintPath>..\..\packages\MimeKit.1.18.0\lib\net45\MimeKit.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
