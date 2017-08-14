@@ -139,5 +139,25 @@ namespace AppiumUnitTests
         {
             Assert.AreEqual(AppiumConfig.GetAvdName(), "Nexus-6P");
         }
+
+        /// <summary>
+        /// Test for getting App Path
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Appium)]
+        public void GetAppPathTest()
+        {
+            Assert.AreEqual(AppiumConfig.GetAppPath(), "/Users/magenicqa/Desktop/s-amazon-dev-debug.apk");
+        }
+
+        /// <summary>
+        /// Test for getting App Activity
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Appium)]
+        public void GetAppActivityTest()
+        {
+            Assert.AreEqual(AppiumConfig.GetAppActivity(), "com.todoroo.astrid.activity.TaskListActivity");
+        }
     }
 }

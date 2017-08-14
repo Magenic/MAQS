@@ -112,6 +112,24 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         }
 
         /// <summary>
+        /// Get App Activity
+        /// </summary>
+        /// <returns>String of App Activity</returns>
+        public static String GetAppActivity()
+        {
+            return Config.GetValue("AppStartActivity");
+        }
+
+        /// <summary>
+        /// Get App Path
+        /// </summary>
+        /// <returns>String of app path value</returns>
+        public static String GetAppPath()
+        {
+            return Config.GetValue("AppPath");
+        }
+
+        /// <summary>
         /// Get the appium driver based for the provided mobile OS
         /// </summary>
         /// <param name="mobileDeviceOS">The browser type we want to use</param>
@@ -172,52 +190,55 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
             switch (mobileDeivceOS.ToUpper())
             {
                 case "ANDROID":
-                    
+
                     if (!GetAvdName().Equals(string.Empty))
                     {
-                        capabilities.SetCapability("avd", GetAvdName());
+                        capabilities.SetCapability(AndroidMobileCapabilityType.Avd, GetAvdName());
                     }
-                    else
+                    else if (UsingMobileBrowser())
                     {
-                        capabilities = DesiredCapabilities.Android();
-                    }
+                    capabilities.SetCapability(MobileCapabilityType.BrowserName, MobileBrowserType.Chrome);
+                    } 
 
+                        if (Config.DoesKeyExist("AppStartActivity") && !GetAppActivity().Equals(string.Empty) && !UsingMobileBrowser())
+                        {
+                        capabilities.SetCapability(AndroidMobileCapabilityType.AppPackage, GetBundleId());
+                        capabilities.SetCapability(AndroidMobileCapabilityType.AppActivity, GetAppActivity());
+                         }
+                        
                     break;
 
                 case "IOS":
-                    capabilities = DesiredCapabilities.IPhone();
-                    capabilities.SetCapability("udid", GetMobileDeviceUDID());
+                    capabilities.SetCapability(CapabilityType.Platform, "MAC");
+                    capabilities.SetCapability(MobileCapabilityType.AutomationName, "XCUITest");
+                    capabilities.SetCapability(MobileCapabilityType.Udid, GetMobileDeviceUDID());
+                    if (UsingMobileBrowser())
+                    {
+                        capabilities.SetCapability(MobileCapabilityType.BrowserName, MobileBrowserType.Safari);
+                    }
+                    else
+                    {
+                        if (Config.DoesKeyExist("BundleID") && !GetBundleId().Equals(string.Empty))
+                        {
+                            capabilities.SetCapability(IOSMobileCapabilityType.BundleId, GetBundleId());
+                        }
+                    }
+
                     break;
 
                 default:
                     throw new Exception(StringProcessor.SafeFormatter("Mobile OS type '{0}' is not supported", mobileDeivceOS));
             }
 
-            capabilities.SetCapability("deviceName", GetDeviceName());
+            if (Config.DoesKeyExist("AppPath") && !GetAppPath().Equals(string.Empty))
+            {
+                capabilities.SetCapability(MobileCapabilityType.App, GetAppPath());
+            }
+
+            capabilities.SetCapability(MobileCapabilityType.DeviceName, GetDeviceName());
+            capabilities.SetCapability(MobileCapabilityType.PlatformVersion, GetOSVersion());
             capabilities.SetCapability(CapabilityType.Version, GetOSVersion());
-            capabilities.SetCapability(CapabilityType.Platform, GetMobileDeviceOS().ToUpper());
-
-            if (UsingMobileBrowser())
-            {
-                switch (mobileDeivceOS.ToUpper())
-                {
-                    case "ANDROID":
-                        capabilities.SetCapability(MobileCapabilityType.BrowserName, MobileBrowserType.Chrome);
-                        break;
-
-                    case "IOS":
-
-                        capabilities.SetCapability(MobileCapabilityType.BrowserName, MobileBrowserType.Safari);
-                        capabilities.SetCapability(CapabilityType.Platform, "MAC");
-                        break;
-                }
-            }
-            else
-            {
-                capabilities.SetCapability("appId", GetBundleId());
-                capabilities.SetCapability(MobileCapabilityType.AutomationName, "Appium");
-            }
-
+            capabilities.SetCapability(MobileCapabilityType.PlatformName, GetMobileDeviceOS().ToUpper());
             return capabilities;
         }
     }
