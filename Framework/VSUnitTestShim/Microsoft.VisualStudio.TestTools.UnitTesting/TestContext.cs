@@ -148,5 +148,14 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting
                 return new Dictionary<string, string>();
             }
         }
+
+        /// <summary>
+        /// Shim add
+        /// </summary>
+        /// <param name="file">File to add</param>
+        public void AddResultFile(string file)
+        {
+            // Placeholder
+        }
     }
 }
