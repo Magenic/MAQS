@@ -175,9 +175,12 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
                     
                     if (!GetAvdName().Equals(string.Empty))
                     {
-                        capabilities.SetCapability("avd", GetAvdName());
+                        capabilities.SetCapability(AndroidMobileCapabilityType.Avd, GetAvdName());
                     }
-                    else
+                    else if (UsingMobileBrowser())
+                    {
+                    capabilities.SetCapability(MobileCapabilityType.BrowserName, MobileBrowserType.Chrome);
+                    } else 
                     {
                         capabilities = DesiredCapabilities.Android();
                     }
@@ -186,39 +189,50 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
 
                 case "IOS":
                     capabilities = DesiredCapabilities.IPhone();
-                    capabilities.SetCapability("udid", GetMobileDeviceUDID());
+                    capabilities.SetCapability(MobileCapabilityType.Udid, GetMobileDeviceUDID());
+                    if (UsingMobileBrowser())
+                    {
+                        capabilities.SetCapability(MobileCapabilityType.BrowserName, MobileBrowserType.Safari);
+                        capabilities.SetCapability(CapabilityType.Platform, "MAC");
+                    }
+                    else
+                    {
+                        capabilities.SetCapability(IOSMobileCapabilityType.BundleId, GetBundleId());
+                    }
                     break;
 
                 default:
                     throw new Exception(StringProcessor.SafeFormatter("Mobile OS type '{0}' is not supported", mobileDeivceOS));
             }
 
-            capabilities.SetCapability("deviceName", GetDeviceName());
-            capabilities.SetCapability(CapabilityType.Version, GetOSVersion());
-            capabilities.SetCapability(CapabilityType.Platform, GetMobileDeviceOS().ToUpper());
-
-            if (UsingMobileBrowser())
+            if (Config.DoesKeyExist("AppStartActivity") && !GetAppActivity().Equals(string.Empty))
             {
-                switch (mobileDeivceOS.ToUpper())
-                {
-                    case "ANDROID":
-                        capabilities.SetCapability(MobileCapabilityType.BrowserName, MobileBrowserType.Chrome);
-                        break;
-
-                    case "IOS":
-
-                        capabilities.SetCapability(MobileCapabilityType.BrowserName, MobileBrowserType.Safari);
-                        capabilities.SetCapability(CapabilityType.Platform, "MAC");
-                        break;
-                }
+                capabilities.SetCapability(AndroidMobileCapabilityType.AppPackage, GetBundleId());
+                capabilities.SetCapability(AndroidMobileCapabilityType.AppActivity, GetAppActivity());
             }
             else
             {
-                capabilities.SetCapability("appId", GetBundleId());
-                capabilities.SetCapability(MobileCapabilityType.AutomationName, "Appium");
+                capabilities.SetCapability(MobileCapabilityType.App, GetAppPath());
             }
+            
+            capabilities.SetCapability(MobileCapabilityType.DeviceName, GetDeviceName());
+            capabilities.SetCapability(MobileCapabilityType.PlatformVersion, GetOSVersion());
+            capabilities.SetCapability(MobileCapabilityType.PlatformName, GetMobileDeviceOS().ToUpper());
+            capabilities.SetCapability(MobileCapabilityType.AutomationName, "Appium");
+
+            
 
             return capabilities;
+        }
+
+        public static String GetAppActivity()
+        {
+            return Config.GetValue("AppStartActivity");
+        }
+
+        public static String GetAppPath()
+        {
+            return Config.GetValue("AppPath");
         }
     }
 }
