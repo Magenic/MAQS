@@ -38,17 +38,17 @@
       <HintPath>..\..\packages\Appium.WebDriver.2.0.1.1\lib\net45\appium-dotnet-driver.dll</HintPath>
     </Reference>
 	<Reference Include="Magenic.MaqsFramework.BaseTest">
-      <HintPath>..\..\packages\Magenic.MaqsFramework.NunitOnly.4.0.1\lib\net45\Magenic.MaqsFramework.BaseTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.MaqsFramework.NunitOnly.4.0.2\lib\net45\Magenic.MaqsFramework.BaseTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.MaqsFramework.BaseAppiumTest">
-      <HintPath>..\..\packages\Magenic.MaqsFramework.NunitOnly.4.0.1\lib\net45\Magenic.MaqsFramework.BaseAppiumTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.MaqsFramework.NunitOnly.4.0.2\lib\net45\Magenic.MaqsFramework.BaseAppiumTest.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Magenic.MaqsFramework.Utilities">
-      <HintPath>..\..\packages\Magenic.MaqsFramework.NunitOnly.4.0.1\lib\net45\Magenic.MaqsFramework.Utilities.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.MaqsFramework.NunitOnly.4.0.2\lib\net45\Magenic.MaqsFramework.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>..\..\packages\NUnit.3.6.1\lib\net45\nunit.framework.dll</HintPath>
+      <HintPath>..\..\packages\NUnit.3.7.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

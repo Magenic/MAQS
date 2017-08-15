@@ -28,11 +28,6 @@ namespace UtilitiesUnitTesting
     public class FileLoggerUnitTests
     {
         /// <summary>
-        /// Did the logging folder exist at the start of the test run
-        /// </summary>
-        private static bool loggingFolderExistsBeforeRun = false;
-
-        /// <summary>
         /// Gets logging level test data
         /// </summary>
         private static IEnumerable LoggingLevels
@@ -47,24 +42,6 @@ namespace UtilitiesUnitTesting
                 yield return new TestCaseData("ERROR", new Dictionary<string, int> { { "VERBOSE", 0 }, { "INFORMATION", 0 }, { "GENERIC", 0 }, { "SUCCESS", 0 }, { "WARNING", 0 }, { "ERROR", 1 } });
                 yield return new TestCaseData("SUSPENDED", new Dictionary<string, int> { { "VERBOSE", 0 }, { "INFORMATION", 0 }, { "GENERIC", 0 }, { "SUCCESS", 0 }, { "WARNING", 0 }, { "ERROR", 0 } });
             }
-        }
-
-        /// <summary>
-        /// Setup before running tests
-        /// </summary>
-        [OneTimeSetUp]
-        public static void CheckBeforeClass()
-        {
-            loggingFolderExistsBeforeRun = TestHelper.DoesFolderExist();
-        }
-
-        /// <summary>
-        /// Cleanup after we are done running tests
-        /// </summary>
-        [OneTimeTearDown]
-        public static void CleanupAfterClass()
-        {
-            TestHelper.Cleanup(loggingFolderExistsBeforeRun);
         }
 
         /// <summary>
@@ -228,7 +205,7 @@ namespace UtilitiesUnitTesting
         [Category(TestCategories.Utilities)]
         public void FileLoggerLogMessage()
         {
-            FileLogger logger = new FileLogger(string.Empty, "FileLoggerLogMessage", MessageType.GENERIC, true);
+            FileLogger logger = new FileLogger(string.Empty, "FileLoggerLogMessage", MessageType.INFORMATION, true);
             logger.LogMessage("Test to ensure LogMessage works as expected.");
             Assert.IsTrue(File.ReadAllText(logger.FilePath).Contains("Test to ensure LogMessage works as expected."));
             File.Delete(logger.FilePath);

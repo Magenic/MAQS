@@ -20,30 +20,6 @@ namespace UtilitiesUnitTesting
     [ExcludeFromCodeCoverage]
     public class SoftAssertUnitTests
     {
-        /// <summary>
-        /// Did the logging folder exist at the start of the test run
-        /// </summary>
-        private static bool loggingFolderExistsBeforeRun = false;
-
-        /// <summary>
-        /// Setup before we start running unit tests
-        /// </summary>
-        /// <param name="context">The upcoming test context</param>
-        [ClassInitialize]
-        public static void CheckBeforeClass(TestContext context)
-        {
-            loggingFolderExistsBeforeRun = TestHelper.DoesFolderExist();
-        }
-
-        /// <summary>
-        /// Cleanup after we are done running unit tests
-        /// </summary>
-        [ClassCleanup]
-        public static void CleanupAfterClass()
-        {
-            TestHelper.Cleanup(loggingFolderExistsBeforeRun);
-        }
-
         #region SoftAssertAreEqualPasses
         /// <summary>
         /// Tests for soft asserts
@@ -197,8 +173,10 @@ namespace UtilitiesUnitTesting
         #region NUnitAssert
         /// <summary>
         /// Verify soft asserts can handle a NUnit assert that passes
+        /// Known Issue: NUnit asserts throw an exception when used outside an NUnit test
+        /// URL for Issue: <c>https://github.com/nunit/nunit/issues/2336</c>
         /// </summary>
-        [TestMethod]
+        [TestMethod][Ignore]
         [TestCategory(TestCategories.Utilities)]
         public void AcceptNUnitAsserts()
         {

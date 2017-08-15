@@ -228,11 +228,14 @@ namespace Magenic.MaqsFramework.BaseTest
         public void Teardown()
         {
             TestResultType resultType = this.GetResultType();
+            bool forceTestFailure = false;
 
-            // Check if Soft Alerts were checked in the test
-            if (!this.SoftAssert.DidUserCheck())
+            // Switch the test to a failure if we have a soft assert failure
+            if (!this.SoftAssert.DidUserCheck() && this.SoftAssert.DidSoftAssertsFail())
             {
-                this.TryToLog(MessageType.WARNING, "User did not check for soft asserts");
+                resultType = TestResultType.FAIL;
+                forceTestFailure = true;
+                this.SoftAssert.LogFinalAssertData();
             }
 
             // Log the test result
@@ -270,39 +273,46 @@ namespace Magenic.MaqsFramework.BaseTest
             // Get the Fully Qualified Test Name
             string fullyQualifiedTestName = this.GetFullyQualifiedTestClassName();
 
-            // Find the PerfTimerCollection for this test
-            string key = fullyQualifiedTestName;
-            if (this.PerfTimerCollectionSet.ContainsKey(key))
+            if (this.PerfTimerCollectionSet.ContainsKey(fullyQualifiedTestName))
             {
-                PerfTimerCollection collection = this.PerfTimerCollectionSet[key];
+                PerfTimerCollection collection = this.PerfTimerCollectionSet[fullyQualifiedTestName];
 
                 // Write out the performance timers
                 collection.Write(this.Log);
 
                 // Release the perf time collection for the test
-                this.PerfTimerCollectionSet.TryRemove(key, out collection);
+                this.PerfTimerCollectionSet.TryRemove(fullyQualifiedTestName, out collection);
                 collection = null;
             }
+
+            // Attach log and screen shot if we can
+            this.AttachLogAndSceenshot(fullyQualifiedTestName);
 
             // Release the logged messages
             List<string> loggedMessages;
             this.LoggedExceptions.TryRemove(fullyQualifiedTestName, out loggedMessages);
             loggedMessages = null;
 
-            // Release the logger
-            Logger logger;
-            this.Loggers.TryRemove(fullyQualifiedTestName, out logger);
-            logger = null;
-
             // Relese the soft assert object
             SoftAssert softAssert;
             this.SoftAsserts.TryRemove(fullyQualifiedTestName, out softAssert);
             softAssert = null;
 
+            // Release the logger
+            Logger logger;
+            this.Loggers.TryRemove(fullyQualifiedTestName, out logger);
+            logger = null;
+
             // Relese the base test object
             BaseTestObject baseTestObject;
             this.BaseTestObjects.TryRemove(fullyQualifiedTestName, out baseTestObject);
             baseTestObject = null;
+
+            // Force the test to fail
+            if (forceTestFailure)
+            {
+                throw new Exception("Test was forced to fail in the cleanup - Likely the result of a soft assert failure.");
+            }
         }
 
         /// <summary>
@@ -622,6 +632,40 @@ namespace Magenic.MaqsFramework.BaseTest
             catch (Exception e)
             {
                 this.TryToLog(MessageType.WARNING, "Failed override configuration settings because: " + e.Message);
+            }
+        }
+
+        /// <summary>
+        /// For VS unit tests attach the log and screen shot if they exist
+        /// </summary>
+        /// <param name="fullyQualifiedTestName">The fully qualified test name</param>
+        private void AttachLogAndSceenshot(string fullyQualifiedTestName)
+        {
+            try
+            {
+                // This only works for VS unit test so check that first
+                if (this.testContextInstance != null)
+                {
+                    // Only attach if we can find the log file
+                    if (this.Loggers.ContainsKey(fullyQualifiedTestName) && this.Loggers[fullyQualifiedTestName] is FileLogger && File.Exists(((FileLogger)this.Loggers[fullyQualifiedTestName]).FilePath))
+                    {
+                        string path = ((FileLogger)this.Loggers[fullyQualifiedTestName]).FilePath;
+                        string nameWithoutExtension = Path.GetFileNameWithoutExtension(path);
+
+                        // Find all files that share the same base file name - file name without extension
+                        foreach (string file in Directory.GetFiles(Path.GetDirectoryName(path), fullyQualifiedTestName + "*", SearchOption.TopDirectoryOnly))
+                        {
+                            if (nameWithoutExtension.Equals(Path.GetFileNameWithoutExtension(file), StringComparison.CurrentCultureIgnoreCase))
+                            {
+                                this.TestContext.AddResultFile(file);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                this.TryToLog(MessageType.WARNING, "Failed to attach log or screenshot because: " + e.Message);
             }
         }
     }

@@ -21,31 +21,15 @@ namespace WebServiceTesterUnitTesting
     public class WebServiceWrapperNUnitConfig : BaseWebServiceTest
     {
         /// <summary>
-        /// Did the logging folder exist at the start of the test run
-        /// </summary>
-        private static bool loggingFolderExistsBeforeRun = false;
-
-        /// <summary>
         /// Setup before running tests
         /// </summary>
         [OneTimeSetUp]
         public static void CheckBeforeClass()
         {
-            loggingFolderExistsBeforeRun = TestHelper.DoesFolderExist();
-
             // Set overrides
             MethodInfo dynMethod = NUnit.Framework.TestContext.Parameters.GetType().GetMethod("Add", BindingFlags.NonPublic | BindingFlags.Instance);
             dynMethod.Invoke(NUnit.Framework.TestContext.Parameters, new object[] { "OverrideNUnitTest", "Value" });
             dynMethod.Invoke(NUnit.Framework.TestContext.Parameters, new object[] { "OverrideNUnitTestNew", "Value2" });
-        }
-
-        /// <summary>
-        /// Cleanup after we are done running tests
-        /// </summary>
-        [OneTimeTearDown]
-        public static void CleanupAfterClass()
-        {
-            TestHelper.Cleanup(loggingFolderExistsBeforeRun);
         }
 
         /// <summary>

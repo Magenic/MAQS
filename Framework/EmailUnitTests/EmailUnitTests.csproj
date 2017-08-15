@@ -48,13 +48,14 @@
       <HintPath>..\packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MailKit, Version=1.16.0.0, Culture=neutral, PublicKeyToken=4e064fe7c44a8f1b, processorArchitecture=MSIL">
-      <HintPath>..\packages\MailKit.1.16.1\lib\net451\MailKit.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="MailKit, Version=1.18.0.0, Culture=neutral, PublicKeyToken=4e064fe7c44a8f1b, processorArchitecture=MSIL">
+      <HintPath>..\packages\MailKit.1.18.0\lib\net451\MailKit.dll</HintPath>
     </Reference>
-    <Reference Include="MimeKit, Version=1.16.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
-      <HintPath>..\packages\MimeKit.1.16.1\lib\net451\MimeKit.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="MimeKit, Version=1.18.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
+      <HintPath>..\packages\MimeKit.1.18.0\lib\net451\MimeKit.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=3.7.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.7.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -73,10 +74,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="BaseFrameworkTests.cs" />
     <Compile Include="EmailUnitWithoutWrapper.cs" />
     <Compile Include="EmailUnitWithWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestHelper.cs" />
     <Content Include="TestFiles\test.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -96,6 +97,10 @@
     <ProjectReference Include="..\BaseEmailTest\BaseEmailTest.csproj">
       <Project>{6e551c39-5307-4371-8315-8fd5b9381aed}</Project>
       <Name>BaseEmailTest</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BaseTestUnitTests\BaseTestUnitTests.csproj">
+      <Project>{c1d8ae56-00e8-49c8-ab0d-b822d47797a7}</Project>
+      <Name>BaseTestUnitTests</Name>
     </ProjectReference>
     <ProjectReference Include="..\BaseTest\BaseTest.csproj">
       <Project>{60f10d47-3546-4b4b-b49b-5a361ddc1bcb}</Project>

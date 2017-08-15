@@ -127,16 +127,21 @@ namespace Magenic.MaqsFramework.BaseTest
                 this.TryToLog(MessageType.WARNING, "Failed before logging teardown because: {0}", e.Message);
             }
 
-            // Do default teardown
-            base.Teardown();
+            try
+            {
+                // Do default teardown
+                base.Teardown();
+            }
+            finally
+            {
+                // Get the Fully Qualified Test Name
+                string fullyQualifiedTestName = this.GetFullyQualifiedTestClassName();
 
-            // Get the Fully Qualified Test Name
-            string fullyQualifiedTestName = this.GetFullyQualifiedTestClassName();
-
-            // Release the test object
-            T testObject;
-            this.ObjectsUnderTest.TryRemove(fullyQualifiedTestName, out testObject);
-            testObject = null;
+                // Release the test object
+                T testObject;
+                this.ObjectsUnderTest.TryRemove(fullyQualifiedTestName, out testObject);
+                testObject = null;
+            }
         }
 
         /// <summary>

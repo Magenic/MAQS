@@ -41,34 +41,40 @@
       <HintPath>..\..\packages\Appium.WebDriver.2.0.1.1\lib\net45\appium-dotnet-driver.dll</HintPath>
     </Reference>
 	<Reference Include="Magenic.MaqsFramework.BaseTest">
-      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.1\lib\net45\Magenic.MaqsFramework.BaseTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.2\lib\net45\Magenic.MaqsFramework.BaseTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.MaqsFramework.BaseAppiumTest">
-      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.1\lib\net45\Magenic.MaqsFramework.BaseAppiumTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.2\lib\net45\Magenic.MaqsFramework.BaseAppiumTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.MaqsFramework.BaseDatabaseTest">
-      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.1\lib\net45\Magenic.MaqsFramework.BaseDatabaseTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.2\lib\net45\Magenic.MaqsFramework.BaseDatabaseTest.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Magenic.MaqsFramework.BaseEmailTest">
-      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.1\lib\net45\Magenic.MaqsFramework.BaseEmailTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.2\lib\net45\Magenic.MaqsFramework.BaseEmailTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.MaqsFramework.BaseSeleniumTest">
-      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.1\lib\net45\Magenic.MaqsFramework.BaseSeleniumTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.2\lib\net45\Magenic.MaqsFramework.BaseSeleniumTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.MaqsFramework.Utilities">
-      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.1\lib\net45\Magenic.MaqsFramework.Utilities.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.2\lib\net45\Magenic.MaqsFramework.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.MaqsFramework.WebServiceTester">
-      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.1\lib\net45\Magenic.MaqsFramework.WebServiceTester.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.2\lib\net45\Magenic.MaqsFramework.WebServiceTester.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>..\..\packages\NUnit.3.6.1\lib\net45\nunit.framework.dll</HintPath>
+      <HintPath>..\..\packages\NUnit.3.7.1\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
+	<Reference Include="MailKit">
+	  <HintPath>..\..\packages\MailKit.1.18.0\lib\net45\MailKit.dll</HintPath>
+    </Reference>
+	<Reference Include="MimeKit">
+	  <HintPath>..\..\packages\MimeKit.1.18.0\lib\net45\MimeKit.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

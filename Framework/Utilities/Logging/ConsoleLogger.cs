@@ -18,7 +18,7 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         /// Initializes a new instance of the <see cref="ConsoleLogger" /> class.
         /// </summary>
         /// <param name="level">The logging level</param>
-        public ConsoleLogger(MessageType level = MessageType.GENERIC)
+        public ConsoleLogger(MessageType level = MessageType.INFORMATION)
             : base(level)
         {
         }
@@ -51,7 +51,7 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         /// <param name="args">String format arguments</param>
         public void Write(string message, params object[] args)
         {
-            this.SetColorWriteAndRestore(MessageType.GENERIC, false, message, args);
+            this.SetColorWriteAndRestore(MessageType.INFORMATION, false, message, args);
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         /// <param name="args">String format arguments</param>
         public void WriteLine(string message, params object[] args)
         {
-            this.SetColorWriteAndRestore(MessageType.GENERIC, true, message, args);
+            this.SetColorWriteAndRestore(MessageType.INFORMATION, true, message, args);
         }
 
         /// <summary>
@@ -148,17 +148,17 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         {
             switch (type)
             {
+                case MessageType.SUSPENDED:
+                    // Suspended so we do nothing
+                    break;
                 case MessageType.VERBOSE:
                     SetConsoleColor(ConsoleColor.Black, ConsoleColor.White);
                     break;
-                case MessageType.ERROR:
-                    SetConsoleColor(ConsoleColor.Red);
+                case MessageType.INFORMATION:
+                    SetConsoleColor(ConsoleColor.Blue, ConsoleColor.White);
                     break;
                 case MessageType.GENERIC:
                     SetConsoleColor(ConsoleColor.White);
-                    break;
-                case MessageType.INFORMATION:
-                    SetConsoleColor(ConsoleColor.Blue, ConsoleColor.White);
                     break;
                 case MessageType.SUCCESS:
                     SetConsoleColor(ConsoleColor.Green);
@@ -166,8 +166,8 @@ namespace Magenic.MaqsFramework.Utilities.Logging
                 case MessageType.WARNING:
                     SetConsoleColor(ConsoleColor.Yellow);
                     break;
-                case MessageType.SUSPENDED:
-                    // Suspended so we do nothing
+                case MessageType.ERROR:
+                    SetConsoleColor(ConsoleColor.Red);
                     break;
                 default:
                     SetConsoleColor(ConsoleColor.Yellow);

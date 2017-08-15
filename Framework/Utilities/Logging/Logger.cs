@@ -22,7 +22,7 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         /// <summary>
         /// Log Level value area
         /// </summary>
-        private MessageType logLevel = MessageType.GENERIC;
+        private MessageType logLevel = MessageType.INFORMATION;
 
         /// <summary>
         /// Log Level value save area
@@ -33,7 +33,7 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         /// Initializes a new instance of the <see cref="Logger" /> class.
         /// </summary>
         /// <param name="level">The logging level</param>
-        public Logger(MessageType level = MessageType.GENERIC)
+        public Logger(MessageType level = MessageType.INFORMATION)
         {
             this.logLevel = level;
         }
@@ -56,6 +56,7 @@ namespace Magenic.MaqsFramework.Utilities.Logging
             {
                 this.logLevelSaved = this.logLevel;
                 this.logLevel = MessageType.SUSPENDED;
+                this.LogMessage(MessageType.VERBOSE, "Suspending Logging..");
             }
         }
 
@@ -72,6 +73,7 @@ namespace Magenic.MaqsFramework.Utilities.Logging
             }
 
             this.logLevelSaved = MessageType.SUSPENDED;
+            this.LogMessage(MessageType.VERBOSE, "Logging Continued..");
         }
 
         /// <summary>
