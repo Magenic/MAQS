@@ -92,6 +92,9 @@ namespace Magenic.MaqsFramework.Utilities.Helper
         /// <typeparam name="T">Type returned</typeparam>
         /// <param name="waitForTrue">Function that returns type T</param>
         /// <param name="comparativeValue">value of the same type as T</param>
+        /// <example>
+        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" region="WaitUntilFunctionEqualsExpected" lang="C#" />
+        /// </example>
         /// <returns>if it returned before the timeout occurred</returns>
         public static T WaitUntilMatch<T>(Func<T> waitForTrue, T comparativeValue)
         {
@@ -123,6 +126,9 @@ namespace Magenic.MaqsFramework.Utilities.Helper
         /// <param name="retryTime">time to wait between retries</param>
         /// <param name="timeout">how long before timing out</param>
         /// <param name="comparativeValue">value of the same type as T</param>
+        /// <example>
+        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" region="WaitUntilFunctionEqualsExpected" lang="C#" />
+        /// </example>
         /// <returns>if it returned before the timeout occurred</returns>
         public static T WaitUntilMatch<T>(Func<T> waitForTrue, TimeSpan retryTime, TimeSpan timeout, T comparativeValue)
         {
@@ -152,6 +158,9 @@ namespace Magenic.MaqsFramework.Utilities.Helper
         /// <typeparam name="T">The type the method returns</typeparam>
         /// <param name="waitForTrue">Method to wait for</param>
         /// <param name="comparativeValue">The value to compare to what comes out of waitForTrue</param>
+        /// <example>
+        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" region="WaitForFunctionEqualsExpected" lang="C#" />
+        /// </example>
         public static void WaitForMatch<T>(Func<T> waitForTrue, T comparativeValue)
         {
             // Set start time and exception holder
@@ -184,6 +193,9 @@ namespace Magenic.MaqsFramework.Utilities.Helper
         /// <param name="retryTime">time to wait between retries</param>
         /// <param name="timeout">how long before timing out</param>
         /// <param name="comparativeValue">The value to compare to what comes out of waitForTrue</param>
+        /// <example>
+        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" region="WaitForFunctionEqualsExpected" lang="C#" />
+        /// </example>
         public static void WaitForMatch<T>(Func<T> waitForTrue, TimeSpan retryTime, TimeSpan timeout, T comparativeValue)
         {
             // Set start time and exception holder
