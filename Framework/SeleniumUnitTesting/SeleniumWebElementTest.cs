@@ -25,11 +25,6 @@ namespace SeleniumUnitTests
     public class SeleniumWebElementTest : BaseSeleniumTest
     {
         /// <summary>
-        /// Did the logging folder exist at the start of the test run
-        /// </summary>
-        private static bool loggingFolderExistsBeforeRun = false;
-
-        /// <summary>
         /// Unit testing site URL - Login page
         /// </summary>
         private static string testSiteUrl = SeleniumConfig.GetWebSiteBase();
@@ -110,23 +105,34 @@ namespace SeleniumUnitTests
         private static By flowerTable = By.CssSelector("#FlowerTable TD");
 
         /// <summary>
-        /// Setup before we start running selenium tests
+        /// The Contact menu
         /// </summary>
-        /// <param name="context">The upcoming test context</param>
-        [ClassInitialize]
-        public static void CheckBeforeClass(TestContext context)
-        {
-            loggingFolderExistsBeforeRun = TestHelper.DoesFolderExist();
-        }
+        private static By contactMenu = By.CssSelector("#ContactButton");
 
         /// <summary>
-        /// Cleanup after we are done running selenium tests
+        /// All links
         /// </summary>
-        [ClassCleanup]
-        public static void CleanupAfterClass()
-        {
-            TestHelper.Cleanup(loggingFolderExistsBeforeRun);
-        }
+        private static By allLinks = By.CssSelector("A");
+
+        /// <summary>
+        /// First child of a DIV
+        /// </summary>
+        private static By firstChildOfDiv = By.CssSelector("DIV :first-child");
+
+        /// <summary>
+        /// Asynchronous content DIV
+        /// </summary>
+        private static By asyncContent = By.CssSelector("#AsyncContent");
+
+        /// <summary>
+        /// All labels
+        /// </summary>
+        private static By allLabels = By.CssSelector("LABEL");
+
+        /// <summary>
+        /// Load content container
+        /// </summary>
+        private static By loadContainer = By.CssSelector("DIV.roundedcorners");
 
         /// <summary>
         /// Make sure we can open a browser
@@ -147,9 +153,9 @@ namespace SeleniumUnitTests
         public void WaitForClickableElement()
         {
             this.WebDriver.Navigate().GoToUrl(testSiteUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(bodyCssSelector);
-            element = element.Wait().ForClickableElement(homeButtonCssSelector);
-            Assert.IsNotNull(element, "Null element was returned");
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(contactMenu);
+            element = element.Wait().ForClickableElement(allLinks);
+            Assert.AreEqual("Contact", element.Text);
         }
         #endregion
 
@@ -162,9 +168,9 @@ namespace SeleniumUnitTests
         public void WaitForElementExist()
         {
             this.WebDriver.Navigate().GoToUrl(testSiteUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(bodyCssSelector);
-            element = element.Wait().ForElementExist(homeButtonCssSelector);
-            Assert.IsNotNull(element, "Null element was returned");
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(contactMenu);
+            element = element.Wait().ForElementExist(allLinks);
+            Assert.AreEqual("Contact", element.Text);
         }
         #endregion
 
@@ -176,10 +182,10 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitForVisibleElement()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(bodyCssSelector);
-            element = element.Wait().ForVisibleElement(asyncDropdownCssSelector);
-            Assert.IsNotNull(element, "Null element was returned");
+            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(contactMenu);
+            element = element.Wait().ForVisibleElement(allLinks);
+            Assert.AreEqual("Contact", element.Text);
         }
         #endregion
 
@@ -192,9 +198,9 @@ namespace SeleniumUnitTests
         public void WaitForExactText()
         {
             this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(bodyCssSelector);
-            element = element.Wait().ForExactText(asyncOptionsLabel, "Options");
-            Assert.IsNotNull(element, "Null element was returned");
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(asyncContent);
+            element = element.Wait().ForExactText(allLabels, "Options");
+            Assert.AreEqual("Options", element.Text);
         }
         #endregion
 
@@ -206,10 +212,10 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitForContainsText()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(bodyCssSelector);
-            element = element.Wait().ForContainsText(automationNamesLabel, "Name");
-            Assert.IsNotNull(element, "Null element was returned");
+            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(asyncContent);
+            element = element.Wait().ForContainsText(allLabels, "ption");
+            Assert.AreEqual("Options", element.Text);
         }
         #endregion
 
@@ -221,9 +227,14 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitForAbsentElement()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(bodyCssSelector);
-            element.Wait().ForAbsentElement(notInPage);
+            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(loadContainer);
+
+            // Make sure the element was displayed
+            element.Wait().ForElementExist(firstChildOfDiv);
+
+            // Make sure the element went away
+            element.Wait().ForAbsentElement(firstChildOfDiv);
         }
         #endregion
 

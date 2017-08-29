@@ -24,33 +24,9 @@ namespace UtilitiesUnitTesting
     public class PerformanceUnitTests : BaseTest
     {
         /// <summary>
-        /// Did the logging folder exist at the start of the test run
-        /// </summary>
-        private static bool loggingFolderExistsBeforeRun = false;
-
-        /// <summary>
         /// An example class to save in the payload
         /// </summary>
         private Tconfig tc;
-
-        /// <summary>
-        /// Setup before we start running selenium tests
-        /// </summary>
-        /// <param name="context">The upcoming test context</param>
-        [ClassInitialize]
-        public static void CheckBeforeClass(TestContext context)
-        {
-            loggingFolderExistsBeforeRun = TestHelper.DoesFolderExist();
-        }
-
-        /// <summary>
-        /// Cleanup after we are done running selenium tests
-        /// </summary>
-        [ClassCleanup]
-        public static void CleanupAfterClass()
-        {
-            TestHelper.Cleanup(loggingFolderExistsBeforeRun);
-        }
 
         /// <summary>
         /// Test method to test Performance Timers
@@ -62,13 +38,13 @@ namespace UtilitiesUnitTesting
         {
             PerfTimerCollection p = this.PerfTimerCollection;
 
-            //// build an object to store in the payloadstring of the PerfTimerCollection
+            // build an object to store in the payloadstring of the PerfTimerCollection
             this.tc = new Tconfig();
             this.tc.LogPath = Config.GetValue("FileLoggerPath");
             this.tc.Logtype = Config.GetValue("LogType");
             this.tc.WebURI = Config.GetValue("WebServiceUri");
 
-            //// store it (as a JSON string)
+            // store it (as a JSON string)
             p.PerfPayloadString = JsonConvert.SerializeObject(this.tc);
             string json_string = p.PerfPayloadString;
 
