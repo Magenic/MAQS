@@ -19,29 +19,6 @@ namespace SeleniumUnitTests
     public class SeleniumNUnitTest : BaseSeleniumTest
     {
         /// <summary>
-        /// Did the logging folder exist at the start of the test run
-        /// </summary>
-        private static bool loggingFolderExistsBeforeRun = false;
-
-        /// <summary>
-        /// Setup before we start running selenium tests
-        /// </summary>
-        [OneTimeSetUp]
-        public static void CheckBeforeClass()
-        {
-            loggingFolderExistsBeforeRun = TestHelper.DoesFolderExist();
-        }
-
-        /// <summary>
-        /// Cleanup after we are done running selenium tests
-        /// </summary>
-        [OneTimeTearDown]
-        public static void CleanupAfterClass()
-        {
-            TestHelper.Cleanup(loggingFolderExistsBeforeRun);
-        }
-
-        /// <summary>
         /// Make sure we can open a browser
         /// </summary>
         [Test]

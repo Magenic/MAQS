@@ -1,4 +1,79 @@
-Maqs Framework Release Notes:
+MAQS Release Notes:
+4.0.2 - 2017/8/11
+	Bug fixes and minor enhancements
+	- Add SendSecretKeys (AKA enter, but don't log keys) support to ElementHandler and FluentElement
+	- Add support for patch web service calls
+	- Hide child project templates so they don't show up in VS 2017
+	- Fix logging bug, making sure default logging level is Informational
+	- Make test fail if there are any soft assert failures when the test ends
+	- Updated
+		NUnit 3.7.1
+		Newtonsoft.Json 10.0.3
+		Selenium.Support to 3.4.0
+		Selenium.WebDriver to 3.4.0
+		Selenium.WebDriver.ChromeDriver to 2.319.0
+		Selenium.WebDriver.GeckoDriver.Win32 0.18.0
+		MailKit 1.16.2
+	
+4.0.1 - 2017/5/24
+	- Support multiple screenshot formats
+	- Allow fluent elements to be bases off a parent fluent element
+	- Try to clean up after web drivers that fail during setup
+	- Add TryFor element waits
+	- Fix setup failure that happened when Grid was used without defining the RemoteSeleniumCapsMaqs section in the app.config
+	- Update template to include abstract base page
+	- Switch email from AE to WebKit
+	- Allow soft asserts to take any assert check as a parameter
+	- Add base test to template list
+	- Update templates to include new and missing config setting
+	- Updated
+		NUnit 3.6.1
+		Newtonsoft.Json 10.0.2
+		Selenium.Support to 3.0.4
+		Selenium.WebDriver to 3.0.4
+		Selenium.WebDriver.ChromeDriver to 2.29.0
+		Selenium.WebDriver.IEDriver to 3.4.0
+		Selenium.WebDriver.GeckoDriver.Win32 0.16.1
+	- Added
+		MailKit 1.16.1
+
+4.0.0 - 2017/2/27
+	- Add new base test type, which does not include a system under test
+	- Add TestObject to base tests
+	- Add remote capability settings to app config - Needed for Sauce Labs support
+	- Selenium wait/find restructure
+	- Added FluentElement
+	- Added basic Mongo support	
+	- Fixed Firefox settings to use Gecko, without this change Firefox will not work with Selenium 3
+	- Add support for logging suppression
+	- Removed deprecated event and RTF loggers
+	- Removed deprecated ResponseTimes
+	- Updated
+		Appium.WebDriver to 3.0.0.2
+		Selenium.Support to 3.0.1
+		Selenium.WebDriver to 3.0.1
+		Selenium.WebDriver.ChromeDriver to 2.27.0
+		Selenium.WebDriver.IEDriver to 3.0.0.1
+	- Added
+		Selenium.WebDriver.GeckoDriver.Win32 0.14.0
+		MongoDB.Bson 2.4.2
+		MongoDB.Driver 2.4.2
+		MongoDB.Driver.Core 2.4.2
+
+3.4.1 - 2017/1/25
+	- Fix hierarchical logging
+	- Fix missing web service logging
+
+3.4.0 - 2016/12/9
+	- Add hierarchical logging support
+	- Update PerfTimer schema
+	- Templates now point to Magenic test site
+	- Fix email time based search
+	- Extend SoftAssert to support IsTrue and IsFalse
+	- Updated 
+		Selenium.WebDriver.ChromeDriver to 2.26.0
+		Selenium.WebDriver.IEDriver to 3.0.0.1
+
 3.3.0 - 2016/9/28
 	- Deprecate EventLogger
 	- Add PerfTimer and Deprecate ResponseTimes
@@ -40,7 +115,7 @@ Maqs Framework Release Notes:
 	-Added generic wait for/until functionality
 	-Made Selenium page model template test runner agnostic
 	-Made nuget.config update more robust
-	-Allow nuget check to be skipped in the nuget.config file gets removed the solution created using the Maqs templates
+	-Allow nuget check to be skipped in the nuget.config file gets removed the solution created using the MAQS templates
 	-Updated
 		Selenium.Support to 2.53.0
 		Selenium.WebDriver to 2.53.0

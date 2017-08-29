@@ -33,12 +33,12 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         SUCCESS = 2,
 
         /// <summary>
-        /// Generic message - Our default message type
+        /// Generic message
         /// </summary>
         GENERIC = 3,
 
         /// <summary>
-        /// Informational message
+        /// Informational message - Our default message type
         /// </summary>
         INFORMATION = 4,
 

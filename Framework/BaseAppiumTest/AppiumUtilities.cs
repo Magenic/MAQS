@@ -8,7 +8,6 @@ using Magenic.MaqsFramework.Utilities.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using System;
-using System.Drawing.Imaging;
 using System.IO;
 
 namespace Magenic.MaqsFramework.BaseAppiumTest
@@ -61,7 +60,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
 
             string path = Path.Combine(directory, fileNameWithoutExtension + ".png");
 
-            screenshot.SaveAsFile(path, ImageFormat.Png);
+            screenshot.SaveAsFile(path, ScreenshotImageFormat.Png);
         }
     }
 }

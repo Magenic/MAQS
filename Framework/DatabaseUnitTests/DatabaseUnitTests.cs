@@ -22,30 +22,6 @@ namespace DatabaseUnitTests
     public class DatabaseUnitTests
     {
         /// <summary>
-        /// Did the logging folder exist at the start of the test run
-        /// </summary>
-        private static bool loggingFolderExistsBeforeRun = false;
-
-        /// <summary>
-        /// Setup before we start running selenium tests
-        /// </summary>
-        /// <param name="context">The upcoming test context</param>
-        [ClassInitialize]
-        public static void CheckBeforeClass(TestContext context)
-        {
-            loggingFolderExistsBeforeRun = TestHelper.DoesFolderExist();
-        }
-
-        /// <summary>
-        /// Cleanup after we are done running selenium tests
-        /// </summary>
-        [ClassCleanup]
-        public static void CleanupAfterClass()
-        {
-            TestHelper.Cleanup(loggingFolderExistsBeforeRun);
-        }
-
-        /// <summary>
         /// Check that we get back the state table
         /// </summary>
         [TestMethod]

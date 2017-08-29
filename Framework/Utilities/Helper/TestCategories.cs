@@ -44,6 +44,11 @@ namespace Magenic.MaqsFramework.Utilities.Helper
         public const string WebService = "Web Service Unit Tests";
 
         /// <summary>
+        /// String for base framework unit test category
+        /// </summary>
+        public const string Framework = "Base Framework Unit Tests";
+
+        /// <summary>
         /// String for media type test category
         /// </summary>
         public const string MediaType = "Media Type";
@@ -57,5 +62,10 @@ namespace Magenic.MaqsFramework.Utilities.Helper
         /// String for MongoDB type test category
         /// </summary>
         public const string MongoDB = "MongoDB Unit Tests";
+
+        /// <summary>
+        /// String for Appium type test category
+        /// </summary>
+        public const string Appium = "Appium Unit Tests";
     }
 }

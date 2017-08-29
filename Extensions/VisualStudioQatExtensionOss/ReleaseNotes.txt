@@ -1,3 +1,35 @@
 Maqs Framework Release Notes:
-4.0.0 - 2017/3/1
-	- Initial release
+
+4.0.2 - 2017/8/11
+	Bug fixes and minor enhancements
+	- Add SendSecretKeys (AKA enter, but don't log keys) support to ElementHandler and FluentElement
+	- Hide child project templates so they don't show up in VS 2017
+	- Fix logging bug, making sure default logging level is Informational
+	- Make test fail if there are any soft assert failures when the test ends
+
+4.0.1 - 2017/5/24
+	Bug fixes and minor enhancements
+	- Support multiple screenshot formats
+	- Allow fluent elements to be bases off a parent fluent element
+	- Try to clean up after web drivers that fail during setup
+	- Add TryFor element waits
+	- Fix setup failure that happened when Grid was used without defining the RemoteSeleniumCapsMaqs section in the app.config
+	- Update template to include abstract base page
+	- Allow soft asserts to take any assert check as a parameter
+
+4.0.0 - 2017/3/1 
+	Initial release to open source community
+	- Supports both Visual Studio and NUnit based tests
+	- Visual Studio and NUnit test project templates
+	- Supports Selenium based tests
+	- Selenium extensions
+		Wait for/until element state
+		Element handler for interacting with elements
+		Action builder for common Selenium actions
+	- Selenium utilities
+		Screenshots
+		Web element to web driver
+		Web element or driver to JavaScript Executor
+	- Selenium event logging support
+	- Console, TXT and HTML logging support
+	- Configuration support

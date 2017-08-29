@@ -33,10 +33,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Magenic.MaqsFramework.BaseSeleniumTest">
-      <HintPath>..\..\packages\Magenic.Open.Maqs.4.0.0\lib\net45\Magenic.MaqsFramework.BaseSeleniumTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Open.Maqs.4.0.2\lib\net45\Magenic.MaqsFramework.BaseSeleniumTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.MaqsFramework.Utilities">
-      <HintPath>..\..\packages\Magenic.Open.Maqs.4.0.0\lib\net45\Magenic.MaqsFramework.Utilities.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Open.Maqs.4.0.2\lib\net45\Magenic.MaqsFramework.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Magenic.MaqsFramework.BaseTest">
+      <HintPath>..\..\packages\Magenic.Open.Maqs.4.0.2\lib\net45\Magenic.MaqsFramework.BaseTest.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -48,11 +51,11 @@
     <Reference Include="System.Xml" />
     <Reference Include="WebDriver">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Selenium.WebDriver.3.0.1\lib\net40\WebDriver.dll</HintPath>
+      <HintPath>..\..\packages\Selenium.WebDriver.3.4.0\lib\net40\WebDriver.dll</HintPath>
     </Reference>
     <Reference Include="WebDriver.Support">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Selenium.Support.3.0.1\lib\net40\WebDriver.Support.dll</HintPath>
+      <HintPath>..\..\packages\Selenium.Support.3.4.0\lib\net40\WebDriver.Support.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Choose>
@@ -70,6 +73,7 @@
   <ItemGroup>
     <Compile Include="LoginPageModel.cs" />
     <Compile Include="HomePageModel.cs" />
+    <Compile Include="BasePageModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

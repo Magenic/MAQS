@@ -27,7 +27,7 @@ namespace EmailUnitTests
         {
             using (EmailConnectionWrapper test = new EmailConnectionWrapper("imap.gmail.com", "maqsbaseemailtest@gmail.com", "Magenic3", 993, 10000, true, true))
             {
-                test.EmailConnection.Noop();
+                test.EmailConnection.NoOp();
             }
         }
 

@@ -11,9 +11,11 @@
     <LocationField>Enabled</LocationField>
     <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
     <Icon>__TemplateIcon.ico</Icon>
+	<Hidden>true</Hidden> 
   </TemplateData>
   <TemplateContent>
     <Project TargetFileName="PageModel.csproj" File="PageModel.csproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true" TargetFileName="BasePageModel.cs">BasePageModel.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="LoginPageModel.cs">LoginPageModel.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="HomePageModel.cs">HomePageModel.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="packages.config">packages.config</ProjectItem>

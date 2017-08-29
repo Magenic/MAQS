@@ -8,70 +8,60 @@ using Magenic.MaqsFramework.BaseTest;
 using Magenic.MaqsFramework.Utilities.Data;
 using Magenic.MaqsFramework.Utilities.Helper;
 using Magenic.MaqsFramework.Utilities.Logging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace UtilitiesUnitTesting
 {
     /// <summary>
     /// File logger unit tests
     /// </summary>
-    [TestClass]
+    [TestFixture]
+    [Parallelizable(ParallelScope.None)]
     [ExcludeFromCodeCoverage]
     public class FileLoggerUnitTests
     {
         /// <summary>
-        /// Did the logging folder exist at the start of the test run
+        /// Gets logging level test data
         /// </summary>
-        private static bool loggingFolderExistsBeforeRun = false;
-
-        /// <summary>
-        /// Gets or sets the test context
-        /// </summary>
-        public TestContext TestContext { get; set; }
-
-        /// <summary>
-        /// Setup before we start running selenium tests
-        /// </summary>
-        /// <param name="context">The upcoming test context</param>
-        [ClassInitialize]
-        public static void CheckBeforeClass(TestContext context)
+        private static IEnumerable LoggingLevels
         {
-            loggingFolderExistsBeforeRun = TestHelper.DoesFolderExist();
-        }
-
-        /// <summary>
-        /// Cleanup after we are done running selenium tests
-        /// </summary>
-        [ClassCleanup]
-        public static void CleanupAfterClass()
-        {
-            TestHelper.Cleanup(loggingFolderExistsBeforeRun);
+            get
+            {
+                yield return new TestCaseData("VERBOSE", new Dictionary<string, int> { { "VERBOSE", 1 }, { "INFORMATION", 1 }, { "GENERIC", 1 }, { "SUCCESS", 1 }, { "WARNING", 1 }, { "ERROR", 1 } });
+                yield return new TestCaseData("INFORMATION", new Dictionary<string, int> { { "VERBOSE", 0 }, { "INFORMATION", 1 }, { "GENERIC", 1 }, { "SUCCESS", 1 }, { "WARNING", 1 }, { "ERROR", 1 } });
+                yield return new TestCaseData("GENERIC", new Dictionary<string, int> { { "VERBOSE", 0 }, { "INFORMATION", 0 }, { "GENERIC", 1 }, { "SUCCESS", 1 }, { "WARNING", 1 }, { "ERROR", 1 } });
+                yield return new TestCaseData("SUCCESS", new Dictionary<string, int> { { "VERBOSE", 0 }, { "INFORMATION", 0 }, { "GENERIC", 0 }, { "SUCCESS", 1 }, { "WARNING", 1 }, { "ERROR", 1 } });
+                yield return new TestCaseData("WARNING", new Dictionary<string, int> { { "VERBOSE", 0 }, { "INFORMATION", 0 }, { "GENERIC", 0 }, { "SUCCESS", 0 }, { "WARNING", 1 }, { "ERROR", 1 } });
+                yield return new TestCaseData("ERROR", new Dictionary<string, int> { { "VERBOSE", 0 }, { "INFORMATION", 0 }, { "GENERIC", 0 }, { "SUCCESS", 0 }, { "WARNING", 0 }, { "ERROR", 1 } });
+                yield return new TestCaseData("SUSPENDED", new Dictionary<string, int> { { "VERBOSE", 0 }, { "INFORMATION", 0 }, { "GENERIC", 0 }, { "SUCCESS", 0 }, { "WARNING", 0 }, { "ERROR", 0 } });
+            }
         }
 
         /// <summary>
         /// Verify the console logger respects hierarchical logging
         /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Utilities)]
-        [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV",
-            @"|DataDirectory|\TestData\HierarchicalLoggingData.csv",
-            "HierarchicalLoggingData#csv",
-            DataAccessMethod.Sequential)]
-        public void TestHierarchicalConsoleLogger()
+        /// <param name="logLevel">The type of logging</param>
+        /// <param name="levels">What should appear for each level</param>
+        [Test]
+        [TestCaseSource("LoggingLevels")]
+        [Category(TestCategories.Utilities)]
+        public void TestHierarchicalConsoleLogger(string logLevel, Dictionary<string, int> levels)
         {
             // Calculate a file path
-            string path = Path.Combine(LoggingConfig.GetLogDirectory(), this.GetFileName("TestHierarchicalConsoleLogger", "txt"));
+            string path = Path.Combine(LoggingConfig.GetLogDirectory(), this.GetFileName("TestHierarchicalConsoleLogger" + logLevel, "txt"));
 
             // Pipe the console to this file
-            using (var cc = new ConsoleCopy(path))
+            using (ConsoleCopy consoleCopy = new ConsoleCopy(path))
             {
                 ConsoleLogger console = new ConsoleLogger();
-                this.TestHierarchicalLogging(console, path);
+                this.TestHierarchicalLogging(console, path, logLevel, levels);
             }
 
             File.Delete(path);
@@ -80,16 +70,15 @@ namespace UtilitiesUnitTesting
         /// <summary>
         /// Verify the txt file logger respects hierarchical logging
         /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Utilities)]
-        [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV",
-            @"|DataDirectory|\TestData\HierarchicalLoggingData.csv",
-            "HierarchicalLoggingData#csv",
-            DataAccessMethod.Sequential)]
-        public void TestHierarchicalTxtFileLogger()
+        /// <param name="logLevel">The type of logging</param>
+        /// <param name="levels">What should appear for each level</param>
+        [Test]
+        [TestCaseSource("LoggingLevels")]
+        [Category(TestCategories.Utilities)]
+        public void TestHierarchicalTxtFileLogger(string logLevel, Dictionary<string, int> levels)
         {
-            FileLogger logger = new FileLogger(LoggingConfig.GetLogDirectory(), this.GetFileName("TestHierarchicalTxtFileLogger", "txt"), MessageType.GENERIC, true);
-            this.TestHierarchicalLogging(logger, logger.FilePath);
+            FileLogger logger = new FileLogger(LoggingConfig.GetLogDirectory(), this.GetFileName("TestHierarchicalTxtFileLogger" + logLevel, "txt"), MessageType.GENERIC, true);
+            this.TestHierarchicalLogging(logger, logger.FilePath, logLevel, levels);
 
             File.Delete(logger.FilePath);
         }
@@ -97,16 +86,15 @@ namespace UtilitiesUnitTesting
         /// <summary>
         /// Verify the html file logger respects hierarchical logging
         /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Utilities)]
-        [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV",
-            @"|DataDirectory|\TestData\HierarchicalLoggingData.csv",
-            "HierarchicalLoggingData#csv",
-            DataAccessMethod.Sequential)]
-        public void TestHierarchicalHtmlFileLogger()
+        /// <param name="logLevel">The type of logging</param>
+        /// <param name="levels">What should appear for each level</param>
+        [Test]
+        [TestCaseSource("LoggingLevels")]
+        [Category(TestCategories.Utilities)]
+        public void TestHierarchicalHtmlFileLogger(string logLevel, Dictionary<string, int> levels)
         {
-            HtmlFileLogger logger = new HtmlFileLogger(LoggingConfig.GetLogDirectory(), this.GetFileName("TestHierarchicalHtmlFileLogger", "html"), MessageType.GENERIC, true);
-            this.TestHierarchicalLogging(logger, logger.FilePath);
+            HtmlFileLogger logger = new HtmlFileLogger(LoggingConfig.GetLogDirectory(), this.GetFileName("TestHierarchicalHtmlFileLogger" + logLevel, "html"), MessageType.GENERIC, true);
+            this.TestHierarchicalLogging(logger, logger.FilePath, logLevel, levels);
 
             File.Delete(logger.FilePath);
         }
@@ -114,10 +102,10 @@ namespace UtilitiesUnitTesting
         /// <summary>
         /// Base Test Method.
         /// Each test method that you want to run
-        /// must have the [TestMethod] attribute.
+        /// must have the [Test] attribute.
         /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Utilities)]
+        [Test]
+        [Category(TestCategories.Utilities)]
         public void TestFileLogger()
         {
             FileLogger logger = new FileLogger(string.Empty, "TestFileLogger");
@@ -128,8 +116,8 @@ namespace UtilitiesUnitTesting
         /// <summary>
         /// Verify the logging suspension functions
         /// </summary>
-        [TestMethod]
-        [TestCategory("Utilities Unit Tests")]
+        [Test]
+        [Category("Utilities Unit Tests")]
         public void TestSuspendLogger()
         {
             SoftAssert softAssert = new SoftAssert();
@@ -171,10 +159,10 @@ namespace UtilitiesUnitTesting
         /// <summary>
         /// Base Test Method.
         /// Each test method that you want to run
-        /// must have the [TestMethod] attribute.
+        /// must have the [Test] attribute.
         /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Utilities)]
+        [Test]
+        [Category(TestCategories.Utilities)]
         public void WriteToFileLogger()
         {
             FileLogger logger = new FileLogger(string.Empty, "WriteToFileLogger");
@@ -185,10 +173,10 @@ namespace UtilitiesUnitTesting
         /// <summary>
         /// Base Test Method.
         /// Each test method that you want to run
-        /// must have the [TestMethod] attribute.
+        /// must have the [Test] attribute.
         /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Utilities)]
+        [Test]
+        [Category(TestCategories.Utilities)]
         public void WriteToExistingFileLogger()
         {
             FileLogger logger = new FileLogger(string.Empty, "WriteToExistingFileLogger", MessageType.GENERIC, true);
@@ -199,11 +187,11 @@ namespace UtilitiesUnitTesting
         /// <summary>
         /// Verify FileLogger constructor creates the correct directory if it does not already exist
         /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Utilities)]
+        [Test]
+        [Category(TestCategories.Utilities)]
         public void FileLoggerConstructorCreateDirectory()
         {
-            FileLogger logger = new FileLogger("FileLoggerCreateDirectory", "FileLoggerCreateDirectory", MessageType.GENERIC, true);
+            FileLogger logger = new FileLogger(Path.Combine(LoggingConfig.GetLogDirectory(), "FileLoggerCreateDirectory"), "FileLoggerCreateDirectory", MessageType.GENERIC, true);
             logger.LogMessage(MessageType.WARNING, "Test to ensure that the file in the created directory can be written to.");
             Assert.IsTrue(File.ReadAllText(logger.FilePath).Contains("Test to ensure that the file in the created directory can be written to."));
             File.Delete(logger.FilePath);
@@ -213,11 +201,11 @@ namespace UtilitiesUnitTesting
         /// <summary>
         /// Verify that FileLogger can log message without defining a MessageType
         /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Utilities)]
+        [Test]
+        [Category(TestCategories.Utilities)]
         public void FileLoggerLogMessage()
         {
-            FileLogger logger = new FileLogger(string.Empty, "FileLoggerLogMessage", MessageType.GENERIC, true);
+            FileLogger logger = new FileLogger(string.Empty, "FileLoggerLogMessage", MessageType.INFORMATION, true);
             logger.LogMessage("Test to ensure LogMessage works as expected.");
             Assert.IsTrue(File.ReadAllText(logger.FilePath).Contains("Test to ensure LogMessage works as expected."));
             File.Delete(logger.FilePath);
@@ -226,8 +214,8 @@ namespace UtilitiesUnitTesting
         /// <summary>
         /// Verify that FilePath field can be accessed and updated
         /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Utilities)]
+        [Test]
+        [Category(TestCategories.Utilities)]
         public void FileLoggerSetFilePath()
         {
             FileLogger logger = new FileLogger(string.Empty, "FileLoggerSetFilePath", MessageType.GENERIC, true);
@@ -238,8 +226,8 @@ namespace UtilitiesUnitTesting
         /// <summary>
         /// Verify that FileLogger catches and handles errors caused by incorrect filePaths
         /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Utilities)]
+        [Test]
+        [Category(TestCategories.Utilities)]
         public void FileLoggerCatchThrownException()
         {
             FileLogger logger = new FileLogger(string.Empty, "FileLoggerCatchThrownException", MessageType.GENERIC, true);
@@ -252,16 +240,15 @@ namespace UtilitiesUnitTesting
         /// </summary>
         /// <param name="logger">The logger we are checking</param>
         /// <param name="filePath">Where the log output can be found</param>
-        private void TestHierarchicalLogging(Logger logger, string filePath)
+        /// <param name="logLevelText">The type of logging</param>
+        /// <param name="levels">What should appear for each level</param>
+        private void TestHierarchicalLogging(Logger logger, string filePath, string logLevelText, Dictionary<string, int> levels)
         {
             // Create a soft assert
             SoftAssert softAssert = new SoftAssert(logger);
 
-            // Get the next row of data
-            Dictionary<string, string> rowDictionary = this.GetCurrentRow();
-
             // Get the log level
-            MessageType logLevel = (MessageType)Enum.Parse(typeof(MessageType), rowDictionary["LogLevel"]);
+            MessageType logLevel = (MessageType)Enum.Parse(typeof(MessageType), logLevelText);
             logger.SetLoggingLevel(logLevel);
 
             // Set the logger options to set the log level and add log entries to the file
@@ -278,17 +265,20 @@ namespace UtilitiesUnitTesting
             logger.LogMessage(MessageType.WARNING, logLine, MessageType.WARNING);
             logger.LogMessage(MessageType.ERROR, logLine, MessageType.ERROR);
 
+            // Give the write time
+            Thread.Sleep(250);
+
             // Get the file content
             string logContents = this.ReadTextFile(filePath);
 
             // Verify that only the logged messages at the log level or below are logged
-            foreach (KeyValuePair<string, string> keyValue in rowDictionary)
+            foreach (KeyValuePair<string, int> keyValue in levels)
             {
                 if ((keyValue.Key != "Row") && (keyValue.Key != "LogLevel"))
                 {
                     // Verify the number of times that the message type is found.
-                    string count = Regex.Matches(logContents, string.Format(logLine, keyValue.Key)).Count.ToString();
-                    softAssert.AreEqual(keyValue.Value, count, "Looking for " + keyValue.Key);
+                    int count = Regex.Matches(logContents, string.Format(logLine, keyValue.Key)).Count;
+                    softAssert.AreEqual(keyValue.Value.ToString(), count.ToString(), "Looking for " + keyValue.Key);
                 }
             }
 
@@ -296,7 +286,7 @@ namespace UtilitiesUnitTesting
             logger.SetLoggingLevel(MessageType.VERBOSE);
 
             // Fail test if any soft asserts failed
-            softAssert.FailTestIfAssertFailed();
+            softAssert.FailTestIfAssertFailed(logContents);
         }
 
         /// <summary>
@@ -313,30 +303,6 @@ namespace UtilitiesUnitTesting
                     return textReader.ReadToEnd();
                 }
             }
-        }
-
-        /// <summary>
-        /// Get the current row of the test data.
-        /// </summary>
-        /// <returns> Dictionary of column headers as keys the associated cell values as value</returns>
-        private Dictionary<string, string> GetCurrentRow()
-        {
-            Dictionary<string, string> rowDictionary = new Dictionary<string, string>();
-
-            // Get the column headings and data of the rows
-            var columnObject = TestContext.DataRow.Table.Columns;
-
-            // Fix the first column heading of the rows
-            columnObject[0].ColumnName = "Row"; // Columns returns a bad key ="<garbage>Row", this fixes it.
-
-            // Convert the column headings and rows into a dictionary
-            foreach (var columnName in columnObject)
-            {
-                rowDictionary.Add(columnName.ToString(), TestContext.DataRow[columnName.ToString()].ToString());
-            }
-
-            // return the dictionary with the column headers and row data
-            return rowDictionary;
         }
 
         /// <summary>

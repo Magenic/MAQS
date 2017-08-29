@@ -11,10 +11,10 @@ namespace $safeprojectname$
 public class $safeitemname$ : BaseAppiumTest
 {
     /// <summary>
-    /// Application Install test
+    /// Application installed test
     /// </summary>
     [Test]
-    public void LaunchApplicationTest()
+    public void ApplicationInstalledTest()
     {
         bool isInstalled = this.AppiumDriver.IsAppInstalled(AppiumConfig.GetBundleId());
     }

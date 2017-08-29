@@ -25,11 +25,6 @@ namespace WebServiceTesterUnitTesting
     public class WebServiceBaseTests : BaseWebServiceTest
     {
         /// <summary>
-        /// Did the logging folder exist at the start of the test run
-        /// </summary>
-        private static bool loggingFolderExistsBeforeRun = false;
-
-        /// <summary>
         /// Default ProductJson object for use in tests
         /// </summary>
         private static ProductJson product = new ProductJson
@@ -39,25 +34,6 @@ namespace WebServiceTesterUnitTesting
             Name = "ff",
             Price = 3.25f
         };
-
-        /// <summary>
-        /// Setup before we start running unit tests
-        /// </summary>
-        /// <param name="context">The upcoming test context</param>
-        [ClassInitialize]
-        public static void CheckBeforeClass(TestContext context)
-        {
-            loggingFolderExistsBeforeRun = TestHelper.DoesFolderExist();
-        }
-
-        /// <summary>
-        /// Cleanup after we are done running unit tests
-        /// </summary>
-        [ClassCleanup]
-        public static void CleanupAfterClass()
-        {
-            TestHelper.Cleanup(loggingFolderExistsBeforeRun);
-        }
 
         /// <summary>
         /// Verify that the webService wrapper can be properly set 

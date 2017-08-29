@@ -2,7 +2,6 @@
   <TemplateData>
     <Name>Models</Name>
     <Description>Composite model template</Description>
-    <ProjectType>CSharp</ProjectType>
     <ProjectSubType>Magenic Test</ProjectSubType>
     <SortOrder>1000</SortOrder>
     <CreateNewFolder>true</CreateNewFolder>
@@ -11,6 +10,7 @@
     <LocationField>Enabled</LocationField>
     <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
     <Icon>__TemplateIcon.ico</Icon>
+	<Hidden>true</Hidden> 
   </TemplateData>
   <TemplateContent>
     <Project TargetFileName="Models.csproj" File="Models.csproj" ReplaceParameters="true">
@@ -23,6 +23,7 @@
         <ProjectItem ReplaceParameters="true" TargetFileName="AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
       </Folder>
       <Folder Name="WebPage" TargetFolderName="WebPage">
+        <ProjectItem ReplaceParameters="true" TargetFileName="BasePageModel.cs">BasePageModel.cs</ProjectItem>
         <ProjectItem ReplaceParameters="true" TargetFileName="LoginPageModel.cs">LoginPageModel.cs</ProjectItem>
         <ProjectItem ReplaceParameters="true" TargetFileName="HomePageModel.cs">HomePageModel.cs</ProjectItem>
       </Folder>

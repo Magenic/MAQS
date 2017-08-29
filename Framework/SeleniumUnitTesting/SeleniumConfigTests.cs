@@ -122,7 +122,7 @@ namespace UnitTests
             }
             catch (Exception e)
             {
-                Assert.IsTrue(e.Message.Contains("Sauce_Labs_Username"), "Did not see 'Sauce_Labs_Username' in error message: " + e.Message);
+                Assert.IsTrue(e.InnerException.Message.Contains("Sauce_Labs_Username"), "Did not see 'Sauce_Labs_Username' in error message: " + e.Message);
             }
             finally
             {

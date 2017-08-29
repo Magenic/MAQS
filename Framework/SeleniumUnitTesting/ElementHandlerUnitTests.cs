@@ -8,11 +8,13 @@ using Magenic.MaqsFramework.BaseSeleniumTest;
 using Magenic.MaqsFramework.BaseSeleniumTest.Extensions;
 using Magenic.MaqsFramework.Utilities.Data;
 using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.MaqsFramework.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Text;
 
 namespace SeleniumUnitTests
@@ -93,30 +95,6 @@ namespace SeleniumUnitTests
         /// Close show dialog box button
         /// </summary>
         private static By closeShowDialog = By.CssSelector("#CloseButtonShowDialog");
-
-        /// <summary>
-        /// Did the logging folder exist at the start of the test run
-        /// </summary>
-        private static bool loggingFolderExistsBeforeRun = false;
-
-        /// <summary>
-        /// Setup before we start running selenium tests
-        /// </summary>
-        /// <param name="context">The upcoming test context</param>
-        [ClassInitialize]
-        public static void CheckBeforeClass(TestContext context)
-        {
-            loggingFolderExistsBeforeRun = TestHelper.DoesFolderExist();
-        }
-
-        /// <summary>
-        /// Cleanup after we are done running selenium tests
-        /// </summary>
-        [ClassCleanup]
-        public static void CleanupAfterClass()
-        {
-            TestHelper.Cleanup(loggingFolderExistsBeforeRun);
-        }
 
         /// <summary>
         /// Unit Test for creating a sorted comma delimited string
@@ -387,6 +365,48 @@ namespace SeleniumUnitTests
             this.NavigateToUrl();
             this.WebDriver.SlowType(firstNameTextBox, "Test input slowtype");
             Assert.AreEqual("Test input slowtype", this.WebDriver.Wait().ForClickableElement(firstNameTextBox).GetAttribute("value"));
+        }
+        #endregion
+
+        #region SendSecretKeys
+        /// <summary>
+        /// Verify Send Secret Keys suspends logging
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void SendSecretTextSuspendLoggingTest()
+        {
+            this.NavigateToUrl();
+            this.WebDriver.FindElement(firstNameTextBox).SendKeys("somethingTest");
+            this.WebDriver.FindElement(firstNameTextBox).Clear();
+            this.WebDriver.SendSecretKeys(firstNameTextBox, "secretKeys", this.Log);
+
+            FileLogger logger = (FileLogger)this.TestObject.Log;
+            string filepath = logger.FilePath;
+
+            Assert.IsTrue(File.ReadAllText(filepath).Contains("somethingTest"));
+            Assert.IsFalse(File.ReadAllText(filepath).Contains("secretKeys"));
+            File.Delete(filepath);
+        }
+
+        /// <summary>
+        /// Verify Send Secret Keys re-enables after suspending logging
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void SendSecretTextContinueLoggingTest()
+        {
+            this.NavigateToUrl();
+            this.WebDriver.SendSecretKeys(firstNameTextBox, "secretKeys", this.Log);
+            this.WebDriver.FindElement(firstNameTextBox).Clear();
+            this.WebDriver.FindElement(firstNameTextBox).SendKeys("somethingTest");
+
+            FileLogger logger = (FileLogger)this.TestObject.Log;
+            string filepath = logger.FilePath;
+
+            Assert.IsFalse(File.ReadAllText(filepath).Contains("secretKeys"));
+            Assert.IsTrue(File.ReadAllText(filepath).Contains("somethingTest"));
+            File.Delete(filepath);
         }
         #endregion
 

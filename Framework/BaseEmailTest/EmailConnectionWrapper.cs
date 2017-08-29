@@ -4,14 +4,17 @@
 // </copyright>
 // <summary>The basic email interactions</summary>
 //--------------------------------------------------
-using AE.Net.Mail;
-using AE.Net.Mail.Imap;
 using Magenic.MaqsFramework.Utilities.Data;
 using Magenic.MaqsFramework.Utilities.Helper;
+using MailKit;
+using MailKit.Net.Imap;
+using MailKit.Search;
+using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 
 namespace Magenic.MaqsFramework.BaseEmailTest
@@ -34,8 +37,12 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         public EmailConnectionWrapper(string host, string username, string password, int port, int serverTimeout = 10000, bool isSSL = true, bool skipSslCheck = false)
         {
             // Get the email connection and make sure it is live
-            this.EmailConnection = new ImapClient(host, username, password, AuthMethods.Login, port, isSSL, skipSslCheck);
-            this.EmailConnection.ServerTimeout = serverTimeout;
+            var client = new ImapClient();
+            client.ServerCertificateValidationCallback = (s, c, h, e) => skipSslCheck;
+            client.Connect(host, port, isSSL);
+            client.Authenticate(username, password);
+            client.Timeout = serverTimeout;
+            this.EmailConnection = client;
 
             this.DefaultToInboxIfExists();
         }
@@ -61,6 +68,11 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         public string CurrentMailBox { get; private set; }
 
         /// <summary>
+        /// Gets the current folder
+        /// </summary>
+        public IMailFolder CurrentFolder { get; private set; }
+
+        /// <summary>
         /// Dispose of the database connection
         /// </summary>
         public virtual void Dispose()
@@ -73,8 +85,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
             // Make sure the connection exists and is open before trying to close it
             if (this.EmailConnection.IsConnected)
             {
-                this.EmailConnection.Logout();
-                this.EmailConnection.Disconnect();
+                this.EmailConnection.Disconnect(true);
             }
 
             this.EmailConnection.Dispose();
@@ -91,7 +102,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         {
             try
             {
-                return this.EmailConnection.IsConnected && this.EmailConnection.GetMessageCount() > -2;
+                return this.EmailConnection.IsConnected && this.GetCurrentFolder().Count > -2;
             }
             catch
             {
@@ -114,9 +125,27 @@ namespace Magenic.MaqsFramework.BaseEmailTest
             List<string> mailBoxes = new List<string>();
 
             // Get all mailboxes
-            foreach (Mailbox mailbox in this.EmailConnection.ListMailboxes(string.Empty, "*"))
+            foreach (IMailFolder mailbox in this.EmailConnection.GetFolders(this.BaseNamespace()))
             {
-                mailBoxes.Add(mailbox.Name);
+                mailBoxes.Add(mailbox.FullName);
+            }
+
+            return mailBoxes;
+        }
+
+        /// <summary>
+        /// Get the list of mailbox names in a specific namespace
+        /// </summary>
+        /// /// <param name="folderNamespace">The folderNamespace</param>
+        /// <returns>A list of mailbox names in a specific namespace</returns>
+        public virtual List<string> GetMailBoxNamesInNamespace(FolderNamespace folderNamespace)
+        {
+            List<string> mailBoxes = new List<string>();
+
+            // Get all mailboxes in folderNamespace
+            foreach (IMailFolder mailbox in this.EmailConnection.GetFolders(folderNamespace))
+            {
+                mailBoxes.Add(mailbox.FullName);
             }
 
             return mailBoxes;
@@ -130,23 +159,26 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <example>
         /// <code source="../EmailUnitTests/EmailUnitWithWrapper.cs" region="GetMailbox" lang="C#" />
         /// </example> 
-        public virtual Mailbox GetMailbox(string mailbox)
+        public virtual IMailFolder GetMailbox(string mailbox)
         {
             this.CurrentMailBox = mailbox;
-            return this.EmailConnection.SelectMailbox(mailbox);
+            this.CurrentFolder = this.EmailConnection.GetFolder(mailbox);
+            this.CurrentFolder.Open(FolderAccess.ReadWrite);
+            return this.CurrentFolder;
         }
 
         /// <summary>
         /// Select a mailbox by name
         /// </summary>
-        /// <param name="mailBox">The name of the mailbox</param>
+        /// <param name="mailbox">The name of the mailbox</param>
         /// <example>
         /// <code source="../EmailUnitTests/EmailUnitWithWrapper.cs" region="SelectMailbox" lang="C#" />
         /// </example> 
-        public virtual void SelectMailbox(string mailBox)
+        public virtual void SelectMailbox(string mailbox)
         {
-            this.CurrentMailBox = mailBox;
-            this.EmailConnection.SelectMailbox(mailBox);
+            this.CurrentMailBox = mailbox;
+            this.CurrentFolder = this.EmailConnection.GetFolder(mailbox);
+            this.CurrentFolder.Open(FolderAccess.ReadWrite);
         }
 
         /// <summary>
@@ -159,9 +191,9 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         public virtual void CreateMailbox(string newMailBox)
         {
             this.CurrentMailBox = newMailBox;
-            this.EmailConnection.CreateMailbox(newMailBox);
+            var topFolder = this.EmailConnection.GetFolder(this.BaseNamespace());
+            topFolder.Create(newMailBox, true);
         }
-
         #endregion
 
         #region Messages
@@ -178,7 +210,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <code source="../EmailUnitTests/EmailUnitWithWrapper.cs" region="GetMessage" lang="C#" />
         /// <code source="../EmailUnitTests/EmailUnitWithWrapper.cs" region="GetMessage1" lang="C#" />
         /// </example>
-        public virtual MailMessage GetMessage(string mailBox, string uid, bool headerOnly = false, bool markRead = false)
+        public virtual MimeMessage GetMessage(string mailBox, string uid, bool headerOnly = false, bool markRead = false)
         {
             this.SelectMailbox(mailBox);
             return this.GetMessage(uid, headerOnly, markRead);
@@ -195,9 +227,21 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <code source="../EmailUnitTests/EmailUnitWithWrapper.cs" region="GetMessageUid" lang="C#" />
         /// <code source="../EmailUnitTests/EmailUnitWithWrapper.cs" region="GetMessageUid1" lang="C#" />
         /// </example>
-        public virtual MailMessage GetMessage(string uid, bool headerOnly = false, bool markRead = false)
+        public virtual MimeMessage GetMessage(string uid, bool headerOnly = false, bool markRead = false)
         {
-            return this.EmailConnection.GetMessage(uid, headerOnly, markRead);
+            UniqueId uniqueID = new UniqueId(uint.Parse(uid));
+            if (markRead)
+            {
+                this.GetCurrentFolder().AddFlags(uniqueID, MessageFlags.Seen, true);
+            }
+
+            MimeMessage message = this.GetCurrentFolder().GetMessage(uniqueID);
+            if (headerOnly)
+            {
+                message.Body = null;
+            }
+
+            return message;
         }
 
         /// <summary>
@@ -207,7 +251,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <example>
         /// <code source="../EmailUnitTests/EmailUnitWithWrapper.cs" region="EmailHeaders" lang="C#" />
         /// </example>        
-        public virtual List<MailMessage> GetAllMessageHeaders()
+        public virtual List<MimeMessage> GetAllMessageHeaders()
         {
             return this.GetAllMessageHeaders(this.CurrentMailBox);
         }
@@ -220,10 +264,10 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <example>
         /// <code source="../EmailUnitTests/EmailUnitWithWrapper.cs" region="EmailHeadersMailbox" lang="C#" />
         /// </example>  
-        public virtual List<MailMessage> GetAllMessageHeaders(string mailBox)
+        public virtual List<MimeMessage> GetAllMessageHeaders(string mailBox)
         {
             this.SelectMailbox(mailBox);
-            return this.SearchMessages(SearchCondition.From("*"));
+            return this.SearchMessages(SearchQuery.All);
         }
 
         /// <summary>
@@ -233,9 +277,9 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <example>
         /// <code source="../EmailUnitTests/EmailUnitWithWrapper.cs" region="DeleteMessage" lang="C#" />
         /// </example>
-        public virtual void DeleteMessage(MailMessage message)
+        public virtual void DeleteMessage(MimeMessage message)
         {
-            this.EmailConnection.DeleteMessage(message.Uid);
+            this.DeleteMessage(this.GetUniqueIDString(message));
         }
 
         /// <summary>
@@ -247,7 +291,17 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// </example>
         public virtual void DeleteMessage(string uid)
         {
-            this.EmailConnection.DeleteMessage(uid);
+            var folder = this.GetCurrentFolder();
+            var items = folder.Fetch(0, -1, MessageSummaryItems.UniqueId | MessageSummaryItems.Flags);
+            foreach (var item in items)
+            {
+                if (uid.Equals(item.UniqueId.Id.ToString()))
+                {
+                    folder.AddFlags(item.UniqueId, MessageFlags.Deleted, true);
+                }
+
+                folder.Expunge();
+            }
         }
 
         /// <summary>
@@ -258,9 +312,9 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <example>
         /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="MoveMessage" lang="C#" />
         /// </example>  
-        public virtual void MoveMailMessage(MailMessage message, string destinationMailbox)
+        public virtual void MoveMailMessage(MimeMessage message, string destinationMailbox)
         {
-            this.MoveMailMessage(message.Uid, destinationMailbox);
+            this.MoveMailMessage(this.GetUniqueIDString(message), destinationMailbox);
         }
 
         /// <summary>
@@ -273,17 +327,8 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// </example>
         public virtual void MoveMailMessage(string uid, string destinationMailbox)
         {
-            try
-            {
-                this.EmailConnection.MoveMessage(uid, destinationMailbox);
-            }
-            catch
-            {
-                // Handle gmail move bug
-                Thread.Sleep(1000);
-                this.EmailConnection.MoveMessage(uid, destinationMailbox);
-                Thread.Sleep(100);
-            }
+            IMailFolder folder = this.GetCurrentFolder();
+            folder.MoveTo(new UniqueId(uint.Parse(uid)), this.EmailConnection.GetFolder(destinationMailbox));
         }
 
         #endregion
@@ -298,7 +343,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <example>
         /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="AttachmentsByUid" lang="C#" />
         /// </example>
-        public virtual List<Attachment> GetAttachments(string uid)
+        public virtual List<MimeEntity> GetAttachments(string uid)
         {
             return this.GetAttachments(this.CurrentMailBox, uid);
         }
@@ -312,10 +357,11 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <example>
         /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="AttachmentsByMailboxAndUid" lang="C#" />
         /// </example>
-        public virtual List<Attachment> GetAttachments(string mailBox, string uid)
+        public virtual List<MimeEntity> GetAttachments(string mailBox, string uid)
         {
             this.SelectMailbox(mailBox);
-            return this.GetAttachments(this.GetMessage(uid));
+            var folder = this.GetCurrentFolder();
+            return this.GetAttachments(folder.GetMessage(new UniqueId(uint.Parse(uid))));
         }
 
         /// <summary>
@@ -326,7 +372,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <example>
         /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="GetAttachmentsMessage" lang="C#" />
         /// </example>
-        public virtual List<Attachment> GetAttachments(MailMessage message)
+        public virtual List<MimeEntity> GetAttachments(MimeMessage message)
         {
             return message.Attachments.ToList();
         }
@@ -339,9 +385,9 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <example>
         /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="DownloadAttachments" lang="C#" />
         /// </example>
-        public virtual List<string> DownLoadAttachments(MailMessage message)
+        public virtual List<string> DownloadAttachments(MimeMessage message)
         {
-            return this.DownLoadAttachments(message, EmailConfig.GetAttachmentDownloadDirectory());
+            return this.DownloadAttachments(message, EmailConfig.GetAttachmentDownloadDirectory());
         }
 
         /// <summary>
@@ -353,7 +399,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <example>
         /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="DownloadAttachmentsToLocation" lang="C#" />
         /// </example>
-        public virtual List<string> DownLoadAttachments(MailMessage message, string downloadFolder)
+        public virtual List<string> DownloadAttachments(MimeMessage message, string downloadFolder)
         {
             // Create the download folder if id does not already exist
             if (!Directory.Exists(downloadFolder))
@@ -362,11 +408,14 @@ namespace Magenic.MaqsFramework.BaseEmailTest
             }
 
             List<string> paths = new List<string>();
-
-            foreach (Attachment attachment in message.Attachments)
+            foreach (MimePart attachment in message.Attachments)
             {
-                string destination = Path.Combine(downloadFolder, attachment.Filename);
-                attachment.Save(destination);
+                string destination = Path.Combine(downloadFolder, attachment.FileName);
+                using (var stream = File.Create(destination))
+                {
+                    attachment.ContentObject.DecodeTo(stream);
+                }
+
                 paths.Add(destination);
             }
 
@@ -388,7 +437,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <example>
         /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="MessagesSinceByMailbox" lang="C#" />
         /// </example>
-        public virtual List<MailMessage> SearchMessagesSince(string mailBox, DateTime time, bool headersOnly = true, bool markRead = false)
+        public virtual List<MimeMessage> SearchMessagesSince(string mailBox, DateTime time, bool headersOnly = true, bool markRead = false)
         {
             this.SelectMailbox(mailBox);
             return this.SearchMessagesSince(time, headersOnly, markRead);
@@ -404,19 +453,9 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <example>
         /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="MessageSince" lang="C#" />
         /// </example>
-        public virtual List<MailMessage> SearchMessagesSince(DateTime time, bool headersOnly = true, bool markRead = false)
+        public virtual List<MimeMessage> SearchMessagesSince(DateTime time, bool headersOnly = true, bool markRead = false)
         {
-            // Add google hack
-            if (this.EmailConnection.Host.ToLower().Equals("imap.gmail.com"))
-            {
-                SearchCondition condition = new SearchCondition();
-                condition.Value = string.Format(@"X-GM-RAW ""AFTER:{0:yyyy-MM-dd}""", SearchCondition.SentSince(time).Value);
-                return this.SearchMessages(condition, headersOnly, markRead);
-            }
-            else
-            {
-                return this.SearchMessages(SearchCondition.SentSince(time), headersOnly, markRead);
-            }
+            return this.SearchMessages(SearchQuery.SentAfter(time), headersOnly, markRead);
         }
 
         /// <summary>
@@ -431,7 +470,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="SearchMessages1" lang="C#" />
         /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="SearchMessages2" lang="C#" />
         /// </example>
-        public virtual List<MailMessage> SearchMessages(string mailBox, SearchCondition condition, bool headersOnly = true, bool markRead = false)
+        public virtual List<MimeMessage> SearchMessages(string mailBox, SearchQuery condition, bool headersOnly = true, bool markRead = false)
         {
             this.SelectMailbox(mailBox);
             return this.SearchMessages(condition, headersOnly, markRead);
@@ -448,10 +487,10 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="SearchMessages1" lang="C#" />
         /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="SearchMessages2" lang="C#" />
         /// </example>
-        public virtual List<MailMessage> SearchMessages(SearchCondition condition, bool headersOnly = true, bool markRead = false)
+        public virtual List<MimeMessage> SearchMessages(SearchQuery condition, bool headersOnly = true, bool markRead = false)
         {
             object[] args = { condition, headersOnly, markRead };
-            return GenericWait.WaitFor<List<MailMessage>, object[]>(this.GetSearchResults, args);
+            return GenericWait.WaitFor<List<MimeMessage>, object[]>(this.GetSearchResults, args);
         }
         #endregion
 
@@ -463,13 +502,16 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <example>
         /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="GetContentTypes" lang="C#" />
         /// </example>
-        public virtual List<string> GetContentTypes(MailMessage message)
+        public virtual List<string> GetContentTypes(MimeMessage message)
         {
             List<string> types = new List<string>();
 
-            foreach (Attachment attachment in message.AlternateViews)
+            foreach (MimeEntity bodyPart in message.BodyParts)
             {
-                types.Add(attachment.ContentType);
+                if (!bodyPart.IsAttachment)
+                {
+                    types.Add(bodyPart.ContentType.MimeType);
+                }
             }
 
             return types;
@@ -484,13 +526,15 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <example>
         /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="GetBodyByContent" lang="C#" />
         /// </example>
-        public virtual string GetBodyByContentTypes(MailMessage message, string contentType)
+        public virtual string GetBodyByContentTypes(MimeMessage message, string contentType)
         {
-            foreach (Attachment attachment in message.AlternateViews)
+            foreach (MimeEntity bodyPart in message.BodyParts)
             {
-                if (attachment.ContentType.Equals(contentType, StringComparison.CurrentCultureIgnoreCase))
+                if (bodyPart.ContentType.MimeType.Equals(contentType, StringComparison.CurrentCultureIgnoreCase))
                 {
-                    return attachment.Body;
+                    MemoryStream stream = new MemoryStream();
+                    bodyPart.WriteTo(stream, true);
+                    return Encoding.ASCII.GetString(stream.ToArray());
                 }
             }
 
@@ -498,19 +542,68 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         }
 
         /// <summary>
+        /// Get a list of flags for the email with the given uniqueID
+        /// </summary>
+        /// <param name="uid">The uniqueID for the message</param>
+        /// <returns>The list of flags</returns>
+        public List<IMessageSummary> GetEmailFlags(string uid)
+        {
+            var folder = this.GetCurrentFolder();
+            return folder.Fetch(new[] { new UniqueId(uint.Parse(uid)) }, MessageSummaryItems.Flags | MessageSummaryItems.GMailLabels).ToList();
+        }
+
+        /// <summary>
+        /// Get the UniqueID for the inputted MimeMessage
+        /// </summary>
+        /// <param name="message">MimeMessage to get the Unique ID for</param>
+        /// <returns>The UniqueID in string form</returns>
+        public string GetUniqueIDString(MimeMessage message)
+        {
+            var folder = this.GetCurrentFolder();
+            var items = folder.Fetch(0, -1, MessageSummaryItems.UniqueId | MessageSummaryItems.Flags);
+            foreach (var item in items)
+            {
+                if (message.MessageId.Equals(folder.GetMessage(item.UniqueId).MessageId))
+                {
+                    return item.UniqueId.Id.ToString();
+                }
+            }
+
+            return string.Empty;
+        }
+
+        /// <summary>
         /// Get the list of emails for a search
         /// </summary>
         /// <param name="args">The search condition followed by the header only and set as seen booleans</param>
         /// <returns>The list of mail message that match the search</returns>
-        private List<MailMessage> GetSearchResults(params object[] args)
+        private List<MimeMessage> GetSearchResults(params object[] args)
         {
-            List<MailMessage> messageList = new List<MailMessage>();
-            foreach (Lazy<MailMessage> message in this.EmailConnection.SearchMessages((SearchCondition)args[0], (bool)args[1], (bool)args[2]))
+            List<MimeMessage> messageList = new List<MimeMessage>();
+            IMailFolder folder = this.GetCurrentFolder();
+            foreach (UniqueId uid in folder.Search((SearchQuery)args[0], default(CancellationToken)))
             {
-                messageList.Add(message.Value);
+                if ((bool)args[2])
+                {
+                    folder.AddFlags(uid, MessageFlags.Seen, true);
+                }
+
+                MimeMessage message = null;
+
+                if ((bool)args[1])
+                {
+                    HeaderList headers = folder.GetHeaders(uid);
+                    message = new MimeMessage(headers);
+                }
+                else
+                {
+                    message = folder.GetMessage(uid);
+                }
+
+                messageList.Add(message);
             }
 
-            foreach (MailMessage message in messageList)
+            foreach (MimeMessage message in messageList)
             {
                 if (message.Subject == null)
                 {
@@ -526,9 +619,9 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// </summary>
         private void DefaultToInboxIfExists()
         {
-            Mailbox[] mailboxes = this.EmailConnection.ListMailboxes(string.Empty, "*");
+            List<IMailFolder> mailboxes = this.EmailConnection.GetFolders(this.BaseNamespace()).ToList();
 
-            foreach (Mailbox mailbox in mailboxes)
+            foreach (IMailFolder mailbox in mailboxes)
             {
                 if (mailbox.Name.Equals("Inbox", StringComparison.CurrentCultureIgnoreCase))
                 {
@@ -538,6 +631,25 @@ namespace Magenic.MaqsFramework.BaseEmailTest
             }
 
             this.SelectMailbox(mailboxes[0].Name);
+        }
+
+        /// <summary>
+        /// Get the default folder namespace
+        /// </summary>
+        /// <returns>The default folder namespace</returns>
+        private FolderNamespace BaseNamespace()
+        {
+            return this.EmailConnection.PersonalNamespaces[0];
+        }
+
+        /// <summary>
+        /// Gets and update the Folder representing the CurrentMailBox
+        /// </summary>
+        /// <returns>The folder representing the CurrentMailBox</returns>
+        private IMailFolder GetCurrentFolder()
+        {
+            this.CurrentFolder.Check();
+            return this.CurrentFolder;
         }
     }
 }

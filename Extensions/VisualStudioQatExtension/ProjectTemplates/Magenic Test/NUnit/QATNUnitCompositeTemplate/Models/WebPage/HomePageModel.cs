@@ -8,25 +8,19 @@ namespace $safeprojectname$
     /// <summary>
     /// Page object for the Automation page
     /// </summary>
-    public class $safeitemname$
+    public class $safeitemname$ : BasePageModel
     {
-         /// <summary>
+        /// <summary>
         /// The page url
         /// </summary>
-        private static string PageUrl = Config.GetValue("WebSiteBase") + "Static/Training3/HomePage.html";
-
-        /// <summary>
-        /// Selenium test object
-        /// </summary>
-        private SeleniumTestObject testObject;
+        private static readonly string PageUrl = Config.GetValue("WebSiteBase") + "Static/Training3/HomePage.html";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="$safeitemname$" /> class.
         /// </summary>
         /// <param name="testObject">The selenium test object</param>
-        public $safeitemname$(SeleniumTestObject testObject)
+        public $safeitemname$(SeleniumTestObject testObject) : base(testObject)
         {
-            this.testObject = testObject;
         }
 
         /// <summary>
@@ -41,7 +35,7 @@ namespace $safeprojectname$
         /// Check if the home page has been loaded
         /// </summary>
         /// <returns>True if the page was loaded</returns>
-        public bool IsPageLoaded()
+        public override bool IsPageLoaded()
         {
             return this.WelcomeMessage.Displayed;
         }

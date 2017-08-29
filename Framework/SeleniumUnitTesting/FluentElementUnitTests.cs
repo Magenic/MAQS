@@ -7,10 +7,13 @@
 using Magenic.MaqsFramework.BaseSeleniumTest;
 using Magenic.MaqsFramework.BaseSeleniumTest.Extensions;
 using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.MaqsFramework.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
+using System.IO;
 
 namespace SeleniumUnitTests
 {
@@ -72,11 +75,53 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Gets and item that is going to be selected
+        /// Gets an item that is going to be selected
         /// </summary>
         private FluentElement Selected
         {
             get { return new FluentElement(this.TestObject, By.CssSelector("#computerParts [value='two']"), "Selected"); }
+        }
+
+        /// <summary>
+        /// Gets a parent element
+        /// </summary>
+        private FluentElement FlowerTableFluentElement
+        {
+            get { return new FluentElement(this.TestObject, By.CssSelector("#FlowerTable"), "Flower table"); }
+        }
+
+        /// <summary>
+        /// Gets a child element, the second table caption
+        /// </summary>
+        #region FluentElementCreateWithParent
+        private FluentElement FlowerTableCaptionWithParent
+        {
+            get { return new FluentElement(this.FlowerTableFluentElement, By.CssSelector("CAPTION > Strong"), "Flower table caption"); }
+        }
+        #endregion
+
+        /// <summary>
+        /// Gets the first table caption
+        /// </summary>
+        private FluentElement FirstTableCaption
+        {
+            get { return new FluentElement(this.TestObject, By.CssSelector("CAPTION > Strong"), "Clothing table caption"); }
+        }
+
+        /// <summary>
+        /// Gets the disabled DIV
+        /// </summary>
+        private FluentElement DisabledDiv
+        {
+            get { return new FluentElement(this.TestObject, By.CssSelector("#disabledField"), "Parent disabled div"); }
+        }
+
+        /// <summary>
+        /// Gets the disabled input
+        /// </summary>
+        private FluentElement DisabledInput
+        {
+            get { return new FluentElement(this.DisabledDiv, By.CssSelector("INPUT"), "Flower table caption"); }
         }
 
         /// <summary>
@@ -87,6 +132,37 @@ namespace SeleniumUnitTests
         {
             this.WebDriver.Navigate().GoToUrl(Config.GetValue("WebSiteBase") + "Automation");
             this.WebDriver.Wait().ForPageLoad();
+        }
+
+        /// <summary>
+        /// Verify Fluent Element search respects the parent find by finding mismatch
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void FluentWithParentAndWithoutDontMatch()
+        {
+            // Make sure we got the table caption we are looking for
+            Assert.AreEqual("Flower Table", this.FlowerTableCaptionWithParent.Text);
+
+            // Make sure the the first found was not the the flower table
+            Assert.AreNotEqual(this.FlowerTableCaptionWithParent.Text, this.FirstTableCaption.Text);
+        }
+
+        /// <summary>
+        /// Verify Fluent Element search respects the parent find by finding match
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void FluentWithParentAndWithoutMatch()
+        {
+            // Get the fluent element without a parent
+            FluentElement flowerTableCaptionWithoutParent = new FluentElement(this.TestObject, By.CssSelector("#FlowerTable CAPTION > Strong"), "Flower table");
+
+            // Make sure we are finding the correct table
+            Assert.AreEqual("Flower Table", this.FlowerTableCaptionWithParent.Text);
+
+            // Make sure we got the table caption we are looking for
+            Assert.AreEqual(this.FlowerTableCaptionWithParent.Text, flowerTableCaptionWithoutParent.Text);
         }
 
         /// <summary>
@@ -136,6 +212,19 @@ namespace SeleniumUnitTests
         #endregion
 
         /// <summary>
+        /// Verify Fluent Element get of the test object
+        /// </summary>
+        #region FluentElementGetTestObject
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void FluentElementGetTestObject()
+        {
+            FluentElement testFluentElement = new FluentElement(this.TestObject, By.CssSelector("#ItemsToAutomate"), "TEST");
+            Assert.AreEqual(this.TestObject, testFluentElement.TestObject);
+        }
+        #endregion
+
+        /// <summary>
         /// Verify Fluent Element GetAttribute test
         /// </summary>
         #region FluentElementGetAttribute
@@ -148,6 +237,16 @@ namespace SeleniumUnitTests
         #endregion
 
         /// <summary>
+        /// Verify Fluent Element with a parent GetAttribute test
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void FluentElementGetAttributeWithParent()
+        {
+            Assert.AreEqual("Disabled", this.DisabledInput.GetAttribute("value"));
+        }
+
+        /// <summary>
         /// Verify Fluent Element GetCssValue test
         /// </summary>
         #region FluentElementGetCssValue
@@ -158,6 +257,16 @@ namespace SeleniumUnitTests
             Assert.AreEqual("visible", this.DialogOneButton.GetCssValue("overflow"));
         }
         #endregion
+
+        /// <summary>
+        /// Verify Fluent Element with parent GetCssValue test
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void FluentElementGetCssValueWithParent()
+        {
+            Assert.AreEqual("280px", this.DisabledInput.GetCssValue("max-width"));
+        }
 
         /// <summary>
         /// Verify Fluent Element SendKeys test
@@ -173,6 +282,41 @@ namespace SeleniumUnitTests
         #endregion
 
         /// <summary>
+        /// Verify Fluent Element with a parent SendKeys test
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        [ExpectedException(typeof(Exception), "The input should be disabled so this will throw an exception.")]
+        public void FluentElementSendKeysWithParent()
+        {
+            this.DisabledInput.SendKeys("test");
+        }
+
+        /// <summary>
+        /// Verify Fluent Element SendKeys test
+        /// </summary>
+        #region FluentElementSendSecretKeys
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void FluentElementSendSecretKeys()
+        {
+            this.InputBox.SendKeys("beforeSuspendTest");
+            this.InputBox.Clear();
+            this.InputBox.SendSecretKeys("secretKeys");
+            this.InputBox.Clear();
+            this.InputBox.SendKeys("continueTest");
+
+            FileLogger logger = (FileLogger)this.TestObject.Log;
+            string filepath = logger.FilePath;
+
+            Assert.IsTrue(File.ReadAllText(filepath).Contains("beforeSuspendTest"));
+            Assert.IsFalse(File.ReadAllText(filepath).Contains("secretKeys"));
+            Assert.IsTrue(File.ReadAllText(filepath).Contains("continueTest"));
+            File.Delete(filepath);
+        }
+        #endregion
+
+        /// <summary>
         /// Verify Fluent Element Submit test
         /// </summary>
         #region FluentElementSubmit
@@ -180,13 +324,25 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void FluentElementSubmit()
         {
-            this.WebDriver.Navigate().GoToUrl(Config.GetValue("WebSiteBase") + "Employees/Edit/380");
+            this.WebDriver.Navigate().GoToUrl(Config.GetValue("WebSiteBase") + "Employees");
+            this.WebDriver.Wait().ForClickableElement(By.CssSelector("A[href^='/Employees/Edit/']")).Click();
             this.WebDriver.Wait().ForPageLoad();
 
             this.SubmitButton.Submit();
             Assert.IsTrue(this.WebDriver.Wait().UntilAbsentElement(By.CssSelector("#[type='submit']")), "Submit did not go away");
         }
         #endregion
+
+        /// <summary>
+        /// Verify Fluent Element with parent Submit test
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        [ExpectedException(typeof(Exception), "The input should be disabled so this will throw an exception.")]
+        public void FluentElementSubmitWithParent()
+        {
+            this.DisabledInput.Submit();
+        }
 
         /// <summary>
         /// Verify Fluent Element Displayed test
@@ -202,6 +358,16 @@ namespace SeleniumUnitTests
         #endregion
 
         /// <summary>
+        /// Verify Fluent Element with parent Displayed test
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void FluentElementDisplayedWithParent()
+        {
+            Assert.AreEqual(true, this.DisabledInput.Displayed);
+        }
+
+        /// <summary>
         /// Verify Fluent Element Enabled test
         /// </summary>
         #region FluentElementEnabled
@@ -213,6 +379,17 @@ namespace SeleniumUnitTests
             Assert.AreEqual(true, this.InputBox.Enabled);
         }
         #endregion
+
+        /// <summary>
+        /// Verify Fluent Element with parent Enabled test
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void FluentElementEnabledWithParent()
+        {
+            Assert.AreEqual(false, this.DisabledInput.Enabled);
+            Assert.AreEqual(true, this.FlowerTableCaptionWithParent.Enabled);
+        }
 
         /// <summary>
         /// Verify Fluent Element Selected test
@@ -242,6 +419,16 @@ namespace SeleniumUnitTests
         #endregion
 
         /// <summary>
+        /// Verify Fluent Element with parent Text test
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void FluentElementTextWithParent()
+        {
+            Assert.AreEqual("Flower Table", this.FlowerTableCaptionWithParent.Text);
+        }
+
+        /// <summary>
         /// Verify Fluent Element Location test
         /// </summary>
         #region FluentElementLocation
@@ -253,6 +440,20 @@ namespace SeleniumUnitTests
             Assert.IsTrue(point.X > 0 && point.Y > 0, "Unexpected point: " + point);
         }
         #endregion
+
+        /// <summary>
+        /// Verify Fluent Element with parent Location test
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void FluentElementLocationWithParent()
+        {
+            Point earlierPoint = this.InputBox.Location;
+            Point laterPoint = this.DisabledInput.Location;
+
+            Assert.IsTrue(laterPoint.X > 0, "Unexpected point: " + laterPoint);
+            Assert.IsTrue(earlierPoint.Y < laterPoint.Y, "Unexpected point: " + laterPoint);
+        }
 
         /// <summary>
         /// Verify Fluent Element Size test
@@ -268,6 +469,17 @@ namespace SeleniumUnitTests
         #endregion
 
         /// <summary>
+        /// Verify Fluent Element with parent Size test
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void FluentElementSizeWithParent()
+        {
+            Size size = this.DisabledInput.Size;
+            Assert.IsTrue(size.Width > 152 && size.Height > 21, "Height of greater than 22 and width of greater than 152, but got " + size);
+        }
+
+        /// <summary>
         /// Verify fluent element tag name test
         /// </summary>
         #region FluentElementTagName
@@ -278,6 +490,16 @@ namespace SeleniumUnitTests
             Assert.AreEqual("input", this.InputBox.TagName);
         }
         #endregion
+
+        /// <summary>
+        /// Verify fluent element with parent tag name test
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void FluentElementTagNameWithParent()
+        {
+            Assert.AreEqual("strong", this.FlowerTableCaptionWithParent.TagName);
+        }
 
         /// <summary>
         /// Verify fluent element get the visible element

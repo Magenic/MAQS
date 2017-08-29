@@ -22,11 +22,6 @@ namespace Magenic.MaqsFramework.BaseTest
     public abstract class BaseExtendableTest<T, U> : BaseTest where T : class where U : BaseTestObject
     {
         /// <summary>
-        /// The Visual Studio TestContext
-        /// </summary>
-        private VSTestContext testContextInstance;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="BaseExtendableTest{T, U}" /> class
         /// </summary>
         public BaseExtendableTest()
@@ -115,7 +110,7 @@ namespace Magenic.MaqsFramework.BaseTest
 
             this.PostSetupLogging();
         }
-
+         
         /// <summary>
         /// Tear down after a test
         /// </summary>
@@ -132,16 +127,21 @@ namespace Magenic.MaqsFramework.BaseTest
                 this.TryToLog(MessageType.WARNING, "Failed before logging teardown because: {0}", e.Message);
             }
 
-            // Do default teardown
-            base.Teardown();
+            try
+            {
+                // Do default teardown
+                base.Teardown();
+            }
+            finally
+            {
+                // Get the Fully Qualified Test Name
+                string fullyQualifiedTestName = this.GetFullyQualifiedTestClassName();
 
-            // Get the Fully Qualified Test Name
-            string fullyQualifiedTestName = this.GetFullyQualifiedTestClassName();
-
-            // Release the test object
-            T testObject;
-            this.ObjectsUnderTest.TryRemove(fullyQualifiedTestName, out testObject);
-            testObject = null;
+                // Release the test object
+                T testObject;
+                this.ObjectsUnderTest.TryRemove(fullyQualifiedTestName, out testObject);
+                testObject = null;
+            }
         }
 
         /// <summary>
