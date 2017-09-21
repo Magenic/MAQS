@@ -166,6 +166,70 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Verify Fluent Element is cached as expected
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        #region FluentCaching
+        public void FluentCaching()
+        {
+            // Create the fluent element and use it
+            FluentElement footer = new FluentElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
+
+            // Make sure we are getting ack the same cached element
+            Assert.IsNull(footer.CachedElement, "The cached element should be null as we never triggered a find");
+
+            // Trigger a find and save off the element
+            string value = footer.GetValue();
+            IWebElement footerElementBefore = footer.CachedElement;
+
+            // Do the event again and save off the chanced element 
+            value = footer.GetValue();
+            IWebElement footerElementAfter = footer.CachedElement;
+
+            // Make sure the second event didn't trigger a new find
+            Assert.AreEqual(footerElementBefore, footerElementAfter);
+
+            // Make sure doing a new find returns an element that is not the same as the cached element
+            Assert.AreNotEqual(this.WebDriver.FindElement(footer.By), footerElementBefore);
+
+            // Go to another page so the old element will be stale, this will force us to get a new one
+            this.WebDriver.Navigate().GoToUrl(Config.GetValue("WebSiteBase") + "Automation/AsyncPage");
+
+            // Trigger a new find, this should be new because the cached element should be stale
+            value = footer.GetValue();
+            Assert.AreNotEqual(footerElementBefore, footer.CachedElement);
+        }
+        #endregion
+
+        /// <summary>
+        /// Verify the get elements trigger new finds - We do this because we are looking for specific states
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        #region FluentStaleCache
+        public void FluentGetsTriggerFind()
+        {
+            // Create the fluent element and use it
+            FluentElement footer = new FluentElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
+
+            IWebElement cacheFooter = footer.GetTheVisibleElement();
+
+            // Make sure the second event didn't trigger a new find
+            Assert.AreEqual(cacheFooter, footer.CachedElement);
+
+            // Make sure get clickable triggers a new find
+            Assert.AreNotEqual(footer.CachedElement, footer.GetTheClickableElement());
+
+            // Make sure get exists triggers a new find
+            Assert.AreNotEqual(footer.CachedElement, footer.GetTheExistingElement());
+
+            // Make sure get visible triggers a new find
+            Assert.AreNotEqual(footer.CachedElement, footer.GetTheVisibleElement());
+        }
+        #endregion
+
+        /// <summary>
         /// Verify Fluent Element Clear test
         /// </summary>
         #region FluentElementClear
