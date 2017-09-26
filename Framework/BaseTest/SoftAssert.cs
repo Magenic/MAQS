@@ -304,6 +304,55 @@ namespace Magenic.MaqsFramework.BaseTest
         }
 
         /// <summary>
+        /// Wrap an assert that is expected to fail and the expected failure 
+        /// </summary>
+        /// <param name="assertFunction">The assert function</param>
+        /// <param name="expectedException">The type of expected exception</param>
+        /// <param name="assertName">soft assert name</param>
+        /// <param name="failureMessage">Failure message</param>
+        /// <returns>True if the assert failed</returns>
+        /// <example>
+        /// <code source="../UtilitiesUnitTests/SoftAssertUnitTests.cs" region="SoftAssertFailsPasses" lang="C#" />
+        /// <code source="../UtilitiesUnitTests/SoftAssertUnitTests.cs" region="SoftAssertFailsFails" lang="C#" />
+        /// </example>
+        public bool AssertFails(Action assertFunction, Type expectedException, string assertName, string failureMessage = "")
+        {
+            // Resetting every time we invoke a test to verify the user checked for failures
+            this.didUserCheckForFailures = false;
+            bool result = false;
+
+            try
+            {
+                assertFunction.Invoke();
+                this.NumberOfFailedAsserts = ++this.NumberOfFailedAsserts;
+                result = false;
+                this.Log.LogMessage(MessageType.WARNING, "SoftAssert failed for assert {0}:  {1} passed.  Expected failure type {2}.", assertName, assertFunction.Method.Name, expectedException);
+            }
+            catch (Exception ex)
+            {
+                if (ex.GetType().Equals(expectedException))
+                {
+                    this.NumberOfPassedAsserts = ++this.NumberOfPassedAsserts;
+                    result = true;
+                    this.Log.LogMessage(MessageType.SUCCESS, "SoftAssert passed for assert {0}: {1}.", assertName, assertFunction.Method.Name);
+                }
+                else
+                {
+                    this.NumberOfFailedAsserts = ++this.NumberOfFailedAsserts;
+                    result = false;
+                    this.Log.LogMessage(MessageType.WARNING, "SoftAssert failed for assert {0}: {1}. Expected failure:{2} Actual failure: {3}", assertName, assertFunction.Method.Name, expectedException, ex.Message);
+                    this.listOfExceptions.Add(ex.Message);
+                }
+            }
+            finally
+            {
+                this.NumberOfAsserts = ++this.NumberOfAsserts;
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Executes the assert type passed as parameter and updates the total assert count
         /// </summary>
         /// <param name="test">Test method Action </param>

@@ -20,6 +20,59 @@ namespace UtilitiesUnitTesting
     [ExcludeFromCodeCoverage]
     public class SoftAssertUnitTests
     {
+        #region SoftAssertFailsPasses
+        /// <summary>
+        /// Examples of Soft Assert fails that would pass a test
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void SoftAssertFailsValidTest()
+        {
+            SoftAssert softAssert = new SoftAssert(new FileLogger(LoggingConfig.GetLogDirectory(), "UnitTests.SoftAssertUnitTests.SoftAssertFailsValidTest"));
+            softAssert.AssertFails(() => this.MethodThrowsNullException(), typeof(NullReferenceException), "Assert Method Throws Explicit Exception", "Failed to assert that method threw a NullReferenceException");
+
+            int one = 1;
+            softAssert.AssertFails(
+                () => 
+            {
+                one = 0;
+                var result = 9 / one;
+            }, 
+            typeof(DivideByZeroException), 
+            "Assert  action throws divide by zero exception",
+            "Failed to assert that we couldn't divide by zero");
+
+            softAssert.FailTestIfAssertFailed();
+        }
+        #endregion SoftAssertFailsPasses
+
+        #region SoftAssertFailsFails
+        /// <summary>
+        /// Examples of Soft Assert fails that would fail a test
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        [ExpectedException(typeof(AggregateException))]
+        public void SoftAssertFailsInvalidTest()
+        {
+            SoftAssert softAssert = new SoftAssert(new FileLogger(LoggingConfig.GetLogDirectory(), "UnitTests.SoftAssertUnitTests.SoftAssertFailsInvalidTest"));
+            softAssert.AssertFails(() => this.MethodThrowsNullException(), typeof(NotImplementedException), "Assert Method Throws Explicit Exception", "Failed to assert that method threw a NotImplementedException");
+
+            int one = 1;
+            softAssert.AssertFails(
+                () =>
+            {
+                one = 0;
+                var result = 9 / one;
+            },
+            typeof(NullReferenceException), 
+            "Assert  dividing by zero throws a null reference", 
+            "Failed to assert that we couldn't divide by zero");
+
+            softAssert.FailTestIfAssertFailed();
+        }
+        #endregion SoftAssertFailsFails
+
         #region SoftAssertAreEqualPasses
         /// <summary>
         /// Tests for soft asserts
@@ -176,7 +229,8 @@ namespace UtilitiesUnitTesting
         /// Known Issue: NUnit asserts throw an exception when used outside an NUnit test
         /// URL for Issue: <c>https://github.com/nunit/nunit/issues/2336</c>
         /// </summary>
-        [TestMethod][Ignore]
+        [TestMethod]
+        [Ignore]
         [TestCategory(TestCategories.Utilities)]
         public void AcceptNUnitAsserts()
         {
@@ -217,5 +271,13 @@ namespace UtilitiesUnitTesting
             softAssert.FailTestIfAssertFailed();
         }
         #endregion
+
+        /// <summary>
+        /// Throws a null reference exception
+        /// </summary>
+        private void MethodThrowsNullException()
+        {
+            throw new NullReferenceException("Reference is null");
+        }
     }
 }
