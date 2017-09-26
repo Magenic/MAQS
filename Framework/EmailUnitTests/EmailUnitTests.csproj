@@ -49,13 +49,13 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="MailKit, Version=1.18.0.0, Culture=neutral, PublicKeyToken=4e064fe7c44a8f1b, processorArchitecture=MSIL">
-      <HintPath>..\packages\MailKit.1.18.0\lib\net451\MailKit.dll</HintPath>
+      <HintPath>..\packages\MailKit.1.18.1.1\lib\net451\MailKit.dll</HintPath>
     </Reference>
     <Reference Include="MimeKit, Version=1.18.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
-      <HintPath>..\packages\MimeKit.1.18.0\lib\net451\MimeKit.dll</HintPath>
+      <HintPath>..\packages\MimeKit.1.18.1\lib\net451\MimeKit.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework, Version=3.7.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.3.7.1\lib\net45\nunit.framework.dll</HintPath>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
