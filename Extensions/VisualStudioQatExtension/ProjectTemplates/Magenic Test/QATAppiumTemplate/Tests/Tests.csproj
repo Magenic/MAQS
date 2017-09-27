@@ -42,28 +42,28 @@
       <Private>True</Private>
     </Reference>
 	<Reference Include="Magenic.MaqsFramework.BaseTest">
-      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.2\lib\net45\Magenic.MaqsFramework.BaseTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.3\lib\net45\Magenic.MaqsFramework.BaseTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.MaqsFramework.BaseAppiumTest">
-      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.2\lib\net45\Magenic.MaqsFramework.BaseAppiumTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.3\lib\net45\Magenic.MaqsFramework.BaseAppiumTest.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Magenic.MaqsFramework.Utilities">
-      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.2\lib\net45\Magenic.MaqsFramework.Utilities.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.3\lib\net45\Magenic.MaqsFramework.Utilities.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>..\..\packages\NUnit.3.7.1\lib\net45\nunit.framework.dll</HintPath>
+      <HintPath>..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="WebDriver">
-      <HintPath>..\..\packages\Selenium.WebDriver.3.4.0\lib\net40\WebDriver.dll</HintPath>
+      <HintPath>..\..\packages\Selenium.WebDriver.3.6.0\lib\net40\WebDriver.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="WebDriver.Support">
-      <HintPath>..\..\packages\Selenium.Support.3.4.0\lib\net40\WebDriver.Support.dll</HintPath>
+      <HintPath>..\..\packages\Selenium.Support.3.6.0\lib\net40\WebDriver.Support.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>

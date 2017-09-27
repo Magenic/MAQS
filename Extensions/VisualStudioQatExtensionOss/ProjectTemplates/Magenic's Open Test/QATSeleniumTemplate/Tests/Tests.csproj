@@ -38,25 +38,25 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Magenic.MaqsFramework.BaseSeleniumTest">
-      <HintPath>..\..\packages\Magenic.Open.Maqs.4.0.2\lib\net45\Magenic.MaqsFramework.BaseSeleniumTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Open.Maqs.4.0.3\lib\net45\Magenic.MaqsFramework.BaseSeleniumTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.MaqsFramework.BaseTest">
-      <HintPath>..\..\packages\Magenic.Open.Maqs.4.0.2\lib\net45\Magenic.MaqsFramework.BaseTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Open.Maqs.4.0.3\lib\net45\Magenic.MaqsFramework.BaseTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.MaqsFramework.Utilities">
-      <HintPath>..\..\packages\Magenic.Open.Maqs.4.0.2\lib\net45\Magenic.MaqsFramework.Utilities.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Open.Maqs.4.0.3\lib\net45\Magenic.MaqsFramework.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>..\..\packages\NUnit.3.7.1\lib\net45\nunit.framework.dll</HintPath>
+      <HintPath>..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="WebDriver">
-      <HintPath>..\..\packages\Selenium.WebDriver.3.4.0\lib\net40\WebDriver.dll</HintPath>
+      <HintPath>..\..\packages\Selenium.WebDriver.3.6.0\lib\net40\WebDriver.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="WebDriver.Support">
-      <HintPath>..\..\packages\Selenium.Support.3.4.0\lib\net40\WebDriver.Support.dll</HintPath>
+      <HintPath>..\..\packages\Selenium.Support.3.6.0\lib\net40\WebDriver.Support.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -111,7 +111,8 @@
     <PostBuildEvent>FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(SolutionDir)packages\chromedriver.exe"') do copy /Y "%25%25m" "$(TargetDir)"
 FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(SolutionDir)packages\phantomjs.exe"') do copy /Y "%25%25m" "$(TargetDir)"
 FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(SolutionDir)packages\IEDriverServer.exe"') do copy /Y "%25%25m" "$(TargetDir)"
-FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(SolutionDir)packages\geckodriver.exe"') do copy /Y "%25%25m" "$(TargetDir)"</PostBuildEvent>
+FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(SolutionDir)packages\geckodriver.exe"') do copy /Y "%25%25m" "$(TargetDir)"
+FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(SolutionDir)packages\MicrosoftWebDriver.exe"') do copy /Y "%25%25m" "$(TargetDir)"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

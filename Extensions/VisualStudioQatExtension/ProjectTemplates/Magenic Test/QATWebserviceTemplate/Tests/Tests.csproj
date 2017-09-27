@@ -38,19 +38,19 @@
   </PropertyGroup>
   <ItemGroup>
 	<Reference Include="Magenic.MaqsFramework.BaseTest">
-      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.2\lib\net45\Magenic.MaqsFramework.BaseTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.3\lib\net45\Magenic.MaqsFramework.BaseTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.MaqsFramework.WebServiceTester">
-      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.2\lib\net45\Magenic.MaqsFramework.WebServiceTester.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.3\lib\net45\Magenic.MaqsFramework.WebServiceTester.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.MaqsFramework.Utilities">
-      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.2\lib\net45\Magenic.MaqsFramework.Utilities.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.MaqsFramework.4.0.3\lib\net45\Magenic.MaqsFramework.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>..\..\packages\NUnit.3.7.1\lib\net45\nunit.framework.dll</HintPath>
+      <HintPath>..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">

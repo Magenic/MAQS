@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>Magenic.MaqsFramework.NunitOnly</id>
-    <version>4.0.2</version>
+    <version>4.0.3</version>
     <title>MAQS Framework (NUnit only)</title>
     <authors>Magenic</authors>
     <owners>Magenic</owners>
@@ -12,7 +12,7 @@
     <licenseUrl>https://github.com/Magenic/MAQS/blob/develop/LICENSE</licenseUrl>
     <iconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</iconUrl>
     <dependencies>
-      <dependency id="NUnit" version="3.7.1" />
+      <dependency id="NUnit" version="3.8.1" />
     </dependencies>
   </metadata>
   <files>
