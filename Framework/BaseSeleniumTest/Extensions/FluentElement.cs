@@ -297,7 +297,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// <returns>The web visible web element</returns>
         /// <example>
         /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementVisibleElement" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentGetTriggersFind" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentGetVisibleTriggerFind" lang="C#" />
         /// </example>
         public IWebElement GetTheVisibleElement()
         {
@@ -313,7 +313,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// <returns>The web clickable web element</returns>
         /// <example>
         /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementClickableElement" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentGetTriggersFind" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentGetClickableTriggerFind" lang="C#" />
         /// </example>
         public IWebElement GetTheClickableElement()
         {
@@ -329,7 +329,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// <returns>The web web element</returns>
         /// <example>
         /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementExistingElement" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentGetTriggersFind" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentGetExistTriggerFind" lang="C#" />
         /// </example>
         public IWebElement GetTheExistingElement()
         {

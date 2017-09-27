@@ -273,6 +273,7 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Verify the get clickable element triggers new finds - We do this because we are looking for specific states
         /// </summary>
+        #region FluentGetClickableTriggerFind
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void FluentGetClickableTriggerFind()
@@ -285,12 +286,14 @@ namespace SeleniumUnitTests
             // Make sure get clickable triggers a new find
             Assert.AreNotEqual(footer.CachedElement, footer.GetTheClickableElement());
         }
+        #endregion
 
         /// <summary>
         /// Verify the get existing element triggers new finds - We do this because we are looking for specific states
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
+        #region FluentGetExistTriggerFind
         public void FluentGetExistTriggerFind()
         {
             // Create the fluent element and use it
@@ -301,10 +304,12 @@ namespace SeleniumUnitTests
             // Make sure get exists triggers a new find
             Assert.AreNotEqual(footer.CachedElement, footer.GetTheExistingElement());
         }
+        #endregion
 
         /// <summary>
         /// Verify the get visible element triggers new finds - We do this because we are looking for specific states
         /// </summary>
+        #region FluentGetVisibleTriggerFind
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void FluentGetVisibleTriggerFind()
@@ -317,6 +322,7 @@ namespace SeleniumUnitTests
             // Make sure get visible triggers a new find
             Assert.AreNotEqual(footer.CachedElement, footer.GetTheVisibleElement());
         }
+        #endregion
 
         /// <summary>
         /// Verify Fluent Element Clear test
