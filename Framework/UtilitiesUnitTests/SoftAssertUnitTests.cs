@@ -176,7 +176,7 @@ namespace UtilitiesUnitTesting
         /// Known Issue: NUnit asserts throw an exception when used outside an NUnit test
         /// URL for Issue: <c>https://github.com/nunit/nunit/issues/2336</c>
         /// </summary>
-        [TestMethod]
+        [TestMethod][Ignore]
         [TestCategory(TestCategories.Utilities)]
         public void AcceptNUnitAsserts()
         {
