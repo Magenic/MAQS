@@ -75,6 +75,14 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         public SeleniumTestObject TestObject { get; private set; }
 
         /// <summary>
+        /// Gets a cached copy of the element or null if we haven't already found the element
+        /// </summary>
+        /// <example>
+        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentCaching" lang="C#" />
+        /// </example>
+        public IWebElement CachedElement { get; private set; }
+
+        /// <summary>
         /// Gets a value indicating whether the fluent element is enabled
         /// </summary>
         /// <example>
@@ -289,11 +297,14 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// <returns>The web visible web element</returns>
         /// <example>
         /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementVisibleElement" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentGetVisibleTriggerFind" lang="C#" />
         /// </example>
         public IWebElement GetTheVisibleElement()
         {
-            return (this.parent == null) ? this.TestObject.WebDriver.Wait().ForVisibleElement(this.By) : 
+            this.CachedElement = (this.parent == null) ? this.TestObject.WebDriver.Wait().ForVisibleElement(this.By) :
                 this.parent.GetTheExistingElement().Wait().ForVisibleElement(this.By);
+
+            return this.CachedElement;
         }
 
         /// <summary>
@@ -302,11 +313,14 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// <returns>The web clickable web element</returns>
         /// <example>
         /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementClickableElement" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentGetClickableTriggerFind" lang="C#" />
         /// </example>
         public IWebElement GetTheClickableElement()
         {
-            return (this.parent == null) ? this.TestObject.WebDriver.Wait().ForClickableElement(this.By) :
+            this.CachedElement = (this.parent == null) ? this.TestObject.WebDriver.Wait().ForClickableElement(this.By) :
                 this.parent.GetTheExistingElement().Wait().ForClickableElement(this.By);
+
+            return this.CachedElement;
         }
 
         /// <summary>
@@ -315,11 +329,14 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// <returns>The web web element</returns>
         /// <example>
         /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementExistingElement" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentGetExistTriggerFind" lang="C#" />
         /// </example>
         public IWebElement GetTheExistingElement()
         {
-            return (this.parent == null) ? this.TestObject.WebDriver.Wait().ForElementExist(this.By) :
+            this.CachedElement = (this.parent == null) ? this.TestObject.WebDriver.Wait().ForElementExist(this.By) :
                 this.parent.GetTheExistingElement().Wait().ForElementExist(this.By);
+
+            return this.CachedElement;
         }
 
         /// <summary>
@@ -330,10 +347,25 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         [ExcludeFromCodeCoverage]
         private IWebElement GetElement(Func<IWebElement> getElement)
         {
+            // Try to use cached element
+            if (this.CachedElement != null)
+            {
+                try
+                {
+                    bool visible = this.CachedElement.Displayed;
+                    return this.CachedElement;
+                }
+                catch (Exception e)
+                {
+                    this.TestObject.Log.LogMessage(MessageType.VERBOSE, "Refinding element because: " + e.Message);
+                }
+            }
+
             try
             {
                 this.TestObject.Log.LogMessage(MessageType.VERBOSE, "Performing fluent wrapper find on: " + this.By);
-                return getElement();
+                this.CachedElement = getElement();
+                return this.CachedElement;
             }
             catch (Exception e)
             {

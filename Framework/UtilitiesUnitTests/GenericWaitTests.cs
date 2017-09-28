@@ -66,7 +66,51 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void PassStringUntilTest()
         {
-            Assert.IsTrue(GenericWait.WaitUntil<string>(this.IsParamTestString, TESTSTRING), "Failed sigle parameter test");
+            Assert.IsTrue(GenericWait.WaitUntil<string>(this.IsParamTestString, TESTSTRING), "Failed single parameter test");
+        }
+        #endregion
+
+        #region WaitUntilFunctionEqualsExpected
+        /// <summary>
+        /// Test wait until function returns expected value, then returns the value
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void PassStringsEqual()
+        {
+            Assert.IsTrue(GenericWait.WaitUntilMatch<string>(this.FunctionTestString, "test string").Equals("test string"), "Failed expected parameter test.");
+        }
+
+        /// <summary>
+        /// Test wait until function returns expected value, then returns the value
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void PassStringsEqualOverride()
+        {
+            Assert.IsTrue(GenericWait.WaitUntilMatch<string>(this.FunctionTestString, TESTRETRY, TESTTIMEOUT, "test string").Equals("test string"), "Failed expected parameter test.");
+        }
+        #endregion
+
+        #region WaitForFunctionEqualsExpected
+        /// <summary>
+        /// Test wait until function returns expected value, throws an exception if a timeout occurs
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void PassStringWaitFor()
+        {
+            GenericWait.WaitForMatch<string>(this.FunctionTestString, "test string");
+        }
+
+        /// <summary>
+        /// Tests waits checking that the function returns a value equal to the input value until the input test retry and test timeout before throwing an exception.
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void PassStringWaitForOverride()
+        {
+            GenericWait.WaitForMatch<string>(this.FunctionTestString, TESTRETRY, TESTTIMEOUT, "test string");
         }
         #endregion
 
@@ -269,7 +313,7 @@ namespace UtilitiesUnitTesting
         {
             return true;
         }
-
+        
         /// <summary>
         /// Test function that always returns false
         /// </summary>
@@ -302,6 +346,15 @@ namespace UtilitiesUnitTesting
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Test function that always returns a specific string
+        /// </summary>
+        /// <returns>Always returns a specific string</returns>
+        private string FunctionTestString()
+        {
+            return "test string";
         }
 
         /// <summary>

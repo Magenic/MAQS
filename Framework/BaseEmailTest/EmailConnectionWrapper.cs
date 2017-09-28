@@ -176,9 +176,13 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// </example> 
         public virtual void SelectMailbox(string mailbox)
         {
-            this.CurrentMailBox = mailbox;
-            this.CurrentFolder = this.EmailConnection.GetFolder(mailbox);
-            this.CurrentFolder.Open(FolderAccess.ReadWrite);
+            GenericWait.WaitFor<bool>(() =>
+            {
+                this.CurrentMailBox = mailbox;
+                this.CurrentFolder = this.EmailConnection.GetFolder(mailbox);
+                this.CurrentFolder.Open(FolderAccess.ReadWrite);
+                return true;
+            });
         }
 
         /// <summary>

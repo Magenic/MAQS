@@ -6,6 +6,7 @@
 //--------------------------------------------------
 using Magenic.MaqsFramework.Utilities.Data;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace Magenic.MaqsFramework.Utilities.Helper
@@ -86,6 +87,140 @@ namespace Magenic.MaqsFramework.Utilities.Helper
         }
 
         /// <summary>
+        /// Waits for a function with a return type T to return a value that is to an argument of the same type.  If it times out it returns the value of the function.
+        /// </summary>
+        /// <typeparam name="T">Type returned</typeparam>
+        /// <param name="waitForTrue">Function that returns type T</param>
+        /// <param name="comparativeValue">value of the same type as T</param>
+        /// <example>
+        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" region="WaitUntilFunctionEqualsExpected" lang="C#" />
+        /// </example>
+        /// <returns>if it returned before the timeout occurred</returns>
+        public static T WaitUntilMatch<T>(Func<T> waitForTrue, T comparativeValue)
+        {
+            // Set start time and exception holder
+            DateTime start = DateTime.Now;
+            
+            // Checks if the two values are equal
+            bool paramsAreEqual = ParamsEqual(waitForTrue(), comparativeValue);
+            
+            // While the params are not equal & the timout hasn't met, keep checking
+            while (!paramsAreEqual && (DateTime.Now - start) < timeoutFromConfig)
+            {
+                // Check if they are equal (running them through another function because we can't use an operator with T
+                paramsAreEqual = ParamsEqual(waitForTrue(), comparativeValue);
+
+                // If they aren't, wait
+                Thread.Sleep(retryTimeFromConfig);
+            }
+
+            // return the value regardless
+            return waitForTrue();
+        }
+
+        /// <summary>
+        /// Waits for a function with a return type T to return a value that is to an argument of the same type.  If it times out it returns the value of the function.
+        /// </summary>
+        /// <typeparam name="T">Type returned</typeparam>
+        /// <param name="waitForTrue">Function that returns type T</param>
+        /// <param name="retryTime">time to wait between retries</param>
+        /// <param name="timeout">how long before timing out</param>
+        /// <param name="comparativeValue">value of the same type as T</param>
+        /// <example>
+        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" region="WaitUntilFunctionEqualsExpected" lang="C#" />
+        /// </example>
+        /// <returns>if it returned before the timeout occurred</returns>
+        public static T WaitUntilMatch<T>(Func<T> waitForTrue, TimeSpan retryTime, TimeSpan timeout, T comparativeValue)
+        {
+            // Set start time and exception holder
+            DateTime start = DateTime.Now;
+
+            // Checks if the two values are equal
+            bool paramsAreEqual = ParamsEqual(waitForTrue(), comparativeValue);
+
+            // While the params are not equal & the timout hasn't met, keep checking
+            while (!paramsAreEqual && (DateTime.Now - start) < timeout)
+            {
+                // Check if they are equal (running them through another function because we can't use an operator with T
+                paramsAreEqual = ParamsEqual(waitForTrue(), comparativeValue);
+
+                // If they aren't, wait
+                Thread.Sleep(retryTime);
+            }
+
+            // return the value regardless
+            return waitForTrue();
+        }
+
+        /// <summary>
+        /// Waits for a Function with a type T to return a value that is equal to a comparative value of type T
+        /// </summary>
+        /// <typeparam name="T">The type the method returns</typeparam>
+        /// <param name="waitForTrue">Method to wait for</param>
+        /// <param name="comparativeValue">The value to compare to what comes out of waitForTrue</param>
+        /// <example>
+        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" region="WaitForFunctionEqualsExpected" lang="C#" />
+        /// </example>
+        public static void WaitForMatch<T>(Func<T> waitForTrue, T comparativeValue)
+        {
+            // Set start time and exception holder
+            DateTime start = DateTime.Now;
+
+            // Checks if the two values are equal
+            bool paramsAreEqual = ParamsEqual(waitForTrue(), comparativeValue);
+
+            // While the params are not equal & the timout hasn't met, keep checking
+            while (!paramsAreEqual && (DateTime.Now - start) < timeoutFromConfig)
+            {
+                // Check if they are equal (running them through another function because we can't use an operator with T
+                paramsAreEqual = ParamsEqual(waitForTrue(), comparativeValue);
+
+                // If they aren't, wait
+                Thread.Sleep(retryTimeFromConfig);
+            }
+
+            if (!paramsAreEqual)
+            {
+                throw new Exception("Timed out waiting for " + waitForTrue.Method.Name + " to return expected value of " + typeof(T) + ": " + comparativeValue);
+            }
+        }
+
+        /// <summary>
+        /// Waits for a Function with a type T to return a value that is equal to a comparative value of type T
+        /// </summary>
+        /// <typeparam name="T">The type the method returns</typeparam>
+        /// <param name="waitForTrue">Method to wait for</param>
+        /// <param name="retryTime">time to wait between retries</param>
+        /// <param name="timeout">how long before timing out</param>
+        /// <param name="comparativeValue">The value to compare to what comes out of waitForTrue</param>
+        /// <example>
+        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" region="WaitForFunctionEqualsExpected" lang="C#" />
+        /// </example>
+        public static void WaitForMatch<T>(Func<T> waitForTrue, TimeSpan retryTime, TimeSpan timeout, T comparativeValue)
+        {
+            // Set start time and exception holder
+            DateTime start = DateTime.Now;
+
+            // Checks if the two values are equal
+            bool paramsAreEqual = ParamsEqual(waitForTrue(), comparativeValue);
+
+            // While the params are not equal & the timout hasn't met, keep checking
+            while (!paramsAreEqual && (DateTime.Now - start) < timeout)
+            {
+                // Check if they are equal (running them through another function because we can't use an operator with T
+                paramsAreEqual = ParamsEqual(waitForTrue(), comparativeValue);
+
+                // If they aren't, wait
+                Thread.Sleep(retryTime);
+            }
+
+            if (!paramsAreEqual)
+            {
+                throw new Exception("Timed out waiting for " + waitForTrue.Method.Name + " to return expected value of " + typeof(T) + ": " + comparativeValue);
+            }
+        }
+
+        /// <summary>
         /// Wait until the wait for function returns the expected type, an exception will be thrown if the wait times out
         /// </summary>
         /// <typeparam name="T">The expected return type</typeparam>
@@ -108,7 +243,7 @@ namespace Magenic.MaqsFramework.Utilities.Helper
         {
             return Wait(waitFor, retryTimeFromConfig, timeoutFromConfig, arg);
         }
-
+        
         /// <summary>
         /// Wait until the wait for true function returns true or times out
         /// </summary>
@@ -284,6 +419,32 @@ namespace Magenic.MaqsFramework.Utilities.Helper
             while ((DateTime.Now - start) < timeout);
 
             throw new Exception("Timed out waiting for " + waitFor.Method.Name + " to return", exception);
+        }
+
+        /// <summary>
+        /// Checks that the objects all match
+        /// </summary>
+        /// <param name="param">objects passed in</param>
+        /// <returns>parameters are all equal as a boolean</returns>
+        private static bool ParamsEqual(params object[] param)
+        {
+            // For each item
+            foreach (var item in param)
+            {
+                // and each item
+                foreach (var item2 in param)
+                {
+                    // Compare each item
+                    if (item != item2)
+                    {
+                        // If any do not match, then they are not equal
+                        return false;
+                    }
+                }
+            }
+
+            // If we get here, then we had no mismatches
+            return true;
         }
     }
 }

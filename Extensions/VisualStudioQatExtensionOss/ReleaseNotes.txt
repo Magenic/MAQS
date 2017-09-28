@@ -1,5 +1,20 @@
 Maqs Framework Release Notes:
-
+4.0.3 - 2017/9/29
+	Bug fixes and minor enhancements
+	- Add FluentElement caching
+	- Add assert fail to SoftAssert
+	- Updated
+		NUnit 3.8.1
+		Selenium.Support to 3.6.0
+		Selenium.WebDriver to 3.6.0
+		Selenium.WebDriver.ChromeDriver to 2.32
+		Selenium.WebDriver.IEDriver to 3.6.0
+	- Added
+		Selenium.WebDriver.GeckoDriver 0.18.0
+		Selenium.WebDriver.MicrosoftDriver 15.15063.0
+	- Removed
+		Selenium.WebDriver.GeckoDriver.Win32 0.18.0
+		
 4.0.2 - 2017/8/11
 	Bug fixes and minor enhancements
 	- Add SendSecretKeys (AKA enter, but don't log keys) support to ElementHandler and FluentElement
