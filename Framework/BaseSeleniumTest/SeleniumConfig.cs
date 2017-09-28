@@ -74,6 +74,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                         FirefoxOptions firefoxOptions = new FirefoxOptions();
                         firefoxOptions.Profile = new FirefoxProfile();
                         webDriver = new FirefoxDriver(service, firefoxOptions, GetTimeoutTime());
+                         webDriver.Manage().Window.Maximize();
                         break;
 
                     case "CHROME":
@@ -83,6 +84,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                         chromeOptions.AddArguments("--allow-running-insecure-content");
                         chromeOptions.AddArguments("--disable-extensions");
                         webDriver = new ChromeDriver(GetDriverLocation("chromedriver.exe"), chromeOptions);
+                         webDriver.Manage().Window.Maximize();
                         break;
 
                     case "EDGE":
@@ -90,12 +92,14 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                         edgeOptions.PageLoadStrategy = EdgePageLoadStrategy.Normal;
 
                         webDriver = new EdgeDriver(GetDriverLocation("MicrosoftWebDriver.exe", GetProgramFilesFolder("Microsoft Web Driver", "MicrosoftWebDriver.exe")), edgeOptions);
+                         webDriver.Manage().Window.Maximize();
                         break;
 
                     case "PHANTOMJS":
                         PhantomJSOptions phantomOptions = new PhantomJSOptions();
                         phantomOptions.AddAdditionalCapability("phantomjs.page.settings.userAgent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:26.0) Gecko/20100101 Firefox/26.0");
                         webDriver = new PhantomJSDriver(GetDriverLocation("phantomjs.exe"), phantomOptions);
+                         webDriver.Manage().Window.Maximize();
                         break;
 
                     case "REMOTE":
@@ -107,7 +111,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                 }
 
                 // Maximize the browser and than return it
-                webDriver.Manage().Window.Maximize();
+               
                 return webDriver;
             }
             catch (Exception e)
