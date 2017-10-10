@@ -85,6 +85,17 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                         webDriver = new ChromeDriver(GetDriverLocation("chromedriver.exe"), chromeOptions);
                         break;
 
+                    case "HEADLESSCHROME":
+                        ChromeOptions headlessChromeOptions = new ChromeOptions();
+                        headlessChromeOptions.AddArgument("test-type");
+                        headlessChromeOptions.AddArguments("--disable-web-security");
+                        headlessChromeOptions.AddArguments("--allow-running-insecure-content");
+                        headlessChromeOptions.AddArguments("--disable-extensions");
+                        headlessChromeOptions.AddArguments("-headless");
+                        headlessChromeOptions.AddArguments("window-size=1920,1080");
+                        webDriver = new ChromeDriver(GetDriverLocation("chromedriver.exe"), headlessChromeOptions);
+                        break;
+
                     case "EDGE":
                         EdgeOptions edgeOptions = new EdgeOptions();
                         edgeOptions.PageLoadStrategy = EdgePageLoadStrategy.Normal;
