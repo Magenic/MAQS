@@ -92,6 +92,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                         headlessChromeOptions.AddArguments("--allow-running-insecure-content");
                         headlessChromeOptions.AddArguments("--disable-extensions");
                         headlessChromeOptions.AddArguments("--headless");
+                        headlessChromeOptions.AddArguments("window-size=1920,1080");
                         webDriver = new ChromeDriver(GetDriverLocation("chromedriver.exe"), headlessChromeOptions);
                         break;
 
