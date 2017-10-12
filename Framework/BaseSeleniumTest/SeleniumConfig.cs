@@ -414,7 +414,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
 
         private static string GetBrowserSize()
         {
-            return Config.GetValue("BrowserSize");
+            return Config.GetValue("BrowserSize", "MAXIMIZE");
         }
 
         /// <summary>
@@ -423,13 +423,13 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// <param name="webDriver"></param>
         private static void SetBrowserSize(IWebDriver webDriver)
         {
-            string size = GetBrowserSize();
+            string size = GetBrowserSize().ToUpper();
 
             if (size == "MAXIMIZE")
             {
                 webDriver.Manage().Window.Maximize();
             }
-            else if (size.ToUpper().Contains("X"))
+            else if (size.Contains("X"))
             {
                 string[] sizes = size.Split('X');
 
