@@ -17,6 +17,7 @@ using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Specialized;
 using System.Configuration;
+using System.Drawing;
 using System.IO;
 using System.Reflection;
 
@@ -57,8 +58,8 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// </example>
         public static IWebDriver Browser(string browser)
         {
-            IWebDriver webDriver = null;
-
+            IWebDriver webDriver = null;           
+            
             try
             {
                 switch (browser.ToUpper())
@@ -106,8 +107,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                         throw new Exception(StringProcessor.SafeFormatter("Browser type '{0}' is not supported", browser));
                 }
 
-                // Maximize the browser and than return it
-                webDriver.Manage().Window.Maximize();
+                SetBrowserSize(webDriver);
                 return webDriver;
             }
             catch (Exception e)
@@ -409,6 +409,44 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         {
             int waitTime = Convert.ToInt32(Config.GetValue("WaitTime", "0"));
             return TimeSpan.FromMilliseconds(waitTime);
+        }
+
+        /// <summary>
+        /// Sets the browser size based on selector in app.config
+        /// </summary>
+        /// <param name="webDriver"></param>
+        private static void SetBrowserSize(IWebDriver webDriver)
+        {
+            string size = Config.GetValue("BrowserSize").ToUpper();
+
+            switch (size)
+            {
+                case "MAXIMIZE": webDriver.Manage().Window.Maximize();
+                    break;
+                case "DEFAULT":
+                    break;
+                default:
+                    {
+                        string[] sizes = size.Split('X');
+
+                        if (sizes.Length != 2)
+                        {
+                            throw new ArgumentException("Browser size is expected to be in expected format: 1920x1080");
+                        }
+
+                        bool size1 = int.TryParse(sizes[0], out int length);
+                        bool size2 = int.TryParse(sizes[1], out int width);
+
+                        if (!size1 || !size2)
+                        {
+                            throw new InvalidCastException("Width and length must be an integer value");
+                        }
+
+                        webDriver.Manage().Window.Size = new Size(length, width);
+                    }
+
+                    break;
+            }
         }
     }
 }
