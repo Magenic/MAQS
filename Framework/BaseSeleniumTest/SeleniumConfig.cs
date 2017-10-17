@@ -443,7 +443,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
 
                 if (!size1 || !size2)
                 {
-                    throw new InvalidCastException("Width and length must be an integer value");
+                    throw new InvalidCastException("Width and length must be a string that is an integer value: 400");
                 }
 
                 webDriver.Manage().Window.Size = new Size(length, width);            
