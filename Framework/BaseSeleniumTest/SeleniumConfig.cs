@@ -112,8 +112,12 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
             }
             catch (Exception e)
             {
+                if (e.GetType() == typeof(ArgumentException))
+                {
+                    throw e;
+                }
                 // Make sure we have a web driver
-                if (webDriver != null)
+                else if (webDriver != null)
                 {
                     try
                     {
@@ -123,7 +127,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                     catch (Exception quitExecption)
                     {
                         throw new Exception("Web driver setup and teardown failed. Your web driver may be out of date", quitExecption);
-                    }
+                    }                   
                 }
 
                 // Log that something went wrong
@@ -429,13 +433,17 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
             {
                 webDriver.Manage().Window.Maximize();
             }
-            else if (size.Contains("X"))
+            else if (size == "DEFAULT")
+            {
+                // do nothing to have the browser window come up unchanged.
+            }
+            else 
             {
                 string[] sizes = size.Split('X');
-
-                if (sizes.Length != 2)
+                
+                if (!size.Contains("X") || sizes.Length != 2)
                 {
-                    throw new ArgumentException("Browser size is expected to be in expected format: 1920x1080");
+                    throw new ArgumentException("Browser size is expected to be in an expected format: 1920x1080");
                 }
 
                 bool size1 = int.TryParse(sizes[0], out int length);
@@ -443,11 +451,12 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
 
                 if (!size1 || !size2)
                 {
-                    throw new InvalidCastException("Width and length must be a string that is an integer value: 400");
+                    throw new InvalidCastException("Width and length must be a string that is an integer value: 400x400");
                 }
 
                 webDriver.Manage().Window.Size = new Size(length, width);            
             }
+            
         }
     }
 }

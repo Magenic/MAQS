@@ -78,6 +78,13 @@ namespace UnitTests
                 Assert.AreEqual(1020, driver.Manage().Window.Size.Height);
                 Assert.AreEqual(945, driver.Manage().Window.Size.Width);
             }
+            else
+            {
+                Assert.AreNotEqual(1056, driver.Manage().Window.Size.Height);
+                Assert.AreNotEqual(1020, driver.Manage().Window.Size.Height);
+                Assert.AreNotEqual(1936, driver.Manage().Window.Size.Width);
+                Assert.AreNotEqual(945, driver.Manage().Window.Size.Width);
+            }
         }
 
         /// <summary>
