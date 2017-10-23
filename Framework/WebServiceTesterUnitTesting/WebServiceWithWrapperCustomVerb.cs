@@ -29,7 +29,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void CustomVerbJSONSerializedVerifyStatusCode()
         {
-            var content = WebServiceUtils.MakeStringContent("", Encoding.UTF8, "application/json");
+            var content = WebServiceUtils.MakeStringContent(string.Empty, Encoding.UTF8, "application/json");
             var result = this.WebServiceWrapper.CustomWithResponse("ZED", "/api/ZED", "application/json", content, false);
             Assert.AreEqual(HttpStatusCode.UseProxy, result.StatusCode);
         }
@@ -41,7 +41,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void CustomJSONStreamSerializedVerifyStatusCode()
         {
-            var content = WebServiceUtils.MakeStreamContent("", Encoding.UTF8, "application/json");
+            var content = WebServiceUtils.MakeStreamContent(string.Empty, Encoding.UTF8, "application/json");
             var result = this.WebServiceWrapper.CustomWithResponse("ZED", "/api/ZED", "application/json", content, false);
             Assert.AreEqual(HttpStatusCode.UseProxy, result.StatusCode);
         }
