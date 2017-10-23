@@ -37,7 +37,7 @@ namespace WebServiceTesterUnitTesting
         {
             try
             {
-                HttpClientWrapper client = new HttpClientWrapper(new Uri("http://localhost.:55090"));
+                HttpClientWrapper client = new HttpClientWrapper(new Uri("http:/magenicautomation.azurewebsites.net"));
                 string result = client.Get("/api/String/1", "text/plain", false);
             }
             catch
