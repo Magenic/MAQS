@@ -518,6 +518,87 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
             return this.DeleteContent(requestUri, expectedMediaType, expectSuccess).Result;
         }
 
+        /// <summary>
+        /// Execute a web service call with a custom verb
+        /// </summary>
+        /// <typeparam name="T">The expected response type</typeparam>
+        /// <param name="customType">The custom HTTP verb</param>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="expectedMediaType">Type of media being requested</param>
+        /// <param name="content">Content of the message</param>
+        /// <param name="expectSuccess">Assert a success code was returned</param>
+        /// <returns>HTTP response message</returns>
+        public T Custom<T>(string customType, string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
+        {
+            HttpResponseMessage response = this.CustomWithResponse(customType, requestUri, expectedMediaType, content, expectSuccess);
+            return WebServiceUtils.DeserializeResponse<T>(response, this.supportedFormatters);
+        }
+
+        /// <summary>
+        /// Execute a web service call with a custom verb
+        /// </summary>
+        /// <param name="customType">Custom HTTP verb</param>
+        /// <param name="requestUri">The request URI </param>
+        /// <param name="expectedMediaType">The type of media being requested</param>
+        /// <param name="content">Content of the message</param>
+        /// <param name="expectSuccess">Assert a success code was returned</param>
+        /// <returns>The HTTP response message</returns>
+        public string Custom(string customType, string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
+        {
+            HttpResponseMessage response = this.CustomWithResponse(customType, requestUri, expectedMediaType, content, expectSuccess);
+            return response.Content.ReadAsStringAsync().Result;
+        }
+
+        /// <summary>
+        /// Execute a web service call with a custom verb
+        /// </summary>
+        /// <param name="customType">Custom HTTP Verb</param>
+        /// <param name="requestUri">The request URI</param>
+        /// <param name="expectedMediaType">The expected media type</param>
+        /// <param name="content">Content of the message</param>
+        /// <param name="contentEncoding">How content was encoded</param>
+        /// <param name="postMediaType">Media type</param>
+        /// <param name="contentAsString">The message content as a string</param>
+        /// <param name="expectSuccess">Assert a success code was returned</param>
+        /// <returns>The HTTP Response message</returns>
+        public string Custom(string customType, string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, bool contentAsString = true, bool expectSuccess = true)
+        {
+            HttpResponseMessage response = this.CustomWithResponse(customType, requestUri, expectedMediaType, content, contentEncoding, postMediaType, contentAsString, expectSuccess);
+            return response.Content.ReadAsStringAsync().Result;
+        }
+
+        /// <summary>
+        /// Execute a web service call with a custom verb
+        /// </summary>
+        /// <param name="customType">the Custom HTTP Verb</param>
+        /// <param name="requestUri">The Request URI</param>
+        /// <param name="expectedMediaType">The expected media type</param>
+        /// <param name="content">The Content of the message</param>
+        /// <param name="contentEncoding">How content was encoded</param>
+        /// <param name="postMediaType">Media type</param>
+        /// <param name="contentAsString">The content as a a string</param>
+        /// <param name="expectSuccess">Assert a success code was returned</param>
+        /// <returns>The HTTP response message</returns>
+        public HttpResponseMessage CustomWithResponse(string customType, string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, bool contentAsString = true, bool expectSuccess = true)
+        {
+            HttpContent httpContent = CreateContent(content, contentEncoding, postMediaType, contentAsString);
+            return this.CustomWithResponse(customType, requestUri, expectedMediaType, httpContent, expectSuccess);
+        }
+
+        /// <summary>
+        /// Execute a web service call with a custom verb
+        /// </summary>
+        /// <param name="customType">The custom HTTP verb</param>
+        /// <param name="requestUri">The requested URI</param>
+        /// <param name="expectedMediaType">The expected media type</param>
+        /// <param name="content">The content</param>
+        /// <param name="expectSuccess">Assert a success code was returned</param>
+        /// <returns>The HTTP response message</returns>
+        public HttpResponseMessage CustomWithResponse(string customType, string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
+        {
+            return this.CustomContent(requestUri, customType, expectedMediaType, content, expectSuccess).Result;
+        }
+
         /// <summary> 
         /// Default client setup - Override this function to include authentication 
         /// </summary>
@@ -607,6 +688,36 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
             }
 
             return response;
+        }
+
+        /// <summary>
+        /// Do a web service call with the given custom verb, content, and return type
+        /// </summary>
+        /// <param name="requestUri">The request URI</param>
+        /// <param name="customVerb">The custom HTTP request verb to be used</param>
+        /// <param name="responseMediaType">The expected response type</param>
+        /// <param name="content">The content of the message</param>
+        /// <param name="expectSuccess">Assert a success code was returned</param>
+        /// <returns>The HTTP response message</returns>
+        protected async virtual Task<HttpResponseMessage> CustomContent(string requestUri, string customVerb, string responseMediaType, HttpContent content, bool expectSuccess = true)
+        {
+            HttpMethod method = new HttpMethod(customVerb);
+
+            HttpRequestMessage message = new HttpRequestMessage(method, requestUri)
+            {
+                Content = content
+            };
+
+            HttpClient client = this.setupClientConnection(this.BaseUriAddress, responseMediaType);
+
+            HttpResponseMessage response = await client.SendAsync(message).ConfigureAwait(false);
+
+            if (expectSuccess)
+            {
+                EnsureSuccessStatusCode(response);
+            }
+
+            return response;            
         }
 
         /// <summary>

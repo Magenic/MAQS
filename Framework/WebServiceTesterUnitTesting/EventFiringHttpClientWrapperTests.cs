@@ -74,5 +74,16 @@ namespace WebServiceTesterUnitTesting
         {
             this.GetContent(null, null).Wait();
         }
+
+        /// <summary>
+        /// Verify that CustomContent throws proper exception
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.WebService)]
+        [ExpectedException(typeof(AggregateException))]
+        public void CustomContentThrowException()
+        {
+            this.CustomContent(null, null, null, null).Wait();
+        }
     }
 }
