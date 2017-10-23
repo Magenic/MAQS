@@ -116,7 +116,6 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                 {
                     throw e;
                 }
-                // Make sure we have a web driver
                 else if (webDriver != null)
                 {
                     try
@@ -415,7 +414,10 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
             return TimeSpan.FromMilliseconds(waitTime);
         }
 
-
+        /// <summary>
+        /// get the browser size
+        /// </summary>
+        /// <returns>string of desired browser size</returns>
         private static string GetBrowserSize()
         {
             return Config.GetValue("BrowserSize", "MAXIMIZE");
@@ -424,7 +426,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// <summary>
         /// Sets the browser size based on selector in app.config
         /// </summary>
-        /// <param name="webDriver"></param>
+        /// <param name="webDriver">the webDriver from the Browser method</param>
         private static void SetBrowserSize(IWebDriver webDriver)
         {
             string size = GetBrowserSize().ToUpper();
@@ -455,8 +457,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                 }
 
                 webDriver.Manage().Window.Size = new Size(length, width);            
-            }
-            
+            }          
         }
     }
 }

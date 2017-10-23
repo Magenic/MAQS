@@ -60,7 +60,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// resize broswer window to speicified lengths
+        /// resize browser window to specified lengths
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
