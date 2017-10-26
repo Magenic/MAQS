@@ -9,13 +9,14 @@ using Magenic.MaqsFramework.Utilities.Data;
 using Magenic.MaqsFramework.Utilities.Logging;
 using OpenQA.Selenium.Appium;
 using System;
+using OpenQA.Selenium;
 
 namespace Magenic.MaqsFramework.BaseAppiumTest
 {
     /// <summary>
     /// Generic base Appium test class
     /// </summary>
-    public class BaseAppiumTest : BaseExtendableTest<AppiumDriver<AppiumWebElement>, AppiumTestObject>, IDisposable
+    public class BaseAppiumTest : BaseExtendableTest<AppiumDriver<IWebElement>, AppiumTestObject>, IDisposable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseAppiumTest"/> class.
@@ -28,7 +29,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// <summary>
         /// Gets or sets the AppiumDriver
         /// </summary>
-        public AppiumDriver<AppiumWebElement> AppiumDriver
+        public AppiumDriver<IWebElement> AppiumDriver
         {
             get { return this.ObjectUnderTest; }
             set { this.ObjectUnderTest = value; }
@@ -66,7 +67,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// The default get appium driver function
         /// </summary>
         /// <returns>The appium driver</returns>
-        protected virtual AppiumDriver<AppiumWebElement> GetMobileDevice()
+        protected virtual AppiumDriver<IWebElement> GetMobileDevice()
         {
             return AppiumConfig.MobileDevice();
         }
