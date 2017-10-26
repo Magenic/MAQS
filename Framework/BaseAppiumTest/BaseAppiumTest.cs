@@ -92,7 +92,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         {
             try
             {
-                this.Log.LogMessage(MessageType.INFORMATION, "Loaded Mobile Driver: {0}", AppiumConfig.GetMobileDeviceOS());
+                this.Log.LogMessage(MessageType.INFORMATION, "Loaded Mobile Driver: {0}", AppiumConfig.GetPlatformName());
                 this.AppiumDriver.SetWaitDriver(AppiumConfig.GetWaitDriver(this.AppiumDriver));
             }
             catch (Exception exception)

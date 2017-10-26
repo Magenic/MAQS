@@ -25,7 +25,7 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void GetMobileDeviceOSTest()
         {
-            Assert.AreEqual(AppiumConfig.GetMobileDeviceOS(), "Android");
+            Assert.AreEqual(AppiumConfig.GetPlatformName(), "Android");
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void GetOSVersionTest()
         {
-            Assert.AreEqual(AppiumConfig.GetOSVersion(), "7.1.1");
+            Assert.AreEqual(AppiumConfig.GetPlatformVersion(), "7.1.1");
         }
 
         /// <summary>

@@ -13,6 +13,7 @@ using OpenQA.Selenium.Appium.iOS;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
 using System;
+using OpenQA.Selenium;
 
 namespace Magenic.MaqsFramework.BaseAppiumTest
 {
@@ -22,15 +23,20 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
     public static class AppiumConfig
     {
         /// <summary>
+        ///  Static field for AppiumCapsMaqs configuration section.
+        /// </summary>
+        private static string mobileCapabilities = "AppiumCapsMaqs";
+        
+        /// <summary>
         /// Get the mobile OS type
         /// </summary>
         /// <returns>The Mobile OS type</returns>
-        public static string GetMobileDeviceOS()
+        public static string GetPlatformName()
         {
-            return Config.GetValue("MobileOSType");
+            return Config.GetValue("PlatformName");
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Get mobile device udid
         /// <para>If no udid is provide in the project configuration file we default to empty string</para>
         /// </summary>
@@ -47,15 +53,15 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         public static string GetBundleId()
         {
             return Config.GetValue("BundleID");
-        }
+        }*/
 
         /// <summary>
         /// Get the OS Version
         /// </summary>
         /// <returns>OS Version</returns>
-        public static string GetOSVersion()
+        public static string GetPlatformVersion()
         {
-            return Config.GetValue("OSVersion");
+            return Config.GetValue("PlatformVersion");
         }
 
         /// <summary>
@@ -67,7 +73,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
             return Config.GetValue("DeviceName");
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Whether or not the mobile browser is being used
         /// </summary>
         /// <returns>boolean for using browser</returns>
@@ -90,16 +96,16 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         public static String GetAvdName()
         {
             return Config.GetValue("AVDName");
-        }
+        }*/
 
         /// <summary>
         /// Get the mobile device
         /// <para>If no browser is provide in the project configuration file we default to Android</para>
         /// </summary>
         /// <returns>The appium driver</returns>
-        public static AppiumDriver<AppiumWebElement> MobileDevice()
+        public static AppiumDriver<IWebElement> MobileDevice()
         {
-            return MobileDevice(GetMobileDeviceOS());
+            return MobileDevice(GetPlatformName());
         }
 
         /// <summary>
@@ -111,7 +117,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
             return new Uri(Config.GetValue("MobileHubUrl"));
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Get App Activity
         /// </summary>
         /// <returns>String of App Activity</returns>
@@ -128,23 +134,23 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         {
             return Config.GetValue("AppPath");
         }
-
+*/
         /// <summary>
         /// Get the appium driver based for the provided mobile OS
         /// </summary>
         /// <param name="mobileDeviceOS">The browser type we want to use</param>
         /// <returns>An AppiumDriver</returns>
-        public static AppiumDriver<AppiumWebElement> MobileDevice(string mobileDeviceOS)
+        public static AppiumDriver<IWebElement> MobileDevice(string mobileDeviceOS)
         {
-            AppiumDriver<AppiumWebElement> appiumDriver;
+            AppiumDriver<IWebElement> appiumDriver;
             switch (mobileDeviceOS.ToUpper())
             {
                 case "ANDROID":
-                    appiumDriver = new AndroidDriver<AppiumWebElement>(GetMobileHubUrl(), GetMobileCapabilities());
+                    appiumDriver = new AndroidDriver<IWebElement>(GetMobileHubUrl(), GetMobileCapabilities());
                     break;
 
                 case "IOS":
-                    appiumDriver = new IOSDriver<AppiumWebElement>(GetMobileHubUrl(), GetMobileCapabilities());
+                    appiumDriver = new IOSDriver<IWebElement>(GetMobileHubUrl(), GetMobileCapabilities());
                     break;
 
                 default:
@@ -185,9 +191,14 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         private static DesiredCapabilities GetMobileCapabilities()
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            string mobileDeivceOS = GetMobileDeviceOS();
+            capabilities.SetCapability(MobileCapabilityType.DeviceName, GetDeviceName());
+            capabilities.SetCapability(MobileCapabilityType.PlatformVersion, GetPlatformVersion());
+            //capabilities.SetCapability(CapabilityType.Version, GetPlatformVersion());
+            capabilities.SetCapability(MobileCapabilityType.PlatformName, GetPlatformName().ToUpper());
+            
+            //string mobileDeivceOS = GetMobileDeviceOS();
 
-            switch (mobileDeivceOS.ToUpper())
+            /*switch (mobileDeivceOS.ToUpper())
             {
                 case "ANDROID":
 
@@ -233,13 +244,12 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
             if (Config.DoesKeyExist("AppPath") && !GetAppPath().Equals(string.Empty))
             {
                 capabilities.SetCapability(MobileCapabilityType.App, GetAppPath());
-            }
+            }*/
 
-            capabilities.SetCapability(MobileCapabilityType.DeviceName, GetDeviceName());
-            capabilities.SetCapability(MobileCapabilityType.PlatformVersion, GetOSVersion());
-            capabilities.SetCapability(CapabilityType.Version, GetOSVersion());
-            capabilities.SetCapability(MobileCapabilityType.PlatformName, GetMobileDeviceOS().ToUpper());
+            
             return capabilities;
         }
+
+       
     }
 }
