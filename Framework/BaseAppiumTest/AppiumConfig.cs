@@ -13,6 +13,8 @@ using OpenQA.Selenium.Appium.iOS;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
 using System;
+using System.Collections.Specialized;
+using System.Configuration;
 using OpenQA.Selenium;
 
 namespace Magenic.MaqsFramework.BaseAppiumTest
@@ -138,12 +140,12 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// <summary>
         /// Get the appium driver based for the provided mobile OS
         /// </summary>
-        /// <param name="mobileDeviceOS">The browser type we want to use</param>
+        /// <param name="platformName">The browser type we want to use</param>
         /// <returns>An AppiumDriver</returns>
-        public static AppiumDriver<IWebElement> MobileDevice(string mobileDeviceOS)
+        public static AppiumDriver<IWebElement> MobileDevice(string platformName)
         {
             AppiumDriver<IWebElement> appiumDriver;
-            switch (mobileDeviceOS.ToUpper())
+            switch (platformName.ToUpper())
             {
                 case "ANDROID":
                     appiumDriver = new AndroidDriver<IWebElement>(GetMobileHubUrl(), GetMobileCapabilities());
@@ -154,7 +156,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
                     break;
 
                 default:
-                    throw new Exception(StringProcessor.SafeFormatter("Mobile OS type '{0}' is not supported", mobileDeviceOS));
+                    throw new Exception(StringProcessor.SafeFormatter("Mobile OS type '{0}' is not supported", platformName));
             }
 
             return appiumDriver;
@@ -246,10 +248,28 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
                 capabilities.SetCapability(MobileCapabilityType.App, GetAppPath());
             }*/
 
+            capabilities.SetMobileCapabilities();
             
             return capabilities;
         }
 
-       
+        private static DesiredCapabilities SetMobileCapabilities(this DesiredCapabilities desiredCapabilities)
+        {
+            var mobileCapabilitySection = ConfigurationManager.GetSection(mobileCapabilities) as NameValueCollection;
+            if (mobileCapabilitySection == null)
+            {
+                return desiredCapabilities;
+            }
+
+            var keys = mobileCapabilitySection.AllKeys;
+            foreach (var key in keys)
+            {
+                if (mobileCapabilitySection[key].Length > 0)
+                {
+                    desiredCapabilities.SetCapability(key, mobileCapabilitySection[key]);
+                }
+            }
+            return desiredCapabilities;
+        }
     }
 }
