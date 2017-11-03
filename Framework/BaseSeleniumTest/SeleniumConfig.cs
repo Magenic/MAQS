@@ -448,12 +448,15 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                     throw new ArgumentException("Browser size is expected to be in an expected format: 1920x1080");
                 }
 
-                bool size1 = int.TryParse(sizes[0], out int length);
-                bool size2 = int.TryParse(sizes[1], out int width);
+                int length = 0;
+                int width = 0;
+
+                bool size1 = int.TryParse(sizes[0], out length);
+                bool size2 = int.TryParse(sizes[1], out width);
 
                 if (!size1 || !size2)
                 {
-                    throw new InvalidCastException("Width and length must be a string that is an integer value: 400x400");
+                    throw new InvalidCastException("Length and Width must be a string that is an integer value: 400x400");
                 }
 
                 webDriver.Manage().Window.Size = new Size(length, width);            
