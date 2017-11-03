@@ -12,6 +12,7 @@ using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
 using System.IO;
 using System.Reflection;
 
@@ -56,6 +57,34 @@ namespace UnitTests
             #endregion GetBrowserName
 
             Assert.IsTrue(driverName.Equals("PhantomJS", StringComparison.InvariantCultureIgnoreCase));
+        }
+
+        /// <summary>
+        /// resize browser window to specified lengths
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void ResizeBrowserWindow()
+        {
+            IWebDriver driver = SeleniumConfig.Browser();
+
+            if (Config.GetValue("BrowserSize").ToUpper() == "MAXIMIZE")
+            {
+                Assert.AreEqual(1056, driver.Manage().Window.Size.Height);
+                Assert.AreEqual(1936, driver.Manage().Window.Size.Width);
+            }
+            else if (Config.GetValue("BrowserSize").ToUpper() == "DEFAULT")
+            {
+                Assert.AreEqual(1020, driver.Manage().Window.Size.Height);
+                Assert.AreEqual(945, driver.Manage().Window.Size.Width);
+            }
+            else
+            {
+                Assert.AreNotEqual(1056, driver.Manage().Window.Size.Height);
+                Assert.AreNotEqual(1020, driver.Manage().Window.Size.Height);
+                Assert.AreNotEqual(1936, driver.Manage().Window.Size.Width);
+                Assert.AreNotEqual(945, driver.Manage().Window.Size.Width);
+            }
         }
 
         /// <summary>

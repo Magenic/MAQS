@@ -17,6 +17,7 @@ using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Specialized;
 using System.Configuration;
+using System.Drawing;
 using System.IO;
 using System.Reflection;
 
@@ -57,8 +58,8 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// </example>
         public static IWebDriver Browser(string browser)
         {
-            IWebDriver webDriver = null;
-
+            IWebDriver webDriver = null;           
+            
             try
             {
                 switch (browser.ToUpper())
@@ -117,14 +118,16 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                         throw new Exception(StringProcessor.SafeFormatter("Browser type '{0}' is not supported", browser));
                 }
 
-                // Maximize the browser and than return it
-                webDriver.Manage().Window.Maximize();
+                SetBrowserSize(webDriver);
                 return webDriver;
             }
             catch (Exception e)
             {
-                // Make sure we have a web driver
-                if (webDriver != null)
+                if (e.GetType() == typeof(ArgumentException))
+                {
+                    throw e;
+                }
+                else if (webDriver != null)
                 {
                     try
                     {
@@ -134,7 +137,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                     catch (Exception quitExecption)
                     {
                         throw new Exception("Web driver setup and teardown failed. Your web driver may be out of date", quitExecption);
-                    }
+                    }                   
                 }
 
                 // Log that something went wrong
@@ -420,6 +423,55 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         {
             int waitTime = Convert.ToInt32(Config.GetValue("WaitTime", "0"));
             return TimeSpan.FromMilliseconds(waitTime);
+        }
+
+        /// <summary>
+        /// get the browser size
+        /// </summary>
+        /// <returns>string of desired browser size</returns>
+        private static string GetBrowserSize()
+        {
+            return Config.GetValue("BrowserSize", "MAXIMIZE");
+        }
+
+        /// <summary>
+        /// Sets the browser size based on selector in app.config
+        /// </summary>
+        /// <param name="webDriver">the webDriver from the Browser method</param>
+        private static void SetBrowserSize(IWebDriver webDriver)
+        {
+            string size = GetBrowserSize().ToUpper();
+
+            if (size == "MAXIMIZE")
+            {
+                webDriver.Manage().Window.Maximize();
+            }
+            else if (size == "DEFAULT")
+            {
+                // do nothing to have the browser window come up unchanged.
+            }
+            else 
+            {
+                string[] sizes = size.Split('X');
+                
+                if (!size.Contains("X") || sizes.Length != 2)
+                {
+                    throw new ArgumentException("Browser size is expected to be in an expected format: 1920x1080");
+                }
+
+                int length = 0;
+                int width = 0;
+
+                bool size1 = int.TryParse(sizes[0], out length);
+                bool size2 = int.TryParse(sizes[1], out width);
+
+                if (!size1 || !size2)
+                {
+                    throw new InvalidCastException("Length and Width must be a string that is an integer value: 400x400");
+                }
+
+                webDriver.Manage().Window.Size = new Size(length, width);            
+            }          
         }
     }
 }
