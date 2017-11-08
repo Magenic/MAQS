@@ -48,7 +48,7 @@ namespace WebServiceTesterUnitTesting
             var result = this.WebServiceWrapper.CustomWithResponse("ZED", "/api/ZED", "application/json", content, false);
             Assert.AreEqual(HttpStatusCode.UseProxy, result.StatusCode);
         }
-        #endregion
+        #endregion 
 
         /// <summary>
         /// Custom Verb send a string without utility to verify status code
