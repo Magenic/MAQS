@@ -25,6 +25,7 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// Verify 305 status code is returned
         /// </summary>
+        #region CustomVerbStatusCode
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void CustomVerbJSONSerializedVerifyStatusCode()
@@ -33,10 +34,12 @@ namespace WebServiceTesterUnitTesting
             var result = this.WebServiceWrapper.CustomWithResponse("ZED", "/api/ZED", "application/json", content, false);
             Assert.AreEqual(HttpStatusCode.UseProxy, result.StatusCode);
         }
+        #endregion
 
         /// <summary>
         /// Verify the stream status code
         /// </summary>
+        #region CustomVerbStreamStatusCode
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void CustomJSONStreamSerializedVerifyStatusCode()
@@ -45,10 +48,12 @@ namespace WebServiceTesterUnitTesting
             var result = this.WebServiceWrapper.CustomWithResponse("ZED", "/api/ZED", "application/json", content, false);
             Assert.AreEqual(HttpStatusCode.UseProxy, result.StatusCode);
         }
+        #endregion
 
         /// <summary>
         /// Custom Verb send a string without utility to verify status code
         /// </summary>
+        #region CustomWithoutContent
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void CustomStringWithoutContentStatusCode()
@@ -56,5 +61,6 @@ namespace WebServiceTesterUnitTesting
             var result = this.WebServiceWrapper.CustomWithResponse("ZED", "/api/ZED", "text/plain", "Test", Encoding.UTF8, "text/plain", true, false);
             Assert.AreEqual(HttpStatusCode.UseProxy, result.StatusCode);
         }
+        #endregion
     }
 }

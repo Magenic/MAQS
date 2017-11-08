@@ -579,6 +579,9 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         /// <param name="contentAsString">The content as a a string</param>
         /// <param name="expectSuccess">Assert a success code was returned</param>
         /// <returns>The HTTP response message</returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithWrapperCustomVerb.cs" region="CustomWithoutContent" lang="C#" />
+        /// </example>
         public HttpResponseMessage CustomWithResponse(string customType, string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, bool contentAsString = true, bool expectSuccess = true)
         {
             HttpContent httpContent = CreateContent(content, contentEncoding, postMediaType, contentAsString);
@@ -594,6 +597,9 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         /// <param name="content">The content</param>
         /// <param name="expectSuccess">Assert a success code was returned</param>
         /// <returns>The HTTP response message</returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithWrapperCustomVerb.cs" region="CustomVerbStatusCode" lang="C#" />
+        /// </example>
         public HttpResponseMessage CustomWithResponse(string customType, string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
         {
             return this.CustomContent(requestUri, customType, expectedMediaType, content, expectSuccess).Result;
