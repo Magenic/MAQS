@@ -12,6 +12,8 @@ using OpenQA.Selenium.Support.UI;
 
 namespace AppiumUnitTests
 {
+    using OpenQA.Selenium;
+
     /// <summary>
     /// Appium Config Unit Tests
     /// </summary>
@@ -28,7 +30,7 @@ namespace AppiumUnitTests
             Assert.AreEqual(AppiumConfig.GetPlatformName(), "Android");
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Test for getting Mobile Device UDID
         /// </summary>
         [TestMethod]
@@ -46,7 +48,7 @@ namespace AppiumUnitTests
         public void GetBundleIdTest()
         {
             Assert.AreEqual(AppiumConfig.GetBundleId(), "org.tasks");
-        }
+        }*/
 
         /// <summary>
         /// Test for getting mobile OS version
@@ -68,7 +70,7 @@ namespace AppiumUnitTests
             Assert.AreEqual(AppiumConfig.GetDeviceName(), "Nexus 6P");
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Test for getting mobile browser value
         /// </summary>
         [TestMethod]
@@ -76,7 +78,7 @@ namespace AppiumUnitTests
         public void UsingMobileBrowserTest()
         {
             Assert.AreEqual(AppiumConfig.UsingMobileBrowser(), false);
-        }
+        }*/
 
         /// <summary>
         /// Test for creating Mobile Device driver
@@ -130,7 +132,7 @@ namespace AppiumUnitTests
             }
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Test for getting AVD name
         /// </summary>
         [TestMethod]
@@ -138,9 +140,9 @@ namespace AppiumUnitTests
         public void GetAvdNameTest()
         {
             Assert.AreEqual(AppiumConfig.GetAvdName(), "Nexus-6P");
-        }
+        }*/
 
-        /// <summary>
+        /*/// <summary>
         /// Test for getting App Path
         /// </summary>
         [TestMethod]
@@ -148,9 +150,9 @@ namespace AppiumUnitTests
         public void GetAppPathTest()
         {
             Assert.AreEqual(AppiumConfig.GetAppPath(), "/Users/magenicqa/Desktop/s-amazon-dev-debug.apk");
-        }
+        }*/
 
-        /// <summary>
+        /*/// <summary>
         /// Test for getting App Activity
         /// </summary>
         [TestMethod]
@@ -158,6 +160,6 @@ namespace AppiumUnitTests
         public void GetAppActivityTest()
         {
             Assert.AreEqual(AppiumConfig.GetAppActivity(), "com.todoroo.astrid.activity.TaskListActivity");
-        }
+        }*/
     }
 }
