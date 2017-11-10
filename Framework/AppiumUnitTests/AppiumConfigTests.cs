@@ -25,7 +25,7 @@ namespace AppiumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Appium)]
-        public void GetMobileDeviceOSTest()
+        public void GetPlatformNameTest()
         {
             Assert.AreEqual(AppiumConfig.GetPlatformName(), "Android");
         }
@@ -55,9 +55,9 @@ namespace AppiumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Appium)]
-        public void GetOSVersionTest()
+        public void GetPlatformVersionTest()
         {
-            Assert.AreEqual(AppiumConfig.GetPlatformVersion(), "7.1.1");
+            Assert.AreEqual(AppiumConfig.GetPlatformVersion(), "6.0");
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void GetDeviceNameTest()
         {
-            Assert.AreEqual(AppiumConfig.GetDeviceName(), "Nexus 6P");
+            Assert.AreEqual(AppiumConfig.GetDeviceName(), "emulator-5554");
         }
 
         /*/// <summary>
@@ -109,7 +109,7 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void GetMobileHubUrlTest()
         {
-            Assert.AreEqual(AppiumConfig.GetMobileHubUrl(), "http://qat-win81-pc:4444/wd/hub");
+            Assert.AreEqual(AppiumConfig.GetMobileHubUrl(), "http://192.168.1.193:4723/wd/hub");
         }
 
         /// <summary>
