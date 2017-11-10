@@ -14,6 +14,8 @@ using OpenQA.Selenium.Remote;
 
 namespace AppiumUnitTests
 {
+    using OpenQA.Selenium;
+
     /// <summary>
     /// iOS related Appium tests
     /// </summary>
@@ -34,7 +36,7 @@ namespace AppiumUnitTests
         /// Sets capabilities for testing the iOS Driver creation
         /// </summary>
         /// <returns>iOS instance of the Appium Driver</returns>
-        protected override AppiumDriver<AppiumWebElement> GetMobileDevice()
+        protected override AppiumDriver<IWebElement> GetMobileDevice()
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.SetCapability(CapabilityType.Platform, "MAC");
@@ -43,7 +45,7 @@ namespace AppiumUnitTests
             capabilities.SetCapability("bundleId", "com.teamtreehouse.Diary");
             capabilities.SetCapability("automationName", "XCUITest");
             capabilities.SetCapability(MobileCapabilityType.Udid, "0C0E26E7-966B-4C89-A765-32C5C997A456");
-            return new IOSDriver<AppiumWebElement>(AppiumConfig.GetMobileHubUrl(), capabilities);
+            return new IOSDriver<IWebElement>(AppiumConfig.GetMobileHubUrl(), capabilities);
         }
     }
 }

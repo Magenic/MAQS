@@ -167,7 +167,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// </summary>
         /// <param name="driver">Brings in an AppiumDriver</param>
         /// <returns>An WebDriverWait</returns>
-        public static WebDriverWait GetWaitDriver(AppiumDriver<AppiumWebElement> driver)
+        public static WebDriverWait GetWaitDriver(AppiumDriver<IWebElement> driver)
         {
             int waitTime = Convert.ToInt32(Config.GetValue("WaitTime", "0"));
             int timeoutTime = Convert.ToInt32(Config.GetValue("Timeout", "0"));
@@ -179,7 +179,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// Set the script and page timeouts
         /// </summary>
         /// <param name="driver">Brings in an AppiumDriver</param>
-        public static void SetTimeouts(AppiumDriver<AppiumWebElement> driver)
+        public static void SetTimeouts(AppiumDriver<IWebElement> driver)
         {
             int timeoutTime = Convert.ToInt32(Config.GetValue("Timeout", "0"));
             driver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromMilliseconds(timeoutTime);

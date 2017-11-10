@@ -86,7 +86,7 @@ namespace AppiumUnitTests
         public void MobileDeviceTest()
         {
                 #region MobileDevice
-                AppiumDriver<AppiumWebElement> driver = AppiumConfig.MobileDevice();
+                AppiumDriver<IWebElement> driver = AppiumConfig.MobileDevice();
             #endregion
 
             try
@@ -117,7 +117,7 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void GetWaitDriverTest()
         {
-            AppiumDriver<AppiumWebElement> driver = AppiumConfig.MobileDevice();
+            AppiumDriver<IWebElement> driver = AppiumConfig.MobileDevice();
             WebDriverWait wait = AppiumConfig.GetWaitDriver(driver);
             try
             {
