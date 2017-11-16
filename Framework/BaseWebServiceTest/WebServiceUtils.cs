@@ -74,14 +74,14 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         }
 
         /// <summary>
-        /// Make http stream content
+        /// Make non-standard http stream content with string body
         /// </summary>
         /// <param name="body">The content as a string</param>
         /// <param name="contentEncoding">How to encode the content</param>
-        /// <param name="mediaType">The type of media</param>
+        /// <param name="mediaType">The content type of media, will add Content-Type header</param>
         /// <returns>The stream content</returns>
         /// <example>
-        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithWrapperPut.cs" region="MakeStreamContent" lang="C#" />
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceNonStandardHttpContentTests.cs" region="NonStandardStreamContentWithString" lang="C#" />
         /// </example>
         public static StreamContent MakeNonStandardStreamContent(string body, Encoding contentEncoding, string mediaType)
         {
@@ -90,13 +90,13 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         }
 
         /// <summary>
-        /// Make non-standard http stream content
+        /// Make non-standard http stream content with stream content
         /// </summary>
         /// <param name="body">The content as a stream</param>
-        /// <param name="mediaType">The type of media</param>
+        /// <param name="mediaType">The content type of media, will add Content-Type header</param>
         /// <returns>The stream content</returns>
         /// <example>
-        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithWrapperPut.cs" region="MakeStreamContent" lang="C#" />
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceNonStandardHttpContentTests.cs" region="NonStandardStreamContentWithStream" lang="C#" />
         /// </example>
         public static StreamContent MakeNonStandardStreamContent(Stream body, string mediaType)
         {
