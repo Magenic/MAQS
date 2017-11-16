@@ -100,7 +100,7 @@ namespace UnitTests
 
             #endregion GetWebsiteBase
 
-            Assert.IsTrue(website.Equals("http://magenicautomation.azurewebsites.net//", StringComparison.InvariantCultureIgnoreCase));
+            Assert.IsTrue(website.Equals("http://magenicautomation.azurewebsites.net/", StringComparison.InvariantCultureIgnoreCase));
         }
 
         /// <summary>

@@ -21,7 +21,7 @@ namespace SeleniumTests
         public void SetupTest()
         {
             driver = new FirefoxDriver();
-            baseURL = "http://magenicautomation.azurewebsites.net//Static/Training3/Loginpage.html";
+            baseURL = "http://magenicautomation.azurewebsites.net/Static/Training3/Loginpage.html";
             verificationErrors = new StringBuilder();
         }
         
