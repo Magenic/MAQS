@@ -10,7 +10,7 @@
     <description>Magenic's automation quick start framework</description>
     <copyright>Copyright © Magenic 2017</copyright>
     <licenseUrl>https://github.com/Magenic/MAQS/blob/develop/LICENSE</licenseUrl>
-    <iconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</iconUrl>
+    <iconUrl>http://magenicautomation.azurewebsites.net//content/favicon.ico</iconUrl>
     <dependencies>
       <dependency id="NUnit" version="3.8.1" />
     </dependencies>

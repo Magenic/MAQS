@@ -29,7 +29,7 @@ namespace WebServiceTesterUnitTesting
             #region WebServiceConfig
             string url = WebServiceConfig.GetWebServiceUri();
             #endregion
-            Assert.AreEqual("http://magenicautomation.azurewebsites.net", url);
+            Assert.AreEqual("http://magenicautomation.azurewebsites.net/", url);
         }
 
         /// <summary>
