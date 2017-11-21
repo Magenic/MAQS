@@ -38,25 +38,6 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
             return Config.GetValue("PlatformName");
         }
 
-        /*/// <summary>
-        /// Get mobile device udid
-        /// <para>If no udid is provide in the project configuration file we default to empty string</para>
-        /// </summary>
-        /// <returns>Device UDID string</returns>
-        public static string GetMobileDeviceUDID()
-        {
-            return Config.GetValue("DeviceUDID");
-        }
-
-        /// <summary>
-        /// Get the bundle id
-        /// </summary>
-        /// <returns>bundle id</returns>
-        public static string GetBundleId()
-        {
-            return Config.GetValue("BundleID");
-        }*/
-
         /// <summary>
         /// Get the OS Version
         /// </summary>
@@ -74,31 +55,6 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         {
             return Config.GetValue("DeviceName");
         }
-
-        /*/// <summary>
-        /// Whether or not the mobile browser is being used
-        /// </summary>
-        /// <returns>boolean for using browser</returns>
-        public static bool UsingMobileBrowser()
-        {
-            if (Config.GetValue("MobileBrowser").ToUpper().Equals("YES"))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Gets the AVD Name
-        /// </summary>
-        /// <returns>AVD Name as a String</returns>
-        public static String GetAvdName()
-        {
-            return Config.GetValue("AVDName");
-        }*/
 
         /// <summary>
         /// Get the mobile device
@@ -119,24 +75,6 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
             return new Uri(Config.GetValue("MobileHubUrl"));
         }
 
-        /*/// <summary>
-        /// Get App Activity
-        /// </summary>
-        /// <returns>String of App Activity</returns>
-        public static String GetAppActivity()
-        {
-            return Config.GetValue("AppStartActivity");
-        }
-
-        /// <summary>
-        /// Get App Path
-        /// </summary>
-        /// <returns>String of app path value</returns>
-        public static String GetAppPath()
-        {
-            return Config.GetValue("AppPath");
-        }
-*/
         /// <summary>
         /// Get the appium driver based for the provided mobile OS
         /// </summary>
@@ -195,64 +133,17 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.SetCapability(MobileCapabilityType.DeviceName, GetDeviceName());
             capabilities.SetCapability(MobileCapabilityType.PlatformVersion, GetPlatformVersion());
-            //capabilities.SetCapability(CapabilityType.Version, GetPlatformVersion());
             capabilities.SetCapability(MobileCapabilityType.PlatformName, GetPlatformName().ToUpper());
-            
-            //string mobileDeivceOS = GetMobileDeviceOS();
-
-            /*switch (mobileDeivceOS.ToUpper())
-            {
-                case "ANDROID":
-
-                    if (!GetAvdName().Equals(string.Empty))
-                    {
-                        capabilities.SetCapability(AndroidMobileCapabilityType.Avd, GetAvdName());
-                    }
-                    else if (UsingMobileBrowser())
-                    {
-                    capabilities.SetCapability(MobileCapabilityType.BrowserName, MobileBrowserType.Chrome);
-                    } 
-
-                        if (Config.DoesKeyExist("AppStartActivity") && !GetAppActivity().Equals(string.Empty) && !UsingMobileBrowser())
-                        {
-                        capabilities.SetCapability(AndroidMobileCapabilityType.AppPackage, GetBundleId());
-                        capabilities.SetCapability(AndroidMobileCapabilityType.AppActivity, GetAppActivity());
-                         }
-                        
-                    break;
-
-                case "IOS":
-                    capabilities.SetCapability(CapabilityType.Platform, "MAC");
-                    capabilities.SetCapability(MobileCapabilityType.AutomationName, "XCUITest");
-                    capabilities.SetCapability(MobileCapabilityType.Udid, GetMobileDeviceUDID());
-                    if (UsingMobileBrowser())
-                    {
-                        capabilities.SetCapability(MobileCapabilityType.BrowserName, MobileBrowserType.Safari);
-                    }
-                    else
-                    {
-                        if (Config.DoesKeyExist("BundleID") && !GetBundleId().Equals(string.Empty))
-                        {
-                            capabilities.SetCapability(IOSMobileCapabilityType.BundleId, GetBundleId());
-                        }
-                    }
-
-                    break;
-
-                default:
-                    throw new Exception(StringProcessor.SafeFormatter("Mobile OS type '{0}' is not supported", mobileDeivceOS));
-            }
-
-            if (Config.DoesKeyExist("AppPath") && !GetAppPath().Equals(string.Empty))
-            {
-                capabilities.SetCapability(MobileCapabilityType.App, GetAppPath());
-            }*/
-
             capabilities.SetMobileCapabilities();
             
             return capabilities;
         }
 
+        /// <summary>
+        /// Sets mobile specific capabilities from the configuration
+        /// </summary>
+        /// <param name="desiredCapabilities"> Capabilities object passed in</param>
+        /// <returns>Custom mobile capabilities object</returns>
         private static DesiredCapabilities SetMobileCapabilities(this DesiredCapabilities desiredCapabilities)
         {
             var mobileCapabilitySection = ConfigurationManager.GetSection(mobileCapabilities) as NameValueCollection;
