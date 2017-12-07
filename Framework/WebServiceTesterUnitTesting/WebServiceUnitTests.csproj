@@ -93,6 +93,7 @@
     <Compile Include="WebServicePatches.cs" />
     <Compile Include="WebServiceMediaType.cs" />
     <Compile Include="WebServiceWithWrapper.cs" />
+    <Compile Include="WebServiceWithWrapperCustomVerb.cs" />
     <Compile Include="WebServiceWithWrapperPatch.cs" />
     <Compile Include="WebServiceWrapperNUnitConfig.cs" />
     <Compile Include="WebServiceWrapperConfig.cs" />

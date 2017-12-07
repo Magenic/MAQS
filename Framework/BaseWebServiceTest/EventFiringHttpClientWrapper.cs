@@ -85,6 +85,31 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         }
 
         /// <summary>
+        /// Make a HTTP call using the custom verb to the URI with the given verb, media response type and content
+        /// </summary>
+        /// <param name="requestUri">The request URI</param>
+        /// <param name="customVerb">Custom HTTP Verb</param>
+        /// <param name="responseMediaType">Response media type</param>
+        /// <param name="content">Content of the message</param>
+        /// <param name="expectSuccess">Assert a success status code was returned</param>
+        /// <returns>The HTTP response message</returns>
+        protected override async Task<HttpResponseMessage> CustomContent(string requestUri, string customVerb, string responseMediaType, HttpContent content, bool expectSuccess = true)
+        {
+            try
+            {
+                this.RaiseEvent(content, customVerb, requestUri, responseMediaType);
+                HttpResponseMessage response = base.CustomContent(requestUri, customVerb, responseMediaType, content, expectSuccess).Result;
+                this.RaiseEvent(customVerb, response);
+                return await Task.FromResult(response);
+            }
+            catch (Exception e)
+            {
+                this.RaiseErrorMessage(e);
+                throw e;
+            }
+        }
+
+        /// <summary>
         /// Do a web service put for the given uri, content and media type
         /// </summary>
         /// <param name="requestUri">The request uri</param>
