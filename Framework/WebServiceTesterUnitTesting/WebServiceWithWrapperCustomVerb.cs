@@ -8,6 +8,7 @@
 using Magenic.MaqsFramework.BaseWebServiceTest;
 using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Text;
@@ -23,6 +24,11 @@ namespace WebServiceTesterUnitTesting
     public class WebServiceWithWrapperCustomVerb : BaseWebServiceTest
     {
         /// <summary>
+        /// String to hold the URL
+        /// </summary>
+        private static string url = Config.GetValue("WebServiceUri");
+
+        /// <summary>
         /// Verify 305 status code is returned
         /// </summary>
         #region CustomVerbStatusCode
@@ -30,7 +36,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void CustomVerbJSONSerializedVerifyStatusCode()
         {
-            var content = WebServiceUtils.MakeStringContent(string.Empty, Encoding.UTF8, "application/json");
+            var content = WebServiceUtils.MakeStringContent("ZED?", Encoding.UTF8, "application/json");
             var result = this.WebServiceWrapper.CustomWithResponse("ZED", "/api/ZED", "application/json", content, false);
             Assert.AreEqual(HttpStatusCode.UseProxy, result.StatusCode);
         }
@@ -42,7 +48,7 @@ namespace WebServiceTesterUnitTesting
         #region CustomVerbStreamStatusCode
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
-        public void CustomJSONStreamSerializedVerifyStatusCode()
+        public void CustomVerbJSONStreamSerializedVerifyStatusCode()
         {
             var content = WebServiceUtils.MakeStreamContent(string.Empty, Encoding.UTF8, "application/json");
             var result = this.WebServiceWrapper.CustomWithResponse("ZED", "/api/ZED", "application/json", content, false);
@@ -58,8 +64,60 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void CustomStringWithoutContentStatusCode()
         {
-            var result = this.WebServiceWrapper.CustomWithResponse("ZED", "/api/ZED", "text/plain", "Test", Encoding.UTF8, "text/plain", true, false);
+            var content = WebServiceUtils.MakeStringContent("ZED?", Encoding.UTF8, "application/json");
+            var result = this.WebServiceWrapper.CustomWithResponse("ZED", "/api/ZED", "application/json", content.ToString(), Encoding.UTF8, "application/json", true, false);
             Assert.AreEqual(HttpStatusCode.UseProxy, result.StatusCode);
+        }
+        #endregion
+
+        /// <summary>
+        /// Using a custom verb with a generic type
+        /// </summary>
+        #region CustomVerbGenericType
+        [TestMethod]
+        [TestCategory(TestCategories.WebService)]
+        public void CustomVerbGenericType()
+        {
+            HttpClientWrapper client = new HttpClientWrapper(new Uri(url));
+        
+            var content = WebServiceUtils.MakeStringContent("ZEDTest", Encoding.UTF8, "text/plain");
+            var result = client.Custom<string>("ZED", "/api/ZED", "text/plain", content, true);
+
+            Assert.AreEqual(result.ToString(), "\"ZEDTest\"");
+        }
+        #endregion
+
+        /// <summary>
+        /// Testing that when making a call with the custom verb the string sent is echoed back
+        /// </summary>
+        #region CustomVerbFiveArgumentCall
+        [TestMethod]
+        [TestCategory(TestCategories.WebService)]
+        public void CustomVerbFiveArguments()
+        {
+            HttpClientWrapper client = new HttpClientWrapper(new Uri(url));
+
+            var content = WebServiceUtils.MakeStringContent("ZEDTest", Encoding.UTF8, "text/plain");
+            var result = client.Custom("ZED", "/api/ZED", "text/plain", content, true);
+
+            Assert.AreEqual(result.ToString(), "\"ZEDTest\"");
+        }
+        #endregion
+
+        /// <summary>
+        /// Testing that when making a call with the custom verb the string send is echoed back, with content encoding specified
+        /// </summary>
+        #region CustomVerbSevenArugmentCall
+        [TestMethod]
+        [TestCategory(TestCategories.WebService)]
+        public void CustomVerbSevenArguments()
+        {
+            HttpClientWrapper client = new HttpClientWrapper(new Uri(url));
+
+            var content = WebServiceUtils.MakeStringContent("ZEDTest", Encoding.UTF8, "text/plain");
+            var result = client.Custom("ZED", "/api/ZED", "text/plain", "ZEDTest", Encoding.UTF8, "text/plain", true, true);
+
+            Assert.AreEqual(result.ToString(), "\"ZEDTest\"");
         }
         #endregion
     }
