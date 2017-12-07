@@ -83,7 +83,7 @@ namespace WebServiceTesterUnitTesting
             var content = WebServiceUtils.MakeStringContent("ZEDTest", Encoding.UTF8, "text/plain");
             var result = client.Custom<string>("ZED", "/api/ZED", "text/plain", content, true);
 
-            Assert.AreEqual(result.ToString(), "\"ZEDTest\"");
+            Assert.AreEqual(result.ToString(), "ZEDTest");
         }
         #endregion
 
