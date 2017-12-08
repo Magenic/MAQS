@@ -759,7 +759,7 @@ namespace SeleniumUnitTests
             this.Log = new FileLogger(string.Empty, "SeleniumSoftAssertIsTrueFalseConditionFileLog.txt", MessageType.GENERIC, true);
             SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(this.WebDriver, this.Log);
             string logLocation = ((FileLogger)this.Log).FilePath;
-            string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " (1).Jpeg";
+            string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " testSoftAssert" + " (1).Jpeg";
 
             bool isFalse = seleniumSoftAssert.IsTrue(false, "testSoftAssert", "message");
 
@@ -779,7 +779,7 @@ namespace SeleniumUnitTests
         {
             SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(this.WebDriver, this.Log);
             string logLocation = ((FileLogger)this.Log).FilePath;
-            string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " (1).Jpeg";
+            string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " testSoftAssert" + " (1).Jpeg";
 
             bool isFalse = seleniumSoftAssert.IsFalse(true, "testSoftAssert", "message");
 
