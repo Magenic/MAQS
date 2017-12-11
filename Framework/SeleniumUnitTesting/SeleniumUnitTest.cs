@@ -693,6 +693,22 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Verify that SavePageSource properly handles exceptions and returns false
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void SavePageSourceThrownException()
+        {
+            FileLogger tempLogger = new FileLogger();
+            tempLogger.FilePath = "<>"; // illegal file path
+
+            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Wait().ForPageLoad();
+            bool successfullySaved = SeleniumUtilities.SavePageSource(this.WebDriver, tempLogger);
+            Assert.IsFalse(successfullySaved);
+        }
+
+        /// <summary>
         /// Verify that CaptureScreenshot creates Directory if it does not exist already 
         /// </summary>
         [TestMethod]
@@ -704,6 +720,20 @@ namespace SeleniumUnitTests
             string screenShotPath = SeleniumUtilities.CaptureScreenshot(this.WebDriver, "TempTestDirectory", "TempTestFilePath", SeleniumUtilities.GetScreenShotFormat());
             Assert.IsTrue(File.Exists(screenShotPath), "Fail to find screenshot");
             File.Delete(screenShotPath);
+        }
+
+        /// <summary>
+        /// Verify that SavePageSource creates Directory if it does not exist already 
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void SavePageSourceNoExistingDirectory()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Wait().ForPageLoad();
+            string pageSourcePath = SeleniumUtilities.SavePageSource(this.WebDriver, "TempTestDirectory", "TempTestFilePath");
+            Assert.IsTrue(File.Exists(pageSourcePath), "Fail to find Page Source");
+            File.Delete(pageSourcePath);
         }
 
         /// <summary>
@@ -771,6 +801,28 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Verify that page source is saved if the SeleniumSoftAssert.IsTrue gets a false condition and the logger is set to save Page Source
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void SeleniumSoftAssertIsTrueFalseConditionPageSource()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
+            this.Log = new FileLogger(string.Empty, "SeleniumSoftAssertIsTrueFalseConditionFileLog.txt", MessageType.GENERIC, true);
+            SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(this.WebDriver, this.Log);
+            string logLocation = ((FileLogger)this.Log).FilePath;
+            string pageSourceLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + "_PS (1).txt";
+
+            bool isFalse = seleniumSoftAssert.IsTrue(false, "testSoftAssert", "message");
+
+            Assert.IsTrue(File.Exists(pageSourceLocation), "Fail to find page source");
+            File.Delete(pageSourceLocation);
+            File.Delete(logLocation);
+
+            Assert.IsFalse(isFalse);
+        }
+
+        /// <summary>
         /// Verify that a screenshot is taken if the SeleniumSoftAssert.IsFalse gets a true condition and the logger is set to log screenshots
         /// </summary>
         [TestMethod]
@@ -790,6 +842,25 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Verify that page source is saved if the SeleniumSoftAssert.IsFalse gets a true condition and the logger is set to save Page Source
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void SeleniumSoftAssertIsFalseTrueConditionPageSource()
+        {
+            SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(this.WebDriver, this.Log);
+            string logLocation = ((FileLogger)this.Log).FilePath;
+            string pageSourceLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + "_PS (1).txt";
+
+            bool isFalse = seleniumSoftAssert.IsFalse(true, "testSoftAssert", "message");
+
+            Assert.IsTrue(File.Exists(pageSourceLocation), "Fail to find page source");
+            File.Delete(pageSourceLocation);
+
+            Assert.IsFalse(isFalse);
+        }
+
+        /// <summary>
         /// Verify that SeleniumSoftAssert.AreEqual works as expected
         /// </summary>
         [TestMethod]
@@ -799,6 +870,20 @@ namespace SeleniumUnitTests
             SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(this.WebDriver, this.Log);
             bool isTrue = seleniumSoftAssert.AreEqual("test string", "test string", "test message");
             Assert.IsTrue(isTrue);
+        }
+
+        /// <summary>
+        /// Verify that page source file is being created
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void SeleniumPageSourceFileIsCreated()
+        {
+            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Wait().ForPageLoad();
+            string pageSourcePath = SeleniumUtilities.SavePageSource(this.WebDriver, "TempTestDirectory", "TempTestFilePath");
+            Assert.IsTrue(File.Exists(pageSourcePath), "Failed to find Page Source");
+            File.Delete(pageSourcePath);
         }
 
         /// <summary>

@@ -68,6 +68,11 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                     SeleniumUtilities.CaptureScreenshot(this.webDriver, this.Log, this.TextToAppend(softAssertName));
                 }
 
+                if (Config.GetValue("SavePagesourceOnFail", "No").ToUpper().Equals("YES"))
+                {
+                    SeleniumUtilities.SavePageSource(this.webDriver, this.Log, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
+                }
+
                 return false;
             }
 
@@ -95,6 +100,11 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                     SeleniumUtilities.CaptureScreenshot(this.webDriver, this.Log, this.TextToAppend(softAssertName));
                 }
 
+                if (Config.GetValue("SavePagesourceOnFail", "No").ToUpper().Equals("YES"))
+                {
+                    SeleniumUtilities.SavePageSource(this.webDriver, this.Log, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
+                }
+
                 return false;
             }
 
@@ -120,6 +130,11 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                 if (Config.GetValue("SoftAssertScreenshot", "No").ToUpper().Equals("YES"))
                 {
                     SeleniumUtilities.CaptureScreenshot(this.webDriver, this.Log, this.TextToAppend(softAssertName));
+                }
+
+                if (Config.GetValue("SavePagesourceOnFail", "No").ToUpper().Equals("YES"))
+                {
+                    SeleniumUtilities.SavePageSource(this.webDriver, this.Log, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
                 }
 
                 return false;
