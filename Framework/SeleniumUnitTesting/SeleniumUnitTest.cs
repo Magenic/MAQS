@@ -875,6 +875,7 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Verify that page source file is being created
         /// </summary>
+        #region SavePageSource
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void SeleniumPageSourceFileIsCreated()
@@ -885,6 +886,7 @@ namespace SeleniumUnitTests
             Assert.IsTrue(File.Exists(pageSourcePath), "Failed to find Page Source");
             File.Delete(pageSourcePath);
         }
+        #endregion
 
         /// <summary>
         /// Test WebElementToDriver with an unwrappedDriver
