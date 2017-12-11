@@ -1003,7 +1003,7 @@ namespace SeleniumUnitTests
             #region GetWaitDriver
             WebDriverWait driver = this.WebDriver.GetWaitDriver();
             #endregion
-            Assert.AreEqual(driver.Timeout.Seconds, 10);
+            Assert.AreEqual(driver.Timeout.Seconds, 15);
             Assert.AreEqual(driver.PollingInterval.Seconds, 1);
         }
 
@@ -1035,7 +1035,7 @@ namespace SeleniumUnitTests
             bool removeDriver = this.WebDriver.RemoveWaitDriver();
             WebDriverWait driver = this.WebDriver.GetWaitDriver();
 
-            Assert.AreEqual(driver.Timeout.Seconds, 10);
+            Assert.AreEqual(driver.Timeout.Seconds, 15);
             Assert.AreEqual(driver.PollingInterval.Seconds, 1);
         }
 

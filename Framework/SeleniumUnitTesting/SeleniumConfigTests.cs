@@ -269,7 +269,7 @@ namespace UnitTests
 
             #endregion WaitDriver
 
-            Assert.AreEqual(wait.Timeout.Seconds, 10);
+            Assert.AreEqual(wait.Timeout.Seconds, 15);
             Assert.AreEqual(wait.PollingInterval.Seconds, 1);
         }
 
