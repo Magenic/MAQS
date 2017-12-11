@@ -161,10 +161,13 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// </example> 
         public virtual IMailFolder GetMailbox(string mailbox)
         {
-            this.CurrentMailBox = mailbox;
-            this.CurrentFolder = this.EmailConnection.GetFolder(mailbox);
-            this.CurrentFolder.Open(FolderAccess.ReadWrite);
-            return this.CurrentFolder;
+            return GenericWait.WaitFor<IMailFolder>(() =>
+            {
+                this.CurrentMailBox = mailbox;
+                this.CurrentFolder = this.EmailConnection.GetFolder(mailbox);
+                this.CurrentFolder.Open(FolderAccess.ReadWrite);
+                return this.CurrentFolder;
+            });
         }
 
         /// <summary>
