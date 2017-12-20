@@ -66,7 +66,7 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         /// <example>
         /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithWrapperPut.cs" region="MakeStreamContent" lang="C#" />
         /// </example>
-        public static StreamContent MakeStreamContent(Stream body, Encoding contentEncoding, string mediaType)
+        public static StreamContent MakeStreamContent(Stream body, string mediaType)
         {
             StreamContent streamContent = new StreamContent(body);
             streamContent.Headers.ContentType = new MediaTypeHeaderValue(mediaType);

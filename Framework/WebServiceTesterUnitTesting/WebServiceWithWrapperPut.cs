@@ -8,6 +8,7 @@ using Magenic.MaqsFramework.BaseWebServiceTest;
 using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -181,6 +182,21 @@ namespace WebServiceTesterUnitTesting
         public void PutStringWithMakeStreamContent()
         {
             StreamContent content = WebServiceUtils.MakeStreamContent("Test", Encoding.UTF8, "text/plain");
+            var result = this.WebServiceWrapper.Put("/api/String/Put/1", "text/plain", content, true);
+            Assert.AreEqual(string.Empty, result);
+        }
+
+        [TestMethod]
+        [TestCategory(TestCategories.WebService)]
+        public void PutStreamWithMakeStreamContent()
+        {
+            MemoryStream stream = new MemoryStream();
+            StreamWriter writer = new StreamWriter(stream, Encoding.UTF8);
+            writer.Write("TestStream");
+            writer.Flush();
+            stream.Position = 0;
+            
+            StreamContent content = WebServiceUtils.MakeStreamContent(stream, "text/plain");
             var result = this.WebServiceWrapper.Put("/api/String/Put/1", "text/plain", content, true);
             Assert.AreEqual(string.Empty, result);
         }
