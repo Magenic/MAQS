@@ -101,7 +101,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                     case "EDGE":
                         EdgeOptions edgeOptions = new EdgeOptions
                         {
-                            PageLoadStrategy = EdgePageLoadStrategy.Normal
+                            PageLoadStrategy = PageLoadStrategy.Normal
                         };
 
                         webDriver = new EdgeDriver(GetDriverLocation("MicrosoftWebDriver.exe", GetProgramFilesFolder("Microsoft Web Driver", "MicrosoftWebDriver.exe")), edgeOptions, GetCommandTimeout());

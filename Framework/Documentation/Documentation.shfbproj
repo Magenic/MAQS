@@ -32,24 +32,24 @@
       <DocumentationSource sourceFile="..\BaseDatabaseTest\BaseDatabaseTest.csproj" />
       <DocumentationSource sourceFile="..\BaseEmailTest\BaseEmailTest.csproj" />
       <DocumentationSource sourceFile="..\BaseMongoDBTest\BaseMongoDBTest.csproj" />
-      <DocumentationSource sourceFile="..\packages\Selenium.WebDriver.3.6.0\lib\net40\WebDriver.dll" />
-      <DocumentationSource sourceFile="..\packages\Selenium.WebDriver.3.6.0\lib\net40\WebDriver.xml" />
-      <DocumentationSource sourceFile="..\packages\Selenium.Support.3.6.0\lib\net40\WebDriver.Support.dll" />
-      <DocumentationSource sourceFile="..\packages\Selenium.Support.3.6.0\lib\net40\WebDriver.Support.xml" />
+      <DocumentationSource sourceFile="..\packages\Selenium.WebDriver.3.8.0\lib\net40\WebDriver.dll" />
+      <DocumentationSource sourceFile="..\packages\Selenium.WebDriver.3.8.0\lib\net40\WebDriver.xml" />
+      <DocumentationSource sourceFile="..\packages\Selenium.Support.3.8.0\lib\net40\WebDriver.Support.dll" />
+      <DocumentationSource sourceFile="..\packages\Selenium.Support.3.8.0\lib\net40\WebDriver.Support.xml" />
       <DocumentationSource sourceFile="..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll" />
       <DocumentationSource sourceFile="..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.xml" />
       <DocumentationSource sourceFile="..\packages\Appium.WebDriver.3.0.0.2\lib\net45\appium-dotnet-driver.dll" />
       <DocumentationSource sourceFile="..\packages\Appium.WebDriver.3.0.0.2\lib\net45\appium-dotnet-driver.XML" />
       <DocumentationSource sourceFile="..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll" />
       <DocumentationSource sourceFile="..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.xml" />
-      <DocumentationSource sourceFile="..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll" />
-      <DocumentationSource sourceFile="..\packages\NUnit.3.8.1\lib\net45\nunit.framework.xml" />
-      <DocumentationSource sourceFile="..\packages\MailKit.1.18.1.1\lib\net45\MailKit.dll" />
-      <DocumentationSource sourceFile="..\packages\MailKit.1.18.1.1\lib\net45\MailKit.xml" />
-      <DocumentationSource sourceFile="..\packages\MimeKit.1.18.1\lib\net45\MimeKit.dll" />
-      <DocumentationSource sourceFile="..\packages\MimeKit.1.18.1\lib\net45\MimeKit.xml" />
+      <DocumentationSource sourceFile="..\packages\NUnit.3.9.0\lib\net45\nunit.framework.dll" />
+      <DocumentationSource sourceFile="..\packages\NUnit.3.9.0\lib\net45\nunit.framework.xml" />
+      <DocumentationSource sourceFile="..\packages\MailKit.1.22.0\lib\net45\MailKit.dll" />
+      <DocumentationSource sourceFile="..\packages\MailKit.1.22.0\lib\net45\MailKit.xml" />
+      <DocumentationSource sourceFile="..\packages\MimeKit.1.22.0\lib\net45\MimeKit.dll" />
+      <DocumentationSource sourceFile="..\packages\MimeKit.1.22.0\lib\net45\MimeKit.xml" />
     </DocumentationSources>
-    <HelpFileVersion>4.0.2</HelpFileVersion>
+    <HelpFileVersion>4.0.4</HelpFileVersion>
     <MaximumGroupParts>2</MaximumGroupParts>
     <NamespaceGrouping>False</NamespaceGrouping>
     <SyntaxFilters>Standard</SyntaxFilters>
@@ -68,19 +68,19 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <PlugInConfigurations>
-      <PlugInConfig id="Assembly Binding Redirection" enabled="True" xmlns="">
+      <PlugInConfig id="Assembly Binding Redirection" enabled="True">
         <configuration useGAC="false">
           <assemblyBinding>
             <dependentAssembly importFrom="App.config" />
           </assemblyBinding>
           <ignoreIfUnresolved>
             <assemblyIdentity name="BusinessObjects.Licensing.KeycodeDecoder" />
+            <assemblyIdentity name="Castle.Core" />
+            <assemblyIdentity name="MailKit" />
             <assemblyIdentity name="Microsoft.VisualStudio.TestTools.UITest.Playback" />
+            <assemblyIdentity name="MimeKit" />
             <assemblyIdentity name="WebDriver" />
             <assemblyIdentity name="WebDriver.Support" />
-            <assemblyIdentity name="MailKit" />
-            <assemblyIdentity name="MimeKit" />
-			<assemblyIdentity name="Castle.Core" />
           </ignoreIfUnresolved>
         </configuration>
       </PlugInConfig>
@@ -91,12 +91,12 @@
     <ComponentConfigurations>
       <ComponentConfig id="Code Block Component" enabled="True">
         <component id="Code Block Component">
-  <basePath value="{@HtmlEncProjectFolder}" />
-  <outputPaths>{@HelpFormatOutputPaths}</outputPaths>
-  <allowMissingSource value="true" />
-  <removeRegionMarkers value="false" />
-  <colorizer syntaxFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.xml" styleFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.xsl" stylesheet="{@SHFBFolder}PresentationStyles\Colorizer\highlight.css" scriptFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.js" disabled="{@DisableCodeBlockComponent}" language="cs" tabSize="0" numberLines="false" outlining="false" keepSeeTags="false" defaultTitle="true" />
-</component>
+          <basePath value="{@HtmlEncProjectFolder}" />
+          <outputPaths>{@HelpFormatOutputPaths}</outputPaths>
+          <allowMissingSource value="true" />
+          <removeRegionMarkers value="false" />
+          <colorizer syntaxFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.xml" styleFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.xsl" stylesheet="{@SHFBFolder}PresentationStyles\Colorizer\highlight.css" scriptFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.js" disabled="{@DisableCodeBlockComponent}" language="cs" tabSize="0" numberLines="false" outlining="false" keepSeeTags="false" defaultTitle="true" />
+        </component>
       </ComponentConfig>
     </ComponentConfigurations>
     <SaveComponentCacheCapacity>0</SaveComponentCacheCapacity>

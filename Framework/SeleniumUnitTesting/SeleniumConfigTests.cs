@@ -12,7 +12,6 @@ using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using System.IO;
 using System.Reflection;
 
@@ -256,6 +255,7 @@ namespace UnitTests
             }
         }
 
+        #region WaitDriver 
         /// <summary>
         /// Get wait driver test
         /// </summary>
@@ -263,15 +263,21 @@ namespace UnitTests
         [TestCategory(TestCategories.Selenium)]
         public void GetWaitDriver()
         {
-            #region WaitDriver
+            IWebDriver driver = SeleniumConfig.Browser();
 
-            WebDriverWait wait = SeleniumConfig.GetWaitDriver(SeleniumConfig.Browser());
-
-            #endregion WaitDriver
-
-            Assert.AreEqual(wait.Timeout.Seconds, 15);
-            Assert.AreEqual(wait.PollingInterval.Seconds, 1);
+            try
+            {
+                WebDriverWait wait = SeleniumConfig.GetWaitDriver(driver);
+                Assert.AreEqual(wait.Timeout.Seconds, 15);
+                Assert.AreEqual(wait.PollingInterval.Seconds, 1);
+            }
+            finally
+            {
+                driver.Close();
+                driver.Dispose();
+            }
         }
+        #endregion WaitDriver
 
         /// <summary>
         /// Verifies that SetTimeouts sets driver timeouts to equal the default values in the Config
@@ -281,9 +287,19 @@ namespace UnitTests
         [TestCategory(TestCategories.Selenium)]
         public void SetTimeoutsGetWaitDriver()
         {
-            SeleniumConfig.SetTimeouts(SeleniumConfig.Browser());
-            WebDriverWait wait = SeleniumConfig.GetWaitDriver(SeleniumConfig.Browser());
-            Assert.AreEqual(wait.Timeout.TotalMilliseconds.ToString(), Config.GetValue("Timeout", "0"));
+            IWebDriver driver = SeleniumConfig.Browser();
+
+            try
+            {
+                SeleniumConfig.SetTimeouts(driver);
+                WebDriverWait wait = SeleniumConfig.GetWaitDriver(SeleniumConfig.Browser());
+                Assert.AreEqual(wait.Timeout.TotalMilliseconds.ToString(), Config.GetValue("Timeout", "0"));
+            }
+            finally
+            {
+                driver.Close();
+                driver.Dispose();
+            }
         }
         #endregion
     }

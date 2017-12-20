@@ -36,26 +36,26 @@
       <HintPath>..\..\packages\Appium.WebDriver.2.0.1.1\lib\net45\appium-dotnet-driver.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core">
-      <HintPath>..\..\packages\Castle.Core.4.1.1\lib\net45\Castle.Core.dll</HintPath>
+      <HintPath>..\..\packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.MaqsFramework.BaseAppiumTest">
-      <HintPath>..\..\packages\Magenic.MaqsFramework.NunitOnly.4.0.3\lib\net45\Magenic.MaqsFramework.BaseAppiumTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.MaqsFramework.NunitOnly.4.0.4\lib\net45\Magenic.MaqsFramework.BaseAppiumTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.MaqsFramework.BaseSeleniumTest">
-      <HintPath>..\..\packages\Magenic.MaqsFramework.NunitOnly.4.0.3\lib\net45\Magenic.MaqsFramework.BaseSeleniumTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.MaqsFramework.NunitOnly.4.0.4\lib\net45\Magenic.MaqsFramework.BaseSeleniumTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.MaqsFramework.BaseTest">
-      <HintPath>..\..\packages\Magenic.MaqsFramework.NunitOnly.4.0.3\lib\net45\Magenic.MaqsFramework.BaseTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.MaqsFramework.NunitOnly.4.0.4\lib\net45\Magenic.MaqsFramework.BaseTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.MaqsFramework.Utilities">
-      <HintPath>..\..\packages\Magenic.MaqsFramework.NunitOnly.4.0.3\lib\net45\Magenic.MaqsFramework.Utilities.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.MaqsFramework.NunitOnly.4.0.4\lib\net45\Magenic.MaqsFramework.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
+      <HintPath>..\..\packages\NUnit.3.9.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -67,11 +67,11 @@
     <Reference Include="System.Xml" />
     <Reference Include="WebDriver">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Selenium.WebDriver.3.6.0\lib\net40\WebDriver.dll</HintPath>
+      <HintPath>..\..\packages\Selenium.WebDriver.3.8.0\lib\net40\WebDriver.dll</HintPath>
     </Reference>
     <Reference Include="WebDriver.Support">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Selenium.Support.3.6.0\lib\net40\WebDriver.Support.dll</HintPath>
+      <HintPath>..\..\packages\Selenium.Support.3.8.0\lib\net40\WebDriver.Support.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
