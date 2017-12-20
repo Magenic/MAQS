@@ -89,11 +89,13 @@
     <Compile Include="BaseFrameworkTests.cs" />
     <Compile Include="CustomXmlMediaTypeFormatterTests.cs" />
     <Compile Include="EventFiringHttpClientWrapperTests.cs" />
+    <Compile Include="Model\Files.cs" />
+    <Compile Include="Model\FilesUploaded.cs" />
     <Compile Include="WebServiceBaseTests.cs" />
+    <Compile Include="WebServiceNonStandardHttpContentTests.cs" />
     <Compile Include="WebServicePatches.cs" />
     <Compile Include="WebServiceMediaType.cs" />
     <Compile Include="WebServiceWithWrapper.cs" />
-    <Compile Include="WebServiceWithWrapperCustomVerb.cs" />
     <Compile Include="WebServiceWithWrapperPatch.cs" />
     <Compile Include="WebServiceWrapperNUnitConfig.cs" />
     <Compile Include="WebServiceWrapperConfig.cs" />
