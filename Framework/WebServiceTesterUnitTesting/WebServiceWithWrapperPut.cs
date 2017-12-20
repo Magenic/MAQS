@@ -186,6 +186,9 @@ namespace WebServiceTesterUnitTesting
             Assert.AreEqual(string.Empty, result);
         }
 
+        /// <summary>
+        /// Make stream content with a stream
+        /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void PutStreamWithMakeStreamContent()

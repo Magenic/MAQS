@@ -60,7 +60,6 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         /// Make http stream content
         /// </summary>
         /// <param name="body">The content as a Stream</param>
-        /// <param name="contentEncoding">How to encode the content</param>
         /// <param name="mediaType">The type of media</param>
         /// <returns>The stream content</returns>
         /// <example>
