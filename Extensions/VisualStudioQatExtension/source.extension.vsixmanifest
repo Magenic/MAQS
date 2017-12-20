@@ -4,7 +4,7 @@
         <Identity Id="7f8a17ec-cc72-413f-ae85-b3e1077f2d1f" Version="4.0.4" Language="en-US" Publisher="Magenic" />
         <DisplayName>MAQS Framework</DisplayName>
         <Description xml:space="preserve">Magenic's automation quick start framework</Description>
-        <MoreInfo>https://magenic.com/</MoreInfo>
+        <MoreInfo>https://magenic.com/what-we-do/support-optimization/quality-assurance</MoreInfo>
         <License>License.txt</License>
         <GettingStartedGuide>Getting Started Guide.doc</GettingStartedGuide>
         <ReleaseNotes>ReleaseNotes.txt</ReleaseNotes>

@@ -8,6 +8,7 @@ MAQS Release Notes:
 	- Add configuration setting for setting the Selenium connection timeout
 	- Add configuration setting for setting the Appium connection timeout
 	- Add support for custom HTTP request types
+	- Add support for creating custom string and stream HTTP content
 	- Updated
 		NUnit 3.9.0
 		Selenium.Support to 3.8.0
