@@ -51,6 +51,11 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
                     AppiumUtilities.CaptureScreenshot(this.appiumDriver, this.Log, this.TextToAppend(softAssertName));
                 }
 
+                if (Config.GetValue("SavePagesourceOnFail", "No").ToUpper().Equals("YES"))
+                {
+                    AppiumUtilities.SavePageSource(this.appiumDriver, this.Log, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
+                }
+
                 return false;
             }
 
