@@ -68,12 +68,12 @@ namespace UnitTests
         {
             IWebDriver driver = SeleniumConfig.Browser();
 
-            if (Config.GetValue("BrowserSize").ToUpper() == "MAXIMIZE")
+            if (Config.GetValue("BrowserSize") == "MAXIMIZE")
             {
                 Assert.AreEqual(1056, driver.Manage().Window.Size.Height);
                 Assert.AreEqual(1936, driver.Manage().Window.Size.Width);
             }
-            else if (Config.GetValue("BrowserSize").ToUpper() == "DEFAULT")
+            else if (Config.GetValue("BrowserSize") == "DEFAULT")
             {
                 Assert.AreEqual(1020, driver.Manage().Window.Size.Height);
                 Assert.AreEqual(945, driver.Manage().Window.Size.Width);
@@ -133,6 +133,22 @@ namespace UnitTests
             #endregion GetRemoteName
 
             Assert.AreEqual(browser, "Chrome");
+        }
+
+        /// <summary>
+        /// Get command timeout test
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void GetCommandTimeout()
+        {
+            #region GetCommandTimeout
+
+            TimeSpan initTimeout = SeleniumConfig.GetCommandTimeout();
+
+            #endregion GetCommandTimeout
+
+            Assert.AreEqual(TimeSpan.FromSeconds(61).Ticks, initTimeout.Ticks);
         }
 
         /// <summary>
@@ -253,7 +269,7 @@ namespace UnitTests
 
             #endregion WaitDriver
 
-            Assert.AreEqual(wait.Timeout.Seconds, 10);
+            Assert.AreEqual(wait.Timeout.Seconds, 15);
             Assert.AreEqual(wait.PollingInterval.Seconds, 1);
         }
 

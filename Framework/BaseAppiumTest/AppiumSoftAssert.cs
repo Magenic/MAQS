@@ -48,13 +48,42 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
             {
                 if (Config.GetValue("SoftAssertScreenshot", "No").ToUpper().Equals("YES"))
                 {
-                    AppiumUtilities.CaptureScreenshot(this.appiumDriver, this.Log, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
+                    AppiumUtilities.CaptureScreenshot(this.appiumDriver, this.Log, this.TextToAppend(softAssertName));
                 }
 
                 return false;
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Method to determine the text to be appended to the screenshot file names
+        /// </summary>
+        /// <param name="softAssertName">Soft assert name</param>
+        /// <returns>String to be appended</returns>
+        private string TextToAppend(string softAssertName)
+        {
+            string appendToFileName = string.Empty;
+
+            // If softAssertName name is not provided only append the AssertNumber
+            if (softAssertName == string.Empty)
+            {
+                appendToFileName = StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts);
+            }
+            else
+            {
+                // Make sure that softAssertName has valid file name characters only
+                foreach (char invalidChar in System.IO.Path.GetInvalidFileNameChars())
+                {
+                    softAssertName = softAssertName.Replace(invalidChar, '~');
+                }
+
+                // If softAssertName is provided, use combination of softAssertName and AssertNumber 
+                appendToFileName = " " + softAssertName + StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts);
+            }
+
+            return appendToFileName;
         }
     }
 }

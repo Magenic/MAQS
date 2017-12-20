@@ -9,6 +9,7 @@ using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Support.UI;
+using System;
 
 namespace AppiumUnitTests
 {
@@ -76,6 +77,22 @@ namespace AppiumUnitTests
         public void UsingMobileBrowserTest()
         {
             Assert.AreEqual(AppiumConfig.UsingMobileBrowser(), false);
+        }
+
+        /// <summary>
+        /// Get command timeout test
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void GetCommandTimeout()
+        {
+            #region GetCommandTimeout
+
+            TimeSpan initTimeout = AppiumConfig.GetCommandTimeout();
+
+            #endregion GetCommandTimeout
+
+            Assert.AreEqual(TimeSpan.FromSeconds(122).Ticks, initTimeout.Ticks);
         }
 
         /// <summary>
