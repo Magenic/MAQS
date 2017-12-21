@@ -130,6 +130,24 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         }
 
         /// <summary>
+        /// Get the initialize Appium timeout timespan
+        /// </summary>
+        /// <returns>The initialize timeout</returns>
+        public static TimeSpan GetCommandTimeout()
+        {
+            int timeout;
+
+            string value = Config.GetValue("AppiumCommandTimeout", "60");
+            
+            if (!int.TryParse(value, out timeout))
+            {
+                throw new Exception("AppiumCommandTimeout should be a number but the current value is: " + value);
+            }
+
+            return TimeSpan.FromSeconds(timeout);
+        }
+
+        /// <summary>
         /// Get the appium driver based for the provided mobile OS
         /// </summary>
         /// <param name="mobileDeviceOS">The browser type we want to use</param>
@@ -140,11 +158,11 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
             switch (mobileDeviceOS.ToUpper())
             {
                 case "ANDROID":
-                    appiumDriver = new AndroidDriver<AppiumWebElement>(GetMobileHubUrl(), GetMobileCapabilities());
+                    appiumDriver = new AndroidDriver<AppiumWebElement>(GetMobileHubUrl(), GetMobileCapabilities(), GetCommandTimeout());
                     break;
 
                 case "IOS":
-                    appiumDriver = new IOSDriver<AppiumWebElement>(GetMobileHubUrl(), GetMobileCapabilities());
+                    appiumDriver = new IOSDriver<AppiumWebElement>(GetMobileHubUrl(), GetMobileCapabilities(), GetCommandTimeout());
                     break;
 
                 default:

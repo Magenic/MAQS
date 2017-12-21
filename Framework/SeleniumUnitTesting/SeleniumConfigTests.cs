@@ -59,6 +59,34 @@ namespace UnitTests
         }
 
         /// <summary>
+        /// resize browser window to specified lengths
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void ResizeBrowserWindow()
+        {
+            IWebDriver driver = SeleniumConfig.Browser();
+
+            if (Config.GetValue("BrowserSize") == "MAXIMIZE")
+            {
+                Assert.AreEqual(1056, driver.Manage().Window.Size.Height);
+                Assert.AreEqual(1936, driver.Manage().Window.Size.Width);
+            }
+            else if (Config.GetValue("BrowserSize") == "DEFAULT")
+            {
+                Assert.AreEqual(1020, driver.Manage().Window.Size.Height);
+                Assert.AreEqual(945, driver.Manage().Window.Size.Width);
+            }
+            else
+            {
+                Assert.AreNotEqual(1056, driver.Manage().Window.Size.Height);
+                Assert.AreNotEqual(1020, driver.Manage().Window.Size.Height);
+                Assert.AreNotEqual(1936, driver.Manage().Window.Size.Width);
+                Assert.AreNotEqual(945, driver.Manage().Window.Size.Width);
+            }
+        }
+
+        /// <summary>
         /// Web site base
         /// </summary>
         [TestMethod]
@@ -104,6 +132,22 @@ namespace UnitTests
             #endregion GetRemoteName
 
             Assert.AreEqual(browser, "Chrome");
+        }
+
+        /// <summary>
+        /// Get command timeout test
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void GetCommandTimeout()
+        {
+            #region GetCommandTimeout
+
+            TimeSpan initTimeout = SeleniumConfig.GetCommandTimeout();
+
+            #endregion GetCommandTimeout
+
+            Assert.AreEqual(TimeSpan.FromSeconds(61).Ticks, initTimeout.Ticks);
         }
 
         /// <summary>
@@ -211,6 +255,7 @@ namespace UnitTests
             }
         }
 
+        #region WaitDriver 
         /// <summary>
         /// Get wait driver test
         /// </summary>
@@ -218,15 +263,21 @@ namespace UnitTests
         [TestCategory(TestCategories.Selenium)]
         public void GetWaitDriver()
         {
-            #region WaitDriver
+            IWebDriver driver = SeleniumConfig.Browser();
 
-            WebDriverWait wait = SeleniumConfig.GetWaitDriver(SeleniumConfig.Browser());
-
-            #endregion WaitDriver
-
-            Assert.AreEqual(wait.Timeout.Seconds, 10);
-            Assert.AreEqual(wait.PollingInterval.Seconds, 1);
+            try
+            {
+                WebDriverWait wait = SeleniumConfig.GetWaitDriver(driver);
+                Assert.AreEqual(wait.Timeout.Seconds, 15);
+                Assert.AreEqual(wait.PollingInterval.Seconds, 1);
+            }
+            finally
+            {
+                driver.Close();
+                driver.Dispose();
+            }
         }
+        #endregion WaitDriver
 
         /// <summary>
         /// Verifies that SetTimeouts sets driver timeouts to equal the default values in the Config
@@ -236,9 +287,19 @@ namespace UnitTests
         [TestCategory(TestCategories.Selenium)]
         public void SetTimeoutsGetWaitDriver()
         {
-            SeleniumConfig.SetTimeouts(SeleniumConfig.Browser());
-            WebDriverWait wait = SeleniumConfig.GetWaitDriver(SeleniumConfig.Browser());
-            Assert.AreEqual(wait.Timeout.TotalMilliseconds.ToString(), Config.GetValue("Timeout", "0"));
+            IWebDriver driver = SeleniumConfig.Browser();
+
+            try
+            {
+                SeleniumConfig.SetTimeouts(driver);
+                WebDriverWait wait = SeleniumConfig.GetWaitDriver(SeleniumConfig.Browser());
+                Assert.AreEqual(wait.Timeout.TotalMilliseconds.ToString(), Config.GetValue("Timeout", "0"));
+            }
+            finally
+            {
+                driver.Close();
+                driver.Dispose();
+            }
         }
         #endregion
     }
