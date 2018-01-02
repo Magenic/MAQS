@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="AssemblyInfo.cs" company="Magenic">
-//  Copyright 2017 Magenic, All rights Reserved
+//  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Assembly information</summary>
 //--------------------------------------------------
@@ -16,7 +16,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("UtilitiesUnitTests")]
-[assembly: AssemblyCopyright("Copyright © Magenic 2017")]
+[assembly: AssemblyCopyright("Copyright © Magenic 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

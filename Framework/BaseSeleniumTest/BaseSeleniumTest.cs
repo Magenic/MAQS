@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="BaseSeleniumTest.cs" company="Magenic">
-//  Copyright 2017 Magenic, All rights Reserved
+//  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>This is the base Selenium test class</summary>
 //--------------------------------------------------

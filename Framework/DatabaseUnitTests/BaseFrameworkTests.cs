@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="BaseFrameworkTests.cs" company="Magenic">
-//  Copyright 2017 Magenic, All rights Reserved
+//  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Low level framework tests</summary>
 //--------------------------------------------------
