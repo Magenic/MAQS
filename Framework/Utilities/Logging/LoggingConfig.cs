@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="LoggingConfig.cs" company="Magenic">
-//  Copyright 2017 Magenic, All rights Reserved
+//  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Logging related configuration</summary>
 //--------------------------------------------------

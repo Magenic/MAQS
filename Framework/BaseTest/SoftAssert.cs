@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="SoftAssert.cs" company="Magenic">
-//  Copyright 2017 Magenic, All rights Reserved
+//  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>This is the SoftAssert class</summary>
 //--------------------------------------------------
