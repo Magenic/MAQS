@@ -7,6 +7,7 @@
 using Magenic.MaqsFramework.BaseAppiumTest;
 using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Enums;
 using OpenQA.Selenium.Appium.iOS;
@@ -14,7 +15,6 @@ using OpenQA.Selenium.Remote;
 
 namespace AppiumUnitTests
 {
-    using OpenQA.Selenium;
 
     /// <summary>
     /// iOS related Appium tests
