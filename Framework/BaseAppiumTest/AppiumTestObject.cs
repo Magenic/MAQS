@@ -7,6 +7,7 @@
 using Magenic.MaqsFramework.BaseTest;
 using Magenic.MaqsFramework.Utilities.Logging;
 using Magenic.MaqsFramework.Utilities.Performance;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 
 namespace Magenic.MaqsFramework.BaseAppiumTest
@@ -23,7 +24,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// <param name="logger">The test's logger</param>
         /// <param name="softAssert">The test's soft assert</param>
         /// <param name="perfTimerCollection" >The test's performance timer collection</param>
-        public AppiumTestObject(AppiumDriver<AppiumWebElement> appiumDriver, Logger logger, SoftAssert softAssert, PerfTimerCollection perfTimerCollection) : base(logger, softAssert, perfTimerCollection)
+        public AppiumTestObject(AppiumDriver<IWebElement> appiumDriver, Logger logger, SoftAssert softAssert, PerfTimerCollection perfTimerCollection) : base(logger, softAssert, perfTimerCollection)
         {
             this.AppiumDriver = appiumDriver;
         }
@@ -31,6 +32,6 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// <summary>
         /// Gets the Appium driver
         /// </summary>
-        public AppiumDriver<AppiumWebElement> AppiumDriver { get; private set; }
+        public AppiumDriver<IWebElement> AppiumDriver { get; private set; }
     }
 }

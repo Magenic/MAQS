@@ -13,6 +13,8 @@ using System;
 
 namespace AppiumUnitTests
 {
+    using OpenQA.Selenium;
+
     /// <summary>
     /// Appium Config Unit Tests
     /// </summary>
@@ -24,39 +26,19 @@ namespace AppiumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Appium)]
-        public void GetMobileDeviceOSTest()
+        public void GetPlatformNameTest()
         {
-            Assert.AreEqual(AppiumConfig.GetMobileDeviceOS(), "Android");
+            Assert.AreEqual(AppiumConfig.GetPlatformName(), "Android");
         }
-
-        /// <summary>
-        /// Test for getting Mobile Device UDID
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Appium)]
-        public void GetMobileDeviceUDIDTest()
-        {
-            Assert.AreEqual(AppiumConfig.GetMobileDeviceUDID(), "0123456789abcdef0123456789abcdef01234567");
-        }
-
-        /// <summary>
-        /// Test for getting Bundle ID
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Appium)]
-        public void GetBundleIdTest()
-        {
-            Assert.AreEqual(AppiumConfig.GetBundleId(), "org.tasks");
-        }
-
+        
         /// <summary>
         /// Test for getting mobile OS version
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Appium)]
-        public void GetOSVersionTest()
+        public void GetPlatformVersionTest()
         {
-            Assert.AreEqual(AppiumConfig.GetOSVersion(), "7.1.1");
+            Assert.AreEqual(AppiumConfig.GetPlatformVersion(), "6.0");
         }
 
         /// <summary>
@@ -66,17 +48,7 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void GetDeviceNameTest()
         {
-            Assert.AreEqual(AppiumConfig.GetDeviceName(), "Nexus 6P");
-        }
-
-        /// <summary>
-        /// Test for getting mobile browser value
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Appium)]
-        public void UsingMobileBrowserTest()
-        {
-            Assert.AreEqual(AppiumConfig.UsingMobileBrowser(), false);
+            Assert.AreEqual(AppiumConfig.GetDeviceName(), "emulator-5554");
         }
 
         /// <summary>
@@ -103,7 +75,7 @@ namespace AppiumUnitTests
         public void MobileDeviceTest()
         {
                 #region MobileDevice
-                AppiumDriver<AppiumWebElement> driver = AppiumConfig.MobileDevice();
+                AppiumDriver<IWebElement> driver = AppiumConfig.MobileDevice();
             #endregion
 
             try
@@ -124,7 +96,7 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void GetMobileHubUrlTest()
         {
-            Assert.AreEqual(AppiumConfig.GetMobileHubUrl(), "http://qat-win81-pc:4444/wd/hub");
+            Assert.AreEqual(AppiumConfig.GetMobileHubUrl(), "http://ondemand.saucelabs.com:80/wd/hub");
         }
 
         /// <summary>
@@ -134,7 +106,7 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void GetWaitDriverTest()
         {
-            AppiumDriver<AppiumWebElement> driver = AppiumConfig.MobileDevice();
+            AppiumDriver<IWebElement> driver = AppiumConfig.MobileDevice();
             WebDriverWait wait = AppiumConfig.GetWaitDriver(driver);
             try
             {
@@ -145,36 +117,6 @@ namespace AppiumUnitTests
                 driver.Quit();
                 driver.Dispose();
             }
-        }
-
-        /// <summary>
-        /// Test for getting AVD name
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Appium)]
-        public void GetAvdNameTest()
-        {
-            Assert.AreEqual(AppiumConfig.GetAvdName(), "Nexus-6P");
-        }
-
-        /// <summary>
-        /// Test for getting App Path
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Appium)]
-        public void GetAppPathTest()
-        {
-            Assert.AreEqual(AppiumConfig.GetAppPath(), "/Users/magenicqa/Desktop/s-amazon-dev-debug.apk");
-        }
-
-        /// <summary>
-        /// Test for getting App Activity
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Appium)]
-        public void GetAppActivityTest()
-        {
-            Assert.AreEqual(AppiumConfig.GetAppActivity(), "com.todoroo.astrid.activity.TaskListActivity");
         }
     }
 }

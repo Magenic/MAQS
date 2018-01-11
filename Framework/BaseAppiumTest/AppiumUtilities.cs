@@ -24,7 +24,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// <param name="log">The logger being used</param>
         /// <param name="appendName">Appends a name to the end of a filename</param>
         /// <returns>Boolean if the save of the image was successful</returns>
-        public static bool CaptureScreenshot(this AppiumDriver<AppiumWebElement> appiumDriver, Logger log, string appendName = "")
+        public static bool CaptureScreenshot(this AppiumDriver<IWebElement> appiumDriver, Logger log, string appendName = "")
         {
             try
             {
@@ -54,7 +54,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// <param name="appiumDriver">The AppiumDriver</param>
         /// <param name="directory">The directory file path</param>
         /// <param name="fileNameWithoutExtension">Filename without extension</param>
-        public static void CaptureScreenshot(this AppiumDriver<AppiumWebElement> appiumDriver, string directory, string fileNameWithoutExtension)
+        public static void CaptureScreenshot(this AppiumDriver<IWebElement> appiumDriver, string directory, string fileNameWithoutExtension)
         {
             Screenshot screenshot = ((ITakesScreenshot)appiumDriver).GetScreenshot();
 
@@ -73,7 +73,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// <example>
         /// <code source = "../AppiumUnitTests/AppiumUtilitiesTests.cs" region="SavePageSource" lang="C#" />
         /// </example>
-        public static bool SavePageSource(this AppiumDriver<AppiumWebElement> appiumDriver, Logger log, string appendName = "")
+        public static bool SavePageSource(this AppiumDriver<IWebElement> appiumDriver, Logger log, string appendName = "")
         {
             try
             {
@@ -112,7 +112,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// <param name="directory">The directory file path</param>
         /// <param name="fileNameWithoutExtension">Filename without extension</param>
         /// <returns>Path to the log file</returns>
-        public static string SavePageSource(this AppiumDriver<AppiumWebElement> appiumDriver, string directory, string fileNameWithoutExtension)
+        public static string SavePageSource(this AppiumDriver<IWebElement> appiumDriver, string directory, string fileNameWithoutExtension)
         {
             // Save the current page source into a string
             string pageSource = appiumDriver.PageSource;
