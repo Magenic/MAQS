@@ -73,7 +73,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// <example>
         /// <code source = "../AppiumUnitTests/AppiumUtilitiesTests.cs" region="SavePageSource" lang="C#" />
         /// </example>
-        public static bool SavePageSource(this AppiumDriver<AppiumWebElement> appiumDriver, Logger log, string appendName = "")
+        public static bool SavePageSource(this AppiumDriver<IWebElement> appiumDriver, Logger log, string appendName = "")
         {
             try
             {
@@ -112,7 +112,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// <param name="directory">The directory file path</param>
         /// <param name="fileNameWithoutExtension">Filename without extension</param>
         /// <returns>Path to the log file</returns>
-        public static string SavePageSource(this AppiumDriver<AppiumWebElement> appiumDriver, string directory, string fileNameWithoutExtension)
+        public static string SavePageSource(this AppiumDriver<IWebElement> appiumDriver, string directory, string fileNameWithoutExtension)
         {
             // Save the current page source into a string
             string pageSource = appiumDriver.PageSource;
