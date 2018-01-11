@@ -104,11 +104,11 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
             switch (platformName.ToUpper())
             {
                 case "ANDROID":
-                    appiumDriver = new AndroidDriver<AppiumWebElement>(GetMobileHubUrl(), GetMobileCapabilities(), GetCommandTimeout());
+                    appiumDriver = new AndroidDriver<IWebElement>(GetMobileHubUrl(), GetMobileCapabilities(), GetCommandTimeout());
                     break;
 
                 case "IOS":
-                    appiumDriver = new IOSDriver<AppiumWebElement>(GetMobileHubUrl(), GetMobileCapabilities(), GetCommandTimeout());
+                    appiumDriver = new IOSDriver<IWebElement>(GetMobileHubUrl(), GetMobileCapabilities(), GetCommandTimeout());
                     break;
 
                 default:
