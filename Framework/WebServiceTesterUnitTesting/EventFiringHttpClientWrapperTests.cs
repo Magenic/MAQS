@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="EventFiringHttpClientWrapperTests.cs" company="Magenic">
-//  Copyright 2017 Magenic, All rights Reserved
+//  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Test the EventFiringHttpClientWrapper class</summary>
 //--------------------------------------------------
@@ -73,6 +73,17 @@ namespace WebServiceTesterUnitTesting
         public void GetContentThrowException()
         {
             this.GetContent(null, null).Wait();
+        }
+
+        /// <summary>
+        /// Verify that CustomContent throws proper exception
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.WebService)]
+        [ExpectedException(typeof(AggregateException))]
+        public void CustomContentThrowException()
+        {
+            this.CustomContent(null, null, null, null).Wait();
         }
     }
 }

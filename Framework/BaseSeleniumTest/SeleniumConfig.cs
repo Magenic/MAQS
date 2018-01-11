@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="SeleniumConfig.cs" company="Magenic">
-//  Copyright 2017 Magenic, All rights Reserved
+//  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Helper class for getting selenium specific configuration values</summary>
 //--------------------------------------------------
@@ -13,10 +13,12 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.PhantomJS;
 using OpenQA.Selenium.Remote;
+using OpenQA.Selenium.Safari;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Specialized;
 using System.Configuration;
+using System.Drawing;
 using System.IO;
 using System.Reflection;
 
@@ -66,14 +68,14 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                     case "INTERNET EXPLORER":
                     case "INTERNETEXPLORER":
                     case "IE":
-                        webDriver = new InternetExplorerDriver(GetDriverLocation("IEDriverServer.exe"));
+                        webDriver = new InternetExplorerDriver(GetDriverLocation("IEDriverServer.exe"), new InternetExplorerOptions(), GetCommandTimeout());
                         break;
 
                     case "FIREFOX":
                         FirefoxDriverService service = FirefoxDriverService.CreateDefaultService(GetDriverLocation("geckodriver.exe"), "geckodriver.exe");
                         FirefoxOptions firefoxOptions = new FirefoxOptions();
                         firefoxOptions.Profile = new FirefoxProfile();
-                        webDriver = new FirefoxDriver(service, firefoxOptions, GetTimeoutTime());
+                        webDriver = new FirefoxDriver(service, firefoxOptions, GetCommandTimeout());
                         break;
 
                     case "CHROME":
@@ -82,7 +84,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                         chromeOptions.AddArguments("--disable-web-security");
                         chromeOptions.AddArguments("--allow-running-insecure-content");
                         chromeOptions.AddArguments("--disable-extensions");
-                        webDriver = new ChromeDriver(GetDriverLocation("chromedriver.exe"), chromeOptions);
+                        webDriver = new ChromeDriver(GetDriverLocation("chromedriver.exe"), chromeOptions, GetCommandTimeout());
                         break;
 
                     case "HEADLESSCHROME":
@@ -92,39 +94,43 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                         headlessChromeOptions.AddArguments("--allow-running-insecure-content");
                         headlessChromeOptions.AddArguments("--disable-extensions");
                         headlessChromeOptions.AddArguments("--headless");
-                        headlessChromeOptions.AddArguments("window-size=1920,1080");
-                        webDriver = new ChromeDriver(GetDriverLocation("chromedriver.exe"), headlessChromeOptions);
+                        headlessChromeOptions.AddArguments(GetWindowSizeString());
+                        webDriver = new ChromeDriver(GetDriverLocation("chromedriver.exe"), headlessChromeOptions, GetCommandTimeout());
                         break;
 
                     case "EDGE":
-                        EdgeOptions edgeOptions = new EdgeOptions();
-                        edgeOptions.PageLoadStrategy = EdgePageLoadStrategy.Normal;
+                        EdgeOptions edgeOptions = new EdgeOptions
+                        {
+                            PageLoadStrategy = PageLoadStrategy.Normal
+                        };
 
-                        webDriver = new EdgeDriver(GetDriverLocation("MicrosoftWebDriver.exe", GetProgramFilesFolder("Microsoft Web Driver", "MicrosoftWebDriver.exe")), edgeOptions);
+                        webDriver = new EdgeDriver(GetDriverLocation("MicrosoftWebDriver.exe", GetProgramFilesFolder("Microsoft Web Driver", "MicrosoftWebDriver.exe")), edgeOptions, GetCommandTimeout());
                         break;
 
                     case "PHANTOMJS":
                         PhantomJSOptions phantomOptions = new PhantomJSOptions();
                         phantomOptions.AddAdditionalCapability("phantomjs.page.settings.userAgent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:26.0) Gecko/20100101 Firefox/26.0");
-                        webDriver = new PhantomJSDriver(GetDriverLocation("phantomjs.exe"), phantomOptions);
+                        webDriver = new PhantomJSDriver(GetDriverLocation("phantomjs.exe"), phantomOptions, GetCommandTimeout());
                         break;
 
                     case "REMOTE":
-                        webDriver = new RemoteWebDriver(new Uri(Config.GetValue("HubUrl")), GetRemoteCapabilities());
+                        webDriver = new RemoteWebDriver(new Uri(Config.GetValue("HubUrl")), GetRemoteCapabilities(), GetCommandTimeout());
                         break;
 
                     default:
                         throw new Exception(StringProcessor.SafeFormatter("Browser type '{0}' is not supported", browser));
                 }
 
-                // Maximize the browser and than return it
-                webDriver.Manage().Window.Maximize();
+                SetBrowserSize(webDriver);
                 return webDriver;
             }
             catch (Exception e)
             {
-                // Make sure we have a web driver
-                if (webDriver != null)
+                if (e.GetType() == typeof(ArgumentException))
+                {
+                    throw e;
+                }
+                else if (webDriver != null)
                 {
                     try
                     {
@@ -152,6 +158,22 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         public static string GetBrowserName()
         {
             return Config.GetValue("Browser", "Chrome");
+        }
+
+        /// <summary>
+        /// Get the initialize Selenium timeout timespan
+        /// </summary>
+        /// <returns>The initialize timeout</returns>
+        public static TimeSpan GetCommandTimeout()
+        {
+            string value = Config.GetValue("SeleniumCommandTimeout", "60");
+            int timeout;
+            if (!int.TryParse(value, out timeout))
+            {
+                throw new Exception("SeleniumCommandTimeout should be a number but the current value is: " + value);
+            }
+
+            return TimeSpan.FromSeconds(timeout);
         }
 
         /// <summary>
@@ -324,9 +346,9 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// Get the remote desired capability
         /// </summary>
         /// <returns>The remote desired capability</returns>
-        private static DesiredCapabilities GetRemoteCapabilities()
+        private static ICapabilities GetRemoteCapabilities()
         {
-            DesiredCapabilities capabilities = null;
+            DriverOptions options = null;
             string remoteBrowser = GetRemoteBrowserName();
             string remotePlatform = GetRemotePlatform();
             string remoteBrowserVersion = GetRemoteBrowserVersion();
@@ -336,23 +358,23 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                 case "INTERNET EXPLORER":
                 case "INTERNETEXPLORER":
                 case "IE":
-                    capabilities = DesiredCapabilities.InternetExplorer();
+                    options = new InternetExplorerOptions();
                     break;
 
                 case "FIREFOX":
-                    capabilities = DesiredCapabilities.Firefox();
+                    options = new FirefoxOptions();
                     break;
 
                 case "CHROME":
-                    capabilities = DesiredCapabilities.Chrome();
+                    options = new ChromeOptions();
                     break;
 
                 case "EDGE":
-                    capabilities = DesiredCapabilities.Edge();
+                    options = new EdgeOptions();
                     break;
 
                 case "SAFARI":
-                    capabilities = DesiredCapabilities.Safari();
+                    options = new SafariOptions();
                     break;
 
                 default:
@@ -362,32 +384,32 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
             // Add a platform setting if one was provided
             if (remotePlatform.Length > 0)
             {
-                capabilities.SetCapability("platform", remotePlatform);
+                options.AddAdditionalCapability("platform", remotePlatform);
             }
 
             // Add a remote browser setting if one was provided
             if (remoteBrowserVersion.Length > 0)
             {
-                capabilities.SetCapability("version", remoteBrowserVersion);
+                options.AddAdditionalCapability("version", remoteBrowserVersion);
             }
 
             // Add RemoteCapabilites section if it exists
-            capabilities.SetRemoteCapabilities();
+            options.SetRemoteCapabilities();
 
-            return capabilities;
+            return options.ToCapabilities();
         }
 
         /// <summary>
-        /// Reads the RemoteSeleniumCapsMaqs section and appends to the DesiredCapabilities
+        /// Reads the RemoteSeleniumCapsMaqs section and appends to the driver options
         /// </summary>
-        /// <param name="dc">The Desired Capabilities to make this an extension method</param>
-        /// <returns>The altered <see cref="DesiredCapabilities"/> Desired Capabilities</returns>
-        private static DesiredCapabilities SetRemoteCapabilities(this DesiredCapabilities dc)
+        /// <param name="driverOptions">The driver options to make this an extension method</param>
+        /// <returns>The altered <see cref="DriverOptions"/> driver options</returns>
+        private static DriverOptions SetRemoteCapabilities(this DriverOptions driverOptions)
         {
             var remoteCapabilitySection = ConfigurationManager.GetSection(remoteCapabilities) as NameValueCollection;
             if (remoteCapabilitySection == null)
             {
-                return dc;
+                return driverOptions;
             }
 
             var keys = remoteCapabilitySection.AllKeys;
@@ -395,11 +417,11 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
             {
                 if (remoteCapabilitySection[key].Length > 0)
                 {
-                    dc.SetCapability(key, remoteCapabilitySection[key]);
+                    driverOptions.AddAdditionalCapability(key, remoteCapabilitySection[key]);
                 }
             }
 
-            return dc;
+            return driverOptions;
         }
 
         /// <summary>
@@ -420,6 +442,86 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         {
             int waitTime = Convert.ToInt32(Config.GetValue("WaitTime", "0"));
             return TimeSpan.FromMilliseconds(waitTime);
+        }
+
+        /// <summary>
+        /// get the browser size
+        /// </summary>
+        /// <returns>string of desired browser size</returns>
+        private static string GetBrowserSize()
+        {
+            return Config.GetValue("BrowserSize", "MAXIMIZE").ToUpper();
+        }
+
+        /// <summary>
+        /// Sets the browser size based on selector in app.config
+        /// </summary>
+        /// <param name="webDriver">the webDriver from the Browser method</param>
+        private static void SetBrowserSize(IWebDriver webDriver)
+        {
+            string size = GetBrowserSize();
+
+            if (size == "MAXIMIZE")
+            {
+                webDriver.Manage().Window.Maximize();
+            }
+            else if (size == "DEFAULT")
+            {
+                // do nothing to have the browser window come up unchanged.
+            }
+            else
+            {
+                int height = 0;
+                int width = 0;
+
+                GetWindowSizeString(size, out width, out height);
+
+                webDriver.Manage().Window.Size = new Size(width, height);
+            }
+        }
+
+        /// <summary>
+        /// Get the browser/browser size as a string
+        /// </summary>
+        /// <returns>The browser size as a string - Specifically for Chrome options</returns>
+        private static string GetWindowSizeString()
+        {
+            string size = GetBrowserSize();
+
+            if (size == "MAXIMIZE" || size == "DEFAULT")
+            {
+                return "window-size=1920,1080";
+            }
+            else
+            {
+                int height = 0;
+                int width = 0;
+
+                GetWindowSizeString(size, out width, out height);
+
+                return string.Format("window-size={0},{1}", width, height);
+            }
+        }
+
+        /// <summary>
+        /// Get the window size as a string
+        /// </summary>
+        /// <param name="size">The size in a #X# format</param>
+        /// <param name="width">The browser width</param>
+        /// <param name="height">The browser height</param>
+        private static void GetWindowSizeString(string size, out int width, out int height)
+        {
+            string[] sizes = size.Split('X');
+
+            if (!size.Contains("X") || sizes.Length != 2)
+            {
+                throw new ArgumentException("Browser size is expected to be in an expected format: 1920x1080");
+            }
+
+            if (!int.TryParse(sizes[0], out width) || !int.TryParse(sizes[1], out height))
+            {
+                throw new InvalidCastException("Length and Width must be a string that is an integer value: 400x400");
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------
 // <copyright file="AssemblyInfo.cs" company="Magenic">
-//  Copyright 2017 Magenic, All rights Reserved
+//  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>This is the assembly info class</summary>
 //--------------------------------------------------
@@ -15,7 +15,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("BaseTest")]
-[assembly: AssemblyCopyright("Copyright © Magenic 2017")]
+[assembly: AssemblyCopyright("Copyright © Magenic 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -37,5 +37,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("4.0.3")]
-[assembly: AssemblyFileVersion("4.0.3")]
+[assembly: AssemblyVersion("4.0.4")]
+[assembly: AssemblyFileVersion("4.0.4")]

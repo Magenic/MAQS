@@ -1,6 +1,6 @@
-﻿//--------------------------------------------------
+//--------------------------------------------------
 // <copyright file="AppiumConfig.cs" company="Magenic">
-//  Copyright 2017 Magenic, All rights Reserved
+//  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>This is the Appium Configuration class</summary>
 //--------------------------------------------------
@@ -76,6 +76,24 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         }
 
         /// <summary>
+        /// Get the initialize Appium timeout timespan
+        /// </summary>
+        /// <returns>The initialize timeout</returns>
+        public static TimeSpan GetCommandTimeout()
+        {
+            int timeout;
+
+            string value = Config.GetValue("AppiumCommandTimeout", "60");
+            
+            if (!int.TryParse(value, out timeout))
+            {
+                throw new Exception("AppiumCommandTimeout should be a number but the current value is: " + value);
+            }
+
+            return TimeSpan.FromSeconds(timeout);
+        }
+
+        /// <summary>
         /// Get the appium driver based for the provided mobile OS
         /// </summary>
         /// <param name="platformName">The browser type we want to use</param>
@@ -86,11 +104,11 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
             switch (platformName.ToUpper())
             {
                 case "ANDROID":
-                    appiumDriver = new AndroidDriver<IWebElement>(GetMobileHubUrl(), GetMobileCapabilities());
+                    appiumDriver = new AndroidDriver<AppiumWebElement>(GetMobileHubUrl(), GetMobileCapabilities(), GetCommandTimeout());
                     break;
 
                 case "IOS":
-                    appiumDriver = new IOSDriver<IWebElement>(GetMobileHubUrl(), GetMobileCapabilities());
+                    appiumDriver = new IOSDriver<AppiumWebElement>(GetMobileHubUrl(), GetMobileCapabilities(), GetCommandTimeout());
                     break;
 
                 default:

@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="WebServiceUtils.cs" company="Magenic">
-//  Copyright 2017 Magenic, All rights Reserved
+//  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Web service utilies</summary>
 //--------------------------------------------------
@@ -53,6 +53,54 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
             Stream stream = StringToStream(body, contentEncoding);
             StreamContent streamContent = new StreamContent(stream);
             streamContent.Headers.ContentType = new MediaTypeHeaderValue(mediaType);
+            return streamContent;
+        }
+
+        /// <summary>
+        /// Make http stream content
+        /// </summary>
+        /// <param name="body">The content as a Stream</param>
+        /// <param name="mediaType">The type of media</param>
+        /// <returns>The stream content</returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithWrapperPut.cs" region="MakeStreamContent" lang="C#" />
+        /// </example>
+        public static StreamContent MakeStreamContent(Stream body, string mediaType)
+        {
+            StreamContent streamContent = new StreamContent(body);
+            streamContent.Headers.ContentType = new MediaTypeHeaderValue(mediaType);
+            return streamContent;
+        }
+
+        /// <summary>
+        /// Make non-standard http stream content with string body
+        /// </summary>
+        /// <param name="body">The content as a string</param>
+        /// <param name="contentEncoding">How to encode the content</param>
+        /// <param name="mediaType">The content type of media, will add Content-Type header</param>
+        /// <returns>The stream content</returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceNonStandardHttpContentTests.cs" region="NonStandardStreamContentWithString" lang="C#" />
+        /// </example>
+        public static StreamContent MakeNonStandardStreamContent(string body, Encoding contentEncoding, string mediaType)
+        {
+            Stream stream = StringToStream(body, contentEncoding);
+            return MakeNonStandardStreamContent(stream, mediaType);
+        }
+
+        /// <summary>
+        /// Make non-standard http stream content with stream content
+        /// </summary>
+        /// <param name="body">The content as a stream</param>
+        /// <param name="mediaType">The content type of media, will add Content-Type header</param>
+        /// <returns>The stream content</returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceNonStandardHttpContentTests.cs" region="NonStandardStreamContentWithStream" lang="C#" />
+        /// </example>
+        public static StreamContent MakeNonStandardStreamContent(Stream body, string mediaType)
+        {
+            StreamContent streamContent = new StreamContent(body);
+            streamContent.Headers.TryAddWithoutValidation("Content-Type", mediaType);
             return streamContent;
         }
 

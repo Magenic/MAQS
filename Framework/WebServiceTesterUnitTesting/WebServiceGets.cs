@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="WebServiceGets.cs" company="Magenic">
-//  Copyright 2017 Magenic, All rights Reserved
+//  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Web service get unit tests</summary>
 //--------------------------------------------------
@@ -79,7 +79,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void GetString()
         {
-            HttpClientWrapper client = new HttpClientWrapper(new Uri("http://magenicautomation.azurewebsites.net"));
+            HttpClientWrapper client = new HttpClientWrapper(new Uri("http://magenicautomation.azurewebsites.net")); 
             string result = client.Get("/api/String/1", "text/plain", false);
 
             Assert.IsTrue(result.Contains("Tomato Soup"), "Was expeting a result with Tomato Soup but instead got - " + result);

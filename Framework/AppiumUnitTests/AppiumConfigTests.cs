@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="AppiumConfigTests.cs" company="Magenic">
-//  Copyright 2017 Magenic, All rights Reserved
+//  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Test class for config files</summary>
 //--------------------------------------------------
@@ -9,6 +9,7 @@ using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Support.UI;
+using System;
 
 namespace AppiumUnitTests
 {
@@ -48,6 +49,22 @@ namespace AppiumUnitTests
         public void GetDeviceNameTest()
         {
             Assert.AreEqual(AppiumConfig.GetDeviceName(), "emulator-5554");
+        }
+
+        /// <summary>
+        /// Get command timeout test
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void GetCommandTimeout()
+        {
+            #region GetCommandTimeout
+
+            TimeSpan initTimeout = AppiumConfig.GetCommandTimeout();
+
+            #endregion GetCommandTimeout
+
+            Assert.AreEqual(TimeSpan.FromSeconds(122).Ticks, initTimeout.Ticks);
         }
 
         /// <summary>

@@ -1,4 +1,25 @@
 MAQS Release Notes:
+4.0.4 - 2017/12/20
+	Bug fixes and minor enhancements
+	- Change Edge driver initialization to support page load strategy enum change
+	- Add support for headless execution of Chrome
+	- Add configuration setting for custom browser resolutions
+	- Add configuration setting for capturing page source on failure
+	- Add configuration setting for setting the Selenium connection timeout
+	- Add configuration setting for setting the Appium connection timeout
+	- Add support for custom HTTP request types
+	- Add support for creating custom string and stream HTTP content
+	- Updated
+		NUnit 3.9.0
+		Selenium.Support to 3.8.0
+		Selenium.WebDriver to 3.8.0
+		Selenium.WebDriver.ChromeDriver to 2.34
+		Selenium.WebDriver.IEDriver to 3.8.0
+		MimeKit 1.22.0
+		MailKit 1.22.0
+		Selenium.WebDriver.GeckoDriver 0.19.1
+		Selenium.WebDriver.MicrosoftDriver 15.15063.0
+
 4.0.3 - 2017/9/29
 	Bug fixes and minor enhancements
 	- Add FluentElement caching
