@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisualStudioQatExtension", "VisualStudioQatExtension\VisualStudioQatExtension.csproj", "{4F02261C-1F1A-4C39-B783-172BCBB51D7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaqsSpecFlowExtension", "MaqsSpecFlowExtension\MaqsSpecFlowExtension.csproj", "{B749C2DA-C03C-4424-A21C-B2C8E2659848}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{4F02261C-1F1A-4C39-B783-172BCBB51D7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F02261C-1F1A-4C39-B783-172BCBB51D7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F02261C-1F1A-4C39-B783-172BCBB51D7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B749C2DA-C03C-4424-A21C-B2C8E2659848}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B749C2DA-C03C-4424-A21C-B2C8E2659848}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B749C2DA-C03C-4424-A21C-B2C8E2659848}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B749C2DA-C03C-4424-A21C-B2C8E2659848}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D746CDE4-C872-4ADD-9DE3-C2B612783242}
 	EndGlobalSection
 EndGlobal

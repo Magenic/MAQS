@@ -1,0 +1,46 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+  <TemplateData>
+    <Name>Maqs Framework - SpecFlow - NUnit - Composite</Name>
+    <Description>Magenic's automation quick start framework for compositetesting using SpecFlow</Description>
+    <ProjectType>CSharp</ProjectType>
+    <ProjectSubType>Magenic SpecFlow Test</ProjectSubType>
+    <SortOrder>1000</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>Maqs Framework - SpecFlow - NUnit - Composite</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <Icon>__TemplateIcon.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <Project TargetFileName="Tests.csproj" File="TemplateTesting.csproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true" TargetFileName="App.config">App.config</ProjectItem>
+      <Folder Name="Features" TargetFolderName="Features">
+        <ProjectItem ReplaceParameters="false" TargetFileName="AppiumFeature.feature">AppiumFeature.feature</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="AppiumFeature.feature.cs">AppiumFeature.feature.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="DatabaseFeature.feature">DatabaseFeature.feature</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="DatabaseFeature.feature.cs">DatabaseFeature.feature.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="EmailFeature.feature">EmailFeature.feature</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="EmailFeature.feature.cs">EmailFeature.feature.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="GeneralFeature.feature">GeneralFeature.feature</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="GeneralFeature.feature.cs">GeneralFeature.feature.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="SeleniumFeature.feature">SeleniumFeature.feature</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="SeleniumFeature.feature.cs">SeleniumFeature.feature.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="WebServiceFeature.feature">WebServiceFeature.feature</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="WebServiceFeature.feature.cs">WebServiceFeature.feature.cs</ProjectItem>
+      </Folder>
+      <ProjectItem ReplaceParameters="true" TargetFileName="packages.config">packages.config</ProjectItem>
+      <Folder Name="Properties" TargetFolderName="Properties">
+        <ProjectItem ReplaceParameters="true" TargetFileName="AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
+      </Folder>
+      <Folder Name="Steps" TargetFolderName="Steps">
+        <ProjectItem ReplaceParameters="true" TargetFileName="AppiumFeatureSteps.cs">AppiumFeatureSteps.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="DatabaseFeatureSteps.cs">DatabaseFeatureSteps.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="EmailFeatureSteps.cs">EmailFeatureSteps.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="GeneralFeatureSteps.cs">GeneralFeatureSteps.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="SeleniumFeatureSteps.cs">SeleniumFeatureSteps.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="WebServiceFeatureSteps.cs">WebServiceFeatureSteps.cs</ProjectItem>
+      </Folder>
+    </Project>
+  </TemplateContent>
+</VSTemplate>

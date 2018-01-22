@@ -1,0 +1,15 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Item">
+  <TemplateData>
+    <DefaultName>DatabaseFeatureSteps.cs</DefaultName>
+    <Name>Maqs SpecFlow Database Steps File</Name>
+    <Description>Magenic's automation quick start framework SpecFlow database steps file</Description>
+    <ProjectType>CSharp</ProjectType>
+    <ProjectSubType>Magenic SpecFlow Test</ProjectSubType>
+    <SortOrder>10</SortOrder>
+    <Icon>__TemplateIcon.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <References />
+    <ProjectItem SubType="" TargetFileName="$fileinputname$.cs" ReplaceParameters="true">DatabaseFeatureSteps.cs</ProjectItem>
+  </TemplateContent>
+</VSTemplate>

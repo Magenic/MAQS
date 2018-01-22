@@ -1,0 +1,7 @@
+MAQS SpecFlow ExtensionRelease Notes:
+
+1.0.0 - 2018/01/12
+	- Extension built out
+		- Step files connect to all types of Maqs test classes
+		- Project and Item templates created
+		- VSIX project created
