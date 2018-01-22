@@ -1,0 +1,24 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Magenic.Maqs.SpecFlowExtension</id>
+    <version>1.0.0</version>
+    <title>MAQS Framework</title>
+    <authors>Magenic</authors>
+    <owners>Magenic</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>SpecFlow Extension for Magenic's automation quick start framework</description>
+    <copyright>Copyright © Magenic 2018</copyright>
+    <licenseUrl>https://github.com/Magenic/MAQS/blob/develop/LICENSE</licenseUrl>
+    <iconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</iconUrl>
+    <dependencies>
+      <dependency id="Magenic.MaqsFramework" version="4.0.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\SpecFlowExtension\**\*.cs;..\SpecFlowExtension\**\*.csproj;..\SpecFlowExtension\**\packages.config" target="help\source\SpecFlowExtension" exclude="..\SpecFlowExtension\**\obj\**\*.*;..\SpecFlowExtension\**\bin\**\*.*;*.vspscc" />
+    <file src="..\SpecFlowExtension\bin\Debug\SpecFlowExtension.*" target="lib\net46" />
+    <file src="..\SpecFlowExtension\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.*" target="lib\net46" />
+    <file src="..\..\Extensions\VisualStudioQatExtension\License.txt" target=""/>
+  </files>
+</package>
