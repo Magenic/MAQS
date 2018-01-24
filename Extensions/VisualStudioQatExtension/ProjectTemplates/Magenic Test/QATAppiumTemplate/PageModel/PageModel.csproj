@@ -87,8 +87,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="LoginPageModel.cs" />
-	<Compile Include="HomePageModel.cs" />
+    <Compile Include="AHomePageModel.cs" />
+    <Compile Include="ALoginPageModel.cs" />
+    <Compile Include="AndroidHomePageModel.cs" />
+    <Compile Include="AndroidLoginPageModel.cs" />
+    <Compile Include="IOSHomePageModel.cs" />
+    <Compile Include="IOSLoginPageModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

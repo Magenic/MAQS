@@ -81,9 +81,14 @@
     <Compile Include="AppiumSoftAssert.cs" />
     <Compile Include="AppiumUtilities.cs" />
     <Compile Include="BaseAppiumTest.cs" />
+    <Compile Include="FluentMobileElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BaseSeleniumTest\BaseSeleniumTest.csproj">
+      <Project>{cf21dfef-3fce-4766-b261-f2225b5442ec}</Project>
+      <Name>BaseSeleniumTest</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BaseTest\BaseTest.csproj">
       <Project>{60f10d47-3546-4b4b-b49b-5a361ddc1bcb}</Project>
       <Name>BaseTest</Name>
