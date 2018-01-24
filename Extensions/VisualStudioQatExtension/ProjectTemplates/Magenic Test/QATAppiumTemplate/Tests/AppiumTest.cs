@@ -1,5 +1,9 @@
-﻿using Magenic.MaqsFramework.BaseAppiumTest;
+﻿using System;
+using Magenic.MaqsFramework.BaseAppiumTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OpenQA.Selenium.Appium;
+using OpenQA.Selenium.Appium.iOS;
+using OpenQA.Selenium.Appium.Android;
 using PageModel;
 
 namespace $safeprojectname$
@@ -10,38 +14,60 @@ namespace $safeprojectname$
     [TestClass]
     public class $safeitemname$ : BaseAppiumTest
     {
-        /// <summary>
-        /// Application installed test
+         /// <summary>
+        /// The starting page
         /// </summary>
-        [TestMethod]
-        public void ApplicationInstalledTest()
+        private ALoginPageModel startingPage;
+
+        /// <summary>
+        /// Sets up the starting page to be iOS or Android
+        /// </summary>
+        [TestInitialize]
+        public void SetupStartingPage()
         {
-            bool isInstalled = this.AppiumDriver.IsAppInstalled(AppiumConfig.GetBundleId());
+            Type driverType = this.TestObject.AppiumDriver.GetType();
+            if (driverType == typeof(IOSDriver<AppiumWebElement>))
+            {
+                startingPage = new IOSLoginPageModel(this.TestObject);
+            }
+            else if (driverType == typeof(AndroidDriver<AppiumWebElement>))
+            {
+                startingPage = new AndroidLoginPageModel(this.TestObject);
+            }
+            else
+            {
+                throw new NotSupportedException($"This OS type: {driverType.ToString()} is not supported.");
+            }
         }
 
         /// <summary>
-        /// Enter credentials test
+        /// Verifies the error message is as expected when a user logs in with invalid creds
         /// </summary>
         [TestMethod]
         public void InvalidLoginTest()
         {
-            LoginPageModel page = new LoginPageModel(this.TestObject);
-            page.LoginWithInvalidCredentials("Not", "Valid");
-            string errorMessage = page.GetErrorMessage();
+            string expectedError = "Use the following credentials: \r\n(User Name: Ted Password: 123)";
+            startingPage.LoginWithInvalidCredentials("Not", "Valid");
+            string actualError = startingPage.GetErrorMessage();
+            Assert.AreEqual(expectedError, startingPage.GetErrorMessage());
         }
 
 		/// <summary>
-        /// Valid login test
+        /// Verifies a user can login with valid creds
         /// </summary>
         [TestMethod]
         public void ValidLoginTest()
         {
-            string username = "Magenic";
-            string password = "MAQS";
-            LoginPageModel page = new LoginPageModel(this.TestObject);
-            HomePageModel homePage = page.LoginWithValidCredentials(username, password);
-            string loggedInPassword = homePage.GetLoggedInPassword();
-            string loggedInUsername = homePage.GetLoggedInUsername();
+            string username = "Ted";
+            string password = "123";
+            string expectedGreeting = $"Welcome {username}!";
+            string expectedTimeDescription = "The current time is:";
+            AHomePageModel homePage = startingPage.LoginWithValidCredentials(username, password);
+            SoftAssert.AreEqual(expectedGreeting, homePage.GetGreetingMessage());
+            SoftAssert.AreEqual(expectedTimeDescription, homePage.GetTimeDiscription());
+            DateTime time;
+            SoftAssert.IsTrue(DateTime.TryParse(homePage.GetTime(), out time), "Time Parsing");
+            SoftAssert.FailTestIfAssertFailed();
         }
     }
 }
