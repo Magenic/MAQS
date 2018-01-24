@@ -155,14 +155,9 @@ namespace Magenic.MaqsFramework.BaseTest
         }
 
         /// <summary>
-        /// Gets or sets the BaseContext objects
-        /// </summary>
-        internal ConcurrentDictionary<string, BaseTestObject> BaseTestObjects { get; set; }
-
-        /// <summary>
         /// Gets or sets the test object 
         /// </summary>
-        protected BaseTestObject TestObject
+        public BaseTestObject TestObject
         {
             get
             {
@@ -180,6 +175,11 @@ namespace Magenic.MaqsFramework.BaseTest
                 this.BaseTestObjects.AddOrUpdate(this.GetFullyQualifiedTestClassName(), value, (oldkey, oldvalue) => value);
             }
         }
+
+        /// <summary>
+        /// Gets or sets the BaseContext objects
+        /// </summary>
+        internal ConcurrentDictionary<string, BaseTestObject> BaseTestObjects { get; set; }
 
         /// <summary>
         /// Gets the logging enable flag
