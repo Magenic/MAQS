@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="FluentMobileElement.cs" company="Magenic">
-//  Copyright 2017 Magenic, All rights Reserved
+//  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>This is the FluentMobileElement class</summary>
 //--------------------------------------------------
@@ -30,7 +30,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         private FluentMobileElement parent;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FluentElement" /> class
+        /// Initializes a new instance of the <see cref="FluentMobileElement" /> class
         /// </summary>
         /// <param name="testObject">The base Selenium test object</param>
         /// <param name="locator">The 'by' selector for the element</param>
@@ -46,7 +46,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FluentElement" /> class
+        /// Initializes a new instance of the <see cref="FluentMobileElement" /> class
         /// </summary>
         /// <param name="parent">The parent fluent element</param>
         /// <param name="locator">The 'by' selector for the element</param>

@@ -134,12 +134,8 @@ namespace Magenic.MaqsFramework.BaseTest
             }
             finally
             {
-                // Get the Fully Qualified Test Name
-                string fullyQualifiedTestName = this.GetFullyQualifiedTestClassName();
-
                 // Release the test object
-                T testObject;
-                this.ObjectsUnderTest.TryRemove(fullyQualifiedTestName, out testObject);
+                this.ObjectsUnderTest.TryRemove(this.GetFullyQualifiedTestClassName(), out T testObject);
                 testObject = null;
             }
         }

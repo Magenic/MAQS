@@ -8,14 +8,15 @@ using Magenic.MaqsFramework.BaseAppiumTest;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using TechTalk.SpecFlow;
+using MaqsAppium = Magenic.MaqsFramework.BaseAppiumTest.BaseAppiumTest;
 
-namespace SpecFlowMAQSExtension.TestSteps
+namespace Magenic.MaqsFramework.SpecFlow.TestSteps
 {
     /// <summary>
     /// Base for appium TestSteps classes
     /// </summary>
     [Binding, Scope(Tag = "MAQS_Appium")]
-    public class BaseAppiumTestSteps : ExtendableTestSteps<AppiumTestObject, BaseAppiumTest, AppiumDriver<IWebElement>>
+    public class BaseAppiumTestSteps : ExtendableTestSteps<AppiumTestObject, MaqsAppium, AppiumDriver<IWebElement>>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseAppiumTestSteps" /> class

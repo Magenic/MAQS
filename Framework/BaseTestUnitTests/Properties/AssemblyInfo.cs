@@ -1,35 +1,25 @@
-﻿//--------------------------------------------------
+//------------------------------------------------
 // <copyright file="AssemblyInfo.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>This is the assembly info class</summary>
 //--------------------------------------------------
-
 using System.Reflection;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("BaseTestUnitTests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Magenic")]
-[assembly: AssemblyProduct("DatabaseUnitTests")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("BaseTestUnitTests")]
 [assembly: AssemblyCopyright("Copyright © Magenic 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]
 
-[assembly: Guid("c1d8ae56-00e8-49c8-ab0d-b822d47797a7")]
+[assembly: Guid("723369f4-2ed9-4b94-960b-35e776dd2537")]
 
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Build and Revision Numbers 
-// by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("4.0.4")]
-[assembly: AssemblyFileVersion("4.0.4")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

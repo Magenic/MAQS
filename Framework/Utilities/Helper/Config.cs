@@ -4,11 +4,14 @@
 // </copyright>
 // <summary>Helper class for getting application configuration values</summary>
 //--------------------------------------------------
+using Microsoft.Extensions.Configuration;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Configuration;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Xml.Linq;
 
 namespace Magenic.MaqsFramework.Utilities.Helper
 {
@@ -18,14 +21,85 @@ namespace Magenic.MaqsFramework.Utilities.Helper
     public static class Config
     {
         /// <summary>
+        /// The default MAQS session
+        /// </summary>
+        private const string DEFAULTMAQSSECTION = "magenicmaqs";
+
+        /// <summary>
         /// Thread safe collection of configuration overrides
         /// </summary>
         private static ConcurrentDictionary<string, string> configOverrides = new ConcurrentDictionary<string, string>();
 
         /// <summary>
+        /// Thread safe collection of configurations
+        /// </summary>
+        private static ConcurrentDictionary<string, ConcurrentDictionary<string, string>> configValues = new ConcurrentDictionary<string, ConcurrentDictionary<string, string>>();
+
+        /// <summary>
         /// Configuration mapping for the custom Magenic Maqs section
         /// </summary>
-        private static NameValueCollection maqsConfig = ConfigurationManager.GetSection("MagenicMaqs") as NameValueCollection;
+        private static IConfigurationRoot maqsConfig = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", true)
+            .AddInMemoryCollection(GetXml())
+            .Build();
+
+        /// <summary>
+        /// Initializes static members of the <see cref="Config" /> class
+        /// </summary>
+        static Config()
+        {
+            // Look thru all of our provideds
+            foreach (IConfigurationProvider provider in maqsConfig.Providers)
+            {
+                // Get all the config sections
+                foreach (IConfigurationSection names in maqsConfig.GetChildren())
+                {
+                    string topKey = names.Key.ToLower();
+
+                    ConcurrentDictionary<string, string> values = configValues.GetOrAdd(topKey, new ConcurrentDictionary<string, string>());
+
+                    // Go over all the child keys and values
+                    foreach (string key in provider.GetChildKeys(Enumerable.Empty<string>(), names.Key))
+                    {
+                        string currentKey = names.Key + ":" + key;
+                        provider.TryGet(currentKey, out string foundValue);
+
+                        // Only add if it doesn't exist
+                        values.TryAdd(key, foundValue);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get a specific config section
+        /// </summary>
+        /// <param name="section">The name of the section</param>
+        /// <returns>Section values, with overrides respected</returns>
+        public static Dictionary<string, string> GetSection(string section)
+        {
+            Dictionary<string, string> sectionValues = new Dictionary<string, string>();
+
+            // Check if the section exists
+            if (configValues.TryGetValue(section.ToLower(), out ConcurrentDictionary<string, string> keysAndValues))
+            {
+                // Loop over all the key value pairs
+                foreach (var keyAndValue in keysAndValues)
+                {
+                    // Always default to our override values
+                    if (TryGetSectionValue(keyAndValue.Key, configOverrides, out string overrideValue))
+                    {
+                        sectionValues.Add(keyAndValue.Key, overrideValue);
+                    }
+                    else if (TryGetSectionValue(keyAndValue.Key, keysAndValues, out string outValue))
+                    {
+                        sectionValues.Add(keyAndValue.Key, outValue);
+                    }
+                }
+            }
+
+            return sectionValues;
+        }
 
         /// <summary>
         /// Add configuration override values
@@ -74,21 +148,19 @@ namespace Magenic.MaqsFramework.Utilities.Helper
         /// </example>
         public static string GetValue(string key, string defaultValue)
         {
-            string overrideValue;
-
-            if (configOverrides.TryGetValue(key, out overrideValue))
+            if (TryGetSectionValue(key, configOverrides, out string overrideValue))
             {
                 // Return test run override value
                 return overrideValue;
             }
-            else if (DoesMaqsKeyExist(key))
+            else if (TryGetDefaultSectionValue(key, out string value))
             {
                 // Return MagenicMaqs specific app.config value
-                return maqsConfig[key].ToString();
+                return value;
             }
 
-            // Return app settings specific app.config value or the default if value is not found in app.config
-            return ConfigurationManager.AppSettings[key] == null || ConfigurationManager.AppSettings[key].Equals(string.Empty) ? defaultValue : ConfigurationManager.AppSettings[key];
+            // Return the default if value is not found in appsettings.json
+            return defaultValue;
         }
 
         /// <summary>
@@ -102,7 +174,53 @@ namespace Magenic.MaqsFramework.Utilities.Helper
         [Browsable(false)]
         public static bool DoesKeyExist(string key)
         {
-            return configOverrides.ContainsKey(key) || DoesMaqsKeyExist(key) || ConfigurationManager.AppSettings[key] != null;
+            return TryGetSectionValue(key, configOverrides, out string value) || TryGetDefaultSectionValue(key, out string value2);
+        }
+
+        /// <summary>
+        /// Try to get a value for a given key in the default config area
+        /// </summary>
+        /// <param name="key">The value key</param>
+        /// <param name="value">The out value</param>
+        /// <returns>True if the value was found</returns>
+        private static bool TryGetDefaultSectionValue(string key, out string value)
+        {
+            value = null;
+
+            if (configValues.TryGetValue(DEFAULTMAQSSECTION, out ConcurrentDictionary<string, string> values))
+            {
+                TryGetSectionValue(key, values, out value);
+            }
+
+            return value != null;
+        }
+
+        /// <summary>
+        /// Try to get a value for a dictionary
+        /// </summary>
+        /// <param name="key">The value key</param>
+        /// <param name="dictionary">Dictionary of keys and values</param>
+        /// <param name="value">The out value</param>
+        /// <returns>True if the value was found</returns>
+        private static bool TryGetSectionValue(string key, ConcurrentDictionary<string, string> dictionary, out string value)
+        {
+            value = null;
+
+            if (dictionary != null)
+            {
+                if (dictionary.Keys.Equals(key))
+                {
+                    // Case sensative match
+                    value = dictionary[key];
+                }
+                else if (dictionary.Any(i => i.Key.Equals(key, System.StringComparison.CurrentCultureIgnoreCase)))
+                {
+                    // Case insensative match
+                    value = dictionary.First(i => i.Key.Equals(key, System.StringComparison.CurrentCultureIgnoreCase)).Value;
+                }
+            }
+
+            return value != null;
         }
 
         /// <summary>
@@ -112,7 +230,57 @@ namespace Magenic.MaqsFramework.Utilities.Helper
         /// <returns>True if the key exists</returns>
         private static bool DoesMaqsKeyExist(string key)
         {
-            return maqsConfig != null && maqsConfig[key] != null;
+            return TryGetDefaultSectionValue(key, out string value);
+        }
+
+        /// <summary>
+        /// Reads the xml config file and adds the keys
+        /// </summary>
+        /// <returns>A dictionary of key value pairs</returns>
+        private static IEnumerable<KeyValuePair<string, string>> GetXml()
+        {
+            // get the file path
+            string defaultPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string name = "App.config";
+            string path = Path.Combine(defaultPath, name);
+
+            // read the xml file
+            XElement rootElement;
+            try
+            {
+                rootElement = XDocument.Parse(File.ReadAllText(path)).Root;
+            }
+            catch (FileNotFoundException)
+            {
+                // xml file is not required
+                return new List<KeyValuePair<string, string>>();
+            }
+
+            // create a list of key pairs
+            Dictionary<string, string> keys = new Dictionary<string, string>();
+
+            // find the values MAQS is looking for
+            foreach (XElement node in rootElement.Elements())
+            {
+                // set if keys under this node whould be saved and if they should overwrite previous keys
+                if (!node.Name.LocalName.ToLower().Contains("maqs"))
+                {
+                    continue;
+                }
+
+                foreach (XElement config in node.Elements())
+                {
+                    IEnumerable<XAttribute> attributes = config.Attributes();
+                    bool test = attributes.Any(x => x.Name.LocalName.Equals("key"));
+
+                    if (attributes.Any(x => x.Name.LocalName.Equals("key")) && attributes.Any(y => y.Name.LocalName.Equals("value")))
+                    {
+                        keys.Add(node.Name.LocalName + ":" + config.Attribute("key").Value, config.Attribute("value").Value);
+                    }
+                }
+            }
+
+            return keys;
         }
     }
 }

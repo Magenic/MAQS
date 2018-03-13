@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>Unit test class for the MongoDB wrapper</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseMongoDBTest;
+using Magenic.MaqsFramework.BaseMongoTest;
 using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Bson;
@@ -19,7 +19,7 @@ namespace MongoDBUnitTests
     /// Test basic mongo base test functionality
     /// </summary>
     [TestClass]
-    public class MongoDBTests : BaseMongoDBTest<BsonDocument>
+    public class MongoDBTests : BaseMongoTest<BsonDocument>
     {
         /// <summary>
         /// Test the list all collection items helper function

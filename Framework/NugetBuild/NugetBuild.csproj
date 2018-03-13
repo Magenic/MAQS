@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,12 +9,13 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NugetBuild</RootNamespace>
     <AssemblyName>NugetBuild</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,15 +33,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseShim|AnyCPU'">
-    <OutputPath>bin\ReleaseShim\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -64,9 +56,9 @@
       <Project>{6e551c39-5307-4371-8315-8fd5b9381aed}</Project>
       <Name>BaseEmailTest</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BaseMongoDBTest\BaseMongoDBTest.csproj">
-      <Project>{86a25804-71a8-40e5-8f87-5e4726def076}</Project>
-      <Name>BaseMongoDBTest</Name>
+    <ProjectReference Include="..\BaseMongoTest\BaseMongoTest.csproj">
+      <Project>{91ca9bc9-c036-442d-9032-4b2a184e2b17}</Project>
+      <Name>BaseMongoTest</Name>
     </ProjectReference>
     <ProjectReference Include="..\BaseSeleniumTest\BaseSeleniumTest.csproj">
       <Project>{cf21dfef-3fce-4766-b261-f2225b5442ec}</Project>
@@ -89,20 +81,16 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packageNunit.nuspec">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="package.nuspec">
       <SubType>Designer</SubType>
     </None>
+    <None Include="packageOpen.nuspec" />
     <None Include="Settings.StyleCop" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup Condition=" '$(Configuration)' == 'ReleaseShim'">
-    <PostBuildEvent>"$(SolutionDir).nuget\NuGet.exe" pack "$(ProjectDir)packageNunit.nuspec" -IncludeReferencedProjects -BasePath "$(ProjectDir) " -NonInteractive -OutputDirectory "$(TargetDir) "  -Symbols -Prop Configuration=$(Configuration);OutputPath="$(OutDir) "</PostBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' != 'ReleaseShim'">
-    <PostBuildEvent>"$(SolutionDir).nuget\NuGet.exe" pack "$(ProjectDir)package.nuspec" -IncludeReferencedProjects -BasePath "$(ProjectDir) " -NonInteractive -OutputDirectory "$(TargetDir) "  -Symbols -Prop Configuration=$(Configuration);OutputPath="$(OutDir) "</PostBuildEvent>
+  <PropertyGroup>
+    <PostBuildEvent>"$(SolutionDir).nuget\NuGet.exe" pack "$(ProjectDir)package.nuspec" -IncludeReferencedProjects -BasePath "$(ProjectDir) " -NonInteractive -OutputDirectory "$(TargetDir) "  -Symbols -Prop Configuration=$(Configuration);OutputPath="$(OutDir) "
+"$(SolutionDir).nuget\NuGet.exe" pack "$(ProjectDir)packageOpen.nuspec" -IncludeReferencedProjects -BasePath "$(ProjectDir) " -NonInteractive -OutputDirectory "$(TargetDir) "  -Symbols -Prop Configuration=$(Configuration);OutputPath="$(OutDir) "</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

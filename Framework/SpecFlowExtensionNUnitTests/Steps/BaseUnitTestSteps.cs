@@ -5,8 +5,8 @@
 // <summary>TestSteps class that inherits from BaseTestSteps</summary>
 //--------------------------------------------------
 using Magenic.MaqsFramework.BaseTest;
+using Magenic.MaqsFramework.SpecFlow.TestSteps;
 using NUnit.Framework;
-using SpecFlowMAQSExtension.TestSteps;
 using TechTalk.SpecFlow;
 
 namespace SpecFlowExtensionNUnitTests.Steps

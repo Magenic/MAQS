@@ -5,8 +5,8 @@
 // <summary>TestSteps class that inherits from BaseWebServiceTestSteps</summary>
 //--------------------------------------------------
 using Magenic.MaqsFramework.BaseWebServiceTest;
+using Magenic.MaqsFramework.SpecFlow.TestSteps;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SpecFlowMAQSExtension.TestSteps;
 using TechTalk.SpecFlow;
 
 namespace SpecFlowExtensionUnitTests.Steps

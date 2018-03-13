@@ -6,14 +6,15 @@
 //--------------------------------------------------
 using Magenic.MaqsFramework.BaseEmailTest;
 using TechTalk.SpecFlow;
+using MaqsEmail = Magenic.MaqsFramework.BaseEmailTest.BaseEmailTest;
 
-namespace SpecFlowMAQSExtension.TestSteps
+namespace Magenic.MaqsFramework.SpecFlow.TestSteps
 {
     /// <summary>
     /// Base for email TestSteps classes
     /// </summary>
     [Binding, Scope(Tag = "MAQS_Email")]
-    public class BaseEmailTestSteps : ExtendableTestSteps<EmailTestObject, BaseEmailTest, EmailConnectionWrapper>
+    public class BaseEmailTestSteps : ExtendableTestSteps<EmailTestObject, MaqsEmail, EmailConnectionWrapper>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseEmailTestSteps" /> class

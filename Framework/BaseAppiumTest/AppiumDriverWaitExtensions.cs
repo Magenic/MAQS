@@ -68,8 +68,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// <returns>True if the wait driver was removed</returns>
         public static bool RemoveWaitDriver(this AppiumDriver<IWebElement> driver)
         {
-            WebDriverWait temp;
-            return waitCollection.TryRemove(driver, out temp);
+            return waitCollection.TryRemove(driver, out WebDriverWait temp);
         }
 
         /// <summary>

@@ -16,6 +16,7 @@ using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Safari;
 using OpenQA.Selenium.Support.UI;
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Drawing;
@@ -29,11 +30,6 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
     /// </summary>
     public static class SeleniumConfig
     {
-        /// <summary>
-        /// Static field for RemoteSeleniumCapsMaqs configuration section.
-        /// </summary>
-        private static string remoteCapabilities = "RemoteSeleniumCapsMaqs";
-
         /// <summary>
         /// Get the browser
         /// <para>If no browser is provide in the project configuration file we default to Chrome</para>
@@ -73,8 +69,11 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
 
                     case "FIREFOX":
                         FirefoxDriverService service = FirefoxDriverService.CreateDefaultService(GetDriverLocation("geckodriver.exe"), "geckodriver.exe");
-                        FirefoxOptions firefoxOptions = new FirefoxOptions();
-                        firefoxOptions.Profile = new FirefoxProfile();
+                        FirefoxOptions firefoxOptions = new FirefoxOptions
+                        {
+                            Profile = new FirefoxProfile()
+                        };
+
                         webDriver = new FirefoxDriver(service, firefoxOptions, GetCommandTimeout());
                         break;
 
@@ -167,8 +166,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         public static TimeSpan GetCommandTimeout()
         {
             string value = Config.GetValue("SeleniumCommandTimeout", "60");
-            int timeout;
-            if (!int.TryParse(value, out timeout))
+            if (!int.TryParse(value, out int timeout))
             {
                 throw new Exception("SeleniumCommandTimeout should be a number but the current value is: " + value);
             }
@@ -406,18 +404,18 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// <returns>The altered <see cref="DriverOptions"/> driver options</returns>
         private static DriverOptions SetRemoteCapabilities(this DriverOptions driverOptions)
         {
-            var remoteCapabilitySection = ConfigurationManager.GetSection(remoteCapabilities) as NameValueCollection;
+            Dictionary<string, string> remoteCapabilitySection = Config.GetSection("RemoteSeleniumCapsMaqs");
+
             if (remoteCapabilitySection == null)
             {
                 return driverOptions;
             }
 
-            var keys = remoteCapabilitySection.AllKeys;
-            foreach (var key in keys)
+            foreach (KeyValuePair<string, string> keyValue in remoteCapabilitySection)
             {
-                if (remoteCapabilitySection[key].Length > 0)
+                if (remoteCapabilitySection[keyValue.Key].Length > 0)
                 {
-                    driverOptions.AddAdditionalCapability(key, remoteCapabilitySection[key]);
+                    driverOptions.AddAdditionalCapability(keyValue.Key, keyValue.Value);
                 }
             }
 
@@ -471,10 +469,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
             }
             else
             {
-                int height = 0;
-                int width = 0;
-
-                GetWindowSizeString(size, out width, out height);
+                GetWindowSizeString(size, out int width, out int height);
 
                 webDriver.Manage().Window.Size = new Size(width, height);
             }
@@ -494,10 +489,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
             }
             else
             {
-                int height = 0;
-                int width = 0;
-
-                GetWindowSizeString(size, out width, out height);
+                GetWindowSizeString(size, out int width, out int height);
 
                 return string.Format("window-size={0},{1}", width, height);
             }

@@ -17,6 +17,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 using System.Runtime.ExceptionServices;
 using System.Text;
 using NUnitTestContext = NUnit.Framework.TestContext;
@@ -289,23 +290,19 @@ namespace Magenic.MaqsFramework.BaseTest
             this.AttachLogAndSceenshot(fullyQualifiedTestName);
 
             // Release the logged messages
-            List<string> loggedMessages;
-            this.LoggedExceptions.TryRemove(fullyQualifiedTestName, out loggedMessages);
+            this.LoggedExceptions.TryRemove(fullyQualifiedTestName, out List<string> loggedMessages);
             loggedMessages = null;
 
             // Relese the soft assert object
-            SoftAssert softAssert;
-            this.SoftAsserts.TryRemove(fullyQualifiedTestName, out softAssert);
+            this.SoftAsserts.TryRemove(fullyQualifiedTestName, out SoftAssert softAssert);
             softAssert = null;
 
             // Release the logger
-            Logger logger;
-            this.Loggers.TryRemove(fullyQualifiedTestName, out logger);
+            this.Loggers.TryRemove(fullyQualifiedTestName, out Logger logger);
             logger = null;
 
             // Relese the base test object
-            BaseTestObject baseTestObject;
-            this.BaseTestObjects.TryRemove(fullyQualifiedTestName, out baseTestObject);
+            this.BaseTestObjects.TryRemove(fullyQualifiedTestName, out BaseTestObject baseTestObject);
             baseTestObject = null;
 
             // Force the test to fail
@@ -488,7 +485,7 @@ namespace Magenic.MaqsFramework.BaseTest
 
                 // Get the inner exception and specific test name
                 Exception inner = ex.InnerException;
-                string innerStack = inner.StackTrace == null ? string.Empty : inner.StackTrace;
+                string innerStack = inner.StackTrace ?? string.Empty;
 
                 string message = inner.Message + Environment.NewLine + innerStack;
                 List<string> messages = this.LoggedExceptionList;
@@ -598,6 +595,7 @@ namespace Magenic.MaqsFramework.BaseTest
                 {
                     // Update configuration settings for Visual Studio unit test
                     List<string> propeties = new List<string>();
+                    IDictionary<string, object> contextProperties = (IDictionary<string, object>)this.testContextInstance.GetType().InvokeMember("Properties", BindingFlags.GetProperty, null, this.testContextInstance, null);
 
                     // Get a list of framework reserved properties so we can exclude them
                     foreach (var property in this.testContextInstance.GetType().GetProperties())
@@ -605,7 +603,7 @@ namespace Magenic.MaqsFramework.BaseTest
                         propeties.Add(property.Name);
                     }
 
-                    foreach (DictionaryEntry property in this.testContextInstance.Properties)
+                    foreach (KeyValuePair<string, object> property in contextProperties)
                     {
                         if (!propeties.Contains(property.Key as string) && property.Value is string)
                         {
@@ -641,32 +639,33 @@ namespace Magenic.MaqsFramework.BaseTest
         /// <param name="fullyQualifiedTestName">The fully qualified test name</param>
         private void AttachLogAndSceenshot(string fullyQualifiedTestName)
         {
-            try
-            {
-                // This only works for VS unit test so check that first
-                if (this.testContextInstance != null)
-                {
-                    // Only attach if we can find the log file
-                    if (this.Loggers.ContainsKey(fullyQualifiedTestName) && this.Loggers[fullyQualifiedTestName] is FileLogger && File.Exists(((FileLogger)this.Loggers[fullyQualifiedTestName]).FilePath))
-                    {
-                        string path = ((FileLogger)this.Loggers[fullyQualifiedTestName]).FilePath;
-                        string nameWithoutExtension = Path.GetFileNameWithoutExtension(path);
+            // TODO
+            //try
+            //{
+            //    // This only works for VS unit test so check that first
+            //    if (this.testContextInstance != null)
+            //    {
+            //        // Only attach if we can find the log file
+            //        if (this.Loggers.ContainsKey(fullyQualifiedTestName) && this.Loggers[fullyQualifiedTestName] is FileLogger && File.Exists(((FileLogger)this.Loggers[fullyQualifiedTestName]).FilePath))
+            //        {
+            //            string path = ((FileLogger)this.Loggers[fullyQualifiedTestName]).FilePath;
+            //            string nameWithoutExtension = Path.GetFileNameWithoutExtension(path);
 
-                        // Find all files that share the same base file name - file name without extension
-                        foreach (string file in Directory.GetFiles(Path.GetDirectoryName(path), fullyQualifiedTestName + "*", SearchOption.TopDirectoryOnly))
-                        {
-                            if (nameWithoutExtension.Equals(Path.GetFileNameWithoutExtension(file), StringComparison.CurrentCultureIgnoreCase))
-                            {
-                                this.TestContext.AddResultFile(file);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                this.TryToLog(MessageType.WARNING, "Failed to attach log or screenshot because: " + e.Message);
-            }
+            //            // Find all files that share the same base file name - file name without extension
+            //            foreach (string file in Directory.GetFiles(Path.GetDirectoryName(path), fullyQualifiedTestName + "*", SearchOption.TopDirectoryOnly))
+            //            {
+            //                if (nameWithoutExtension.Equals(Path.GetFileNameWithoutExtension(file), StringComparison.CurrentCultureIgnoreCase))
+            //                {
+            //                    this.TestContext.AddResultFile(file);
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+            //catch (Exception e)
+            //{
+            //    this.TryToLog(MessageType.WARNING, "Failed to attach log or screenshot because: " + e.Message);
+            //}
         }
     }
 }

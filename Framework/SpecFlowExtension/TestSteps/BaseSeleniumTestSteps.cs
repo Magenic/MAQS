@@ -7,14 +7,15 @@
 using Magenic.MaqsFramework.BaseSeleniumTest;
 using OpenQA.Selenium;
 using TechTalk.SpecFlow;
+using MaqsSelenium = Magenic.MaqsFramework.BaseSeleniumTest.BaseSeleniumTest;
 
-namespace SpecFlowMAQSExtension.TestSteps
+namespace Magenic.MaqsFramework.SpecFlow.TestSteps
 {
     /// <summary>
     /// Base for selenium TestSteps classes
     /// </summary>
     [Binding, Scope(Tag = "MAQS_Selenium")]
-    public class BaseSeleniumTestSteps : ExtendableTestSteps<SeleniumTestObject, BaseSeleniumTest, IWebDriver>
+    public class BaseSeleniumTestSteps : ExtendableTestSteps<SeleniumTestObject, MaqsSelenium, IWebDriver>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseSeleniumTestSteps" /> class
