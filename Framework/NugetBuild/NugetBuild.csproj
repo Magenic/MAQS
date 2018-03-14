@@ -85,12 +85,14 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packageOpen.nuspec" />
+    <None Include="packageSpecFlow.nuspec" />
     <None Include="Settings.StyleCop" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>"$(SolutionDir).nuget\NuGet.exe" pack "$(ProjectDir)package.nuspec" -IncludeReferencedProjects -BasePath "$(ProjectDir) " -NonInteractive -OutputDirectory "$(TargetDir) "  -Symbols -Prop Configuration=$(Configuration);OutputPath="$(OutDir) "
-"$(SolutionDir).nuget\NuGet.exe" pack "$(ProjectDir)packageOpen.nuspec" -IncludeReferencedProjects -BasePath "$(ProjectDir) " -NonInteractive -OutputDirectory "$(TargetDir) "  -Symbols -Prop Configuration=$(Configuration);OutputPath="$(OutDir) "</PostBuildEvent>
+"$(SolutionDir).nuget\NuGet.exe" pack "$(ProjectDir)packageOpen.nuspec" -IncludeReferencedProjects -BasePath "$(ProjectDir) " -NonInteractive -OutputDirectory "$(TargetDir) "  -Symbols -Prop Configuration=$(Configuration);OutputPath="$(OutDir) "
+"$(SolutionDir).nuget\NuGet.exe" pack "$(ProjectDir)packageSpecFlow.nuspec" -IncludeReferencedProjects -BasePath "$(ProjectDir) " -NonInteractive -OutputDirectory "$(TargetDir) "  -Symbols -Prop Configuration=$(Configuration);OutputPath="$(OutDir) "</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
