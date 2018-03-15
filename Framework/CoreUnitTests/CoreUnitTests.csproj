@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="FOR /F &quot;tokens=*&quot; %%m in ('dir /s /b /a &quot;$(SolutionDir)packages\chromedriver.exe&quot;') do copy /Y &quot;%%m&quot; &quot;$(TargetDir)&quot;" />
+    <Exec Command="FOR /F &quot;tokens=*&quot; %%m in ('dir /s /b /a &quot;$(SolutionDir)packages\chromedriver.exe&quot;') do copy /Y &quot;%%m&quot; &quot;$(TargetDir)&quot;&#xD;&#xA;FOR /F &quot;tokens=*&quot; %%m in ('dir /s /b /a &quot;$(SolutionDir)packages\phantomjs.exe&quot;') do copy /Y &quot;%%m&quot; &quot;$(TargetDir)&quot;&#xD;&#xA;FOR /F &quot;tokens=*&quot; %%m in ('dir /s /b /a &quot;$(SolutionDir)packages\IEDriverServer.exe&quot;') do copy /Y &quot;%%m&quot; &quot;$(TargetDir)&quot;&#xD;&#xA;FOR /F &quot;tokens=*&quot; %%m in ('dir /s /b /a &quot;$(SolutionDir)packages\geckodriver.exe&quot;') do copy /Y &quot;%%m&quot; &quot;$(TargetDir)&quot;&#xD;&#xA;FOR /F &quot;tokens=*&quot; %%m in ('dir /s /b /a &quot;$(SolutionDir)packages\MicrosoftWebDriver.exe&quot;') do copy /Y &quot;%%m&quot; &quot;$(TargetDir)&quot;" />
   </Target>
 
 </Project>
