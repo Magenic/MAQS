@@ -8,7 +8,7 @@ using Magenic.MaqsFramework.BaseTest;
 using System;
 using TechTalk.SpecFlow;
 
-namespace SpecFlowMAQSExtension
+namespace Magenic.MaqsFramework.SpecFlow
 {
     /// <summary>
     /// The abstract TestSteps class definition
@@ -22,12 +22,7 @@ namespace SpecFlowMAQSExtension
         /// <param name="context">The scenario context.</param>
         protected AbstractTestSteps(ScenarioContext context)
         {
-            if (context == null)
-            {
-                throw new ArgumentNullException(nameof(context));
-            }
-
-            this.LocalScenarioContext = context;
+            this.LocalScenarioContext = context ?? throw new ArgumentNullException(nameof(context));
 
             // used for debugging parallel execution
             Guid uid = Guid.NewGuid();

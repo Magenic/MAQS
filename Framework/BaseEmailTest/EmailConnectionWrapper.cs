@@ -37,8 +37,10 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         public EmailConnectionWrapper(string host, string username, string password, int port, int serverTimeout = 10000, bool isSSL = true, bool skipSslCheck = false)
         {
             // Get the email connection and make sure it is live
-            var client = new ImapClient();
-            client.ServerCertificateValidationCallback = (s, c, h, e) => skipSslCheck;
+            var client = new ImapClient
+            {
+                ServerCertificateValidationCallback = (s, c, h, e) => skipSslCheck
+            };
             client.Connect(host, port, isSSL);
             client.Authenticate(username, password);
             client.Timeout = serverTimeout;
@@ -420,7 +422,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
                 string destination = Path.Combine(downloadFolder, attachment.FileName);
                 using (var stream = File.Create(destination))
                 {
-                    attachment.ContentObject.DecodeTo(stream);
+                    attachment.Content.DecodeTo(stream);
                 }
 
                 paths.Add(destination);

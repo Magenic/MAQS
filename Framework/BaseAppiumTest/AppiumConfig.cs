@@ -81,11 +81,9 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// <returns>The initialize timeout</returns>
         public static TimeSpan GetCommandTimeout()
         {
-            int timeout;
-
             string value = Config.GetValue("AppiumCommandTimeout", "60");
-            
-            if (!int.TryParse(value, out timeout))
+
+            if (!int.TryParse(value, out int timeout))
             {
                 throw new Exception("AppiumCommandTimeout should be a number but the current value is: " + value);
             }
@@ -170,14 +168,14 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
                 return desiredCapabilities;
             }
 
-            var keys = mobileCapabilitySection.AllKeys;
-            foreach (var key in keys)
+            foreach (var key in mobileCapabilitySection.AllKeys)
             {
                 if (mobileCapabilitySection[key].Length > 0)
                 {
                     desiredCapabilities.SetCapability(key, mobileCapabilitySection[key]);
                 }
             }
+
             return desiredCapabilities;
         }
     }

@@ -1,11 +1,10 @@
-﻿//--------------------------------------------------
+﻿//------------------------------------------------
 // <copyright file="AssemblyInfo.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
-// <summary>Assembly File</summary>
+// <summary>This is the assembly info class</summary>
 //--------------------------------------------------
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
@@ -26,7 +25,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("9fcd9d4a-0b21-4842-8d4f-dc3257e3489e")]
+[assembly: Guid("73a3b99b-cdcb-430b-a03c-5a57869a4c33")]
 
 // Version information for an assembly consists of the following four values:
 //

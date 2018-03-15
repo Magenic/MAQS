@@ -6,14 +6,15 @@
 //--------------------------------------------------
 using Magenic.MaqsFramework.BaseDatabaseTest;
 using TechTalk.SpecFlow;
+using MaqsDatabase = Magenic.MaqsFramework.BaseDatabaseTest.BaseDatabaseTest;
 
-namespace SpecFlowMAQSExtension.TestSteps
+namespace Magenic.MaqsFramework.SpecFlow.TestSteps
 {
     /// <summary>
     /// Base for database TestSteps classes
     /// </summary>
     [Binding, Scope(Tag = "MAQS_Database")]
-    public class BaseDatabaseTestSteps : ExtendableTestSteps<DatabaseTestObject, BaseDatabaseTest, DatabaseConnectionWrapper>
+    public class BaseDatabaseTestSteps : ExtendableTestSteps<DatabaseTestObject, MaqsDatabase, DatabaseConnectionWrapper>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseDatabaseTestSteps" /> class

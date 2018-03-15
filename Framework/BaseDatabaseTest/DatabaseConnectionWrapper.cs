@@ -61,8 +61,10 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         /// </example>
         public virtual DataTable QueryAndGetDataTable(string query)
         {
-            SqlCommand command = new SqlCommand(query, this.connection);
-            command.CommandTimeout = DatabaseConfig.GetQueryTimeout();
+            SqlCommand command = new SqlCommand(query, this.connection)
+            {
+                CommandTimeout = DatabaseConfig.GetQueryTimeout()
+            };
 
             DataTable table = new DataTable();
             table.Load(command.ExecuteReader());
@@ -79,8 +81,10 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         /// </example>
         public virtual int NonQueryAndGetRowsAffected(string nonQuery)
         {
-            SqlCommand command = new SqlCommand(nonQuery, this.connection);
-            command.CommandTimeout = DatabaseConfig.GetQueryTimeout();
+            SqlCommand command = new SqlCommand(nonQuery, this.connection)
+            {
+                CommandTimeout = DatabaseConfig.GetQueryTimeout()
+            };
 
             return command.ExecuteNonQuery();
         }
@@ -116,9 +120,11 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         /// </example>
         public virtual int RunActionProcedure(string procedureName, params SqlParameter[] parameters)
         {
-            SqlCommand command = new SqlCommand(procedureName, this.connection);
-            command.CommandType = CommandType.StoredProcedure;
-            command.CommandTimeout = DatabaseConfig.GetQueryTimeout();
+            SqlCommand command = new SqlCommand(procedureName, this.connection)
+            {
+                CommandType = CommandType.StoredProcedure,
+                CommandTimeout = DatabaseConfig.GetQueryTimeout()
+            };
 
             foreach (SqlParameter parameter in parameters)
             {
@@ -139,9 +145,11 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         /// </example>
         public virtual DataTable RunQueryProcedure(string procedureName, params SqlParameter[] parameters)
         {
-            SqlCommand command = new SqlCommand(procedureName, this.connection);
-            command.CommandType = CommandType.StoredProcedure;
-            command.CommandTimeout = DatabaseConfig.GetQueryTimeout();
+            SqlCommand command = new SqlCommand(procedureName, this.connection)
+            {
+                CommandType = CommandType.StoredProcedure,
+                CommandTimeout = DatabaseConfig.GetQueryTimeout()
+            };
 
             foreach (SqlParameter parameter in parameters)
             {
@@ -160,8 +168,10 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         /// <returns>The http client</returns>
         protected virtual SqlConnection SetupDataBaseConnection(string connectionString)
         {
-            SqlConnection connection = new SqlConnection();
-            connection.ConnectionString = connectionString;
+            SqlConnection connection = new SqlConnection
+            {
+                ConnectionString = connectionString
+            };
             connection.Open();
 
             return connection;

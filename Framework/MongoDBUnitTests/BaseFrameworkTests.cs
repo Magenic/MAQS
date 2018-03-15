@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>Low level framework tests</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseMongoDBTest;
+using Magenic.MaqsFramework.BaseMongoTest;
 using Magenic.MaqsFramework.BaseTest;
 using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -70,7 +70,7 @@ namespace MongoDBUnitTests
         /// <returns>The base test as base Mongo</returns>
         protected override BaseTest GetBaseTest()
         {
-            return new BaseMongoDBTest<BsonDocument>();
+            return new BaseMongoTest<BsonDocument>();
         }
     }
 }

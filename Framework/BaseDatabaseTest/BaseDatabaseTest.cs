@@ -45,8 +45,10 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         /// <returns>The database connection</returns>
         protected virtual SqlConnection GetDataBaseConnection()
         {
-            SqlConnection connection = new SqlConnection();
-            connection.ConnectionString = this.GetBaseConnectionString();
+            SqlConnection connection = new SqlConnection
+            {
+                ConnectionString = this.GetBaseConnectionString()
+            };
             connection.Open();
 
             return connection;

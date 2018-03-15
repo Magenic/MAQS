@@ -39,10 +39,12 @@ namespace UtilitiesUnitTesting
             PerfTimerCollection p = this.PerfTimerCollection;
 
             // build an object to store in the payloadstring of the PerfTimerCollection
-            this.tc = new Tconfig();
-            this.tc.LogPath = Config.GetValue("FileLoggerPath");
-            this.tc.Logtype = Config.GetValue("LogType");
-            this.tc.WebURI = Config.GetValue("WebServiceUri");
+            this.tc = new Tconfig
+            {
+                LogPath = Config.GetValue("FileLoggerPath"),
+                Logtype = Config.GetValue("LogType"),
+                WebURI = Config.GetValue("WebServiceUri")
+            };
 
             // store it (as a JSON string)
             p.PerfPayloadString = JsonConvert.SerializeObject(this.tc);
@@ -182,7 +184,8 @@ namespace UtilitiesUnitTesting
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
         [ExpectedException(typeof(ArgumentException))]
-        public void PerfStartTimerThrowException() {
+        public void PerfStartTimerThrowException()
+        {
             PerfTimerCollection p = this.PerfTimerCollection;
             p.StartTimer("alreadyStarted");
             p.StartTimer("alreadyStarted");
@@ -205,7 +208,8 @@ namespace UtilitiesUnitTesting
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
-        public void PerfTimerConstructorTest() {
+        public void PerfTimerConstructorTest()
+        {
             PerfTimerCollection p = new PerfTimerCollection("testTimer");
             Assert.AreEqual(p.TestName, "testTimer");
         }
@@ -215,7 +219,8 @@ namespace UtilitiesUnitTesting
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
-        public void PerfTimerWriteException() {
+        public void PerfTimerWriteException()
+        {
             // Invalid testName
             PerfTimerCollection p = new PerfTimerCollection("<>");
             p.StartTimer("testTimer");
@@ -224,7 +229,6 @@ namespace UtilitiesUnitTesting
             p.Write(log);
             Assert.IsTrue(File.ReadAllText(log.FilePath).Contains("Could not save response time file.  Error was:"));
         }
-
 
         /// <summary>
         /// Example class to save in the payload element of the performance timer collection

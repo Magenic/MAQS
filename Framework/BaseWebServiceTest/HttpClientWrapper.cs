@@ -76,8 +76,11 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         /// <param name="customFormatter">Custom supported media types</param>
         public HttpClientWrapper(string baseAddress, MediaTypeFormatter customFormatter)
         {
-            List<MediaTypeFormatter> formatters = new List<MediaTypeFormatter>();
-            formatters.Add(customFormatter);
+            List<MediaTypeFormatter> formatters = new List<MediaTypeFormatter>
+            {
+                customFormatter
+            };
+
             this.Initializer(new Uri(baseAddress), formatters);
         }
 
@@ -88,8 +91,11 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         /// <param name="customFormatter">The supported media type formatter</param>
         public HttpClientWrapper(Uri baseAddress, MediaTypeFormatter customFormatter)
         {
-            List<MediaTypeFormatter> formatters = new List<MediaTypeFormatter>();
-            formatters.Add(customFormatter);
+            List<MediaTypeFormatter> formatters = new List<MediaTypeFormatter>
+            {
+                customFormatter
+            };
+
             this.Initializer(baseAddress, formatters);
         }
 

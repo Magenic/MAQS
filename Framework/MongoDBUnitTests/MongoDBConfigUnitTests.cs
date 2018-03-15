@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>Unit test database configuration test</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseMongoDBTest;
+using Magenic.MaqsFramework.BaseMongoTest;
 using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
