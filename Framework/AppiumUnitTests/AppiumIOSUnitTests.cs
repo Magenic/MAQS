@@ -15,7 +15,6 @@ using OpenQA.Selenium.Remote;
 
 namespace AppiumUnitTests
 {
-
     /// <summary>
     /// iOS related Appium tests
     /// </summary>

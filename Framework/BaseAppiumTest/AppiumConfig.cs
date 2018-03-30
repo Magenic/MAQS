@@ -178,6 +178,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
                     desiredCapabilities.SetCapability(key, mobileCapabilitySection[key]);
                 }
             }
+
             return desiredCapabilities;
         }
     }

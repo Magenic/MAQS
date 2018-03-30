@@ -1,4 +1,18 @@
 Maqs Framework Release Notes:
+4.0.5 - 2018/3/29
+	Bug fixes and minor enhancements
+	- Replace FluentElement with LazyElement
+	- Do not require user friendly name for LazyElement
+	- Add generic remote browser setting - used when browserName is passed in via the RemoteSeleniumCapsMaqs
+	- Updated
+		NUnit 3.10.1
+		Selenium.Support to 3.11.0
+		Selenium.WebDriver to 3.11.0
+		Selenium.WebDriver.ChromeDriver to 2.37.0
+		Selenium.WebDriver.IEDriver to 3.11.1
+		Selenium.WebDriver.GeckoDriver 0.20.0
+		Selenium.WebDriver.MicrosoftDriver 15.15063.0
+
 4.0.4 - 2017/12/20
 	Bug fixes and minor enhancements
 	- Change Edge driver initialization to support page load strategy enum change

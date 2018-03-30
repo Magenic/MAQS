@@ -420,7 +420,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
                 string destination = Path.Combine(downloadFolder, attachment.FileName);
                 using (var stream = File.Create(destination))
                 {
-                    attachment.ContentObject.DecodeTo(stream);
+                    attachment.Content.DecodeTo(stream);
                 }
 
                 paths.Add(destination);

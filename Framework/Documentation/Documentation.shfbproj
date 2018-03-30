@@ -32,22 +32,22 @@
       <DocumentationSource sourceFile="..\BaseDatabaseTest\BaseDatabaseTest.csproj" />
       <DocumentationSource sourceFile="..\BaseEmailTest\BaseEmailTest.csproj" />
       <DocumentationSource sourceFile="..\BaseMongoDBTest\BaseMongoDBTest.csproj" />
-      <DocumentationSource sourceFile="..\packages\Selenium.WebDriver.3.8.0\lib\net40\WebDriver.dll" />
-      <DocumentationSource sourceFile="..\packages\Selenium.WebDriver.3.8.0\lib\net40\WebDriver.xml" />
-      <DocumentationSource sourceFile="..\packages\Selenium.Support.3.8.0\lib\net40\WebDriver.Support.dll" />
-      <DocumentationSource sourceFile="..\packages\Selenium.Support.3.8.0\lib\net40\WebDriver.Support.xml" />
+      <DocumentationSource sourceFile="..\packages\Selenium.WebDriver.3.11.0\lib\net40\WebDriver.dll" />
+      <DocumentationSource sourceFile="..\packages\Selenium.WebDriver.3.11.0\lib\net40\WebDriver.xml" />
+      <DocumentationSource sourceFile="..\packages\Selenium.Support.3.11.0\lib\net40\WebDriver.Support.dll" />
+      <DocumentationSource sourceFile="..\packages\Selenium.Support.3.11.0\lib\net40\WebDriver.Support.xml" />
       <DocumentationSource sourceFile="..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll" />
       <DocumentationSource sourceFile="..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.xml" />
       <DocumentationSource sourceFile="..\packages\Appium.WebDriver.3.0.0.2\lib\net45\appium-dotnet-driver.dll" />
       <DocumentationSource sourceFile="..\packages\Appium.WebDriver.3.0.0.2\lib\net45\appium-dotnet-driver.XML" />
-      <DocumentationSource sourceFile="..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll" />
-      <DocumentationSource sourceFile="..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.xml" />
-      <DocumentationSource sourceFile="..\packages\NUnit.3.9.0\lib\net45\nunit.framework.dll" />
-      <DocumentationSource sourceFile="..\packages\NUnit.3.9.0\lib\net45\nunit.framework.xml" />
-      <DocumentationSource sourceFile="..\packages\MailKit.1.22.0\lib\net45\MailKit.dll" />
-      <DocumentationSource sourceFile="..\packages\MailKit.1.22.0\lib\net45\MailKit.xml" />
-      <DocumentationSource sourceFile="..\packages\MimeKit.1.22.0\lib\net45\MimeKit.dll" />
-      <DocumentationSource sourceFile="..\packages\MimeKit.1.22.0\lib\net45\MimeKit.xml" />
+      <DocumentationSource sourceFile="..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll" />
+      <DocumentationSource sourceFile="..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.xml" />
+      <DocumentationSource sourceFile="..\packages\NUnit.3.10.1\lib\net45\nunit.framework.dll" />
+      <DocumentationSource sourceFile="..\packages\NUnit.3.10.1\lib\net45\nunit.framework.xml" />
+      <DocumentationSource sourceFile="..\packages\MailKit.2.0.2\lib\net45\MailKit.dll" />
+      <DocumentationSource sourceFile="..\packages\MailKit.2.0.2\lib\net45\MailKit.xml" />
+      <DocumentationSource sourceFile="..\packages\MimeKit.2.0.2\lib\net45\MimeKit.dll" />
+      <DocumentationSource sourceFile="..\packages\MimeKit.2.0.2\lib\net45\MimeKit.xml" />
     </DocumentationSources>
     <HelpFileVersion>4.0.4</HelpFileVersion>
     <MaximumGroupParts>2</MaximumGroupParts>
@@ -123,7 +123,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <!-- NOTE: Update the version number in the path (YYYY.M.D.R) to match the package version -->
-    <SHFBROOT>$(SolutionDir)packages\EWSoftware.SHFB.2017.5.15.0\tools</SHFBROOT>
+    <SHFBROOT>$(SolutionDir)packages\EWSoftware.SHFB.2017.12.30.2\tools</SHFBROOT>
   </PropertyGroup>
   <PropertyGroup>
     <OutputType>Library</OutputType>
@@ -132,7 +132,7 @@
     <StartupObject />
   </PropertyGroup>
   <!-- Import the SHFB build targets -->
-  <Import Project="$(SolutionDir)packages\EWSoftware.SHFB.2017.5.15.0\tools\SandcastleHelpFileBuilder.targets" />
+  <Import Project="$(SolutionDir)packages\EWSoftware.SHFB.2017.12.30.2\tools\SandcastleHelpFileBuilder.targets" />
   <!-- The pre-build and post-build event properties must appear *after* the targets file import in order to be
 			 evaluated correctly. -->
   <PropertyGroup>
