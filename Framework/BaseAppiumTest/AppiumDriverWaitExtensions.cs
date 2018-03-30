@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="AppiumDriverWaitExtensions.cs" company="Magenic">
-//  Copyright 2017 Magenic, All rights Reserved
+//  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>This is the Appium driver wait extensions class</summary>
 //--------------------------------------------------
@@ -22,14 +22,14 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// <summary>
         /// Wait collection for the Appium Driver
         /// </summary>
-        private static ConcurrentDictionary<AppiumDriver<AppiumWebElement>, WebDriverWait> waitCollection;
+        private static ConcurrentDictionary<AppiumDriver<IWebElement>, WebDriverWait> waitCollection;
 
         /// <summary>
         /// Initializes static members of the <see cref="AppiumDriverWaitExtensions" /> class
         /// </summary>
         static AppiumDriverWaitExtensions()
         {
-            waitCollection = new ConcurrentDictionary<AppiumDriver<AppiumWebElement>, WebDriverWait>();
+            waitCollection = new ConcurrentDictionary<AppiumDriver<IWebElement>, WebDriverWait>();
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// </summary>
         /// <param name="driver">The appium driver</param>
         /// <returns>The WebDriverWait</returns>
-        public static WebDriverWait GetWaitDriver(this AppiumDriver<AppiumWebElement> driver)
+        public static WebDriverWait GetWaitDriver(this AppiumDriver<IWebElement> driver)
         {
             if (waitCollection.ContainsKey(driver))
             {
@@ -56,7 +56,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// </summary>
         /// <param name="driver">The appium driver</param>
         /// <param name="waiter">Web Driver Wait</param>
-        public static void SetWaitDriver(this AppiumDriver<AppiumWebElement> driver, WebDriverWait waiter)
+        public static void SetWaitDriver(this AppiumDriver<IWebElement> driver, WebDriverWait waiter)
         {
             waitCollection.AddOrUpdate(driver, waiter, (oldkey, oldvalue) => waiter);
         }
@@ -66,7 +66,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// </summary>
         /// <param name="driver">The appium driver</param>
         /// <returns>True if the wait driver was removed</returns>
-        public static bool RemoveWaitDriver(this AppiumDriver<AppiumWebElement> driver)
+        public static bool RemoveWaitDriver(this AppiumDriver<IWebElement> driver)
         {
             WebDriverWait temp;
             return waitCollection.TryRemove(driver, out temp);
@@ -77,7 +77,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// </summary>
         /// <param name="driver">The appium driver</param>
         /// <param name="by">'by' selector for the element</param>
-        public static void WaitForAbsentElement(this AppiumDriver<AppiumWebElement> driver, By by)
+        public static void WaitForAbsentElement(this AppiumDriver<IWebElement> driver, By by)
         {
             if (!WaitUntilAbsentElement(driver, by))
             {
@@ -89,7 +89,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// Wait for the page to load
         /// </summary>
         /// <param name="driver">The appium driver</param>
-        public static void WaitForPageLoad(this AppiumDriver<AppiumWebElement> driver)
+        public static void WaitForPageLoad(this AppiumDriver<IWebElement> driver)
         {
             if (!WaitUntilPageLoad(driver))
             {
@@ -103,7 +103,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// <param name="driver">The appium driver</param>
         /// <param name="by">'by' selector for the element</param>
         /// <returns>True if the element is not visible on the page</returns>
-        public static bool WaitUntilAbsentElement(this AppiumDriver<AppiumWebElement> driver, By by)
+        public static bool WaitUntilAbsentElement(this AppiumDriver<IWebElement> driver, By by)
         {
             DateTime start = DateTime.Now;
 
@@ -140,7 +140,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// </summary>
         /// <param name="driver">The appium driver</param>
         /// <returns>True if the page finished loading</returns>
-        public static bool WaitUntilPageLoad(this AppiumDriver<AppiumWebElement> driver)
+        public static bool WaitUntilPageLoad(this AppiumDriver<IWebElement> driver)
         {
             DateTime start = DateTime.Now;
             string source = string.Empty;
@@ -182,7 +182,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// </summary>
         /// <param name="by">'by' selector for the element</param>
         /// <returns>Success if the element is clickable</returns>
-        private static Func<AppiumDriver<AppiumWebElement>, IWebElement> ElementIsClickable(By by)
+        private static Func<AppiumDriver<IWebElement>, IWebElement> ElementIsClickable(By by)
         {
             return driver =>
             {
@@ -196,7 +196,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// </summary>
         /// <param name="by">'by' selector for the element</param>
         /// <returns>Success if the element is visible</returns>
-        private static Func<AppiumDriver<AppiumWebElement>, IWebElement> ElementIsVisible(By by)
+        private static Func<AppiumDriver<IWebElement>, IWebElement> ElementIsVisible(By by)
         {
             return driver =>
             {
@@ -210,7 +210,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// </summary>
         /// <param name="by">'by' selector for the element</param>
         /// <returns>Success if the element is enabled</returns>
-        private static Func<AppiumDriver<AppiumWebElement>, IWebElement> ElementIsEnabled(By by)
+        private static Func<AppiumDriver<IWebElement>, IWebElement> ElementIsEnabled(By by)
         {
             return driver =>
             {
@@ -225,7 +225,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// <param name="by">'by' selector for the element</param>
         /// <param name="text">The expected text</param>
         /// <returns>Success if the element has the expected text</returns>
-        private static Func<AppiumDriver<AppiumWebElement>, IWebElement> ElementHasExpectedText(By by, string text)
+        private static Func<AppiumDriver<IWebElement>, IWebElement> ElementHasExpectedText(By by, string text)
         {
             return driver =>
             {
@@ -241,7 +241,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// <param name="by">'by' selector for the element</param>
         /// <param name="text">The expected text</param>
         /// <returns>Success if the element contains the expected text</returns>
-        private static Func<AppiumDriver<AppiumWebElement>, IWebElement> ElementContainsExpectedText(By by, string text)
+        private static Func<AppiumDriver<IWebElement>, IWebElement> ElementContainsExpectedText(By by, string text)
         {
             return driver =>
             {

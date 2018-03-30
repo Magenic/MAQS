@@ -1,0 +1,15 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Item">
+  <TemplateData>
+    <DefaultName>EmailFeature.feature</DefaultName>
+    <Name>Maqs SpecFlow Email Feature File</Name>
+    <Description>Magenic's automation quick start framework SpecFlow email feature file</Description>
+    <ProjectType>CSharp</ProjectType>
+    <ProjectSubType>Magenic SpecFlow Test</ProjectSubType>
+    <SortOrder>10</SortOrder>
+    <Icon>__TemplateIcon.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <References />
+    <ProjectItem SubType="" TargetFileName="$fileinputname$.feature" ReplaceParameters="true">EmailFeature.feature</ProjectItem>
+  </TemplateContent>
+</VSTemplate>

@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="SeleniumConfig.cs" company="Magenic">
-//  Copyright 2017 Magenic, All rights Reserved
+//  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Helper class for getting selenium specific configuration values</summary>
 //--------------------------------------------------
@@ -377,6 +377,10 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                     options = new SafariOptions();
                     break;
 
+                case "GENERIC":
+                    options = new GenericBrowserOptions();
+                    break;
+
                 default:
                     throw new Exception(StringProcessor.SafeFormatter("Remote browser type '{0}' is not supported", remoteBrowser));
             }
@@ -394,7 +398,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
             }
 
             // Add RemoteCapabilites section if it exists
-            options.SetRemoteCapabilities();
+            options.SetDriverOptions();
 
             return options.ToCapabilities();
         }
@@ -404,7 +408,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// </summary>
         /// <param name="driverOptions">The driver options to make this an extension method</param>
         /// <returns>The altered <see cref="DriverOptions"/> driver options</returns>
-        private static DriverOptions SetRemoteCapabilities(this DriverOptions driverOptions)
+        private static DriverOptions SetDriverOptions(this DriverOptions driverOptions)
         {
             var remoteCapabilitySection = ConfigurationManager.GetSection(remoteCapabilities) as NameValueCollection;
             if (remoteCapabilitySection == null)

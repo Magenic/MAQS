@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="HtmlFileLogger.cs" company="Magenic">
-//  Copyright 2017 Magenic, All rights Reserved
+//  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Writes event logs to HTML file</summary>
 //--------------------------------------------------
@@ -96,6 +96,12 @@ namespace Magenic.MaqsFramework.Utilities.Logging
                     // Close off the style
                     writer.Write("</p>");
 
+                    // Close the pre tag when logging Errors
+                    if (messageType.ToString() == "ERROR")
+                    {
+                        writer.Write("</pre>");
+                    }
+
                     writer.Flush();
                     writer.Close();
                 }
@@ -121,7 +127,7 @@ namespace Magenic.MaqsFramework.Utilities.Logging
                 case MessageType.VERBOSE:
                     return "<p style =\"color:purple\">";
                 case MessageType.ERROR:
-                    return "<p style=\"color:red\">";
+                    return "<pre><p style=\"color:red\">";
                 case MessageType.GENERIC:
                     return "<p style =\"color:black\">";
                 case MessageType.INFORMATION:

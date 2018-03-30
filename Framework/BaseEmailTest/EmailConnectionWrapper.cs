@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="EmailConnectionWrapper.cs" company="Magenic">
-//  Copyright 2017 Magenic, All rights Reserved
+//  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>The basic email interactions</summary>
 //--------------------------------------------------
@@ -420,7 +420,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
                 string destination = Path.Combine(downloadFolder, attachment.FileName);
                 using (var stream = File.Create(destination))
                 {
-                    attachment.ContentObject.DecodeTo(stream);
+                    attachment.Content.DecodeTo(stream);
                 }
 
                 paths.Add(destination);

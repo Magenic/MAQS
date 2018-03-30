@@ -64,11 +64,11 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="WebDriver">
-      <HintPath>..\packages\Selenium.WebDriver.3.8.0\lib\net45\WebDriver.dll</HintPath>
+    <Reference Include="WebDriver, Version=3.11.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.WebDriver.3.11.0\lib\net45\WebDriver.dll</HintPath>
     </Reference>
-    <Reference Include="WebDriver.Support">
-      <HintPath>..\packages\Selenium.Support.3.8.0\lib\net45\WebDriver.Support.dll</HintPath>
+    <Reference Include="WebDriver.Support, Version=3.11.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.Support.3.11.0\lib\net45\WebDriver.Support.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +76,7 @@
     <Compile Include="ActionBuilder.cs" />
     <Compile Include="Extensions\Extend.cs" />
     <Compile Include="ElementHandler.cs" />
+    <Compile Include="Extensions\LazyElement.cs" />
     <Compile Include="Extensions\FluentElement.cs" />
     <Compile Include="SeleniumTestObject.cs" />
     <Compile Include="SeleniumSoftAssert.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="SeleniumConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extensions\Wait.cs" />
+    <Compile Include="GenericBrowserOptions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BaseTest\BaseTest.csproj">

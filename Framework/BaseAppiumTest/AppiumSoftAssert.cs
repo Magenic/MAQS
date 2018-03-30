@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="AppiumSoftAssert.cs" company="Magenic">
-//  Copyright 2017 Magenic, All rights Reserved
+//  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>This is the Appium soft assert class</summary>
 //--------------------------------------------------
@@ -12,6 +12,8 @@ using OpenQA.Selenium.Appium;
 
 namespace Magenic.MaqsFramework.BaseAppiumTest
 {
+    using OpenQA.Selenium;
+
     /// <summary>
     /// Soft Assert override for appium tests
     /// </summary>
@@ -20,14 +22,14 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// <summary>
         /// AppiumDriver to be used
         /// </summary>
-        private AppiumDriver<AppiumWebElement> appiumDriver;
+        private AppiumDriver<IWebElement> appiumDriver;
 
         /// <summary>
         /// Initializes a new instance of the AppiumSoftAssert class
         /// </summary>
         /// <param name="driver">The appium driver to use</param>
         /// <param name="logger">The logger to use</param>
-        public AppiumSoftAssert(AppiumDriver<AppiumWebElement> driver, Logger logger)
+        public AppiumSoftAssert(AppiumDriver<IWebElement> driver, Logger logger)
             : base(logger)
         {
             this.appiumDriver = driver;

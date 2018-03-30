@@ -1,0 +1,15 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Item">
+  <TemplateData>
+    <DefaultName>GeneralFeature.feature</DefaultName>
+    <Name>Maqs SpecFlow General Feature File</Name>
+    <Description>Magenic's automation quick start framework SpecFlow general feature file</Description>
+    <ProjectType>CSharp</ProjectType>
+    <ProjectSubType>Magenic SpecFlow Test</ProjectSubType>
+    <SortOrder>10</SortOrder>
+    <Icon>__TemplateIcon.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <References />
+    <ProjectItem SubType="" TargetFileName="$fileinputname$.feature" ReplaceParameters="true">GeneralFeature.feature</ProjectItem>
+  </TemplateContent>
+</VSTemplate>

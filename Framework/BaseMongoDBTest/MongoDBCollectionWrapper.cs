@@ -1,5 +1,5 @@
 ﻿// <copyright file="MongoDBCollectionWrapper.cs" company="Magenic">
-//  Copyright 2017 Magenic, All rights Reserved
+//  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>This is the wrapper for the mongo collection object</summary>
 //--------------------------------------------------
