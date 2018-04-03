@@ -1,28 +1,31 @@
-﻿//--------------------------------------------------
-// <copyright file="ConfigUnitTests.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
-// </copyright>
-// <summary>Unit test configuration tests</summary>
-//--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Helper;
+﻿using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
-namespace UtilitiesUnitTesting
+namespace CoreUnitTests
 {
-    /// <summary>
-    /// Configuration unit test class
-    /// </summary>
     [TestClass]
-    [ExcludeFromCodeCoverage]
-    public class ConfigUnitTests
+    public class ConfigTests
     {
+        /// <summary>
+        /// Open page test
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.UtilitiesCore)]
+        public void Testconfig()
+        {
+            Config.DoesKeyExist("Log");
+            Assert.AreEqual(true, Config.DoesKeyExist("Log"));
+            Assert.AreEqual(true, Config.DoesKeyExist("Browser"));
+            Assert.AreEqual("OnFail", Config.GetValue("Log", "NO")); 
+            Assert.AreEqual("PhantomJS", Config.GetValue("Browser", "NO"));
+        }
+
         /// <summary>
         /// Gets a value from a string
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Utilities)]
+        [TestCategory(TestCategories.UtilitiesCore)]
         public void GetValueWithString()
         {
             #region GetValueString
@@ -35,7 +38,7 @@ namespace UtilitiesUnitTesting
         /// Gets a value with a string or default
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Utilities)]
+        [TestCategory(TestCategories.UtilitiesCore)]
         public void GetValueWithStringAndDefault()
         {
             #region GetValueWithDefault
@@ -48,7 +51,7 @@ namespace UtilitiesUnitTesting
         /// Checks if a key exists
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Utilities)]
+        [TestCategory(TestCategories.UtilitiesCore)]
         public void DoesKeyExist()
         {
             #region DoesKeyExist
@@ -61,7 +64,7 @@ namespace UtilitiesUnitTesting
         ///  Verify simple override of an existing configuration
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Utilities)]
+        [TestCategory(TestCategories.UtilitiesCore)]
         public void SimpleOverrideConfig()
         {
             // Simple override data
@@ -70,7 +73,7 @@ namespace UtilitiesUnitTesting
             string overrideValue = baseValue + "_Override";
 
             // Override the configuration
-            Dictionary<string, string> overrides = new Dictionary<string, string>();
+            var overrides = new Dictionary<string, string>();
             overrides.Add(key, overrideValue);
             Config.AddTestSettingValues(overrides);
 
@@ -82,17 +85,17 @@ namespace UtilitiesUnitTesting
         ///  Verify simple override of a new configuration
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Utilities)]
+        [TestCategory(TestCategories.UtilitiesCore)]
         public void OverrideNewConfig()
         {
             string key = "AddNewKey";
             string value = "TestValue";
-            
+
             // Make sure the new key is not present
             Assert.AreEqual(string.Empty, Config.GetValue(key));
 
             // Set the override
-            Dictionary<string, string> overrides = new Dictionary<string, string>();
+            var overrides = new Dictionary<string, string>();
             overrides.Add(key, value);
             Config.AddTestSettingValues(overrides);
 
@@ -104,7 +107,7 @@ namespace UtilitiesUnitTesting
         ///  Verify complex configuration overrides
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Utilities)]
+        [TestCategory(TestCategories.UtilitiesCore)]
         public void ComplexOverrideConfig()
         {
             // Define keys
@@ -119,7 +122,7 @@ namespace UtilitiesUnitTesting
             string overrideValue = baseValue + "_Override";
 
             // Override first key value
-            Dictionary<string, string> overrides = new Dictionary<string, string>();
+            var overrides = new Dictionary<string, string>();
             overrides.Add(key, overrideValue);
             Config.AddTestSettingValues(overrides);
 

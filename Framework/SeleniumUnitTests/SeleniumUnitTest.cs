@@ -1271,9 +1271,25 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void SeleniumSetupNoneEventFiringTester()
         {
+            //// Take down the default driver
+            this.WebDriver?.Close();
+            this.WebDriver?.Dispose();
+
+            //// The driver under test. This driver is taken down by the standard teardown process
             this.SetupNoneEventFiringTester();
-            IWebDriver browser = SeleniumConfig.Browser();
-            Assert.AreEqual(browser.ToString(), this.WebDriver.ToString());
+
+            //// This driver must manually be taken down
+            var differentDriver = SeleniumConfig.Browser();
+
+            try
+            {
+                Assert.AreEqual(differentDriver.ToString(), this.WebDriver.ToString());
+            }
+            finally
+            {
+                differentDriver?.Close();
+                differentDriver?.Dispose();
+            }
         }
 
         /// <summary>

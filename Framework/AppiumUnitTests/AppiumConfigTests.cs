@@ -48,7 +48,7 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void GetDeviceNameTest()
         {
-            Assert.AreEqual(AppiumConfig.GetDeviceName(), "emulator-5554");
+            Assert.AreEqual("Android GoogleAPI Emulator", AppiumConfig.GetDeviceName());
         }
 
         /// <summary>

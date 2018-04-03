@@ -22,6 +22,6 @@ namespace CoreUnitTests
         public void CanRunSeleniumTest()
         {
             Assert.IsNotNull(this.TestObject.WebDriver);
-        }
+        }       
     }
 }

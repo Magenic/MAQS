@@ -17,11 +17,10 @@ using OpenQA.Selenium.Safari;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Configuration;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
+using System.Text;
 
 namespace Magenic.MaqsFramework.BaseSeleniumTest
 {
@@ -64,7 +63,10 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                     case "INTERNET EXPLORER":
                     case "INTERNETEXPLORER":
                     case "IE":
-                        webDriver = new InternetExplorerDriver(GetDriverLocation("IEDriverServer.exe"), new InternetExplorerOptions(), GetCommandTimeout());
+                        var options = new InternetExplorerOptions();
+                        options.IgnoreZoomLevel = true;
+                        webDriver = new InternetExplorerDriver(GetDriverLocation("IEDriverServer.exe"), options, GetCommandTimeout());                        
+
                         break;
 
                     case "FIREFOX":
@@ -74,6 +76,8 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                             Profile = new FirefoxProfile()
                         };
 
+                        // Add support for encoding 437 that was removed in .net core
+                        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                         webDriver = new FirefoxDriver(service, firefoxOptions, GetCommandTimeout());
                         break;
 

@@ -36,10 +36,15 @@ namespace UnitTests
             IWebDriver driver = SeleniumConfig.Browser();
 
             #endregion GetBrowser
-
-            Assert.IsNotNull(driver);
-            driver.Close();
-            driver.Dispose();
+            try
+            {
+                Assert.IsNotNull(driver);
+            }
+            finally
+            {
+                driver.Close();
+                driver.Dispose();
+            }            
         }
 
         /// <summary>
@@ -59,30 +64,133 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// resize browser window to specified lengths
+        /// Verify resize browser window to Maximum lengths
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void ResizeBrowserWindow()
+        public void ResizeBrowserWindowMaximize()
         {
-            IWebDriver driver = SeleniumConfig.Browser();
+            /* 
+             * Create driver at whatever size
+             * Manually maximize the window
+             * Override the Config BrowserSize value to MAXIMIZE
+             * Verify new and old driver size values are the same
+             */
 
-            if (Config.GetValue("BrowserSize") == "MAXIMIZE")
+            var driverManualSize = SeleniumConfig.Browser();
+
+            try
             {
-                Assert.AreEqual(1056, driver.Manage().Window.Size.Height);
-                Assert.AreEqual(1936, driver.Manage().Window.Size.Width);
+                driverManualSize.Manage().Window.Maximize();
+
+                var manuallyMaximizedWidth = driverManualSize.Manage().Window.Size.Width;
+                var manuallyMaximizedHidth = driverManualSize.Manage().Window.Size.Height;
+
+                Config.AddTestSettingValues(
+                   new Dictionary<string, string>
+                   {
+                        { "BrowserSize", "MAXIMIZE" }
+                   },
+                   true);
+
+                var driverConfigSize = SeleniumConfig.Browser();
+
+                try
+                {
+                    Assert.AreEqual(manuallyMaximizedWidth, driverConfigSize.Manage().Window.Size.Width);
+                    Assert.AreEqual(manuallyMaximizedHidth, driverConfigSize.Manage().Window.Size.Height);
+                }
+                finally
+                {
+                    driverConfigSize?.Close();
+                    driverConfigSize?.Dispose();
+                }
             }
-            else if (Config.GetValue("BrowserSize") == "DEFAULT")
+            finally
             {
-                Assert.AreEqual(1020, driver.Manage().Window.Size.Height);
-                Assert.AreEqual(945, driver.Manage().Window.Size.Width);
+                driverManualSize?.Close();
+                driverManualSize?.Dispose();
             }
-            else
+        }
+
+        /// <summary>
+        /// Verify resize browser window to Default lengths
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void ResizeBrowserWindowDefault()
+        {
+            /* 
+             * Create driver at default size, 
+             * Set the driver window so that it is not at a default size
+             * Create a new browser at default size and verify it is created at the default size and not changed size
+             */
+            Config.AddTestSettingValues(
+                    new Dictionary<string, string>
+                    {
+                        { "BrowserSize", "DEFAULT" }
+                    },
+                    true);
+
+            var driverChangeSize = SeleniumConfig.Browser();
+
+            try
             {
-                Assert.AreNotEqual(1056, driver.Manage().Window.Size.Height);
-                Assert.AreNotEqual(1020, driver.Manage().Window.Size.Height);
-                Assert.AreNotEqual(1936, driver.Manage().Window.Size.Width);
-                Assert.AreNotEqual(945, driver.Manage().Window.Size.Width);
+                var defaultWidth = driverChangeSize.Manage().Window.Size.Width;
+                var defaultHidth = driverChangeSize.Manage().Window.Size.Height;
+                var nonDefaultWidth = defaultWidth + 1;
+                var nonDefaultHidth = defaultHidth + 1;
+
+                driverChangeSize.Manage().Window.Size = new System.Drawing.Size(nonDefaultWidth, nonDefaultHidth);
+
+                var driverDefault = SeleniumConfig.Browser();
+
+                try
+                {
+                    Assert.AreEqual(defaultWidth, driverDefault.Manage().Window.Size.Width);
+                    Assert.AreEqual(defaultHidth, driverDefault.Manage().Window.Size.Height);
+                }
+                finally
+                {
+                    driverDefault?.Close();
+                    driverDefault?.Dispose();
+                }
+            }
+            finally
+            {
+                driverChangeSize?.Close();
+                driverChangeSize?.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// Verify resize browser window to custom lengths 1024x768
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void ResizeBrowserWindowCustom()
+        {
+            var expectedWidth = 1024;
+            var expectedHeight = 768;
+
+            Config.AddTestSettingValues(
+                    new Dictionary<string, string>
+                    {
+                        { "BrowserSize", $"{expectedWidth}x{expectedHeight}" }
+                    },
+                    true);
+
+            var driver = SeleniumConfig.Browser();
+
+            try
+            {
+                Assert.AreEqual(expectedWidth, driver.Manage().Window.Size.Width);
+                Assert.AreEqual(expectedHeight, driver.Manage().Window.Size.Height);
+            }
+            finally
+            {
+                driver?.Close();
+                driver?.Dispose();
             }
         }
 
@@ -221,11 +329,17 @@ namespace UnitTests
 
             IWebDriver driver = SeleniumConfig.Browser("phantomjs");
 
-            #endregion GetBrowserWithString
+            #endregion GetBrowserWithString            
 
-            Assert.IsNotNull(driver);
-            driver.Close();
-            driver.Dispose();
+            try
+            {
+                Assert.IsNotNull(driver);
+            }
+            finally
+            {
+                driver.Close();
+                driver.Dispose();
+            }                
         }
 
         /// <summary>
@@ -287,18 +401,26 @@ namespace UnitTests
         [TestCategory(TestCategories.Selenium)]
         public void SetTimeoutsGetWaitDriver()
         {
-            IWebDriver driver = SeleniumConfig.Browser();
-
+            var driver = SeleniumConfig.Browser();
+            var newDriver = SeleniumConfig.Browser();
             try
             {
                 SeleniumConfig.SetTimeouts(driver);
-                WebDriverWait wait = SeleniumConfig.GetWaitDriver(SeleniumConfig.Browser());
+                WebDriverWait wait = SeleniumConfig.GetWaitDriver(newDriver);
                 Assert.AreEqual(wait.Timeout.TotalMilliseconds.ToString(), Config.GetValue("Timeout", "0"));
             }
             finally
             {
-                driver.Close();
-                driver.Dispose();
+                try
+                {
+                    driver?.Close();
+                    driver?.Dispose();
+                }
+                finally
+                {
+                    newDriver?.Close();
+                    newDriver?.Dispose();
+                }
             }
         }
         #endregion

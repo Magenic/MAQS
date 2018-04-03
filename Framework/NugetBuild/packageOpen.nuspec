@@ -13,6 +13,10 @@
     <iconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</iconUrl>
     <dependencies>
       <dependency id="NUnit" version="3.10.1" />
+      <dependency id="MSTest.TestFramework" version="1.3.0-beta2" />
+      <dependency id="Microsoft.Extensions.Configuration" version="2.0.0" />
+      <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="2.0.0" />
+      <dependency id="Microsoft.Extensions.Configuration.Json" version="2.0.0" />
     </dependencies>
   </metadata>
   <files>

@@ -41,35 +41,37 @@ namespace Magenic.MaqsFramework.Utilities.Helper
         private static IConfigurationRoot maqsConfig = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json", true)
             .AddInMemoryCollection(GetXml())
-            .Build();
+            .Build();        
 
         /// <summary>
         /// Initializes static members of the <see cref="Config" /> class
         /// </summary>
         static Config()
         {
-            // Look thru all of our provideds
-            foreach (IConfigurationProvider provider in maqsConfig.Providers)
+            // Get all the config sections for all providers
+            foreach (IConfigurationSection names in maqsConfig.GetChildren())
             {
-                // Get all the config sections
-                foreach (IConfigurationSection names in maqsConfig.GetChildren())
-                {
-                    string topKey = names.Key.ToLower();
+                string topKey = names.Key.ToLower();
+                ConcurrentDictionary<string, string> values = configValues.GetOrAdd(topKey, new ConcurrentDictionary<string, string>());
 
-                    ConcurrentDictionary<string, string> values = configValues.GetOrAdd(topKey, new ConcurrentDictionary<string, string>());
-
-                    // Go over all the child keys and values
-                    foreach (string key in provider.GetChildKeys(Enumerable.Empty<string>(), names.Key))
+                // Get all elements for each section
+                foreach (var element in names.GetChildren())
+                {             
+                    // Keys and values will exists at this level App.config files, and 1 level deeper for appsettings
+                    if (element.Value != null )
                     {
-                        string currentKey = names.Key + ":" + key;
-                        provider.TryGet(currentKey, out string foundValue);
-
-                        // Only add if it doesn't exist
-                        values.TryAdd(key, foundValue);
+                        values.TryAdd(element.Key, element.Value);
                     }
+                    else
+                    {
+                        foreach (var item in element.GetChildren())
+                        {
+                            values.TryAdd(item.Key, item.Value);
+                        }
+                    }                    
                 }
-            }
-        }
+            }            
+        }        
 
         /// <summary>
         /// Get a specific config section
@@ -231,7 +233,7 @@ namespace Magenic.MaqsFramework.Utilities.Helper
         private static bool DoesMaqsKeyExist(string key)
         {
             return TryGetDefaultSectionValue(key, out string value);
-        }
+        }             
 
         /// <summary>
         /// Reads the xml config file and adds the keys

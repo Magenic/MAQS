@@ -39,6 +39,11 @@ namespace Magenic.MaqsFramework.Utilities.Helper
         public const string Utilities = "Utilities Unit Tests";
 
         /// <summary>
+        /// String for utilities unit test category
+        /// </summary>
+        public const string UtilitiesCore = "Utilities .Net Core Unit Tests";
+
+        /// <summary>
         /// String for web service unit test category
         /// </summary>
         public const string WebService = "Web Service Unit Tests";

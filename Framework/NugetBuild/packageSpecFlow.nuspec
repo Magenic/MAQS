@@ -14,6 +14,10 @@
     <dependencies>
       <dependency id="Magenic.MaqsFramework" version="5.0.0-PreAlpha" />
       <dependency id="NUnit" version="3.10.1" />
+      <dependency id="MSTest.TestFramework" version="1.3.0-beta2" />
+      <dependency id="Microsoft.Extensions.Configuration" version="2.0.0" />
+      <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="2.0.0" />
+      <dependency id="Microsoft.Extensions.Configuration.Json" version="2.0.0" />
     </dependencies>
   </metadata>
   <files>

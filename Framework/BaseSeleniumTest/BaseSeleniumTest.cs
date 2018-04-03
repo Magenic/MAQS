@@ -189,7 +189,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                 // Clear the waiter
                 this.WebDriver.RemoveWaitDriver();
 
-                // Quite
+                // Quit
                 this.WebDriver.Quit();
             }
             catch (Exception e)
