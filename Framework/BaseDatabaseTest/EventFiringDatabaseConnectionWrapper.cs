@@ -6,8 +6,8 @@
 //--------------------------------------------------
 using Magenic.MaqsFramework.Utilities.Data;
 using System;
+using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Text;
 
 namespace Magenic.MaqsFramework.BaseDatabaseTest
@@ -18,11 +18,12 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
     public class EventFiringDatabaseConnectionWrapper : DatabaseConnectionWrapper
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EventFiringDatabaseConnectionWrapper" /> class
+        /// Initializes a new instance of the <see cref="EventFiringDatabaseConnectionWrapper"/> class
         /// </summary>
-        /// <param name="connectionString">The database connection string</param>
-        public EventFiringDatabaseConnectionWrapper(string connectionString)
-            : base(connectionString)
+        /// <param name="connectionType"> The connection Type. </param>
+        /// <param name="connectionString"> The database connection string </param>
+        public EventFiringDatabaseConnectionWrapper(string connectionType, string connectionString)
+            : base(connectionType, connectionString)
         {
         }
 
@@ -30,8 +31,15 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         /// Initializes a new instance of the <see cref="EventFiringDatabaseConnectionWrapper" /> class
         /// </summary>
         /// <param name="setupDataBaseConnectionOverride">The database connection override</param>
-        public EventFiringDatabaseConnectionWrapper(Func<SqlConnection> setupDataBaseConnectionOverride)
+        public EventFiringDatabaseConnectionWrapper(Func<IDbConnection> setupDataBaseConnectionOverride)
             : base(setupDataBaseConnectionOverride)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventFiringDatabaseConnectionWrapper"/> class.
+        /// </summary>
+        protected EventFiringDatabaseConnectionWrapper()
         {
         }
 
@@ -46,19 +54,25 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         public event EventHandler<string> DatabaseErrorEvent;
 
         /// <summary>
-        /// Run a query
+        /// Execute parameterized SQL.
         /// </summary>
-        /// <param name="query">The SQL query string</param>
-        /// <returns>The result data table</returns>
-        /// <example>
-        /// <code source="../DatabaseUnitTests/DatabaseUnitTestsWithWrapper.cs" region="QueryAndGetTableData" lang="C#" />
-        /// </example>
-        public override DataTable QueryAndGetDataTable(string query)
+        /// <param name="sql">The SQL to execute for the query.</param>
+        /// <param name="param">The parameters to pass, if any.</param>
+        /// <param name="transaction">The transaction to use, if any.</param>
+        /// <param name="commandTimeout">The command timeout (in seconds).</param>
+        /// <param name="commandType">The type of command to execute.</param>
+        /// <returns>The number of rows affected.</returns>
+        public override int Execute(
+            string sql,
+            object param = null,
+            IDbTransaction transaction = null,
+            int? commandTimeout = null,
+            CommandType? commandType = null)
         {
             try
             {
-                this.RaiseEvent("query", query);
-                return base.QueryAndGetDataTable(query);
+                this.RaiseEvent("execute", sql);
+                return base.Execute(sql, param, transaction, commandTimeout, commandType);
             }
             catch (Exception ex)
             {
@@ -68,16 +82,27 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         }
 
         /// <summary>
-        /// Run non query SQL
+        /// Submits a query to the database
         /// </summary>
-        /// <param name="nonQuery">SQL that does not return query results</param>
-        /// <returns>The number of affected rows</returns>
-        public override int NonQueryAndGetRowsAffected(string nonQuery)
+        /// <param name="sql">The SQL to execute in the query.</param>
+        /// <param name="param">The parameters to pass.</param>
+        /// <param name="transaction">The transaction to use.</param>
+        /// <param name="buffered">Whether to buffer results in memory.</param>
+        /// <param name="commandTimeout">The command timeout (in seconds).</param>
+        /// <param name="commandType">The type of command to execute.</param>
+        /// <returns>Return a sequence of dynamic objects with properties matching the columns.</returns>
+        public override IEnumerable<dynamic> Query(
+            string sql,
+            object param = null,
+            IDbTransaction transaction = null,
+            bool buffered = true,
+            int? commandTimeout = null,
+            CommandType? commandType = null)
         {
             try
             {
-                this.RaiseEvent("non-query", nonQuery);
-                return base.NonQueryAndGetRowsAffected(nonQuery);
+                this.RaiseEvent("query", sql);
+                return base.Query(sql, param, transaction, buffered, commandTimeout, commandType);
             }
             catch (Exception ex)
             {
@@ -87,55 +112,118 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         }
 
         /// <summary>
-        /// Runs a procedure that does an action and returns the number of elements affected
+        /// Executes a query, returning the data typed as T.
         /// </summary>
-        /// <param name="procedureName">The procedure name</param>
-        /// <param name="parameters">The procedure parameters</param>
-        /// <returns>The number of rows affected</returns>
-        /// <example>
-        /// <code source="../DatabaseUnitTests/DatabaseUnitTestsWithWrapper.cs" region="RunActionProcedure" lang="C#" />
-        /// </example>
-        public override int RunActionProcedure(string procedureName, params SqlParameter[] parameters)
+        /// <typeparam name="T">The type to return</typeparam>
+        /// <param name="sql">The SQL to execute for the query.</param>
+        /// <param name="param">The parameters to pass, if any.</param>
+        /// <param name="transaction">The transaction to use, if any.</param>
+        /// <param name="buffered">Whether to buffer results in memory.</param>
+        /// <param name="commandTimeout">The command timeout (in seconds).</param>
+        /// <param name="commandType">The type of command to execute.</param>
+        /// <returns> A sequence of data of the supplied type; if a basic type (integer, string, etc) is
+        ///     queried then the data from the first column in assumed, otherwise an instance
+        ///    is created per row, and a direct column-name===member-name mapping is assumed
+        /// (case insensitive).</returns>
+        public override IEnumerable<T> Query<T>(
+            string sql,
+            object param = null,
+            IDbTransaction transaction = null,
+            bool buffered = true,
+            int? commandTimeout = null,
+            CommandType? commandType = null)
         {
-            StringBuilder parameterText = new StringBuilder();
-            parameterText.AppendLine(procedureName);
-
-            foreach (SqlParameter parameter in parameters)
+            try
             {
-                parameterText.AppendLine(StringProcessor.SafeFormatter("{0} {1}", parameter.ParameterName, parameter.Value.ToString()));
+                this.RaiseEvent("query", sql);
+                return base.Query<T>(sql, param, transaction, buffered, commandTimeout, commandType);
             }
-
-            this.RaiseEvent("action procedure", this.GetProcedureNameAndParameters(procedureName, parameters));
-            return base.RunActionProcedure(procedureName, parameters);
+            catch (Exception ex)
+            {
+                this.RaiseErrorMessage(ex);
+                throw ex;
+            }
         }
 
         /// <summary>
-        /// Runs a procedure that returns query results
+        ///  Inserts an entity into table "T" and returns identity id or number of inserted rows if inserting a list.
         /// </summary>
-        /// <param name="procedureName">The procedure name</param>
-        /// <param name="parameters">The procedure parameters</param>
-        /// <returns>A DataTable containing the results of the procedure</returns>
-        /// /// <example>
-        /// <code source="../DatabaseUnitTests/DatabaseUnitTestsWithWrapper.cs" region="RunQueryProcedure" lang="C#" />
-        /// </example>
-        public override DataTable RunQueryProcedure(string procedureName, params SqlParameter[] parameters)
+        /// <typeparam name="T">The table to insert into</typeparam>
+        /// <param name="entityToInsert">Entity to insert, can be list of entities</param>
+        /// <param name="transaction">The transaction to run under, null (the default) if none</param>
+        /// <param name="commandTimeout">Number of seconds before command execution timeout</param>
+        /// <param name="items">Any items to log</param>
+        /// <returns>Identity of inserted entity, or number of inserted rows if inserting a lists</returns>
+        public override long Insert<T>(
+            T entityToInsert,
+            IDbTransaction transaction = null,
+            int? commandTimeout = null,
+            params string[] items)
         {
-            this.RaiseEvent("query procedure", this.GetProcedureNameAndParameters(procedureName, parameters));
-            return base.RunQueryProcedure(procedureName, parameters);
+            try
+            {
+                this.RaiseEvent("insert", items);
+                return base.Insert<T>(entityToInsert, transaction, commandTimeout);
+            }
+            catch (Exception ex)
+            {
+                this.RaiseErrorMessage(ex);
+                throw ex;
+            }
         }
 
         /// <summary>
-        /// Checks if a stored procedure exists
+        /// Delete entity in table "T".
         /// </summary>
-        /// <param name="procedureName"> the procedure name</param>
-        /// <returns>A boolean representing whether the procedure was found</returns>
-        /// <example>
-        /// <code source="../DatabaseUnitTests/DatabaseUnitTestsWithWrapper.cs" region="ProcedureExists" lang="C#" />
-        /// </example>
-        public override bool CheckForProcedure(string procedureName)
+        /// <typeparam name="T">The table</typeparam>
+        /// <param name="entityToDelete">Entity to delete</param>
+        /// <param name="transaction">The transaction to run under, null (the default) if none</param>
+        /// <param name="commandTimeout">Number of seconds before command execution timeout</param>
+        /// <param name="items">Any items to log</param>
+        /// <returns>true if deleted, false if not found</returns>
+        public override bool Delete<T>(
+            T entityToDelete,
+            IDbTransaction transaction = null,
+            int? commandTimeout = null,
+            params string[] items)
         {
-            this.RaiseEvent("check for procedure", procedureName);
-            return base.CheckForProcedure(procedureName);
+            try
+            {
+                this.RaiseEvent("delete", items);
+                return base.Delete<T>(entityToDelete, transaction, commandTimeout);
+            }
+            catch (Exception ex)
+            {
+                this.RaiseErrorMessage(ex);
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        ///  Updates entity in table "T", checks if the entity is modified if the entity is tracked by the Get() extension.
+        /// </summary>
+        /// <typeparam name="T">The table to update</typeparam>
+        /// <param name="entityToUpdate">Entity to be updated</param>
+        /// <param name="transaction">The transaction to run under, null (the default) if none</param>
+        /// <param name="commandTimeout">Number of seconds before command execution timeout</param>
+        /// <param name="items">Any items to log</param>
+        /// <returns>true if updated, false if not found or not modified (tracked entities)</returns>
+        public override bool Update<T>(
+            T entityToUpdate,
+            IDbTransaction transaction = null,
+            int? commandTimeout = null,
+            params string[] items)
+        {
+            try
+            {
+                this.RaiseEvent("update", items);
+                return base.Update<T>(entityToUpdate, transaction, commandTimeout);
+            }
+            catch (Exception ex)
+            {
+                this.RaiseErrorMessage(ex);
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -162,10 +250,7 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         /// <param name="message">event message</param>
         protected virtual void OnEvent(string message)
         {
-            if (this.DatabaseEvent != null)
-            {
-                this.DatabaseEvent(this, message);
-            }
+            this.DatabaseEvent?.Invoke(this, message);
         }
 
         /// <summary>
@@ -174,10 +259,7 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         /// <param name="message">The event error message</param>
         protected virtual void OnErrorEvent(string message)
         {
-            if (this.DatabaseErrorEvent != null)
-            {
-                this.DatabaseErrorEvent(this, message);
-            }
+            this.DatabaseErrorEvent?.Invoke(this, message);
         }
 
         /// <summary>
@@ -198,37 +280,36 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         }
 
         /// <summary>
+        /// Raise an event message
+        /// </summary>
+        /// <param name="actionType">The type of action</param>
+        /// <param name="items">The items to log</param>
+        private void RaiseEvent(string actionType, params string[] items)
+        {
+            try
+            {
+                StringBuilder builder = new StringBuilder();
+
+                foreach (var item in items)
+                {
+                    builder.AppendLine(item);
+                }
+                
+                this.OnEvent(StringProcessor.SafeFormatter("Performing {0} with:\r\n{1}", actionType, builder.ToString()));
+            }
+            catch (Exception e)
+            {
+                this.OnErrorEvent(StringProcessor.SafeFormatter("Failed to log event because: {0}", e.ToString()));
+            }
+        }
+
+        /// <summary>
         /// Raise an exception message
         /// </summary>
         /// <param name="e">The exception</param>
         private void RaiseErrorMessage(Exception e)
         {
             this.OnErrorEvent(StringProcessor.SafeFormatter("Failed because: {0}{1}{2}", e.Message, Environment.NewLine, e.ToString()));
-        }
-
-        /// <summary>
-        /// Create user friendly string with the procedure name, parameters and the parameter values
-        /// </summary>
-        /// <param name="procedureName">The procedure name</param>
-        /// <param name="parameters">The procedure parameters</param>
-        /// <returns>A user friendly string</returns>
-        private string GetProcedureNameAndParameters(string procedureName, params SqlParameter[] parameters)
-        {
-            StringBuilder parameterText = new StringBuilder();
-            parameterText.Append(procedureName);
-
-            if (parameters.Length > 0)
-            {
-                parameterText.AppendLine(string.Empty);
-                parameterText.AppendLine("Parameters");
-
-                foreach (SqlParameter parameter in parameters)
-                {
-                    parameterText.AppendLine(StringProcessor.SafeFormatter("{0} {1}", parameter.ParameterName, parameter.Value.ToString()));
-                }
-            }
-
-            return parameterText.ToString().Trim();
         }
     }
 }

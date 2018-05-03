@@ -88,15 +88,5 @@ namespace SpecFlowExtensionUnitTests.Steps
         {
             Assert.IsTrue(this.TestObject.DatabaseWrapper.GetType().Equals(typeof(EventFiringDatabaseConnectionWrapper)), $"DatabaseWrapper for BaseDatabaseTestSteps class is the wrong type : {this.TestObject.DatabaseWrapper.GetType()}.");
         }
-
-        /// <summary>
-        /// Queries the database and returns the table
-        /// </summary>
-        /// <param name="query">The query string</param>
-        /// <returns>The data table returned</returns>
-        private DataTable QueryDatabase(string query)
-        {
-            return this.TestObject.DatabaseWrapper.QueryAndGetDataTable(query);
-        }
     }
 }

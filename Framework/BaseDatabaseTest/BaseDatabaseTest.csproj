@@ -9,13 +9,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="1.50.4" />
+    <PackageReference Include="Dapper.Contrib" Version="1.50.4" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="2.0.1" />
+    <PackageReference Include="Npgsql" Version="3.2.7" />
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="1.1.10" />
+    <PackageReference Include="SQLitePCLRaw.core" Version="1.1.10" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.4.2" />
-    <PackageReference Include="System.Security.Permissions" Version="4.4.1" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.4.3" />
   </ItemGroup>
   
   <ItemGroup>
     <ProjectReference Include="..\BaseTest\BaseTest.csproj" />
   </ItemGroup>
-
 </Project>

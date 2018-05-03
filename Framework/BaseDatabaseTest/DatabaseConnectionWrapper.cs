@@ -5,8 +5,10 @@
 // <summary>The basic database interactions</summary>
 //--------------------------------------------------
 using System;
+using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+using Dapper;
+using Dapper.Contrib.Extensions;
 
 namespace Magenic.MaqsFramework.BaseDatabaseTest
 {
@@ -16,26 +18,157 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
     public class DatabaseConnectionWrapper : IDisposable
     {
         /// <summary>
-        /// when the connection is created it is held here
+        /// Initializes a new instance of the <see cref="DatabaseConnectionWrapper" /> class
         /// </summary>
-        private SqlConnection connection;
+        public DatabaseConnectionWrapper()
+        {
+            this.Connection = DatabaseConfig.GetOpenConnection();
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DatabaseConnectionWrapper" /> class
         /// </summary>
+        /// <param name="providerType">The provider</param>
         /// <param name="connectionString">The base database connection string</param>
-        public DatabaseConnectionWrapper(string connectionString)
+        public DatabaseConnectionWrapper(string providerType, string connectionString)
         {
-            this.connection = this.SetupDataBaseConnection(connectionString);
+            this.Connection = DatabaseConfig.GetOpenConnection(providerType, connectionString);
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DatabaseConnectionWrapper" /> class
         /// </summary>
         /// <param name="setupDataBaseConnectionOverride">A function that returns the database connection</param>
-        public DatabaseConnectionWrapper(Func<SqlConnection> setupDataBaseConnectionOverride)
+        public DatabaseConnectionWrapper(Func<IDbConnection> setupDataBaseConnectionOverride)
         {
-            this.connection = setupDataBaseConnectionOverride();
+            this.Connection = DatabaseConfig.GetOpenConnection(setupDataBaseConnectionOverride);
+        }
+
+        /// <summary>
+        /// Gets the connection client
+        /// </summary>
+        public IDbConnection Connection { get; private set; }
+
+        /// <summary>
+        /// Execute parameterized SQL.
+        /// </summary>
+        /// <param name="sql">The SQL to execute for the query.</param>
+        /// <param name="param">The parameters to pass, if any.</param>
+        /// <param name="transaction">The transaction to use, if any.</param>
+        /// <param name="commandTimeout">The command timeout (in seconds).</param>
+        /// <param name="commandType">The type of command to execute.</param>
+        /// <returns>The number of rows affected.</returns>
+        public virtual int Execute(
+            string sql,
+            object param = null,
+            IDbTransaction transaction = null,
+            int? commandTimeout = null,
+            CommandType? commandType = null)
+        {
+            return this.Connection.Execute(sql, param, transaction, commandTimeout, commandType);
+        }
+
+        /// <summary>
+        /// Submits a query to the database
+        /// </summary>
+        /// <param name="sql">The SQL to execute for the query</param>
+        /// <param name="param">The parameters to pass</param>
+        /// <param name="transaction">The transaction to use, if any</param>
+        /// <param name="buffered">Whether to buffer results in memory</param>
+        /// <param name="commandTimeout">The command timeout (in seconds)</param>
+        /// <param name="commandType">The type of command to execute</param>
+        /// <returns>Return a sequence of dynamic objects with properties matching the columns.</returns>
+        public virtual IEnumerable<dynamic> Query(
+            string sql,
+            object param = null,
+            IDbTransaction transaction = null,
+            bool buffered = true,
+            int? commandTimeout = null,
+            CommandType? commandType = null)
+        {
+            return this.Connection.Query(sql, param, transaction, buffered, commandTimeout, commandType);
+        }
+
+        /// <summary>
+        /// Executes a query, returning the data typed as T.
+        /// </summary>
+        /// <typeparam name="T">The type to return</typeparam>
+        /// <param name="sql">The SQL to execute for the query.</param>
+        /// <param name="param">The parameters to pass, if any.</param>
+        /// <param name="transaction">The transaction to use, if any.</param>
+        /// <param name="buffered">Whether to buffer results in memory.</param>
+        /// <param name="commandTimeout">The command timeout (in seconds).</param>
+        /// <param name="commandType">The type of command to execute.</param>
+        /// <returns> A sequence of data of the supplied type; if a basic type (integer, string, etc) is
+        ///     queried then the data from the first column in assumed, otherwise an instance
+        ///    is created per row, and a direct column-name===member-name mapping is assumed
+        /// (case insensitive).</returns>
+        public virtual IEnumerable<T> Query<T>(
+            string sql,
+            object param = null,
+            IDbTransaction transaction = null,
+            bool buffered = true,
+            int? commandTimeout = null,
+            CommandType? commandType = null)
+        {
+            return this.Connection.Query<T>(sql, param, transaction, buffered, commandTimeout, commandType);
+        }
+
+        /// <summary>
+        ///  Inserts an entity into table "T" and returns identity id or number of inserted rows if inserting a list.
+        /// </summary>
+        /// <typeparam name="T">The table to insert into</typeparam>
+        /// <param name="entityToInsert">Entity to insert, can be list of entities</param>
+        /// <param name="transaction">The transaction to run under, null (the default) if none</param>
+        /// <param name="commandTimeout">Number of seconds before command execution timeout</param>
+        /// <param name="items">Any items to log</param>
+        /// <returns>Identity of inserted entity, or number of inserted rows if inserting a lists</returns>
+        public virtual long Insert<T>(
+            T entityToInsert,
+            IDbTransaction transaction = null,
+            int? commandTimeout = null,
+            params string[] items)
+            where T : class
+        {
+            return this.Connection.Insert<T>(entityToInsert, transaction, commandTimeout);
+        }
+
+        /// <summary>
+        /// Delete entity in table "T".
+        /// </summary>
+        /// <typeparam name="T">The table</typeparam>
+        /// <param name="entityToDelete">Entity to delete</param>
+        /// <param name="transaction">The transaction to run under, null (the default) if none</param>
+        /// <param name="commandTimeout">Number of seconds before command execution timeout</param>
+        /// <param name="items">Any items to log</param>
+        /// <returns>true if deleted, false if not found</returns>
+        public virtual bool Delete<T>(
+            T entityToDelete,
+            IDbTransaction transaction = null,
+            int? commandTimeout = null,
+            params string[] items)
+            where T : class
+        {
+            return this.Connection.Delete<T>(entityToDelete, transaction, commandTimeout);
+        }
+
+        /// <summary>
+        ///  Updates entity in table "T", checks if the entity is modified if the entity is tracked by the Get() extension.
+        /// </summary>
+        /// <typeparam name="T">The table to update</typeparam>
+        /// <param name="entityToUpdate">Entity to be updated</param>
+        /// <param name="transaction">The transaction to run under, null (the default) if none</param>
+        /// <param name="commandTimeout">Number of seconds before command execution timeout</param>
+        /// <param name="items">Any items to log</param>
+        /// <returns>true if updated, false if not found or not modified (tracked entities)</returns>
+        public virtual bool Update<T>(
+            T entityToUpdate,
+            IDbTransaction transaction = null,
+            int? commandTimeout = null,
+            params string[] items)
+            where T : class
+        {
+            return this.Connection.Update<T>(entityToUpdate, transaction, commandTimeout);
         }
 
         /// <summary>
@@ -44,137 +177,10 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         public virtual void Dispose()
         {
             // Make sure the connection exists and is open before trying to close it
-            if (this.connection != null && this.connection.State == ConnectionState.Open)
+            if (this.Connection?.State == ConnectionState.Open)
             {
-                this.connection.Close();
+                this.Connection.Close();
             }
-        }
-
-        /// <summary>
-        /// Runs a query
-        /// </summary>
-        /// <param name="query"> the SQL query the test provides</param>
-        /// <returns>A DataTable containing the results of the query</returns>
-        /// <returns>The result data table</returns>
-        /// <example>
-        /// <code source="../DatabaseUnitTests/DatabaseUnitTestsWithWrapper.cs" region="QueryAndGetTableData" lang="C#" />
-        /// </example>
-        public virtual DataTable QueryAndGetDataTable(string query)
-        {
-            SqlCommand command = new SqlCommand(query, this.connection)
-            {
-                CommandTimeout = DatabaseConfig.GetQueryTimeout()
-            };
-
-            DataTable table = new DataTable();
-            table.Load(command.ExecuteReader());
-            return table;
-        }
-
-        /// <summary>
-        /// Run non query SQL
-        /// </summary>
-        /// <param name="nonQuery">SQL that does not return query results</param>
-        /// <returns>The number of affected rows</returns>
-        /// <example>
-        /// <code source="../DatabaseUnitTests/DatabaseUnitTestsWithWrapper.cs" region="NonQuerySqlCall" lang="C#" />
-        /// </example>
-        public virtual int NonQueryAndGetRowsAffected(string nonQuery)
-        {
-            SqlCommand command = new SqlCommand(nonQuery, this.connection)
-            {
-                CommandTimeout = DatabaseConfig.GetQueryTimeout()
-            };
-
-            return command.ExecuteNonQuery();
-        }
-
-        /// <summary>
-        /// Checks if a stored procedure exists
-        /// </summary>
-        /// <param name="procedureName"> the procedure name</param>
-        /// <returns>A boolean representing whether the procedure was found</returns>
-        /// <example>
-        /// <code source="../DatabaseUnitTests/DatabaseUnitTestsWithWrapper.cs" region="ProcedureExists" lang="C#" />
-        /// </example>
-        public virtual bool CheckForProcedure(string procedureName)
-        {
-            string query = "SELECT COUNT(*) FROM sysobjects WHERE name=@sprocName";
-            SqlCommand command = new SqlCommand(query, this.connection);
-            SqlParameter sprocName = command.Parameters.Add("@sprocName", SqlDbType.VarChar, 100);
-            sprocName.Value = procedureName;
-            command.CommandTimeout = DatabaseConfig.GetQueryTimeout();
-
-            int count = (int)command.ExecuteScalar();
-            return count > 0;
-        }
-
-        /// <summary>
-        /// Runs a procedure that does an action and returns the number of elements affected
-        /// </summary>
-        /// <param name="procedureName">The procedure name</param>
-        /// <param name="parameters">The procedure parameters</param>
-        /// <returns>The number of rows affected</returns>
-        /// <example>
-        /// <code source="../DatabaseUnitTests/DatabaseUnitTestsWithWrapper.cs" region="RunActionProcedure" lang="C#" />
-        /// </example>
-        public virtual int RunActionProcedure(string procedureName, params SqlParameter[] parameters)
-        {
-            SqlCommand command = new SqlCommand(procedureName, this.connection)
-            {
-                CommandType = CommandType.StoredProcedure,
-                CommandTimeout = DatabaseConfig.GetQueryTimeout()
-            };
-
-            foreach (SqlParameter parameter in parameters)
-            {
-                command.Parameters.Add(parameter);
-            }
-
-            return command.ExecuteNonQuery();
-        }
-
-        /// <summary>
-        /// Runs a procedure that returns query results
-        /// </summary>
-        /// <param name="procedureName">The procedure name</param>
-        /// <param name="parameters">The procedure parameters</param>
-        /// <returns>A DataTable containing the results of the procedure</returns>
-        /// <example>
-        /// <code source="../DatabaseUnitTests/DatabaseUnitTestsWithWrapper.cs" region="RunQueryProcedure" lang="C#" />
-        /// </example>
-        public virtual DataTable RunQueryProcedure(string procedureName, params SqlParameter[] parameters)
-        {
-            SqlCommand command = new SqlCommand(procedureName, this.connection)
-            {
-                CommandType = CommandType.StoredProcedure,
-                CommandTimeout = DatabaseConfig.GetQueryTimeout()
-            };
-
-            foreach (SqlParameter parameter in parameters)
-            {
-                command.Parameters.Add(parameter);
-            }
-
-            DataTable table = new DataTable();
-            table.Load(command.ExecuteReader());
-            return table;
-        }
-
-        /// <summary> 
-        /// Default database connection setup - Override this function to create your own connection
-        /// </summary>
-        /// <param name="connectionString">The database connection string</param>
-        /// <returns>The http client</returns>
-        protected virtual SqlConnection SetupDataBaseConnection(string connectionString)
-        {
-            SqlConnection connection = new SqlConnection
-            {
-                ConnectionString = connectionString
-            };
-            connection.Open();
-
-            return connection;
         }
     }
 }

@@ -58,7 +58,7 @@ namespace Magenic.MaqsFramework.Utilities.Helper
                 foreach (var element in names.GetChildren())
                 {             
                     // Keys and values will exists at this level App.config files, and 1 level deeper for appsettings
-                    if (element.Value != null )
+                    if (element.Value != null)
                     {
                         values.TryAdd(element.Key, element.Value);
                     }

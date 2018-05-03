@@ -1,9 +1,21 @@
-﻿using Magenic.MaqsFramework.Utilities.Helper;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ConfigTests.cs" company="Magenic">
+//   Copyright 2018 Magenic, All rights Reserved
+// </copyright>
+// <summary>
+//   Class for config unit tests.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
 namespace CoreUnitTests
 {
+    /// <summary>
+    /// The config unit tests.
+    /// </summary>
     [TestClass]
     public class ConfigTests
     {

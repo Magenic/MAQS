@@ -638,33 +638,33 @@ namespace Magenic.MaqsFramework.BaseTest
         /// <param name="fullyQualifiedTestName">The fully qualified test name</param>
         private void AttachLogAndSceenshot(string fullyQualifiedTestName)
         {
-            // TODO
-            //try
-            //{
-            //    // This only works for VS unit test so check that first
-            //    if (this.testContextInstance != null)
-            //    {
-            //        // Only attach if we can find the log file
-            //        if (this.Loggers.ContainsKey(fullyQualifiedTestName) && this.Loggers[fullyQualifiedTestName] is FileLogger && File.Exists(((FileLogger)this.Loggers[fullyQualifiedTestName]).FilePath))
-            //        {
-            //            string path = ((FileLogger)this.Loggers[fullyQualifiedTestName]).FilePath;
-            //            string nameWithoutExtension = Path.GetFileNameWithoutExtension(path);
+            //// TODO
+            ////try
+            ////{
+            ////    // This only works for VS unit test so check that first
+            ////    if (this.testContextInstance != null)
+            ////    {
+            ////        // Only attach if we can find the log file
+            ////        if (this.Loggers.ContainsKey(fullyQualifiedTestName) && this.Loggers[fullyQualifiedTestName] is FileLogger && File.Exists(((FileLogger)this.Loggers[fullyQualifiedTestName]).FilePath))
+            ////        {
+            ////            string path = ((FileLogger)this.Loggers[fullyQualifiedTestName]).FilePath;
+            ////            string nameWithoutExtension = Path.GetFileNameWithoutExtension(path);
 
-            //            // Find all files that share the same base file name - file name without extension
-            //            foreach (string file in Directory.GetFiles(Path.GetDirectoryName(path), fullyQualifiedTestName + "*", SearchOption.TopDirectoryOnly))
-            //            {
-            //                if (nameWithoutExtension.Equals(Path.GetFileNameWithoutExtension(file), StringComparison.CurrentCultureIgnoreCase))
-            //                {
-            //                    this.TestContext.AddResultFile(file);
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-            //catch (Exception e)
-            //{
-            //    this.TryToLog(MessageType.WARNING, "Failed to attach log or screenshot because: " + e.Message);
-            //}
+            ////            // Find all files that share the same base file name - file name without extension
+            ////            foreach (string file in Directory.GetFiles(Path.GetDirectoryName(path), fullyQualifiedTestName + "*", SearchOption.TopDirectoryOnly))
+            ////            {
+            ////                if (nameWithoutExtension.Equals(Path.GetFileNameWithoutExtension(file), StringComparison.CurrentCultureIgnoreCase))
+            ////                {
+            ////                    this.TestContext.AddResultFile(file);
+            ////                }
+            ////            }
+            ////        }
+            ////    }
+            ////}
+            ////catch (Exception e)
+            ////{
+            ////    this.TryToLog(MessageType.WARNING, "Failed to attach log or screenshot because: " + e.Message);
+            ////}
         }
     }
 }

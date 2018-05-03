@@ -4,13 +4,15 @@
 // </copyright>
 // <summary>Unit test database wrapper without base database test</summary>
 //--------------------------------------------------
+
+using System;
+using System.Data;
 using Magenic.MaqsFramework.BaseDatabaseTest;
 using Magenic.MaqsFramework.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using DatabaseUnitTests.Models;
 
 namespace DatabaseUnitTests
 {
@@ -28,18 +30,11 @@ namespace DatabaseUnitTests
         [TestCategory(TestCategories.Database)]
         public void VerifyStateTableExistsNoWrapper()
         {
-            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper(DatabaseConfig.GetConnectionString());
+            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper();
 
-            DataTable table = wrapper.QueryAndGetDataTable("SELECT * FROM information_schema.tables");
+            var table = wrapper.Query("SELECT * FROM information_schema.tables");
 
-            // Get the list of table names
-            List<string> tablesNames = new List<string>(table.Rows.Count);
-            foreach (DataRow row in table.Rows)
-            {
-                tablesNames.Add((string)row["TABLE_NAME"]);
-            }
-
-            Assert.IsTrue(tablesNames.Contains("States"));
+            Assert.IsTrue(table.Any(n => n.TABLE_NAME.Equals("States")));
         }
 
         /// <summary>
@@ -49,12 +44,28 @@ namespace DatabaseUnitTests
         [TestCategory(TestCategories.Database)]
         public void VerifyStateTableHasCorrectNumberOfRecordsNoWrapper()
         {
-            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper(DatabaseConfig.GetConnectionString());
+            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper();
 
-            DataTable table = wrapper.QueryAndGetDataTable("SELECT * FROM States");
+            var table = wrapper.Query("SELECT * FROM States").ToList();
 
             // Our database only has 49 states
-            Assert.AreEqual(49, table.Rows.Count, "Expected 49 states.");
+            Assert.AreEqual(49, table.Count, "Expected 49 states.");
+        }
+
+        /// <summary>
+        /// Check if we get the expect number of results
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Database)]
+        public void VerifyStateTableHasCorrectNumberOfRecordsNoWrapperWithModels()
+        {
+            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper();
+
+            var states = wrapper.Query<States>("SELECT * FROM States").ToList();
+
+            // Our database only has 49 states
+            Assert.AreEqual(49, states.Count, "Expected 49 states.");
+            Assert.AreNotEqual(string.Empty, states.First().StateAbbreviation, "Expected nonempty state abbreviation.");
         }
 
         /// <summary>
@@ -64,10 +75,10 @@ namespace DatabaseUnitTests
         [TestCategory(TestCategories.Database)]
         public void VerifyProceduresActionWithAnUpdateNoWrapper()
         {
-            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper(DatabaseConfig.GetConnectionString());
+            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString());
 
-            SqlParameter state = new SqlParameter("StateAbbreviation", "MN");
-            int result = wrapper.RunActionProcedure("setStateAbbrevToSelf", state);
+            var result = wrapper.Execute("setStateAbbrevToSelf", new { StateAbbreviation = "MN" }, commandType: CommandType.StoredProcedure);
+
             Assert.AreEqual(1, result, "Expected 1 state abbreviation to be updated.");
         }
 
@@ -78,10 +89,10 @@ namespace DatabaseUnitTests
         [TestCategory(TestCategories.Database)]
         public void VerifyProceduresActionWithNoUpdatesNoWrapper()
         {
-            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper(DatabaseConfig.GetConnectionString());
+            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString());
 
-            SqlParameter state = new SqlParameter("StateAbbreviation", "ZZ");
-            int result = wrapper.RunActionProcedure("setStateAbbrevToSelf", state);
+            var result = wrapper.Execute("setStateAbbrevToSelf", new { StateAbbreviation = "ZZ" }, commandType: CommandType.StoredProcedure);
+            
             Assert.AreEqual(0, result, "Expected 0 state abbreviation to be updated.");
         }
 
@@ -92,11 +103,11 @@ namespace DatabaseUnitTests
         [TestCategory(TestCategories.Database)]
         public void VerifyProceduresQueryWithResultNoWrapper()
         {
-            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper(DatabaseConfig.GetConnectionString());
+            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString());
 
-            SqlParameter state = new SqlParameter("StateAbbreviation", "MN");
-            DataTable table = wrapper.RunQueryProcedure("getStateAbbrevMatch", state);
-            Assert.AreEqual(1, table.Rows.Count, "Expected 1 state abbreviation to be returned.");
+            var result = wrapper.Query("getStateAbbrevMatch", new { StateAbbreviation = "MN" }, commandType: CommandType.StoredProcedure);
+
+            Assert.AreEqual(1, result.Count(), "Expected 1 state abbreviation to be returned.");
         }
 
         /// <summary>
@@ -106,11 +117,11 @@ namespace DatabaseUnitTests
         [TestCategory(TestCategories.Database)]
         public void VerifyProceduresQueryWithoutResultNoWrapper()
         {
-            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper(DatabaseConfig.GetConnectionString());
+            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString());
 
-            SqlParameter state = new SqlParameter("StateAbbreviation", "ZZ");
-            DataTable table = wrapper.RunQueryProcedure("getStateAbbrevMatch", state);
-            Assert.AreEqual(0, table.Rows.Count, "Expected 0 state abbreviation to be returned.");
+            var result = wrapper.Query("getStateAbbrevMatch", new { StateAbbreviation = "ZZ" }, commandType: CommandType.StoredProcedure);
+            
+            Assert.AreEqual(0, result.Count(), "Expected 0 state abbreviation to be returned.");
         }
     }
 }

@@ -4,9 +4,10 @@
 // </copyright>
 // <summary>This is the base database test class</summary>
 //--------------------------------------------------
+
+using System.Data;
 using Magenic.MaqsFramework.BaseTest;
 using Magenic.MaqsFramework.Utilities.Logging;
-using System.Data.SqlClient;
 
 namespace Magenic.MaqsFramework.BaseDatabaseTest
 {
@@ -28,10 +29,7 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         /// </summary>
         public DatabaseConnectionWrapper DatabaseWrapper
         {
-            get
-            {
-                return this.ObjectUnderTest;
-            }
+            get => this.ObjectUnderTest;
 
             set
             {
@@ -43,24 +41,9 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         /// Get the database connection
         /// </summary>
         /// <returns>The database connection</returns>
-        protected virtual SqlConnection GetDataBaseConnection()
+        protected virtual IDbConnection GetDataBaseConnection()
         {
-            SqlConnection connection = new SqlConnection
-            {
-                ConnectionString = this.GetBaseConnectionString()
-            };
-            connection.Open();
-
-            return connection;
-        }
-
-        /// <summary>
-        /// Get the base web service url
-        /// </summary>
-        /// <returns>The base web service url</returns>
-        protected virtual string GetBaseConnectionString()
-        {
-            return DatabaseConfig.GetConnectionString();
+            return DatabaseConfig.GetOpenConnection();
         }
 
         /// <summary>
