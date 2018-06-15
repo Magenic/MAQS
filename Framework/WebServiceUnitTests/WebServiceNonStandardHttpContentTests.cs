@@ -28,7 +28,7 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// String to hold the URL
         /// </summary>
-        private static string url = Config.GetValue("WebServiceUri");
+        private static readonly string Url = Config.GetValue("WebServiceUri");
 
         #region NonStandardStreamContentWithStream
         /// <summary>
@@ -38,19 +38,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void MakeNonStandardStreamContentStreamTest()
         {
-            ////Override stuff
-            Func<Uri, string, HttpClient> setupClientConnection = (uri, s) =>
-            {
-                HttpClient client = this.TestObject.WebServiceWrapper.BaseHttpClient;
-                client.BaseAddress = new Uri(url);
-                client.DefaultRequestHeaders.Accept.Clear();
-
-                return client;
-            };
-            
-            this.TestObject.WebServiceWrapper.OverrideSetupClientConnection(setupClientConnection);
-
-            //// Non Standard Content Type stuff
+            // Non Standard Content Type stuff
             var randomData = Guid.NewGuid();
             var randomData2 = Guid.NewGuid();
             string formDataBoundary = $"----------{randomData}";
@@ -74,7 +62,7 @@ namespace WebServiceTesterUnitTesting
             multiPartContent.Add(content, "MyTaxReturns2017", "RandomTestData.abc");
             multiPartContent.Add(content2, "MyTripPhoto", "RandomTestData2.def");
 
-            var result = this.TestObject.WebServiceWrapper.Post<FilesUploaded>("api/upload", "application/json", multiPartContent, true);
+            var result = this.TestObject.HttpClientWrapper.Post<FilesUploaded>("api/upload", "application/json", multiPartContent, true);
 
             var file1 = result.Files.FirstOrDefault();
             var file2 = result.Files.LastOrDefault();
@@ -98,19 +86,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void MakeNonStandardStreamContentStringTest()
         {
-            ////Override stuff
-            Func<Uri, string, HttpClient> setupClientConnection = (uri, s) =>
-            {
-                HttpClient client = this.TestObject.WebServiceWrapper.BaseHttpClient;
-                client.BaseAddress = new Uri(url);
-                client.DefaultRequestHeaders.Accept.Clear();
-
-                return client;
-            };
-
-            this.TestObject.WebServiceWrapper.OverrideSetupClientConnection(setupClientConnection);
-
-            //// Non Standard Content Type stuff
+            // Non Standard Content Type stuff
             var randomData = Guid.NewGuid();
             var randomData2 = Guid.NewGuid();
             string formDataBoundary = $"----------{randomData}";
@@ -124,7 +100,7 @@ namespace WebServiceTesterUnitTesting
             multiPartContent.Add(content, "MyResume", "Resume.abc");
             multiPartContent.Add(content2, "MyDefintion", "MyDefintion.def");
 
-            var result = this.TestObject.WebServiceWrapper.Post<FilesUploaded>("api/upload", "application/json", multiPartContent, true);
+            var result = this.TestObject.HttpClientWrapper.Post<FilesUploaded>("api/upload", "application/json", multiPartContent, true);
 
             var file1 = result.Files.FirstOrDefault();
             var file2 = result.Files.LastOrDefault();

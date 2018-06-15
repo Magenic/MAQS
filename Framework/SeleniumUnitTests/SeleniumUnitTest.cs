@@ -31,77 +31,77 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Unit testing site URL - Login page
         /// </summary>
-        private static string testSiteUrl = SeleniumConfig.GetWebSiteBase();
+        private static readonly string TestSiteUrl = SeleniumConfig.GetWebSiteBase();
 
         /// <summary>
         /// Unit testing site URL - Async page
         /// </summary>
-        private static string testSiteAsyncUrl = testSiteUrl + "Automation/AsyncPage";
+        private static readonly string TestSiteAsyncUrl = TestSiteUrl + "Automation/AsyncPage";
 
         /// <summary>
         /// Unit testing site URL - Automation page
         /// </summary>
-        private static string testSiteAutomationUrl = testSiteUrl + "Automation/";
+        private static readonly string TestSiteAutomationUrl = TestSiteUrl + "Automation/";
 
         /// <summary>
         /// Unit testing site URL - About page
         /// </summary>
-        private static string testSiteAboutUrl = testSiteUrl + "Home/Contact/";
+        private static readonly string TestSiteAboutUrl = TestSiteUrl + "Home/Contact/";
 
         /// <summary>
         /// Home button css selector
         /// </summary>
-        private static By homeButtonCssSelector = By.CssSelector("#homeButton > a");
+        private static readonly By HomeButtonCssSelector = By.CssSelector("#homeButton > a");
 
         /// <summary>
         /// Dropdown selector
         /// </summary>
-        private static By asyncDropdownCssSelector = By.CssSelector("#Selector");
+        private static readonly By AsyncDropdownCssSelector = By.CssSelector("#Selector");
 
         /// <summary>
         /// Dropdown label
         /// </summary>
-        private static By asyncOptionsLabel = By.CssSelector("#Label");
+        private static readonly By AsyncOptionsLabel = By.CssSelector("#Label");
 
         /// <summary>
         /// Dropdown label - hidden once dropdown loads
         /// </summary>
-        private static By asyncLoadingLabel = By.CssSelector("#LoadingLabel");
+        private static readonly By AsyncLoadingLabel = By.CssSelector("#LoadingLabel");
 
         /// <summary>
         /// Asynchronous div that loads after a delay on Async Testing Page
         /// </summary>
-        private static By asyncLoadingTextDiv = By.CssSelector("#loading-div-text");
+        private static readonly By AsyncLoadingTextDiv = By.CssSelector("#loading-div-text");
 
         /// <summary>
         /// Names label
         /// </summary>
-        private static By automationNamesLabel = By.CssSelector("#Dropdown > p > strong > label");
+        private static readonly By AutomationNamesLabel = By.CssSelector("#Dropdown > p > strong > label");
 
         /// <summary>
         /// Selector that is not in page
         /// </summary>
-        private static By notInPage = By.CssSelector("NOTINPAGE");
+        private static readonly By NotInPage = By.CssSelector("NOTINPAGE");
 
         /// <summary>
         /// First dialog button
         /// </summary>
-        private static By automationShowDialog1 = By.CssSelector("#showDialog1");
+        private static readonly By AutomationShowDialog1 = By.CssSelector("#showDialog1");
 
         /// <summary>
         /// Text fields
         /// </summary>
-        private static By textFields = By.CssSelector("#TextFields");
+        private static readonly By TextFields = By.CssSelector("#TextFields");
 
         /// <summary>
         /// Food table
         /// </summary>
-        private static By foodTable = By.CssSelector("#FoodTable");
+        private static readonly By FoodTable = By.CssSelector("#FoodTable");
 
         /// <summary>
         /// Flower table
         /// </summary>
-        private static By flowerTable = By.CssSelector("#FlowerTable TD");
+        private static readonly By FlowerTable = By.CssSelector("#FlowerTable TD");
 
         /// <summary>
         /// Make sure we can open a browser
@@ -110,7 +110,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void OpenBrowser()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
         }
 
         /// <summary>
@@ -121,8 +121,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitForClickableElement()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
-            IWebElement element = this.WebDriver.Wait().ForClickableElement(homeButtonCssSelector);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            IWebElement element = this.WebDriver.Wait().ForClickableElement(HomeButtonCssSelector);
             Assert.IsNotNull(element, "Null element was returned");
         }
         #endregion
@@ -135,8 +135,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitForVisibleElement()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(asyncDropdownCssSelector);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(AsyncDropdownCssSelector);
             Assert.IsNotNull(element, "Null element was returned");
         }
         #endregion
@@ -149,8 +149,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitForExactText()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
-            IWebElement element = this.WebDriver.Wait().ForExactText(asyncOptionsLabel, "Options");
+            this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
+            IWebElement element = this.WebDriver.Wait().ForExactText(AsyncOptionsLabel, "Options");
             Assert.IsNotNull(element, "Null element was returned");
         }
         #endregion
@@ -163,8 +163,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitForContainsText()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            IWebElement element = this.WebDriver.Wait().ForContainsText(automationNamesLabel, "Name");
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            IWebElement element = this.WebDriver.Wait().ForContainsText(AutomationNamesLabel, "Name");
             Assert.IsNotNull(element, "Null element was returned");
         }
         #endregion
@@ -177,8 +177,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitForAbsentElement()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
-            this.WebDriver.Wait().ForAbsentElement(notInPage);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            this.WebDriver.Wait().ForAbsentElement(NotInPage);
         }
         #endregion
 
@@ -190,10 +190,10 @@ namespace SeleniumUnitTests
         [ExpectedException(typeof(Exception))]
         public void WaitForAbsentElementFail()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
             this.WebDriver.SetWaitDriver(new WebDriverWait(new SystemClock(), this.WebDriver, TimeSpan.FromMilliseconds(100), TimeSpan.FromMilliseconds(10)));
-            this.WebDriver.Wait().ForAbsentElement(homeButtonCssSelector);
+            this.WebDriver.Wait().ForAbsentElement(HomeButtonCssSelector);
         }
 
         /// <summary>
@@ -204,7 +204,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitForPageLoad()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
         }
         #endregion
@@ -217,7 +217,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitUntilPageLoad()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             Assert.IsTrue(this.WebDriver.Wait().UntilPageLoad(), "Page failed to load");
         }
         #endregion
@@ -230,8 +230,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitUntilClickableElement()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            Assert.IsTrue(this.WebDriver.Wait().UntilClickableElement(automationShowDialog1), "Failed to find element");
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            Assert.IsTrue(this.WebDriver.Wait().UntilClickableElement(AutomationShowDialog1), "Failed to find element");
         }
         #endregion
 
@@ -243,8 +243,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitUntilVisibleElement()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            Assert.IsTrue(this.WebDriver.Wait().UntilVisibleElement(automationShowDialog1), "Failed to find element");
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            Assert.IsTrue(this.WebDriver.Wait().UntilVisibleElement(AutomationShowDialog1), "Failed to find element");
         }
         #endregion
 
@@ -256,8 +256,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitUntilExactText()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            Assert.IsTrue(this.WebDriver.Wait().UntilExactText(automationShowDialog1, "Show dialog"), "Failed to find element");
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            Assert.IsTrue(this.WebDriver.Wait().UntilExactText(AutomationShowDialog1, "Show dialog"), "Failed to find element");
         }
         #endregion
 
@@ -269,8 +269,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitUntilContainsText()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            Assert.IsTrue(this.WebDriver.Wait().UntilContainsText(automationShowDialog1, "dialog"), "Failed to find element");
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            Assert.IsTrue(this.WebDriver.Wait().UntilContainsText(AutomationShowDialog1, "dialog"), "Failed to find element");
         }
         #endregion
 
@@ -282,9 +282,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void TryWaitForAttributeTextContains()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
-            IWebElement element = null;
-            bool found = this.WebDriver.Wait().TryForAttributeTextContains(asyncLoadingTextDiv, "none;", "style", out element);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
+            IWebElement element;
+            bool found = this.WebDriver.Wait().TryForAttributeTextContains(AsyncLoadingTextDiv, "none;", "style", element: out element);
             Assert.IsTrue(found, "False was returned");
             Assert.IsNotNull(element, "Null element was returned");
         }
@@ -296,9 +296,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void TryWaitForAttributeTextContainsDontFind()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
-            IWebElement element = null;
-            bool found = this.WebDriver.Wait().TryForAttributeTextContains(foodTable, "Flower Table", "Summmary", out element);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
+            IWebElement element;
+            bool found = this.WebDriver.Wait().TryForAttributeTextContains(FoodTable, "Flower Table", "Summmary", out element);
             Assert.IsFalse(found, "True was unexpectedly returned");
             Assert.IsNull(element, "Element was not null");
         }
@@ -312,9 +312,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void TryWaitForAttributeTextEquals()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
-            IWebElement element = null;
-            bool found = this.WebDriver.Wait().TryForAttributeTextEquals(asyncLoadingTextDiv, "display: block;", "style", out element);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
+            IWebElement element;
+            bool found = this.WebDriver.Wait().TryForAttributeTextEquals(AsyncLoadingTextDiv, "display: block;", "style", out element);
             Assert.IsTrue(found, "False was returned");
             Assert.IsNotNull(element, "Null element was returned");
         }
@@ -326,9 +326,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void TryWaitForAttributeTextEqualsDontFind()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
-            IWebElement element = null;
-            bool found = this.WebDriver.Wait().TryForAttributeTextEquals(foodTable, "Flower Table", "Summmary", out element);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
+            IWebElement element;
+            bool found = this.WebDriver.Wait().TryForAttributeTextEquals(FoodTable, "Flower Table", "Summmary", out element);
             Assert.IsFalse(found, "True was unexpectedly returned");
             Assert.IsNull(element, "Element was not null");
         }
@@ -342,9 +342,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void TryWaitForClickableElement()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
-            IWebElement element = null;
-            bool found = this.WebDriver.Wait().TryForClickableElement(homeButtonCssSelector, out element);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            IWebElement element;
+            bool found = this.WebDriver.Wait().TryForClickableElement(HomeButtonCssSelector, out element);
             Assert.IsTrue(found, "False was returned");
             Assert.IsNotNull(element, "Null element was returned");
         }
@@ -358,9 +358,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void TryScrollIntoViewElement()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            IWebElement element = null;
-            bool found = this.WebDriver.Wait().TryForClickableElementAndScrollIntoView(automationShowDialog1, out element);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            IWebElement element;
+            bool found = this.WebDriver.Wait().TryForClickableElementAndScrollIntoView(AutomationShowDialog1, out element);
             Assert.IsTrue(found, "False was returned.");
             Assert.IsNotNull(element, "Failed to find element.");
         }
@@ -374,9 +374,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void TryWaitForContainsText()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            IWebElement element = null;
-            bool found = this.WebDriver.Wait().TryForContainsText(automationNamesLabel, "Name", out element);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            IWebElement element;
+            bool found = this.WebDriver.Wait().TryForContainsText(AutomationNamesLabel, "Name", out element);
             Assert.IsTrue(found, "False was returned");
             Assert.IsNotNull(element, "Null element was returned");
         }
@@ -390,9 +390,9 @@ namespace SeleniumUnitTests
         [TestCategory("Selenium Unit Tests")]
         public void TryWaitForElementExist()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
-            IWebElement element = null;
-            bool found = this.WebDriver.Wait().TryForElementExist(homeButtonCssSelector, out element);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            IWebElement element;
+            bool found = this.WebDriver.Wait().TryForElementExist(HomeButtonCssSelector, out element);
             Assert.IsTrue(found, "False was returned");
             Assert.IsNotNull(element, "Null element was returned");
         }
@@ -406,9 +406,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void TryWaitUntilExactText()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
-            IWebElement element = null;
-            bool found = this.WebDriver.Wait().TryForExactText(asyncOptionsLabel, "Options", out element);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
+            IWebElement element;
+            bool found = this.WebDriver.Wait().TryForExactText(AsyncOptionsLabel, "Options", out element);
             Assert.IsTrue(found, "False was returned");
             Assert.IsNotNull(element, "Null element was returned");
         }
@@ -422,9 +422,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void TryWaitForVisibleElement()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
-            IWebElement element = null;
-            bool found = this.WebDriver.Wait().TryForVisibleElement(asyncDropdownCssSelector, out element);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
+            IWebElement element;
+            bool found = this.WebDriver.Wait().TryForVisibleElement(AsyncDropdownCssSelector, out element);
             Assert.IsTrue(found, "False was returned");
             Assert.IsNotNull(element, "Null element was returned");
         }
@@ -437,8 +437,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void FindElement()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
-            Assert.IsNotNull(this.WebDriver.FindElement(homeButtonCssSelector), "Element was not found");
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            Assert.IsNotNull(this.WebDriver.FindElement(HomeButtonCssSelector), "Element was not found");
         }
 
         /// <summary>
@@ -449,8 +449,8 @@ namespace SeleniumUnitTests
         [TestCategory("Selenium Unit Tests")]
         public void WaitForElementExist()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
-            IWebElement element = this.WebDriver.Wait().ForElementExist(homeButtonCssSelector);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            IWebElement element = this.WebDriver.Wait().ForElementExist(HomeButtonCssSelector);
             Assert.IsNotNull(element, "Null element was returned");
         }
         #endregion
@@ -463,8 +463,8 @@ namespace SeleniumUnitTests
         [TestCategory("Selenium Unit Tests")]
         public void WaitUntilElementExist()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            Assert.IsTrue(this.WebDriver.Wait().UntilElementExist(automationShowDialog1), "Failed to find element");
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            Assert.IsTrue(this.WebDriver.Wait().UntilElementExist(AutomationShowDialog1), "Failed to find element");
         }
         #endregion
 
@@ -476,8 +476,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitUntilAbsentElement()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
-            Assert.IsTrue(this.WebDriver.Wait().UntilAbsentElement(notInPage));
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            Assert.IsTrue(this.WebDriver.Wait().UntilAbsentElement(NotInPage));
         }
         #endregion
 
@@ -489,8 +489,8 @@ namespace SeleniumUnitTests
         [ExpectedException(typeof(NotFoundException))]
         public void ElemListThrowException()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            IWebElement element = this.WebDriver.Find().Element(notInPage);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            IWebElement element = this.WebDriver.Find().Element(NotInPage);
         }
 
         /// <summary>
@@ -501,8 +501,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void FindElementNotFound()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
-            Assert.IsNull(this.WebDriver.Find().Element(notInPage, false), "Element was not found");
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            Assert.IsNull(this.WebDriver.Find().Element(NotInPage, false), "Element was not found");
         }
         #endregion
 
@@ -513,8 +513,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void FindElementFound()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            IWebElement element = this.WebDriver.Find().Element(automationNamesLabel);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            IWebElement element = this.WebDriver.Find().Element(AutomationNamesLabel);
             Assert.AreEqual(element.Text, "Names");
         }
 
@@ -525,8 +525,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void FindElementWithTextElementNotFound()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            Assert.IsNull(this.WebDriver.Find().ElementWithText(notInPage, "notInPage", false), "Element was not found");
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            Assert.IsNull(this.WebDriver.Find().ElementWithText(NotInPage, "notInPage", false), "Element was not found");
         }
 
         /// <summary>
@@ -537,9 +537,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void FindElementWithText()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            string text = this.WebDriver.FindElement(automationShowDialog1).Text;
-            Assert.IsNotNull(this.WebDriver.Find().ElementWithText(automationShowDialog1, text), "Element was not found");
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            string text = this.WebDriver.FindElement(AutomationShowDialog1).Text;
+            Assert.IsNotNull(this.WebDriver.Find().ElementWithText(AutomationShowDialog1, text), "Element was not found");
         }
         #endregion
 
@@ -550,8 +550,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void FindElementWithTextNotFound()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
-            Assert.IsNull(this.WebDriver.Find().ElementWithText(homeButtonCssSelector, "#notfound", false), "Element was not found");
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            Assert.IsNull(this.WebDriver.Find().ElementWithText(HomeButtonCssSelector, "#notfound", false), "Element was not found");
         }
 
         /// <summary>
@@ -562,8 +562,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void FindIndexOfElementWithText()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            Assert.AreEqual(this.WebDriver.Find().IndexOfElementWithText(flowerTable, "Red"), 3);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            Assert.AreEqual(this.WebDriver.Find().IndexOfElementWithText(FlowerTable, "Red"), 3);
         }
         #endregion
 
@@ -574,8 +574,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void FindIndexOfElementWithTextNotFound()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            Assert.AreEqual(this.WebDriver.Find().IndexOfElementWithText(flowerTable, "#notfound", false), -1);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            Assert.AreEqual(this.WebDriver.Find().IndexOfElementWithText(FlowerTable, "#notfound", false), -1);
         }
 
         /// <summary>
@@ -585,8 +585,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void FindIndexOfElementWithTextWithNotFoundElement()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            Assert.AreEqual(this.WebDriver.Find().IndexOfElementWithText(notInPage, "#notfound", false), -1);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            Assert.AreEqual(this.WebDriver.Find().IndexOfElementWithText(NotInPage, "#notfound", false), -1);
         }
 
         /// <summary>
@@ -597,8 +597,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void FindIndexofElementInCollection()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            Assert.AreEqual(this.WebDriver.Find().IndexOfElementWithText(this.WebDriver.FindElements(flowerTable), "10 in"), 0);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            Assert.AreEqual(this.WebDriver.Find().IndexOfElementWithText(this.WebDriver.FindElements(FlowerTable), "10 in"), 0);
         }
         #endregion
 
@@ -609,8 +609,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void FindIndexOfElementInCollectionNotFound()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            Assert.AreEqual(this.WebDriver.Find().IndexOfElementWithText(this.WebDriver.FindElements(flowerTable), "#notfound", false), -1);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            Assert.AreEqual(this.WebDriver.Find().IndexOfElementWithText(this.WebDriver.FindElements(FlowerTable), "#notfound", false), -1);
         }
 
         /// <summary>
@@ -621,7 +621,7 @@ namespace SeleniumUnitTests
         [ExpectedException(typeof(NotFoundException))]
         public void FindIndexOfElementInCollectionEmptyInputList()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
             this.WebDriver.Find().IndexOfElementWithText(new List<IWebElement>(), "#notfound", true);
         }
 
@@ -633,8 +633,8 @@ namespace SeleniumUnitTests
         [ExpectedException(typeof(NotFoundException))]
         public void FindIndexOfElementInCollectionTextNotFoundAssertIsTrue()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            this.WebDriver.Find().IndexOfElementWithText(this.WebDriver.FindElements(flowerTable), "#notfound", true);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            this.WebDriver.Find().IndexOfElementWithText(this.WebDriver.FindElements(FlowerTable), "#notfound", true);
         }
 
         /// <summary>
@@ -645,7 +645,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void TryScreenshot()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
             SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.Log);
             string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, ".Jpeg");
@@ -661,7 +661,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void TryScreenshotWithConsoleLogger()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
 
             // Create a console logger and calculate the file location
@@ -683,10 +683,12 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void CaptureScreenshotThrownException()
         {
-            FileLogger tempLogger = new FileLogger();
-            tempLogger.FilePath = "<>"; // illegal file path
+            FileLogger tempLogger = new FileLogger
+            {
+                FilePath = "<>" // illegal file path
+            };
 
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
             bool successfullyCaptured = SeleniumUtilities.CaptureScreenshot(this.WebDriver, tempLogger);
             Assert.IsFalse(successfullyCaptured);
@@ -699,10 +701,12 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void SavePageSourceThrownException()
         {
-            FileLogger tempLogger = new FileLogger();
-            tempLogger.FilePath = "<>"; // illegal file path
+            FileLogger tempLogger = new FileLogger
+            {
+                FilePath = "<>" // illegal file path
+            };
 
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
             bool successfullySaved = SeleniumUtilities.SavePageSource(this.WebDriver, tempLogger);
             Assert.IsFalse(successfullySaved);
@@ -715,7 +719,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void CaptureScreenshotNoExistingDirectory()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
             string screenShotPath = SeleniumUtilities.CaptureScreenshot(this.WebDriver, "TempTestDirectory", "TempTestFilePath", SeleniumUtilities.GetScreenShotFormat());
             Assert.IsTrue(File.Exists(screenShotPath), "Fail to find screenshot");
@@ -729,7 +733,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void SavePageSourceNoExistingDirectory()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
             string pageSourcePath = SeleniumUtilities.SavePageSource(this.WebDriver, "TempTestDirectory", "TempTestFilePath");
             Assert.IsTrue(File.Exists(pageSourcePath), "Fail to find Page Source");
@@ -744,7 +748,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void SeleniumSoftAssertTest()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
             SoftAssert.AreEqual("Automation - Magenic Automation Test Site", this.WebDriver.Title, "Title Test", "Title is incorrect");
             SoftAssert.FailTestIfAssertFailed();
         }
@@ -758,7 +762,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void SeleniumSoftAssertIsFalseTest()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
             SoftAssert.IsFalse("Automation".Equals(this.WebDriver.Title), "Title Test", "Title is incorrect");
             SoftAssert.FailTestIfAssertFailed();
         }
@@ -772,7 +776,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void SeleniumSoftAssertIsTrueTest()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
             SoftAssert.IsTrue(this.WebDriver.Title.Contains("Automation"), "Title Test", "Title is incorrect");
             SoftAssert.FailTestIfAssertFailed();
         }
@@ -785,9 +789,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void SeleniumSoftAssertIsTrueFalseCondition()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
             this.Log = new FileLogger(string.Empty, "SeleniumSoftAssertIsTrueFalseConditionFileLog.txt", MessageType.GENERIC, true);
-            SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(this.WebDriver, this.Log);
+            SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(this.TestObject);
             string logLocation = ((FileLogger)this.Log).FilePath;
             string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " testSoftAssert" + " (1).Jpeg";
 
@@ -807,9 +811,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void SeleniumSoftAssertIsTrueFalseConditionPageSource()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
             this.Log = new FileLogger(string.Empty, "SeleniumSoftAssertIsTrueFalseConditionFileLog.txt", MessageType.GENERIC, true);
-            SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(this.WebDriver, this.Log);
+            SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(this.TestObject);
             string logLocation = ((FileLogger)this.Log).FilePath;
             string pageSourceLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + "_PS (1).txt";
 
@@ -829,7 +833,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void SeleniumSoftAssertIsFalseTrueCondition()
         {
-            SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(this.WebDriver, this.Log);
+            SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(this.TestObject);
             string logLocation = ((FileLogger)this.Log).FilePath;
             string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " testSoftAssert" + " (1).Jpeg";
 
@@ -848,7 +852,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void SeleniumSoftAssertIsFalseTrueConditionPageSource()
         {
-            SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(this.WebDriver, this.Log);
+            SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(this.TestObject);
             string logLocation = ((FileLogger)this.Log).FilePath;
             string pageSourceLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + "_PS (1).txt";
 
@@ -867,7 +871,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void SeleniumSoftAssertAreEqual()
         {
-            SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(this.WebDriver, this.Log);
+            SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(this.TestObject);
             bool isTrue = seleniumSoftAssert.AreEqual("test string", "test string", "test message");
             Assert.IsTrue(isTrue);
         }
@@ -880,7 +884,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void SeleniumPageSourceFileIsCreated()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
             string pageSourcePath = SeleniumUtilities.SavePageSource(this.WebDriver, "TempTestDirectory", "TempTestFilePath");
             Assert.IsTrue(File.Exists(pageSourcePath), "Failed to find Page Source");
@@ -895,10 +899,10 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WebElementToWebDriverUnwrappedDriver()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
             IWebDriver driver = ((IWrapsDriver)this.WebDriver).WrappedDriver;
-            IWebElement element = driver.FindElement(automationShowDialog1);
-            
+            IWebElement element = driver.FindElement(AutomationShowDialog1);
+
             IWebDriver basedriver = SeleniumUtilities.WebElementToWebDriver(element);
             Assert.AreEqual("OpenQA.Selenium.PhantomJS.PhantomJSDriver", basedriver.GetType().ToString());
         }
@@ -911,7 +915,7 @@ namespace SeleniumUnitTests
         [ExpectedException(typeof(AggregateException))]
         public void SeleniumSoftAssertExpectFail()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
             SoftAssert.AreEqual("Wrong Title", this.WebDriver.Title, "Title Test", "Title is incorrect");
             SoftAssert.FailTestIfAssertFailed();
         }
@@ -924,8 +928,8 @@ namespace SeleniumUnitTests
         [ExpectedException(typeof(NotFoundException), "An attribute check that should have failed to find the given string within an elements attribute passed.")]
         public void WaitForAttributeContainsDontFind()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            this.WebDriver.Wait().ForAttributeTextContains(foodTable, "Flower Table", "Summmary");
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            this.WebDriver.Wait().ForAttributeTextContains(FoodTable, "Flower Table", "Summmary");
         }
 
         /// <summary>
@@ -936,8 +940,8 @@ namespace SeleniumUnitTests
         [ExpectedException(typeof(NotFoundException), "An attribute check that should have failed to find the given string equal to an elements attribute passed.")]
         public void WaitForAttributeEqualsDontFind()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            this.WebDriver.Wait().ForAttributeTextEquals(foodTable, "Flower Table", "Summmary");
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            this.WebDriver.Wait().ForAttributeTextEquals(FoodTable, "Flower Table", "Summmary");
         }
 
         /// <summary>
@@ -948,8 +952,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitForAttributeContainsFound()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
-            Assert.IsNotNull(this.WebDriver.Wait().ForAttributeTextContains(asyncLoadingTextDiv, "block;", "style"));
+            this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
+            Assert.IsNotNull(this.WebDriver.Wait().ForAttributeTextContains(AsyncLoadingTextDiv, "block;", "style"));
         }
         #endregion
 
@@ -961,9 +965,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitForAttributeEqualsFound()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
 
-            Assert.IsNotNull(this.WebDriver.Wait().ForAttributeTextEquals(asyncLoadingTextDiv, "display: block;", "style"));
+            Assert.IsNotNull(this.WebDriver.Wait().ForAttributeTextEquals(AsyncLoadingTextDiv, "display: block;", "style"));
         }
         #endregion
 
@@ -974,8 +978,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitUntilAttributeContains()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
-            Assert.IsTrue(this.WebDriver.Wait().UntilAttributeTextContains(asyncLoadingLabel, "none;", "style"));
+            this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
+            Assert.IsTrue(this.WebDriver.Wait().UntilAttributeTextContains(AsyncLoadingLabel, "none;", "style"));
         }
 
         /// <summary>
@@ -985,8 +989,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitUntilAttributeEquals()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
-            Assert.IsTrue(this.WebDriver.Wait().UntilAttributeTextEquals(asyncLoadingLabel, "display: none;", "style"));
+            this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
+            Assert.IsTrue(this.WebDriver.Wait().UntilAttributeTextEquals(AsyncLoadingLabel, "display: none;", "style"));
         }
 
         /// <summary>
@@ -997,8 +1001,8 @@ namespace SeleniumUnitTests
         [TestMethod]
         public void WaitUntilAttributeContainsFalse()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
-            Assert.IsFalse(this.WebDriver.Wait().UntilAttributeTextContains(asyncDropdownCssSelector, "nottherightid", "id"));
+            this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
+            Assert.IsFalse(this.WebDriver.Wait().UntilAttributeTextContains(AsyncDropdownCssSelector, "nottherightid", "id"));
         }
         #endregion
 
@@ -1010,8 +1014,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitUntilAttributeEqualsFalse()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
-            Assert.IsFalse(this.WebDriver.Wait().UntilAttributeTextEquals(asyncLoadingLabel, "display:", "style"));
+            this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
+            Assert.IsFalse(this.WebDriver.Wait().UntilAttributeTextEquals(AsyncLoadingLabel, "display:", "style"));
         }
         #endregion
 
@@ -1023,8 +1027,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void ScrollIntoViewElement()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            Assert.IsTrue(this.WebDriver.Wait().ForClickableElementAndScrollIntoView(automationShowDialog1).Displayed, "Failed to find element");
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            Assert.IsTrue(this.WebDriver.Wait().ForClickableElementAndScrollIntoView(AutomationShowDialog1).Displayed, "Failed to find element");
         }
         #endregion
 
@@ -1036,8 +1040,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void ScrollIntoViewWithOffsetElement()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            Assert.IsTrue(this.WebDriver.Wait().ForClickableElementAndScrollIntoView(automationShowDialog1, 0, 100).Displayed, "Failed to find element or scroll");
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            Assert.IsTrue(this.WebDriver.Wait().ForClickableElementAndScrollIntoView(AutomationShowDialog1, 0, 100).Displayed, "Failed to find element or scroll");
         }
         #endregion
 
@@ -1049,8 +1053,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void ScrollIntoViewBoolean()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            Assert.IsTrue(this.WebDriver.Wait().UntilClickableElementAndScrollIntoView(automationShowDialog1), "Failed to find element");
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            Assert.IsTrue(this.WebDriver.Wait().UntilClickableElementAndScrollIntoView(AutomationShowDialog1), "Failed to find element");
         }
         #endregion
 
@@ -1062,8 +1066,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void ScrollIntoViewBooleanOffset()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            Assert.IsTrue(this.WebDriver.Wait().UntilClickableElementAndScrollIntoView(automationShowDialog1, 0, 100), "Failed to find element");
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            Assert.IsTrue(this.WebDriver.Wait().UntilClickableElementAndScrollIntoView(AutomationShowDialog1, 0, 100), "Failed to find element");
         }
         #endregion
 
@@ -1075,7 +1079,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void ScrollByOffset()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
             this.WebDriver.Wait().PageLoadThanExecuteScrolling(0, 500);
         }
         #endregion
@@ -1090,8 +1094,8 @@ namespace SeleniumUnitTests
             #region GetWaitDriver
             WebDriverWait driver = this.WebDriver.GetWaitDriver();
             #endregion
-            Assert.AreEqual(driver.Timeout.Seconds, 15);
-            Assert.AreEqual(driver.PollingInterval.Seconds, 1);
+            Assert.AreEqual(20, driver.Timeout.Seconds);
+            Assert.AreEqual(1, driver.PollingInterval.Seconds);
         }
 
         /// <summary>
@@ -1122,8 +1126,8 @@ namespace SeleniumUnitTests
             bool removeDriver = this.WebDriver.RemoveWaitDriver();
             WebDriverWait driver = this.WebDriver.GetWaitDriver();
 
-            Assert.AreEqual(driver.Timeout.Seconds, 15);
-            Assert.AreEqual(driver.PollingInterval.Seconds, 1);
+            Assert.AreEqual(20, driver.Timeout.Seconds);
+            Assert.AreEqual(1, driver.PollingInterval.Seconds);
         }
 
         /// <summary>
@@ -1134,7 +1138,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void SetWaitDriver()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.SetWaitDriver(new WebDriverWait(new SystemClock(), this.WebDriver, TimeSpan.FromMilliseconds(10000), TimeSpan.FromMilliseconds(10)));
             this.WebDriver.Wait().ForPageLoad();
         }
@@ -1149,7 +1153,7 @@ namespace SeleniumUnitTests
         public void RemoveWaitDriver()
         {
             this.WebDriver.SetWaitDriver(new WebDriverWait(new SystemClock(), this.WebDriver, TimeSpan.FromMilliseconds(10000), TimeSpan.FromMilliseconds(10)));
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
             bool removed = this.WebDriver.RemoveWaitDriver();
             Assert.IsTrue(removed == true);
@@ -1207,88 +1211,25 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify that BaseSeleniumTest.Dispose() properly closes existing TestObject, and thrown exception is caught if driver is closed already
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
-        public void SeleniumDispose()
-        {
-            this.Dispose();
-            var webdriver = this.WebDriver;
-            Assert.AreEqual(webdriver.WindowHandles.Count, 0);
-
-            this.Dispose(); // calls Dispose again to throw exception, which is supressed
-        }
-
-        /// <summary>
-        /// Verify that BaseSeleniumTest.GetSoftAssert() returns the BaseTest.SoftAssert if there is no existing TestObject
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
-        [TestCategory(TestCategories.Utilities)]
-        public void SeleniumGetSoftAssertBase()
-        {
-            this.Teardown(); // delete the existing TestObject
-            SoftAssert baseSoftAssert = this.GetSoftAssert();
-            Assert.AreEqual(baseSoftAssert.ToString(), "Magenic.MaqsFramework.BaseTest.SoftAssert");
-        }
-
-        /// <summary>
-        /// Verify that PostSetupLogging catches thrown exception if there is no existing TestObject
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
-        public void SeleniumPostSetupLoggingThrownException()
-        {
-            this.Teardown(); // delete the existing TestObject
-            this.Log = new FileLogger(string.Empty, "SeleniumPostSetupLoggingThrowExceptionFileLog.txt", MessageType.GENERIC, true);
-            this.PostSetupLogging(); // exception is caught
-
-            string log = this.GetAndRemoveCustomFileLog();
-            Assert.IsTrue(log.Contains("Failed to start driver because: "));
-        }
-
-        /// <summary>
-        /// Verify That BeforeLoggingTeardown catches thrown exception if there is no existing TestObject
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
-        public void SeleniumBeforeLoggingTeardownThrowException()
-        {
-            this.Teardown();
-            TestResultType trt = TestResultType.FAIL;
-            this.Log = new FileLogger(string.Empty, "SeleniumBeforeLoggingTeardownThrowExceptionFileLog.txt", MessageType.GENERIC, true);
-            this.BeforeLoggingTeardown(trt);
-
-            string log = this.GetAndRemoveCustomFileLog();
-            Assert.IsTrue(log.Contains("Failed to get screen shot because: "));
-        }
-
-        /// <summary>
         /// Verify that SetupNoneEventFiringTester sets the proper webdriver
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void SeleniumSetupNoneEventFiringTester()
         {
-            //// Take down the default driver
-            this.WebDriver?.Close();
-            this.WebDriver?.Dispose();
+            // Take down the default driver
+            this.WebDriver?.KillDriver();
 
-            //// The driver under test. This driver is taken down by the standard teardown process
-            this.SetupNoneEventFiringTester();
-
-            //// This driver must manually be taken down
+            // This driver must manually be taken down
             var differentDriver = SeleniumConfig.Browser();
 
             try
             {
-                Assert.AreEqual(differentDriver.ToString(), this.WebDriver.ToString());
+                Assert.AreEqual(differentDriver.ToString(), Extend.GetLowLevelDriver(this.WebDriver).ToString());
             }
             finally
             {
-                differentDriver?.Close();
-                differentDriver?.Dispose();
+                differentDriver?.KillDriver();
             }
         }
 
@@ -1316,7 +1257,7 @@ namespace SeleniumUnitTests
         public void SeleniumNavigationEventListeners()
         {
             this.Log = new FileLogger(string.Empty, "SeleniumNavigatorEventListenersFileLog.txt", MessageType.VERBOSE, true);
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
             this.WebDriver.Navigate().Back();
             this.WebDriver.Navigate().Forward();
 
@@ -1334,7 +1275,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void CaptureScreenshotBmpFormat()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
             string screenShotPath = SeleniumUtilities.CaptureScreenshot(this.WebDriver, "TempTestDirectory", "TempTestFilePath", ScreenshotImageFormat.Bmp);
             Assert.IsTrue(File.Exists(screenShotPath), "Fail to find screenshot");
@@ -1349,7 +1290,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void CaptureScreenshotGifFormat()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
             string screenShotPath = SeleniumUtilities.CaptureScreenshot(this.WebDriver, "TempTestDirectory", "TempTestFilePath", ScreenshotImageFormat.Gif);
             Assert.IsTrue(File.Exists(screenShotPath), "Fail to find screenshot");
@@ -1364,7 +1305,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void CaptureScreenshotJpegFormat()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
             string screenShotPath = SeleniumUtilities.CaptureScreenshot(this.WebDriver, "TempTestDirectory", "TempTestFilePath", ScreenshotImageFormat.Jpeg);
             Assert.IsTrue(File.Exists(screenShotPath), "Fail to find screenshot");
@@ -1379,7 +1320,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void CaptureScreenshotPngFormat()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
             string screenShotPath = SeleniumUtilities.CaptureScreenshot(this.WebDriver, "TempTestDirectory", "TempTestFilePath", ScreenshotImageFormat.Png);
             Assert.IsTrue(File.Exists(screenShotPath), "Fail to find screenshot");
@@ -1394,7 +1335,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void CaptureScreenshotTiffFormat()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
             string screenShotPath = SeleniumUtilities.CaptureScreenshot(this.WebDriver, "TempTestDirectory", "TempTestFilePath", ScreenshotImageFormat.Tiff);
             Assert.IsTrue(File.Exists(screenShotPath), "Fail to find screenshot");
@@ -1409,7 +1350,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void TryScreenshotImageFormat()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
             SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.Log);
             string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, Config.GetValue("ImageFormat").ToString());

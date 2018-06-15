@@ -34,7 +34,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PatchJSONWithoutBaseTest()
         {
-            HttpClientWrapper client = new HttpClientWrapper(new Uri(url));
+            WebServiceDriver client = new WebServiceDriver(new Uri(url));
             ProductJson p = new ProductJson();
             p.Category = "ff";
             p.Id = 4;
@@ -52,7 +52,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PatchJSONWithTypeWithoutBaseTest()
         {
-            HttpClientWrapper client = new HttpClientWrapper(new Uri(url));
+            WebServiceDriver client = new WebServiceDriver(new Uri(url));
             ProductJson p = new ProductJson();
             p.Category = "ff";
             p.Id = 4;
@@ -73,7 +73,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PatchStreamWithoutBaseTest()
         {
-            HttpClientWrapper client = new HttpClientWrapper(new Uri(url));
+            WebServiceDriver client = new WebServiceDriver(new Uri(url));
             var result = client.Patch("/api/String/Patch/1", "text/plain", "Test", Encoding.UTF8, "text/plain", false, true);
             Assert.AreEqual("\"Patched\"", result);
         }
@@ -85,7 +85,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PatchStringWithoutBaseTest()
         {
-            HttpClientWrapper client = new HttpClientWrapper(new Uri(url));
+            WebServiceDriver client = new WebServiceDriver(new Uri(url));
             var content = WebServiceUtils.MakeStringContent("Test", Encoding.UTF8, "text/plain");
             var result = client.Patch("/api/String/Patch/1", "text/plain", content, true);
             Assert.AreEqual("\"Patched\"", result);
@@ -98,7 +98,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PatchStreamWithoutContentWithoutBaseTest()
         {
-            HttpClientWrapper client = new HttpClientWrapper(new Uri(url));
+            WebServiceDriver client = new WebServiceDriver(new Uri(url));
             var result = client.PatchWithResponse("/api/String/Patch/1", "text/plain", "Test", Encoding.UTF8, "text/plain", false, true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }

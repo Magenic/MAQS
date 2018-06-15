@@ -27,7 +27,7 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// Default ProductJson object for use in tests
         /// </summary>
-        private static ProductJson product = new ProductJson
+        private static readonly ProductJson Product = new ProductJson
         {
             Category = "ff",
             Id = 4,
@@ -42,9 +42,9 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void SetWebServiceWrapper()
         {
-            HttpClientWrapper wrapper = new HttpClientWrapper(this.GetBaseWebServiceUrl());
+            WebServiceDriver wrapper = new WebServiceDriver(this.GetBaseWebServiceUrl());
             this.WebServiceWrapper = wrapper;
-            Assert.AreEqual(this.ObjectUnderTest.ToString(), wrapper.ToString());
+            Assert.AreEqual(this.TestObject.HttpClientWrapper.ToString(), wrapper.ToString());
         }
 
         /// <summary>
@@ -54,9 +54,11 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void WebServiceSetupNoneEventFiringTesterTest()
         {
-            HttpClientWrapper wrapper = new HttpClientWrapper(this.GetBaseWebServiceUrl());
-            this.SetupNoneEventFiringTester();
-            Assert.AreEqual(this.ObjectUnderTest.ToString(), wrapper.ToString());
+            // Turn off logging
+            Config.AddTestSettingValues(new Dictionary<string, string> { { "Log", "NO" } }, true);
+
+            WebServiceDriver wrapper = new WebServiceDriver(this.GetBaseWebServiceUrl());
+            Assert.AreEqual(this.TestObject.HttpClientWrapper.ToString(), wrapper.ToString());
         }
 
         /// <summary>
@@ -78,9 +80,10 @@ namespace WebServiceTesterUnitTesting
         public void HttpClientWrapperConstructorTest()
         {
             Uri testUri = new Uri(this.GetBaseWebServiceUrl());
-            HttpClientWrapper testWrapper = new HttpClientWrapper(testUri, new List<MediaTypeFormatter>());
+            WebServiceDriver testWrapper = new WebServiceDriver(testUri);
+            testWrapper.SetCustomMediaFormatters(new List<MediaTypeFormatter>());
             Assert.IsNotNull(testWrapper);
-            Assert.AreEqual(testWrapper.BaseUriAddress, testUri);
+            Assert.AreEqual(testWrapper.HttpClient.BaseAddress, testUri);
         }
 
         /// <summary>
@@ -90,9 +93,10 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void HttpClientWrapperConstructorTest2()
         {
-            HttpClientWrapper testWrapper = new HttpClientWrapper(this.GetBaseWebServiceUrl(), new CustomXmlMediaTypeFormatter("application/xml", typeof(string)));
+            WebServiceDriver testWrapper = new WebServiceDriver(this.GetBaseWebServiceUrl());
+            testWrapper.SetCustomMediaFormatters(new CustomXmlMediaTypeFormatter("application/xml", typeof(string)));
             Assert.IsNotNull(testWrapper);
-            Assert.AreEqual(testWrapper.BaseUriAddress, this.GetBaseWebServiceUrl());
+            Assert.AreEqual(testWrapper.HttpClient.BaseAddress, this.GetBaseWebServiceUrl());
         }
 
         /// <summary>
@@ -102,9 +106,10 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void HttpClientWrapperConstructorTest3()
         {
-            HttpClientWrapper testWrapper = new HttpClientWrapper(this.GetBaseWebServiceUrl(), new List<MediaTypeFormatter>());
+            WebServiceDriver testWrapper = new WebServiceDriver(this.GetBaseWebServiceUrl());
+            testWrapper.SetCustomMediaFormatters(new List<MediaTypeFormatter>());
             Assert.IsNotNull(testWrapper);
-            Assert.AreEqual(testWrapper.BaseUriAddress, this.GetBaseWebServiceUrl());
+            Assert.AreEqual(testWrapper.HttpClient.BaseAddress, this.GetBaseWebServiceUrl());
         }
 
         /// <summary>
@@ -114,11 +119,12 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void BaseHttpClientSetterTest()
         {
-            HttpClientWrapper testWrapper = new HttpClientWrapper(this.GetBaseWebServiceUrl(), new List<MediaTypeFormatter>());
+            WebServiceDriver testWrapper = new WebServiceDriver(this.GetBaseWebServiceUrl());
+            testWrapper.SetCustomMediaFormatters(new List<MediaTypeFormatter>());
             HttpClient client = new HttpClient();
-            testWrapper.BaseHttpClient = client;
-            Assert.AreEqual(testWrapper.BaseHttpClient.ToString(), client.ToString());
-            Assert.AreEqual(testWrapper.BaseHttpClient.Timeout.ToString(), client.Timeout.ToString());
+            testWrapper.HttpClient = client;
+            Assert.AreEqual(testWrapper.HttpClient.ToString(), client.ToString());
+            Assert.AreEqual(testWrapper.HttpClient.Timeout.ToString(), client.Timeout.ToString());
         }
 
         /// <summary>
@@ -129,7 +135,7 @@ namespace WebServiceTesterUnitTesting
         [ExpectedException(typeof(Exception))]
         public void WebServiceUtilsDeserializeResponseThrownException()
         {
-            StringContent content = WebServiceUtils.MakeStringContent<ProductJson>(product, Encoding.UTF8, "application/json");
+            StringContent content = WebServiceUtils.MakeStringContent<ProductJson>(Product, Encoding.UTF8, "application/json");
             HttpResponseMessage response = this.WebServiceWrapper.PutWithResponse("/api/XML_JSON/GetAnErrorPLZ", "application/json", content, false);
             ProductJson retObject = WebServiceUtils.DeserializeResponse<ProductJson>(response, new List<MediaTypeFormatter> { new CustomXmlMediaTypeFormatter("image/gif", typeof(ProductJson)) });
         }
@@ -142,7 +148,7 @@ namespace WebServiceTesterUnitTesting
         [ExpectedException(typeof(Exception))]
         public void MakeStreamContentThrowException()
         {
-            StreamContent streamContent = WebServiceUtils.MakeStreamContent<ProductJson>(product, Encoding.UTF8, "notsupported");
+            StreamContent streamContent = WebServiceUtils.MakeStreamContent<ProductJson>(Product, Encoding.UTF8, "notsupported");
         }
 
         /// <summary>
@@ -153,7 +159,7 @@ namespace WebServiceTesterUnitTesting
         [ExpectedException(typeof(Exception))]
         public void MakeStringContentThrowException()
         {
-            StringContent streamContent = WebServiceUtils.MakeStringContent<ProductJson>(product, Encoding.UTF8, "notsupported");
+            StringContent streamContent = WebServiceUtils.MakeStringContent<ProductJson>(Product, Encoding.UTF8, "notsupported");
         }
     }
 }

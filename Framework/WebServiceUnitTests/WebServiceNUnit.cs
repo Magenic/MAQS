@@ -23,7 +23,7 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// String to hold the URL
         /// </summary>
-        private static string url = Config.GetValue("WebServiceUri");
+        private static readonly string Url = Config.GetValue("WebServiceUri");
 
         /// <summary>
         /// Test XML get
@@ -32,7 +32,7 @@ namespace WebServiceTesterUnitTesting
         [Category(TestCategories.NUnit)]
         public void GetXmlDeserialized()
         {
-            HttpClientWrapper client = new HttpClientWrapper(new Uri(url));
+            WebServiceDriver client = new WebServiceDriver(new Uri(Url));
             ArrayOfProduct result = client.Get<ArrayOfProduct>("/api/XML_JSON/GetAllProducts", "application/xml", false);
         }
     }

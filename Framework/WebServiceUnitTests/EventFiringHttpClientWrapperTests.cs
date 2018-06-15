@@ -17,7 +17,7 @@ namespace WebServiceTesterUnitTesting
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class EventFiringHttpClientWrapperTests : EventFiringHttpClientWrapper
+    public class EventFiringHttpClientWrapperTests : EventFiringWebServiceDriver
     {
         /// <summary>
         /// Default baseAddress for default constructor
@@ -39,7 +39,7 @@ namespace WebServiceTesterUnitTesting
         [ExpectedException(typeof(AggregateException))]
         public void PostContentThrowException()
         {
-            this.PostContent(null, null, null).Wait();
+            this.PostContent("BAD", null, null).Wait();
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace WebServiceTesterUnitTesting
         [ExpectedException(typeof(AggregateException))]
         public void PutContentThrowException()
         {
-             this.PutContent(null, null, null).Wait();
+             this.PutContent("BAD", null, null).Wait();
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace WebServiceTesterUnitTesting
         [ExpectedException(typeof(AggregateException))]
         public void DeleteContentThrowException()
         {
-            this.DeleteContent(null, null).Wait();
+            this.DeleteContent("BAD", null).Wait();
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace WebServiceTesterUnitTesting
         [ExpectedException(typeof(AggregateException))]
         public void GetContentThrowException()
         {
-            this.GetContent(null, null).Wait();
+            this.GetContent("BAD", null).Wait();
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace WebServiceTesterUnitTesting
         [ExpectedException(typeof(AggregateException))]
         public void CustomContentThrowException()
         {
-            this.CustomContent(null, null, null, null).Wait();
+            this.CustomContent("BAD", null, null, null).Wait();
         }
     }
 }

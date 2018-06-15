@@ -4,7 +4,6 @@
 // </copyright>
 // <summary>Helper class for getting database specific configuration values</summary>
 //--------------------------------------------------
-
 using System;
 using System.Data;
 using Magenic.MaqsFramework.BaseDatabaseTest.Providers;
@@ -140,12 +139,12 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
                     provider = new SQLServerProvider();
                     break;
                 case "SQLITE":
-                    provider = new SQLiteProvider();
+                    provider = new SqliteProvider();
                     break;
 
                 case "POSTGRESQL":
                 case "POSTGRE":
-                    provider = new PostgreSQLProvider();
+                    provider = new PostgreSqlProvider();
                     break;
 
                 default:

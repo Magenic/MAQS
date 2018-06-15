@@ -22,17 +22,16 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// <summary>
         /// AppiumDriver to be used
         /// </summary>
-        private AppiumDriver<IWebElement> appiumDriver;
+        private readonly AppiumTestObject appiumTestObject;
 
         /// <summary>
         /// Initializes a new instance of the AppiumSoftAssert class
         /// </summary>
-        /// <param name="driver">The appium driver to use</param>
-        /// <param name="logger">The logger to use</param>
-        public AppiumSoftAssert(AppiumDriver<IWebElement> driver, Logger logger)
-            : base(logger)
+        /// <param name="appiumTestObject">The related Appium test object</param>
+        public AppiumSoftAssert(AppiumTestObject appiumTestObject)
+            : base(appiumTestObject.Log)
         {
-            this.appiumDriver = driver;
+            this.appiumTestObject = appiumTestObject;
         }
 
         /// <summary>
@@ -46,16 +45,17 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         public override bool AreEqual(string expectedText, string actualText, string softAssertName, string message = "")
         {
             bool didPass = base.AreEqual(expectedText, actualText, softAssertName, message);
+
             if (!didPass)
             {
                 if (Config.GetValue("SoftAssertScreenshot", "No").ToUpper().Equals("YES"))
                 {
-                    AppiumUtilities.CaptureScreenshot(this.appiumDriver, this.Log, this.TextToAppend(softAssertName));
+                    AppiumUtilities.CaptureScreenshot(this.appiumTestObject.AppiumDriver, this.Log, this.TextToAppend(softAssertName));
                 }
 
                 if (Config.GetValue("SavePagesourceOnFail", "No").ToUpper().Equals("YES"))
                 {
-                    AppiumUtilities.SavePageSource(this.appiumDriver, this.Log, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
+                    AppiumUtilities.SavePageSource(this.appiumTestObject.AppiumDriver, this.Log, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
                 }
 
                 return false;

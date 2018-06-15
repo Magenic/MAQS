@@ -14,7 +14,7 @@ namespace Magenic.MaqsFramework.SpecFlow.TestSteps
     /// Base for database TestSteps classes
     /// </summary>
     [Binding, Scope(Tag = "MAQS_Database")]
-    public class BaseDatabaseTestSteps : ExtendableTestSteps<DatabaseTestObject, MaqsDatabase, DatabaseConnectionWrapper>
+    public class BaseDatabaseTestSteps : ExtendableTestSteps<DatabaseTestObject, MaqsDatabase>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseDatabaseTestSteps" /> class

@@ -47,7 +47,7 @@ namespace UtilitiesUnitTesting
             dynMethod.Invoke(this, null);
 
             // Create a new file
-            this.SetupLogging();
+            this.TestObject.Log = this.CreateLogger();
         }
 
         /// <summary>

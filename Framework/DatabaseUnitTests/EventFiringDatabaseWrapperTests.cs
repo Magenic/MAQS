@@ -26,7 +26,7 @@ namespace DatabaseUnitTests
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class EventFiringDatabaseWrapperTests : EventFiringDatabaseConnectionWrapper
+    public class EventFiringDatabaseWrapperTests : EventFiringDatabaseDriver
     {
         /// <summary>
         /// Database Event will modify this
@@ -51,7 +51,7 @@ namespace DatabaseUnitTests
         [TestCategory(TestCategories.Database)]
         public void EventFiringExecuteEventTest()
         {
-            //// Subscribe to the event
+            // Subscribe to the event
             this.DatabaseEvent += this.DatabaseUnitTestEvent;
 
             this.Execute("setStateAbbrevToSelf", new { StateAbbreviation = "MN" }, commandType: CommandType.StoredProcedure);
@@ -79,7 +79,7 @@ namespace DatabaseUnitTests
         {
             try
             {
-                //// Subscribe to the event
+                // Subscribe to the event
                 this.DatabaseErrorEvent += this.DatabaseUnitTestEvent;
 
                 this.Execute(null);
@@ -111,7 +111,7 @@ namespace DatabaseUnitTests
         [TestCategory(TestCategories.Database)]
         public void EventFiringQueryListEventTest()
         {
-            //// Subscribe to the event
+            // Subscribe to the event
             this.DatabaseEvent += this.DatabaseUnitTestEvent;
 
             this.Query("SELECT * FROM States");
@@ -139,7 +139,7 @@ namespace DatabaseUnitTests
         {
             try
             {
-                //// Subscribe to the event
+                // Subscribe to the event
                 this.DatabaseErrorEvent += this.DatabaseUnitTestEvent;
 
                 this.Query(null);
@@ -171,7 +171,7 @@ namespace DatabaseUnitTests
         [TestCategory(TestCategories.Database)]
         public void EventFiringQueryEventTest()
         {
-            //// Subscribe to the event
+            // Subscribe to the event
             this.DatabaseEvent += this.DatabaseUnitTestEvent;
 
             this.Query<States>("SELECT * FROM States");
@@ -199,7 +199,7 @@ namespace DatabaseUnitTests
         {
             try
             {
-                //// Subscribe to the event
+                // Subscribe to the event
                 this.DatabaseErrorEvent += this.DatabaseUnitTestEvent;
 
                 this.Query<string>(null);
@@ -231,7 +231,7 @@ namespace DatabaseUnitTests
         {
             try
             {
-                //// Subscribe to the event
+                // Subscribe to the event
                 this.DatabaseErrorEvent += this.DatabaseUnitTestEvent;
 
                 this.Insert<string>(null);
@@ -263,7 +263,7 @@ namespace DatabaseUnitTests
         {
             try
             {
-                //// Subscribe to the event
+                // Subscribe to the event
                 this.DatabaseErrorEvent += this.DatabaseUnitTestEvent;
 
                 this.Delete<string>(null);
@@ -295,7 +295,7 @@ namespace DatabaseUnitTests
         {
             try
             {
-                //// Subscribe to the event
+                // Subscribe to the event
                 this.DatabaseErrorEvent += this.DatabaseUnitTestEvent;
 
                 this.Update<string>(null);

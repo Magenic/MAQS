@@ -20,12 +20,12 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// <summary>
         /// The search context item
         /// </summary>
-        private ISearchContext searchItem;
+        private readonly ISearchContext searchItem;
 
         /// <summary>
         /// The wait driver
         /// </summary>
-        private WebDriverWait webDriverWait;
+        private readonly WebDriverWait webDriverWait;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Wait"/> class.

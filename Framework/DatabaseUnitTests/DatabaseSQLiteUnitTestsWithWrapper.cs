@@ -23,6 +23,7 @@ namespace DatabaseUnitTests
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
+    [DoNotParallelize]
     public class DatabaseSQLiteUnitTestsWithWrapper : BaseDatabaseTest
     {
         /// <summary>
@@ -30,6 +31,7 @@ namespace DatabaseUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Database)]
+        [DoNotParallelize]
         public void VerifyOrdersHasCorrectNumberOfRecordsSqlite()
         {
             var orders = this.DatabaseWrapper.Query("select * from orders").ToList();
@@ -42,6 +44,7 @@ namespace DatabaseUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Database)]
+        [DoNotParallelize]
         public void VerifyOrdersMapIsCorrectSqlite()
         {
             var orders = this.DatabaseWrapper.Query<Orders>("select * from orders").ToList();
@@ -55,15 +58,16 @@ namespace DatabaseUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Database)]
+        [DoNotParallelize]
         public void VerifyInsertOrdersIsCorrectSqlite()
         {
             this.DatabaseWrapper.Connection.Close();
 
-            //// Get original sqlite file
+            // Get original sqlite file
             var originalPath = this.GetDByPath();
             var originalDatabase = File.ReadAllBytes(originalPath);
 
-            //// Insert new order record
+            // Insert new order record
             var newOrder = CreateNewOrder();
 
             try
@@ -76,7 +80,7 @@ namespace DatabaseUnitTests
             }
             catch (Exception)
             {
-                //// Rewrite the SQLite file
+                // Rewrite the SQLite file
                 if (this.DatabaseWrapper.Connection.State.Equals(ConnectionState.Open))
                 {
                     this.DatabaseWrapper.Connection.Close();
@@ -88,7 +92,7 @@ namespace DatabaseUnitTests
             }
             finally
             {
-                //// Rewrite the SQLite file again
+                // Rewrite the SQLite file again
                 if (this.DatabaseWrapper.Connection.State.Equals(ConnectionState.Open))
                 {
                     this.DatabaseWrapper.Connection.Close();
@@ -103,15 +107,16 @@ namespace DatabaseUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Database)]
+        [DoNotParallelize]
         public void VerifyDeleteOrdersIsCorrectSqlite()
         {
             this.DatabaseWrapper.Connection.Close();
 
-            //// Get original sqlite file
+            // Get original sqlite file
             var originalPath = this.GetDByPath();
             var originalDatabase = File.ReadAllBytes(originalPath);
 
-            //// Insert new order record
+            // Insert new order record
             var newOrder = CreateNewOrder();
 
             try
@@ -131,7 +136,7 @@ namespace DatabaseUnitTests
             }
             catch (Exception)
             {
-                //// Rewrite the SQLite file again
+                // Rewrite the SQLite file again
                 if (this.DatabaseWrapper.Connection.State.Equals(ConnectionState.Open))
                 {
                     this.DatabaseWrapper.Connection.Close();
@@ -143,7 +148,7 @@ namespace DatabaseUnitTests
             }
             finally
             {
-                //// Rewrite the SQLite file again
+                // Rewrite the SQLite file again
                 if (this.DatabaseWrapper.Connection.State.Equals(ConnectionState.Open))
                 {
                     this.DatabaseWrapper.Connection.Close();
@@ -158,11 +163,12 @@ namespace DatabaseUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Database)]
+        [DoNotParallelize]
         public void VerifyUpdateOrdersIsCorrectSqlite()
         {
             this.DatabaseWrapper.Connection.Close();
 
-            //// Get original sqlite file
+            // Get original sqlite file
             var originalPath = this.GetDByPath();
             var originalDatabase = File.ReadAllBytes(originalPath);
             var newOrder = CreateNewOrder();
@@ -185,7 +191,7 @@ namespace DatabaseUnitTests
             }
             catch (Exception)
             {
-                //// Rewrite the SQLite file again
+                // Rewrite the SQLite file again
                 if (this.DatabaseWrapper.Connection.State.Equals(ConnectionState.Open))
                 {
                     this.DatabaseWrapper.Connection.Close();
@@ -197,7 +203,7 @@ namespace DatabaseUnitTests
             }
             finally
             {
-                //// Rewrite the SQLite file again
+                // Rewrite the SQLite file again
                 if (this.DatabaseWrapper.Connection.State.Equals(ConnectionState.Open))
                 {
                     this.DatabaseWrapper.Connection.Close();
@@ -222,7 +228,7 @@ namespace DatabaseUnitTests
         /// <returns> The <see cref="Orders"/> with generated id's </returns>
         private static Orders CreateNewOrder()
         {
-            //// Insert new order record
+            // Insert new order record
             return new Orders()
             {
                 OrderId = new Random().Next(100, 10000),

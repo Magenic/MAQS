@@ -1,4 +1,4 @@
-﻿// <copyright file="MongoDBCollectionWrapper.cs" company="Magenic">
+﻿// <copyright file="MongoDBDriver.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>This is the wrapper for the mongo collection object</summary>
@@ -14,30 +14,30 @@ namespace Magenic.MaqsFramework.BaseMongoTest
     /// Class to wrap the IMongoCollection and related helper functions
     /// </summary>
     /// <typeparam name="T">Generic T-Document</typeparam>
-    public class MongoDBCollectionWrapper<T>
+    public class MongoDBDriver<T>
     {
         /// <summary>
         /// The mongo client object
         /// </summary>
-        private IMongoClient client;
+        private readonly IMongoClient client;
 
         /// <summary>
         /// The mongo database object
         /// </summary>
-        private IMongoDatabase database;
+        private readonly IMongoDatabase database;
 
         /// <summary>
         /// The mongo collection object
         /// </summary>
-        private IMongoCollection<T> collection;
+        private readonly IMongoCollection<T> collection;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MongoDBCollectionWrapper{T}" /> class
+        /// Initializes a new instance of the <see cref="MongoDBDriver{T}" /> class
         /// </summary>
         /// <param name="connectionString">Server address</param>
         /// <param name="databaseString">Name of the database</param>
         /// <param name="collectionString">Name of the collection</param>
-        public MongoDBCollectionWrapper(string connectionString, string databaseString, string collectionString)
+        public MongoDBDriver(string connectionString, string databaseString, string collectionString)
         {
             this.client = new MongoClient(new MongoUrl(connectionString));
             this.database = this.client.GetDatabase(databaseString);
@@ -45,10 +45,10 @@ namespace Magenic.MaqsFramework.BaseMongoTest
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MongoDBCollectionWrapper{T}" /> class
+        /// Initializes a new instance of the <see cref="MongoDBDriver{T}" /> class
         /// </summary>
         /// <param name="collectionString">Name of the collection</param>
-        public MongoDBCollectionWrapper(string collectionString)
+        public MongoDBDriver(string collectionString)
         {
             this.client = new MongoClient(new MongoUrl(MongoDBConfig.GetConnectionString()));
             this.database = this.client.GetDatabase(MongoDBConfig.GetDatabaseString());
@@ -56,9 +56,9 @@ namespace Magenic.MaqsFramework.BaseMongoTest
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MongoDBCollectionWrapper{T}" /> class
+        /// Initializes a new instance of the <see cref="MongoDBDriver{T}" /> class
         /// </summary>
-        public MongoDBCollectionWrapper()
+        public MongoDBDriver()
         {
             this.client = new MongoClient(new MongoUrl(MongoDBConfig.GetConnectionString()));
             this.database = this.client.GetDatabase(MongoDBConfig.GetDatabaseString());

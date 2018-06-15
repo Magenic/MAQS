@@ -6,7 +6,8 @@
 //--------------------------------------------------
 using Magenic.MaqsFramework.BaseTest;
 using Magenic.MaqsFramework.Utilities.Logging;
-using Magenic.MaqsFramework.Utilities.Performance;
+using System;
+using System.Data;
 
 namespace Magenic.MaqsFramework.BaseDatabaseTest
 {
@@ -21,15 +22,59 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         /// <param name="databaseConnection">The test's database connection</param>
         /// <param name="logger">The test's logger</param>
         /// <param name="softAssert">The test's soft assert</param>
-        /// <param name="perfTimerCollection">The test's performance timer collection</param>
-        public DatabaseTestObject(DatabaseConnectionWrapper databaseConnection, Logger logger, SoftAssert softAssert, PerfTimerCollection perfTimerCollection) : base(logger, softAssert, perfTimerCollection)
+        /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
+        public DatabaseTestObject(Func<IDbConnection> databaseConnection, Logger logger, SoftAssert softAssert, string fullyQualifiedTestName) : base(logger, softAssert, fullyQualifiedTestName)
         {
-            this.DatabaseWrapper = databaseConnection;
+            this.DriversStore.Add(typeof(DatabaseDriverStore).FullName, new DatabaseDriverStore(databaseConnection, this));
         }
 
         /// <summary>
-        /// Gets the database connection wrapper
+        /// Gets the database driver
         /// </summary>
-        public DatabaseConnectionWrapper DatabaseWrapper { get; private set; }
+        public DatabaseDriverStore DatabaseDriver
+        {
+            get
+            {
+                return this.DriversStore[typeof(DatabaseDriverStore).FullName] as DatabaseDriverStore;
+            }
+        }
+
+        /// <summary>
+        /// Gets the database wrapper
+        /// </summary>
+        public DatabaseDriver DatabaseWrapper
+        {
+            get
+            {
+                return this.DatabaseDriver.Get();
+            }
+        }
+
+        /// <summary>
+        /// Override the function for for getting a database connection
+        /// </summary>
+        /// <param name="databaseConnection">Function for creating a database connection</param>
+        public void OverrideDatabaseConnection(Func<IDbConnection> databaseConnection)
+        {
+            this.OverrideDriver(typeof(DatabaseDriverStore).FullName, new DatabaseDriverStore(databaseConnection, this));
+        }
+
+        /// <summary>
+        /// Override the database connection
+        /// </summary>
+        /// <param name="databaseConnection">New database connection</param>
+        public void OverrideDatabaseWrapper(IDbConnection databaseConnection)
+        {
+            this.OverrideDriver(typeof(DatabaseDriverStore).FullName, new DatabaseDriverStore(() => databaseConnection, this));
+        }
+
+        /// <summary>
+        /// Override the database connection wrapper
+        /// </summary>
+        /// <param name="wrapper">New database connection wrapper</param>
+        public void OverrideDatabaseWrapper(DatabaseDriver wrapper)
+        {
+            this.DatabaseDriver.OverwriteWrapper(wrapper);
+        }
     }
 }

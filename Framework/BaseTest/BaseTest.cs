@@ -40,10 +40,7 @@ namespace Magenic.MaqsFramework.BaseTest
         /// </summary>
         public BaseTest()
         {
-            this.Loggers = new ConcurrentDictionary<string, Logger>();
             this.LoggedExceptions = new ConcurrentDictionary<string, List<string>>();
-            this.SoftAsserts = new ConcurrentDictionary<string, SoftAssert>();
-            this.PerfTimerCollectionSet = new ConcurrentDictionary<string, PerfTimerCollection>();
             this.BaseTestObjects = new ConcurrentDictionary<string, BaseTestObject>();
         }
 
@@ -54,19 +51,12 @@ namespace Magenic.MaqsFramework.BaseTest
         {
             get
             {
-                string key = this.GetFullyQualifiedTestClassName();
-                if (!this.PerfTimerCollectionSet.ContainsKey(key))
-                {
-                    this.PerfTimerCollection = new PerfTimerCollection(this.Log, key);
-                }
-
-                return this.PerfTimerCollectionSet[key];
+                return this.TestObject.PerfTimerCollection;
             }
 
             set
             {
-                string key = this.GetFullyQualifiedTestClassName();
-                this.PerfTimerCollectionSet.AddOrUpdate(key, value, (oldkey, oldvalue) => value);
+                this.TestObject.PerfTimerCollection = value;
             }
         }
 
@@ -77,18 +67,12 @@ namespace Magenic.MaqsFramework.BaseTest
         {
             get
             {
-                if (!this.SoftAsserts.ContainsKey(this.GetFullyQualifiedTestClassName()))
-                {
-                    this.SoftAssert = this.GetSoftAssert();
-                }
-
-                return this.SoftAsserts[this.GetFullyQualifiedTestClassName()];
+                return this.TestObject.SoftAssert;
             }
 
             set
             {
-                string key = this.GetFullyQualifiedTestClassName();
-                this.SoftAsserts.AddOrUpdate(this.GetFullyQualifiedTestClassName(), value, (oldkey, oldvalue) => value);
+                this.TestObject.SoftAssert = value;
             }
         }
 
@@ -99,19 +83,12 @@ namespace Magenic.MaqsFramework.BaseTest
         {
             get
             {
-                // If no logger is provided fall back to the console logger
-                if (!this.Loggers.ContainsKey(this.GetFullyQualifiedTestClassName()))
-                {
-                    return new ConsoleLogger();
-                }
-
-                return this.Loggers[this.GetFullyQualifiedTestClassName()];
+                return this.TestObject.Log;
             }
 
             set
             {
-                string key = this.GetFullyQualifiedTestClassName();
-                this.Loggers.AddOrUpdate(this.GetFullyQualifiedTestClassName(), value, (oldkey, oldvalue) => value);
+                this.TestObject.Log = value;
             }
         }
 
@@ -133,7 +110,6 @@ namespace Magenic.MaqsFramework.BaseTest
 
             set
             {
-                string key = this.GetFullyQualifiedTestClassName();
                 this.LoggedExceptions.AddOrUpdate(this.GetFullyQualifiedTestClassName(), value, (oldkey, oldvalue) => value);
             }
         }
@@ -187,24 +163,9 @@ namespace Magenic.MaqsFramework.BaseTest
         protected LoggingEnabled LoggingEnabledSetting { get; private set; }
 
         /// <summary>
-        /// Gets or sets the Dictionary of performance timer collections (for multi-threaded test execution)
-        /// </summary>
-        private ConcurrentDictionary<string, PerfTimerCollection> PerfTimerCollectionSet { get; set; }
-
-        /// <summary>
-        /// Gets or sets the logging objects
-        /// </summary>
-        private ConcurrentDictionary<string, Logger> Loggers { get; set; }
-
-        /// <summary>
         /// Gets or sets the logged exceptions
         /// </summary>
         private ConcurrentDictionary<string, List<string>> LoggedExceptions { get; set; }
-
-        /// <summary>
-        /// Gets or sets the soft assert objects
-        /// </summary>
-        private ConcurrentDictionary<string, SoftAssert> SoftAsserts { get; set; }
 
         /// <summary>
         /// Setup before a test
@@ -216,8 +177,8 @@ namespace Magenic.MaqsFramework.BaseTest
             // Update configuration with propeties passes in by the test context
             this.UpdateConfigParameters();
 
-            // Make sure the logging works
-            this.SetupLogging();
+            // Create the test object
+            this.CreateNewTestObject();
         }
 
         /// <summary>
@@ -272,18 +233,10 @@ namespace Magenic.MaqsFramework.BaseTest
 
             // Get the Fully Qualified Test Name
             string fullyQualifiedTestName = this.GetFullyQualifiedTestClassName();
+            PerfTimerCollection collection = this.TestObject.PerfTimerCollection;
 
-            if (this.PerfTimerCollectionSet.ContainsKey(fullyQualifiedTestName))
-            {
-                PerfTimerCollection collection = this.PerfTimerCollectionSet[fullyQualifiedTestName];
-
-                // Write out the performance timers
-                collection.Write(this.Log);
-
-                // Release the perf time collection for the test
-                this.PerfTimerCollectionSet.TryRemove(fullyQualifiedTestName, out collection);
-                collection = null;
-            }
+            // Write out the performance timers
+            collection.Write(this.Log);
 
             // Attach log and screen shot if we can
             this.AttachLogAndSceenshot(fullyQualifiedTestName);
@@ -292,16 +245,9 @@ namespace Magenic.MaqsFramework.BaseTest
             this.LoggedExceptions.TryRemove(fullyQualifiedTestName, out List<string> loggedMessages);
             loggedMessages = null;
 
-            // Relese the soft assert object
-            this.SoftAsserts.TryRemove(fullyQualifiedTestName, out SoftAssert softAssert);
-            softAssert = null;
-
-            // Release the logger
-            this.Loggers.TryRemove(fullyQualifiedTestName, out Logger logger);
-            logger = null;
-
             // Relese the base test object
             this.BaseTestObjects.TryRemove(fullyQualifiedTestName, out BaseTestObject baseTestObject);
+            baseTestObject.Dispose();
             baseTestObject = null;
 
             // Force the test to fail
@@ -312,18 +258,10 @@ namespace Magenic.MaqsFramework.BaseTest
         }
 
         /// <summary>
-        /// Method to get a new soft assert object
+        /// Create a logger
         /// </summary>
-        /// <returns>A soft assert object</returns>
-        protected virtual SoftAssert GetSoftAssert()
-        {
-            return new SoftAssert(this.Log);
-        }
-
-        /// <summary>
-        /// Setup logging data
-        /// </summary>
-        protected void SetupLogging()
+        /// <returns>A logger</returns>
+        protected Logger CreateLogger()
         {
             this.LoggedExceptionList = new List<string>();
             this.LoggingEnabledSetting = LoggingConfig.GetLoggingEnabledSetting();
@@ -334,7 +272,7 @@ namespace Magenic.MaqsFramework.BaseTest
 
             if (this.LoggingEnabledSetting != LoggingEnabled.NO)
             {
-                this.Log = LoggingConfig.GetLogger(
+                return LoggingConfig.GetLogger(
                     StringProcessor.SafeFormatter(
                     "{0} - {1}",
                     this.GetFullyQualifiedTestClassName(),
@@ -342,7 +280,7 @@ namespace Magenic.MaqsFramework.BaseTest
             }
             else
             {
-                this.Log = new ConsoleLogger();
+                return new ConsoleLogger();
             }
         }
 
@@ -427,7 +365,7 @@ namespace Magenic.MaqsFramework.BaseTest
             StringBuilder messages = new StringBuilder();
             messages.AppendLine(StringProcessor.SafeFormatter(message, args));
 
-            var methodInfo = System.Reflection.MethodBase.GetCurrentMethod();
+            var methodInfo = MethodBase.GetCurrentMethod();
             var fullName = methodInfo.DeclaringType.FullName + "." + methodInfo.Name;
 
             foreach (string stackLevel in Environment.StackTrace.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
@@ -447,7 +385,8 @@ namespace Magenic.MaqsFramework.BaseTest
         /// </summary>
         protected virtual void CreateNewTestObject()
         {
-            this.TestObject = new BaseTestObject(this.Log, this.SoftAssert, this.PerfTimerCollection);
+            Logger newLogger = this.CreateLogger();
+            this.TestObject = new BaseTestObject(newLogger, new SoftAssert(newLogger), this.GetFullyQualifiedTestClassName());
         }
 
         /// <summary>
@@ -468,7 +407,8 @@ namespace Magenic.MaqsFramework.BaseTest
         {
             try
             {
-                if (!this.DoesLoggerExist())
+                // Only do this is we are logging
+                if (LoggingConfig.GetLoggingEnabledSetting() == LoggingEnabled.NO)
                 {
                     return;
                 }
@@ -503,15 +443,6 @@ namespace Magenic.MaqsFramework.BaseTest
             {
                 this.TryToLog(MessageType.WARNING, "Failed to log exception because: " + ex.Message);
             }
-        }
-
-        /// <summary>
-        /// Does a logger exist for the test type
-        /// </summary>
-        /// <returns>True if a logger exists</returns>
-        private bool DoesLoggerExist()
-        {
-            return this.Loggers.ContainsKey(this.GetFullyQualifiedTestClassName());
         }
 
         /// <summary>
@@ -604,10 +535,10 @@ namespace Magenic.MaqsFramework.BaseTest
 
                     foreach (KeyValuePair<string, object> property in contextProperties)
                     {
-                        if (!propeties.Contains(property.Key as string) && property.Value is string)
+                        if (!propeties.Contains(property.Key) && property.Value is string)
                         {
                             // Add the override properties
-                            passedInParameters.Add(property.Key as string, property.Value as string);
+                            passedInParameters.Add(property.Key, property.Value as string);
                         }
                     }
                 }

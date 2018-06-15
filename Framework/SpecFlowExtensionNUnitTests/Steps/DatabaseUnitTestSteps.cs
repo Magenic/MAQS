@@ -85,7 +85,7 @@ namespace SpecFlowExtensionNUnitTests.Steps
         [Then(@"DatabaseWrapper is type DatabaseConnectionWrapper")]
         public void AndDatabaseWrapperIsTypeIWebDriver()
         {
-            Assert.IsTrue(this.TestObject.DatabaseWrapper.GetType().Equals(typeof(EventFiringDatabaseConnectionWrapper)), $"DatabaseWrapper for BaseDatabaseTestSteps class is the wrong type : {this.TestObject.DatabaseWrapper.GetType()}.");
+            Assert.IsTrue(this.TestObject.DatabaseWrapper.GetType().Equals(typeof(EventFiringDatabaseDriver)), $"DatabaseWrapper for BaseDatabaseTestSteps class is the wrong type : {this.TestObject.DatabaseWrapper.GetType()}.");
         }
     }
 }

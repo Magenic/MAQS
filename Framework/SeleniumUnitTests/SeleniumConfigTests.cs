@@ -42,9 +42,8 @@ namespace UnitTests
             }
             finally
             {
-                driver.Close();
-                driver.Dispose();
-            }            
+                driver?.KillDriver();
+            }
         }
 
         /// <summary>
@@ -102,14 +101,12 @@ namespace UnitTests
                 }
                 finally
                 {
-                    driverConfigSize?.Close();
-                    driverConfigSize?.Dispose();
+                    driverConfigSize?.KillDriver();
                 }
             }
             finally
             {
-                driverManualSize?.Close();
-                driverManualSize?.Dispose();
+                driverManualSize?.KillDriver();
             }
         }
 
@@ -118,6 +115,7 @@ namespace UnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
+        [DoNotParallelize]
         public void ResizeBrowserWindowDefault()
         {
             /* 
@@ -152,14 +150,12 @@ namespace UnitTests
                 }
                 finally
                 {
-                    driverDefault?.Close();
-                    driverDefault?.Dispose();
+                    driverDefault?.KillDriver();
                 }
             }
             finally
             {
-                driverChangeSize?.Close();
-                driverChangeSize?.Dispose();
+                driverChangeSize?.KillDriver();
             }
         }
 
@@ -168,6 +164,7 @@ namespace UnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
+        [DoNotParallelize]
         public void ResizeBrowserWindowCustom()
         {
             var expectedWidth = 1024;
@@ -189,8 +186,7 @@ namespace UnitTests
             }
             finally
             {
-                driver?.Close();
-                driver?.Dispose();
+                driver?.KillDriver();
             }
         }
 
@@ -263,6 +259,7 @@ namespace UnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
+        [DoNotParallelize]
         public void RemoteCapabilitySectionRespected()
         {
             IWebDriver driver = null;
@@ -274,7 +271,7 @@ namespace UnitTests
             }
             catch (Exception e)
             {
-                Assert.IsTrue(e.InnerException.Message.Contains("Sauce_Labs_Username"), "Did not see 'Sauce_Labs_Username' in error message: " + e.Message);
+                Assert.IsTrue(e.InnerException.Message.Contains("Sauce_Labs_Username"), "Did not see 'Sauce_Labs_Username' in error message: " + e.Message + " -- " + e.InnerException.Message);
             }
             finally
             {
@@ -337,9 +334,8 @@ namespace UnitTests
             }
             finally
             {
-                driver.Close();
-                driver.Dispose();
-            }                
+                driver?.KillDriver();
+            }
         }
 
         /// <summary>
@@ -348,8 +344,12 @@ namespace UnitTests
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         [ExpectedException(typeof(Exception))]
+        [DoNotParallelize]
         public void GetBrowserRemoteThrowException()
         {
+            string hubUrl = Config.GetValue("HubUrl");
+            string remoteBrowser = Config.GetValue("RemoteBrowser");
+
             try
             {
                 Config.AddTestSettingValues(
@@ -363,9 +363,13 @@ namespace UnitTests
             }
             finally
             {
-                // Set the value back to default value, since value can't be removed from the dictionary
-                // Only one other test checks the value of the RemoteBrowser (GetRemoteBrowserName), so hopefully there won't be any parallel conflicts
-                Config.AddTestSettingValues(new Dictionary<string, string> { { "RemoteBrowser", "Chrome" } }, true);
+                Config.AddTestSettingValues(
+                    new Dictionary<string, string>
+                    {
+                        { "HubUrl", hubUrl },
+                        { "RemoteBrowser", remoteBrowser }
+                    },
+                    true);
             }
         }
 
@@ -382,13 +386,12 @@ namespace UnitTests
             try
             {
                 WebDriverWait wait = SeleniumConfig.GetWaitDriver(driver);
-                Assert.AreEqual(wait.Timeout.Seconds, 15);
-                Assert.AreEqual(wait.PollingInterval.Seconds, 1);
+                Assert.AreEqual(20, wait.Timeout.Seconds);
+                Assert.AreEqual(1, wait.PollingInterval.Seconds);
             }
             finally
             {
-                driver.Close();
-                driver.Dispose();
+                driver?.KillDriver();
             }
         }
         #endregion WaitDriver
@@ -413,13 +416,11 @@ namespace UnitTests
             {
                 try
                 {
-                    driver?.Close();
-                    driver?.Dispose();
+                    driver?.KillDriver();
                 }
                 finally
                 {
-                    newDriver?.Close();
-                    newDriver?.Dispose();
+                    newDriver?.KillDriver();
                 }
             }
         }

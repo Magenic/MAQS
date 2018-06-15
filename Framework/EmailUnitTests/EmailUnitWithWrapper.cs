@@ -42,7 +42,7 @@ namespace EmailUnitTests
                 bool isSsl = EmailConfig.GetEmailViaSSL();
                 bool checkSsl = EmailConfig.GetEmailSkipSslValidation();
 
-                using (EmailConnectionWrapper wrapper = new EmailConnectionWrapper(host, username, password, port, 10000, true, true))
+                using (EmailDriver wrapper = new EmailDriver(host, username, password, port, 10000, isSsl, checkSsl))
                 {
                     wrapper.SelectMailbox("Inbox");
                     foreach (MimeMessage messageHeader in wrapper.GetAllMessageHeaders())
@@ -61,7 +61,7 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void CanAccessEmail()
         {
-            Assert.IsTrue(this.EmailWrapper.CanAccessEmailAccount(), "Email account was not accessable");
+            Assert.IsTrue(this.EmailWrapper.CanAccessEmailAccount(), "Email account was not accessible");
         }
         #endregion
 

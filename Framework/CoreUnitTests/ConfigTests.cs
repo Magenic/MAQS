@@ -56,7 +56,7 @@ namespace CoreUnitTests
             #region GetValueWithDefault
             string value = Config.GetValue("DoesNotExist", "Default");
             #endregion
-            Assert.AreEqual(value, "Default");
+            Assert.AreEqual("Default", value);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace CoreUnitTests
             #region DoesKeyExist
             bool value = Config.DoesKeyExist("DoesNotExist");
             #endregion
-            Assert.AreEqual(value, false);
+            Assert.AreEqual(false, value);
         }
 
         /// <summary>

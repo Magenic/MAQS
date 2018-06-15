@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------
-// <copyright file="EventFiringEmailConnectionWrapper.cs" company="Magenic">
+// <copyright file="EventFiringEmailDriver.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>The basic database interactions</summary>
@@ -17,10 +17,10 @@ namespace Magenic.MaqsFramework.BaseEmailTest
     /// <summary>
     /// Wraps the basic database interactions
     /// </summary>
-    public class EventFiringEmailConnectionWrapper : EmailConnectionWrapper
+    public class EventFiringEmailDriver : EmailDriver
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EventFiringEmailConnectionWrapper" /> class
+        /// Initializes a new instance of the <see cref="EventFiringEmailDriver" /> class
         /// </summary>
         /// <param name="host">The email server host</param>
         /// <param name="username">Email user name</param>
@@ -29,17 +29,17 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <param name="serverTimeout">Timeout for the email server</param>
         /// <param name="isSSL">Should SSL be used</param>
         /// <param name="skipSslCheck">Skip the SSL check</param>
-        public EventFiringEmailConnectionWrapper(string host, string username, string password, int port, int serverTimeout = 10000, bool isSSL = true, bool skipSslCheck = false)
+        public EventFiringEmailDriver(string host, string username, string password, int port, int serverTimeout = 10000, bool isSSL = true, bool skipSslCheck = false)
             : base(host, username, password, port, serverTimeout, isSSL, skipSslCheck)
         {
             this.OnEvent(StringProcessor.SafeFormatter("Connect to email with user '{0}' on host '{1}', port '{2}'", username, host, port));
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EventFiringEmailConnectionWrapper" /> class
+        /// Initializes a new instance of the <see cref="EventFiringEmailDriver" /> class
         /// </summary>
         /// <param name="setupEmailBaseConnectionOverride">A function that returns the email connection</param>
-        public EventFiringEmailConnectionWrapper(Func<ImapClient> setupEmailBaseConnectionOverride)
+        public EventFiringEmailDriver(Func<ImapClient> setupEmailBaseConnectionOverride)
             : base(setupEmailBaseConnectionOverride)
         {
             this.OnEvent(StringProcessor.SafeFormatter("Connect to email with function '{0}'", setupEmailBaseConnectionOverride.Method.Name));
@@ -122,16 +122,16 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <summary>
         /// Select a mailbox by name
         /// </summary>
-        /// <param name="mailBox">The name of the mailbox</param>
+        /// <param name="mailbox">The name of the mailbox</param>
         /// <example>
         /// <code source="../EmailUnitTests/EmailUnitWithWrapper.cs" region="SelectMailbox" lang="C#" />
         /// </example> 
-        public override void SelectMailbox(string mailBox)
+        public override void SelectMailbox(string mailbox)
         {
             try
             {
-                this.OnEvent(StringProcessor.SafeFormatter("Select mailbox named '{0}'", mailBox));
-                base.SelectMailbox(mailBox);
+                this.OnEvent(StringProcessor.SafeFormatter("Select mailbox named '{0}'", mailbox));
+                base.SelectMailbox(mailbox);
             }
             catch (Exception ex)
             {
@@ -455,10 +455,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <param name="message">The event message</param>
         protected virtual void OnEvent(string message)
         {
-            if (this.EmailEvent != null)
-            {
-                this.EmailEvent(this, message);
-            }
+            this.EmailEvent?.Invoke(this, message);
         }
 
         /// <summary>
@@ -467,10 +464,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <param name="message">The event error message</param>
         protected virtual void OnErrorEvent(string message)
         {
-            if (this.EmailErrorEvent != null)
-            {
-                this.EmailErrorEvent(this, message);
-            }
+            this.EmailErrorEvent?.Invoke(this, message);
         }
 
         /// <summary>

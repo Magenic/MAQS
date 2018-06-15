@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------
-// <copyright file="EventFiringDatabaseConnectionWrapper.cs" company="Magenic">
+// <copyright file="EventFiringDatabaseDriver.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>The event firing database interactions</summary>
@@ -15,31 +15,31 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
     /// <summary>
     /// Wrap basic firing database interactions
     /// </summary>
-    public class EventFiringDatabaseConnectionWrapper : DatabaseConnectionWrapper
+    public class EventFiringDatabaseDriver : DatabaseDriver
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EventFiringDatabaseConnectionWrapper"/> class
+        /// Initializes a new instance of the <see cref="EventFiringDatabaseDriver"/> class
         /// </summary>
         /// <param name="connectionType"> The connection Type. </param>
         /// <param name="connectionString"> The database connection string </param>
-        public EventFiringDatabaseConnectionWrapper(string connectionType, string connectionString)
+        public EventFiringDatabaseDriver(string connectionType, string connectionString)
             : base(connectionType, connectionString)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EventFiringDatabaseConnectionWrapper" /> class
+        /// Initializes a new instance of the <see cref="EventFiringDatabaseDriver" /> class
         /// </summary>
-        /// <param name="setupDataBaseConnectionOverride">The database connection override</param>
-        public EventFiringDatabaseConnectionWrapper(Func<IDbConnection> setupDataBaseConnectionOverride)
-            : base(setupDataBaseConnectionOverride)
+        /// <param name="dataBaseConnectionOverride">The database connection override</param>
+        public EventFiringDatabaseDriver(IDbConnection dataBaseConnectionOverride)
+            : base(dataBaseConnectionOverride)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EventFiringDatabaseConnectionWrapper"/> class.
+        /// Initializes a new instance of the <see cref="EventFiringDatabaseDriver"/> class.
         /// </summary>
-        protected EventFiringDatabaseConnectionWrapper()
+        protected EventFiringDatabaseDriver()
         {
         }
 
@@ -229,12 +229,13 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         /// <summary>
         /// Dispose of the database connection
         /// </summary>
-        public override void Dispose()
+        /// <param name="disposing">True if you want to release managed resources</param>
+        protected override void Dispose(bool disposing)
         {
             try
             {
                 this.OnEvent(StringProcessor.SafeFormatter("Releasing connection"));
-                base.Dispose();
+                base.Dispose(disposing);
                 this.OnEvent(StringProcessor.SafeFormatter("Released connection"));
             }
             catch (Exception ex)

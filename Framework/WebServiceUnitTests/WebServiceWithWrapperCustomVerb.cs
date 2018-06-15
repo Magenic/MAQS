@@ -78,7 +78,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void CustomVerbGenericType()
         {
-            HttpClientWrapper client = new HttpClientWrapper(new Uri(url));
+            WebServiceDriver client = new WebServiceDriver(new Uri(url));
         
             var content = WebServiceUtils.MakeStringContent("ZEDTest", Encoding.UTF8, "text/plain");
             var result = client.Custom<string>("ZED", "/api/ZED", "text/plain", content, true);
@@ -95,7 +95,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void CustomVerbFiveArguments()
         {
-            HttpClientWrapper client = new HttpClientWrapper(new Uri(url));
+            WebServiceDriver client = new WebServiceDriver(new Uri(url));
 
             var content = WebServiceUtils.MakeStringContent("ZEDTest", Encoding.UTF8, "text/plain");
             var result = client.Custom("ZED", "/api/ZED", "text/plain", content, true);
@@ -112,7 +112,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void CustomVerbSevenArguments()
         {
-            HttpClientWrapper client = new HttpClientWrapper(new Uri(url));
+            WebServiceDriver client = new WebServiceDriver(new Uri(url));
 
             var content = WebServiceUtils.MakeStringContent("ZEDTest", Encoding.UTF8, "text/plain");
             var result = client.Custom("ZED", "/api/ZED", "text/plain", "ZEDTest", Encoding.UTF8, "text/plain", true, true);

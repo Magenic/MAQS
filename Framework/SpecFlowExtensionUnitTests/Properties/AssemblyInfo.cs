@@ -4,6 +4,7 @@
 // </copyright>
 // <summary>This is the assembly info class</summary>
 //--------------------------------------------------
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
@@ -15,6 +16,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("Copyright © Magenic 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
+[assembly: DoNotParallelize]
 
 [assembly: ComVisible(false)]
 

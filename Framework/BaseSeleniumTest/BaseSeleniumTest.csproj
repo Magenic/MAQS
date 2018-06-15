@@ -1,4 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyVersion>5.0.0.0</AssemblyVersion>
@@ -8,11 +9,18 @@
     <RootNamespace>Magenic.MaqsFramework.BaseSeleniumTest</RootNamespace>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>
   </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  
   <ItemGroup>
-    <PackageReference Include="Selenium.Support" Version="3.11.0" />
-    <PackageReference Include="Selenium.WebDriver" Version="3.11.0" />
+    <PackageReference Include="Selenium.Support" Version="3.12.0" />
+    <PackageReference Include="Selenium.WebDriver" Version="3.12.0" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.4.0" />
   </ItemGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\BaseTest\BaseTest.csproj" />
   </ItemGroup>

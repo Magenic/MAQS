@@ -244,5 +244,22 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                     throw new ArgumentException(StringProcessor.SafeFormatter("ImageFormat '{0}' is not a valid option", Config.GetValue("ScreenShotFormat", "PNG")));
             }
         }
+
+        /// <summary>
+        /// Make sure the web driver is shut down
+        /// </summary>
+        /// <param name="driver">The web driver</param>
+        public static void KillDriver(this IWebDriver driver)
+        {
+            try
+            {
+                driver?.Close();
+                driver?.Quit();
+            }
+            finally
+            {
+                driver?.Dispose();
+            }
+        }
     }
 }

@@ -6,6 +6,7 @@
 //--------------------------------------------------
 using Magenic.MaqsFramework.Utilities.Logging;
 using Magenic.MaqsFramework.Utilities.Performance;
+using System;
 using System.Collections.Generic;
 
 namespace Magenic.MaqsFramework.BaseTest
@@ -13,37 +14,73 @@ namespace Magenic.MaqsFramework.BaseTest
     /// <summary>
     /// Base test context data
     /// </summary>
-    public class BaseTestObject
+    public class BaseTestObject : IDisposable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseTestObject" /> class
         /// </summary>
         /// <param name="logger">The test's logger</param>
         /// <param name="softAssert">The test's soft assert</param>
-        /// <param name="perfTimerCollection">The test's performance timer collection</param>
-        public BaseTestObject(Logger logger, SoftAssert softAssert, PerfTimerCollection perfTimerCollection)
+        /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
+        public BaseTestObject(Logger logger, SoftAssert softAssert, string fullyQualifiedTestName)
         {
             this.Log = logger;
             this.SoftAssert = softAssert;
-            this.PerfTimerCollection = perfTimerCollection;
+            this.PerfTimerCollection = new PerfTimerCollection(logger, fullyQualifiedTestName);
             this.Values = new Dictionary<string, string>();
             this.Objects = new Dictionary<string, object>();
+            this.DriversStore = new Dictionary<string, DriverStore>();
+
+            logger.LogMessage(MessageType.INFORMATION, "Setup test object for " + fullyQualifiedTestName);
         }
 
         /// <summary>
-        /// Gets the logger
+        /// Initializes a new instance of the <see cref="BaseTestObject" /> class
         /// </summary>
-        public Logger Log { get; private set; }
+        /// <param name="logger">The test's logger</param>
+        /// <param name="fullyQualifiedTestName">The test's fully qualified name</param>
+        public BaseTestObject(Logger logger, string fullyQualifiedTestName)
+        {
+            this.Log = logger;
+            this.SoftAssert = new SoftAssert(this.Log);
+            this.PerfTimerCollection = new PerfTimerCollection(logger, fullyQualifiedTestName);
+            this.Values = new Dictionary<string, string>();
+            this.Objects = new Dictionary<string, object>();
+            this.DriversStore = new Dictionary<string, DriverStore>();
+
+            logger.LogMessage(MessageType.INFORMATION, "Setup test object for " + fullyQualifiedTestName);
+        }
 
         /// <summary>
-        /// Gets the performance timer collection
+        /// Initializes a new instance of the <see cref="BaseTestObject" /> class
         /// </summary>
-        public PerfTimerCollection PerfTimerCollection { get; private set; }
+        /// <param name="baseTestObject">An existing base test object</param>
+        public BaseTestObject(BaseTestObject baseTestObject)
+        {
+            this.Log = baseTestObject.Log;
+            this.SoftAssert = baseTestObject.SoftAssert;
+            this.PerfTimerCollection = baseTestObject.PerfTimerCollection;
+            this.Values = baseTestObject.Values;
+            this.Objects = baseTestObject.Objects;
+            this.DriversStore = baseTestObject.DriversStore;
+
+            baseTestObject.Log.LogMessage(MessageType.INFORMATION, "Setup test object");
+        }
 
         /// <summary>
-        /// Gets soft assert
+        /// Gets or sets the logger
         /// </summary>
-        public SoftAssert SoftAssert { get; private set; }
+        public Logger Log { get; set; }
+
+        /// <summary>
+        /// Gets or sets the performance timer collection
+        /// </summary>
+        public PerfTimerCollection PerfTimerCollection { get; set; }
+
+        /// <summary>
+        /// Gets or sets soft assert
+        /// </summary>
+        public SoftAssert SoftAssert { get; set; }
 
         /// <summary>
         /// Gets a dictionary of string key value pairs
@@ -54,6 +91,11 @@ namespace Magenic.MaqsFramework.BaseTest
         /// Gets a dictionary of string key and object value pairs
         /// </summary>
         public Dictionary<string, object> Objects { get; private set; }
+
+        /// <summary>
+        /// Gets a dictionary of string key and driver value pairs
+        /// </summary>
+        public Dictionary<string, DriverStore> DriversStore { get; private set; }
 
         /// <summary>
         /// Sets a string value, will replace if the key already exists
@@ -87,6 +129,67 @@ namespace Magenic.MaqsFramework.BaseTest
             {
                 this.Objects.Add(key, value);
             }
+        }
+
+        /// <summary>
+        /// Add a new driver
+        /// </summary>
+        /// <param name="key">Key for the new driver</param>
+        /// <param name="driver">The new driver</param>
+        public void AddDriver(string key, DriverStore driver)
+        {
+            this.DriversStore.Add(key, driver);
+        }
+
+        /// <summary>
+        /// Override a specific driver
+        /// </summary>
+        /// <param name="key">The driver key</param>
+        /// <param name="driver">The new driver</param>
+        public void OverrideDriver(string key, DriverStore driver)
+        {
+            if (this.DriversStore.ContainsKey(key))
+            {
+                this.DriversStore[key].Dispose();
+            }
+
+            this.DriversStore[key] = driver;
+        }
+
+        /// <summary>
+        /// Dispose the of the driver store
+        /// </summary>
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Dispose the of the driver store
+        /// </summary>
+        /// <param name="disposing">True if you want to release managed resources</param>
+        public void Dispose(bool disposing)
+        {
+            if (!disposing || this.DriversStore is null)
+            {
+                return;
+            }
+
+            this.Log.LogMessage(MessageType.VERBOSE, "Start dispose");
+
+            // Make sure all of the individual drivers are disposed
+            foreach (DriverStore singleDrive in this.DriversStore.Values)
+            {
+                if (singleDrive != null)
+                {
+                    singleDrive.Dispose();
+                }
+            }
+
+            this.DriversStore = null;
+
+            this.Log.LogMessage(MessageType.VERBOSE, "End dispose");
         }
     }
 }

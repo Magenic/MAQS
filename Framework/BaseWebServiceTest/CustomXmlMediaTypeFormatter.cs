@@ -21,7 +21,7 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         /// <summary>
         /// A list of object type and serializer mappings
         /// </summary>
-        private Dictionary<Type, XmlSerializer> serializers;
+        private readonly Dictionary<Type, XmlSerializer> serializers;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CustomXmlMediaTypeFormatter" /> class

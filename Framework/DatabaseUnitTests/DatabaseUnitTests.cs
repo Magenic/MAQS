@@ -30,7 +30,7 @@ namespace DatabaseUnitTests
         [TestCategory(TestCategories.Database)]
         public void VerifyStateTableExistsNoWrapper()
         {
-            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper();
+            DatabaseDriver wrapper = new DatabaseDriver();
 
             var table = wrapper.Query("SELECT * FROM information_schema.tables");
 
@@ -44,7 +44,7 @@ namespace DatabaseUnitTests
         [TestCategory(TestCategories.Database)]
         public void VerifyStateTableHasCorrectNumberOfRecordsNoWrapper()
         {
-            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper();
+            DatabaseDriver wrapper = new DatabaseDriver();
 
             var table = wrapper.Query("SELECT * FROM States").ToList();
 
@@ -59,7 +59,7 @@ namespace DatabaseUnitTests
         [TestCategory(TestCategories.Database)]
         public void VerifyStateTableHasCorrectNumberOfRecordsNoWrapperWithModels()
         {
-            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper();
+            DatabaseDriver wrapper = new DatabaseDriver();
 
             var states = wrapper.Query<States>("SELECT * FROM States").ToList();
 
@@ -75,7 +75,7 @@ namespace DatabaseUnitTests
         [TestCategory(TestCategories.Database)]
         public void VerifyProceduresActionWithAnUpdateNoWrapper()
         {
-            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString());
+            DatabaseDriver wrapper = new DatabaseDriver(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString());
 
             var result = wrapper.Execute("setStateAbbrevToSelf", new { StateAbbreviation = "MN" }, commandType: CommandType.StoredProcedure);
 
@@ -89,7 +89,7 @@ namespace DatabaseUnitTests
         [TestCategory(TestCategories.Database)]
         public void VerifyProceduresActionWithNoUpdatesNoWrapper()
         {
-            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString());
+            DatabaseDriver wrapper = new DatabaseDriver(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString());
 
             var result = wrapper.Execute("setStateAbbrevToSelf", new { StateAbbreviation = "ZZ" }, commandType: CommandType.StoredProcedure);
             
@@ -103,7 +103,7 @@ namespace DatabaseUnitTests
         [TestCategory(TestCategories.Database)]
         public void VerifyProceduresQueryWithResultNoWrapper()
         {
-            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString());
+            DatabaseDriver wrapper = new DatabaseDriver(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString());
 
             var result = wrapper.Query("getStateAbbrevMatch", new { StateAbbreviation = "MN" }, commandType: CommandType.StoredProcedure);
 
@@ -117,7 +117,7 @@ namespace DatabaseUnitTests
         [TestCategory(TestCategories.Database)]
         public void VerifyProceduresQueryWithoutResultNoWrapper()
         {
-            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString());
+            DatabaseDriver wrapper = new DatabaseDriver(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString());
 
             var result = wrapper.Query("getStateAbbrevMatch", new { StateAbbreviation = "ZZ" }, commandType: CommandType.StoredProcedure);
             

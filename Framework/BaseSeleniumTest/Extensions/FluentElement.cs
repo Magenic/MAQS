@@ -21,12 +21,12 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// <summary>
         /// A user friendly name, for logging purposes
         /// </summary>
-        private string userFriendlyName;
+        private readonly string userFriendlyName;
 
         /// <summary>
         /// The parent fluent element
         /// </summary>
-        private FluentElement parent;
+        private readonly FluentElement parent;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FluentElement" /> class

@@ -23,14 +23,14 @@ namespace Magenic.MaqsFramework.BaseTest
     public class SoftAssert
     {
         /// <summary>
+        /// List of all asserted exceptions 
+        /// </summary>
+        private readonly List<string> listOfExceptions = new List<string>();
+
+        /// <summary>
         /// Boolean if the user checked for failures
         /// </summary>
         private bool didUserCheckForFailures = false;
-
-        /// <summary>
-        /// List of all asserted exceptions 
-        /// </summary>
-        private List<string> listOfExceptions = new List<string>();
 
         /// <summary>
         /// Initializes a new instance of the SoftAssert class.
@@ -69,6 +69,15 @@ namespace Magenic.MaqsFramework.BaseTest
         /// Gets the logger being used
         /// </summary>
         protected Logger Log { get; private set; }
+
+        /// <summary>
+        /// Override the logger
+        /// </summary>
+        /// <param name="log">The new logger</param>
+        public void OverrideLogger(Logger log)
+        {
+            this.Log = log;
+        }
 
         /// <summary>
         /// Gets a value indicating whether the boolean if the user checks for failures at the end of the test.
@@ -131,7 +140,7 @@ namespace Magenic.MaqsFramework.BaseTest
         /// </example>
         public virtual bool AreEqual(string expectedText, string actualText, string softAssertName, string message)
         {
-            Action test = () =>
+            void test()
             {
                 if (expectedText != actualText)
                 {
@@ -142,7 +151,8 @@ namespace Magenic.MaqsFramework.BaseTest
 
                     throw new Exception(StringProcessor.SafeFormatter("SoftAssert.AreEqual failed for {0}.  Expected '{1}' but got '{2}'.  {3}", softAssertName, expectedText, actualText, message));
                 }
-            };
+            }
+
             return this.InvokeTest(test, expectedText, actualText, message);
         }
 
@@ -158,7 +168,7 @@ namespace Magenic.MaqsFramework.BaseTest
         /// </example>
         public virtual bool IsTrue(bool condition, string softAssertName, string failureMessage = "")
         {
-            Action test = () =>
+            void test()
             {
                 if (!condition)
                 {
@@ -169,7 +179,8 @@ namespace Magenic.MaqsFramework.BaseTest
 
                     throw new Exception(StringProcessor.SafeFormatter("SoftAssert.IsTrue failed for: {0}. {1}", softAssertName, failureMessage));
                 }
-            };
+            }
+
             return this.InvokeTest(test, softAssertName, failureMessage);
         }
 
@@ -185,7 +196,7 @@ namespace Magenic.MaqsFramework.BaseTest
         /// </example>
         public virtual bool IsFalse(bool condition, string softAssertName, string failureMessage = "")
         {
-            Action test = () =>
+            void test()
             {
                 if (condition)
                 {
@@ -196,7 +207,8 @@ namespace Magenic.MaqsFramework.BaseTest
 
                     throw new Exception(StringProcessor.SafeFormatter("SoftAssert.IsFalse failed for: {0}. {1}", softAssertName, failureMessage));
                 }
-            };
+            }
+
             return this.InvokeTest(test, softAssertName, failureMessage);
         }
 

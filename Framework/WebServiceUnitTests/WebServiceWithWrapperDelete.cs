@@ -41,7 +41,7 @@ namespace WebServiceTesterUnitTesting
             var result = this.WebServiceWrapper.DeleteWithResponse("/api/XML_JSON/Delete/2", "application/json", false);
             Assert.AreEqual(HttpStatusCode.Conflict, result.StatusCode);
 
-            this.WebServiceWrapper.BaseHttpClient.DefaultRequestHeaders.Add("pass", "word");
+            this.WebServiceWrapper.HttpClient.DefaultRequestHeaders.Add("pass", "word");
             result = this.WebServiceWrapper.DeleteWithResponse("/api/XML_JSON/Delete/2", "application/json", true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }

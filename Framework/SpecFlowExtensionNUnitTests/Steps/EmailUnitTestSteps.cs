@@ -85,7 +85,7 @@ namespace SpecFlowExtensionNUnitTests.Steps
         [Then(@"EmailWrapper is type EventFiringEmailConnectionWrapper")]
         public void AndEmailWrapperIsTypeEventFiringEmailConnectionWrapper()
         {
-            Assert.IsTrue(this.TestObject.EmailWrapper.GetType().Equals(typeof(EventFiringEmailConnectionWrapper)), $"EmailWrapper for EmailTestObject class is the wrong type : {this.TestObject.EmailWrapper.GetType()}.");
+            Assert.IsTrue(this.TestObject.EmailWrapper.GetType().Equals(typeof(EventFiringEmailDriver)), $"EmailWrapper for EmailTestObject class is the wrong type : {this.TestObject.EmailWrapper.GetType()}.");
         }
     }
 }

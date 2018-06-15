@@ -1,8 +1,8 @@
 ﻿//--------------------------------------------------
-// <copyright file="PostgreSQLProvider.cs" company="Magenic">
+// <copyright file="PostgreSqlProvider.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
-// <summary>PostgreSQLProvider class</summary>
+// <summary>PostgreSqlProvider class</summary>
 //--------------------------------------------------
 
 using Npgsql;
@@ -12,7 +12,7 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest.Providers
     /// <summary>
     /// The POSTGRE SQL provider.
     /// </summary>
-    public class PostgreSQLProvider : IProvider<NpgsqlConnection>
+    public class PostgreSqlProvider : IProvider<NpgsqlConnection>
     {
         /// <summary>
         /// Method used to create a new NPGSQL connection for POSTGRE SQL databases

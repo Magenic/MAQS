@@ -6,7 +6,9 @@
 //--------------------------------------------------
 using Magenic.MaqsFramework.BaseTest;
 using Magenic.MaqsFramework.Utilities.Logging;
-using Magenic.MaqsFramework.Utilities.Performance;
+using Magenic.MaqsFramework.WebServiceTester;
+using System;
+using System.Net.Http;
 
 namespace Magenic.MaqsFramework.BaseWebServiceTest
 {
@@ -18,18 +20,51 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         /// <summary>
         /// Initializes a new instance of the <see cref="WebServiceTestObject" /> class
         /// </summary>
-        /// <param name="httpClientWrapper">The test's http client wrapper</param>
+        /// <param name="httpClient">The test's http client wrapper</param>
         /// <param name="logger">The test's logger</param>
-        /// <param name="softAssert">The test's soft assert</param>
-        /// <param name="perfTimerCollection">The test's performance timer collection</param>
-        public WebServiceTestObject(HttpClientWrapper httpClientWrapper, Logger logger, SoftAssert softAssert, PerfTimerCollection perfTimerCollection) : base(logger, softAssert, perfTimerCollection)
+        /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
+        public WebServiceTestObject(Func<HttpClient> httpClient, Logger logger, string fullyQualifiedTestName) : base(logger, fullyQualifiedTestName)
         {
-            this.WebServiceWrapper = httpClientWrapper;
+            this.DriversStore.Add(typeof(WebServiceDriver).FullName, new WebServiceDriverStore(httpClient, this));
         }
 
         /// <summary>
-        /// Gets the web driver
+        /// Gets the web service wrapper
         /// </summary>
-        public HttpClientWrapper WebServiceWrapper { get; private set; }
+        public WebServiceDriver HttpClientWrapper
+        {
+            get
+            {
+                WebServiceDriverStore serviceDriver = this.DriversStore[typeof(WebServiceDriver).FullName] as WebServiceDriverStore;
+                return serviceDriver.Get();
+            }
+        }
+
+        /// <summary>
+        /// Override the http client
+        /// </summary>
+        /// <param name="httpClient">The new http client</param>
+        public void OverrideWebServiceDriver(HttpClient httpClient)
+        {
+            this.OverrideDriver(typeof(WebServiceDriver).FullName, new WebServiceDriverStore(() => httpClient, this));
+        }
+
+        /// <summary>
+        /// Override the http client
+        /// </summary>
+        /// <param name="httpClient">Function for getting a new http client</param>
+        public void OverrideWebServiceDriver(Func<HttpClient> httpClient)
+        {
+            this.OverrideDriver(typeof(WebServiceDriver).FullName, new WebServiceDriverStore(httpClient, this));
+        }
+
+        /// <summary>
+        /// Override the http client driver
+        /// </summary>
+        /// <param name="httpClientWrapper">An http client wrapper</param>
+        public void OverrideWebServiceDriver(WebServiceDriver httpClientWrapper)
+        {
+            (this.DriversStore[typeof(WebServiceDriver).FullName] as WebServiceDriverStore).OverrideWrapper(httpClientWrapper);
+        }
     }
 }

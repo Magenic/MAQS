@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------
-// <copyright file="SQLiteProvider.cs" company="Magenic">
+// <copyright file="SqliteProvider.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>SQLiteProvider class</summary>
@@ -10,9 +10,9 @@ using Microsoft.Data.Sqlite;
 namespace Magenic.MaqsFramework.BaseDatabaseTest.Providers
 {
     /// <summary>
-    /// The SQLite provider.
+    /// The Sqlite provider.
     /// </summary>
-    public class SQLiteProvider : IProvider<SqliteConnection>
+    public class SqliteProvider : IProvider<SqliteConnection>
     {
         /// <summary>
         /// Method used to create a new connection for SQLite databases

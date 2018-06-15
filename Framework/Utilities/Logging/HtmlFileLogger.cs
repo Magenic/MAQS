@@ -53,21 +53,6 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         }
 
         /// <summary>
-        /// Dispose the class
-        /// </summary>
-        public void Dispose()
-        {
-            if (File.Exists(this.FilePath))
-            {
-                var writer = new StreamWriter(this.FilePath, true);
-
-                writer.WriteLine("</body></html>");
-                writer.Flush();
-                writer.Close();
-            }
-        }
-
-        /// <summary>
         /// Write the formatted message (one line) to the console as a generic message
         /// </summary>
         /// <param name="messageType">The type of message</param>
@@ -112,6 +97,31 @@ namespace Magenic.MaqsFramework.Utilities.Logging
                     console.LogMessage(MessageType.ERROR, StringProcessor.SafeFormatter("Failed to write to event log because: {0}", e.Message));
                     console.LogMessage(messageType, message, args);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Dispose the class
+        /// </summary>
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Dispose the class
+        /// </summary>
+        /// <param name="disposing">True if you want to release managed resources</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing && File.Exists(this.FilePath))
+            {
+                var writer = new StreamWriter(this.FilePath, true);
+
+                writer.WriteLine("</body></html>");
+                writer.Flush();
+                writer.Close();
             }
         }
 

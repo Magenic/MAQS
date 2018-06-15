@@ -27,112 +27,112 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Unit testing site URL - Login page
         /// </summary>
-        private static string testSiteUrl = SeleniumConfig.GetWebSiteBase();
+        private static readonly string TestSiteUrl = SeleniumConfig.GetWebSiteBase();
 
         /// <summary>
         /// Unit testing site URL - Async page
         /// </summary>
-        private static string testSiteAsyncUrl = testSiteUrl + "Automation/AsyncPage";
+        private static readonly string TestSiteAsyncUrl = TestSiteUrl + "Automation/AsyncPage";
 
         /// <summary>
         /// Unit testing site URL - Automation page
         /// </summary>
-        private static string testSiteAutomationUrl = testSiteUrl + "Automation/";
+        private static readonly string TestSiteAutomationUrl = TestSiteUrl + "Automation/";
 
         /// <summary>
         /// Unit testing site URL - About page
         /// </summary>
-        private static string testSiteAboutUrl = testSiteUrl + "Home/Contact/";
+        private static readonly string TestSiteAboutUrl = TestSiteUrl + "Home/Contact/";
 
         /// <summary> 
         /// Body css selector
         /// </summary> 
-        private static By bodyCssSelector = By.CssSelector("BODY");
+        private static readonly By BodyCssSelector = By.CssSelector("BODY");
 
         /// <summary>
         /// Home button css selector
         /// </summary>
-        private static By homeButtonCssSelector = By.CssSelector("#homeButton > a");
+        private static readonly By HomeButtonCssSelector = By.CssSelector("#homeButton > a");
 
         /// <summary>
         /// Dropdown selector
         /// </summary>
-        private static By asyncDropdownCssSelector = By.CssSelector("#Selector");
+        private static readonly By AsyncDropdownCssSelector = By.CssSelector("#Selector");
 
         /// <summary>
         /// Dropdown label
         /// </summary>
-        private static By asyncOptionsLabel = By.CssSelector("#Label");
+        private static readonly By AsyncOptionsLabel = By.CssSelector("#Label");
 
         /// <summary>
         /// Dropdown label - hidden once dropdown loads
         /// </summary>
-        private static By asyncLoadingLabel = By.CssSelector("#LoadingLabel");
+        private static readonly By AsyncLoadingLabel = By.CssSelector("#LoadingLabel");
 
         /// <summary>
         /// Asynchronous div that loads after a delay on Async Testing Page
         /// </summary>
-        private static By asyncLoadingTextDiv = By.CssSelector("#loading-div-text");
+        private static readonly By AsyncLoadingTextDiv = By.CssSelector("#loading-div-text");
 
         /// <summary>
         /// Names label
         /// </summary>
-        private static By automationNamesLabel = By.CssSelector("#Dropdown > p > strong > label");
+        private static readonly By AutomationNamesLabel = By.CssSelector("#Dropdown > p > strong > label");
 
         /// <summary>
         /// Selector that is not in page
         /// </summary>
-        private static By notInPage = By.CssSelector("NOTINPAGE");
+        private static readonly By NotInPage = By.CssSelector("NOTINPAGE");
 
         /// <summary>
         /// First dialog button
         /// </summary>
-        private static By automationShowDialog1 = By.CssSelector("#showDialog1");
+        private static readonly By AutomationShowDialog1 = By.CssSelector("#showDialog1");
 
         /// <summary>
         /// Text fields
         /// </summary>
-        private static By textFields = By.CssSelector("#TextFields");
+        private static readonly By TextFields = By.CssSelector("#TextFields");
 
         /// <summary>
         /// Food table
         /// </summary>
-        private static By foodTable = By.CssSelector("#FoodTable");
+        private static readonly By FoodTable = By.CssSelector("#FoodTable");
 
         /// <summary>
         /// Flower table
         /// </summary>
-        private static By flowerTable = By.CssSelector("#FlowerTable TD");
+        private static readonly By FlowerTable = By.CssSelector("#FlowerTable TD");
 
         /// <summary>
         /// The Contact menu
         /// </summary>
-        private static By contactMenu = By.CssSelector("#ContactButton");
+        private static readonly By ContactMenu = By.CssSelector("#ContactButton");
 
         /// <summary>
         /// All links
         /// </summary>
-        private static By allLinks = By.CssSelector("A");
+        private static readonly By AllLinks = By.CssSelector("A");
 
         /// <summary>
         /// First child of a DIV
         /// </summary>
-        private static By firstChildOfDiv = By.CssSelector("DIV :first-child");
+        private static readonly By FirstChildOfDiv = By.CssSelector("DIV :first-child");
 
         /// <summary>
         /// Asynchronous content DIV
         /// </summary>
-        private static By asyncContent = By.CssSelector("#AsyncContent");
+        private static readonly By AsyncContent = By.CssSelector("#AsyncContent");
 
         /// <summary>
         /// All labels
         /// </summary>
-        private static By allLabels = By.CssSelector("LABEL");
+        private static readonly By AllLabels = By.CssSelector("LABEL");
 
         /// <summary>
         /// Load content container
         /// </summary>
-        private static By loadContainer = By.CssSelector("DIV.roundedcorners");
+        private static readonly By LoadContainer = By.CssSelector("DIV.roundedcorners");
 
         /// <summary>
         /// Make sure we can open a browser
@@ -141,7 +141,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void OpenBrowser()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
         }
 
         /// <summary>
@@ -152,9 +152,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitForClickableElement()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(contactMenu);
-            element = element.Wait().ForClickableElement(allLinks);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(ContactMenu);
+            element = element.Wait().ForClickableElement(AllLinks);
             Assert.AreEqual("Contact", element.Text);
         }
         #endregion
@@ -167,9 +167,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitForElementExist()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(contactMenu);
-            element = element.Wait().ForElementExist(allLinks);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(ContactMenu);
+            element = element.Wait().ForElementExist(AllLinks);
             Assert.AreEqual("Contact", element.Text);
         }
         #endregion
@@ -182,9 +182,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitForVisibleElement()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(contactMenu);
-            element = element.Wait().ForVisibleElement(allLinks);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(ContactMenu);
+            element = element.Wait().ForVisibleElement(AllLinks);
             Assert.AreEqual("Contact", element.Text);
         }
         #endregion
@@ -197,9 +197,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitForExactText()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(asyncContent);
-            element = element.Wait().ForExactText(allLabels, "Options");
+            this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(AsyncContent);
+            element = element.Wait().ForExactText(AllLabels, "Options");
             Assert.AreEqual("Options", element.Text);
         }
         #endregion
@@ -212,9 +212,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitForContainsText()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(asyncContent);
-            element = element.Wait().ForContainsText(allLabels, "ption");
+            this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(AsyncContent);
+            element = element.Wait().ForContainsText(AllLabels, "ption");
             Assert.AreEqual("Options", element.Text);
         }
         #endregion
@@ -227,14 +227,14 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitForAbsentElement()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(loadContainer);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(LoadContainer);
 
             // Make sure the element was displayed
-            element.Wait().ForElementExist(firstChildOfDiv);
+            element.Wait().ForElementExist(FirstChildOfDiv);
 
             // Make sure the element went away
-            element.Wait().ForAbsentElement(firstChildOfDiv);
+            element.Wait().ForAbsentElement(FirstChildOfDiv);
         }
         #endregion
 
@@ -246,11 +246,11 @@ namespace SeleniumUnitTests
         [ExpectedException(typeof(Exception))]
         public void WaitForAbsentElementFail()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
             this.WebDriver.SetWaitDriver(new WebDriverWait(new SystemClock(), this.WebDriver, TimeSpan.FromMilliseconds(100), TimeSpan.FromMilliseconds(10)));
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(bodyCssSelector);
-            element.Wait().ForAbsentElement(homeButtonCssSelector);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
+            element.Wait().ForAbsentElement(HomeButtonCssSelector);
         }
 
         /// <summary>
@@ -260,13 +260,13 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitOverrideRespected()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
             this.WebDriver.SetWaitDriver(new WebDriverWait(new SystemClock(), this.WebDriver, TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(10)));
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(bodyCssSelector);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
 
             DateTime start = DateTime.Now;
-            element.Wait().UntilAbsentElement(homeButtonCssSelector);
+            element.Wait().UntilAbsentElement(HomeButtonCssSelector);
             TimeSpan span = DateTime.Now - start;
 
             Assert.IsTrue(span.TotalMilliseconds > 500, "Timed out too quickly");
@@ -281,9 +281,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitUntilClickableElement()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(bodyCssSelector);
-            Assert.IsTrue(element.Wait().UntilClickableElement(automationShowDialog1), "Failed to find element");
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
+            Assert.IsTrue(element.Wait().UntilClickableElement(AutomationShowDialog1), "Failed to find element");
         }
         #endregion
 
@@ -295,9 +295,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitUntilElementExist()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(bodyCssSelector);
-            Assert.IsTrue(element.Wait().UntilElementExist(automationShowDialog1), "Failed to find element");
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
+            Assert.IsTrue(element.Wait().UntilElementExist(AutomationShowDialog1), "Failed to find element");
         }
         #endregion
 
@@ -309,9 +309,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitUntilVisibleElement()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(bodyCssSelector);
-            Assert.IsTrue(element.Wait().UntilVisibleElement(automationShowDialog1), "Failed to find element");
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
+            Assert.IsTrue(element.Wait().UntilVisibleElement(AutomationShowDialog1), "Failed to find element");
         }
         #endregion
 
@@ -323,9 +323,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitUntilExactText()
         {
-            this.TestObject.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(bodyCssSelector);
-            Assert.IsTrue(element.Wait().UntilExactText(automationShowDialog1, "Show dialog"), "Failed to find element");
+            this.TestObject.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
+            Assert.IsTrue(element.Wait().UntilExactText(AutomationShowDialog1, "Show dialog"), "Failed to find element");
         }
         #endregion
 
@@ -337,9 +337,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitUntilContainsText()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(bodyCssSelector);
-            Assert.IsTrue(element.Wait().UntilContainsText(automationShowDialog1, "dialog"), "Failed to find element");
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
+            Assert.IsTrue(element.Wait().UntilContainsText(AutomationShowDialog1, "dialog"), "Failed to find element");
         }
         #endregion
 
@@ -351,9 +351,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitUntilAbsentElement()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(bodyCssSelector);
-            Assert.IsTrue(element.Wait().UntilAbsentElement(notInPage));
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
+            Assert.IsTrue(element.Wait().UntilAbsentElement(NotInPage));
         }
         #endregion
 
@@ -365,9 +365,9 @@ namespace SeleniumUnitTests
         [ExpectedException(typeof(NotFoundException), "An attribute check that should have failed to find the given string within an elements attribute passed.")]
         public void WaitForAttributeContainsDontFind()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(bodyCssSelector);
-            element.Wait().ForAttributeTextContains(foodTable, "Flower Table", "Summmary");
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
+            element.Wait().ForAttributeTextContains(FoodTable, "Flower Table", "Summmary");
         }
 
         /// <summary>
@@ -378,9 +378,9 @@ namespace SeleniumUnitTests
         [ExpectedException(typeof(NotFoundException), "An attribute check that should have failed to find the given string equal to an elements attribute passed.")]
         public void WaitForAttributeEqualsDontFind()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(bodyCssSelector);
-            element.Wait().ForAttributeTextEquals(foodTable, "Flower Table", "Summmary");
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
+            element.Wait().ForAttributeTextEquals(FoodTable, "Flower Table", "Summmary");
         }
 
         /// <summary>
@@ -391,9 +391,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitForAttributeContainsFound()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(bodyCssSelector);
-            Assert.IsNotNull(element.Wait().ForAttributeTextContains(asyncLoadingTextDiv, "block;", "style"));
+            this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
+            Assert.IsNotNull(element.Wait().ForAttributeTextContains(AsyncLoadingTextDiv, "block;", "style"));
         }
         #endregion
 
@@ -405,9 +405,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitForAttributeEqualsFound()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(bodyCssSelector);
-            Assert.IsNotNull(element.Wait().ForAttributeTextEquals(asyncLoadingTextDiv, "display: block;", "style"));
+            this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
+            Assert.IsNotNull(element.Wait().ForAttributeTextEquals(AsyncLoadingTextDiv, "display: block;", "style"));
         }
         #endregion
 
@@ -418,9 +418,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitUntilAttributeContains()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(bodyCssSelector);
-            Assert.IsTrue(element.Wait().UntilAttributeTextContains(asyncLoadingLabel, "none;", "style"));
+            this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
+            Assert.IsTrue(element.Wait().UntilAttributeTextContains(AsyncLoadingLabel, "none;", "style"));
         }
 
         /// <summary>
@@ -430,9 +430,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitUntilAttributeEquals()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(bodyCssSelector);
-            Assert.IsTrue(element.Wait().UntilAttributeTextEquals(asyncLoadingLabel, "display: none;", "style"));
+            this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
+            Assert.IsTrue(element.Wait().UntilAttributeTextEquals(AsyncLoadingLabel, "display: none;", "style"));
         }
 
         /// <summary>
@@ -443,9 +443,9 @@ namespace SeleniumUnitTests
         [TestMethod]
         public void WaitUntilAttributeContainsFalse()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(bodyCssSelector);
-            Assert.IsFalse(element.Wait().UntilAttributeTextContains(asyncDropdownCssSelector, "nottherightid", "id"));
+            this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
+            Assert.IsFalse(element.Wait().UntilAttributeTextContains(AsyncDropdownCssSelector, "nottherightid", "id"));
         }
         #endregion
 
@@ -457,9 +457,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WaitUntilAttributeEqualsFalse()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAsyncUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(bodyCssSelector);
-            Assert.IsFalse(element.Wait().UntilAttributeTextEquals(asyncLoadingLabel, "display:", "style"));
+            this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
+            Assert.IsFalse(element.Wait().UntilAttributeTextEquals(AsyncLoadingLabel, "display:", "style"));
         }
         #endregion
 
@@ -471,9 +471,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void ScrollIntoViewElement()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(bodyCssSelector);
-            Assert.IsTrue(element.Wait().ForClickableElementAndScrollIntoView(automationShowDialog1).Displayed, "Failed to find element");
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
+            Assert.IsTrue(element.Wait().ForClickableElementAndScrollIntoView(AutomationShowDialog1).Displayed, "Failed to find element");
         }
         #endregion
 
@@ -485,11 +485,11 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void ScrollIntoViewWithOffsetElement()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(bodyCssSelector);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
 
-            Assert.IsTrue(element.Wait().ForClickableElementAndScrollIntoView(automationShowDialog1, 0, 100).Displayed, "Failed to find element or scroll");
-            Assert.IsTrue(WebDriver.Wait().ForClickableElementAndScrollIntoView(automationShowDialog1, 0, 100).Displayed, "Failed to find element or scroll");  
+            Assert.IsTrue(element.Wait().ForClickableElementAndScrollIntoView(AutomationShowDialog1, 0, 100).Displayed, "Failed to find element or scroll");
+            Assert.IsTrue(WebDriver.Wait().ForClickableElementAndScrollIntoView(AutomationShowDialog1, 0, 100).Displayed, "Failed to find element or scroll");  
         }
         #endregion
 
@@ -501,10 +501,10 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void ScrollIntoViewBoolean()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(bodyCssSelector);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
 
-            Assert.IsTrue(element.Wait().UntilClickableElementAndScrollIntoView(automationShowDialog1), "Failed to find element");
+            Assert.IsTrue(element.Wait().UntilClickableElementAndScrollIntoView(AutomationShowDialog1), "Failed to find element");
         }
         #endregion
 
@@ -516,10 +516,10 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void ScrollIntoViewBooleanOffset()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(bodyCssSelector);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
 
-            Assert.IsTrue(element.Wait().UntilClickableElementAndScrollIntoView(automationShowDialog1, 0, 100), "Failed to find element");
+            Assert.IsTrue(element.Wait().UntilClickableElementAndScrollIntoView(AutomationShowDialog1, 0, 100), "Failed to find element");
         }
         #endregion
 
@@ -531,8 +531,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void ScrollByOffset()
         {
-            this.WebDriver.Navigate().GoToUrl(testSiteAutomationUrl);
-            IWebElement element = this.WebDriver.Wait().ForVisibleElement(bodyCssSelector);
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
 
             element.Wait().PageLoadThanExecuteScrolling(0, 500);
         }

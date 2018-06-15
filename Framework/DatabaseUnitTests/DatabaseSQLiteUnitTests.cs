@@ -32,7 +32,7 @@ namespace DatabaseUnitTests
         [Category(TestCategories.Database)]
         public void VerifyOrdersSqliteNoWrapperDefault()
         {
-            //// Override the configuration
+            // Override the configuration
             var overrides = new Dictionary<string, string>()
             {
                 { "DataBaseProviderType", "SQLITE" },
@@ -41,7 +41,7 @@ namespace DatabaseUnitTests
 
             Config.AddTestSettingValues(overrides);
 
-            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper();
+            DatabaseDriver wrapper = new DatabaseDriver();
 
             var orders = wrapper.Query("select * from orders").ToList();
             Assert.AreEqual(11, orders.Count);
@@ -63,7 +63,7 @@ namespace DatabaseUnitTests
 
             Config.AddTestSettingValues(overrides);
 
-            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString());
+            DatabaseDriver wrapper = new DatabaseDriver(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString());
 
             var orders = wrapper.Query("select * from orders").ToList();
             Assert.AreEqual(11, orders.Count);
@@ -85,18 +85,15 @@ namespace DatabaseUnitTests
 
             Config.AddTestSettingValues(overrides);
 
-            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper(
-                () =>
-                    {
-                        SqliteConnection connection = new SqliteConnection(DatabaseConfig.GetConnectionString());
-                        SQLitePCL.Batteries.Init();
-                        connection.Open();
+            using (SqliteConnection connection = new SqliteConnection(DatabaseConfig.GetConnectionString()))
+            {
+                SQLitePCL.Batteries.Init();
+                connection.Open();
+                DatabaseDriver wrapper = new DatabaseDriver(connection);
 
-                        return connection;
-                    });
-
-            var orders = wrapper.Query("select * from orders").ToList();
-            Assert.AreEqual(11, orders.Count);
+                var orders = wrapper.Query("select * from orders").ToList();
+                Assert.AreEqual(11, orders.Count);
+            }
         }
 
         /// <summary>

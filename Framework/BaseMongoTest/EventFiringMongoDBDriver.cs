@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------
-// <copyright file="EventFiringMongoDBCollectionWrapper.cs" company="Magenic">
+// <copyright file="EventFiringMongoDBDriver.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>The event firing mongoDB collection interactions</summary>
@@ -14,32 +14,32 @@ namespace Magenic.MaqsFramework.BaseMongoTest
     /// Wrap basic firing database interactions
     /// </summary>
     /// <typeparam name="T">The mongo collection type</typeparam>
-    public class EventFiringMongoDBCollectionWrapper<T> : MongoDBCollectionWrapper<T>
+    public class EventFiringMongoDBDriver<T> : MongoDBDriver<T>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EventFiringMongoDBCollectionWrapper{T}" /> class
+        /// Initializes a new instance of the <see cref="EventFiringMongoDBDriver{T}" /> class
         /// </summary>
         /// <param name="connectionString">The mongoDB client connection string</param>
         /// <param name="databaseName">the mongo database name string</param>
         /// <param name="collectionString">the mongo database collection string</param>
-        public EventFiringMongoDBCollectionWrapper(string connectionString, string databaseName, string collectionString)
+        public EventFiringMongoDBDriver(string connectionString, string databaseName, string collectionString)
             : base(connectionString, databaseName, collectionString)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EventFiringMongoDBCollectionWrapper{T}" /> class
+        /// Initializes a new instance of the <see cref="EventFiringMongoDBDriver{T}" /> class
         /// </summary>
         /// <param name="collectionString">Name of the collection</param>
-        public EventFiringMongoDBCollectionWrapper(string collectionString)
+        public EventFiringMongoDBDriver(string collectionString)
              : base(collectionString)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EventFiringMongoDBCollectionWrapper{T}" /> class
+        /// Initializes a new instance of the <see cref="EventFiringMongoDBDriver{T}" /> class
         /// </summary>
-        public EventFiringMongoDBCollectionWrapper() : base()
+        public EventFiringMongoDBDriver() : base()
         {
         }
 
@@ -113,10 +113,7 @@ namespace Magenic.MaqsFramework.BaseMongoTest
         /// <param name="message">event message</param>
         protected virtual void OnEvent(string message)
         {
-            if (this.DatabaseEvent != null)
-            {
-                this.DatabaseEvent(this, message);
-            }
+            this.DatabaseEvent?.Invoke(this, message);
         }
 
         /// <summary>
@@ -125,10 +122,7 @@ namespace Magenic.MaqsFramework.BaseMongoTest
         /// <param name="message">The event error message</param>
         protected virtual void OnErrorEvent(string message)
         {
-            if (this.DatabaseErrorEvent != null)
-            {
-                this.DatabaseErrorEvent(this, message);
-            }
+            this.DatabaseErrorEvent?.Invoke(this, message);
         }
 
         /// <summary>

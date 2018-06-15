@@ -12,8 +12,13 @@
     <ApplicationIcon>MAQS.ico</ApplicationIcon>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="MailKit" Version="2.0.1" />
+    <PackageReference Include="MailKit" Version="2.0.4" />
   </ItemGroup>
 
   <ItemGroup>

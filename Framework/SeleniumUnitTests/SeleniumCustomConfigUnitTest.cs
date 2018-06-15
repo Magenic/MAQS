@@ -60,11 +60,15 @@ namespace SeleniumUnitTests
 
             if (File.Exists(Path.Combine(currentPath, "phantomjs.exe")))
             {
+#pragma warning disable CS0618 // Type or member is obsolete
                 webDriver = new PhantomJSDriver(currentPath);
+#pragma warning restore CS0618 // Type or member is obsolete
             }
             else
             {
+#pragma warning disable CS0618 // Type or member is obsolete
                 webDriver = new PhantomJSDriver(binaryPath);
+#pragma warning restore CS0618 // Type or member is obsolete
             }
 
             return webDriver;

@@ -22,12 +22,12 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// <summary>
         /// A user friendly name, for logging purposes
         /// </summary>
-        private string userFriendlyName;
+        private readonly string userFriendlyName;
 
         /// <summary>
         /// The parent fluent element
         /// </summary>
-        private FluentMobileElement parent;
+        private readonly FluentMobileElement parent;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FluentMobileElement" /> class

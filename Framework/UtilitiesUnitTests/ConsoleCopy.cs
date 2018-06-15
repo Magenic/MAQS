@@ -42,8 +42,10 @@ namespace UtilitiesUnitTesting
 
             try
             {
-                this.fileWriter = new StreamWriter(File.Open(path, FileMode.Append, FileAccess.Write, FileShare.Read));
-                this.fileWriter.AutoFlush = true;
+                this.fileWriter = new StreamWriter(File.Open(path, FileMode.Append, FileAccess.Write, FileShare.Read))
+                {
+                    AutoFlush = true
+                };
 
                 this.doubleWriter = new DoubleWriter(this.fileWriter, this.oldOut);
             }
@@ -61,6 +63,16 @@ namespace UtilitiesUnitTesting
         /// Cleans up the writers and reverts the console
         /// </summary>
         public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Cleans up the writers and reverts the console
+        /// </summary>
+        /// <param name="disposing">True if you want to release managed resources</param>
+        public void Dispose(bool disposing)
         {
             Console.SetOut(this.oldOut);
             if (this.fileWriter != null)

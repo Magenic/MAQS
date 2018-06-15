@@ -37,7 +37,7 @@ namespace WebServiceTesterUnitTesting
         {
             try
             {
-                HttpClientWrapper client = new HttpClientWrapper(new Uri("http://magenicautomation.azurewebsites.net"));
+                WebServiceDriver client = new WebServiceDriver(new Uri("http://magenicautomation.azurewebsites.net"));
                 string result = client.Get("/api/String/1", "text/plain", false);
             }
             catch
@@ -53,7 +53,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void GetXmlDeserialized()
         {
-            HttpClientWrapper client = new HttpClientWrapper(new Uri(url));
+            WebServiceDriver client = new WebServiceDriver(new Uri(url));
             ArrayOfProduct result = client.Get<ArrayOfProduct>("/api/XML_JSON/GetAllProducts", "application/xml", false);
 
             Assert.AreEqual(result.Product.Length, 3, "Expected 3 products to be returned");
@@ -66,7 +66,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void GetJsonDeserialized()
         {
-            HttpClientWrapper client = new HttpClientWrapper(new Uri(url));
+            WebServiceDriver client = new WebServiceDriver(new Uri(url));
             List<ProductJson> result = client.Get<List<ProductJson>>("/api/XML_JSON/GetAllProducts", "application/json", false);
 
             Assert.AreEqual(result.Count, 3, "Expected 3 products to be returned");
@@ -79,7 +79,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void GetString()
         {
-            HttpClientWrapper client = new HttpClientWrapper(new Uri("http://magenicautomation.azurewebsites.net")); 
+            WebServiceDriver client = new WebServiceDriver(new Uri("http://magenicautomation.azurewebsites.net")); 
             string result = client.Get("/api/String/1", "text/plain", false);
 
             Assert.IsTrue(result.Contains("Tomato Soup"), "Was expeting a result with Tomato Soup but instead got - " + result);
@@ -92,7 +92,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void GetImage()
         {
-            HttpClientWrapper client = new HttpClientWrapper(new Uri(url));
+            WebServiceDriver client = new WebServiceDriver(new Uri(url));
             HttpResponseMessage result = client.GetWithResponse("/api/PNGFile/GetImage?image=Red", "image/png", false);
 
             // Get the image

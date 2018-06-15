@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------
-// <copyright file="DatabaseConnectionWrapper.cs" company="Magenic">
+// <copyright file="DatabaseDriver.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>The basic database interactions</summary>
@@ -15,33 +15,33 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
     /// <summary>
     /// Wraps the basic database interactions
     /// </summary>
-    public class DatabaseConnectionWrapper : IDisposable
+    public class DatabaseDriver : IDisposable
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DatabaseConnectionWrapper" /> class
+        /// Initializes a new instance of the <see cref="DatabaseDriver" /> class
         /// </summary>
-        public DatabaseConnectionWrapper()
+        public DatabaseDriver()
         {
             this.Connection = DatabaseConfig.GetOpenConnection();
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DatabaseConnectionWrapper" /> class
+        /// Initializes a new instance of the <see cref="DatabaseDriver" /> class
         /// </summary>
         /// <param name="providerType">The provider</param>
         /// <param name="connectionString">The base database connection string</param>
-        public DatabaseConnectionWrapper(string providerType, string connectionString)
+        public DatabaseDriver(string providerType, string connectionString)
         {
             this.Connection = DatabaseConfig.GetOpenConnection(providerType, connectionString);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DatabaseConnectionWrapper" /> class
+        /// Initializes a new instance of the <see cref="DatabaseDriver" /> class
         /// </summary>
-        /// <param name="setupDataBaseConnectionOverride">A function that returns the database connection</param>
-        public DatabaseConnectionWrapper(Func<IDbConnection> setupDataBaseConnectionOverride)
+        /// <param name="dataBaseConnectionOverride">A database connection</param>
+        public DatabaseDriver(IDbConnection dataBaseConnectionOverride)
         {
-            this.Connection = DatabaseConfig.GetOpenConnection(setupDataBaseConnectionOverride);
+            this.Connection = dataBaseConnectionOverride;
         }
 
         /// <summary>
@@ -174,12 +174,23 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         /// <summary>
         /// Dispose of the database connection
         /// </summary>
-        public virtual void Dispose()
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Dispose of the database connection
+        /// </summary>
+        /// <param name="disposing">Is the object being disposed</param>
+        protected virtual void Dispose(bool disposing)
         {
             // Make sure the connection exists and is open before trying to close it
-            if (this.Connection?.State == ConnectionState.Open)
+            if (disposing && this.Connection?.State == ConnectionState.Open)
             {
                 this.Connection.Close();
+                this.Connection.Dispose();
             }
         }
     }

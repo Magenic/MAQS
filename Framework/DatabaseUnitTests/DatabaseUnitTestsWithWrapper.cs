@@ -157,8 +157,8 @@ namespace DatabaseUnitTests
         public void DatabaseTestObjectValuesCanBeUsed()
         {
             this.TestObject.SetValue("1", "one");
-            string outValue;
             Assert.AreEqual(this.TestObject.Values["1"], "one");
+            string outValue;
             Assert.IsFalse(this.TestObject.Values.TryGetValue("2", out outValue), "Didn't expect to get value for key '2', but got " + outValue);
         }
 

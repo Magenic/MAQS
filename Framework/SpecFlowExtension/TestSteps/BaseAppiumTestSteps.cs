@@ -16,7 +16,7 @@ namespace Magenic.MaqsFramework.SpecFlow.TestSteps
     /// Base for appium TestSteps classes
     /// </summary>
     [Binding, Scope(Tag = "MAQS_Appium")]
-    public class BaseAppiumTestSteps : ExtendableTestSteps<AppiumTestObject, MaqsAppium, AppiumDriver<IWebElement>>
+    public class BaseAppiumTestSteps : ExtendableTestSteps<AppiumTestObject, MaqsAppium>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseAppiumTestSteps" /> class

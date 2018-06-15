@@ -90,7 +90,7 @@ namespace Magenic.MaqsFramework.Utilities.Data
         /// <returns>Random value from the list</returns>
         public static T GeneralRandomizer<T>(List<T> stringList)
         {
-            return (T)stringList[random.Next(stringList.Count - 1)];
+            return stringList[random.Next(stringList.Count - 1)];
         }
     }
 }

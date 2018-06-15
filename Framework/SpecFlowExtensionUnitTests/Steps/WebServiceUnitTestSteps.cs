@@ -76,7 +76,7 @@ namespace SpecFlowExtensionUnitTests.Steps
         [Then(@"BaseWebServiceTestSteps WebServiceWrapper is not null")]
         public void ThenWebDriverIsNotNull()
         {
-            Assert.IsNotNull(this.TestObject.WebServiceWrapper, "WebServiceWrapper for BaseWebServiceTestSteps class is null.");
+            Assert.IsNotNull(this.TestObject.HttpClientWrapper, "HttpClientWrapper for BaseWebServiceTestSteps class is null.");
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace SpecFlowExtensionUnitTests.Steps
         [Then(@"BaseWebServiceTestSteps WebServiceWrapper is type EventFiringHttpClientWrapper")]
         public void AndWebDriverIsTypeHttpClientWrapper()
         {
-            Assert.IsTrue(this.TestObject.WebServiceWrapper.GetType().Equals(typeof(EventFiringHttpClientWrapper)), $"WebServiceWrapper for BaseWebServiceTestSteps class is the wrong type : {this.TestObject.WebServiceWrapper.GetType()}.");
+            Assert.IsTrue(this.TestObject.HttpClientWrapper.GetType().Equals(typeof(EventFiringWebServiceDriver)), $"HttpClientWrapper for BaseWebServiceTestSteps class is the wrong type : {this.TestObject.HttpClientWrapper.GetType()}.");
         }
     }
 }

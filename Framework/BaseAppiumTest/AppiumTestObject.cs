@@ -6,9 +6,9 @@
 //--------------------------------------------------
 using Magenic.MaqsFramework.BaseTest;
 using Magenic.MaqsFramework.Utilities.Logging;
-using Magenic.MaqsFramework.Utilities.Performance;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
+using System;
 
 namespace Magenic.MaqsFramework.BaseAppiumTest
 {
@@ -22,16 +22,52 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// </summary>
         /// <param name="appiumDriver">The test's Appium driver</param>
         /// <param name="logger">The test's logger</param>
-        /// <param name="softAssert">The test's soft assert</param>
-        /// <param name="perfTimerCollection" >The test's performance timer collection</param>
-        public AppiumTestObject(AppiumDriver<IWebElement> appiumDriver, Logger logger, SoftAssert softAssert, PerfTimerCollection perfTimerCollection) : base(logger, softAssert, perfTimerCollection)
+        /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
+        public AppiumTestObject(AppiumDriver<IWebElement> appiumDriver, Logger logger, string fullyQualifiedTestName) : base(logger, fullyQualifiedTestName)
         {
-            this.AppiumDriver = appiumDriver;
+            this.DriversStore.Add(typeof(AppiumDriver<IWebElement>).FullName,  new MobileDriverStore(() => appiumDriver, this));
+            this.SoftAssert = new AppiumSoftAssert(this);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AppiumTestObject" /> class
+        /// </summary>
+        /// <param name="appiumDriver">Function for initializing a Appium driver</param>
+        /// <param name="logger">The test's logger</param>
+        /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
+        public AppiumTestObject(Func<AppiumDriver<IWebElement>> appiumDriver, Logger logger, string fullyQualifiedTestName) : base(logger, fullyQualifiedTestName)
+        {
+            this.DriversStore.Add(typeof(AppiumDriver<IWebElement>).FullName, new MobileDriverStore(appiumDriver, this));
+            this.SoftAssert = new AppiumSoftAssert(this);
         }
 
         /// <summary>
         /// Gets the Appium driver
         /// </summary>
-        public AppiumDriver<IWebElement> AppiumDriver { get; private set; }
+        public AppiumDriver<IWebElement> AppiumDriver
+        {
+            get
+            {
+                return this.DriversStore[typeof(AppiumDriver<IWebElement>).FullName].Get() as AppiumDriver<IWebElement>;
+            }
+        }
+
+        /// <summary>
+        /// Override the Appium driver
+        /// </summary>
+        /// <param name="appiumDriver">New Appium driver</param>
+        public void OverrideWebDriver(AppiumDriver<IWebElement> appiumDriver)
+        {
+            this.OverrideDriver(typeof(AppiumDriver<IWebElement>).FullName, new MobileDriverStore(() => appiumDriver, this));
+        }
+
+        /// <summary>
+        /// Override the Appium driver
+        /// </summary>
+        /// <param name="appiumDriver">New function for initializing a Appium driver</param>
+        public void OverrideWebDriver(Func<AppiumDriver<IWebElement>> appiumDriver)
+        {
+            this.OverrideDriver(typeof(AppiumDriver<IWebElement>).FullName, new MobileDriverStore(appiumDriver, this));
+        }
     }
 }

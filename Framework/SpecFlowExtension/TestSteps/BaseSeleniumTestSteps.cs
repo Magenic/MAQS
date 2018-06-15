@@ -15,7 +15,7 @@ namespace Magenic.MaqsFramework.SpecFlow.TestSteps
     /// Base for selenium TestSteps classes
     /// </summary>
     [Binding, Scope(Tag = "MAQS_Selenium")]
-    public class BaseSeleniumTestSteps : ExtendableTestSteps<SeleniumTestObject, MaqsSelenium, IWebDriver>
+    public class BaseSeleniumTestSteps : ExtendableTestSteps<SeleniumTestObject, MaqsSelenium>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseSeleniumTestSteps" /> class

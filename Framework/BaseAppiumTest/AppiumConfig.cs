@@ -27,7 +27,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// <summary>
         ///  Static field for AppiumCapsMaqs configuration section.
         /// </summary>
-        private static string mobileCapabilities = "AppiumCapsMaqs";
+        private static readonly string MobileCapabilities = "AppiumCapsMaqs";
         
         /// <summary>
         /// Get the mobile OS type
@@ -162,8 +162,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// <returns>Custom mobile capabilities object</returns>
         private static DesiredCapabilities SetMobileCapabilities(this DesiredCapabilities desiredCapabilities)
         {
-            var mobileCapabilitySection = ConfigurationManager.GetSection(mobileCapabilities) as NameValueCollection;
-            if (mobileCapabilitySection == null)
+            if (!(ConfigurationManager.GetSection(MobileCapabilities) is NameValueCollection mobileCapabilitySection))
             {
                 return desiredCapabilities;
             }

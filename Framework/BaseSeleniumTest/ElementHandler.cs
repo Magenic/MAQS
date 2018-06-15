@@ -320,7 +320,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// </example>
         public static void SlowType(this ISearchContext searchContext, By by, string textToEnter)
         {
-            foreach (char singleLetter in textToEnter.ToCharArray())
+            foreach (char singleLetter in textToEnter)
             {
                 searchContext.Wait().ForClickableElement(by).SendKeys(singleLetter.ToString());
                 System.Threading.Thread.Sleep(500);

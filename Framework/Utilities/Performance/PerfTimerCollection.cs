@@ -24,19 +24,9 @@ namespace Magenic.MaqsFramework.Utilities.Performance
         private static object writerLocker = new object();
 
         /// <summary>
-        /// List object to store CompletedTimers 
-        /// </summary>
-        private List<PerfTimer> timerList = new List<PerfTimer>();
-
-        /// <summary>
         /// List object to store Timers 
         /// </summary>
-        private Dictionary<string, PerfTimer> openTimerList = new Dictionary<string, PerfTimer>();
-
-        /// <summary>
-        /// String containing a generic Payload to be included in the <see cref="PerfTimerCollection"/> output (serialized to XML) 
-        /// </summary>
-        private string perfPayloadString = string.Empty;
+        private readonly Dictionary<string, PerfTimer> openTimerList = new Dictionary<string, PerfTimer>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PerfTimerCollection"/> class
@@ -70,13 +60,7 @@ namespace Magenic.MaqsFramework.Utilities.Performance
         /// <summary>
         /// Gets and sets the list if response time tests
         /// </summary>
-        public List<PerfTimer> Timerlist
-        {
-            get
-            {
-                return this.timerList;
-            }
-        }
+        public List<PerfTimer> Timerlist { get; } = new List<PerfTimer>();
 
         /// <summary>
         /// Gets or sets the File name
@@ -91,18 +75,7 @@ namespace Magenic.MaqsFramework.Utilities.Performance
         /// <summary>
         /// Gets or sets the generic payload string
         /// </summary>
-        public string PerfPayloadString
-        {
-           get
-            {
-                return this.perfPayloadString;
-            }
-
-            set
-            {
-                this.perfPayloadString = value;
-            }
-        }
+        public string PerfPayloadString { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets the logger
@@ -156,7 +129,7 @@ namespace Magenic.MaqsFramework.Utilities.Performance
                 this.Log.LogMessage(MessageType.INFORMATION, "Stopping response time test: {0}", timerName);
                 this.openTimerList[timerName].EndTime = et;
                 this.openTimerList[timerName].Duration = this.openTimerList[timerName].EndTime - this.openTimerList[timerName].StartTime;
-                this.timerList.Add(this.openTimerList[timerName]);
+                this.Timerlist.Add(this.openTimerList[timerName]);
                 this.openTimerList.Remove(timerName);
             }
         }
@@ -168,7 +141,7 @@ namespace Magenic.MaqsFramework.Utilities.Performance
         public void Write(Logger log)
         {
             // Only run if the response times is greater than 0
-            if (this.timerList.Count > 0)
+            if (this.Timerlist.Count > 0)
             {
                 // Locks the writer if other tests are using it
                 lock (writerLocker)

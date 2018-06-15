@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------
-// <copyright file="EmailConnectionWrapper.cs" company="Magenic">
+// <copyright file="EmailDriver.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>The basic email interactions</summary>
@@ -22,10 +22,10 @@ namespace Magenic.MaqsFramework.BaseEmailTest
     /// <summary>
     /// Wraps the basic email interactions
     /// </summary>
-    public class EmailConnectionWrapper : IDisposable
+    public class EmailDriver : IDisposable
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EmailConnectionWrapper" /> class
+        /// Initializes a new instance of the <see cref="EmailDriver" /> class
         /// </summary>
         /// <param name="host">The email server host</param>
         /// <param name="username">Email user name</param>
@@ -34,7 +34,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <param name="serverTimeout">Timeout for the email server</param>
         /// <param name="isSSL">Should SSL be used</param>
         /// <param name="skipSslCheck">Skip the SSL check</param>
-        public EmailConnectionWrapper(string host, string username, string password, int port, int serverTimeout = 10000, bool isSSL = true, bool skipSslCheck = false)
+        public EmailDriver(string host, string username, string password, int port, int serverTimeout = 10000, bool isSSL = true, bool skipSslCheck = false)
         {
             // Get the email connection and make sure it is live
             var client = new ImapClient
@@ -50,10 +50,10 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EmailConnectionWrapper" /> class
+        /// Initializes a new instance of the <see cref="EmailDriver" /> class
         /// </summary>
         /// <param name="setupEmailBaseConnectionOverride">A function that returns the email connection</param>
-        public EmailConnectionWrapper(Func<ImapClient> setupEmailBaseConnectionOverride)
+        public EmailDriver(Func<ImapClient> setupEmailBaseConnectionOverride)
         {
             this.EmailConnection = setupEmailBaseConnectionOverride();
             this.DefaultToInboxIfExists();
@@ -124,15 +124,18 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// </example>
         public virtual List<string> GetMailBoxNames()
         {
-            List<string> mailBoxes = new List<string>();
-
-            // Get all mailboxes
-            foreach (IMailFolder mailbox in this.EmailConnection.GetFolders(this.BaseNamespace()))
+            return GenericWait.WaitFor<List<string>>(() =>
             {
-                mailBoxes.Add(mailbox.FullName);
-            }
+                List<string> mailBoxes = new List<string>();
 
-            return mailBoxes;
+                // Get all mailboxes
+                foreach (IMailFolder mailbox in this.EmailConnection.GetFolders(this.BaseNamespace()))
+                {
+                    mailBoxes.Add(mailbox.FullName);
+                }
+
+                return mailBoxes;
+            });
         }
 
         /// <summary>
@@ -142,15 +145,18 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <returns>A list of mailbox names in a specific namespace</returns>
         public virtual List<string> GetMailBoxNamesInNamespace(FolderNamespace folderNamespace)
         {
-            List<string> mailBoxes = new List<string>();
-
-            // Get all mailboxes in folderNamespace
-            foreach (IMailFolder mailbox in this.EmailConnection.GetFolders(folderNamespace))
+            return GenericWait.WaitFor<List<string>>(() =>
             {
-                mailBoxes.Add(mailbox.FullName);
-            }
+                List<string> mailBoxes = new List<string>();
 
-            return mailBoxes;
+                // Get all mailboxes in folderNamespace
+                foreach (IMailFolder mailbox in this.EmailConnection.GetFolders(folderNamespace))
+                {
+                    mailBoxes.Add(mailbox.FullName);
+                }
+
+                return mailBoxes;
+            });
         }
 
         /// <summary>

@@ -6,7 +6,6 @@
 //--------------------------------------------------
 using Magenic.MaqsFramework.BaseTest;
 using Magenic.MaqsFramework.Utilities.Logging;
-using Magenic.MaqsFramework.Utilities.Performance;
 
 namespace Magenic.MaqsFramework.BaseMongoTest
 {
@@ -19,18 +18,58 @@ namespace Magenic.MaqsFramework.BaseMongoTest
         /// <summary>
         /// Initializes a new instance of the <see cref="MongoTestObject{T}" /> class
         /// </summary>
-        /// <param name="mongoCollection">The test's mongo collection</param>
+        /// <param name="connectionString">Client connection string</param>
+        /// <param name="databaseString">Database connection string</param>
+        /// <param name="collectionString">Mongo collection string</param>
         /// <param name="logger">The test's logger</param>
         /// <param name="softAssert">The test's soft assert</param>
-        /// <param name="perfTimerCollection">The test's performance timer collection</param>
-        public MongoTestObject(MongoDBCollectionWrapper<T> mongoCollection, Logger logger, SoftAssert softAssert, PerfTimerCollection perfTimerCollection) : base(logger, softAssert, perfTimerCollection)
+        /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
+        public MongoTestObject(string connectionString, string databaseString, string collectionString, Logger logger, SoftAssert softAssert, string fullyQualifiedTestName) : base(logger, softAssert, fullyQualifiedTestName)
         {
-            this.MongoDBCollectionWrapper = mongoCollection;
+            this.DriversStore.Add(typeof(MongoDriverStore<T>).FullName, new MongoDriverStore<T>(connectionString, databaseString, collectionString, this));
         }
 
         /// <summary>
-        /// Gets The Mongo Collection wrapper that is held in the test object
+        /// Gets the Mongo driver
         /// </summary>
-        public MongoDBCollectionWrapper<T> MongoDBCollectionWrapper { get; private set; }
+        public MongoDriverStore<T> MongoDBDriver
+        {
+            get
+            {
+                return this.DriversStore[typeof(MongoDriverStore<T>).FullName] as MongoDriverStore<T>;
+            }
+        }
+
+        /// <summary>
+        /// Gets the Mongo wrapper
+        /// </summary>
+        public MongoDBDriver<T> MongoDBWrapper
+        {
+            get
+            {
+                return this.MongoDBDriver.Get();
+            }
+        }
+
+        /// <summary>
+        /// Override the Mongo wrapper settings
+        /// </summary>
+        /// <param name="connectionString">Client connection string</param>
+        /// <param name="databaseString">Database connection string</param>
+        /// <param name="collectionString">Mongo collection string</param>
+        public void OverrideMongoDBWrapper(string connectionString, string databaseString, string collectionString)
+        {
+            this.DriversStore.Remove(typeof(MongoDriverStore<T>).FullName);
+            this.DriversStore.Add(typeof(MongoDriverStore<T>).FullName, new MongoDriverStore<T>(connectionString, databaseString, collectionString, this));
+        }
+
+        /// <summary>
+        /// Override the Mongo wrapper settings
+        /// </summary>
+        /// <param name="wrapper">New Mongo wrapper</param>
+        public void OverrideMongoDBWrapper(MongoDBDriver<T> wrapper)
+        {
+            this.MongoDBDriver.OverrideWrapper(wrapper);
+        }
     }
 }

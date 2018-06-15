@@ -22,7 +22,7 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         /// <summary>
         /// Log Level value area
         /// </summary>
-        private MessageType logLevel = MessageType.INFORMATION;
+        private MessageType logLevel;
 
         /// <summary>
         /// Log Level value save area

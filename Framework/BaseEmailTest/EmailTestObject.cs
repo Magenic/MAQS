@@ -7,29 +7,76 @@
 using Magenic.MaqsFramework.BaseTest;
 using Magenic.MaqsFramework.Utilities.Logging;
 using Magenic.MaqsFramework.Utilities.Performance;
+using MailKit.Net.Imap;
+using System;
 
 namespace Magenic.MaqsFramework.BaseEmailTest
-{
+{        
     /// <summary>
     /// Email test context data
     /// </summary>
     public class EmailTestObject : BaseTestObject
     {
         /// <summary>
+        /// Gets the email connection wrapper
+        /// </summary>
+        private EmailDriver wrapper;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="EmailTestObject" /> class
         /// </summary>
         /// <param name="emailConnection">The test's email connection</param>
         /// <param name="logger">The test's logger</param>
         /// <param name="softAssert">The test's soft assert</param>
-        /// <param name="perfTimerCollection">The test's performance timer collection</param>
-        public EmailTestObject(EmailConnectionWrapper emailConnection, Logger logger, SoftAssert softAssert, PerfTimerCollection perfTimerCollection) : base(logger, softAssert, perfTimerCollection)
+        /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
+        public EmailTestObject(Func<ImapClient> emailConnection, Logger logger, SoftAssert softAssert, string fullyQualifiedTestName) : base(logger, softAssert, fullyQualifiedTestName)
         {
-            this.EmailWrapper = emailConnection;
+            this.DriversStore.Add(typeof(EmailDriver).FullName, new EmailDriverStore(emailConnection, this));
         }
 
         /// <summary>
-        /// Gets the email connection wrapper
+        /// Gets the email wrapper
         /// </summary>
-        public EmailConnectionWrapper EmailWrapper { get; private set; }
+        public EmailDriver EmailWrapper
+        {
+            get
+            {
+                if (this.wrapper != null)
+                {
+                    return this.wrapper;
+                }
+
+                return (this.DriversStore[typeof(EmailDriver).FullName] as EmailDriverStore).Get();
+            }
+        }
+
+        /// <summary>
+        /// Override the email wrapper
+        /// </summary>
+        /// <param name="emailConnection">Function for getting an email connection</param>
+        public void OverrideDatabaseConnection(Func<ImapClient> emailConnection)
+        {
+            if (this.wrapper != null)
+            {
+                this.wrapper.Dispose();
+                this.wrapper = null;
+            }
+
+            this.OverrideDriver(typeof(EmailDriver).FullName, new EmailDriverStore(emailConnection, this));
+        }
+
+        /// <summary>
+        /// Override the email wrapper
+        /// </summary>
+        /// <param name="emailWrapper">The new email wrapper</param>
+        public void OverrideDatabaseWrapper(EmailDriver emailWrapper)
+        {
+            if (this.wrapper != null)
+            {
+                this.wrapper.Dispose();
+            }
+
+            this.wrapper = emailWrapper;
+        }
     }
 }

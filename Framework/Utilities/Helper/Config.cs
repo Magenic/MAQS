@@ -223,17 +223,7 @@ namespace Magenic.MaqsFramework.Utilities.Helper
             }
 
             return value != null;
-        }
-
-        /// <summary>
-        /// Does the Maqs configuration key exist
-        /// </summary>
-        /// <param name="key">Config file key</param>
-        /// <returns>True if the key exists</returns>
-        private static bool DoesMaqsKeyExist(string key)
-        {
-            return TryGetDefaultSectionValue(key, out string value);
-        }             
+        }         
 
         /// <summary>
         /// Reads the xml config file and adds the keys
@@ -273,7 +263,6 @@ namespace Magenic.MaqsFramework.Utilities.Helper
                 foreach (XElement config in node.Elements())
                 {
                     IEnumerable<XAttribute> attributes = config.Attributes();
-                    bool test = attributes.Any(x => x.Name.LocalName.Equals("key"));
 
                     if (attributes.Any(x => x.Name.LocalName.Equals("key")) && attributes.Any(y => y.Name.LocalName.Equals("value")))
                     {
