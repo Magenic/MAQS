@@ -6,16 +6,17 @@
 //--------------------------------------------------
 using Magenic.MaqsFramework.Utilities.Data;
 using Magenic.MaqsFramework.Utilities.Helper;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
 using OpenQA.Selenium.Appium.Enums;
 using OpenQA.Selenium.Appium.iOS;
+using OpenQA.Selenium.Appium.Windows;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Specialized;
 using System.Configuration;
-using OpenQA.Selenium;
 
 namespace Magenic.MaqsFramework.BaseAppiumTest
 {
@@ -107,6 +108,11 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
 
                 case "IOS":
                     appiumDriver = new IOSDriver<IWebElement>(GetMobileHubUrl(), GetMobileCapabilities(), GetCommandTimeout());
+                    break;
+
+                case "WIN":
+                case "WINDOWS":
+                    appiumDriver = new WindowsDriver<IWebElement>(GetMobileHubUrl(), GetMobileCapabilities(), GetCommandTimeout());
                     break;
 
                 default:
