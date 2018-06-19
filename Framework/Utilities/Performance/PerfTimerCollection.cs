@@ -151,7 +151,6 @@ namespace Magenic.MaqsFramework.Utilities.Performance
                         // If filename doesn't exist, we haven't created the file yet
                         if (this.FileName == null)
                         {
-                            Guid guid = Guid.NewGuid();
                             this.FileName = "PerformanceTimerResults" + "-" + this.TestName + "-" + DateTime.UtcNow.ToString("O").Replace(':', '-') + ".xml";
                         }
 
