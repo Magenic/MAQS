@@ -243,7 +243,7 @@ namespace SeleniumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof(TimeoutException))]
         public void WaitForAbsentElementFail()
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteUrl);

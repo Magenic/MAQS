@@ -143,7 +143,7 @@ namespace SeleniumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof(ArgumentException))]
         public void SetTextBoxThrowException()
         {
             this.NavigateToUrl();

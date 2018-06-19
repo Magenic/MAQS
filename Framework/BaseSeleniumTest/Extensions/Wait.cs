@@ -122,7 +122,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         {
             if (!this.UntilAbsentElement(by))
             {
-                throw new Exception(StringProcessor.SafeFormatter("The element '{0}' is still present.", by.ToString()));
+                throw new TimeoutException(StringProcessor.SafeFormatter("The element '{0}' is still present.", by.ToString()));
             }
         }
 
@@ -136,7 +136,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         {
             if (!this.UntilPageLoad())
             {
-                throw new Exception("Page load took longer than timeout configuration");
+                throw new TimeoutException("Page load took longer than timeout configuration");
             }
         }
 

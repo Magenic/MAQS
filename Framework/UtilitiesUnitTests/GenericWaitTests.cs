@@ -278,7 +278,7 @@ namespace UtilitiesUnitTesting
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof(TimeoutException))]
         public void WaitForFunctionWithInputExceptionThrown()
         {
             GenericWait.Wait<bool, string>(this.ThrowError, TESTRETRY, TESTTIMEOUT, "input");
@@ -299,7 +299,7 @@ namespace UtilitiesUnitTesting
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof(TimeoutException))]
         public void WaitForFunctionWithoutInputExceptionThrown()
         {
             GenericWait.Wait<bool>(this.ThrowError, TESTRETRY, TESTTIMEOUT);

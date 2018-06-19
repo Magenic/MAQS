@@ -148,7 +148,7 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
                     break;
 
                 default:
-                    throw new Exception(StringProcessor.SafeFormatter($"Provider type '{providerType}' is not supported"));
+                    throw new ArgumentException(StringProcessor.SafeFormatter($"Provider type '{providerType}' is not supported"));
             }
 
             return provider;

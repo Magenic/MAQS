@@ -7,13 +7,9 @@
 using Magenic.MaqsFramework.BaseTest;
 using Magenic.MaqsFramework.Utilities.Data;
 using Magenic.MaqsFramework.Utilities.Helper;
-using Magenic.MaqsFramework.Utilities.Logging;
-using OpenQA.Selenium.Appium;
 
 namespace Magenic.MaqsFramework.BaseAppiumTest
 {
-    using OpenQA.Selenium;
-
     /// <summary>
     /// Soft Assert override for appium tests
     /// </summary>

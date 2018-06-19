@@ -95,7 +95,7 @@
     <Compile Include="ActionBuilderUnitTests.cs" />
     <Compile Include="BaseFrameworkTests.cs" />
     <Compile Include="ElementHandlerUnitTests.cs" />
-    <Compile Include="FluentElementUnitTests.cs" />
+    <Compile Include="LazyElementUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SeleniumConfigTests.cs" />
     <Compile Include="SeleniumCustomConfigUnitTest.cs" />

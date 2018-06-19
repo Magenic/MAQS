@@ -132,7 +132,7 @@ namespace WebServiceTesterUnitTesting
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void WebServiceUtilsDeserializeResponseThrownException()
         {
             StringContent content = WebServiceUtils.MakeStringContent<ProductJson>(Product, Encoding.UTF8, "application/json");
@@ -145,7 +145,7 @@ namespace WebServiceTesterUnitTesting
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof(NotSupportedException))]
         public void MakeStreamContentThrowException()
         {
             StreamContent streamContent = WebServiceUtils.MakeStreamContent<ProductJson>(Product, Encoding.UTF8, "notsupported");
@@ -156,7 +156,7 @@ namespace WebServiceTesterUnitTesting
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof(NotSupportedException))]
         public void MakeStringContentThrowException()
         {
             StringContent streamContent = WebServiceUtils.MakeStringContent<ProductJson>(Product, Encoding.UTF8, "notsupported");

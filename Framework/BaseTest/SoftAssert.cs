@@ -146,10 +146,10 @@ namespace Magenic.MaqsFramework.BaseTest
                 {
                     if (string.IsNullOrEmpty(message))
                     {
-                        throw new Exception(StringProcessor.SafeFormatter("SoftAssert.AreEqual failed for {0}.  Expected '{1}' but got '{2}'", softAssertName, expectedText, actualText));
+                        throw new SoftAssertException(StringProcessor.SafeFormatter("SoftAssert.AreEqual failed for {0}.  Expected '{1}' but got '{2}'", softAssertName, expectedText, actualText));
                     }
 
-                    throw new Exception(StringProcessor.SafeFormatter("SoftAssert.AreEqual failed for {0}.  Expected '{1}' but got '{2}'.  {3}", softAssertName, expectedText, actualText, message));
+                    throw new SoftAssertException(StringProcessor.SafeFormatter("SoftAssert.AreEqual failed for {0}.  Expected '{1}' but got '{2}'.  {3}", softAssertName, expectedText, actualText, message));
                 }
             }
 
@@ -174,10 +174,10 @@ namespace Magenic.MaqsFramework.BaseTest
                 {
                     if (string.IsNullOrEmpty(failureMessage))
                     {
-                        throw new Exception(StringProcessor.SafeFormatter("SoftAssert.IsTrue failed for: {0}", softAssertName));
+                        throw new SoftAssertException(StringProcessor.SafeFormatter("SoftAssert.IsTrue failed for: {0}", softAssertName));
                     }
 
-                    throw new Exception(StringProcessor.SafeFormatter("SoftAssert.IsTrue failed for: {0}. {1}", softAssertName, failureMessage));
+                    throw new SoftAssertException(StringProcessor.SafeFormatter("SoftAssert.IsTrue failed for: {0}. {1}", softAssertName, failureMessage));
                 }
             }
 
@@ -202,10 +202,10 @@ namespace Magenic.MaqsFramework.BaseTest
                 {
                     if (string.IsNullOrEmpty(failureMessage))
                     {
-                        throw new Exception(StringProcessor.SafeFormatter("SoftAssert.IsFalse failed for: {0}", softAssertName));
+                        throw new SoftAssertException(StringProcessor.SafeFormatter("SoftAssert.IsFalse failed for: {0}", softAssertName));
                     }
 
-                    throw new Exception(StringProcessor.SafeFormatter("SoftAssert.IsFalse failed for: {0}. {1}", softAssertName, failureMessage));
+                    throw new SoftAssertException(StringProcessor.SafeFormatter("SoftAssert.IsFalse failed for: {0}. {1}", softAssertName, failureMessage));
                 }
             }
 
