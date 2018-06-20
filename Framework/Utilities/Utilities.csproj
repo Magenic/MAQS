@@ -16,7 +16,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Helper\" />
     <Folder Include="Logging\" />
     <Folder Include="Performance\" />
   </ItemGroup>

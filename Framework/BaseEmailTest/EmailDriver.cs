@@ -553,7 +553,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
                 }
             }
 
-            throw new Exception(StringProcessor.SafeFormatter("Failed to find content type '{0}'", contentType));
+            throw new KeyNotFoundException(StringProcessor.SafeFormatter("Failed to find content type '{0}'", contentType));
         }
 
         /// <summary>
@@ -616,14 +616,6 @@ namespace Magenic.MaqsFramework.BaseEmailTest
                 }
 
                 messageList.Add(message);
-            }
-
-            foreach (MimeMessage message in messageList)
-            {
-                if (message.Subject == null)
-                {
-                    throw new Exception("Invalid results - found null subject");
-                }
             }
 
             return messageList;

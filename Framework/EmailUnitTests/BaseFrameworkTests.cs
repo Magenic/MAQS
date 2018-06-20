@@ -35,7 +35,7 @@ namespace EmailUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Framework)]
-        [ExpectedException(typeof(System.Exception))]
+        [ExpectedException(typeof(AssertFailedException))]
         public new void SoftAssertWithFailure()
         {
             base.SoftAssertWithFailure();

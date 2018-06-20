@@ -136,7 +136,7 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         {
             if (string.IsNullOrEmpty(name))
             {
-                throw new Exception("Blank file name was provide");
+                throw new ArgumentException("Blank file name was provide");
             }
 
             // Create a regex to replace invalid characters

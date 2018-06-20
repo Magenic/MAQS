@@ -238,7 +238,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
             }
             else
             {
-                throw new Exception("String is either null or empty");
+                throw new ArgumentException("String is either null or empty");
             }
         }
 
@@ -349,8 +349,8 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
             catch (Exception e)
             {
                 logger.ContinueLogging();
-                logger.LogMessage(MessageType.ERROR, "An error occured: " + e);
-                throw new Exception("Exception durring sending secret keys: " + e.Message);
+                logger.LogMessage(MessageType.ERROR, "Exception durring sending secret keys: " + e.Message + Environment.NewLine + e.StackTrace);
+                throw e;
             }
         }
     }

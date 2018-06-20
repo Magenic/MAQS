@@ -55,7 +55,7 @@ namespace BaseTestUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Framework)]
-        [ExpectedException(typeof(System.Exception))]
+        [ExpectedException(typeof(AssertFailedException))]
         public void SoftAssertWithFailure()
         {
             BaseTest tester = this.GetBaseTest();
@@ -102,7 +102,7 @@ namespace BaseTestUnitTests
             catch (Exception e)
             {
                 // Assert we got the error we were looking for
-                NUnit.Framework.Assert.AreEqual(typeof(Exception), e.GetType());
+                NUnit.Framework.Assert.AreEqual(typeof(AssertFailedException), e.GetType());
             }
         }
 

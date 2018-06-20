@@ -1,14 +1,16 @@
 ﻿//--------------------------------------------------
-// <copyright file="FluentElement.cs" company="Magenic">
+// <copyright file="LazyElement.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
-// <summary>This is the FluentElement class</summary>
+// <summary>This is the LazyElement class</summary>
 //--------------------------------------------------
 using Magenic.MaqsFramework.Utilities.Logging;
 using OpenQA.Selenium;
 using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
@@ -16,28 +18,28 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
     /// <summary>
     /// Wrapper for dynamically finding and interacting with elements
     /// </summary>
-    public class FluentElement
+    public class LazyElement : IWebElement
     {
         /// <summary>
         /// A user friendly name, for logging purposes
         /// </summary>
-        private readonly string userFriendlyName;
+        private string userFriendlyName;
 
         /// <summary>
-        /// The parent fluent element
+        /// The parent lazy element
         /// </summary>
-        private readonly FluentElement parent;
+        private LazyElement parent;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FluentElement" /> class
+        /// Initializes a new instance of the <see cref="LazyElement" /> class
         /// </summary>
         /// <param name="testObject">The base Selenium test object</param>
         /// <param name="locator">The 'by' selector for the element</param>
         /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementCreate" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementCreate" lang="C#" />
         /// </example>
-        public FluentElement(SeleniumTestObject testObject, By locator, string userFriendlyName)
+        public LazyElement(SeleniumTestObject testObject, By locator, [CallerMemberName] string userFriendlyName = null)
         {
             this.TestObject = testObject;
             this.By = locator;
@@ -45,15 +47,15 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FluentElement" /> class
+        /// Initializes a new instance of the <see cref="LazyElement" /> class
         /// </summary>
-        /// <param name="parent">The parent fluent element</param>
+        /// <param name="parent">The parent lazy element</param>
         /// <param name="locator">The 'by' selector for the element</param>
         /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementCreateWithParent" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementCreateWithParent" lang="C#" />
         /// </example>
-        public FluentElement(FluentElement parent, By locator, string userFriendlyName) : this(parent.TestObject, locator, userFriendlyName)
+        public LazyElement(LazyElement parent, By locator, [CallerMemberName] string userFriendlyName = null) : this(parent.TestObject, locator, userFriendlyName)
         {
             this.parent = parent;
         }
@@ -62,7 +64,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// Gets a the 'by' selector for the element
         /// </summary>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementGetBy" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementGetBy" lang="C#" />
         /// </example>
         public By By { get; private set; }
 
@@ -70,7 +72,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// Gets the test object for the element
         /// </summary>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementGetTestObject" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementGetTestObject" lang="C#" />
         /// </example>
         public SeleniumTestObject TestObject { get; private set; }
 
@@ -78,15 +80,15 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// Gets a cached copy of the element or null if we haven't already found the element
         /// </summary>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentCaching" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyCaching" lang="C#" />
         /// </example>
         public IWebElement CachedElement { get; private set; }
 
         /// <summary>
-        /// Gets a value indicating whether the fluent element is enabled
+        /// Gets a value indicating whether the lazy element is enabled
         /// </summary>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementEnabled" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementEnabled" lang="C#" />
         /// </example>
         public bool Enabled
         {
@@ -97,10 +99,10 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         }
 
         /// <summary>
-        /// Gets a value indicating whether the fluent element is selected
+        /// Gets a value indicating whether the lazy element is selected
         /// </summary>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementSelected" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementSelected" lang="C#" />
         /// </example>
         public bool Selected
         {
@@ -111,10 +113,10 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         }
 
         /// <summary>
-        /// Gets a value indicating whether the fluent element is displayed
+        /// Gets a value indicating whether the lazy element is displayed
         /// </summary>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementDisplayed" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementDisplayed" lang="C#" />
         /// </example>
         public bool Displayed
         {
@@ -125,10 +127,10 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         }
 
         /// <summary>
-        /// Gets the fluent element's tag name
+        /// Gets the lazy element's tag name
         /// </summary>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementTagName" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementTagName" lang="C#" />
         /// </example>
         public string TagName
         {
@@ -139,10 +141,10 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         }
 
         /// <summary>
-        /// Gets the fluent element's text
+        /// Gets the lazy element's text
         /// </summary>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementText" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementText" lang="C#" />
         /// </example>
         public string Text
         {
@@ -153,10 +155,10 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         }
 
         /// <summary>
-        /// Gets the fluent element's location
+        /// Gets the lazy element's location
         /// </summary>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementLocation" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementLocation" lang="C#" />
         /// </example>
         public Point Location
         {
@@ -167,10 +169,10 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         }
 
         /// <summary>
-        /// Gets the fluent element's size
+        /// Gets the lazy element's size
         /// </summary>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementSize" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementSize" lang="C#" />
         /// </example>
         public Size Size
         {
@@ -181,10 +183,10 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         }
 
         /// <summary>
-        /// Click the fluent element 
+        /// Click the lazy element 
         /// </summary>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementClick" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementClick" lang="C#" />
         /// </example>
         public void Click()
         {
@@ -193,11 +195,11 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         }
 
         /// <summary>
-        /// Send keys to the fluent element
+        /// Send keys to the lazy element
         /// </summary>
-        /// <param name="keys">The keys to send to the fluent element</param>
+        /// <param name="keys">The keys to send to the lazy element</param>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementSendKeys" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementSendKeys" lang="C#" />
         /// </example>
         public void SendKeys(string keys)
         {
@@ -210,7 +212,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </summary>
         /// <param name="keys">The keys to send</param>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementSendSecretKeys" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementSendSecretKeys" lang="C#" />
         /// </example>
         public void SendSecretKeys(string keys)
         {
@@ -224,16 +226,16 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
             catch (Exception e)
             {
                 this.TestObject.Log.ContinueLogging();
-                this.TestObject.Log.LogMessage(MessageType.ERROR, "An error occured: " + e);
-                throw new Exception("Exception durring sending secret keys: " + e.Message);
+                this.TestObject.Log.LogMessage(MessageType.ERROR, "Exception durring sending secret keys: " + e.Message + Environment.NewLine + e.StackTrace);
+                throw e;
             }
         }
 
         /// <summary>
-        /// Clear the fluent element 
+        /// Clear the lazy element 
         /// </summary>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementClear" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementClear" lang="C#" />
         /// </example>
         public void Clear()
         {
@@ -242,10 +244,10 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         }
 
         /// <summary>
-        /// Submit the fluent element 
+        /// Submit the lazy element 
         /// </summary>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementSubmit" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementSubmit" lang="C#" />
         /// </example>
         public void Submit()
         {
@@ -259,7 +261,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// <param name="attributeName">The given attribute name</param>
         /// <returns>The attribute value</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementGetAttribute" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementGetAttribute" lang="C#" />
         /// </example>
         public string GetAttribute(string attributeName)
         {
@@ -271,7 +273,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </summary>
         /// <returns>The element's current value</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementSendKeys" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementSendKeys" lang="C#" />
         /// </example>
         public string GetValue()
         {
@@ -284,7 +286,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// <param name="attributeName">The given attribute name</param>
         /// <returns>The CSS value</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementGetCssValue" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementGetCssValue" lang="C#" />
         /// </example>
         public string GetCssValue(string attributeName)
         {
@@ -296,8 +298,8 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </summary>
         /// <returns>The web visible web element</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementVisibleElement" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentGetVisibleTriggerFind" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementVisibleElement" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyGetVisibleTriggerFind" lang="C#" />
         /// </example>
         public IWebElement GetTheVisibleElement()
         {
@@ -312,8 +314,8 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </summary>
         /// <returns>The web clickable web element</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementClickableElement" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentGetClickableTriggerFind" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementClickableElement" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyGetClickableTriggerFind" lang="C#" />
         /// </example>
         public IWebElement GetTheClickableElement()
         {
@@ -328,8 +330,8 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </summary>
         /// <returns>The web web element</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentElementExistingElement" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/FluentElementUnitTests.cs" region="FluentGetExistTriggerFind" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementExistingElement" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyGetExistTriggerFind" lang="C#" />
         /// </example>
         public IWebElement GetTheExistingElement()
         {
@@ -337,6 +339,36 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
                 this.parent.GetTheExistingElement().Wait().ForElementExist(this.By);
 
             return this.CachedElement;
+        }
+
+        /// <summary>
+        /// Gets the value of a JavaScript property of this element
+        /// </summary>
+        /// <param name="propertyName">The name JavaScript the JavaScript property to get the value of</param>
+        /// <returns> The JavaScript property's current value. Returns a null if the value is not set or the property does not exist</returns>
+        public string GetProperty(string propertyName)
+        {
+            return this.GetTheExistingElement().GetProperty(propertyName);
+        }
+
+        /// <summary>
+        /// Finds the first OpenQA.Selenium.IWebElement using the given method.
+        /// </summary>
+        /// <param name="by">The locating mechanism to use</param>
+        /// <returns>The first matching OpenQA.Selenium.IWebElement on the current context</returns>
+        public IWebElement FindElement(By by)
+        {
+            return this.GetTheExistingElement().FindElement(by);
+        }
+
+        /// <summary>
+        /// Finds all OpenQA.Selenium.IWebElement within the current context using the given mechanism.
+        /// </summary>
+        /// <param name="by">The locating mechanism to use</param>
+        /// <returns>All web elements matching the current criteria, or an empty list if nothing matches</returns>
+        public ReadOnlyCollection<IWebElement> FindElements(By by)
+        {
+            return this.GetTheExistingElement().FindElements(by);
         }
 
         /// <summary>
@@ -363,7 +395,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
 
             try
             {
-                this.TestObject.Log.LogMessage(MessageType.VERBOSE, "Performing fluent wrapper find on: " + this.By);
+                this.TestObject.Log.LogMessage(MessageType.VERBOSE, "Performing lazy wrapper find on: " + this.By);
                 this.CachedElement = getElement();
                 return this.CachedElement;
             }
@@ -389,7 +421,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         {
             try
             {
-                this.TestObject.Log.LogMessage(MessageType.VERBOSE, "Performing fluent wrapper action: " + caller);
+                this.TestObject.Log.LogMessage(MessageType.VERBOSE, "Performing lazy wrapper action: " + caller);
                 elementAction.Invoke();
             }
             catch (Exception e)

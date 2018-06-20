@@ -90,7 +90,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                         break;
 
                     default:
-                        throw new Exception(StringProcessor.SafeFormatter("Browser type '{0}' is not supported", browser));
+                        throw new ArgumentException(StringProcessor.SafeFormatter("Browser type '{0}' is not supported", browser));
                 }
 
                 SetBrowserSize(webDriver);
@@ -141,7 +141,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
             string value = Config.GetValue("SeleniumCommandTimeout", "60");
             if (!int.TryParse(value, out int timeout))
             {
-                throw new Exception("SeleniumCommandTimeout should be a number but the current value is: " + value);
+                throw new ArgumentException("SeleniumCommandTimeout should be a number but the current value is: " + value);
             }
 
             return TimeSpan.FromSeconds(timeout);
@@ -272,7 +272,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
             // We didn't find the web driver so throw an error if we need to know where it is
             if (mustExist)
             {
-                throw new Exception(StringProcessor.SafeFormatter("Unable to find driver for '{0}'", driverFile));
+                throw new FileNotFoundException(StringProcessor.SafeFormatter("Unable to find driver for '{0}'", driverFile));
             }
 
             return string.Empty;
@@ -348,8 +348,12 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                     options = new SafariOptions();
                     break;
 
+                case "GENERIC":
+                    options = new GenericBrowserOptions();
+                    break;
+
                 default:
-                    throw new Exception(StringProcessor.SafeFormatter("Remote browser type '{0}' is not supported", remoteBrowser));
+                    throw new ArgumentException(StringProcessor.SafeFormatter("Remote browser type '{0}' is not supported", remoteBrowser));
             }
 
             // Add a platform setting if one was provided
@@ -365,7 +369,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
             }
 
             // Add RemoteCapabilites section if it exists
-            options.SetRemoteCapabilities();
+            options.SetDriverOptions();
 
             return options.ToCapabilities();
         }
@@ -375,7 +379,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// </summary>
         /// <param name="driverOptions">The driver options to make this an extension method</param>
         /// <returns>The altered <see cref="DriverOptions"/> driver options</returns>
-        private static DriverOptions SetRemoteCapabilities(this DriverOptions driverOptions)
+        private static DriverOptions SetDriverOptions(this DriverOptions driverOptions)
         {
             Dictionary<string, string> remoteCapabilitySection = Config.GetSection("RemoteSeleniumCapsMaqs");
 

@@ -33,7 +33,7 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         /// Initializes a new instance of the <see cref="Logger" /> class.
         /// </summary>
         /// <param name="level">The logging level</param>
-        public Logger(MessageType level = MessageType.INFORMATION)
+        protected Logger(MessageType level = MessageType.INFORMATION)
         {
             this.logLevel = level;
         }

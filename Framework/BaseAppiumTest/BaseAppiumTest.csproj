@@ -73,7 +73,7 @@
     <Compile Include="AppiumTestObject.cs" />
     <Compile Include="AppiumUtilities.cs" />
     <Compile Include="BaseAppiumTest.cs" />
-    <Compile Include="FluentMobileElement.cs" />
+    <Compile Include="LazyMobileElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MobileDriverStore.cs" />
   </ItemGroup>

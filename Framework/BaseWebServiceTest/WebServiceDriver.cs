@@ -716,7 +716,7 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
             // Make sure a response was returned
             if (response == null)
             {
-                throw new Exception("Response was null");
+                throw new HttpRequestException("Response was null");
             }
 
             // Check if it was a success and if not create a user friendly error message
@@ -724,7 +724,7 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
             {
                 string body = response.Content.ReadAsStringAsync().Result;
 
-                throw new Exception(
+                throw new HttpRequestException(
                     StringProcessor.SafeFormatter(
                         "Response did not indicate a success.{0}Response code was: {1} ({2}){0}{3}",
                     Environment.NewLine,

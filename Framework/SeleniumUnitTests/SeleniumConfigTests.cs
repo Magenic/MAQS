@@ -343,7 +343,7 @@ namespace UnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof(ArgumentException))]
         [DoNotParallelize]
         public void GetBrowserRemoteThrowException()
         {

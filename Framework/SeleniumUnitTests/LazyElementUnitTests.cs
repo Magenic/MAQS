@@ -1,8 +1,8 @@
 ﻿//-----------------------------------------------------
-// <copyright file="FluentElementUnitTests.cs" company="Magenic">
+// <copyright file="LazyElementUnitTests.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
-// <summary>Test the fluent element unit tests</summary>
+// <summary>Test the lazy element unit tests</summary>
 //-----------------------------------------------------
 using Magenic.MaqsFramework.BaseSeleniumTest;
 using Magenic.MaqsFramework.BaseSeleniumTest.Extensions;
@@ -18,110 +18,110 @@ using System.IO;
 namespace SeleniumUnitTests
 {
     /// <summary>
-    /// Unit test class for FluentElement
+    /// Unit test class for LazyElement
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class FluentElementUnitTests : BaseSeleniumTest
+    public class LazyElementUnitTests : BaseSeleniumTest
     {
         /// <summary>
         /// Gets the disabled item
         /// </summary>
-        #region FluentElementCreate
-        private FluentElement DisabledItem
+        #region LazyElementCreate
+        private LazyElement DisabledItem
         {
-            get { return new FluentElement(this.TestObject, By.CssSelector("#disabledField INPUT"), "Disabled"); }
+            get { return new LazyElement(this.TestObject, By.CssSelector("#disabledField INPUT"), "Disabled"); }
         }
         #endregion
 
         /// <summary>
         /// Gets the input box
         /// </summary>
-        private FluentElement InputBox
+        private LazyElement InputBox
         {
-            get { return new FluentElement(this.TestObject, By.CssSelector("#TextFields [name='firstname']"), "Input box"); }
+            get { return new LazyElement(this.TestObject, By.CssSelector("#TextFields [name='firstname']"), "Input box"); }
         }
 
         /// <summary>
         /// Gets dialog one
         /// </summary>
-        private FluentElement DialogOne
+        private LazyElement DialogOne
         {
-            get { return new FluentElement(this.TestObject, By.CssSelector("#CloseButtonShowDialog"), "Dialog"); }
+            get { return new LazyElement(this.TestObject, By.CssSelector("#CloseButtonShowDialog"), "Dialog"); }
         }
 
         /// <summary>
         /// Gets the dialog one button
         /// </summary>
-        private FluentElement DialogOneButton
+        private LazyElement DialogOneButton
         {
-            get { return new FluentElement(this.TestObject, By.CssSelector("#showDialog1"), "Dialog"); }
+            get { return new LazyElement(this.TestObject, By.CssSelector("#showDialog1"), "Dialog"); }
         }
 
         /// <summary>
         /// Gets the submit button
         /// </summary>
-        private FluentElement SubmitButton
+        private LazyElement SubmitButton
         {
-            get { return new FluentElement(this.TestObject, By.CssSelector("[class='btn btn-default'][type='submit']"), "Submit button"); }
+            get { return new LazyElement(this.TestObject, By.CssSelector("[class='btn btn-default'][type='submit']"), "Submit button"); }
         }
 
         /// <summary>
         /// Gets an item that is not going to be selected
         /// </summary>
-        private FluentElement NotSelected
+        private LazyElement NotSelected
         {
-            get { return new FluentElement(this.TestObject, By.CssSelector("#computerParts [value='one']"), "Not selected"); }
+            get { return new LazyElement(this.TestObject, By.CssSelector("#computerParts [value='one']"), "Not selected"); }
         }
 
         /// <summary>
         /// Gets an item that is going to be selected
         /// </summary>
-        private FluentElement Selected
+        private LazyElement Selected
         {
-            get { return new FluentElement(this.TestObject, By.CssSelector("#computerParts [value='two']"), "Selected"); }
+            get { return new LazyElement(this.TestObject, By.CssSelector("#computerParts [value='two']"), "Selected"); }
         }
 
         /// <summary>
         /// Gets a parent element
         /// </summary>
-        private FluentElement FlowerTableFluentElement
+        private LazyElement FlowerTableLazyElement
         {
-            get { return new FluentElement(this.TestObject, By.CssSelector("#FlowerTable"), "Flower table"); }
+            get { return new LazyElement(this.TestObject, By.CssSelector("#FlowerTable"), "Flower table"); }
         }
 
         /// <summary>
         /// Gets a child element, the second table caption
         /// </summary>
-        #region FluentElementCreateWithParent
-        private FluentElement FlowerTableCaptionWithParent
+        #region LazyElementCreateWithParent
+        private LazyElement FlowerTableCaptionWithParent
         {
-            get { return new FluentElement(this.FlowerTableFluentElement, By.CssSelector("CAPTION > Strong"), "Flower table caption"); }
+            get { return new LazyElement(this.FlowerTableLazyElement, By.CssSelector("CAPTION > Strong"), "Flower table caption"); }
         }
         #endregion
 
         /// <summary>
         /// Gets the first table caption
         /// </summary>
-        private FluentElement FirstTableCaption
+        private LazyElement FirstTableCaption
         {
-            get { return new FluentElement(this.TestObject, By.CssSelector("CAPTION > Strong"), "Clothing table caption"); }
+            get { return new LazyElement(this.TestObject, By.CssSelector("CAPTION > Strong"), "Clothing table caption"); }
         }
 
         /// <summary>
         /// Gets the disabled DIV
         /// </summary>
-        private FluentElement DisabledDiv
+        private LazyElement DisabledDiv
         {
-            get { return new FluentElement(this.TestObject, By.CssSelector("#disabledField"), "Parent disabled div"); }
+            get { return new LazyElement(this.TestObject, By.CssSelector("#disabledField"), "Parent disabled div"); }
         }
 
         /// <summary>
         /// Gets the disabled input
         /// </summary>
-        private FluentElement DisabledInput
+        private LazyElement DisabledInput
         {
-            get { return new FluentElement(this.DisabledDiv, By.CssSelector("INPUT"), "Flower table caption"); }
+            get { return new LazyElement(this.DisabledDiv, By.CssSelector("INPUT"), "Flower table caption"); }
         }
 
         /// <summary>
@@ -135,11 +135,11 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify Fluent Element search respects the parent find by finding mismatch
+        /// Verify Lazy Element search respects the parent find by finding mismatch
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentWithParentAndWithoutDontMatch()
+        public void LazyWithParentAndWithoutDontMatch()
         {
             // Make sure we got the table caption we are looking for
             Assert.AreEqual("Flower Table", this.FlowerTableCaptionWithParent.Text);
@@ -149,14 +149,14 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify Fluent Element search respects the parent find by finding match
+        /// Verify Lazy Element search respects the parent find by finding match
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentWithParentAndWithoutMatch()
+        public void LazyWithParentAndWithoutMatch()
         {
-            // Get the fluent element without a parent
-            FluentElement flowerTableCaptionWithoutParent = new FluentElement(this.TestObject, By.CssSelector("#FlowerTable CAPTION > Strong"), "Flower table");
+            // Get the lazy element without a parent
+            LazyElement flowerTableCaptionWithoutParent = new LazyElement(this.TestObject, By.CssSelector("#FlowerTable CAPTION > Strong"), "Flower table");
 
             // Make sure we are finding the correct table
             Assert.AreEqual("Flower Table", this.FlowerTableCaptionWithParent.Text);
@@ -166,15 +166,15 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify Fluent Element is cached as expected
+        /// Verify Lazy Element is cached as expected
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        
-        public void FluentPreCaching()
+
+        public void LazyPreCaching()
         {
-            // Create the fluent element and use it
-            FluentElement footer = new FluentElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
+            // Create the lazy element and use it
+            LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
 
             // Make sure we are getting ack the same cached element
             Assert.IsNull(footer.CachedElement, "The cached element should be null as we never triggered a find");
@@ -187,8 +187,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void NewFindDifferentThanCached()
         {
-            // Create the fluent element and use it
-            FluentElement footer = new FluentElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
+            // Create the lazy element and use it
+            LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
 
             // Trigger a find and save off the element
             string value = footer.GetValue();
@@ -207,11 +207,11 @@ namespace SeleniumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        #region FluentCaching
-        public void FluentElementCached()
+        #region LazyCaching
+        public void LazyElementCached()
         {
-            // Create the fluent element and use it
-            FluentElement footer = new FluentElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
+            // Create the lazy element and use it
+            LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
 
             // Trigger a find and save off the element
             string value = footer.GetValue();
@@ -231,11 +231,11 @@ namespace SeleniumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        #region FluentStaleCache
-        public void FluentCaching()
+        #region LazyStaleCache
+        public void LazyCaching()
         {
-            // Create the fluent element and use it
-            FluentElement footer = new FluentElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
+            // Create the lazy element and use it
+            LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
 
             // Trigger a find and save off the element
             string value = footer.GetValue();
@@ -259,10 +259,10 @@ namespace SeleniumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentGetsTriggerFind()
+        public void LazyGetsTriggerFind()
         {
-            // Create the fluent element and use it
-            FluentElement footer = new FluentElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
+            // Create the lazy element and use it
+            LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
 
             IWebElement cacheFooter = footer.GetTheVisibleElement();
 
@@ -273,13 +273,13 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Verify the get clickable element triggers new finds - We do this because we are looking for specific states
         /// </summary>
-        #region FluentGetClickableTriggerFind
+        #region LazyGetClickableTriggerFind
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentGetClickableTriggerFind()
+        public void LazyGetClickableTriggerFind()
         {
-            // Create the fluent element and use it
-            FluentElement footer = new FluentElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
+            // Create the lazy element and use it
+            LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
 
             IWebElement cacheFooter = footer.GetTheVisibleElement();
 
@@ -293,11 +293,11 @@ namespace SeleniumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        #region FluentGetExistTriggerFind
-        public void FluentGetExistTriggerFind()
+        #region LazyGetExistTriggerFind
+        public void LazyGetExistTriggerFind()
         {
-            // Create the fluent element and use it
-            FluentElement footer = new FluentElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
+            // Create the lazy element and use it
+            LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
 
             IWebElement cacheFooter = footer.GetTheVisibleElement();
 
@@ -309,13 +309,13 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Verify the get visible element triggers new finds - We do this because we are looking for specific states
         /// </summary>
-        #region FluentGetVisibleTriggerFind
+        #region LazyGetVisibleTriggerFind
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentGetVisibleTriggerFind()
+        public void LazyGetVisibleTriggerFind()
         {
-            // Create the fluent element and use it
-            FluentElement footer = new FluentElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
+            // Create the lazy element and use it
+            LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
 
             IWebElement cacheFooter = footer.GetTheVisibleElement();
 
@@ -325,12 +325,12 @@ namespace SeleniumUnitTests
         #endregion
 
         /// <summary>
-        /// Verify Fluent Element Clear test
+        /// Verify Lazy Element Clear test
         /// </summary>
-        #region FluentElementClear
+        #region LazyElementClear
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentElementClear()
+        public void LazyElementClear()
         {
             // Make sure we can set the value
             this.InputBox.SendKeys("test");
@@ -343,12 +343,12 @@ namespace SeleniumUnitTests
         #endregion
 
         /// <summary>
-        /// Verify Fluent Element Click test
+        /// Verify Lazy Element Click test
         /// </summary>
-        #region FluentElementClick
+        #region LazyElementClick
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentElementClick()
+        public void LazyElementClick()
         {
             this.DialogOneButton.Click();
             Assert.AreEqual(true, this.DialogOne.Displayed);
@@ -356,84 +356,84 @@ namespace SeleniumUnitTests
         #endregion
 
         /// <summary>
-        /// Verify Fluent Element get By test
+        /// Verify Lazy Element get By test
         /// </summary>
-        #region FluentElementGetBy
+        #region LazyElementGetBy
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentElementGetBy()
+        public void LazyElementGetBy()
         {
             By testBy = By.CssSelector("#ItemsToAutomate");
-            FluentElement testFluentElement = new FluentElement(this.TestObject, testBy, "TEST");
+            LazyElement testLazyElement = new LazyElement(this.TestObject, testBy, "TEST");
 
-            Assert.AreEqual(testBy, testFluentElement.By);
+            Assert.AreEqual(testBy, testLazyElement.By);
         }
         #endregion
 
         /// <summary>
-        /// Verify Fluent Element get of the test object
+        /// Verify Lazy Element get of the test object
         /// </summary>
-        #region FluentElementGetTestObject
+        #region LazyElementGetTestObject
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentElementGetTestObject()
+        public void LazyElementGetTestObject()
         {
-            FluentElement testFluentElement = new FluentElement(this.TestObject, By.CssSelector("#ItemsToAutomate"), "TEST");
-            Assert.AreEqual(this.TestObject, testFluentElement.TestObject);
+            LazyElement testLazyElement = new LazyElement(this.TestObject, By.CssSelector("#ItemsToAutomate"), "TEST");
+            Assert.AreEqual(this.TestObject, testLazyElement.TestObject);
         }
         #endregion
 
         /// <summary>
-        /// Verify Fluent Element GetAttribute test
+        /// Verify Lazy Element GetAttribute test
         /// </summary>
-        #region FluentElementGetAttribute
+        #region LazyElementGetAttribute
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentElementGetAttribute()
+        public void LazyElementGetAttribute()
         {
             Assert.AreEqual("Disabled", this.DisabledItem.GetAttribute("value"));
         }
         #endregion
 
         /// <summary>
-        /// Verify Fluent Element with a parent GetAttribute test
+        /// Verify Lazy Element with a parent GetAttribute test
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentElementGetAttributeWithParent()
+        public void LazyElementGetAttributeWithParent()
         {
             Assert.AreEqual("Disabled", this.DisabledInput.GetAttribute("value"));
         }
 
         /// <summary>
-        /// Verify Fluent Element GetCssValue test
+        /// Verify Lazy Element GetCssValue test
         /// </summary>
-        #region FluentElementGetCssValue
+        #region LazyElementGetCssValue
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentElementGetCssValue()
+        public void LazyElementGetCssValue()
         {
             Assert.AreEqual("visible", this.DialogOneButton.GetCssValue("overflow"));
         }
         #endregion
 
         /// <summary>
-        /// Verify Fluent Element with parent GetCssValue test
+        /// Verify Lazy Element with parent GetCssValue test
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentElementGetCssValueWithParent()
+        public void LazyElementGetCssValueWithParent()
         {
             Assert.AreEqual("280px", this.DisabledInput.GetCssValue("max-width"));
         }
 
         /// <summary>
-        /// Verify Fluent Element SendKeys test
+        /// Verify Lazy Element SendKeys test
         /// </summary>
-        #region FluentElementSendKeys
+        #region LazyElementSendKeys
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentElementSendKeys()
+        public void LazyElementSendKeys()
         {
             this.InputBox.SendKeys("test");
             Assert.AreEqual("test", this.InputBox.GetValue());
@@ -441,23 +441,23 @@ namespace SeleniumUnitTests
         #endregion
 
         /// <summary>
-        /// Verify Fluent Element with a parent SendKeys test
+        /// Verify Lazy Element with a parent SendKeys test
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         [ExpectedException(typeof(Exception), "The input should be disabled so this will throw an exception.")]
-        public void FluentElementSendKeysWithParent()
+        public void LazyElementSendKeysWithParent()
         {
             this.DisabledInput.SendKeys("test");
         }
 
         /// <summary>
-        /// Verify Fluent Element SendKeys test
+        /// Verify Lazy Element SendKeys test
         /// </summary>
-        #region FluentElementSendSecretKeys
+        #region LazyElementSendSecretKeys
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentElementSendSecretKeys()
+        public void LazyElementSendSecretKeys()
         {
             this.InputBox.SendKeys("beforeSuspendTest");
             this.InputBox.Clear();
@@ -476,12 +476,12 @@ namespace SeleniumUnitTests
         #endregion
 
         /// <summary>
-        /// Verify Fluent Element Submit test
+        /// Verify Lazy Element Submit test
         /// </summary>
-        #region FluentElementSubmit
+        #region LazyElementSubmit
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentElementSubmit()
+        public void LazyElementSubmit()
         {
             this.WebDriver.Navigate().GoToUrl(Config.GetValue("WebSiteBase") + "Employees");
             this.WebDriver.Wait().ForClickableElement(By.CssSelector("A[href^='/Employees/Edit/']")).Click();
@@ -493,23 +493,23 @@ namespace SeleniumUnitTests
         #endregion
 
         /// <summary>
-        /// Verify Fluent Element with parent Submit test
+        /// Verify Lazy Element with parent Submit test
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         [ExpectedException(typeof(Exception), "The input should be disabled so this will throw an exception.")]
-        public void FluentElementSubmitWithParent()
+        public void LazyElementSubmitWithParent()
         {
             this.DisabledInput.Submit();
         }
 
         /// <summary>
-        /// Verify Fluent Element Displayed test
+        /// Verify Lazy Element Displayed test
         /// </summary>
-        #region FluentElementDisplayed
+        #region LazyElementDisplayed
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentElementDisplayed()
+        public void LazyElementDisplayed()
         {
             Assert.AreEqual(true, this.DialogOneButton.Displayed);
             Assert.AreEqual(false, this.DialogOne.Displayed);
@@ -517,22 +517,22 @@ namespace SeleniumUnitTests
         #endregion
 
         /// <summary>
-        /// Verify Fluent Element with parent Displayed test
+        /// Verify Lazy Element with parent Displayed test
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentElementDisplayedWithParent()
+        public void LazyElementDisplayedWithParent()
         {
             Assert.AreEqual(true, this.DisabledInput.Displayed);
         }
 
         /// <summary>
-        /// Verify Fluent Element Enabled test
+        /// Verify Lazy Element Enabled test
         /// </summary>
-        #region FluentElementEnabled
+        #region LazyElementEnabled
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentElementEnabled()
+        public void LazyElementEnabled()
         {
             Assert.AreEqual(false, this.DisabledItem.Enabled);
             Assert.AreEqual(true, this.InputBox.Enabled);
@@ -540,23 +540,23 @@ namespace SeleniumUnitTests
         #endregion
 
         /// <summary>
-        /// Verify Fluent Element with parent Enabled test
+        /// Verify Lazy Element with parent Enabled test
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentElementEnabledWithParent()
+        public void LazyElementEnabledWithParent()
         {
             Assert.AreEqual(false, this.DisabledInput.Enabled);
             Assert.AreEqual(true, this.FlowerTableCaptionWithParent.Enabled);
         }
 
         /// <summary>
-        /// Verify Fluent Element Selected test
+        /// Verify Lazy Element Selected test
         /// </summary>
-        #region FluentElementSelected
+        #region LazyElementSelected
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentElementSelected()
+        public void LazyElementSelected()
         {
             ElementHandler.SelectDropDownOptionByValue(this.WebDriver, By.CssSelector("#computerParts"), "two");
 
@@ -566,34 +566,34 @@ namespace SeleniumUnitTests
         #endregion
 
         /// <summary>
-        /// Verify Fluent Element Text test
+        /// Verify Lazy Element Text test
         /// </summary>
-        #region FluentElementText
+        #region LazyElementText
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentElementText()
+        public void LazyElementText()
         {
             Assert.AreEqual("Show dialog", this.DialogOneButton.Text);
         }
         #endregion
 
         /// <summary>
-        /// Verify Fluent Element with parent Text test
+        /// Verify Lazy Element with parent Text test
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentElementTextWithParent()
+        public void LazyElementTextWithParent()
         {
             Assert.AreEqual("Flower Table", this.FlowerTableCaptionWithParent.Text);
         }
 
         /// <summary>
-        /// Verify Fluent Element Location test
+        /// Verify Lazy Element Location test
         /// </summary>
-        #region FluentElementLocation
+        #region LazyElementLocation
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentElementLocation()
+        public void LazyElementLocation()
         {
             Point point = this.InputBox.Location;
             Assert.IsTrue(point.X > 0 && point.Y > 0, "Unexpected point: " + point);
@@ -601,11 +601,11 @@ namespace SeleniumUnitTests
         #endregion
 
         /// <summary>
-        /// Verify Fluent Element with parent Location test
+        /// Verify Lazy Element with parent Location test
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentElementLocationWithParent()
+        public void LazyElementLocationWithParent()
         {
             Point earlierPoint = this.InputBox.Location;
             Point laterPoint = this.DisabledInput.Location;
@@ -615,12 +615,12 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify Fluent Element Size test
+        /// Verify Lazy Element Size test
         /// </summary>
-        #region FluentElementSize
+        #region LazyElementSize
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentElementSize()
+        public void LazyElementSize()
         {
             Size size = this.InputBox.Size;
             Assert.IsTrue(size.Width > 0 && size.Height > 0, "Height and/or width are less than 1");
@@ -628,69 +628,69 @@ namespace SeleniumUnitTests
         #endregion
 
         /// <summary>
-        /// Verify Fluent Element with parent Size test
+        /// Verify Lazy Element with parent Size test
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentElementSizeWithParent()
+        public void LazyElementSizeWithParent()
         {
             Size size = this.DisabledInput.Size;
             Assert.IsTrue(size.Width > 152 && size.Height > 21, "Height of greater than 22 and width of greater than 152, but got " + size);
         }
 
         /// <summary>
-        /// Verify fluent element tag name test
+        /// Verify lazy element tag name test
         /// </summary>
-        #region FluentElementTagName
+        #region LazyElementTagName
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentElementTagName()
+        public void LazyElementTagName()
         {
             Assert.AreEqual("input", this.InputBox.TagName);
         }
         #endregion
 
         /// <summary>
-        /// Verify fluent element with parent tag name test
+        /// Verify lazy element with parent tag name test
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentElementTagNameWithParent()
+        public void LazyElementTagNameWithParent()
         {
             Assert.AreEqual("strong", this.FlowerTableCaptionWithParent.TagName);
         }
 
         /// <summary>
-        /// Verify fluent element get the visible element
+        /// Verify lazy element get the visible element
         /// </summary>
-        #region FluentElementVisibleElement
+        #region LazyElementVisibleElement
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentElementGetVisibleElement()
+        public void LazyElementGetVisibleElement()
         {
             Assert.AreNotEqual(null, this.InputBox.GetTheVisibleElement());
         }
         #endregion
 
         /// <summary>
-        /// Verify fluent element get the clickable element
+        /// Verify lazy element get the clickable element
         /// </summary>
-        #region FluentElementClickableElement
+        #region LazyElementClickableElement
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentElementGetClickableElement()
+        public void LazyElementGetClickableElement()
         {
             Assert.AreNotEqual(null, this.InputBox.GetTheClickableElement());
         }
         #endregion
 
         /// <summary>
-        /// Verify fluent element get the existing element
+        /// Verify lazy element get the existing element
         /// </summary>
-        #region FluentElementExistingElement
+        #region LazyElementExistingElement
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void FluentElementGetExistingElement()
+        public void LazyElementGetExistingElement()
         {
             Assert.AreNotEqual(null, this.InputBox.GetTheExistingElement());
         }

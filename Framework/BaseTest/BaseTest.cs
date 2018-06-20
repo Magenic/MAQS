@@ -253,7 +253,7 @@ namespace Magenic.MaqsFramework.BaseTest
             // Force the test to fail
             if (forceTestFailure)
             {
-                throw new Exception("Test was forced to fail in the cleanup - Likely the result of a soft assert failure.");
+                throw new AssertFailedException("Test was forced to fail in the cleanup - Likely the result of a soft assert failure.");
             }
         }
 

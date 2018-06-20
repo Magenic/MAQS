@@ -155,7 +155,7 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
             }
             else
             {
-                throw new Exception(StringProcessor.SafeFormatter("Only Xml and Json conversions are currently support, {0} does not appear to be either", mediaType));
+                throw new NotSupportedException(StringProcessor.SafeFormatter("Only Xml and Json conversions are currently support, {0} does not appear to be either", mediaType));
             }
         }
 
@@ -179,7 +179,7 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
             }
             else
             {
-                throw new Exception(StringProcessor.SafeFormatter("Only Xml and Json conversions are currently support, {0} does not appear to be either", mediaType));
+                throw new NotSupportedException(StringProcessor.SafeFormatter("Only Xml and Json conversions are currently support, {0} does not appear to be either", mediaType));
             }
         }
 
@@ -245,12 +245,13 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
                 // Create a useful error message
                 string body = response.Content.ReadAsStringAsync().Result;
 
-                throw new Exception(
+                throw new InvalidOperationException(
                     StringProcessor.SafeFormatter(
-                        "Response could not be deserialized to a {0} object.{1}Body:{1}{2}{1}",
+                        "Response could not be deserialized to a {0} object.{1}Body:{1}{2}{1}Because:{3}",
                     typeof(T).FullName,
                     Environment.NewLine,
-                    body),
+                    body,
+                    e.Message),
                     e);
             }
         }

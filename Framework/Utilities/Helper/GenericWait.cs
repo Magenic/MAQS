@@ -181,7 +181,7 @@ namespace Magenic.MaqsFramework.Utilities.Helper
 
             if (!paramsAreEqual)
             {
-                throw new Exception("Timed out waiting for " + waitForTrue.Method.Name + " to return expected value of " + typeof(T) + ": " + comparativeValue);
+                throw new TimeoutException("Timed out waiting for " + waitForTrue.Method.Name + " to return expected value of " + typeof(T) + ": " + comparativeValue);
             }
         }
 
@@ -216,7 +216,7 @@ namespace Magenic.MaqsFramework.Utilities.Helper
 
             if (!paramsAreEqual)
             {
-                throw new Exception("Timed out waiting for " + waitForTrue.Method.Name + " to return expected value of " + typeof(T) + ": " + comparativeValue);
+                throw new TimeoutException("Timed out waiting for " + waitForTrue.Method.Name + " to return expected value of " + typeof(T) + ": " + comparativeValue);
             }
         }
 
@@ -360,14 +360,15 @@ namespace Magenic.MaqsFramework.Utilities.Helper
         {
             // Set start time and exception holder
             DateTime start = DateTime.Now;
-            Exception exception = null;
+            Exception exception;
 
             do
             {
+                // Clear out old exception
+                exception = null;
+
                 try
                 {
-                    // Clear out old exception
-                    exception = null;
                     return waitFor();
                 }
                 catch (Exception e)
@@ -380,7 +381,7 @@ namespace Magenic.MaqsFramework.Utilities.Helper
             }
             while ((DateTime.Now - start) < timeout);
 
-            throw new Exception("Timed out waiting for " + waitFor.Method.Name + " to return", exception);
+            throw new TimeoutException("Timed out waiting for " + waitFor.Method.Name + " to return", exception);
         }
 
         /// <summary>
@@ -397,15 +398,15 @@ namespace Magenic.MaqsFramework.Utilities.Helper
         {
             // Set start time and exception holder
             DateTime start = DateTime.Now;
-            Exception exception = null;
+            Exception exception;
 
             do
             {
+                // Clear out old exception
+                exception = null;
+
                 try
                 {
-                    // Clear out old exception
-                    exception = null;
-
                     return waitFor(arg);
                 }
                 catch (Exception e)
@@ -418,7 +419,7 @@ namespace Magenic.MaqsFramework.Utilities.Helper
             }
             while ((DateTime.Now - start) < timeout);
 
-            throw new Exception("Timed out waiting for " + waitFor.Method.Name + " to return", exception);
+            throw new TimeoutException("Timed out waiting for " + waitFor.Method.Name + " to return", exception);
         }
 
         /// <summary>

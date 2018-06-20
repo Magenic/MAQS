@@ -86,7 +86,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
 
             if (!int.TryParse(value, out int timeout))
             {
-                throw new Exception("AppiumCommandTimeout should be a number but the current value is: " + value);
+                throw new ArgumentException("AppiumCommandTimeout should be a number but the current value is: " + value);
             }
 
             return TimeSpan.FromSeconds(timeout);
@@ -116,7 +116,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
                     break;
 
                 default:
-                    throw new Exception(StringProcessor.SafeFormatter("Mobile OS type '{0}' is not supported", platformName));
+                    throw new ArgumentException(StringProcessor.SafeFormatter("Mobile OS type '{0}' is not supported", platformName));
             }
 
             return appiumDriver;
