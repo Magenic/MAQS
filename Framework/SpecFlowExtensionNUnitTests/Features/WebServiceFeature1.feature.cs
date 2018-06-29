@@ -77,7 +77,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 7
  testRunner.Then("BaseWebServiceTestSteps WebServiceWrapper is not null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 8
- testRunner.And("BaseWebServiceTestSteps WebServiceWrapper is type EventFiringHttpClientWrapper", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("BaseWebServiceTestSteps WebServiceWrapper is type EventFiringWebServiceDriver", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

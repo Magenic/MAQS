@@ -4,6 +4,7 @@
 // </copyright>
 // <summary>This is the LazyElement class</summary>
 //--------------------------------------------------
+using Magenic.MaqsFramework.Utilities.Helper;
 using Magenic.MaqsFramework.Utilities.Logging;
 using OpenQA.Selenium;
 using System;
@@ -94,7 +95,10 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         {
             get
             {
-                return this.GetElement(this.GetTheExistingElement).Enabled;
+                return GenericWait.WaitFor<bool>(() =>
+                {
+                    return this.GetElement(this.GetTheExistingElement).Enabled;
+                });
             }
         }
 
@@ -108,7 +112,10 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         {
             get
             {
-                return this.GetElement(this.GetTheExistingElement).Selected;
+                return GenericWait.WaitFor<bool>(() =>
+                {
+                    return this.GetElement(this.GetTheExistingElement).Selected;
+                });
             }
         }
 
@@ -122,7 +129,10 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         {
             get
             {
-                return this.GetElement(this.GetTheExistingElement).Displayed;
+                return GenericWait.WaitFor<bool>(() =>
+                {
+                    return this.GetElement(this.GetTheExistingElement).Displayed;
+                });
             }
         }
 
@@ -136,7 +146,10 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         {
             get
             {
-                return this.GetElement(this.GetTheExistingElement).TagName;
+                return GenericWait.WaitFor<string>(() =>
+                {
+                    return this.GetElement(this.GetTheExistingElement).TagName;
+                });
             }
         }
 
@@ -150,7 +163,10 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         {
             get
             {
-                return this.GetElement(this.GetTheExistingElement).Text;
+                return GenericWait.WaitFor<string>(() =>
+                {
+                    return this.GetElement(this.GetTheExistingElement).Text;
+                });
             }
         }
 
@@ -164,7 +180,10 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         {
             get
             {
-                return this.GetElement(this.GetTheVisibleElement).Location;
+                return GenericWait.WaitFor<Point>(() =>
+                {
+                    return this.GetElement(this.GetTheVisibleElement).Location;
+                });
             }
         }
 
@@ -178,7 +197,10 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         {
             get
             {
-                return this.GetElement(this.GetTheVisibleElement).Size;
+                return GenericWait.WaitFor<Size>(() =>
+                {
+                    return this.GetElement(this.GetTheVisibleElement).Size;
+                });
             }
         }
 
@@ -190,8 +212,12 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public void Click()
         {
-            IWebElement element = this.GetElement(this.GetTheClickableElement);
-            this.ExecuteEvent(() => element.Click(), "Click");
+            GenericWait.WaitFor(() =>
+            {
+                IWebElement element = this.GetElement(this.GetTheClickableElement);
+                this.ExecuteEvent(() => element.Click(), "Click");
+                return true;
+            });
         }
 
         /// <summary>
@@ -203,8 +229,12 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public void SendKeys(string keys)
         {
-            IWebElement element = this.GetElement(this.GetTheVisibleElement);
-            this.ExecuteEvent(() => element.SendKeys(keys), "SendKeys");
+            GenericWait.WaitFor(() =>
+            {
+                IWebElement element = this.GetElement(this.GetTheVisibleElement);
+                this.ExecuteEvent(() => element.SendKeys(keys), "SendKeys");
+                return true;
+            });
         }
 
         /// <summary>
@@ -239,8 +269,12 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public void Clear()
         {
-            IWebElement element = this.GetElement(this.GetTheVisibleElement);
-            this.ExecuteEvent(() => element.Clear(), "Clear");
+            GenericWait.WaitFor(() =>
+            {
+                IWebElement element = this.GetElement(this.GetTheVisibleElement);
+                this.ExecuteEvent(() => element.Clear(), "Clear");
+                return true;
+            });
         }
 
         /// <summary>
@@ -251,8 +285,12 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public void Submit()
         {
-            IWebElement element = this.GetElement(this.GetTheExistingElement);
-            this.ExecuteEvent(() => element.Submit(), "Submit");
+            GenericWait.WaitFor(() =>
+            {
+                IWebElement element = this.GetElement(this.GetTheExistingElement);
+                this.ExecuteEvent(() => element.Submit(), "Submit");
+                return true;
+            });
         }
 
         /// <summary>
@@ -265,7 +303,10 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public string GetAttribute(string attributeName)
         {
-            return this.GetElement(this.GetTheExistingElement).GetAttribute(attributeName);
+            return GenericWait.WaitFor<string>(() =>
+            {
+                return this.GetElement(this.GetTheExistingElement).GetAttribute(attributeName);
+            });
         }
 
         /// <summary>
@@ -277,7 +318,10 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public string GetValue()
         {
-            return this.GetElement(this.GetTheVisibleElement).GetAttribute("value");
+            return GenericWait.WaitFor<string>(() =>
+            {
+                return this.GetElement(this.GetTheVisibleElement).GetAttribute("value");
+            });
         }
 
         /// <summary>
@@ -290,7 +334,10 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public string GetCssValue(string attributeName)
         {
-            return this.GetElement(this.GetTheExistingElement).GetCssValue(attributeName);
+            return GenericWait.WaitFor<string>(() =>
+            {
+                return this.GetElement(this.GetTheExistingElement).GetCssValue(attributeName);
+            });
         }
 
         /// <summary>

@@ -132,6 +132,34 @@ namespace Magenic.MaqsFramework.BaseTest
         }
 
         /// <summary>
+        /// Get a driver store of the specific type
+        /// </summary>
+        /// <typeparam name="T">The type of driver store</typeparam>
+        /// <returns>The driver store</returns>
+        public T GetDriver<T>() where T : DriverStore
+        {
+            return this.DriversStore[typeof(T).FullName] as T;
+        }
+
+        /// <summary>
+        /// Add a new driver
+        /// </summary>
+        /// <typeparam name="T">The driver type</typeparam>
+        /// <param name="driver">The new driver</param>
+        /// <param name="overrideIfExists">Should we override if this driver exists.  If it exists and we don't override than an error will be thrown.</param>
+        public void AddDriver<T>(T driver, bool overrideIfExists = false) where T : DriverStore
+        {
+            if (overrideIfExists)
+            {
+                this.OverrideDriver(typeof(T).FullName, driver);
+            }
+            else
+            {
+                this.AddDriver(typeof(T).FullName, driver);
+            }
+        }
+
+        /// <summary>
         /// Add a new driver
         /// </summary>
         /// <param name="key">Key for the new driver</param>
@@ -151,9 +179,12 @@ namespace Magenic.MaqsFramework.BaseTest
             if (this.DriversStore.ContainsKey(key))
             {
                 this.DriversStore[key].Dispose();
+                this.DriversStore[key] = driver;
             }
-
-            this.DriversStore[key] = driver;
+            else
+            {
+                this.DriversStore.Add(key, driver);
+            }
         }
 
         /// <summary>

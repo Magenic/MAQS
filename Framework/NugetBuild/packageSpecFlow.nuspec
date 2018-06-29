@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <id>Magenic.MaqsFramework.SpecFlow</id>
-    <version>5.0.0-PreAlpha</version>
+    <id>Magenic.Maqs.SpecFlow</id>
+    <version>5.0.0</version>
     <title>MAQS SpecFlow Add-on</title>
     <authors>Magenic</authors>
     <owners>Magenic</owners>
@@ -12,18 +12,18 @@
     <licenseUrl>https://github.com/Magenic/MAQS/blob/develop/LICENSE</licenseUrl>
     <iconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</iconUrl>
     <dependencies>
-      <dependency id="Magenic.MaqsFramework" version="5.0.0-PreAlpha" />
+      <dependency id="Magenic.MaqsFramework" version="5.0.0" />
       <dependency id="NUnit" version="3.10.1" />
       <dependency id="MSTest.TestFramework" version="1.3.0-beta2" />
-      <dependency id="Microsoft.Extensions.Configuration" version="2.0.0" />
-      <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="2.0.0" />
-      <dependency id="Microsoft.Extensions.Configuration.Json" version="2.0.0" />
+      <dependency id="Microsoft.Extensions.Configuration" version="2.1.1" />
+      <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="2.1.1" />
+      <dependency id="Microsoft.Extensions.Configuration.Json" version="2.1.1" />
     </dependencies>
   </metadata>
   <files>
-	<file src="..\SpecFlowExtension\bin\Release\Magenic.MaqsFramework.SpecFlow.*" target="lib\net471" />
+	<file src="..\SpecFlowExtension\bin\Release\Magenic.Maqs.SpecFlow.*" target="lib\net471" />
 	<file src="..\SpecFlowExtension\**\*.cs;..\SpecFlowExtension\*.csproj" target="help\source\SpecFlowExtension" exclude="..\SpecFlowExtension\**\obj\**\*.*;..\SpecFlowExtension\**\bin\**\*.*;*.vspscc" />
-    <!--<file src="..\OpenDocumentation\Help\Maqs.chm" target="help"/>
-    <file src="..\..\Extensions\VisualStudioQatExtension\License.txt" target=""/>-->
+    <!--<file src="..\OpenDocumentation\Help\Maqs.chm" target="help"/>-->
+    <file src="..\..\Extensions\VisualStudioQatExtension\License.txt" target=""/>
   </files>
 </package>

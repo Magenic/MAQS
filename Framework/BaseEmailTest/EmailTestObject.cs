@@ -31,7 +31,18 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
         public EmailTestObject(Func<ImapClient> emailConnection, Logger logger, SoftAssert softAssert, string fullyQualifiedTestName) : base(logger, softAssert, fullyQualifiedTestName)
         {
-            this.DriversStore.Add(typeof(EmailDriver).FullName, new EmailDriverStore(emailConnection, this));
+            this.DriversStore.Add(typeof(EmailDriverStore).FullName, new EmailDriverStore(emailConnection, this));
+        }
+
+        /// <summary>
+        /// Gets the email driver
+        /// </summary>
+        public EmailDriverStore EmailDriver
+        {
+            get
+            {
+                return this.DriversStore[typeof(EmailDriverStore).FullName] as EmailDriverStore;
+            }
         }
 
         /// <summary>
@@ -46,7 +57,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
                     return this.wrapper;
                 }
 
-                return (this.DriversStore[typeof(EmailDriver).FullName] as EmailDriverStore).Get();
+                return (this.DriversStore[typeof(EmailDriverStore).FullName] as EmailDriverStore).Get();
             }
         }
 
@@ -62,7 +73,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
                 this.wrapper = null;
             }
 
-            this.OverrideDriver(typeof(EmailDriver).FullName, new EmailDriverStore(emailConnection, this));
+            this.OverrideDriver(typeof(EmailDriverStore).FullName, new EmailDriverStore(emailConnection, this));
         }
 
         /// <summary>

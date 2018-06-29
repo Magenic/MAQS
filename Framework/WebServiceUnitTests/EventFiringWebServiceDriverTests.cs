@@ -1,8 +1,8 @@
 ﻿//--------------------------------------------------
-// <copyright file="EventFiringHttpClientWrapperTests.cs" company="Magenic">
+// <copyright file="EventFiringWebServiceDriverTests.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
-// <summary>Test the EventFiringHttpClientWrapper class</summary>
+// <summary>Test the EventFiringWebServiceDriver class</summary>
 //--------------------------------------------------
 using Magenic.MaqsFramework.BaseWebServiceTest;
 using Magenic.MaqsFramework.Utilities.Helper;
@@ -17,7 +17,7 @@ namespace WebServiceTesterUnitTesting
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class EventFiringHttpClientWrapperTests : EventFiringWebServiceDriver
+    public class EventFiringWebServiceDriverTests : EventFiringWebServiceDriver
     {
         /// <summary>
         /// Default baseAddress for default constructor
@@ -25,9 +25,9 @@ namespace WebServiceTesterUnitTesting
         private static string baseAddress = WebServiceConfig.GetWebServiceUri();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EventFiringHttpClientWrapperTests"/> class
+        /// Initializes a new instance of the <see cref="EventFiringWebServiceDriverTests"/> class
         /// </summary>
-        public EventFiringHttpClientWrapperTests() : base(baseAddress)
+        public EventFiringWebServiceDriverTests() : base(baseAddress)
         {
         }
 

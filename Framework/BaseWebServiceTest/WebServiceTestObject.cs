@@ -25,18 +25,29 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
         public WebServiceTestObject(Func<HttpClient> httpClient, Logger logger, string fullyQualifiedTestName) : base(logger, fullyQualifiedTestName)
         {
-            this.DriversStore.Add(typeof(WebServiceDriver).FullName, new WebServiceDriverStore(httpClient, this));
+            this.DriversStore.Add(typeof(WebServiceDriverStore).FullName, new WebServiceDriverStore(httpClient, this));
         }
 
         /// <summary>
         /// Gets the web service wrapper
         /// </summary>
-        public WebServiceDriver HttpClientWrapper
+        public WebServiceDriver WebServiceDriver
         {
             get
             {
-                WebServiceDriverStore serviceDriver = this.DriversStore[typeof(WebServiceDriver).FullName] as WebServiceDriverStore;
+                WebServiceDriverStore serviceDriver = this.WebServiceDriverStore;
                 return serviceDriver.Get();
+            }
+        }
+
+        /// <summary>
+        /// Gets the web service wrapper
+        /// </summary>
+        public WebServiceDriverStore WebServiceDriverStore
+        {
+            get
+            {
+                return this.DriversStore[typeof(WebServiceDriverStore).FullName] as WebServiceDriverStore;
             }
         }
 
@@ -46,7 +57,7 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         /// <param name="httpClient">The new http client</param>
         public void OverrideWebServiceDriver(HttpClient httpClient)
         {
-            this.OverrideDriver(typeof(WebServiceDriver).FullName, new WebServiceDriverStore(() => httpClient, this));
+            this.OverrideDriver(typeof(WebServiceDriverStore).FullName, new WebServiceDriverStore(() => httpClient, this));
         }
 
         /// <summary>
@@ -55,16 +66,16 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         /// <param name="httpClient">Function for getting a new http client</param>
         public void OverrideWebServiceDriver(Func<HttpClient> httpClient)
         {
-            this.OverrideDriver(typeof(WebServiceDriver).FullName, new WebServiceDriverStore(httpClient, this));
+            this.OverrideDriver(typeof(WebServiceDriverStore).FullName, new WebServiceDriverStore(httpClient, this));
         }
 
         /// <summary>
         /// Override the http client driver
         /// </summary>
-        /// <param name="httpClientWrapper">An http client wrapper</param>
-        public void OverrideWebServiceDriver(WebServiceDriver httpClientWrapper)
+        /// <param name="webServiceDriver">An http client wrapper</param>
+        public void OverrideWebServiceDriver(WebServiceDriver webServiceDriver)
         {
-            (this.DriversStore[typeof(WebServiceDriver).FullName] as WebServiceDriverStore).OverrideWrapper(httpClientWrapper);
+            (this.DriversStore[typeof(WebServiceDriverStore).FullName] as WebServiceDriverStore).OverrideWrapper(webServiceDriver);
         }
     }
 }

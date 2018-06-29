@@ -31,6 +31,8 @@ namespace CoreUnitTests
             Assert.AreEqual(true, Config.DoesKeyExist("Browser"));
             Assert.AreEqual("OnFail", Config.GetValue("Log", "NO")); 
             Assert.AreEqual("PhantomJS", Config.GetValue("Browser", "NO"));
+
+            Assert.AreEqual("PhantomJS", Config.GetValue("Browser", "NO"));
         }
 
         /// <summary>
@@ -113,6 +115,21 @@ namespace CoreUnitTests
 
             // Make sure the override worked
             Assert.AreEqual(value, Config.GetValue(key));
+        }
+
+        /// <summary>
+        /// Verify the remote Selenium section
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.UtilitiesCore)]
+        public void ConfigSection()
+        {
+            Dictionary<string, string> remoteCapabilitySection = Config.GetSection("RemoteSeleniumCapsMaqs");
+
+            Assert.AreEqual("SAUCELABSNAME", remoteCapabilitySection["username"]);
+            Assert.AreEqual("SAUCELABSKEY", remoteCapabilitySection["accessKey"]);
+            Assert.AreEqual("someName", remoteCapabilitySection["userName2"]);
+            Assert.AreEqual("Some_Accesskey", remoteCapabilitySection["accessKey2"]);
         }
 
         /// <summary>

@@ -4,8 +4,8 @@
 // </copyright>
 // <summary>TestSteps class that inherits from BaseSeleniumTestSteps</summary>
 //--------------------------------------------------
+using Magenic.Maqs.SpecFlow.TestSteps;
 using Magenic.MaqsFramework.BaseSeleniumTest;
-using Magenic.MaqsFramework.SpecFlow.TestSteps;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium.Support.Events;
 using TechTalk.SpecFlow;

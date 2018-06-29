@@ -47,6 +47,16 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         }
 
         /// <summary>
+        /// Override the email wrapper
+        /// </summary>
+        /// <param name="newWrapper">The new wrapper</param>
+        public void OverwriteWrapper(EmailDriver newWrapper)
+        {
+            this.wrapper = newWrapper;
+            this.BaseDriver = newWrapper.EmailConnection;
+        }
+
+        /// <summary>
         /// Get the email connection wrapper
         /// </summary>
         /// <returns>The email connection wrapper</returns>

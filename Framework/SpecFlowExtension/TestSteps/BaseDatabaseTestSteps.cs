@@ -8,7 +8,7 @@ using Magenic.MaqsFramework.BaseDatabaseTest;
 using TechTalk.SpecFlow;
 using MaqsDatabase = Magenic.MaqsFramework.BaseDatabaseTest.BaseDatabaseTest;
 
-namespace Magenic.MaqsFramework.SpecFlow.TestSteps
+namespace Magenic.Maqs.SpecFlow.TestSteps
 {
     /// <summary>
     /// Base for database TestSteps classes

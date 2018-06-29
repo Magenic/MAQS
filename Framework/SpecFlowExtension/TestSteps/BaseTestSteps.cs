@@ -10,7 +10,7 @@ using System;
 using TechTalk.SpecFlow;
 using MaqsBase = Magenic.MaqsFramework.BaseTest.BaseTest;
 
-namespace Magenic.MaqsFramework.SpecFlow.TestSteps
+namespace Magenic.Maqs.SpecFlow.TestSteps
 {
     /// <summary>
     /// Base for TestSteps classes

@@ -10,7 +10,7 @@ using OpenQA.Selenium.Appium;
 using TechTalk.SpecFlow;
 using MaqsAppium = Magenic.MaqsFramework.BaseAppiumTest.BaseAppiumTest;
 
-namespace Magenic.MaqsFramework.SpecFlow.TestSteps
+namespace Magenic.Maqs.SpecFlow.TestSteps
 {
     /// <summary>
     /// Base for appium TestSteps classes

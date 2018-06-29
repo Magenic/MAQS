@@ -62,7 +62,7 @@ namespace WebServiceTesterUnitTesting
             multiPartContent.Add(content, "MyTaxReturns2017", "RandomTestData.abc");
             multiPartContent.Add(content2, "MyTripPhoto", "RandomTestData2.def");
 
-            var result = this.TestObject.HttpClientWrapper.Post<FilesUploaded>("api/upload", "application/json", multiPartContent, true);
+            var result = this.TestObject.WebServiceDriver.Post<FilesUploaded>("api/upload", "application/json", multiPartContent, true);
 
             var file1 = result.Files.FirstOrDefault();
             var file2 = result.Files.LastOrDefault();
@@ -100,7 +100,7 @@ namespace WebServiceTesterUnitTesting
             multiPartContent.Add(content, "MyResume", "Resume.abc");
             multiPartContent.Add(content2, "MyDefintion", "MyDefintion.def");
 
-            var result = this.TestObject.HttpClientWrapper.Post<FilesUploaded>("api/upload", "application/json", multiPartContent, true);
+            var result = this.TestObject.WebServiceDriver.Post<FilesUploaded>("api/upload", "application/json", multiPartContent, true);
 
             var file1 = result.Files.FirstOrDefault();
             var file2 = result.Files.LastOrDefault();

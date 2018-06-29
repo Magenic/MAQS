@@ -8,7 +8,7 @@ using Magenic.MaqsFramework.BaseWebServiceTest;
 using TechTalk.SpecFlow;
 using MaqsWeb = Magenic.MaqsFramework.BaseWebServiceTest.BaseWebServiceTest;
 
-namespace Magenic.MaqsFramework.SpecFlow.TestSteps
+namespace Magenic.Maqs.SpecFlow.TestSteps
 {
     /// <summary>
     /// Base for web service TestSteps classes

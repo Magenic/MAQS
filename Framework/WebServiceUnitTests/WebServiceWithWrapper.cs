@@ -30,7 +30,7 @@ namespace WebServiceTesterUnitTesting
             Assert.AreEqual(this.TestObject.Log, this.Log, "Logs don't match");
             Assert.AreEqual(this.TestObject.SoftAssert, this.SoftAssert, "Soft asserts don't match");
             Assert.AreEqual(this.TestObject.PerfTimerCollection, this.PerfTimerCollection, "Soft asserts don't match");
-            Assert.AreEqual(this.TestObject.HttpClientWrapper, this.WebServiceWrapper, "Web service wrapper don't match");
+            Assert.AreEqual(this.TestObject.WebServiceDriver, this.WebServiceWrapper, "Web service wrapper don't match");
         }
 
         /// <summary>

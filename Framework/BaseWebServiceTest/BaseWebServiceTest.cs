@@ -31,7 +31,7 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         {
             get
             {
-                return this.TestObject.HttpClientWrapper;
+                return this.TestObject.WebServiceDriver;
             }
 
             set
