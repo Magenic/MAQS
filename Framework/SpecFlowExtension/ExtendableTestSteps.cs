@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using TechTalk.SpecFlow;
 
-namespace Magenic.MaqsFramework.SpecFlow
+namespace Magenic.Maqs.SpecFlow
 {
     /// <summary>
     /// Abstract a TestSteps class

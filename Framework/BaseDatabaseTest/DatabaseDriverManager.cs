@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------
-// <copyright file="DatabaseDriverStore.cs" company="Magenic">
+// <copyright file="DatabaseDriverManager.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Database driver</summary>
@@ -14,7 +14,7 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
     /// <summary>
     /// Database driver
     /// </summary>
-    public class DatabaseDriverStore : DriverStore
+    public class DatabaseDriverManager : DriverManager
     {
         /// <summary>
         /// Cached copy of the connection wrapper
@@ -22,11 +22,11 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         private DatabaseDriver wrapper;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DatabaseDriverStore"/> class
+        /// Initializes a new instance of the <see cref="DatabaseDriverManager"/> class
         /// </summary>
         /// <param name="getConnection">Function for getting an database connection</param>
         /// <param name="testObject">The associated test object</param>
-        public DatabaseDriverStore(Func<IDbConnection> getConnection, BaseTestObject testObject) : base(getConnection, testObject)
+        public DatabaseDriverManager(Func<IDbConnection> getConnection, BaseTestObject testObject) : base(getConnection, testObject)
         {
         }
 

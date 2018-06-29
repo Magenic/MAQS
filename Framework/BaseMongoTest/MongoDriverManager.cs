@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------
-// <copyright file="MongoDriverStore.cs" company="Magenic">
+// <copyright file="MongoDriverManager.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Mongo database driver</summary>
@@ -14,7 +14,7 @@ namespace Magenic.MaqsFramework.BaseMongoTest
     /// Mongo database driver
     /// </summary>
     /// <typeparam name="T">The Mongo collection type</typeparam>
-    public class MongoDriverStore<T> : DriverStore
+    public class MongoDriverManager<T> : DriverManager
     {
         /// <summary>
         /// Cached copy of the connection wrapper
@@ -22,13 +22,13 @@ namespace Magenic.MaqsFramework.BaseMongoTest
         private MongoDBDriver<T> wrapper;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MongoDriverStore{T}" /> class
+        /// Initializes a new instance of the <see cref="MongoDriverManager{T}" /> class
         /// </summary>
         /// <param name="connectionString">Client connection string</param>
         /// <param name="databaseString">Database connection string</param>
         /// <param name="collectionString">Mongo collection string</param>
         /// <param name="testObject">Test object this driver is getting added to</param>
-        public MongoDriverStore(string connectionString, string databaseString, string collectionString, BaseTestObject testObject) : base(() => null, testObject)
+        public MongoDriverManager(string connectionString, string databaseString, string collectionString, BaseTestObject testObject) : base(() => null, testObject)
         {
             this.GetDriver = () => (connectionString, databaseString, collectionString);
         }

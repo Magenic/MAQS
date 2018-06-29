@@ -8,7 +8,7 @@ using Magenic.MaqsFramework.BaseTest;
 using System;
 using TechTalk.SpecFlow;
 
-namespace Magenic.MaqsFramework.SpecFlow
+namespace Magenic.Maqs.SpecFlow
 {
     /// <summary>
     /// The abstract TestSteps class definition

@@ -122,7 +122,7 @@ namespace Magenic.MaqsFramework.BaseMongoTest
         /// <returns>Number of items in the collection</returns>
         public virtual int CountAllItemsInCollection()
         {
-            return int.Parse(this.collection.Count(_ => true).ToString());
+            return int.Parse(this.collection.CountDocuments(_ => true).ToString());
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------
-// <copyright file="EmailDriverStore.cs" company="Magenic">
+// <copyright file="EmailDriverManager.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Email driver</summary>
@@ -15,7 +15,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
     /// <summary>
     /// Email driver
     /// </summary>
-    public class EmailDriverStore : DriverStore
+    public class EmailDriverManager : DriverManager
     {
         /// <summary>
         /// Cached instance of the email connection wrapper
@@ -23,11 +23,11 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         private EmailDriver wrapper;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EmailDriverStore"/> class
+        /// Initializes a new instance of the <see cref="EmailDriverManager"/> class
         /// </summary>
         /// <param name="getEmailClient">Function for getting an email connection</param>
         /// <param name="testObject">The associated test object</param>
-        public EmailDriverStore(Func<ImapClient> getEmailClient, BaseTestObject testObject) : base(getEmailClient, testObject)
+        public EmailDriverManager(Func<ImapClient> getEmailClient, BaseTestObject testObject) : base(getEmailClient, testObject)
         {
         }
 
@@ -44,6 +44,16 @@ namespace Magenic.MaqsFramework.BaseEmailTest
 
             this.wrapper = null;
             this.BaseDriver = null;
+        }
+
+        /// <summary>
+        /// Override the email wrapper
+        /// </summary>
+        /// <param name="newWrapper">The new wrapper</param>
+        public void OverwriteWrapper(EmailDriver newWrapper)
+        {
+            this.wrapper = newWrapper;
+            this.BaseDriver = newWrapper.EmailConnection;
         }
 
         /// <summary>

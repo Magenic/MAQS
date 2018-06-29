@@ -44,7 +44,7 @@ namespace WebServiceTesterUnitTesting
         {
             WebServiceDriver wrapper = new WebServiceDriver(this.GetBaseWebServiceUrl());
             this.WebServiceWrapper = wrapper;
-            Assert.AreEqual(this.TestObject.HttpClientWrapper.ToString(), wrapper.ToString());
+            Assert.AreEqual(this.TestObject.WebServiceDriver.ToString(), wrapper.ToString());
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace WebServiceTesterUnitTesting
             Config.AddTestSettingValues(new Dictionary<string, string> { { "Log", "NO" } }, true);
 
             WebServiceDriver wrapper = new WebServiceDriver(this.GetBaseWebServiceUrl());
-            Assert.AreEqual(this.TestObject.HttpClientWrapper.ToString(), wrapper.ToString());
+            Assert.AreEqual(this.TestObject.WebServiceDriver.ToString(), wrapper.ToString());
         }
 
         /// <summary>
@@ -73,11 +73,11 @@ namespace WebServiceTesterUnitTesting
         }
 
         /// <summary>
-        /// Verify that HttpClientWrapper Constructor overload properly creates wrapper
+        /// Verify that WebServiceDriver Constructor overload properly creates wrapper
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
-        public void HttpClientWrapperConstructorTest()
+        public void WebServiceDriverConstructorTest()
         {
             Uri testUri = new Uri(this.GetBaseWebServiceUrl());
             WebServiceDriver testWrapper = new WebServiceDriver(testUri);
@@ -87,11 +87,11 @@ namespace WebServiceTesterUnitTesting
         }
 
         /// <summary>
-        /// Verify that HttpClientWrapper Constructor overload properly creates wrapper
+        /// Verify that WebServiceDriver Constructor overload properly creates wrapper
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
-        public void HttpClientWrapperConstructorTest2()
+        public void WebServiceDriverConstructorTest2()
         {
             WebServiceDriver testWrapper = new WebServiceDriver(this.GetBaseWebServiceUrl());
             testWrapper.SetCustomMediaFormatters(new CustomXmlMediaTypeFormatter("application/xml", typeof(string)));
@@ -100,11 +100,11 @@ namespace WebServiceTesterUnitTesting
         }
 
         /// <summary>
-        /// Verify that HttpClientWrapper Constructor overload properly creates wrapper
+        /// Verify that WebServiceDriver Constructor overload properly creates wrapper
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
-        public void HttpClientWrapperConstructorTest3()
+        public void WebServiceDriverConstructorTest3()
         {
             WebServiceDriver testWrapper = new WebServiceDriver(this.GetBaseWebServiceUrl());
             testWrapper.SetCustomMediaFormatters(new List<MediaTypeFormatter>());

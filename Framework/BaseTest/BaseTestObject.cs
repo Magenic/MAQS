@@ -29,7 +29,7 @@ namespace Magenic.MaqsFramework.BaseTest
             this.PerfTimerCollection = new PerfTimerCollection(logger, fullyQualifiedTestName);
             this.Values = new Dictionary<string, string>();
             this.Objects = new Dictionary<string, object>();
-            this.DriversStore = new Dictionary<string, DriverStore>();
+            this.ManagerStore = new Dictionary<string, DriverManager>();
 
             logger.LogMessage(MessageType.INFORMATION, "Setup test object for " + fullyQualifiedTestName);
         }
@@ -46,7 +46,7 @@ namespace Magenic.MaqsFramework.BaseTest
             this.PerfTimerCollection = new PerfTimerCollection(logger, fullyQualifiedTestName);
             this.Values = new Dictionary<string, string>();
             this.Objects = new Dictionary<string, object>();
-            this.DriversStore = new Dictionary<string, DriverStore>();
+            this.ManagerStore = new Dictionary<string, DriverManager>();
 
             logger.LogMessage(MessageType.INFORMATION, "Setup test object for " + fullyQualifiedTestName);
         }
@@ -62,7 +62,7 @@ namespace Magenic.MaqsFramework.BaseTest
             this.PerfTimerCollection = baseTestObject.PerfTimerCollection;
             this.Values = baseTestObject.Values;
             this.Objects = baseTestObject.Objects;
-            this.DriversStore = baseTestObject.DriversStore;
+            this.ManagerStore = baseTestObject.ManagerStore;
 
             baseTestObject.Log.LogMessage(MessageType.INFORMATION, "Setup test object");
         }
@@ -95,7 +95,7 @@ namespace Magenic.MaqsFramework.BaseTest
         /// <summary>
         /// Gets a dictionary of string key and driver value pairs
         /// </summary>
-        public Dictionary<string, DriverStore> DriversStore { get; private set; }
+        public Dictionary<string, DriverManager> ManagerStore { get; private set; }
 
         /// <summary>
         /// Sets a string value, will replace if the key already exists
@@ -132,13 +132,41 @@ namespace Magenic.MaqsFramework.BaseTest
         }
 
         /// <summary>
+        /// Get a driver manager of the specific type
+        /// </summary>
+        /// <typeparam name="T">The type of driver manager</typeparam>
+        /// <returns>The driver manager</returns>
+        public T GetDriverManager<T>() where T : DriverManager
+        {
+            return this.ManagerStore[typeof(T).FullName] as T;
+        }
+
+        /// <summary>
+        /// Add a new driver
+        /// </summary>
+        /// <typeparam name="T">The driver type</typeparam>
+        /// <param name="driver">The new driver</param>
+        /// <param name="overrideIfExists">Should we override if this driver exists.  If it exists and we don't override than an error will be thrown.</param>
+        public void AddDriverManager<T>(T driver, bool overrideIfExists = false) where T : DriverManager
+        {
+            if (overrideIfExists)
+            {
+                this.OverrideDriverManager(typeof(T).FullName, driver);
+            }
+            else
+            {
+                this.AddDriverManager(typeof(T).FullName, driver);
+            }
+        }
+
+        /// <summary>
         /// Add a new driver
         /// </summary>
         /// <param name="key">Key for the new driver</param>
         /// <param name="driver">The new driver</param>
-        public void AddDriver(string key, DriverStore driver)
+        public void AddDriverManager(string key, DriverManager driver)
         {
-            this.DriversStore.Add(key, driver);
+            this.ManagerStore.Add(key, driver);
         }
 
         /// <summary>
@@ -146,14 +174,17 @@ namespace Magenic.MaqsFramework.BaseTest
         /// </summary>
         /// <param name="key">The driver key</param>
         /// <param name="driver">The new driver</param>
-        public void OverrideDriver(string key, DriverStore driver)
+        public void OverrideDriverManager(string key, DriverManager driver)
         {
-            if (this.DriversStore.ContainsKey(key))
+            if (this.ManagerStore.ContainsKey(key))
             {
-                this.DriversStore[key].Dispose();
+                this.ManagerStore[key].Dispose();
+                this.ManagerStore[key] = driver;
             }
-
-            this.DriversStore[key] = driver;
+            else
+            {
+                this.ManagerStore.Add(key, driver);
+            }
         }
 
         /// <summary>
@@ -171,7 +202,7 @@ namespace Magenic.MaqsFramework.BaseTest
         /// <param name="disposing">True if you want to release managed resources</param>
         public void Dispose(bool disposing)
         {
-            if (!disposing || this.DriversStore is null)
+            if (!disposing || this.ManagerStore is null)
             {
                 return;
             }
@@ -179,7 +210,7 @@ namespace Magenic.MaqsFramework.BaseTest
             this.Log.LogMessage(MessageType.VERBOSE, "Start dispose");
 
             // Make sure all of the individual drivers are disposed
-            foreach (DriverStore singleDrive in this.DriversStore.Values)
+            foreach (DriverManager singleDrive in this.ManagerStore.Values)
             {
                 if (singleDrive != null)
                 {
@@ -187,7 +218,7 @@ namespace Magenic.MaqsFramework.BaseTest
                 }
             }
 
-            this.DriversStore = null;
+            this.ManagerStore = null;
 
             this.Log.LogMessage(MessageType.VERBOSE, "End dispose");
         }

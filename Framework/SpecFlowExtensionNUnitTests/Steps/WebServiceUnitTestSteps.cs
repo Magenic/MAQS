@@ -4,8 +4,8 @@
 // </copyright>
 // <summary>TestSteps class that inherits from BaseWebServiceTestSteps</summary>
 //--------------------------------------------------
+using Magenic.Maqs.SpecFlow.TestSteps;
 using Magenic.MaqsFramework.BaseWebServiceTest;
-using Magenic.MaqsFramework.SpecFlow.TestSteps;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 
@@ -76,16 +76,16 @@ namespace SpecFlowExtensionNUnitTests.Steps
         [Then(@"BaseWebServiceTestSteps WebServiceWrapper is not null")]
         public void ThenWebDriverIsNotNull()
         {
-            Assert.IsNotNull(this.TestObject.HttpClientWrapper, "WebServiceWrapper for BaseWebServiceTestSteps class is null.");
+            Assert.IsNotNull(this.TestObject.WebServiceDriver, "WebServiceWrapper for BaseWebServiceTestSteps class is null.");
         }
 
         /// <summary>
         /// WebServiceWrapper exists
         /// </summary>
-        [Then(@"BaseWebServiceTestSteps WebServiceWrapper is type EventFiringHttpClientWrapper")]
-        public void AndWebDriverIsTypeHttpClientWrapper()
+        [Then(@"BaseWebServiceTestSteps WebServiceWrapper is type EventFiringWebServiceDriver")]
+        public void AndWebDriverIsTypeWebServiceDriver()
         {
-            Assert.IsTrue(this.TestObject.HttpClientWrapper.GetType().Equals(typeof(EventFiringWebServiceDriver)), $"WebServiceWrapper for BaseWebServiceTestSteps class is the wrong type : {this.TestObject.HttpClientWrapper.GetType()}.");
+            Assert.IsTrue(this.TestObject.WebServiceDriver.GetType().Equals(typeof(EventFiringWebServiceDriver)), $"WebServiceWrapper for BaseWebServiceTestSteps class is the wrong type : {this.TestObject.WebServiceDriver.GetType()}.");
         }
     }
 }

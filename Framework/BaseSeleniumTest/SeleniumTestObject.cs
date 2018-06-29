@@ -24,7 +24,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
         public SeleniumTestObject(IWebDriver webDriver, Logger logger, string fullyQualifiedTestName) : base(logger, fullyQualifiedTestName)
         {
-            this.DriversStore.Add(typeof(IWebDriver).FullName, new SeleniumDriver(() => webDriver, this));
+            this.ManagerStore.Add(typeof(SeleniumDriverManager).FullName, new SeleniumDriverManager(() => webDriver, this));
             this.SoftAssert = new SeleniumSoftAssert(this);
         }
 
@@ -36,18 +36,18 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
         public SeleniumTestObject(Func<IWebDriver> getDriver, Logger logger, string fullyQualifiedTestName) : base(logger, fullyQualifiedTestName)
         {
-            this.DriversStore.Add(typeof(IWebDriver).FullName, new SeleniumDriver(getDriver, this));
+            this.ManagerStore.Add(typeof(SeleniumDriverManager).FullName, new SeleniumDriverManager(getDriver, this));
             this.SoftAssert = new SeleniumSoftAssert(this);
         }
 
         /// <summary>
         /// Gets the Selenium driver
         /// </summary>
-        public SeleniumDriver SeleniumDriver
+        public SeleniumDriverManager SeleniumDriver
         {
             get
             {
-                return this.DriversStore[typeof(IWebDriver).FullName] as SeleniumDriver;
+                return this.ManagerStore[typeof(SeleniumDriverManager).FullName] as SeleniumDriverManager;
             }
         }
 
@@ -68,7 +68,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// <param name="webDriver">New web driver</param>
         public void OverrideWebDriver(IWebDriver webDriver)
         {
-            this.OverrideDriver(typeof(IWebDriver).FullName, new SeleniumDriver(() => webDriver, this));
+            this.OverrideDriverManager(typeof(SeleniumDriverManager).FullName, new SeleniumDriverManager(() => webDriver, this));
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// <param name="getDriver">Function for creating a web driver</param>
         public void OverrideWebDriver(Func<IWebDriver> getDriver)
         {
-            this.OverrideDriver(typeof(IWebDriver).FullName, new SeleniumDriver(getDriver, this));
+            this.OverrideDriverManager(typeof(SeleniumDriverManager).FullName, new SeleniumDriverManager(getDriver, this));
         }
     }
 }

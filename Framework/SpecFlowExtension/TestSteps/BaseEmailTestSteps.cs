@@ -8,7 +8,7 @@ using Magenic.MaqsFramework.BaseEmailTest;
 using TechTalk.SpecFlow;
 using MaqsEmail = Magenic.MaqsFramework.BaseEmailTest.BaseEmailTest;
 
-namespace Magenic.MaqsFramework.SpecFlow.TestSteps
+namespace Magenic.Maqs.SpecFlow.TestSteps
 {
     /// <summary>
     /// Base for email TestSteps classes

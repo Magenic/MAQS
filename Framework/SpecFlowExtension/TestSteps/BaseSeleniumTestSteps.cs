@@ -9,7 +9,7 @@ using OpenQA.Selenium;
 using TechTalk.SpecFlow;
 using MaqsSelenium = Magenic.MaqsFramework.BaseSeleniumTest.BaseSeleniumTest;
 
-namespace Magenic.MaqsFramework.SpecFlow.TestSteps
+namespace Magenic.Maqs.SpecFlow.TestSteps
 {
     /// <summary>
     /// Base for selenium TestSteps classes

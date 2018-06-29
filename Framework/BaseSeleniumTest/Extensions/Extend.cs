@@ -123,7 +123,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </summary>
         /// <param name="searchContext">Web driver or element</param>
         /// <returns>the underlying web driver</returns>
-        public static IWebDriver GetLowLevelDriver(ISearchContext searchContext)
+        public static IWebDriver GetLowLevelDriver(this ISearchContext searchContext)
         {
             IWebDriver driver = SeleniumUtilities.SearchContextToWebDriver(searchContext);
             return driver is EventFiringWebDriver ? ((EventFiringWebDriver)driver).WrappedDriver : driver;
