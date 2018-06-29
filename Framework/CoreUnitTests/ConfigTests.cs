@@ -31,8 +31,6 @@ namespace CoreUnitTests
             Assert.AreEqual(true, Config.DoesKeyExist("Browser"));
             Assert.AreEqual("OnFail", Config.GetValue("Log", "NO")); 
             Assert.AreEqual("PhantomJS", Config.GetValue("Browser", "NO"));
-
-            Assert.AreEqual("PhantomJS", Config.GetValue("Browser", "NO"));
         }
 
         /// <summary>
