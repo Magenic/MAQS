@@ -37,10 +37,10 @@ namespace CoreUnitTests
         public void CanUseMultiple()
         {
             WebServiceDriverManager newDriver = new WebServiceDriverManager(() => new HttpClient(), this.TestObject);
-            this.TestObject.DriverStore.Add("test", newDriver);
+            this.TestObject.ManagerStore.Add("test", newDriver);
 
-            Assert.AreNotEqual(this.TestObject.WebServiceDriver, (WebServiceDriverManager)this.TestObject.DriverStore["test"]);
-            Assert.AreNotEqual(this.TestObject.WebServiceDriverManager.Get(), ((WebServiceDriverManager)this.TestObject.DriverStore["test"]).Get());
+            Assert.AreNotEqual(this.TestObject.WebServiceDriver, (WebServiceDriverManager)this.TestObject.ManagerStore["test"]);
+            Assert.AreNotEqual(this.TestObject.WebServiceDriverManager.Get(), ((WebServiceDriverManager)this.TestObject.ManagerStore["test"]).Get());
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace CoreUnitTests
         [TestMethod]
         public void DatabaseWrapperInDriverStore()
         {
-            Assert.AreEqual(this.TestObject.WebServiceDriver, this.TestObject.GetDriver<WebServiceDriverManager>().Get());
+            Assert.AreEqual(this.TestObject.WebServiceDriver, this.TestObject.GetDriverManager<WebServiceDriverManager>().Get());
         }
 
         /// <summary>
@@ -58,10 +58,10 @@ namespace CoreUnitTests
         [TestMethod]
         public void MixedStoreTypes()
         {
-            this.TestObject.AddDriver(new DatabaseDriverManager(() => DatabaseConfig.GetOpenConnection(), this.TestObject));
+            this.TestObject.AddDriverManager(new DatabaseDriverManager(() => DatabaseConfig.GetOpenConnection(), this.TestObject));
 
-            Assert.IsNotNull(this.TestObject.GetDriver<DatabaseDriverManager>(), "Expected a database driver store");
-            Assert.IsNotNull(this.TestObject.GetDriver<WebServiceDriverManager>(), "Expected a web service driver store");
+            Assert.IsNotNull(this.TestObject.GetDriverManager<DatabaseDriverManager>(), "Expected a database driver store");
+            Assert.IsNotNull(this.TestObject.GetDriverManager<WebServiceDriverManager>(), "Expected a web service driver store");
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace CoreUnitTests
             // Do something so we intialize the web driver
             this.WebServiceWrapper.ToString();
 
-            WebServiceDriverManager driverWrapper = this.TestObject.DriverStore[typeof(WebServiceDriverManager).FullName] as WebServiceDriverManager;
+            WebServiceDriverManager driverWrapper = this.TestObject.ManagerStore[typeof(WebServiceDriverManager).FullName] as WebServiceDriverManager;
             Assert.IsTrue(driverWrapper.IsDriverIntialized(), "The driver should have been intialized");
         }
 
@@ -83,7 +83,7 @@ namespace CoreUnitTests
         [TestMethod]
         public void NotIntialized()
         {
-            WebServiceDriverManager driverWrapper = this.TestObject.DriverStore[typeof(WebServiceDriverManager).FullName] as WebServiceDriverManager;
+            WebServiceDriverManager driverWrapper = this.TestObject.ManagerStore[typeof(WebServiceDriverManager).FullName] as WebServiceDriverManager;
             Assert.IsFalse(driverWrapper.IsDriverIntialized(), "The driver should not be intialized until it gets used");
         }
     }

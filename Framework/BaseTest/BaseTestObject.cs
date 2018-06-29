@@ -29,7 +29,7 @@ namespace Magenic.MaqsFramework.BaseTest
             this.PerfTimerCollection = new PerfTimerCollection(logger, fullyQualifiedTestName);
             this.Values = new Dictionary<string, string>();
             this.Objects = new Dictionary<string, object>();
-            this.DriverStore = new Dictionary<string, DriverManager>();
+            this.ManagerStore = new Dictionary<string, DriverManager>();
 
             logger.LogMessage(MessageType.INFORMATION, "Setup test object for " + fullyQualifiedTestName);
         }
@@ -46,7 +46,7 @@ namespace Magenic.MaqsFramework.BaseTest
             this.PerfTimerCollection = new PerfTimerCollection(logger, fullyQualifiedTestName);
             this.Values = new Dictionary<string, string>();
             this.Objects = new Dictionary<string, object>();
-            this.DriverStore = new Dictionary<string, DriverManager>();
+            this.ManagerStore = new Dictionary<string, DriverManager>();
 
             logger.LogMessage(MessageType.INFORMATION, "Setup test object for " + fullyQualifiedTestName);
         }
@@ -62,7 +62,7 @@ namespace Magenic.MaqsFramework.BaseTest
             this.PerfTimerCollection = baseTestObject.PerfTimerCollection;
             this.Values = baseTestObject.Values;
             this.Objects = baseTestObject.Objects;
-            this.DriverStore = baseTestObject.DriverStore;
+            this.ManagerStore = baseTestObject.ManagerStore;
 
             baseTestObject.Log.LogMessage(MessageType.INFORMATION, "Setup test object");
         }
@@ -95,7 +95,7 @@ namespace Magenic.MaqsFramework.BaseTest
         /// <summary>
         /// Gets a dictionary of string key and driver value pairs
         /// </summary>
-        public Dictionary<string, DriverManager> DriverStore { get; private set; }
+        public Dictionary<string, DriverManager> ManagerStore { get; private set; }
 
         /// <summary>
         /// Sets a string value, will replace if the key already exists
@@ -136,9 +136,9 @@ namespace Magenic.MaqsFramework.BaseTest
         /// </summary>
         /// <typeparam name="T">The type of driver manager</typeparam>
         /// <returns>The driver manager</returns>
-        public T GetDriver<T>() where T : DriverManager
+        public T GetDriverManager<T>() where T : DriverManager
         {
-            return this.DriverStore[typeof(T).FullName] as T;
+            return this.ManagerStore[typeof(T).FullName] as T;
         }
 
         /// <summary>
@@ -147,15 +147,15 @@ namespace Magenic.MaqsFramework.BaseTest
         /// <typeparam name="T">The driver type</typeparam>
         /// <param name="driver">The new driver</param>
         /// <param name="overrideIfExists">Should we override if this driver exists.  If it exists and we don't override than an error will be thrown.</param>
-        public void AddDriver<T>(T driver, bool overrideIfExists = false) where T : DriverManager
+        public void AddDriverManager<T>(T driver, bool overrideIfExists = false) where T : DriverManager
         {
             if (overrideIfExists)
             {
-                this.OverrideDriver(typeof(T).FullName, driver);
+                this.OverrideDriverManager(typeof(T).FullName, driver);
             }
             else
             {
-                this.AddDriver(typeof(T).FullName, driver);
+                this.AddDriverManager(typeof(T).FullName, driver);
             }
         }
 
@@ -164,9 +164,9 @@ namespace Magenic.MaqsFramework.BaseTest
         /// </summary>
         /// <param name="key">Key for the new driver</param>
         /// <param name="driver">The new driver</param>
-        public void AddDriver(string key, DriverManager driver)
+        public void AddDriverManager(string key, DriverManager driver)
         {
-            this.DriverStore.Add(key, driver);
+            this.ManagerStore.Add(key, driver);
         }
 
         /// <summary>
@@ -174,16 +174,16 @@ namespace Magenic.MaqsFramework.BaseTest
         /// </summary>
         /// <param name="key">The driver key</param>
         /// <param name="driver">The new driver</param>
-        public void OverrideDriver(string key, DriverManager driver)
+        public void OverrideDriverManager(string key, DriverManager driver)
         {
-            if (this.DriverStore.ContainsKey(key))
+            if (this.ManagerStore.ContainsKey(key))
             {
-                this.DriverStore[key].Dispose();
-                this.DriverStore[key] = driver;
+                this.ManagerStore[key].Dispose();
+                this.ManagerStore[key] = driver;
             }
             else
             {
-                this.DriverStore.Add(key, driver);
+                this.ManagerStore.Add(key, driver);
             }
         }
 
@@ -202,7 +202,7 @@ namespace Magenic.MaqsFramework.BaseTest
         /// <param name="disposing">True if you want to release managed resources</param>
         public void Dispose(bool disposing)
         {
-            if (!disposing || this.DriverStore is null)
+            if (!disposing || this.ManagerStore is null)
             {
                 return;
             }
@@ -210,7 +210,7 @@ namespace Magenic.MaqsFramework.BaseTest
             this.Log.LogMessage(MessageType.VERBOSE, "Start dispose");
 
             // Make sure all of the individual drivers are disposed
-            foreach (DriverManager singleDrive in this.DriverStore.Values)
+            foreach (DriverManager singleDrive in this.ManagerStore.Values)
             {
                 if (singleDrive != null)
                 {
@@ -218,7 +218,7 @@ namespace Magenic.MaqsFramework.BaseTest
                 }
             }
 
-            this.DriverStore = null;
+            this.ManagerStore = null;
 
             this.Log.LogMessage(MessageType.VERBOSE, "End dispose");
         }

@@ -38,9 +38,9 @@ namespace CoreUnitTests
         public void CanUseMultiple()
         {
             SeleniumDriverManager newDriver = new SeleniumDriverManager(() => SeleniumConfig.Browser("phantomjs"), this.TestObject);
-            this.TestObject.DriverStore.Add("test", newDriver);
+            this.TestObject.ManagerStore.Add("test", newDriver);
 
-            Assert.AreNotEqual(this.TestObject.WebDriver.GetLowLevelDriver(), ((SeleniumDriverManager)this.TestObject.DriverStore["test"]).Get().GetLowLevelDriver());
+            Assert.AreNotEqual(this.TestObject.WebDriver.GetLowLevelDriver(), ((SeleniumDriverManager)this.TestObject.ManagerStore["test"]).Get().GetLowLevelDriver());
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace CoreUnitTests
         [TestMethod]
         public void SeleniumWebDriverInDriverStore()
         {
-            Assert.AreEqual(this.TestObject.WebDriver, this.TestObject.GetDriver<SeleniumDriverManager>().Get());
+            Assert.AreEqual(this.TestObject.WebDriver, this.TestObject.GetDriverManager<SeleniumDriverManager>().Get());
         }
 
         /// <summary>
@@ -58,10 +58,10 @@ namespace CoreUnitTests
         [TestMethod]
         public void MixedStoreTypes()
         {
-            this.TestObject.AddDriver(new WebServiceDriverManager(() => new HttpClient(), this.TestObject));
+            this.TestObject.AddDriverManager(new WebServiceDriverManager(() => new HttpClient(), this.TestObject));
 
-            Assert.IsNotNull(this.TestObject.GetDriver<SeleniumDriverManager>(), "Expected a Selenium driver store");
-            Assert.IsNotNull(this.TestObject.GetDriver<WebServiceDriverManager>(), "Expected a web service driver store");
+            Assert.IsNotNull(this.TestObject.GetDriverManager<SeleniumDriverManager>(), "Expected a Selenium driver store");
+            Assert.IsNotNull(this.TestObject.GetDriverManager<WebServiceDriverManager>(), "Expected a web service driver store");
         }
 
         /// <summary>
@@ -73,11 +73,11 @@ namespace CoreUnitTests
             SeleniumDriverManager newDriver = new SeleniumDriverManager(() => SeleniumConfig.Browser("phantomjs"), this.TestObject);
             newDriver.Get().Navigate().GoToUrl("http://magenicautomation.azurewebsites.net/");
 
-            this.TestObject.DriverStore.Add("test", newDriver);
+            this.TestObject.ManagerStore.Add("test", newDriver);
 
             this.TestObject.WebDriver.Navigate().GoToUrl("http://magenicautomation.azurewebsites.net/Automation");
 
-            Assert.AreNotEqual(this.TestObject.WebDriver.Url, ((SeleniumDriverManager)this.TestObject.DriverStore["test"]).Get().Url);
+            Assert.AreNotEqual(this.TestObject.WebDriver.Url, ((SeleniumDriverManager)this.TestObject.ManagerStore["test"]).Get().Url);
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace CoreUnitTests
             // Do something so we intialize the web driver
             this.WebDriver.Manage().Window.Maximize();
 
-            SeleniumDriverManager driverWrapper = this.TestObject.DriverStore[typeof(SeleniumDriverManager).FullName] as SeleniumDriverManager;
+            SeleniumDriverManager driverWrapper = this.TestObject.ManagerStore[typeof(SeleniumDriverManager).FullName] as SeleniumDriverManager;
             Assert.IsTrue(driverWrapper.IsDriverIntialized(), "The driver should have been intialized");
         }
 
@@ -99,7 +99,7 @@ namespace CoreUnitTests
         [TestMethod]
         public void NotIntialized()
         {
-            SeleniumDriverManager driverWrapper = this.TestObject.DriverStore[typeof(SeleniumDriverManager).FullName] as SeleniumDriverManager;
+            SeleniumDriverManager driverWrapper = this.TestObject.ManagerStore[typeof(SeleniumDriverManager).FullName] as SeleniumDriverManager;
             Assert.IsFalse(driverWrapper.IsDriverIntialized(), "The driver should not be intialized until it gets used");
         }
     }

@@ -25,7 +25,7 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
         public DatabaseTestObject(Func<IDbConnection> databaseConnection, Logger logger, SoftAssert softAssert, string fullyQualifiedTestName) : base(logger, softAssert, fullyQualifiedTestName)
         {
-            this.DriverStore.Add(typeof(DatabaseDriverManager).FullName, new DatabaseDriverManager(databaseConnection, this));
+            this.ManagerStore.Add(typeof(DatabaseDriverManager).FullName, new DatabaseDriverManager(databaseConnection, this));
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         {
             get
             {
-                return this.DriverStore[typeof(DatabaseDriverManager).FullName] as DatabaseDriverManager;
+                return this.ManagerStore[typeof(DatabaseDriverManager).FullName] as DatabaseDriverManager;
             }
         }
 
@@ -56,7 +56,7 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         /// <param name="databaseConnection">Function for creating a database connection</param>
         public void OverrideDatabaseConnection(Func<IDbConnection> databaseConnection)
         {
-            this.OverrideDriver(typeof(DatabaseDriverManager).FullName, new DatabaseDriverManager(databaseConnection, this));
+            this.OverrideDriverManager(typeof(DatabaseDriverManager).FullName, new DatabaseDriverManager(databaseConnection, this));
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         /// <param name="databaseConnection">New database connection</param>
         public void OverrideDatabaseWrapper(IDbConnection databaseConnection)
         {
-            this.OverrideDriver(typeof(DatabaseDriverManager).FullName, new DatabaseDriverManager(() => databaseConnection, this));
+            this.OverrideDriverManager(typeof(DatabaseDriverManager).FullName, new DatabaseDriverManager(() => databaseConnection, this));
         }
 
         /// <summary>

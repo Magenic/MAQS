@@ -26,7 +26,7 @@ namespace Magenic.MaqsFramework.BaseMongoTest
         /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
         public MongoTestObject(string connectionString, string databaseString, string collectionString, Logger logger, SoftAssert softAssert, string fullyQualifiedTestName) : base(logger, softAssert, fullyQualifiedTestName)
         {
-            this.DriverStore.Add(typeof(MongoDriverManager<T>).FullName, new MongoDriverManager<T>(connectionString, databaseString, collectionString, this));
+            this.ManagerStore.Add(typeof(MongoDriverManager<T>).FullName, new MongoDriverManager<T>(connectionString, databaseString, collectionString, this));
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace Magenic.MaqsFramework.BaseMongoTest
         {
             get
             {
-                return this.DriverStore[typeof(MongoDriverManager<T>).FullName] as MongoDriverManager<T>;
+                return this.ManagerStore[typeof(MongoDriverManager<T>).FullName] as MongoDriverManager<T>;
             }
         }
 
@@ -59,8 +59,8 @@ namespace Magenic.MaqsFramework.BaseMongoTest
         /// <param name="collectionString">Mongo collection string</param>
         public void OverrideMongoDBWrapper(string connectionString, string databaseString, string collectionString)
         {
-            this.DriverStore.Remove(typeof(MongoDriverManager<T>).FullName);
-            this.DriverStore.Add(typeof(MongoDriverManager<T>).FullName, new MongoDriverManager<T>(connectionString, databaseString, collectionString, this));
+            this.ManagerStore.Remove(typeof(MongoDriverManager<T>).FullName);
+            this.ManagerStore.Add(typeof(MongoDriverManager<T>).FullName, new MongoDriverManager<T>(connectionString, databaseString, collectionString, this));
         }
 
         /// <summary>
