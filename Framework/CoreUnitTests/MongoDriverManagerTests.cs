@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------
-// <copyright file="MongoDriverStoreTests.cs" company="Magenic">
+// <copyright file="MongoDriverManagerTests.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Mongo database driver store tests</summary>
@@ -16,7 +16,7 @@ namespace CoreUnitTests
     /// Test the Mongo driver store
     /// </summary>
     [TestClass]
-    public class MongoDriverStoreTests : BaseMongoTest<BsonDocument>
+    public class MongoDriverManagerTests : BaseMongoTest<BsonDocument>
     {
         /// <summary>
         /// Make sure we can override the driver
@@ -36,11 +36,11 @@ namespace CoreUnitTests
         [TestMethod]
         public void CanUseMultiple()
         {
-            MongoDriverStore<BsonDocument> newDriver = new MongoDriverStore<BsonDocument>(MongoDBConfig.GetConnectionString(), MongoDBConfig.GetDatabaseString(), MongoDBConfig.GetCollectionString(),  this.TestObject);
-            this.TestObject.DriversStore.Add("test", newDriver);
+            MongoDriverManager<BsonDocument> newDriver = new MongoDriverManager<BsonDocument>(MongoDBConfig.GetConnectionString(), MongoDBConfig.GetDatabaseString(), MongoDBConfig.GetCollectionString(),  this.TestObject);
+            this.TestObject.DriverStore.Add("test", newDriver);
 
-            Assert.AreNotEqual(this.TestObject.MongoDBWrapper, (MongoDriverStore<BsonDocument>)this.TestObject.DriversStore["test"]);
-            Assert.AreNotEqual(this.TestObject.MongoDBDriver.Get(), ((MongoDriverStore<BsonDocument>)this.TestObject.DriversStore["test"]).Get());
+            Assert.AreNotEqual(this.TestObject.MongoDBWrapper, (MongoDriverManager<BsonDocument>)this.TestObject.DriverStore["test"]);
+            Assert.AreNotEqual(this.TestObject.MongoDBDriver.Get(), ((MongoDriverManager<BsonDocument>)this.TestObject.DriverStore["test"]).Get());
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace CoreUnitTests
         [TestMethod]
         public void MongoWrapperInDriverStore()
         {
-            Assert.AreEqual(this.TestObject.MongoDBWrapper, this.TestObject.GetDriver<MongoDriverStore<BsonDocument>>().Get());
+            Assert.AreEqual(this.TestObject.MongoDBWrapper, this.TestObject.GetDriver<MongoDriverManager<BsonDocument>>().Get());
         }
 
         /// <summary>
@@ -58,10 +58,10 @@ namespace CoreUnitTests
         [TestMethod]
         public void MixedStoreTypes()
         {
-            this.TestObject.AddDriver(new WebServiceDriverStore(() => new HttpClient(), this.TestObject));
+            this.TestObject.AddDriver(new WebServiceDriverManager(() => new HttpClient(), this.TestObject));
 
-            Assert.IsNotNull(this.TestObject.GetDriver<MongoDriverStore<BsonDocument>>(), "Expected a Mongo driver store");
-            Assert.IsNotNull(this.TestObject.GetDriver<WebServiceDriverStore>(), "Expected a web service driver store");
+            Assert.IsNotNull(this.TestObject.GetDriver<MongoDriverManager<BsonDocument>>(), "Expected a Mongo driver store");
+            Assert.IsNotNull(this.TestObject.GetDriver<WebServiceDriverManager>(), "Expected a web service driver store");
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace CoreUnitTests
             // Do something so we intialize the web driver
             this.MongoDBWrapper.IsCollectionEmpty();
 
-            MongoDriverStore<BsonDocument> driverWrapper = this.TestObject.DriversStore[typeof(MongoDriverStore<BsonDocument>).FullName] as MongoDriverStore<BsonDocument>;
+            MongoDriverManager<BsonDocument> driverWrapper = this.TestObject.DriverStore[typeof(MongoDriverManager<BsonDocument>).FullName] as MongoDriverManager<BsonDocument>;
             Assert.IsTrue(driverWrapper.IsDriverIntialized(), "The driver should have been intialized");
         }
 
@@ -83,7 +83,7 @@ namespace CoreUnitTests
         [TestMethod]
         public void NotIntialized()
         {
-            MongoDriverStore<BsonDocument> driverWrapper = this.TestObject.DriversStore[typeof(MongoDriverStore<BsonDocument>).FullName] as MongoDriverStore<BsonDocument>;
+            MongoDriverManager<BsonDocument> driverWrapper = this.TestObject.DriverStore[typeof(MongoDriverManager<BsonDocument>).FullName] as MongoDriverManager<BsonDocument>;
             Assert.IsFalse(driverWrapper.IsDriverIntialized(), "The driver should not be intialized until it gets used");
         }
     }

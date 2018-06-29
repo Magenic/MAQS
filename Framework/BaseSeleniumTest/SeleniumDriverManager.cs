@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------
-// <copyright file="SeleniumDriverStore.cs" company="Magenic">
+// <copyright file="SeleniumDriverManager.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Selenium driver</summary>
@@ -20,14 +20,14 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
     /// <summary>
     /// Selenium driver store
     /// </summary>
-    public class SeleniumDriverStore : DriverStore
+    public class SeleniumDriverManager : DriverManager
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SeleniumDriverStore"/> class
+        /// Initializes a new instance of the <see cref="SeleniumDriverManager"/> class
         /// </summary>
         /// <param name="getDriver">Function for getting an Selenium web driver</param>
         /// <param name="testObject">The associated test object</param>
-        public SeleniumDriverStore(Func<IWebDriver> getDriver, BaseTestObject testObject) : base(getDriver, testObject)
+        public SeleniumDriverManager(Func<IWebDriver> getDriver, BaseTestObject testObject) : base(getDriver, testObject)
         {
         }
 

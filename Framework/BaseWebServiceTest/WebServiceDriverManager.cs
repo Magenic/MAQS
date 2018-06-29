@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------
-// <copyright file="WebServiceDriverStore.cs" company="Magenic">
+// <copyright file="WebServiceDriverManager.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Web service driver</summary>
@@ -15,7 +15,7 @@ namespace Magenic.MaqsFramework.WebServiceTester
     /// <summary>
     /// Web service driver
     /// </summary>
-    public class WebServiceDriverStore : DriverStore
+    public class WebServiceDriverManager : DriverManager
     {
         /// <summary>
         /// Cached copy of the wrapper
@@ -23,11 +23,11 @@ namespace Magenic.MaqsFramework.WebServiceTester
         private WebServiceDriver wrapper;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="WebServiceDriverStore" /> class
+        /// Initializes a new instance of the <see cref="WebServiceDriverManager" /> class
         /// </summary>
         /// <param name="getDriver">Function for creating an http client</param>
         /// <param name="testObject">The associated test object</param>
-        public WebServiceDriverStore(Func<HttpClient> getDriver, BaseTestObject testObject) : base(getDriver, testObject)
+        public WebServiceDriverManager(Func<HttpClient> getDriver, BaseTestObject testObject) : base(getDriver, testObject)
         {
         }
 

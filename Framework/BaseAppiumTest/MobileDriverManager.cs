@@ -1,8 +1,8 @@
 ﻿//--------------------------------------------------
-// <copyright file="MobileDriverStore.cs" company="Magenic">
+// <copyright file="MobileDriverManager.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
-// <summary>Mobile driver storage</summary>
+// <summary>Mobile driver manager</summary>
 //--------------------------------------------------
 using Magenic.MaqsFramework.BaseTest;
 using Magenic.MaqsFramework.Utilities.Data;
@@ -14,16 +14,16 @@ using System;
 namespace Magenic.MaqsFramework.BaseAppiumTest
 {
     /// <summary>
-    /// Mobile driver storage
+    /// Mobile driver manager
     /// </summary>
-    public class MobileDriverStore : DriverStore
+    public class MobileDriverManager : DriverManager
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MobileDriverStore"/> class
+        /// Initializes a new instance of the <see cref="MobileDriverManager"/> class
         /// </summary>
         /// <param name="getDriver">Function for getting an Appium driver</param>
         /// <param name="testObject">The associated test object</param>
-        public MobileDriverStore(Func<AppiumDriver<IWebElement>> getDriver, BaseTestObject testObject) : base(getDriver, testObject)
+        public MobileDriverManager(Func<AppiumDriver<IWebElement>> getDriver, BaseTestObject testObject) : base(getDriver, testObject)
         {
         }
 

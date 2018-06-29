@@ -75,7 +75,7 @@
     <Compile Include="BaseAppiumTest.cs" />
     <Compile Include="LazyMobileElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MobileDriverStore.cs" />
+    <Compile Include="MobileDriverManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BaseSeleniumTest\BaseSeleniumTest.csproj">

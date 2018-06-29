@@ -1,8 +1,8 @@
 ﻿//--------------------------------------------------
-// <copyright file="DriverStore.cs" company="Magenic">
+// <copyright file="DriverManager.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
-// <summary>Base driver storage</summary>
+// <summary>Base driver manager</summary>
 //--------------------------------------------------
 using Magenic.MaqsFramework.Utilities.Logging;
 using System;
@@ -10,9 +10,9 @@ using System;
 namespace Magenic.MaqsFramework.BaseTest
 {
     /// <summary>
-    /// Base driver storage object
+    /// Base driver manager object
     /// </summary>
-    public abstract class DriverStore : IDisposable
+    public abstract class DriverManager : IDisposable
     {
         /// <summary>
         /// The test object associated with the driver
@@ -20,11 +20,11 @@ namespace Magenic.MaqsFramework.BaseTest
         private readonly BaseTestObject testObject;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DriverStore"/> class
+        /// Initializes a new instance of the <see cref="DriverManager"/> class
         /// </summary>
         /// <param name="funcToRun">How to get the underlying driver</param>
         /// <param name="testObject">The associate test object</param>
-        public DriverStore(Func<object> funcToRun, BaseTestObject testObject)
+        public DriverManager(Func<object> funcToRun, BaseTestObject testObject)
         {
             this.GetDriver = funcToRun;
             this.testObject = testObject;

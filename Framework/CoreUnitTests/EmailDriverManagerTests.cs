@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------
-// <copyright file="EmailDriverStoreTests.cs" company="Magenic">
+// <copyright file="EmailDriverManagerTests.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Email driver store tests</summary>
@@ -17,7 +17,7 @@ namespace CoreUnitTests
     /// </summary>
     [TestClass]
     [DoNotParallelize]
-    public class EmailDriverStoreTests : BaseEmailTest
+    public class EmailDriverManagerTests : BaseEmailTest
     {
         /// <summary>
         /// Make sure we can override the driver
@@ -37,11 +37,11 @@ namespace CoreUnitTests
         [TestMethod]
         public void CanUseMultiple()
         {
-            EmailDriverStore newDriver = new EmailDriverStore(() => GetClient(), this.TestObject);
-            this.TestObject.DriversStore.Add("test", newDriver);
+            EmailDriverManager newDriver = new EmailDriverManager(() => GetClient(), this.TestObject);
+            this.TestObject.DriverStore.Add("test", newDriver);
 
-            Assert.AreNotEqual(this.TestObject.EmailDriver, (EmailDriverStore)this.TestObject.DriversStore["test"]);
-            Assert.AreNotEqual(this.TestObject.EmailDriver.Get(), ((EmailDriverStore)this.TestObject.DriversStore["test"]).Get());
+            Assert.AreNotEqual(this.TestObject.EmailDriver, (EmailDriverManager)this.TestObject.DriverStore["test"]);
+            Assert.AreNotEqual(this.TestObject.EmailDriver.Get(), ((EmailDriverManager)this.TestObject.DriverStore["test"]).Get());
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace CoreUnitTests
         [TestMethod]
         public void EmailWrapperInDriverStore()
         {
-            Assert.AreEqual(this.TestObject.EmailWrapper, this.TestObject.GetDriver<EmailDriverStore>().Get());
+            Assert.AreEqual(this.TestObject.EmailWrapper, this.TestObject.GetDriver<EmailDriverManager>().Get());
         }
 
         /// <summary>
@@ -59,10 +59,10 @@ namespace CoreUnitTests
         [TestMethod]
         public void MixedStoreTypes()
         {
-            this.TestObject.AddDriver(new WebServiceDriverStore(() => new HttpClient(), this.TestObject));
+            this.TestObject.AddDriver(new WebServiceDriverManager(() => new HttpClient(), this.TestObject));
 
-            Assert.IsNotNull(this.TestObject.GetDriver<EmailDriverStore>(), "Expected a Email driver store");
-            Assert.IsNotNull(this.TestObject.GetDriver<WebServiceDriverStore>(), "Expected a web service driver store");
+            Assert.IsNotNull(this.TestObject.GetDriver<EmailDriverManager>(), "Expected a Email driver store");
+            Assert.IsNotNull(this.TestObject.GetDriver<WebServiceDriverManager>(), "Expected a web service driver store");
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace CoreUnitTests
             // Do something so we initalize the driver
             this.EmailWrapper.CanAccessEmailAccount();
 
-            EmailDriverStore driverWrapper = this.TestObject.DriversStore[typeof(EmailDriverStore).FullName] as EmailDriverStore;
+            EmailDriverManager driverWrapper = this.TestObject.DriverStore[typeof(EmailDriverManager).FullName] as EmailDriverManager;
             Assert.IsTrue(driverWrapper.IsDriverIntialized(), "The driver should have been intialized");
         }
 
@@ -84,7 +84,7 @@ namespace CoreUnitTests
         [TestMethod]
         public void NotIntialized()
         {
-            EmailDriverStore driverWrapper = this.TestObject.DriversStore[typeof(EmailDriverStore).FullName] as EmailDriverStore;
+            EmailDriverManager driverWrapper = this.TestObject.DriverStore[typeof(EmailDriverManager).FullName] as EmailDriverManager;
             Assert.IsFalse(driverWrapper.IsDriverIntialized(), "The driver should not be intialized until it gets used");
         }
 

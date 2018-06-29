@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------
-// <copyright file="DatabaseDriverStoreTests.cs" company="Magenic">
+// <copyright file="DatabaseDriverManagerTests.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Database driver store tests</summary>
@@ -15,7 +15,7 @@ namespace CoreUnitTests
     /// Test the database driver store
     /// </summary>
     [TestClass]
-    public class DatabaseDriverStoreTests : BaseDatabaseTest
+    public class DatabaseDriverManagerTests : BaseDatabaseTest
     {
         /// <summary>
         /// Make sure we can override the driver
@@ -35,11 +35,11 @@ namespace CoreUnitTests
         [TestMethod]
         public void CanUseMultiple()
         {
-            DatabaseDriverStore newDriver = new DatabaseDriverStore(() => DatabaseConfig.GetOpenConnection(), this.TestObject);
-            this.TestObject.DriversStore.Add("test", newDriver);
+            DatabaseDriverManager newDriver = new DatabaseDriverManager(() => DatabaseConfig.GetOpenConnection(), this.TestObject);
+            this.TestObject.DriverStore.Add("test", newDriver);
 
-            Assert.AreNotEqual(this.TestObject.DatabaseDriver, (DatabaseDriverStore)this.TestObject.DriversStore["test"]);
-            Assert.AreNotEqual(this.TestObject.DatabaseDriver.Get(), ((DatabaseDriverStore)this.TestObject.DriversStore["test"]).Get());
+            Assert.AreNotEqual(this.TestObject.DatabaseDriver, (DatabaseDriverManager)this.TestObject.DriverStore["test"]);
+            Assert.AreNotEqual(this.TestObject.DatabaseDriver.Get(), ((DatabaseDriverManager)this.TestObject.DriverStore["test"]).Get());
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace CoreUnitTests
         [TestMethod]
         public void DatabaseWrapperInDriverStore()
         {
-            Assert.AreEqual(this.TestObject.DatabaseWrapper, this.TestObject.GetDriver<DatabaseDriverStore>().Get());
+            Assert.AreEqual(this.TestObject.DatabaseWrapper, this.TestObject.GetDriver<DatabaseDriverManager>().Get());
         }
 
         /// <summary>
@@ -57,10 +57,10 @@ namespace CoreUnitTests
         [TestMethod]
         public void MixedStoreTypes()
         {
-            this.TestObject.AddDriver(new WebServiceDriverStore(() => new HttpClient(), this.TestObject));
+            this.TestObject.AddDriver(new WebServiceDriverManager(() => new HttpClient(), this.TestObject));
 
-            Assert.IsNotNull(this.TestObject.GetDriver<DatabaseDriverStore>(), "Expected a database driver store");
-            Assert.IsNotNull(this.TestObject.GetDriver<WebServiceDriverStore>(), "Expected a web service driver store");
+            Assert.IsNotNull(this.TestObject.GetDriver<DatabaseDriverManager>(), "Expected a database driver store");
+            Assert.IsNotNull(this.TestObject.GetDriver<WebServiceDriverManager>(), "Expected a web service driver store");
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace CoreUnitTests
             // Do something so we intialize the driver
             this.DatabaseWrapper.Execute("Select * from Sys.Databases");
 
-            DatabaseDriverStore driverWrapper = this.TestObject.DriversStore[typeof(DatabaseDriverStore).FullName] as DatabaseDriverStore;
+            DatabaseDriverManager driverWrapper = this.TestObject.DriverStore[typeof(DatabaseDriverManager).FullName] as DatabaseDriverManager;
             Assert.IsTrue(driverWrapper.IsDriverIntialized(), "The driver should have been intialized");
         }
 
@@ -82,7 +82,7 @@ namespace CoreUnitTests
         [TestMethod]
         public void NotIntialized()
         {
-            DatabaseDriverStore driverWrapper = this.TestObject.DriversStore[typeof(DatabaseDriverStore).FullName] as DatabaseDriverStore;
+            DatabaseDriverManager driverWrapper = this.TestObject.DriverStore[typeof(DatabaseDriverManager).FullName] as DatabaseDriverManager;
             Assert.IsFalse(driverWrapper.IsDriverIntialized(), "The driver should not be intialized until it gets used");
         }
     }
