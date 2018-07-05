@@ -4,8 +4,8 @@
 // </copyright>
 // <summary>NUnit test the selenium framework</summary>
 //-----------------------------------------------------
-using Magenic.MaqsFramework.BaseSeleniumTest;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseSeleniumTest;
+using Magenic.Maqs.Utilities.Helper;
 using NUnit.Framework;
 using System.Diagnostics.CodeAnalysis;
 

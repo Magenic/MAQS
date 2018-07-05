@@ -4,10 +4,10 @@
 // </copyright>
 // <summary>Base code for tests without a system under test object like web drivers or database connections</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Data;
-using Magenic.MaqsFramework.Utilities.Helper;
-using Magenic.MaqsFramework.Utilities.Logging;
-using Magenic.MaqsFramework.Utilities.Performance;
+using Magenic.Maqs.Utilities.Data;
+using Magenic.Maqs.Utilities.Helper;
+using Magenic.Maqs.Utilities.Logging;
+using Magenic.Maqs.Utilities.Performance;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
@@ -22,7 +22,7 @@ using System.Text;
 using NUnitTestContext = NUnit.Framework.TestContext;
 using VSTestContext = Microsoft.VisualStudio.TestTools.UnitTesting.TestContext;
 
-namespace Magenic.MaqsFramework.BaseTest
+namespace Magenic.Maqs.BaseTest
 {
     /// <summary>
     /// Base for tests without a defined system under test
@@ -217,6 +217,8 @@ namespace Magenic.MaqsFramework.BaseTest
                 this.TryToLog(MessageType.WARNING, "Test had an unexpected result of {0}", this.GetResultText());
             }
 
+            this.BeforeLoggingTeardown(resultType);
+
             // Cleanup log files we don't want
             try
             {
@@ -387,6 +389,14 @@ namespace Magenic.MaqsFramework.BaseTest
         {
             Logger newLogger = this.CreateLogger();
             this.TestObject = new BaseTestObject(newLogger, new SoftAssert(newLogger), this.GetFullyQualifiedTestClassName());
+        }
+
+        /// <summary>
+        /// Steps to do before logging teardown results - If not override nothing is done before logging the results
+        /// </summary>
+        /// <param name="resultType">The test result</param>
+        protected virtual void BeforeLoggingTeardown(TestResultType resultType)
+        {
         }
 
         /// <summary>

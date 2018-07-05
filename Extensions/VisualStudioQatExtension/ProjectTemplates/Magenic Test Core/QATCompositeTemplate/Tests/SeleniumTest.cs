@@ -1,6 +1,6 @@
-﻿using Magenic.MaqsFramework.BaseDatabaseTest;
-using Magenic.MaqsFramework.BaseSeleniumTest;
-using Magenic.MaqsFramework.BaseWebServiceTest;
+﻿using Magenic.Maqs.BaseDatabaseTest;
+using Magenic.Maqs.BaseSeleniumTest;
+using Magenic.Maqs.BaseWebServiceTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Models;
 using System;

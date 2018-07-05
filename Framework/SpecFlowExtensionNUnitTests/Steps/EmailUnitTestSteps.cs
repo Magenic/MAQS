@@ -5,7 +5,7 @@
 // <summary>TestSteps class that inherits from BaseEmailTestSteps</summary>
 //--------------------------------------------------
 using Magenic.Maqs.SpecFlow.TestSteps;
-using Magenic.MaqsFramework.BaseEmailTest;
+using Magenic.Maqs.BaseEmailTest;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 

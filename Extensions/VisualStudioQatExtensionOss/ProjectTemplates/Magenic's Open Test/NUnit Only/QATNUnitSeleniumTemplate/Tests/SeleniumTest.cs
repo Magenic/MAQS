@@ -1,4 +1,4 @@
-﻿using Magenic.MaqsFramework.BaseSeleniumTest;
+﻿using Magenic.Maqs.BaseSeleniumTest;
 using NUnit.Framework;
 using PageModel;
 

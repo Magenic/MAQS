@@ -4,8 +4,8 @@
 // </copyright>
 // <summary>This is the LazyElement class</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Helper;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.Utilities.Helper;
+using Magenic.Maqs.Utilities.Logging;
 using OpenQA.Selenium;
 using System;
 using System.Collections.ObjectModel;
@@ -14,7 +14,7 @@ using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
+namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 {
     /// <summary>
     /// Wrapper for dynamically finding and interacting with elements

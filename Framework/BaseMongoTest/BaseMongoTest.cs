@@ -4,10 +4,10 @@
 // </copyright>
 // <summary>This is the base MongoDB test class</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Logging;
 
-namespace Magenic.MaqsFramework.BaseMongoTest
+namespace Magenic.Maqs.BaseMongoTest
 {
     /// <summary>
     /// Generic base MongoDB test class

@@ -4,13 +4,13 @@
 // </copyright>
 // <summary>Holds Appium context data</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using System;
 
-namespace Magenic.MaqsFramework.BaseAppiumTest
+namespace Magenic.Maqs.BaseAppiumTest
 {
     /// <summary>
     /// Appium test context data

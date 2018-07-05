@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>Web service utilies</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Data;
+using Magenic.Maqs.Utilities.Data;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Magenic.MaqsFramework.BaseWebServiceTest
+namespace Magenic.Maqs.BaseWebServiceTest
 {
     /// <summary>
     /// Web service utilities

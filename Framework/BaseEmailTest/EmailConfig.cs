@@ -4,13 +4,13 @@
 // </copyright>
 // <summary>Helper class for getting email specific configuration values</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Data;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.Utilities.Data;
+using Magenic.Maqs.Utilities.Helper;
 using System;
 using System.IO;
 using System.Reflection;
 
-namespace Magenic.MaqsFramework.BaseEmailTest
+namespace Magenic.Maqs.BaseEmailTest
 {
     /// <summary>
     /// Email configuration class

@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Magenic.MaqsFramework.Utilities.Data
+namespace Magenic.Maqs.Utilities.Data
 {
     /// <summary>
     /// Contains methods for processing lists

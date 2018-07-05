@@ -5,7 +5,7 @@
 // <summary>TestSteps class that inherits from BaseSeleniumTestSteps</summary>
 //--------------------------------------------------
 using Magenic.Maqs.SpecFlow.TestSteps;
-using Magenic.MaqsFramework.BaseSeleniumTest;
+using Magenic.Maqs.BaseSeleniumTest;
 using NUnit.Framework;
 using OpenQA.Selenium.Support.Events;
 using TechTalk.SpecFlow;

@@ -6,10 +6,10 @@
   </PropertyGroup>  
   <ItemGroup>
     <PackageReference Include="NUnit" Version="3.10.1" />
-    <PackageReference Include="Magenic.MaqsFramework" Version="5.0.0-PreAlpha" />
-    <PackageReference Include="MailKit" Version="2.0.1" />
-    <PackageReference Include="MimeKit" Version="2.0.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.6.1" />
+    <PackageReference Include="Magenic.Maqs" Version="5.0.0" />
+    <PackageReference Include="MailKit" Version="2.0.4" />
+    <PackageReference Include="MimeKit" Version="2.0.4" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.2" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.3.0-beta2" />
     <PackageReference Include="MSTest.TestFramework" Version="1.3.0-beta2" />    
   </ItemGroup>  

@@ -6,8 +6,8 @@
 //--------------------------------------------------
 
 using System;
-using Magenic.MaqsFramework.BaseDatabaseTest;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseDatabaseTest;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;

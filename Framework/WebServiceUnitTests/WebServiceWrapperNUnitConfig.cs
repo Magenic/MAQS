@@ -4,8 +4,8 @@
 // </copyright>
 // <summary>Configuration override tests for NUnit</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseWebServiceTest;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseWebServiceTest;
+using Magenic.Maqs.Utilities.Helper;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System.Diagnostics.CodeAnalysis;

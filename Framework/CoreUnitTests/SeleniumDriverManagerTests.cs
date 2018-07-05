@@ -4,9 +4,9 @@
 // </copyright>
 // <summary>Selenium driver store tests</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseSeleniumTest;
-using Magenic.MaqsFramework.BaseSeleniumTest.Extensions;
-using Magenic.MaqsFramework.WebServiceTester;
+using Magenic.Maqs.BaseSeleniumTest;
+using Magenic.Maqs.BaseSeleniumTest.Extensions;
+using Magenic.Maqs.WebServiceTester;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using System.Net.Http;

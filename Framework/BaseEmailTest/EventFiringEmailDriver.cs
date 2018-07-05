@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>The basic database interactions</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Data;
+using Magenic.Maqs.Utilities.Data;
 using MailKit;
 using MailKit.Net.Imap;
 using MailKit.Search;
@@ -12,7 +12,7 @@ using MimeKit;
 using System;
 using System.Collections.Generic;
 
-namespace Magenic.MaqsFramework.BaseEmailTest
+namespace Magenic.Maqs.BaseEmailTest
 {
     /// <summary>
     /// Wraps the basic database interactions

@@ -4,10 +4,10 @@
 // </copyright>
 // <summary>Base driver manager</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.Utilities.Logging;
 using System;
 
-namespace Magenic.MaqsFramework.BaseTest
+namespace Magenic.Maqs.BaseTest
 {
     /// <summary>
     /// Base driver manager object

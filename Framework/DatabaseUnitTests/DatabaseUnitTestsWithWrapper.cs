@@ -11,8 +11,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using DatabaseUnitTests.Models;
-using Magenic.MaqsFramework.BaseDatabaseTest;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseDatabaseTest;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DatabaseUnitTests

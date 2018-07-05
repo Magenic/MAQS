@@ -4,8 +4,8 @@
 // </copyright>
 // <summary>This is the Appium Configuration class</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Data;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.Utilities.Data;
+using Magenic.Maqs.Utilities.Helper;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
@@ -18,7 +18,7 @@ using System;
 using System.Collections.Specialized;
 using System.Configuration;
 
-namespace Magenic.MaqsFramework.BaseAppiumTest
+namespace Magenic.Maqs.BaseAppiumTest
 {
     /// <summary>
     /// Appium Configuration class

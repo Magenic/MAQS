@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>$safeprojectname$</RootNamespace>
     <AssemblyName>$safeprojectname$</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
@@ -43,26 +43,26 @@
     <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Magenic.MaqsFramework.BaseAppiumTest, Version=4.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Magenic.MaqsFramework.4.8.0\lib\net45\Magenic.MaqsFramework.BaseAppiumTest.dll</HintPath>
+    <Reference Include="Magenic.Maqs.BaseAppiumTest, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Magenic.Maqs.5.0.0\lib\net471\Magenic.Maqs.BaseAppiumTest.dll</HintPath>
     </Reference>
-    <Reference Include="Magenic.MaqsFramework.BaseDatabaseTest, Version=4.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Magenic.MaqsFramework.4.8.0\lib\net45\Magenic.MaqsFramework.BaseDatabaseTest.dll</HintPath>
+    <Reference Include="Magenic.Maqs.BaseDatabaseTest, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Magenic.Maqs.5.0.0\lib\netstandard2.0\Magenic.Maqs.BaseDatabaseTest.dll</HintPath>
     </Reference>
-    <Reference Include="Magenic.MaqsFramework.BaseEmailTest, Version=4.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Magenic.MaqsFramework.4.8.0\lib\net45\Magenic.MaqsFramework.BaseEmailTest.dll</HintPath>
+    <Reference Include="Magenic.Maqs.BaseEmailTest, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Magenic.Maqs.5.0.0\lib\netstandard2.0\Magenic.Maqs.BaseEmailTest.dll</HintPath>
     </Reference>
-    <Reference Include="Magenic.MaqsFramework.BaseSeleniumTest, Version=4.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Magenic.MaqsFramework.4.8.0\lib\net45\Magenic.MaqsFramework.BaseSeleniumTest.dll</HintPath>
+    <Reference Include="Magenic.Maqs.BaseSeleniumTest, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Magenic.Maqs.5.0.0\lib\netstandard2.0\Magenic.Maqs.BaseSeleniumTest.dll</HintPath>
     </Reference>
-    <Reference Include="Magenic.MaqsFramework.BaseTest, Version=4.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Magenic.MaqsFramework.4.8.0\lib\net45\Magenic.MaqsFramework.BaseTest.dll</HintPath>
+    <Reference Include="Magenic.Maqs.BaseTest, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Magenic.Maqs.5.0.0\lib\netstandard2.0\Magenic.Maqs.BaseTest.dll</HintPath>
     </Reference>
-    <Reference Include="Magenic.MaqsFramework.Utilities, Version=4.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Magenic.MaqsFramework.4.8.0\lib\net45\Magenic.MaqsFramework.Utilities.dll</HintPath>
+    <Reference Include="Magenic.Maqs.Utilities, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Magenic.Maqs.5.0.0\lib\netstandard2.0\Magenic.Maqs.Utilities.dll</HintPath>
     </Reference>
-    <Reference Include="Magenic.MaqsFramework.WebServiceTester, Version=4.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Magenic.MaqsFramework.4.8.0\lib\net45\Magenic.MaqsFramework.WebServiceTester.dll</HintPath>
+    <Reference Include="Magenic.Maqs.WebServiceTester, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Magenic.Maqs.5.0.0\lib\netstandard2.0\Magenic.Maqs.WebServiceTester.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Magenic.Maqs.SpecFlowExtension.1.0.0\lib\net46\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>

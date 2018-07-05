@@ -4,11 +4,11 @@
 // </copyright>
 // <summary>Base code for test classes that setup test objects like web drivers or database connections</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 
-namespace Magenic.MaqsFramework.BaseTest
+namespace Magenic.Maqs.BaseTest
 {
     /// <summary>
     /// Base code for test classes that setup test objects like web drivers or database connections
@@ -55,13 +55,5 @@ namespace Magenic.MaqsFramework.BaseTest
         /// Create a test object
         /// </summary>
         protected override abstract void CreateNewTestObject();
-
-        /// <summary>
-        /// Steps to do before logging teardown results - If not override nothing is done before logging the results
-        /// </summary>
-        /// <param name="resultType">The test result</param>
-        protected virtual void BeforeLoggingTeardown(TestResultType resultType)
-        {
-        }
     }
 }

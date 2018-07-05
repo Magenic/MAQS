@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>Core Base unit tests</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
+using Magenic.Maqs.BaseTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CoreUnitTests

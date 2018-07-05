@@ -9,8 +9,8 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics.CodeAnalysis;
-using Magenic.MaqsFramework.BaseDatabaseTest;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseDatabaseTest;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DatabaseUnitTests
@@ -19,7 +19,7 @@ namespace DatabaseUnitTests
 
     using global::DatabaseUnitTests.Models;
 
-    using Magenic.MaqsFramework.Utilities.Data;
+    using Magenic.Maqs.Utilities.Data;
 
     /// <summary>
     /// Unit tests for the event firing database wrapper.

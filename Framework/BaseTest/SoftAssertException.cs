@@ -7,7 +7,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Magenic.MaqsFramework.BaseTest
+namespace Magenic.Maqs.BaseTest
 {
     /// <summary>
     /// Soft assert exceptions

@@ -4,10 +4,10 @@
 // </copyright>
 // <summary>PerformanceTests class</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Helper;
-using Magenic.MaqsFramework.Utilities.Logging;
-using Magenic.MaqsFramework.Utilities.Performance;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Helper;
+using Magenic.Maqs.Utilities.Logging;
+using Magenic.Maqs.Utilities.Performance;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System;

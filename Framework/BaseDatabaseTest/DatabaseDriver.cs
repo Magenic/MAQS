@@ -10,7 +10,7 @@ using System.Data;
 using Dapper;
 using Dapper.Contrib.Extensions;
 
-namespace Magenic.MaqsFramework.BaseDatabaseTest
+namespace Magenic.Maqs.BaseDatabaseTest
 {
     /// <summary>
     /// Wraps the basic database interactions

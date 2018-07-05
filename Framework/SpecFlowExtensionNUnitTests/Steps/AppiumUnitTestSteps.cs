@@ -5,7 +5,7 @@
 // <summary>TestSteps class that inherits from BaseAppiumTestSteps</summary>
 //--------------------------------------------------
 using Magenic.Maqs.SpecFlow.TestSteps;
-using Magenic.MaqsFramework.BaseAppiumTest;
+using Magenic.Maqs.BaseAppiumTest;
 using NUnit.Framework;
 using OpenQA.Selenium.Appium;
 using TechTalk.SpecFlow;

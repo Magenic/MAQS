@@ -4,13 +4,13 @@
 // </copyright>
 // <summary>Email driver</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Logging;
 using MailKit.Net.Imap;
 using System;
 using System.Data;
 
-namespace Magenic.MaqsFramework.BaseEmailTest
+namespace Magenic.Maqs.BaseEmailTest
 {
     /// <summary>
     /// Email driver

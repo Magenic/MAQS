@@ -4,16 +4,16 @@
 // </copyright>
 // <summary>Utilities class for generic selenium methods</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Data;
-using Magenic.MaqsFramework.Utilities.Helper;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.Utilities.Data;
+using Magenic.Maqs.Utilities.Helper;
+using Magenic.Maqs.Utilities.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
 using System;
 using System.IO;
 using System.Reflection;
 
-namespace Magenic.MaqsFramework.BaseSeleniumTest
+namespace Magenic.Maqs.BaseSeleniumTest
 {
     /// <summary>
     /// Static class for the selenium utilities

@@ -7,7 +7,7 @@
 
 using System.Data.SqlClient;
 
-namespace Magenic.MaqsFramework.BaseDatabaseTest.Providers
+namespace Magenic.Maqs.BaseDatabaseTest.Providers
 {
     /// <summary>
     /// The SQL server provider.

@@ -1,4 +1,4 @@
-﻿using Magenic.MaqsFramework.BaseSeleniumTest;
+﻿using Magenic.Maqs.BaseSeleniumTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 // TODO: Add reference to object model

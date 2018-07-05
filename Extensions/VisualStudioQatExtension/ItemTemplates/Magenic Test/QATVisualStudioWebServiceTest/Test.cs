@@ -1,4 +1,4 @@
-﻿using Magenic.MaqsFramework.BaseWebServiceTest;
+﻿using Magenic.Maqs.BaseWebServiceTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 // TODO: Add reference to object model

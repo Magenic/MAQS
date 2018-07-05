@@ -4,9 +4,9 @@
 // </copyright>
 // <summary>Test the selenium framework with a custom configuration</summary>
 //-----------------------------------------------------
-using Magenic.MaqsFramework.BaseSeleniumTest;
-using Magenic.MaqsFramework.BaseSeleniumTest.Extensions;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseSeleniumTest;
+using Magenic.Maqs.BaseSeleniumTest.Extensions;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.PhantomJS;

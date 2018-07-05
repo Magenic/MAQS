@@ -1,4 +1,4 @@
-﻿using Magenic.MaqsFramework.BaseSeleniumTest;
+﻿using Magenic.Maqs.BaseSeleniumTest;
 using NUnit.Framework;
 
 // TODO: Add reference to object model

@@ -9,9 +9,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.Utilities.Logging;
 
-namespace Magenic.MaqsFramework.Utilities.Performance
+namespace Magenic.Maqs.Utilities.Performance
 {
     /// <summary>
     /// Response timer collection class -  Object to be owned by Test Class (Object), and passed to page Constructors to insert Performance Timers 

@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>Core Selenium unit tests</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseSeleniumTest;
+using Magenic.Maqs.BaseSeleniumTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CoreUnitTests

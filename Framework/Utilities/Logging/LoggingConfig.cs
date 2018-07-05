@@ -4,13 +4,13 @@
 // </copyright>
 // <summary>Logging related configuration</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Data;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.Utilities.Data;
+using Magenic.Maqs.Utilities.Helper;
 using System;
 using System.IO;
 using System.Reflection;
 
-namespace Magenic.MaqsFramework.Utilities.Logging
+namespace Magenic.Maqs.Utilities.Logging
 {
     /// <summary>
     /// Logging related configuration

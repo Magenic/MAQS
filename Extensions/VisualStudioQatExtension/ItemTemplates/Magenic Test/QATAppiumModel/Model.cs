@@ -1,5 +1,5 @@
-﻿using Magenic.MaqsFramework.BaseAppiumTest;
-using Magenic.MaqsFramework.BaseSeleniumTest.Extensions;
+﻿using Magenic.Maqs.BaseAppiumTest;
+using Magenic.Maqs.BaseSeleniumTest.Extensions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 

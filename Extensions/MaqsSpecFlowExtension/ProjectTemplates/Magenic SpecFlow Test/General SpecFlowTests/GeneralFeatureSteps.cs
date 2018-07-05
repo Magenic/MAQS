@@ -1,4 +1,4 @@
-﻿using SpecFlowMAQSExtension.TestSteps;
+﻿using Magenic.Maqs.SpecFlow.TestSteps;
 using TechTalk.SpecFlow;
 
 namespace $safeprojectname$

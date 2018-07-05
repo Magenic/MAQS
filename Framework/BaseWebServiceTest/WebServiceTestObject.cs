@@ -4,13 +4,13 @@
 // </copyright>
 // <summary>Holds web service context data</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Logging;
-using Magenic.MaqsFramework.WebServiceTester;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Logging;
+using Magenic.Maqs.WebServiceTester;
 using System;
 using System.Net.Http;
 
-namespace Magenic.MaqsFramework.BaseWebServiceTest
+namespace Magenic.Maqs.BaseWebServiceTest
 {
     /// <summary>
     /// Web service test context data

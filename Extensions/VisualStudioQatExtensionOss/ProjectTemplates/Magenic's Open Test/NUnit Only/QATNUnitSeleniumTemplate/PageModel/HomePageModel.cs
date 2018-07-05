@@ -1,6 +1,6 @@
-﻿using Magenic.MaqsFramework.BaseSeleniumTest;
-using Magenic.MaqsFramework.BaseSeleniumTest.Extensions;
-using Magenic.MaqsFramework.Utilities.Helper;
+﻿using Magenic.Maqs.BaseSeleniumTest;
+using Magenic.Maqs.BaseSeleniumTest.Extensions;
+using Magenic.Maqs.Utilities.Helper;
 using OpenQA.Selenium;
 
 namespace $safeprojectname$
@@ -26,9 +26,9 @@ namespace $safeprojectname$
         /// <summary>
         /// Gets welcome message
         /// </summary>
-        private FluentElement WelcomeMessage
+        private LazyElement WelcomeMessage
         {
-            get { return new FluentElement(this.testObject, By.CssSelector("#WelcomeMessage"), "Welcome message"); }
+            get { return new LazyElement(this.testObject, By.CssSelector("#WelcomeMessage"), "Welcome message"); }
         }
 
         /// <summary>

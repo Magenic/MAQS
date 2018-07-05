@@ -1,4 +1,4 @@
-﻿using Magenic.MaqsFramework.BaseDatabaseTest;
+﻿using Magenic.Maqs.BaseDatabaseTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Data;

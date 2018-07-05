@@ -4,15 +4,15 @@
 // </copyright>
 // <summary>Helper class for getting selenium specific configuration values</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseSeleniumTest.Extensions;
-using Magenic.MaqsFramework.Utilities.Data;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.BaseSeleniumTest.Extensions;
+using Magenic.Maqs.Utilities.Data;
+using Magenic.Maqs.Utilities.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 
-namespace Magenic.MaqsFramework.BaseSeleniumTest
+namespace Magenic.Maqs.BaseSeleniumTest
 {
     /// <summary>
     /// Contains functions for interacting with IWebElement objects

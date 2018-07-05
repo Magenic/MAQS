@@ -4,8 +4,8 @@
 // </copyright>
 // <summary>Test class for config files</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseSeleniumTest;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseSeleniumTest;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;

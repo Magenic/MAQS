@@ -4,9 +4,9 @@
 // </copyright>
 // <summary>Low level framework tests</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseMongoTest;
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseMongoTest;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Bson;
 using NUnit.Framework;

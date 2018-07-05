@@ -7,7 +7,7 @@
 using System;
 using System.Text;
 
-namespace Magenic.MaqsFramework.Utilities.Data
+namespace Magenic.Maqs.Utilities.Data
 {
     /// <summary>
     /// Initializes a new instance of the StringProcessor class

@@ -4,12 +4,12 @@
 // </copyright>
 // <summary>This is the base web service test class</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Logging;
 using System;
 using System.Net.Http;
 
-namespace Magenic.MaqsFramework.BaseWebServiceTest
+namespace Magenic.Maqs.BaseWebServiceTest
 {
     /// <summary>
     /// Generic base web service test class

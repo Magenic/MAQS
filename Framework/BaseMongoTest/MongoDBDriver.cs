@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace Magenic.MaqsFramework.BaseMongoTest
+namespace Magenic.Maqs.BaseMongoTest
 {
     /// <summary>
     /// Class to wrap the IMongoCollection and related helper functions

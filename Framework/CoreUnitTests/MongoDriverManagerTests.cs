@@ -4,8 +4,8 @@
 // </copyright>
 // <summary>Mongo database driver store tests</summary>
 //-------------------------------------------------- 
-using Magenic.MaqsFramework.BaseMongoTest;
-using Magenic.MaqsFramework.WebServiceTester;
+using Magenic.Maqs.BaseMongoTest;
+using Magenic.Maqs.WebServiceTester;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Bson;
 using System.Net.Http;

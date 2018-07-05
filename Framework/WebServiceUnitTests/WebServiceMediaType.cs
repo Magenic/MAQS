@@ -4,8 +4,8 @@
 // </copyright>
 // <summary>Web service get unit tests using MediaType strings</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseWebServiceTest;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseWebServiceTest;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;

@@ -4,12 +4,12 @@
 // </copyright>
 // <summary>Generic wait</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Data;
+using Magenic.Maqs.Utilities.Data;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace Magenic.MaqsFramework.Utilities.Helper
+namespace Magenic.Maqs.Utilities.Helper
 {
     /// <summary>
     /// Generic wait class

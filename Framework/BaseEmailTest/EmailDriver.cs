@@ -4,8 +4,8 @@
 // </copyright>
 // <summary>The basic email interactions</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Data;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.Utilities.Data;
+using Magenic.Maqs.Utilities.Helper;
 using MailKit;
 using MailKit.Net.Imap;
 using MailKit.Search;
@@ -17,7 +17,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace Magenic.MaqsFramework.BaseEmailTest
+namespace Magenic.Maqs.BaseEmailTest
 {
     /// <summary>
     /// Wraps the basic email interactions

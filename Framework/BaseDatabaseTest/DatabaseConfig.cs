@@ -6,11 +6,11 @@
 //--------------------------------------------------
 using System;
 using System.Data;
-using Magenic.MaqsFramework.BaseDatabaseTest.Providers;
-using Magenic.MaqsFramework.Utilities.Data;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseDatabaseTest.Providers;
+using Magenic.Maqs.Utilities.Data;
+using Magenic.Maqs.Utilities.Helper;
 
-namespace Magenic.MaqsFramework.BaseDatabaseTest
+namespace Magenic.Maqs.BaseDatabaseTest
 {
     /// <summary>
     /// Config class

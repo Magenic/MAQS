@@ -4,8 +4,8 @@
 // </copyright>
 // <summary>Database driver store tests</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseDatabaseTest;
-using Magenic.MaqsFramework.WebServiceTester;
+using Magenic.Maqs.BaseDatabaseTest;
+using Magenic.Maqs.WebServiceTester;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net.Http;
 

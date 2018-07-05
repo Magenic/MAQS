@@ -8,7 +8,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Data.SqlClient;
-using Magenic.MaqsFramework.BaseDatabaseTest.Providers;
+using Magenic.Maqs.BaseDatabaseTest.Providers;
 
 namespace DatabaseUnitTests
 {

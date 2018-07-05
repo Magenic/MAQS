@@ -13,7 +13,7 @@ using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
 
-namespace Magenic.MaqsFramework.Utilities.Helper
+namespace Magenic.Maqs.Utilities.Helper
 {
     /// <summary>
     /// Config class

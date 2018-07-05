@@ -4,12 +4,12 @@
 // </copyright>
 // <summary>Database driver</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Logging;
 using System;
 using System.Data;
 
-namespace Magenic.MaqsFramework.BaseDatabaseTest
+namespace Magenic.Maqs.BaseDatabaseTest
 {
     /// <summary>
     /// Database driver

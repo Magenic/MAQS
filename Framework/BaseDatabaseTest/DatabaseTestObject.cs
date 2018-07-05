@@ -4,12 +4,12 @@
 // </copyright>
 // <summary>Holds database context data</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Logging;
 using System;
 using System.Data;
 
-namespace Magenic.MaqsFramework.BaseDatabaseTest
+namespace Magenic.Maqs.BaseDatabaseTest
 {
     /// <summary>
     /// Database test context data

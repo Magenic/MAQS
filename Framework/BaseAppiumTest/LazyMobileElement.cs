@@ -4,8 +4,8 @@
 // </copyright>
 // <summary>This is the LazyMobileElement class</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseSeleniumTest.Extensions;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.BaseSeleniumTest.Extensions;
+using Magenic.Maqs.Utilities.Logging;
 using OpenQA.Selenium;
 using System;
 using System.Collections.ObjectModel;
@@ -13,7 +13,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Text;
 
-namespace Magenic.MaqsFramework.BaseAppiumTest
+namespace Magenic.Maqs.BaseAppiumTest
 {
     /// <summary>
     /// Wrapper for dynamically finding and interacting with elements

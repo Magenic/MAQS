@@ -4,13 +4,13 @@
 // </copyright>
 // <summary>Writes event logs to plain text file</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Data;
+using Magenic.Maqs.Utilities.Data;
 using System;
 using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace Magenic.MaqsFramework.Utilities.Logging
+namespace Magenic.Maqs.Utilities.Logging
 {
     /// <summary>
     ///  Helper class for adding logs to a plain text file. Allows configurable file path.

@@ -4,10 +4,10 @@
 // </copyright>
 // <summary>Test the lazy element unit tests</summary>
 //-----------------------------------------------------
-using Magenic.MaqsFramework.BaseSeleniumTest;
-using Magenic.MaqsFramework.BaseSeleniumTest.Extensions;
-using Magenic.MaqsFramework.Utilities.Helper;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.BaseSeleniumTest;
+using Magenic.Maqs.BaseSeleniumTest.Extensions;
+using Magenic.Maqs.Utilities.Helper;
+using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using System;

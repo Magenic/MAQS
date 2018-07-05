@@ -4,11 +4,11 @@
 // </copyright>
 // <summary>The event firing mongoDB collection interactions</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Data;
+using Magenic.Maqs.Utilities.Data;
 using System;
 using System.Collections.Generic;
 
-namespace Magenic.MaqsFramework.BaseMongoTest
+namespace Magenic.Maqs.BaseMongoTest
 {
     /// <summary>
     /// Wrap basic firing database interactions

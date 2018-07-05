@@ -27,12 +27,12 @@
       <DocumentationSource sourceFile="..\Utilities\Utilities.csproj" />
       <DocumentationSource sourceFile="..\BaseSeleniumTest\BaseSeleniumTest.csproj" />
       <DocumentationSource sourceFile="..\BaseTest\BaseTest.csproj" />
-      <DocumentationSource sourceFile="..\packages\Selenium.WebDriver.3.8.0\lib\net40\WebDriver.dll" />
-      <DocumentationSource sourceFile="..\packages\Selenium.WebDriver.3.8.0\lib\net40\WebDriver.xml" />
-      <DocumentationSource sourceFile="..\packages\Selenium.Support.3.8.0\lib\net40\WebDriver.Support.dll" />
-      <DocumentationSource sourceFile="..\packages\Selenium.Support.3.8.0\lib\net40\WebDriver.Support.xml" />
-      <DocumentationSource sourceFile="..\packages\NUnit.3.9.0\lib\net45\nunit.framework.dll" />
-      <DocumentationSource sourceFile="..\packages\NUnit.3.9.0\lib\net45\nunit.framework.xml" />
+      <DocumentationSource sourceFile="..\packages\Selenium.WebDriver.3.13.1\lib\net40\WebDriver.dll" />
+      <DocumentationSource sourceFile="..\packages\Selenium.WebDriver.3.13.1\lib\net40\WebDriver.xml" />
+      <DocumentationSource sourceFile="..\packages\Selenium.Support.3.13.1\lib\net40\WebDriver.Support.dll" />
+      <DocumentationSource sourceFile="..\packages\Selenium.Support.3.13.1\lib\net40\WebDriver.Support.xml" />
+      <DocumentationSource sourceFile="..\packages\NUnit.3.10.1\lib\net45\nunit.framework.dll" />
+      <DocumentationSource sourceFile="..\packages\NUnit.3.10.1\lib\net45\nunit.framework.xml" />
     </DocumentationSources>
     <HelpFileVersion>4.0.4</HelpFileVersion>
     <MaximumGroupParts>2</MaximumGroupParts>

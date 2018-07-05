@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <id>Magenic.MaqsFramework</id>
+    <id>Magenic.Maqs</id>
     <version>5.0.0</version>
     <title>MAQS Framework</title>
     <authors>Magenic</authors>
@@ -13,7 +13,7 @@
     <iconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</iconUrl>
     <dependencies>
       <dependency id="NUnit" version="3.10.1" />
-      <dependency id="MSTest.TestFramework" version="1.3.0-beta2" />
+      <dependency id="MSTest.TestFramework" version="1.2.1" />
       <dependency id="Microsoft.Extensions.Configuration" version="2.1.1" />
       <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="2.1.1" />
       <dependency id="Microsoft.Extensions.Configuration.Json" version="2.1.1" />
@@ -27,13 +27,13 @@
     <file src="..\BaseWebServiceTest\**\*.cs;..\BaseWebServiceTest\**\*.csproj;..\BaseWebServiceTest\**\packages.config" target="help\source\BaseWebServiceTest" exclude="..\BaseWebServiceTest\**\obj\**\*.*;..\BaseWebServiceTest\**\bin\**\*.*;*.vspscc" />
     <file src="..\BaseDatabaseTest\**\*.cs;..\BaseDatabaseTest\**\*.csproj;..\BaseDatabaseTest\**\packages.config" target="help\source\BaseDatabaseTest" exclude="..\BaseDatabaseTest\**\obj\**\*.*;..\BaseDatabaseTest\**\bin\**\*.*;*.vspscc" />
     <file src="..\Utilities\**\*.cs;..\Utilities\*.csproj" target="help\source\Utilities" exclude="..\Utilities\**\obj\**\*.*;..\Utilities\**\bin\**\*.*;*.vspscc" />
-    <file src="..\BaseAppiumTest\bin\Release\Magenic.MaqsFramework.BaseAppiumTest.*" target="lib\net471" />
-    <file src="..\BaseDatabaseTest\bin\Release\netstandard2.0\Magenic.MaqsFramework.BaseDatabaseTest.*" target="lib\netstandard2.0" />
-    <file src="..\BaseEmailTest\bin\Release\netstandard2.0\Magenic.MaqsFramework.BaseEmailTest.*" target="lib\netstandard2.0" />
-    <file src="..\BaseSeleniumTest\bin\Release\netstandard2.0\Magenic.MaqsFramework.BaseSeleniumTest.*" target="lib\netstandard2.0" />
-    <file src="..\BaseTest\bin\Release\netstandard2.0\Magenic.MaqsFramework.BaseTest.*" target="lib\netstandard2.0" />
-    <file src="..\BaseWebServiceTest\bin\Release\netstandard2.0\Magenic.MaqsFramework.WebServiceTester.*" target="lib\netstandard2.0" />
-    <file src="..\BaseDatabaseTest\bin\Release\netstandard2.0\Magenic.MaqsFramework.Utilities.*" target="lib\netstandard2.0" />
+    <file src="..\BaseAppiumTest\bin\Release\Magenic.Maqs.BaseAppiumTest.*" target="lib\net471" />
+    <file src="..\BaseDatabaseTest\bin\Release\netstandard2.0\Magenic.Maqs.BaseDatabaseTest.*" target="lib\netstandard2.0" />
+    <file src="..\BaseEmailTest\bin\Release\netstandard2.0\Magenic.Maqs.BaseEmailTest.*" target="lib\netstandard2.0" />
+    <file src="..\BaseSeleniumTest\bin\Release\netstandard2.0\Magenic.Maqs.BaseSeleniumTest.*" target="lib\netstandard2.0" />
+    <file src="..\BaseTest\bin\Release\netstandard2.0\Magenic.Maqs.BaseTest.*" target="lib\netstandard2.0" />
+    <file src="..\BaseWebServiceTest\bin\Release\netstandard2.0\Magenic.Maqs.WebServiceTester.*" target="lib\netstandard2.0" />
+    <file src="..\BaseDatabaseTest\bin\Release\netstandard2.0\Magenic.Maqs.Utilities.*" target="lib\netstandard2.0" />
     <!--<file src="..\Documentation\Help\Maqs.chm" target="help"/>-->
     <file src="..\..\Extensions\VisualStudioQatExtension\License.txt" target=""/>
   </files>

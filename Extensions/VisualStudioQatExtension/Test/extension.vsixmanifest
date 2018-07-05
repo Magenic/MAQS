@@ -1,0 +1,29 @@
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011">
+  <Metadata>
+    <Identity Id="7f8a17ec-cc72-413f-ae85-b3e1077f2d1f" Version="5.0.0" Language="en-US" Publisher="Magenic" />
+    <DisplayName>MAQS Framework</DisplayName>
+    <Description xml:space="preserve">Magenic's automation quick start framework</Description>
+    <MoreInfo>https://magenic.com/what-we-do/support-optimization/quality-assurance</MoreInfo>
+    <License>License.txt</License>
+    <GettingStartedGuide>Getting Started Guide.doc</GettingStartedGuide>
+    <ReleaseNotes>ReleaseNotes.txt</ReleaseNotes>
+    <Icon>QATTest.ico</Icon>
+    <PreviewImage>QATTest.ico</PreviewImage>
+    <Tags>Test Automation Selenium</Tags>
+  </Metadata>
+  <Installation>
+    <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[10.0,]" />
+  </Installation>
+  <Dependencies>
+    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" Version="[4.5,)" />
+  </Dependencies>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.ItemTemplate" Path="ItemTemplates" />
+    <Asset Type="Microsoft.VisualStudio.ProjectTemplate" Path="ProjectTemplates" />
+  </Assets>
+  <Prerequisites>
+    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,16.0)" DisplayName="Visual Studio core editor" />
+    <Prerequisite Id="Microsoft.VisualStudio.Component.Roslyn.LanguageServices" Version="[15.0.26208.0,16.0)" DisplayName="C# and Visual Basic" />
+    <Prerequisite Id="Microsoft.VisualStudio.Component.ManagedDesktop.Prerequisites" Version="[15.0.26208.0,16.0)" DisplayName=".NET desktop development tools" />
+  </Prerequisites>
+</PackageManifest>

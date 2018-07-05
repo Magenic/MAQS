@@ -5,8 +5,8 @@
 // <summary>Put unit tests</summary>
 //--------------------------------------------------
 
-using Magenic.MaqsFramework.BaseWebServiceTest;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseWebServiceTest;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;

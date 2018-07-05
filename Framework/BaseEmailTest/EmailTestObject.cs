@@ -4,13 +4,13 @@
 // </copyright>
 // <summary>Holds email context data</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Logging;
-using Magenic.MaqsFramework.Utilities.Performance;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Logging;
+using Magenic.Maqs.Utilities.Performance;
 using MailKit.Net.Imap;
 using System;
 
-namespace Magenic.MaqsFramework.BaseEmailTest
+namespace Magenic.Maqs.BaseEmailTest
 {        
     /// <summary>
     /// Email test context data

@@ -5,11 +5,11 @@
 // <summary>This is the base database test class</summary>
 //--------------------------------------------------
 
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Logging;
 using System.Data;
 
-namespace Magenic.MaqsFramework.BaseDatabaseTest
+namespace Magenic.Maqs.BaseDatabaseTest
 {
     /// <summary>
     /// Generic base database test class

@@ -4,11 +4,11 @@
 // </copyright>
 // <summary>Mongo database driver</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Logging;
 using System;
 
-namespace Magenic.MaqsFramework.BaseMongoTest
+namespace Magenic.Maqs.BaseMongoTest
 {
     /// <summary>
     /// Mongo database driver

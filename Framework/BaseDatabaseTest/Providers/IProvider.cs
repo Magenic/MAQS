@@ -5,7 +5,7 @@
 // <summary>IProvider interface</summary>
 //--------------------------------------------------
 
-namespace Magenic.MaqsFramework.BaseDatabaseTest.Providers
+namespace Magenic.Maqs.BaseDatabaseTest.Providers
 {
     /// <summary>
     /// The Provider interface.

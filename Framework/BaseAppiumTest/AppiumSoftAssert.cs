@@ -4,11 +4,11 @@
 // </copyright>
 // <summary>This is the Appium soft assert class</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Data;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Data;
+using Magenic.Maqs.Utilities.Helper;
 
-namespace Magenic.MaqsFramework.BaseAppiumTest
+namespace Magenic.Maqs.BaseAppiumTest
 {
     /// <summary>
     /// Soft Assert override for appium tests

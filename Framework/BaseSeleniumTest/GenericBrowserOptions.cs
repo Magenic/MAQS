@@ -9,7 +9,7 @@ using OpenQA.Selenium.Remote;
 using System;
 using System.Collections.Generic;
 
-namespace Magenic.MaqsFramework.BaseSeleniumTest
+namespace Magenic.Maqs.BaseSeleniumTest
 {
     /// <summary>
     /// Generic browser options

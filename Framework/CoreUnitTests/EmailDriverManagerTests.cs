@@ -4,8 +4,8 @@
 // </copyright>
 // <summary>Email driver store tests</summary>
 //-------------------------------------------------- 
-using Magenic.MaqsFramework.BaseEmailTest;
-using Magenic.MaqsFramework.WebServiceTester;
+using Magenic.Maqs.BaseEmailTest;
+using Magenic.Maqs.WebServiceTester;
 using MailKit.Net.Imap;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net.Http;

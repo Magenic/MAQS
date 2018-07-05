@@ -11,7 +11,7 @@ using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Xml.Serialization;
 
-namespace Magenic.MaqsFramework.BaseWebServiceTest
+namespace Magenic.Maqs.BaseWebServiceTest
 {
     /// <summary>
     /// Create a custom xml media type formatter

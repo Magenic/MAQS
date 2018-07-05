@@ -22,7 +22,7 @@
     <ProjectGuid>{189692F4-1DFD-49D8-9A9E-FEA925DF340F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Magenic.MaqsFramework</RootNamespace>
+    <RootNamespace>Magenic.Maqs</RootNamespace>
     <AssemblyName>OpenMaqs</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <GeneratePkgDefFile>false</GeneratePkgDefFile>

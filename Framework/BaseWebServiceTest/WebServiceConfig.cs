@@ -4,9 +4,9 @@
 // </copyright>
 // <summary>Helper class for getting web service specific configuration values</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.Utilities.Helper;
 
-namespace Magenic.MaqsFramework.BaseWebServiceTest
+namespace Magenic.Maqs.BaseWebServiceTest
 {
     /// <summary>
     /// Config class

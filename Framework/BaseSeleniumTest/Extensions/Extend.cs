@@ -9,7 +9,7 @@ using OpenQA.Selenium.Support.Events;
 using OpenQA.Selenium.Support.UI;
 using System.Collections.Concurrent;
 
-namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
+namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 {
     /// <summary>
     /// Web driver and element extensions
