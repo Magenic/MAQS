@@ -226,7 +226,6 @@ namespace Magenic.Maqs.BaseSeleniumTest
             return Config.GetValueForSection(SELENIUMSECTION, "WebSiteBase");
         }
 
-
         /// <summary>
         /// Get if we should save page source on fail
         /// </summary>
@@ -237,9 +236,9 @@ namespace Magenic.Maqs.BaseSeleniumTest
         }
 
         /// <summary>
-        /// Get if we should save screenshots on soft arrert fails
+        /// Get if we should save screenshots on soft alert fails
         /// </summary>
-        /// <returns>True if we want to save screenshots on soft arrert fails</returns>
+        /// <returns>True if we want to save screenshots on soft alert fails</returns>
         public static bool GetSoftAssertScreenshot()
         {
             return Config.GetValueForSection(SELENIUMSECTION, "SoftAssertScreenshot").Equals("Yes", StringComparison.CurrentCultureIgnoreCase);

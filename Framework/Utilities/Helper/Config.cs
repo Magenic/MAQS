@@ -143,11 +143,11 @@ namespace Magenic.Maqs.Utilities.Helper
             }
         }
 
-
         /// <summary>
-        /// Get value from the general (magenicmaqs) section of the config file
+        /// Get value from the general (MAGENICMAQS) section of the config file
         /// </summary>
         /// <param name="key">Config file key</param>
+        /// <param name="defaultValue">The default value</param>
         /// <returns>The configuration value - Returns the empty string if the key is not found</returns>
         /// <example>
         /// <code source = "../UtilitiesUnitTests/ConfigUnitTests.cs" region="GetValueString" lang="C#" />
@@ -157,6 +157,12 @@ namespace Magenic.Maqs.Utilities.Helper
             return GetValueForSection(DEFAULTMAQSSECTION, key, defaultValue);
         }
 
+        /// <summary>
+        /// Get the value from a specific section
+        /// </summary>
+        /// <param name="section">The section name</param>
+        /// <param name="key">The key</param>
+        /// <returns>The configuration value - Returns the empty string if the key is not found</returns>
         public static string GetValueForSection(string section, string key)
         {
             return GetValueForSection(section, key, string.Empty);
@@ -165,6 +171,7 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <summary>
         /// Get the configuration value for a specific key
         /// </summary>
+        /// <param name="section">The section name</param>
         /// <param name="key">Config file key</param>
         /// <param name="defaultValue">Default value - Returned the key cannot be found</param>
         /// <returns>The configuration value</returns>
@@ -192,6 +199,7 @@ namespace Magenic.Maqs.Utilities.Helper
         /// Does the configuration key exist
         /// </summary>
         /// <param name="key">Config file key</param>
+        /// <param name="section">The section name</param>
         /// <returns>True if the key exists</returns>
         /// <example>
         /// <code source = "../UtilitiesUnitTests/ConfigUnitTests.cs" region="DoesKeyExist" lang="C#" />
@@ -206,6 +214,7 @@ namespace Magenic.Maqs.Utilities.Helper
         /// Try to get a value for a given key in the default config area
         /// </summary>
         /// <param name="key">The value key</param>
+        /// <param name="section">The section name</param>
         /// <param name="value">The out value</param>
         /// <returns>True if the value was found</returns>
         private static bool TryGetDefaultSectionValue(string key, string section, out string value)

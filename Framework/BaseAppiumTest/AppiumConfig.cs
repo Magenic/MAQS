@@ -91,7 +91,7 @@ namespace Magenic.Maqs.BaseAppiumTest
 
             if (!int.TryParse(value, out int timeout))
             {
-                throw new ArgumentException("MobileCommandTimeout in " + APPIUMSECTIION +  " should be a number but the current value is: " + value);
+                throw new ArgumentException("MobileCommandTimeout in " + APPIUMSECTIION + " should be a number but the current value is: " + value);
             }
 
             return TimeSpan.FromMilliseconds(timeout);
@@ -107,9 +107,9 @@ namespace Magenic.Maqs.BaseAppiumTest
         }
 
         /// <summary>
-        /// Get if we should save screenshots on soft arrert fails
+        /// Get if we should save screenshots on soft alert fails
         /// </summary>
-        /// <returns>True if we want to save screenshots on soft arrert fails</returns>
+        /// <returns>True if we want to save screenshots on soft alert fails</returns>
         public static bool GetSoftAssertScreenshot()
         {
             return Config.GetValueForSection(APPIUMSECTIION, "SoftAssertScreenshot").Equals("Yes", StringComparison.CurrentCultureIgnoreCase);
