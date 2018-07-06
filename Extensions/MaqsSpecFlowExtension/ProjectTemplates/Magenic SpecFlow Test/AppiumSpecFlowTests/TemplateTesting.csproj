@@ -65,7 +65,7 @@
       <HintPath>..\packages\Magenic.Maqs.5.0.0\lib\netstandard2.0\Magenic.Maqs.WebServiceTester.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Magenic.Maqs.SpecFlowExtension.1.0.0\lib\net46\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.SpecFlow.5.0.0\lib\net46\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -74,8 +74,8 @@
     <Reference Include="nunit.framework, Version=3.9.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.3.9.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="SpecFlowExtension, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Magenic.Maqs.SpecFlowExtension.1.0.0\lib\net46\SpecFlowExtension.dll</HintPath>
+    <Reference Include="Magenic.Maqs.SpecFlow">
+      <HintPath>..\packages\Magenic.Maqs.SpecFlow.5.0.0\lib\net471\Magenic.Maqs.SpecFlow.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

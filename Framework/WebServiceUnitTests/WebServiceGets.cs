@@ -26,7 +26,7 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// String to hold the URL
         /// </summary>
-        private static string url = Config.GetValue("WebServiceUri");
+        private static string url = WebServiceConfig.GetWebServiceUri();
 
         /// <summary>
         /// Make sure the web service have been woken up

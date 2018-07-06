@@ -19,7 +19,7 @@ namespace $rootnamespace$
         public void SampleTest()
         {
             // TODO: Add test code
-            //PageModel page = new PageModel(this.WebDriver);
+            //PageModel page = new PageModel(this.TestObject);
             //page.OpenPage();
         }
     }

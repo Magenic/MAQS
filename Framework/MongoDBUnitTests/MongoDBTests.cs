@@ -129,19 +129,19 @@ namespace MongoDBUnitTests
         [DoNotParallelize]
         public void MongoDBTestSetupEventFiringTestObject()
         {
-            string logging = Config.GetValue("Log");
+            string logging = Config.GetGeneralValue("Log");
 
             try
             {
                 // Turn on logging
-                Config.AddTestSettingValues(new Dictionary<string, string> { { "Log", "Yes" } }, true);
+                Config.AddGeneralTestSettingValues(new Dictionary<string, string> { { "Log", "Yes" } }, true);
 
                 // Make sure this is an event firing wrapper
                 Assert.IsInstanceOfType(this.TestObject.MongoDBWrapper, typeof(EventFiringMongoDBDriver<BsonDocument>));
             }
             finally
             {
-                Config.AddTestSettingValues(new Dictionary<string, string> { { "Log", logging } }, true);
+                Config.AddGeneralTestSettingValues(new Dictionary<string, string> { { "Log", logging } }, true);
             }
         }
     }

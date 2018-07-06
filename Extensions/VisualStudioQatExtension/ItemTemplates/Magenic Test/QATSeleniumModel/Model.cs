@@ -31,9 +31,9 @@ namespace $rootnamespace$
 		/// <summary>
         /// Sample fluent element
         /// </summary>
-        private FluentElement Sample
+        private LazyElement Sample
         {
-            get { return new FluentElement(this.testObject, By.CssSelector("#CSS_ID"), "Sample message"); }
+            get { return new LazyElement(this.testObject, By.CssSelector("#CSS_ID"), "Sample message"); }
         }
 
         /// <summary>

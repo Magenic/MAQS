@@ -8,7 +8,7 @@ namespace Tests
     /// Sample test class
     /// </summary>
     [TestClass]
-    public class WebService : BaseWebServiceTest
+    public class $safeitemname$ : BaseWebServiceTest
     {
         /// <summary>
         /// Get single product as XML

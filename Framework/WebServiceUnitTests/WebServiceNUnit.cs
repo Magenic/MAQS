@@ -21,18 +21,13 @@ namespace WebServiceTesterUnitTesting
     public class WebServiceNUnit
     {
         /// <summary>
-        /// String to hold the URL
-        /// </summary>
-        private static readonly string Url = Config.GetValue("WebServiceUri");
-
-        /// <summary>
         /// Test XML get
         /// </summary>
         [Test]
         [Category(TestCategories.NUnit)]
         public void GetXmlDeserialized()
         {
-            WebServiceDriver client = new WebServiceDriver(new Uri(Url));
+            WebServiceDriver client = new WebServiceDriver(new Uri(WebServiceConfig.GetWebServiceUri()));
             ArrayOfProduct result = client.Get<ArrayOfProduct>("/api/XML_JSON/GetAllProducts", "application/xml", false);
         }
     }

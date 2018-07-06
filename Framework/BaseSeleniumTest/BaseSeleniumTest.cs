@@ -4,9 +4,7 @@
 // </copyright>
 // <summary>This is the base Selenium test class</summary>
 //--------------------------------------------------
-using Magenic.Maqs.BaseSeleniumTest.Extensions;
 using Magenic.Maqs.BaseTest;
-using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.Utilities.Logging;
 using OpenQA.Selenium;
 using System;
@@ -64,7 +62,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 {
                     SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.Log);
 
-                    if (Config.GetValue("SavePageSourceOnFail", "No").ToUpper().Equals("YES"))
+                    if (SeleniumConfig.GetSavePagesourceOnFail())
                     {
                         SeleniumUtilities.SavePageSource(this.WebDriver, this.Log, "FinalPageSource");
                     }

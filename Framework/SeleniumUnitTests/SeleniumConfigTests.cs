@@ -90,6 +90,7 @@ namespace UnitTests
                    {
                         { "BrowserSize", "MAXIMIZE" }
                    },
+                   "SeleniumMaqs",
                    true);
 
                 var driverConfigSize = SeleniumConfig.Browser();
@@ -128,6 +129,7 @@ namespace UnitTests
                     {
                         { "BrowserSize", "DEFAULT" }
                     },
+                   "SeleniumMaqs",
                     true);
 
             var driverChangeSize = SeleniumConfig.Browser();
@@ -175,6 +177,7 @@ namespace UnitTests
                     {
                         { "BrowserSize", $"{expectedWidth}x{expectedHeight}" }
                     },
+                   "SeleniumMaqs",
                     true);
 
             var driver = SeleniumConfig.Browser();
@@ -347,8 +350,8 @@ namespace UnitTests
         [DoNotParallelize]
         public void GetBrowserRemoteThrowException()
         {
-            string hubUrl = Config.GetValue("HubUrl");
-            string remoteBrowser = Config.GetValue("RemoteBrowser");
+            string hubUrl = Config.GetGeneralValue("HubUrl");
+            string remoteBrowser = Config.GetGeneralValue("RemoteBrowser");
 
             try
             {
@@ -358,6 +361,7 @@ namespace UnitTests
                         { "HubUrl", "http://localhost:4444/wd/hub" },
                         { "RemoteBrowser", "NoBrowser" }
                     },
+                   "SeleniumMaqs",
                     true);
                 IWebDriver driver = SeleniumConfig.Browser("remote");
             }
@@ -369,6 +373,7 @@ namespace UnitTests
                         { "HubUrl", hubUrl },
                         { "RemoteBrowser", remoteBrowser }
                     },
+                   "SeleniumMaqs",
                     true);
             }
         }
@@ -410,7 +415,7 @@ namespace UnitTests
             {
                 SeleniumConfig.SetTimeouts(driver);
                 WebDriverWait wait = SeleniumConfig.GetWaitDriver(newDriver);
-                Assert.AreEqual(wait.Timeout.TotalMilliseconds.ToString(), Config.GetValue("Timeout", "0"));
+                Assert.AreEqual(wait.Timeout.TotalMilliseconds.ToString(), Config.GetValueForSection("SeleniumMaqs", "BrowserTimeout", "0"));
             }
             finally
             {

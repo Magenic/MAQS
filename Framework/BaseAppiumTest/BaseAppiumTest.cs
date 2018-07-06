@@ -66,7 +66,7 @@ namespace Magenic.Maqs.BaseAppiumTest
                 {
                     AppiumUtilities.CaptureScreenshot(this.AppiumDriver, this.Log);
 
-                    if (Config.GetValue("SavePageSourceOnFail", "No").ToUpper().Equals("YES"))
+                    if (AppiumConfig.GetSavePagesourceOnFail())
                     {
                         AppiumUtilities.SavePageSource(this.AppiumDriver, this.Log, "FinalPageSource");
                     }

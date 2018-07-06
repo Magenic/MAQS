@@ -13,7 +13,7 @@ namespace $safeprojectname$
         /// Sample test
         /// </summary>
         [Test]
-        public void SampleTest()
+        public void SampleTestNUnit()
         {
             // TODO: Add test code
             // Assert.IsTrue(this.EmailWrapper.CanAccessEmailAccount(), "Could not access account");

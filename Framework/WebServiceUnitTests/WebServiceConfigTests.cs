@@ -40,9 +40,9 @@ namespace WebServiceTesterUnitTesting
         public void GetWebServiceTimeout()
         {
             #region GetWebServiceTimeout
-            int timeout = WebServiceConfig.GetWebServiceTimeout();
+            TimeSpan timeout = WebServiceConfig.GetWebServiceTimeout();
             #endregion
-            Assert.AreEqual(timeout, 10);
+            Assert.AreEqual(timeout.Seconds, 10);
         }
     }
 }

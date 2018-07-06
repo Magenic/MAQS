@@ -6,6 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="NUnit" Version="3.10.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
     <PackageReference Include="PhantomJS" Version="2.1.1" />
     <PackageReference Include="Selenium.WebDriver" Version="3.13.1" />
     <PackageReference Include="Selenium.Support" Version="3.13.1" />
@@ -23,9 +24,9 @@
     <ProjectReference Include="..\PageModel\PageModel.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="appsettings.json">
+    <EmbeddedResource Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />

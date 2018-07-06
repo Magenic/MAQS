@@ -70,7 +70,7 @@ namespace Magenic.Maqs.BaseEmailTest
             };
             emailConnection.Connect(host, port, isSSL);
             emailConnection.Authenticate(username, password);
-            emailConnection.Timeout = Convert.ToInt32(Config.GetValue("Timeout", "10000"));
+            emailConnection.Timeout = EmailConfig.GetTimeout();
 
             emailConnection.NoOp();
 

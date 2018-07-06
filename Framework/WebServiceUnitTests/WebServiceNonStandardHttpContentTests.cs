@@ -28,7 +28,7 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// String to hold the URL
         /// </summary>
-        private static readonly string Url = Config.GetValue("WebServiceUri");
+        private static readonly string Url = Config.GetGeneralValue("WebServiceUri");
 
         #region NonStandardStreamContentWithStream
         /// <summary>

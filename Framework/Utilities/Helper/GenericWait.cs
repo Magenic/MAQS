@@ -19,12 +19,12 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <summary>
         /// Default retry time for the configuration file
         /// </summary>
-        private static TimeSpan retryTimeFromConfig = TimeSpan.FromMilliseconds(Convert.ToInt32(Config.GetValue("WaitTime", "0")));
+        private static TimeSpan retryTimeFromConfig = TimeSpan.FromMilliseconds(Convert.ToInt32(Config.GetGeneralValue("WaitTime", "0")));
 
         /// <summary>
         /// Default timeout time from the configuration file
         /// </summary>
-        private static TimeSpan timeoutFromConfig = TimeSpan.FromMilliseconds(Convert.ToInt32(Config.GetValue("Timeout", "0")));
+        private static TimeSpan timeoutFromConfig = TimeSpan.FromMilliseconds(Convert.ToInt32(Config.GetGeneralValue("Timeout", "0")));
 
         /// <summary>
         /// Wait until the wait for true function returns true or times out

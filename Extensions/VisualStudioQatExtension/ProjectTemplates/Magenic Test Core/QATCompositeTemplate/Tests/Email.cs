@@ -7,7 +7,7 @@ namespace Tests
     /// Sample test class
     /// </summary>
     [TestClass]
-    public class Email : BaseEmailTest
+    public class $safeitemname$ : BaseEmailTest
     {
         /// <summary>
         /// Sample test

@@ -5,20 +5,24 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>  
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="1.50.5" />
     <PackageReference Include="Magenic.Maqs" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="2.1.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.2" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.3.0-beta2" />
     <PackageReference Include="MSTest.TestFramework" Version="1.3.0-beta2" />
+    <PackageReference Include="Npgsql" Version="4.0.1" />
     <PackageReference Include="NUnit" Version="3.10.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.5.1" />
-    <PackageReference Include="System.Security.Permissions" Version="4.5.0" />    
+    <PackageReference Include="System.Security.Permissions" Version="4.5.0" /> 
   </ItemGroup>  
   <ItemGroup>
     <None Include="nuget.config" />
-	  <None Update="appsettings.json">
+	<EmbeddedResource Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </EmbeddedResource>
   </ItemGroup>
   <Target Name="CopyFiles" BeforeTargets="BeforeCompile" Condition="Exists('$(ProjectDir)nuget.config')">
     <Copy SourceFiles="$(ProjectDir)nuget.config" DestinationFiles="$(SolutionDir).nuget\NuGet.Config" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true">

@@ -225,10 +225,9 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// Gets the Screenshot Format to save images
         /// </summary>
         /// <returns>Desired ImageFormat Type</returns>
-        /// <param name="imageFormat">Image Format Screen format screen</param>
-        public static ScreenshotImageFormat GetScreenShotFormat(string imageFormat = "ImageFormat")
+        public static ScreenshotImageFormat GetScreenShotFormat()
         {
-            switch (Config.GetValue(imageFormat, "PNG").ToUpper())
+            switch (SeleniumConfig.GetImageFormat().ToUpper())
             {
                 case "BMP":
                     return ScreenshotImageFormat.Bmp;
@@ -241,7 +240,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 case "TIFF":
                     return ScreenshotImageFormat.Tiff;
                 default:
-                    throw new ArgumentException(StringProcessor.SafeFormatter("ImageFormat '{0}' is not a valid option", Config.GetValue("ScreenShotFormat", "PNG")));
+                    throw new ArgumentException(StringProcessor.SafeFormatter("ImageFormat '{0}' is not a valid option", SeleniumConfig.GetImageFormat()));
             }
         }
 

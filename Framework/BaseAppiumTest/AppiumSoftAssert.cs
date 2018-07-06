@@ -6,7 +6,6 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseTest;
 using Magenic.Maqs.Utilities.Data;
-using Magenic.Maqs.Utilities.Helper;
 
 namespace Magenic.Maqs.BaseAppiumTest
 {
@@ -44,12 +43,12 @@ namespace Magenic.Maqs.BaseAppiumTest
 
             if (!didPass)
             {
-                if (Config.GetValue("SoftAssertScreenshot", "No").ToUpper().Equals("YES"))
+                if (AppiumConfig.GetSoftAssertScreenshot())
                 {
                     AppiumUtilities.CaptureScreenshot(this.appiumTestObject.AppiumDriver, this.Log, this.TextToAppend(softAssertName));
                 }
 
-                if (Config.GetValue("SavePagesourceOnFail", "No").ToUpper().Equals("YES"))
+                if (AppiumConfig.GetSavePagesourceOnFail())
                 {
                     AppiumUtilities.SavePageSource(this.appiumTestObject.AppiumDriver, this.Log, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
                 }

@@ -64,7 +64,7 @@ namespace AppiumUnitTests
 
             #endregion GetCommandTimeout
 
-            Assert.AreEqual(TimeSpan.FromSeconds(122).Ticks, initTimeout.Ticks);
+            Assert.AreEqual(122, initTimeout.TotalSeconds);
         }
 
         /// <summary>

@@ -8,7 +8,7 @@ namespace Tests
     /// Sample test class
     /// </summary>
     [TestClass]
-    public class Database : BaseDatabaseTest
+    public class $safeitemname$ : BaseDatabaseTest
     {
         /// <summary>
         /// Sample test

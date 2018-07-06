@@ -14,7 +14,7 @@ namespace $safeprojectname$
         /// Open page test
         /// </summary>
         [Test]
-        public void OpenLoginPageTest()
+        public void OpenLoginPageTestNUnit()
         {
             LoginPageModel page = new LoginPageModel(this.TestObject);
             page.OpenLoginPage();
@@ -24,7 +24,7 @@ namespace $safeprojectname$
         /// Enter credentials test
         /// </summary>
         [Test]
-        public void EnterValidCredentialsTest()
+        public void EnterValidCredentialsTestNUnit()
         {
             string username = "Ted";
             string password = "123";
@@ -38,7 +38,7 @@ namespace $safeprojectname$
         /// Enter credentials test
         /// </summary>
         [Test]
-        public void EnterInvalidCredentials()
+        public void EnterInvalidCredentialsNUnit()
         {
             string username = "NOT";
             string password = "Valid";

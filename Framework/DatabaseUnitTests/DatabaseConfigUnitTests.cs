@@ -41,17 +41,6 @@ namespace DatabaseUnitTests
         }
 
         /// <summary>
-        /// Gets the timeout value
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Database)]
-        public void GetDatabaseQueryTimeout()
-        {
-            int databaseTimeout = DatabaseConfig.GetQueryTimeout();
-            Assert.AreEqual(databaseTimeout, 30);
-        }
-
-        /// <summary>
         /// Test the if custom providers classes can be passed to create database connection client, using configuration values for connection string
         /// </summary>
         [TestMethod]

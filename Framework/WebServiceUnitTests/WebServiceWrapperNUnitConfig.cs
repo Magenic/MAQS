@@ -40,7 +40,7 @@ namespace WebServiceTesterUnitTesting
         public void CheckIfOverrideNewWorks()
         {
             // Make sure the new key is not present
-            Assert.AreEqual("Value2", Config.GetValue("OverrideNUnitTestNew"));
+            Assert.AreEqual("Value2", Config.GetGeneralValue("OverrideNUnitTestNew"));
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace WebServiceTesterUnitTesting
         public void CheckIfOverrideExistingWorks()
         {
             // Make sure the new key is not present
-            Assert.AreEqual("Value", Config.GetValue("OverrideNUnitTest"));
+            Assert.AreEqual("Value", Config.GetGeneralValue("OverrideNUnitTest"));
         }
     }
 }

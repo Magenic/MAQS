@@ -4,10 +4,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace $safeprojectname$
 {
     /// <summary>
-    /// BaseGenericTest test class
+    /// $safeitemname$ test class with VS unit
     /// </summary>
     [TestClass]
-    public class BaseGenericTest : BaseTest
+    public class $safeitemname$ : BaseTest
     {
         /// <summary>
         /// Sample test

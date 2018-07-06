@@ -5,6 +5,7 @@
 // <summary>Helper class for getting web service specific configuration values</summary>
 //--------------------------------------------------
 using Magenic.Maqs.Utilities.Helper;
+using System;
 
 namespace Magenic.Maqs.BaseWebServiceTest
 {
@@ -14,6 +15,11 @@ namespace Magenic.Maqs.BaseWebServiceTest
     public static class WebServiceConfig
     {
         /// <summary>
+        ///  Static name for the web service configuration section
+        /// </summary>
+        private const string WEBSERVICESECTION = "WebServiceMaqs";
+
+        /// <summary>
         /// Get the web service URI string
         /// </summary>
         /// <returns>The URI string</returns>
@@ -22,19 +28,19 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// </example>
         public static string GetWebServiceUri()
         {
-            return Config.GetValue("WebServiceUri");
+            return Config.GetValueForSection(WEBSERVICESECTION, "WebServiceUri");
         }
 
         /// <summary>
-        /// Get the web service timeout in seconds
+        /// Get the web service timeout
         /// </summary>
-        /// <returns>The timeout in seconds from the config file or default of 100 seconds when no app.config key is found</returns>
+        /// <returns>The web service timeout span</returns>
         /// <example>
         /// <code source = "../WebServiceTesterUnitTesting/WebServiceConfigTests.cs" region="GetWebServiceTimeout" lang="C#" />
         /// </example>
-        public static int GetWebServiceTimeout()
+        public static TimeSpan GetWebServiceTimeout()
         {
-            return int.Parse(Config.GetValue("WebServiceTimeout", "-1"));
+            return TimeSpan.FromMilliseconds(int.Parse(Config.GetValueForSection(WEBSERVICESECTION, "WebServiceTimeout", "-1")));
         }
     }
 }

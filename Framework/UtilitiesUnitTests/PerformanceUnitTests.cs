@@ -41,9 +41,9 @@ namespace UtilitiesUnitTesting
             // build an object to store in the payloadstring of the PerfTimerCollection
             this.tc = new Tconfig
             {
-                LogPath = Config.GetValue("FileLoggerPath"),
-                Logtype = Config.GetValue("LogType"),
-                WebURI = Config.GetValue("WebServiceUri")
+                LogPath = Config.GetGeneralValue("FileLoggerPath"),
+                Logtype = Config.GetGeneralValue("LogType"),
+                WebURI = Config.GetGeneralValue("WebServiceUri")
             };
 
             // store it (as a JSON string)

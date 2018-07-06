@@ -1,19 +1,19 @@
 ﻿using Magenic.Maqs.BaseTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace $safeprojectname$
 {
     /// <summary>
-    /// BaseGenericTest test class
+    /// $safeitemname$ test class with NUnit
     /// </summary>
-    [TestClass]
-    public class BaseGenericTest : BaseTest
+    [TestFixture]
+    public class $safeitemname$ : BaseTest
     {
         /// <summary>
         /// Sample test
         /// </summary>
-        [TestMethod]
-        public void SampleTest()
+        [Test]
+        public void SampleTestNUnit()
         {
             this.TestObject.Log.LogMessage("Start Test");
             Assert.IsTrue(true, "True is Not True");

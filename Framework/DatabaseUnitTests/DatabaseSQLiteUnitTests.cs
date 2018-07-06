@@ -39,7 +39,7 @@ namespace DatabaseUnitTests
                 { "DataBaseConnectionString", $"Data Source={ this.GetDByPath() }" },
             };
 
-            Config.AddTestSettingValues(overrides);
+            Config.AddTestSettingValues(overrides, "DatabaseMaqs");
 
             DatabaseDriver wrapper = new DatabaseDriver();
 
@@ -61,7 +61,7 @@ namespace DatabaseUnitTests
                 { "DataBaseConnectionString", $"Data Source={ this.GetDByPath() }" },
             };
 
-            Config.AddTestSettingValues(overrides);
+            Config.AddTestSettingValues(overrides, "DatabaseMaqs");
 
             DatabaseDriver wrapper = new DatabaseDriver(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString());
 
@@ -83,7 +83,7 @@ namespace DatabaseUnitTests
                         { "DataBaseConnectionString", $"Data Source={this.GetDByPath()}" },
                     };
 
-            Config.AddTestSettingValues(overrides);
+            Config.AddTestSettingValues(overrides, "DatabaseMaqs");
 
             using (SqliteConnection connection = new SqliteConnection(DatabaseConfig.GetConnectionString()))
             {

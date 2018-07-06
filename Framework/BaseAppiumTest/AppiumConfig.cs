@@ -26,17 +26,22 @@ namespace Magenic.Maqs.BaseAppiumTest
     public static class AppiumConfig
     {
         /// <summary>
-        ///  Static field for AppiumCapsMaqs configuration section.
+        ///  Static name for the Appium configuration section
         /// </summary>
-        private static readonly string MobileCapabilities = "AppiumCapsMaqs";
-        
+        private const string APPIUMSECTIION = "AppiumMaqs";
+
+        /// <summary>
+        ///  AppiumCapsMaqs configuration section
+        /// </summary>
+        private const string MOBILECAPS = "AppiumCapsMaqs";
+
         /// <summary>
         /// Get the mobile OS type
         /// </summary>
         /// <returns>The Mobile OS type</returns>
         public static string GetPlatformName()
         {
-            return Config.GetValue("PlatformName");
+            return Config.GetValueForSection(APPIUMSECTIION, "PlatformName");
         }
 
         /// <summary>
@@ -45,7 +50,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <returns>OS Version</returns>
         public static string GetPlatformVersion()
         {
-            return Config.GetValue("PlatformVersion");
+            return Config.GetValueForSection(APPIUMSECTIION, "PlatformVersion");
         }
 
         /// <summary>
@@ -54,7 +59,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <returns>Device Name</returns>
         public static string GetDeviceName()
         {
-            return Config.GetValue("DeviceName");
+            return Config.GetValueForSection(APPIUMSECTIION, "DeviceName");
         }
 
         /// <summary>
@@ -73,7 +78,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <returns>Mobile Hub Uri</returns>
         public static Uri GetMobileHubUrl()
         {
-            return new Uri(Config.GetValue("MobileHubUrl"));
+            return new Uri(Config.GetValueForSection(APPIUMSECTIION, "MobileHubUrl"));
         }
 
         /// <summary>
@@ -82,14 +87,32 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <returns>The initialize timeout</returns>
         public static TimeSpan GetCommandTimeout()
         {
-            string value = Config.GetValue("AppiumCommandTimeout", "60");
+            string value = Config.GetValueForSection(APPIUMSECTIION, "MobileCommandTimeout", "60000");
 
             if (!int.TryParse(value, out int timeout))
             {
-                throw new ArgumentException("AppiumCommandTimeout should be a number but the current value is: " + value);
+                throw new ArgumentException("MobileCommandTimeout in " + APPIUMSECTIION +  " should be a number but the current value is: " + value);
             }
 
-            return TimeSpan.FromSeconds(timeout);
+            return TimeSpan.FromMilliseconds(timeout);
+        }
+
+        /// <summary>
+        /// Get if we should save page source on fail
+        /// </summary>
+        /// <returns>True if we want to save page source on fail</returns>
+        public static bool GetSavePagesourceOnFail()
+        {
+            return Config.GetValueForSection(APPIUMSECTIION, "SavePagesourceOnFail").Equals("Yes", StringComparison.CurrentCultureIgnoreCase);
+        }
+
+        /// <summary>
+        /// Get if we should save screenshots on soft arrert fails
+        /// </summary>
+        /// <returns>True if we want to save screenshots on soft arrert fails</returns>
+        public static bool GetSoftAssertScreenshot()
+        {
+            return Config.GetValueForSection(APPIUMSECTIION, "SoftAssertScreenshot").Equals("Yes", StringComparison.CurrentCultureIgnoreCase);
         }
 
         /// <summary>
@@ -129,8 +152,8 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <returns>An WebDriverWait</returns>
         public static WebDriverWait GetWaitDriver(AppiumDriver<IWebElement> driver)
         {
-            int waitTime = Convert.ToInt32(Config.GetValue("WaitTime", "0"));
-            int timeoutTime = Convert.ToInt32(Config.GetValue("Timeout", "0"));
+            int waitTime = Convert.ToInt32(Config.GetValueForSection(APPIUMSECTIION, "MobileWaitTime", "0"));
+            int timeoutTime = Convert.ToInt32(Config.GetValueForSection(APPIUMSECTIION, "MobileTimeout", "0"));
 
             return new WebDriverWait(new SystemClock(), driver, TimeSpan.FromMilliseconds(timeoutTime), TimeSpan.FromMilliseconds(waitTime));
         }
@@ -141,7 +164,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <param name="driver">Brings in an AppiumDriver</param>
         public static void SetTimeouts(AppiumDriver<IWebElement> driver)
         {
-            int timeoutTime = Convert.ToInt32(Config.GetValue("Timeout", "0"));
+            int timeoutTime = Convert.ToInt32(Config.GetValueForSection(APPIUMSECTIION, "MobileTimeout", "0"));
             driver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromMilliseconds(timeoutTime);
             driver.Manage().Timeouts().PageLoad = TimeSpan.FromMilliseconds(timeoutTime);
         }
@@ -157,7 +180,7 @@ namespace Magenic.Maqs.BaseAppiumTest
             capabilities.SetCapability(MobileCapabilityType.PlatformVersion, GetPlatformVersion());
             capabilities.SetCapability(MobileCapabilityType.PlatformName, GetPlatformName().ToUpper());
             capabilities.SetMobileCapabilities();
-            
+
             return capabilities;
         }
 
@@ -168,7 +191,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <returns>Custom mobile capabilities object</returns>
         private static DesiredCapabilities SetMobileCapabilities(this DesiredCapabilities desiredCapabilities)
         {
-            if (!(ConfigurationManager.GetSection(MobileCapabilities) is NameValueCollection mobileCapabilitySection))
+            if (!(ConfigurationManager.GetSection(MOBILECAPS) is NameValueCollection mobileCapabilitySection))
             {
                 return desiredCapabilities;
             }

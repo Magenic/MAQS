@@ -14,7 +14,7 @@ namespace $safeprojectname$
         /// Get single product as XML
         /// </summary>
         [Test]
-        public void GetXmlDeserialized()
+        public void GetXmlDeserializedNUnit()
         {
             ProductXml result = this.WebServiceWrapper.Get<ProductXml>("/api/XML_JSON/GetProduct/1", "application/xml", false);
 
@@ -25,7 +25,7 @@ namespace $safeprojectname$
         /// Get single product as Json
         /// </summary>
         [Test]
-        public void GetJsonDeserialized()
+        public void GetJsonDeserializedNUnit()
         {
             ProductJson result = this.WebServiceWrapper.Get<ProductJson>("/api/XML_JSON/GetProduct/1", "application/json", false);
 

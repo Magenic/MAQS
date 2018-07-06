@@ -44,7 +44,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
             this.HttpClient = new HttpClient
             {
                 BaseAddress = baseAddress,
-                Timeout = TimeSpan.FromSeconds(WebServiceConfig.GetWebServiceTimeout())
+                Timeout = WebServiceConfig.GetWebServiceTimeout()
             };
         }
 
@@ -57,7 +57,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
             this.HttpClient = new HttpClient
             {
                 BaseAddress = new Uri(baseAddress),
-                Timeout = TimeSpan.FromSeconds(WebServiceConfig.GetWebServiceTimeout())
+                Timeout = WebServiceConfig.GetWebServiceTimeout()
             };
         }
 

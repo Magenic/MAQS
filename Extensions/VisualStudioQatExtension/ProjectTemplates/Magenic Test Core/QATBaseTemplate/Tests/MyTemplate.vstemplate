@@ -17,9 +17,9 @@
   <TemplateContent>
     <Project TargetFileName="Tests.csproj" File="Tests.csproj" ReplaceParameters="true">
       <ProjectItem ReplaceParameters="true" TargetFileName="appsettings.json">appsettings.json</ProjectItem>
-      <ProjectItem ReplaceParameters="true" TargetFileName="BaseGenericTest.cs">BaseGenericTest.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="BaseGenericTestNUnit.cs">BaseGenericTestNUnit.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="BaseGenericTestVSUnit.cs">BaseGenericTestVSUnit.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="nuget.config">nuget.config</ProjectItem>
-      <ProjectItem ReplaceParameters="true" TargetFileName="packages.config">packages.config</ProjectItem>
     </Project>
   </TemplateContent>
 </VSTemplate>

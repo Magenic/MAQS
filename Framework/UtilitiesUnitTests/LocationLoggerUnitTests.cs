@@ -24,7 +24,7 @@ namespace UtilitiesUnitTesting
         /// <summary>
         /// Custom log file path
         /// </summary>
-        private static string customPath = Config.GetValue("CustomLogPath");
+        private static string customPath = Config.GetGeneralValue("CustomLogPath");
 
         /// <summary>
         /// Cleanup after the custom log path

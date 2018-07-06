@@ -55,7 +55,7 @@ namespace WebServiceTesterUnitTesting
         public void WebServiceSetupNoneEventFiringTesterTest()
         {
             // Turn off logging
-            Config.AddTestSettingValues(new Dictionary<string, string> { { "Log", "NO" } }, true);
+            Config.AddGeneralTestSettingValues(new Dictionary<string, string> { { "Log", "NO" } }, true);
 
             WebServiceDriver wrapper = new WebServiceDriver(this.GetBaseWebServiceUrl());
             Assert.AreEqual(this.TestObject.WebServiceDriver.ToString(), wrapper.ToString());
