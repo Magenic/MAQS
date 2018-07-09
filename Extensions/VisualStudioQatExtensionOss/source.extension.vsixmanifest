@@ -6,7 +6,7 @@
         <Description xml:space="preserve">Magenic's automation quick start open source framework</Description>
         <MoreInfo>https://github.com/Magenic/MAQS</MoreInfo>
         <License>License.txt</License>
-        <GettingStartedGuide>Getting Started Guide.doc</GettingStartedGuide>
+        <GettingStartedGuide>https://magenic.github.io/MAQS/#/MAQS_5.0.0/Introduction</GettingStartedGuide>
         <ReleaseNotes>ReleaseNotes.txt</ReleaseNotes>
         <Icon>MAQS.ico</Icon>
         <PreviewImage>MAQS.ico</PreviewImage>
