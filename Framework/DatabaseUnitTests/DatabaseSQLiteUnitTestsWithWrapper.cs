@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------
-// <copyright file="DatabaseSQLiteUnitTestsWithWrapper.cs" company="Magenic">
+// <copyright file="DatabaseSQLiteUnitTestsWithDriver.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Unit tests for SQLITE provider</summary>
@@ -24,7 +24,7 @@ namespace DatabaseUnitTests
     [TestClass]
     [ExcludeFromCodeCoverage]
     [DoNotParallelize]
-    public class DatabaseSQLiteUnitTestsWithWrapper : BaseDatabaseTest
+    public class DatabaseSQLiteUnitTestsWithDriver : BaseDatabaseTest
     {
         /// <summary>
         /// Check that we get back the state table

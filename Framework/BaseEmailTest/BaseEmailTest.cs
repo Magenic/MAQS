@@ -27,9 +27,9 @@ namespace Magenic.Maqs.BaseEmailTest
         }
 
         /// <summary>
-        /// Gets or sets the email wrapper
+        /// Gets or sets the email driver
         /// </summary>
-        public EmailDriver EmailWrapper
+        public EmailDriver EmailDriver
         {
             get
             {

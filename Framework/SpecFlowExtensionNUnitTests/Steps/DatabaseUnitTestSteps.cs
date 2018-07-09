@@ -82,7 +82,7 @@ namespace SpecFlowExtensionNUnitTests.Steps
         /// <summary>
         /// DatabaseDriver exists
         /// </summary>
-        [Then(@"DatabaseDriver is type DatabaseConnectionWrapper")]
+        [Then(@"DatabaseDriver is type DatabaseConnectionDriver")]
         public void AndDatabaseDriverIsTypeIWebDriver()
         {
             Assert.IsTrue(this.TestObject.DatabaseDriver.GetType().Equals(typeof(EventFiringDatabaseDriver)), $"DatabaseDriver for BaseDatabaseTestSteps class is the wrong type : {this.TestObject.DatabaseDriver.GetType()}.");

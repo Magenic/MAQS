@@ -44,10 +44,10 @@ namespace CoreUnitTests
         }
 
         /// <summary>
-        /// Make sure the test object wrapper is the same as the one in the driver store
+        /// Make sure the test object driver is the same as the one in the driver store
         /// </summary>
         [TestMethod]
-        public void MongoWrapperInDriverStore()
+        public void MongoDriverInDriverStore()
         {
             Assert.AreEqual(this.TestObject.MongoDBDriver, this.TestObject.GetDriverManager<MongoDriverManager<BsonDocument>>().Get());
         }
@@ -73,8 +73,8 @@ namespace CoreUnitTests
             // Do something so we intialize the web driver
             this.MongoDBDriver.IsCollectionEmpty();
 
-            MongoDriverManager<BsonDocument> driverWrapper = this.TestObject.ManagerStore[typeof(MongoDriverManager<BsonDocument>).FullName] as MongoDriverManager<BsonDocument>;
-            Assert.IsTrue(driverWrapper.IsDriverIntialized(), "The driver should have been intialized");
+            MongoDriverManager<BsonDocument> driverDriver = this.TestObject.ManagerStore[typeof(MongoDriverManager<BsonDocument>).FullName] as MongoDriverManager<BsonDocument>;
+            Assert.IsTrue(driverDriver.IsDriverIntialized(), "The driver should have been intialized");
         }
 
         /// <summary>
@@ -83,8 +83,8 @@ namespace CoreUnitTests
         [TestMethod]
         public void NotIntialized()
         {
-            MongoDriverManager<BsonDocument> driverWrapper = this.TestObject.ManagerStore[typeof(MongoDriverManager<BsonDocument>).FullName] as MongoDriverManager<BsonDocument>;
-            Assert.IsFalse(driverWrapper.IsDriverIntialized(), "The driver should not be intialized until it gets used");
+            MongoDriverManager<BsonDocument> driverDriver = this.TestObject.ManagerStore[typeof(MongoDriverManager<BsonDocument>).FullName] as MongoDriverManager<BsonDocument>;
+            Assert.IsFalse(driverDriver.IsDriverIntialized(), "The driver should not be intialized until it gets used");
         }
     }
 }

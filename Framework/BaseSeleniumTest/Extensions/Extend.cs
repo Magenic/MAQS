@@ -60,7 +60,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </example>
         public static WebDriverWait GetWaitDriver(this ISearchContext searchContext)
         {
-            // Make sure we have the base driver and not the event firing wrapper
+            // Make sure we have the base driver and not the event firing driver
             IWebDriver unwrappedDriver = GetLowLevelDriver(searchContext);
 
             if (waitCollection.ContainsKey(unwrappedDriver))
@@ -97,7 +97,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </example>
         public static void ResetWaitDriver(this ISearchContext searchContext)
         {
-            // Make sure we have the base driver and not the event firing wrapper
+            // Make sure we have the base driver and not the event firing driver
             IWebDriver unwrappedDriver = GetLowLevelDriver(searchContext);
 
             WebDriverWait waiter = SeleniumConfig.GetWaitDriver(unwrappedDriver);

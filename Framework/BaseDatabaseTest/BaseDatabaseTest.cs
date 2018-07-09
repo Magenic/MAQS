@@ -25,7 +25,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
         }
 
         /// <summary>
-        /// Gets or sets the web service wrapper
+        /// Gets or sets the web service driver
         /// </summary>
         public DatabaseDriver DatabaseDriver
         {

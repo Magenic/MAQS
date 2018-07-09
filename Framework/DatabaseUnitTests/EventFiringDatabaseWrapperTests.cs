@@ -2,7 +2,7 @@
 // <copyright file="EventFiringDatabaseDriverTests.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
-// <summary>Database base Eventfiring wrapper test unit tests</summary>
+// <summary>Database base Eventfiring driver test unit tests</summary>
 //--------------------------------------------------
 
 using System;
@@ -22,7 +22,7 @@ namespace DatabaseUnitTests
     using Magenic.Maqs.Utilities.Data;
 
     /// <summary>
-    /// Unit tests for the event firing database wrapper.
+    /// Unit tests for the event firing database driver.
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]

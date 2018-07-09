@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------
-// <copyright file="WebServiceWrapperConfig.cs" company="Magenic">
+// <copyright file="WebServiceDriverConfig.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Configuration override tests</summary>
@@ -18,7 +18,7 @@ namespace WebServiceTesterUnitTesting
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class WebServiceWrapperConfig : BaseWebServiceTest
+    public class WebServiceDriverConfig : BaseWebServiceTest
     {
          /// <summary>
         /// Setup test with properties

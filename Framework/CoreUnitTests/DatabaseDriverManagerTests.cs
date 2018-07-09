@@ -43,7 +43,7 @@ namespace CoreUnitTests
         }
 
         /// <summary>
-        /// Make sure the test object wrapper is the same as the one in the driver store
+        /// Make sure the test object driver is the same as the one in the driver store
         /// </summary>
         [TestMethod]
         public void DatabaseDriverInDriverStore()
@@ -72,8 +72,8 @@ namespace CoreUnitTests
             // Do something so we intialize the driver
             this.DatabaseDriver.Execute("Select * from Sys.Databases");
 
-            DatabaseDriverManager driverWrapper = this.TestObject.ManagerStore[typeof(DatabaseDriverManager).FullName] as DatabaseDriverManager;
-            Assert.IsTrue(driverWrapper.IsDriverIntialized(), "The driver should have been intialized");
+            DatabaseDriverManager driverDriver = this.TestObject.ManagerStore[typeof(DatabaseDriverManager).FullName] as DatabaseDriverManager;
+            Assert.IsTrue(driverDriver.IsDriverIntialized(), "The driver should have been intialized");
         }
 
         /// <summary>
@@ -82,8 +82,8 @@ namespace CoreUnitTests
         [TestMethod]
         public void NotIntialized()
         {
-            DatabaseDriverManager driverWrapper = this.TestObject.ManagerStore[typeof(DatabaseDriverManager).FullName] as DatabaseDriverManager;
-            Assert.IsFalse(driverWrapper.IsDriverIntialized(), "The driver should not be intialized until it gets used");
+            DatabaseDriverManager driverDriver = this.TestObject.ManagerStore[typeof(DatabaseDriverManager).FullName] as DatabaseDriverManager;
+            Assert.IsFalse(driverDriver.IsDriverIntialized(), "The driver should not be intialized until it gets used");
         }
     }
 }

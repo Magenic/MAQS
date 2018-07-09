@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------
-// <copyright file="WebServiceWithWrapperPost.cs" company="Magenic">
+// <copyright file="WebServiceWithDriverPost.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Web service post unit tests</summary>
@@ -19,7 +19,7 @@ namespace WebServiceTesterUnitTesting
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class WebServiceWithWrapperPost : BaseWebServiceTest
+    public class WebServiceWithDriverPost : BaseWebServiceTest
     {
         /// <summary>
         /// Post JSON request to verify status codes
@@ -34,7 +34,7 @@ namespace WebServiceTesterUnitTesting
             p.Name = "ff";
             p.Price = 3.25f;
             var content = WebServiceUtils.MakeStringContent<ProductJson>(p, Encoding.UTF8, "application/json");
-            var result = this.WebServiceWrapper.PostWithResponse("/api/XML_JSON/Post", "application/json", content, true);
+            var result = this.WebServiceDriver.PostWithResponse("/api/XML_JSON/Post", "application/json", content, true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
 
@@ -52,7 +52,7 @@ namespace WebServiceTesterUnitTesting
             p.Name = "ff";
             p.Price = 3.25f;
             var content = WebServiceUtils.MakeStreamContent<ProductJson>(p, Encoding.UTF8, "application/json");
-            var result = this.WebServiceWrapper.PostWithResponse("/api/XML_JSON/Post", "application/json", content, true);
+            var result = this.WebServiceDriver.PostWithResponse("/api/XML_JSON/Post", "application/json", content, true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
         #endregion
@@ -70,7 +70,7 @@ namespace WebServiceTesterUnitTesting
             p.Name = "ff";
             p.Price = 3.25f;
             var content = WebServiceUtils.MakeStringContent<Product>(p, Encoding.UTF8, "application/xml");
-            var result = this.WebServiceWrapper.PostWithResponse("/api/XML_JSON/Post", "application/xml", content, true);
+            var result = this.WebServiceDriver.PostWithResponse("/api/XML_JSON/Post", "application/xml", content, true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
 
@@ -87,7 +87,7 @@ namespace WebServiceTesterUnitTesting
             p.Name = "ff";
             p.Price = 3.25f;
             var content = WebServiceUtils.MakeStreamContent<Product>(p, Encoding.UTF8, "application/xml");
-            var result = this.WebServiceWrapper.PostWithResponse("/api/XML_JSON/Post", "application/xml", content, true);
+            var result = this.WebServiceDriver.PostWithResponse("/api/XML_JSON/Post", "application/xml", content, true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
 
@@ -105,7 +105,7 @@ namespace WebServiceTesterUnitTesting
             p.Name = "ff";
             p.Price = 3.25f;
             var content = WebServiceUtils.MakeStreamContent<ProductJson>(p, Encoding.UTF8, "application/json");
-            var result = this.WebServiceWrapper.Post<ProductJson>("/api/XML_JSON/Post", "application/json", content, true);
+            var result = this.WebServiceDriver.Post<ProductJson>("/api/XML_JSON/Post", "application/json", content, true);
             Assert.IsTrue(result == null);
         }
         #endregion
@@ -124,7 +124,7 @@ namespace WebServiceTesterUnitTesting
             p.Name = "ff";
             p.Price = 3.25f;
             var content = WebServiceUtils.MakeStringContent<Product>(p, Encoding.UTF8, "application/xml");
-            var result = this.WebServiceWrapper.Post("/api/XML_JSON/Post", "application/xml", content, true);
+            var result = this.WebServiceDriver.Post("/api/XML_JSON/Post", "application/xml", content, true);
             Assert.AreEqual(string.Empty, result);
         }
         #endregion
@@ -136,7 +136,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PostStringWithoutMakeContent()
         {
-            var result = this.WebServiceWrapper.Post("/api/String", "text/plain", "Test", Encoding.UTF8, "text/plain");
+            var result = this.WebServiceDriver.Post("/api/String", "text/plain", "Test", Encoding.UTF8, "text/plain");
             Assert.AreEqual(string.Empty, result);
         }
 
@@ -148,7 +148,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PostStreamWithoutMakeContent()
         {
-            var result = this.WebServiceWrapper.Post("/api/String", "text/plain", "Test", Encoding.UTF8, "text/plain", false, true);
+            var result = this.WebServiceDriver.Post("/api/String", "text/plain", "Test", Encoding.UTF8, "text/plain", false, true);
             Assert.AreEqual(string.Empty, result);
         }
         #endregion
@@ -161,7 +161,7 @@ namespace WebServiceTesterUnitTesting
         public void PostStringWithMakeContent()
         {
             var content = WebServiceUtils.MakeStringContent("Test", Encoding.UTF8, "text/plain");
-            var result = this.WebServiceWrapper.Post("/api/String", "text/plain", content, true);
+            var result = this.WebServiceDriver.Post("/api/String", "text/plain", content, true);
             Assert.AreEqual(string.Empty, result);
         }
 
@@ -172,7 +172,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PostStringWithoutContentStatusCode()
         {
-            var result = this.WebServiceWrapper.PostWithResponse("/api/String", "text/plain", "Test", Encoding.UTF8, "text/plain", true, true);
+            var result = this.WebServiceDriver.PostWithResponse("/api/String", "text/plain", "Test", Encoding.UTF8, "text/plain", true, true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
 
@@ -184,7 +184,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PostStreamWithoutContentStatusCode()
         {
-            var result = this.WebServiceWrapper.PostWithResponse("/api/String", "text/plain", "Test", Encoding.UTF8, "text/plain", false, true);
+            var result = this.WebServiceDriver.PostWithResponse("/api/String", "text/plain", "Test", Encoding.UTF8, "text/plain", false, true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
         #endregion
@@ -197,7 +197,7 @@ namespace WebServiceTesterUnitTesting
         public void PostStringMakeContentStatusCode()
         {
             var content = WebServiceUtils.MakeStringContent("Test", Encoding.UTF8, "text/plain");
-            var result = this.WebServiceWrapper.PostWithResponse("/api/String", "text/plain", content, true);
+            var result = this.WebServiceDriver.PostWithResponse("/api/String", "text/plain", content, true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
 
@@ -208,7 +208,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PostExpectContentError()
         {
-            var result = this.WebServiceWrapper.PostWithResponse("/api/String", "text/plain", null, false);
+            var result = this.WebServiceDriver.PostWithResponse("/api/String", "text/plain", null, false);
             Assert.AreEqual(HttpStatusCode.InternalServerError, result.StatusCode);
         }
 
@@ -219,7 +219,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PostExpectStringError()
         {
-            var result = this.WebServiceWrapper.Post("/api/String", "text/plain", null, false);
+            var result = this.WebServiceDriver.Post("/api/String", "text/plain", null, false);
             Assert.AreEqual("{\"Message\":\"value is required\"}", result);
         }
     }

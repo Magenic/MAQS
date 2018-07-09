@@ -35,28 +35,28 @@ namespace Magenic.Maqs.BaseMongoTest
 
             set
             {
-                this.TestObject.OverrideMongoDBWrapper(value);
+                this.TestObject.OverrideMongoDBDriver(value);
             }
         }
 
         /// <summary>
-        /// Override the Mongo wrapper
+        /// Override the Mongo driver
         /// </summary>
-        /// <param name="wrapper">New Mongo wrapper</param>
-        public void OverrideConnectionWrapper(MongoDBDriver<T> wrapper)
+        /// <param name="driver">New Mongo driver</param>
+        public void OverrideConnectionDriver(MongoDBDriver<T> driver)
         {
-            this.TestObject.OverrideMongoDBWrapper(wrapper);
+            this.TestObject.OverrideMongoDBDriver(driver);
         }
 
         /// <summary>
-        /// Override the Mongo wrapper
+        /// Override the Mongo driver
         /// </summary>
         /// <param name="connectionString">Client connection string</param>
         /// <param name="databaseString">Database connection string</param>
         /// <param name="collectionString">Mongo collection string</param>
-        public void OverrideConnectionWrapper(string connectionString, string databaseString, string collectionString)
+        public void OverrideConnectionDriver(string connectionString, string databaseString, string collectionString)
         {
-            this.TestObject.OverrideMongoDBWrapper(connectionString, databaseString, collectionString);
+            this.TestObject.OverrideMongoDBDriver(connectionString, databaseString, collectionString);
         }
 
         /// <summary>

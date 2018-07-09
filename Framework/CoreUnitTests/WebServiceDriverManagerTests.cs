@@ -25,7 +25,7 @@ namespace CoreUnitTests
         public void CanOverrideWebServiceDriver()
         {
             WebServiceDriver tempDriver = new WebServiceDriver(WebServiceConfig.GetWebServiceUri());
-            this.WebServiceWrapper = tempDriver;
+            this.WebServiceDriver = tempDriver;
             
             Assert.AreEqual(this.TestObject.WebServiceManager.Get(), tempDriver);
         }
@@ -44,7 +44,7 @@ namespace CoreUnitTests
         }
 
         /// <summary>
-        /// Make sure the test object wrapper is the same as the one in the driver store
+        /// Make sure the test object driver is the same as the one in the driver store
         /// </summary>
         [TestMethod]
         public void DatabaseDriverInDriverStore()
@@ -71,10 +71,10 @@ namespace CoreUnitTests
         public void Intialized()
         {
             // Do something so we intialize the web driver
-            this.WebServiceWrapper.ToString();
+            this.WebServiceDriver.ToString();
 
-            WebServiceDriverManager driverWrapper = this.TestObject.ManagerStore[typeof(WebServiceDriverManager).FullName] as WebServiceDriverManager;
-            Assert.IsTrue(driverWrapper.IsDriverIntialized(), "The driver should have been intialized");
+            WebServiceDriverManager driverDriver = this.TestObject.ManagerStore[typeof(WebServiceDriverManager).FullName] as WebServiceDriverManager;
+            Assert.IsTrue(driverDriver.IsDriverIntialized(), "The driver should have been intialized");
         }
 
         /// <summary>
@@ -83,8 +83,8 @@ namespace CoreUnitTests
         [TestMethod]
         public void NotIntialized()
         {
-            WebServiceDriverManager driverWrapper = this.TestObject.ManagerStore[typeof(WebServiceDriverManager).FullName] as WebServiceDriverManager;
-            Assert.IsFalse(driverWrapper.IsDriverIntialized(), "The driver should not be intialized until it gets used");
+            WebServiceDriverManager driverDriver = this.TestObject.ManagerStore[typeof(WebServiceDriverManager).FullName] as WebServiceDriverManager;
+            Assert.IsFalse(driverDriver.IsDriverIntialized(), "The driver should not be intialized until it gets used");
         }
     }
 }

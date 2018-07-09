@@ -30,7 +30,7 @@ namespace DatabaseUnitTests
         /// </summary>
         [Test]
         [Category(TestCategories.Database)]
-        public void VerifyOrdersSqliteNoWrapperDefault()
+        public void VerifyOrdersSqliteNoDriverDefault()
         {
             // Override the configuration
             var overrides = new Dictionary<string, string>()
@@ -41,9 +41,9 @@ namespace DatabaseUnitTests
 
             Config.AddTestSettingValues(overrides, "DatabaseMaqs");
 
-            DatabaseDriver wrapper = new DatabaseDriver();
+            DatabaseDriver driver = new DatabaseDriver();
 
-            var orders = wrapper.Query("select * from orders").ToList();
+            var orders = driver.Query("select * from orders").ToList();
             Assert.AreEqual(11, orders.Count);
         }
 
@@ -52,7 +52,7 @@ namespace DatabaseUnitTests
         /// </summary>
         [Test]
         [Category(TestCategories.Database)]
-        public void VerifyOrdersSqliteNoWrapperString()
+        public void VerifyOrdersSqliteNoDriverString()
         {
             // Override the configuration
             var overrides = new Dictionary<string, string>()
@@ -63,9 +63,9 @@ namespace DatabaseUnitTests
 
             Config.AddTestSettingValues(overrides, "DatabaseMaqs");
 
-            DatabaseDriver wrapper = new DatabaseDriver(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString());
+            DatabaseDriver driver = new DatabaseDriver(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString());
 
-            var orders = wrapper.Query("select * from orders").ToList();
+            var orders = driver.Query("select * from orders").ToList();
             Assert.AreEqual(11, orders.Count);
         }
 
@@ -74,7 +74,7 @@ namespace DatabaseUnitTests
         /// </summary>
         [Test]
         [Category(TestCategories.Database)]
-        public void VerifyOrdersSqliteNoWrapperFunction()
+        public void VerifyOrdersSqliteNoDriverFunction()
         {
             // Override the configuration
             var overrides =
@@ -89,9 +89,9 @@ namespace DatabaseUnitTests
             {
                 SQLitePCL.Batteries.Init();
                 connection.Open();
-                DatabaseDriver wrapper = new DatabaseDriver(connection);
+                DatabaseDriver driver = new DatabaseDriver(connection);
 
-                var orders = wrapper.Query("select * from orders").ToList();
+                var orders = driver.Query("select * from orders").ToList();
                 Assert.AreEqual(11, orders.Count);
             }
         }

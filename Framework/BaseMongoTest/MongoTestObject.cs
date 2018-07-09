@@ -52,24 +52,24 @@ namespace Magenic.Maqs.BaseMongoTest
         }
 
         /// <summary>
-        /// Override the Mongo wrapper settings
+        /// Override the Mongo driver settings
         /// </summary>
         /// <param name="connectionString">Client connection string</param>
         /// <param name="databaseString">Database connection string</param>
         /// <param name="collectionString">Mongo collection string</param>
-        public void OverrideMongoDBWrapper(string connectionString, string databaseString, string collectionString)
+        public void OverrideMongoDBDriver(string connectionString, string databaseString, string collectionString)
         {
             this.ManagerStore.Remove(typeof(MongoDriverManager<T>).FullName);
             this.ManagerStore.Add(typeof(MongoDriverManager<T>).FullName, new MongoDriverManager<T>(connectionString, databaseString, collectionString, this));
         }
 
         /// <summary>
-        /// Override the Mongo wrapper settings
+        /// Override the Mongo driver settings
         /// </summary>
-        /// <param name="wrapper">New Mongo wrapper</param>
-        public void OverrideMongoDBWrapper(MongoDBDriver<T> wrapper)
+        /// <param name="driver">New Mongo driver</param>
+        public void OverrideMongoDBDriver(MongoDBDriver<T> driver)
         {
-            this.MongoDBManager.OverrideWrapper(wrapper);
+            this.MongoDBManager.OverrideDriver(driver);
         }
     }
 }

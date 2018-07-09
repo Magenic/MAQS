@@ -26,9 +26,9 @@ namespace CoreUnitTests
         public void CanOverrideEmailDriver()
         {
             EmailDriver temp = new EmailDriver(() => GetClient());
-            this.TestObject.EmailManager.OverwriteWrapper(temp);
+            this.TestObject.EmailManager.OverwriteDriver(temp);
 
-            Assert.AreEqual(this.TestObject.EmailManager.Get().EmailConnection, EmailWrapper.EmailConnection);
+            Assert.AreEqual(this.TestObject.EmailManager.Get().EmailConnection, EmailDriver.EmailConnection);
         }
 
         /// <summary>
@@ -45,10 +45,10 @@ namespace CoreUnitTests
         }
 
         /// <summary>
-        /// Make sure the test object wrapper is the same as the one in the driver store
+        /// Make sure the test object driver is the same as the one in the driver store
         /// </summary>
         [TestMethod]
-        public void EmailWrapperInDriverStore()
+        public void EmailDriverInDriverStore()
         {
             Assert.AreEqual(this.TestObject.EmailDriver, this.TestObject.GetDriverManager<EmailDriverManager>().Get());
         }
@@ -72,10 +72,10 @@ namespace CoreUnitTests
         public void Intialized()
         {
             // Do something so we initalize the driver
-            this.EmailWrapper.CanAccessEmailAccount();
+            this.EmailDriver.CanAccessEmailAccount();
 
-            EmailDriverManager driverWrapper = this.TestObject.ManagerStore[typeof(EmailDriverManager).FullName] as EmailDriverManager;
-            Assert.IsTrue(driverWrapper.IsDriverIntialized(), "The driver should have been intialized");
+            EmailDriverManager driverDriver = this.TestObject.ManagerStore[typeof(EmailDriverManager).FullName] as EmailDriverManager;
+            Assert.IsTrue(driverDriver.IsDriverIntialized(), "The driver should have been intialized");
         }
 
         /// <summary>
@@ -84,8 +84,8 @@ namespace CoreUnitTests
         [TestMethod]
         public void NotIntialized()
         {
-            EmailDriverManager driverWrapper = this.TestObject.ManagerStore[typeof(EmailDriverManager).FullName] as EmailDriverManager;
-            Assert.IsFalse(driverWrapper.IsDriverIntialized(), "The driver should not be intialized until it gets used");
+            EmailDriverManager driverDriver = this.TestObject.ManagerStore[typeof(EmailDriverManager).FullName] as EmailDriverManager;
+            Assert.IsFalse(driverDriver.IsDriverIntialized(), "The driver should not be intialized until it gets used");
         }
 
         /// <summary>

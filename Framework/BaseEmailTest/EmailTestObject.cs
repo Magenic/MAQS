@@ -18,9 +18,9 @@ namespace Magenic.Maqs.BaseEmailTest
     public class EmailTestObject : BaseTestObject
     {
         /// <summary>
-        /// Gets the email connection wrapper
+        /// Gets the email connection driver
         /// </summary>
-        private EmailDriver wrapper;
+        private EmailDriver driver;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EmailTestObject" /> class
@@ -52,9 +52,9 @@ namespace Magenic.Maqs.BaseEmailTest
         {
             get
             {
-                if (this.wrapper != null)
+                if (this.driver != null)
                 {
-                    return this.wrapper;
+                    return this.driver;
                 }
 
                 return this.EmailManager.Get();
@@ -62,32 +62,32 @@ namespace Magenic.Maqs.BaseEmailTest
         }
 
         /// <summary>
-        /// Override the email wrapper
+        /// Override the email driver
         /// </summary>
         /// <param name="emailConnection">Function for getting an email connection</param>
         public void OverrideDatabaseConnection(Func<ImapClient> emailConnection)
         {
-            if (this.wrapper != null)
+            if (this.driver != null)
             {
-                this.wrapper.Dispose();
-                this.wrapper = null;
+                this.driver.Dispose();
+                this.driver = null;
             }
 
             this.OverrideDriverManager(typeof(EmailDriverManager).FullName, new EmailDriverManager(emailConnection, this));
         }
 
         /// <summary>
-        /// Override the email wrapper
+        /// Override the email driver
         /// </summary>
-        /// <param name="emailWrapper">The new email wrapper</param>
-        public void OverrideDatabaseDriver(EmailDriver emailWrapper)
+        /// <param name="emailDriver">The new email driver</param>
+        public void OverrideDatabaseDriver(EmailDriver emailDriver)
         {
-            if (this.wrapper != null)
+            if (this.driver != null)
             {
-                this.wrapper.Dispose();
+                this.driver.Dispose();
             }
 
-            this.wrapper = emailWrapper;
+            this.driver = emailDriver;
         }
     }
 }

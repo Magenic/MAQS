@@ -2,7 +2,7 @@
 // <copyright file="MongoDBTests.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
-// <summary>Unit test class for the MongoDB wrapper</summary>
+// <summary>Unit test class for the MongoDB driver</summary>
 //--------------------------------------------------
 using Magenic.Maqs.BaseMongoTest;
 using Magenic.Maqs.Utilities.Helper;
@@ -118,11 +118,11 @@ namespace MongoDBUnitTests
             Assert.AreEqual(this.TestObject.Log, this.Log, "Logs don't match");
             Assert.AreEqual(this.TestObject.SoftAssert, this.SoftAssert, "Soft asserts don't match");
             Assert.AreEqual(this.TestObject.PerfTimerCollection, this.PerfTimerCollection, "Soft asserts don't match");
-            Assert.AreEqual(this.TestObject.MongoDBDriver, this.MongoDBDriver, "Web service wrapper don't match");
+            Assert.AreEqual(this.TestObject.MongoDBDriver, this.MongoDBDriver, "Web service driver don't match");
         }
 
         /// <summary>
-        /// Test the event firing collection wrapper
+        /// Test the event firing collection driver
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.MongoDB)]
@@ -136,7 +136,7 @@ namespace MongoDBUnitTests
                 // Turn on logging
                 Config.AddGeneralTestSettingValues(new Dictionary<string, string> { { "Log", "Yes" } }, true);
 
-                // Make sure this is an event firing wrapper
+                // Make sure this is an event firing driver
                 Assert.IsInstanceOfType(this.TestObject.MongoDBDriver, typeof(EventFiringMongoDBDriver<BsonDocument>));
             }
             finally

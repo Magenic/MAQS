@@ -13,7 +13,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace WebServiceTesterUnitTesting
 {
     /// <summary>
-    /// Test the EventFiringClientWrapper class
+    /// Test the EventFiringClientDriver class
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]

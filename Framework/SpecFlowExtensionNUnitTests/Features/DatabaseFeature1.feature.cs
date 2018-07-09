@@ -77,7 +77,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 7
  testRunner.Then("DatabaseDriver is not null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 8
- testRunner.And("DatabaseDriver is type DatabaseConnectionWrapper", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("DatabaseDriver is type DatabaseConnectionDriver", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

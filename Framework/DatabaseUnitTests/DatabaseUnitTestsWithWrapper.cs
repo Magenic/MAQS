@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------
-// <copyright file="DatabaseUnitTestsWithWrapper.cs" company="Magenic">
+// <copyright file="DatabaseUnitTestsWithDriver.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Database base test unit tests</summary>
@@ -22,7 +22,7 @@ namespace DatabaseUnitTests
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class DatabaseUnitTestsWithWrapper : BaseDatabaseTest
+    public class DatabaseUnitTestsWithDriver : BaseDatabaseTest
     {
         /// <summary>
         /// Check that we get back the state table
@@ -145,7 +145,7 @@ namespace DatabaseUnitTests
             Assert.AreEqual(this.TestObject.Log, this.Log, "Logs don't match");
             Assert.AreEqual(this.TestObject.SoftAssert, this.SoftAssert, "Soft asserts don't match");
             Assert.AreEqual(this.TestObject.PerfTimerCollection, this.PerfTimerCollection, "Soft asserts don't match");
-            Assert.AreEqual(this.TestObject.DatabaseDriver, this.DatabaseDriver, "Web service wrapper don't match");
+            Assert.AreEqual(this.TestObject.DatabaseDriver, this.DatabaseDriver, "Web service driver don't match");
         }
 
         /// <summary>
