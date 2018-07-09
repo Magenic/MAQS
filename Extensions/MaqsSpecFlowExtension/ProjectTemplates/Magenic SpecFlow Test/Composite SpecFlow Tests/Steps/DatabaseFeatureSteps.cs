@@ -1,4 +1,5 @@
 ﻿using Magenic.Maqs.SpecFlow.TestSteps;
+using NUnit.Framework;
 using System.Data;
 using TechTalk.SpecFlow;
 
@@ -25,7 +26,7 @@ namespace $safeprojectname$.Steps
         [Given(@"condition")]
         public void GivenCondition()
         {
-            ScenarioContext.Current.Pending();
+            // ScenarioContext.Current.Pending();
         }
 
         /// <summary>
@@ -34,7 +35,7 @@ namespace $safeprojectname$.Steps
         [When(@"action")]
         public void WhenAction()
         {
-            ScenarioContext.Current.Pending();
+            // ScenarioContext.Current.Pending();
         }
 
         /// <summary>
@@ -43,17 +44,18 @@ namespace $safeprojectname$.Steps
         [Then(@"verification")]
         public void ThenVerification()
         {
-            ScenarioContext.Current.Pending();
+            // ScenarioContext.Current.Pending();
+			Assert.IsTrue(QueryDatabase());
         }
 
         /// <summary>
-        /// Queries the database and returns the table
+        /// Queries the database and returns if the expected table exists
         /// </summary>
-        /// <param name="query">The query string</param>
-        /// <returns>The data table returned</returns>
-        private DataTable QueryDatabase(string query)
+        /// <returns>True if the state table is found</returns>
+        private bool QueryDatabase()
         {
-            return this.TestObject.DatabaseWrapper.QueryAndGetDataTable(query);
+            var table = this.TestObject.DatabaseWrapper.Query("SELECT * FROM information_schema.tables").ToList();
+			return table.Any(n => n.TABLE_NAME.Equals("States"));
         }
     }
 }

@@ -13,7 +13,7 @@ namespace $rootnamespace$
         /// <summary>
         /// The page url
         /// </summary>
-        private static readonly string PageUrl = Config.GetValue("WebSiteBase") + "PAGE.html";
+        private static readonly string PageUrl = SeleniumConfig.GetWebSiteBase() + "PAGE.html";
 
         /// <summary>
         /// Selenium test object
@@ -32,9 +32,9 @@ namespace $rootnamespace$
         /// <summary>
         /// Gets the sample element
         /// </summary>
-        private FluentElement Sample
+        private LazyElement Sample
         {
-            get { return new FluentElement(this.testObject, By.CssSelector("#CSS_ID"), "SAMPLE"); }
+            get { return new LazyElement(this.testObject, By.CssSelector("#CSS_ID"), "SAMPLE"); }
         }
 
         /// <summary>

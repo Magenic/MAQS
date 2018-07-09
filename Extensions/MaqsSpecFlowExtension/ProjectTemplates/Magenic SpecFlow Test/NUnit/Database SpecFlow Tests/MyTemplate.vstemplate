@@ -1,12 +1,12 @@
 <VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
   <TemplateData>
-    <Name>Maqs Framework - SpecFlow - NUnit - Database</Name>
+    <Name>MAQS SpecFlow NUnit - Database Tests</Name>
     <Description>Magenic's automation quick start framework for database testing using SpecFlow</Description>
     <ProjectType>CSharp</ProjectType>
     <ProjectSubType>Magenic SpecFlow Test</ProjectSubType>
     <SortOrder>1000</SortOrder>
     <CreateNewFolder>true</CreateNewFolder>
-    <DefaultName>Maqs Framework - SpecFlow - NUnit - Database</DefaultName>
+    <DefaultName>Maqs SpecFlow NUnit - Database Tests</DefaultName>
     <ProvideDefaultName>true</ProvideDefaultName>
     <LocationField>Enabled</LocationField>
     <EnableLocationBrowseButton>true</EnableLocationBrowseButton>

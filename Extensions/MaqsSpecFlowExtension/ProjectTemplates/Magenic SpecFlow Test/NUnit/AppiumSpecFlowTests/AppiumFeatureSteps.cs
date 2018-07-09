@@ -26,7 +26,7 @@ namespace $safeprojectname$
         [Given(@"condition")]
         public void GivenCondition()
         {
-            ScenarioContext.Current.Pending();
+            // ScenarioContext.Current.Pending();
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace $safeprojectname$
         [When(@"action")]
         public void WhenAction()
         {
-            ScenarioContext.Current.Pending();
+            // ScenarioContext.Current.Pending();
         }
 
         /// <summary>
@@ -44,15 +44,15 @@ namespace $safeprojectname$
         [Then(@"verification")]
         public void ThenVerification()
         {
-            ScenarioContext.Current.Pending();
+            // ScenarioContext.Current.Pending();
         }
 
         /// <summary>
         /// Finds the element with the given by
         /// </summary>
-        /// <param name="by">THe by to search with</param>
-        /// <returns>The AppiumWebElement found</returns>
-        private AppiumWebElement FindElement(By by)
+        /// <param name="by">The by to search with</param>
+        /// <returns>The IWebElement found</returns>
+        private IWebElement FindElement(By by)
         {
             return this.TestObject.AppiumDriver.FindElement(by);
         }

@@ -1,4 +1,5 @@
 ﻿using Magenic.Maqs.SpecFlow.TestSteps;
+using NUnit.Framework;
 using TechTalk.SpecFlow;
 
 namespace $safeprojectname$.Steps
@@ -24,7 +25,7 @@ namespace $safeprojectname$.Steps
         [Given(@"condition")]
         public void GivenCondition()
         {
-            ScenarioContext.Current.Pending();
+            // ScenarioContext.Current.Pending();
         }
 
         /// <summary>
@@ -33,7 +34,7 @@ namespace $safeprojectname$.Steps
         [When(@"action")]
         public void WhenAction()
         {
-            ScenarioContext.Current.Pending();
+            // ScenarioContext.Current.Pending();
         }
 
         /// <summary>
@@ -42,7 +43,8 @@ namespace $safeprojectname$.Steps
         [Then(@"verification")]
         public void ThenVerification()
         {
-            ScenarioContext.Current.Pending();
+            // ScenarioContext.Current.Pending();
+			Assert.IsTrue(this.TestObject.EmailWrapper.CanAccessEmailAccount(), "Email account was not accessible");
         }
     }
 }

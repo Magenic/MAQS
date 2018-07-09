@@ -26,7 +26,7 @@ namespace $safeprojectname$.Steps
         [Given(@"condition")]
         public void GivenCondition()
         {
-            ScenarioContext.Current.Pending();
+            // ScenarioContext.Current.Pending();
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace $safeprojectname$.Steps
         [When(@"action")]
         public void WhenAction()
         {
-            ScenarioContext.Current.Pending();
+            // ScenarioContext.Current.Pending();
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace $safeprojectname$.Steps
         [Then(@"verification")]
         public void ThenVerification()
         {
-            ScenarioContext.Current.Pending();
+            // ScenarioContext.Current.Pending();
         }
 
         /// <summary>
