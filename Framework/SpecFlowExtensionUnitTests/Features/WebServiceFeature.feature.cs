@@ -83,21 +83,21 @@ namespace SpecFlowExtensionUnitTests.Features
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("WebServiceWrapper Available BaseWebServiceTestSteps")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("WebServiceDriver Available BaseWebServiceTestSteps")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "WebServiceFeature")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("MAQS_WebService")]
-        public virtual void WebServiceWrapperAvailableBaseWebServiceTestSteps()
+        public virtual void WebServiceDriverAvailableBaseWebServiceTestSteps()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("WebServiceWrapper Available BaseWebServiceTestSteps", new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("WebServiceDriver Available BaseWebServiceTestSteps", new string[] {
                         "MAQS_WebService"});
 #line 5
 this.ScenarioSetup(scenarioInfo);
 #line 6
  testRunner.Given("class BaseWebServiceTestSteps", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 7
- testRunner.Then("BaseWebServiceTestSteps WebServiceWrapper is not null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("BaseWebServiceTestSteps WebServiceDriver is not null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 8
- testRunner.And("BaseWebServiceTestSteps WebServiceWrapper is type EventFiringWebServiceDriver", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("BaseWebServiceTestSteps WebServiceDriver is type EventFiringWebServiceDriver", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

@@ -17,9 +17,9 @@ namespace Magenic.Maqs.BaseDatabaseTest
     public class DatabaseDriverManager : DriverManager
     {
         /// <summary>
-        /// Cached copy of the connection wrapper
+        /// Cached copy of the connection driver
         /// </summary>
-        private DatabaseDriver wrapper;
+        private DatabaseDriver driver;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DatabaseDriverManager"/> class
@@ -35,55 +35,55 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// </summary>
         public override void Dispose()
         {
-            if (this.wrapper != null)
+            if (this.driver != null)
             {
-                this.wrapper.Dispose();
+                this.driver.Dispose();
             }
 
-            this.wrapper = null;
+            this.driver = null;
         }
 
         /// <summary>
-        /// Get the database wrapper
+        /// Get the database driver
         /// </summary>
-        /// <returns>The database wrapper</returns>
+        /// <returns>The database driver</returns>
         public new DatabaseDriver Get()
         {
-            if (this.wrapper == null)
+            if (this.driver == null)
             {
                 if (LoggingConfig.GetLoggingEnabledSetting() == LoggingEnabled.NO)
                 {
-                    this.Log.LogMessage(MessageType.INFORMATION, "Getting database wrapper");
-                    this.wrapper = new DatabaseDriver(base.Get() as IDbConnection);
+                    this.Log.LogMessage(MessageType.INFORMATION, "Getting database driver");
+                    this.driver = new DatabaseDriver(base.Get() as IDbConnection);
                 }
                 else
                 {
-                    this.Log.LogMessage(MessageType.INFORMATION, "Getting event firing database wrapper");
-                    this.wrapper = new EventFiringDatabaseDriver(base.Get() as IDbConnection);
-                    this.MapEvents(this.wrapper as EventFiringDatabaseDriver);
+                    this.Log.LogMessage(MessageType.INFORMATION, "Getting event firing database driver");
+                    this.driver = new EventFiringDatabaseDriver(base.Get() as IDbConnection);
+                    this.MapEvents(this.driver as EventFiringDatabaseDriver);
                 }
             }
 
-            return this.wrapper;
+            return this.driver;
         }
 
         /// <summary>
-        /// Override the database wrapper
+        /// Override the database driver
         /// </summary>
-        /// <param name="newWrapper">The new wrapper</param>
-        public void OverwriteWrapper(DatabaseDriver newWrapper)
+        /// <param name="newDriver">The new driver</param>
+        public void OverwriteDriver(DatabaseDriver newDriver)
         {
-            this.wrapper = newWrapper;
+            this.driver = newDriver;
         }
 
         /// <summary>
         /// Map database events to log events
         /// </summary>
-        /// <param name="eventFiringConnectionWrapper">The event firing database wrapper that we want mapped</param>
-        private void MapEvents(EventFiringDatabaseDriver eventFiringConnectionWrapper)
+        /// <param name="eventFiringConnectionDriver">The event firing database driver that we want mapped</param>
+        private void MapEvents(EventFiringDatabaseDriver eventFiringConnectionDriver)
         {
-            eventFiringConnectionWrapper.DatabaseEvent += this.Database_Event;
-            eventFiringConnectionWrapper.DatabaseErrorEvent += this.Database_Error;
+            eventFiringConnectionDriver.DatabaseEvent += this.Database_Event;
+            eventFiringConnectionDriver.DatabaseErrorEvent += this.Database_Error;
         }
 
         /// <summary>

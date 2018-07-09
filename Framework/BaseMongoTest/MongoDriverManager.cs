@@ -17,9 +17,9 @@ namespace Magenic.Maqs.BaseMongoTest
     public class MongoDriverManager<T> : DriverManager
     {
         /// <summary>
-        /// Cached copy of the connection wrapper
+        /// Cached copy of the connection driver
         /// </summary>
-        private MongoDBDriver<T> wrapper;
+        private MongoDBDriver<T> driver;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MongoDriverManager{T}" /> class
@@ -42,48 +42,48 @@ namespace Magenic.Maqs.BaseMongoTest
         }
 
         /// <summary>
-        /// Override the Mongo wrapper
+        /// Override the Mongo driver
         /// </summary>
-        /// <param name="overrideWrapper">The new Mongo wrapper</param>
-        public void OverrideWrapper(MongoDBDriver<T> overrideWrapper)
+        /// <param name="overrideDriver">The new Mongo driver</param>
+        public void OverrideDriver(MongoDBDriver<T> overrideDriver)
         {
-            this.wrapper = overrideWrapper;
+            this.driver = overrideDriver;
         }
 
         /// <summary>
-        /// Get the Mongo wrapper
+        /// Get the Mongo driver
         /// </summary>
-        /// <returns>The Mongo wrapper</returns>
+        /// <returns>The Mongo driver</returns>
         public new MongoDBDriver<T> Get()
         {
-            if (this.wrapper == null)
+            if (this.driver == null)
             {
                 ValueTuple<string, string, string> temp = (ValueTuple<string, string, string>)base.Get();
 
                 if (LoggingConfig.GetLoggingEnabledSetting() == LoggingEnabled.NO)
                 {
-                    this.Log.LogMessage(MessageType.INFORMATION, "Getting Mongo wrapper");
-                    this.wrapper = new MongoDBDriver<T>(temp.Item1, temp.Item2, temp.Item3);
+                    this.Log.LogMessage(MessageType.INFORMATION, "Getting Mongo driver");
+                    this.driver = new MongoDBDriver<T>(temp.Item1, temp.Item2, temp.Item3);
                 }
                 else
                 {
-                    this.Log.LogMessage(MessageType.INFORMATION, "Getting event firing Mongo wrapper");
-                    this.wrapper = new EventFiringMongoDBDriver<T>(temp.Item1, temp.Item2, temp.Item3);
-                    this.MapEvents((EventFiringMongoDBDriver<T>)this.wrapper);
+                    this.Log.LogMessage(MessageType.INFORMATION, "Getting event firing Mongo driver");
+                    this.driver = new EventFiringMongoDBDriver<T>(temp.Item1, temp.Item2, temp.Item3);
+                    this.MapEvents((EventFiringMongoDBDriver<T>)this.driver);
                 }
             }
 
-            return this.wrapper;
+            return this.driver;
         }
 
         /// <summary>
         /// Map database events to log events
         /// </summary>
-        /// <param name="eventFiringConnectionWrapper">The event firing database wrapper that we want mapped</param>
-        private void MapEvents(EventFiringMongoDBDriver<T> eventFiringConnectionWrapper)
+        /// <param name="eventFiringConnectionDriver">The event firing database driver that we want mapped</param>
+        private void MapEvents(EventFiringMongoDBDriver<T> eventFiringConnectionDriver)
         {
-            eventFiringConnectionWrapper.DatabaseEvent += this.Database_Event;
-            eventFiringConnectionWrapper.DatabaseErrorEvent += this.Database_Error;
+            eventFiringConnectionDriver.DatabaseEvent += this.Database_Event;
+            eventFiringConnectionDriver.DatabaseErrorEvent += this.Database_Error;
         }
 
         /// <summary>

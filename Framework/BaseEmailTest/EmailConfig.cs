@@ -27,7 +27,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// </summary>
         /// <returns>The email host</returns>
         /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithoutWrapper.cs" region="GetHost" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithoutDriver.cs" region="GetHost" lang="C#" />
         /// </example>
         public static string GetHost()
         {
@@ -39,7 +39,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// </summary>
         /// <returns>The user name</returns>
         /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithoutWrapper.cs" region="GetUserName" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithoutDriver.cs" region="GetUserName" lang="C#" />
         /// </example>
         public static string GetUserName()
         {
@@ -51,7 +51,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// </summary>
         /// <returns>The password</returns>
         /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithoutWrapper.cs" region="GetPassword" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithoutDriver.cs" region="GetPassword" lang="C#" />
         /// </example>
         public static string GetPassword()
         {
@@ -63,7 +63,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// </summary>
         /// <returns>The port number</returns>
         /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithoutWrapper.cs" region="GetPort" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithoutDriver.cs" region="GetPort" lang="C#" />
         /// </example>
         public static int GetPort()
         {
@@ -75,7 +75,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// </summary>
         /// <returns>True if we should use SSL</returns>
         /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithoutWrapper.cs" region="GetEmailViaSSL" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithoutDriver.cs" region="GetEmailViaSSL" lang="C#" />
         /// </example>
         public static bool GetEmailViaSSL()
         {
@@ -87,7 +87,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// </summary>
         /// <returns>True if we are skipping SSL validation</returns>
         /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithoutWrapper.cs" region="SkipSSL" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithoutDriver.cs" region="SkipSSL" lang="C#" />
         /// </example>
         public static bool GetEmailSkipSslValidation()
         {
@@ -99,7 +99,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// </summary>
         /// <returns>String of file path</returns>
         /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithoutWrapper.cs" region="DownloadDirectory" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithoutDriver.cs" region="DownloadDirectory" lang="C#" />
         /// </example>
         public static string GetAttachmentDownloadDirectory()
         {

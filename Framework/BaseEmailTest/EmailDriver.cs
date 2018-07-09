@@ -98,7 +98,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// </summary>
         /// <returns>True if the email account is accessible</returns>
         /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="CanAccessEmail" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithDriver.cs" region="CanAccessEmail" lang="C#" />
         /// </example>
         public virtual bool CanAccessEmailAccount()
         {
@@ -120,7 +120,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// </summary>
         /// <returns>A list of mailbox names</returns>
         /// <example>
-        /// <code source="../EmailUnitTests/EmailUnitWithWrapper.cs" region="GetMailboxes" lang="C#" />
+        /// <code source="../EmailUnitTests/EmailUnitWithDriver.cs" region="GetMailboxes" lang="C#" />
         /// </example>
         public virtual List<string> GetMailBoxNames()
         {
@@ -165,7 +165,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// <param name="mailbox">The mailbox name</param>
         /// <returns>The mailbox</returns>
         /// <example>
-        /// <code source="../EmailUnitTests/EmailUnitWithWrapper.cs" region="GetMailbox" lang="C#" />
+        /// <code source="../EmailUnitTests/EmailUnitWithDriver.cs" region="GetMailbox" lang="C#" />
         /// </example> 
         public virtual IMailFolder GetMailbox(string mailbox)
         {
@@ -183,7 +183,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// </summary>
         /// <param name="mailbox">The name of the mailbox</param>
         /// <example>
-        /// <code source="../EmailUnitTests/EmailUnitWithWrapper.cs" region="SelectMailbox" lang="C#" />
+        /// <code source="../EmailUnitTests/EmailUnitWithDriver.cs" region="SelectMailbox" lang="C#" />
         /// </example> 
         public virtual void SelectMailbox(string mailbox)
         {
@@ -201,7 +201,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// </summary>
         /// <param name="newMailBox">The name of the new mailbox</param>
         /// <example>
-        /// <code source="../EmailUnitTests/EmailUnitWithWrapper.cs" region="CreateMailbox" lang="C#" />
+        /// <code source="../EmailUnitTests/EmailUnitWithDriver.cs" region="CreateMailbox" lang="C#" />
         /// </example>
         public virtual void CreateMailbox(string newMailBox)
         {
@@ -222,8 +222,8 @@ namespace Magenic.Maqs.BaseEmailTest
         /// <param name="markRead">Mark the email as read</param>
         /// <returns>The message</returns>
         /// <example>
-        /// <code source="../EmailUnitTests/EmailUnitWithWrapper.cs" region="GetMessage" lang="C#" />
-        /// <code source="../EmailUnitTests/EmailUnitWithWrapper.cs" region="GetMessage1" lang="C#" />
+        /// <code source="../EmailUnitTests/EmailUnitWithDriver.cs" region="GetMessage" lang="C#" />
+        /// <code source="../EmailUnitTests/EmailUnitWithDriver.cs" region="GetMessage1" lang="C#" />
         /// </example>
         public virtual MimeMessage GetMessage(string mailBox, string uid, bool headerOnly = false, bool markRead = false)
         {
@@ -239,8 +239,8 @@ namespace Magenic.Maqs.BaseEmailTest
         /// <param name="markRead">Mark the email as read</param>
         /// <returns>The message</returns>
         /// <example>
-        /// <code source="../EmailUnitTests/EmailUnitWithWrapper.cs" region="GetMessageUid" lang="C#" />
-        /// <code source="../EmailUnitTests/EmailUnitWithWrapper.cs" region="GetMessageUid1" lang="C#" />
+        /// <code source="../EmailUnitTests/EmailUnitWithDriver.cs" region="GetMessageUid" lang="C#" />
+        /// <code source="../EmailUnitTests/EmailUnitWithDriver.cs" region="GetMessageUid1" lang="C#" />
         /// </example>
         public virtual MimeMessage GetMessage(string uid, bool headerOnly = false, bool markRead = false)
         {
@@ -264,7 +264,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// </summary>
         /// <returns>A list of email messages</returns>
         /// <example>
-        /// <code source="../EmailUnitTests/EmailUnitWithWrapper.cs" region="EmailHeaders" lang="C#" />
+        /// <code source="../EmailUnitTests/EmailUnitWithDriver.cs" region="EmailHeaders" lang="C#" />
         /// </example>        
         public virtual List<MimeMessage> GetAllMessageHeaders()
         {
@@ -277,7 +277,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// <param name="mailBox">The mailbox in which to find the messages</param>
         /// <returns>A list of email messages</returns>
         /// <example>
-        /// <code source="../EmailUnitTests/EmailUnitWithWrapper.cs" region="EmailHeadersMailbox" lang="C#" />
+        /// <code source="../EmailUnitTests/EmailUnitWithDriver.cs" region="EmailHeadersMailbox" lang="C#" />
         /// </example>  
         public virtual List<MimeMessage> GetAllMessageHeaders(string mailBox)
         {
@@ -290,7 +290,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// </summary>
         /// <param name="message">The email with to delete</param>
         /// <example>
-        /// <code source="../EmailUnitTests/EmailUnitWithWrapper.cs" region="DeleteMessage" lang="C#" />
+        /// <code source="../EmailUnitTests/EmailUnitWithDriver.cs" region="DeleteMessage" lang="C#" />
         /// </example>
         public virtual void DeleteMessage(MimeMessage message)
         {
@@ -302,7 +302,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// </summary>
         /// <param name="uid">The unique identifier for the email</param>
         /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="DeleteMessageUid" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithDriver.cs" region="DeleteMessageUid" lang="C#" />
         /// </example>
         public virtual void DeleteMessage(string uid)
         {
@@ -325,7 +325,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// <param name="message">The email</param>
         /// <param name="destinationMailbox">The destination mailbox</param>
         /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="MoveMessage" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithDriver.cs" region="MoveMessage" lang="C#" />
         /// </example>  
         public virtual void MoveMailMessage(MimeMessage message, string destinationMailbox)
         {
@@ -338,7 +338,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// <param name="uid">The unique identifier for the email</param>
         /// <param name="destinationMailbox">The destination mailbox</param>
         /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="MoveMessage" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithDriver.cs" region="MoveMessage" lang="C#" />
         /// </example>
         public virtual void MoveMailMessage(string uid, string destinationMailbox)
         {
@@ -356,7 +356,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// <param name="uid">The unique identifier for the email</param>
         /// <returns>The list of </returns>
         /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="AttachmentsByUid" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithDriver.cs" region="AttachmentsByUid" lang="C#" />
         /// </example>
         public virtual List<MimeEntity> GetAttachments(string uid)
         {
@@ -370,7 +370,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// <param name="uid">The unique identifier for the email</param>
         /// <returns>The list of attachments</returns>
         /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="AttachmentsByMailboxAndUid" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithDriver.cs" region="AttachmentsByMailboxAndUid" lang="C#" />
         /// </example>
         public virtual List<MimeEntity> GetAttachments(string mailBox, string uid)
         {
@@ -385,7 +385,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// <param name="message">The message</param>
         /// <returns>The list of attachments</returns>
         /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="GetAttachmentsMessage" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithDriver.cs" region="GetAttachmentsMessage" lang="C#" />
         /// </example>
         public virtual List<MimeEntity> GetAttachments(MimeMessage message)
         {
@@ -398,7 +398,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// <param name="message">The email</param>
         /// <returns>List of file paths for the downloaded files</returns>
         /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="DownloadAttachments" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithDriver.cs" region="DownloadAttachments" lang="C#" />
         /// </example>
         public virtual List<string> DownloadAttachments(MimeMessage message)
         {
@@ -412,7 +412,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// <param name="downloadFolder">The download folder</param>
         /// <returns>List of file paths for the downloaded files</returns>
         /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="DownloadAttachmentsToLocation" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithDriver.cs" region="DownloadAttachmentsToLocation" lang="C#" />
         /// </example>
         public virtual List<string> DownloadAttachments(MimeMessage message, string downloadFolder)
         {
@@ -450,7 +450,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// <param name="markRead">Mark the email as read</param>
         /// <returns>The list of messages that match the search criteria</returns>
         /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="MessagesSinceByMailbox" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithDriver.cs" region="MessagesSinceByMailbox" lang="C#" />
         /// </example>
         public virtual List<MimeMessage> SearchMessagesSince(string mailBox, DateTime time, bool headersOnly = true, bool markRead = false)
         {
@@ -466,7 +466,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// <param name="markRead">Mark the email as read</param>
         /// <returns>The list of messages that match the search criteria</returns>
         /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="MessageSince" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithDriver.cs" region="MessageSince" lang="C#" />
         /// </example>
         public virtual List<MimeMessage> SearchMessagesSince(DateTime time, bool headersOnly = true, bool markRead = false)
         {
@@ -482,8 +482,8 @@ namespace Magenic.Maqs.BaseEmailTest
         /// <param name="markRead">Mark the email as read</param>
         /// <returns>The list of messages that match the search criteria</returns>
         /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="SearchMessages1" lang="C#" />
-        /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="SearchMessages2" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithDriver.cs" region="SearchMessages1" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithDriver.cs" region="SearchMessages2" lang="C#" />
         /// </example>
         public virtual List<MimeMessage> SearchMessages(string mailBox, SearchQuery condition, bool headersOnly = true, bool markRead = false)
         {
@@ -499,8 +499,8 @@ namespace Magenic.Maqs.BaseEmailTest
         /// <param name="markRead">Mark the email as read</param>
         /// <returns>The list of messages that match the search criteria</returns>
         /// /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="SearchMessages1" lang="C#" />
-        /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="SearchMessages2" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithDriver.cs" region="SearchMessages1" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithDriver.cs" region="SearchMessages2" lang="C#" />
         /// </example>
         public virtual List<MimeMessage> SearchMessages(SearchQuery condition, bool headersOnly = true, bool markRead = false)
         {
@@ -515,7 +515,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// <param name="message">The message</param>
         /// <returns>List of content types</returns>
         /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="GetContentTypes" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithDriver.cs" region="GetContentTypes" lang="C#" />
         /// </example>
         public virtual List<string> GetContentTypes(MimeMessage message)
         {
@@ -539,7 +539,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// <param name="contentType">The content type</param>
         /// <returns>The message body that matches the content type</returns>
         /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithWrapper.cs" region="GetBodyByContent" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithDriver.cs" region="GetBodyByContent" lang="C#" />
         /// </example>
         public virtual string GetBodyByContentTypes(MimeMessage message, string contentType)
         {

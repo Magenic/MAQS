@@ -48,7 +48,18 @@ namespace Magenic.Maqs.BaseAppiumTest
         {
             get
             {
-                return this.ManagerStore[typeof(AppiumDriver<IWebElement>).FullName].Get() as AppiumDriver<IWebElement>;
+                return this.AppiumManager.Get();
+            }
+        }
+
+        /// <summary>
+        /// Gets the Appium driver manager
+        /// </summary>
+        public MobileDriverManager AppiumManager
+        {
+            get
+            {
+                return this.ManagerStore[typeof(AppiumDriver<IWebElement>).FullName] as MobileDriverManager;
             }
         }
 

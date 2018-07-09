@@ -16,7 +16,7 @@ using System.Text;
 namespace Magenic.Maqs.BaseAppiumTest
 {
     /// <summary>
-    /// Wrapper for dynamically finding and interacting with elements
+    /// Driver for dynamically finding and interacting with elements
     /// </summary>
     public class LazyMobileElement : IWebElement
     {
@@ -395,7 +395,7 @@ namespace Magenic.Maqs.BaseAppiumTest
 
             try
             {
-                this.TestObject.Log.LogMessage(MessageType.VERBOSE, "Performing lazy wrapper find on: " + this.By);
+                this.TestObject.Log.LogMessage(MessageType.VERBOSE, "Performing lazy driver find on: " + this.By);
                 this.CachedElement = getElement();
                 return this.CachedElement;
             }
@@ -421,7 +421,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         {
             try
             {
-                this.TestObject.Log.LogMessage(MessageType.VERBOSE, "Performing lazy wrapper action: " + caller);
+                this.TestObject.Log.LogMessage(MessageType.VERBOSE, "Performing lazy driver action: " + caller);
                 elementAction.Invoke();
             }
             catch (Exception e)

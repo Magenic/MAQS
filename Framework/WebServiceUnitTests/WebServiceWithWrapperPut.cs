@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------
-// <copyright file="WebServiceWithWrapperPut.cs" company="Magenic">
+// <copyright file="WebServiceWithDriverPut.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Put unit tests</summary>
@@ -17,11 +17,11 @@ using WebServiceTesterUnitTesting.Model;
 namespace WebServiceTesterUnitTesting
 {
     /// <summary>
-    /// Test web service gets using the base test wrapper
+    /// Test web service gets using the base test driver
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class WebServiceWithWrapperPut : BaseWebServiceTest
+    public class WebServiceWithDriverPut : BaseWebServiceTest
     {
         /// <summary>
         /// Verify the string status code
@@ -38,7 +38,7 @@ namespace WebServiceTesterUnitTesting
                 Price = 3.25f
             };
             var content = WebServiceUtils.MakeStringContent<ProductJson>(p, Encoding.UTF8, "application/json");
-            var result = this.WebServiceWrapper.PutWithResponse("/api/XML_JSON/Put/1", "application/json", content, true);
+            var result = this.WebServiceDriver.PutWithResponse("/api/XML_JSON/Put/1", "application/json", content, true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
 
@@ -58,7 +58,7 @@ namespace WebServiceTesterUnitTesting
                 Price = 3.25f
             };
             var content = WebServiceUtils.MakeStringContent<ProductJson>(p, Encoding.UTF8, "application/json");
-            var result = this.WebServiceWrapper.Put<ProductJson>("/api/XML_JSON/Put/1", "application/json", content, true);
+            var result = this.WebServiceDriver.Put<ProductJson>("/api/XML_JSON/Put/1", "application/json", content, true);
             Assert.AreEqual(result, null);
         }
         #endregion
@@ -79,7 +79,7 @@ namespace WebServiceTesterUnitTesting
                 Price = 3.25f
             };
             var content = WebServiceUtils.MakeStreamContent<ProductJson>(p, Encoding.UTF8, "application/json");
-            var result = this.WebServiceWrapper.PutWithResponse("/api/XML_JSON/Put/1", "application/json", content, true);
+            var result = this.WebServiceDriver.PutWithResponse("/api/XML_JSON/Put/1", "application/json", content, true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
         #endregion
@@ -99,7 +99,7 @@ namespace WebServiceTesterUnitTesting
                 Price = 3.25f
             };
             var content = WebServiceUtils.MakeStringContent<Product>(p, Encoding.UTF8, "application/xml");
-            var result = this.WebServiceWrapper.PutWithResponse("/api/XML_JSON/Put/1", "application/xml", content);
+            var result = this.WebServiceDriver.PutWithResponse("/api/XML_JSON/Put/1", "application/xml", content);
 
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
@@ -119,7 +119,7 @@ namespace WebServiceTesterUnitTesting
                 Price = 3.25f
             };
             var content = WebServiceUtils.MakeStreamContent<Product>(p, Encoding.UTF8, "application/xml");
-            var result = this.WebServiceWrapper.PutWithResponse("/api/XML_JSON/Put/1", "application/xml", content);
+            var result = this.WebServiceDriver.PutWithResponse("/api/XML_JSON/Put/1", "application/xml", content);
 
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
@@ -140,7 +140,7 @@ namespace WebServiceTesterUnitTesting
                 Price = 3.25f
             };
             var content = WebServiceUtils.MakeStringContent<Product>(p, Encoding.UTF8, "application/xml");
-            var result = this.WebServiceWrapper.Put("/api/XML_JSON/Put/1", "application/xml", content, true);
+            var result = this.WebServiceDriver.Put("/api/XML_JSON/Put/1", "application/xml", content, true);
             Assert.AreEqual(string.Empty, result);
         }
         #endregion
@@ -153,7 +153,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PutStringWithoutMakeContent()
         {
-            var result = this.WebServiceWrapper.Put("/api/String/Put/1", "text/plain", "Test", Encoding.UTF8, "text/plain");
+            var result = this.WebServiceDriver.Put("/api/String/Put/1", "text/plain", "Test", Encoding.UTF8, "text/plain");
             Assert.AreEqual(string.Empty, result);
         }
         #endregion
@@ -166,7 +166,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PutStreamWithoutMakeContent()
         {
-            var result = this.WebServiceWrapper.Put("/api/String/Put/1", "text/plain", "Test", Encoding.UTF8, "text/plain", false, true);
+            var result = this.WebServiceDriver.Put("/api/String/Put/1", "text/plain", "Test", Encoding.UTF8, "text/plain", false, true);
             Assert.AreEqual(string.Empty, result);
         }
         #endregion
@@ -180,7 +180,7 @@ namespace WebServiceTesterUnitTesting
         public void PutStringWithMakeStringContent()
         {
             var content = WebServiceUtils.MakeStringContent("Test", Encoding.UTF8, "text/plain");
-            var result = this.WebServiceWrapper.Put("/api/String/Put/1", "text/plain", content, true);
+            var result = this.WebServiceDriver.Put("/api/String/Put/1", "text/plain", content, true);
             Assert.AreEqual(string.Empty, result);
         }
         #endregion
@@ -194,7 +194,7 @@ namespace WebServiceTesterUnitTesting
         public void PutStringWithMakeStreamContent()
         {
             StreamContent content = WebServiceUtils.MakeStreamContent("Test", Encoding.UTF8, "text/plain");
-            var result = this.WebServiceWrapper.Put("/api/String/Put/1", "text/plain", content, true);
+            var result = this.WebServiceDriver.Put("/api/String/Put/1", "text/plain", content, true);
             Assert.AreEqual(string.Empty, result);
         }
 
@@ -212,7 +212,7 @@ namespace WebServiceTesterUnitTesting
             stream.Position = 0;
             
             StreamContent content = WebServiceUtils.MakeStreamContent(stream, "text/plain");
-            var result = this.WebServiceWrapper.Put("/api/String/Put/1", "text/plain", content, true);
+            var result = this.WebServiceDriver.Put("/api/String/Put/1", "text/plain", content, true);
             Assert.AreEqual(string.Empty, result);
         }
         #endregion
@@ -225,7 +225,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PutStringWithoutContentStatusCode()
         {
-            var result = this.WebServiceWrapper.PutWithResponse("/api/String/Put/1", "text/plain", "Test", Encoding.UTF8, "text/plain", true);
+            var result = this.WebServiceDriver.PutWithResponse("/api/String/Put/1", "text/plain", "Test", Encoding.UTF8, "text/plain", true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
         #endregion
@@ -238,7 +238,7 @@ namespace WebServiceTesterUnitTesting
         public void PutStringMakeContentStatusCode()
         {
             var content = WebServiceUtils.MakeStringContent("Test", Encoding.UTF8, "text/plain");
-            var result = this.WebServiceWrapper.PutWithResponse("/api/String/Put/1", "text/plain", content, true);
+            var result = this.WebServiceDriver.PutWithResponse("/api/String/Put/1", "text/plain", content, true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
 
@@ -249,7 +249,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PutExpectContentError()
         {
-            var result = this.WebServiceWrapper.PutWithResponse("/api/String/Put/1", "text/plain", null, false);
+            var result = this.WebServiceDriver.PutWithResponse("/api/String/Put/1", "text/plain", null, false);
             Assert.AreEqual(HttpStatusCode.Conflict, result.StatusCode);
         }
 
@@ -260,7 +260,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PutExpectStringError()
         {
-            var result = this.WebServiceWrapper.Put("/api/String/Put/1", "text/plain", null, false);
+            var result = this.WebServiceDriver.Put("/api/String/Put/1", "text/plain", null, false);
             Assert.AreEqual("{\"Message\":\"No Product found for name = 1 \"}", result);
         }
     }

@@ -18,9 +18,9 @@ namespace Magenic.Maqs.WebServiceTester
     public class WebServiceDriverManager : DriverManager
     {
         /// <summary>
-        /// Cached copy of the wrapper
+        /// Cached copy of the driver
         /// </summary>
-        private WebServiceDriver wrapper;
+        private WebServiceDriver driver;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WebServiceDriverManager" /> class
@@ -40,46 +40,46 @@ namespace Magenic.Maqs.WebServiceTester
         }
 
         /// <summary>
-        /// Override the http wrapper
+        /// Override the http driver
         /// </summary>
-        /// <param name="wrapper">A new http wrapper</param>
-        public void OverrideWrapper(WebServiceDriver wrapper)
+        /// <param name="driver">A new http driver</param>
+        public void OverrideDriver(WebServiceDriver driver)
         {
-            this.wrapper = wrapper;
+            this.driver = driver;
         }
 
         /// <summary>
-        /// Get the http wrapper
+        /// Get the http driver
         /// </summary>
-        /// <returns>The http wrapper</returns>
+        /// <returns>The http driver</returns>
         public new WebServiceDriver Get()
         {
-            if (this.wrapper == null)
+            if (this.driver == null)
             {
                 if (LoggingConfig.GetLoggingEnabledSetting() == LoggingEnabled.NO)
                 {
-                    this.Log.LogMessage(MessageType.INFORMATION, "Getting web service wrapper");
-                    this.wrapper = new WebServiceDriver(base.Get() as HttpClient);
+                    this.Log.LogMessage(MessageType.INFORMATION, "Getting web service driver");
+                    this.driver = new WebServiceDriver(base.Get() as HttpClient);
                 }
                 else
                 {
-                    this.Log.LogMessage(MessageType.INFORMATION, "Getting event firing web service wrapper");
-                    this.wrapper = new EventFiringWebServiceDriver(base.Get() as HttpClient);
-                    this.MapEvents(this.wrapper as EventFiringWebServiceDriver);
+                    this.Log.LogMessage(MessageType.INFORMATION, "Getting event firing web service driver");
+                    this.driver = new EventFiringWebServiceDriver(base.Get() as HttpClient);
+                    this.MapEvents(this.driver as EventFiringWebServiceDriver);
                 }
             }
 
-            return this.wrapper;
+            return this.driver;
         }
 
         /// <summary>
         /// Map web service events to log events
         /// </summary>
-        /// <param name="eventFiringWrapper">The event firing web client wrapper that we want mapped</param>
-        public void MapEvents(EventFiringWebServiceDriver eventFiringWrapper)
+        /// <param name="eventFiringDriver">The event firing web client driver that we want mapped</param>
+        public void MapEvents(EventFiringWebServiceDriver eventFiringDriver)
         {
-            eventFiringWrapper.WebServiceEvent += this.WebService_Event;
-            eventFiringWrapper.WebServiceErrorEvent += this.WebService_Error;
+            eventFiringDriver.WebServiceEvent += this.WebService_Event;
+            eventFiringDriver.WebServiceErrorEvent += this.WebService_Error;
         }
 
         /// <summary>

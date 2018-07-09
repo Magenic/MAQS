@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------
-// <copyright file="WebServiceWithWrapperCustomVerb.cs" company="Magenic">
+// <copyright file="WebServiceWithDriverCustomVerb.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>HTTP Request Custom Verb unit tests</summary>
@@ -17,11 +17,11 @@ using WebServiceTesterUnitTesting.Model;
 namespace WebServiceTesterUnitTesting
 {
     /// <summary>
-    /// Test web service calls with a custom, user defined verb using the base test wrapper
+    /// Test web service calls with a custom, user defined verb using the base test driver
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class WebServiceWithWrapperCustomVerb : BaseWebServiceTest
+    public class WebServiceWithDriverCustomVerb : BaseWebServiceTest
     {
         /// <summary>
         /// String to hold the URL
@@ -37,7 +37,7 @@ namespace WebServiceTesterUnitTesting
         public void CustomVerbJSONSerializedVerifyStatusCode()
         {
             var content = WebServiceUtils.MakeStringContent("ZED?", Encoding.UTF8, "application/json");
-            var result = this.WebServiceWrapper.CustomWithResponse("ZED", "/api/ZED", "application/json", content, false);
+            var result = this.WebServiceDriver.CustomWithResponse("ZED", "/api/ZED", "application/json", content, false);
             Assert.AreEqual(HttpStatusCode.UseProxy, result.StatusCode);
         }
         #endregion
@@ -51,7 +51,7 @@ namespace WebServiceTesterUnitTesting
         public void CustomVerbJSONStreamSerializedVerifyStatusCode()
         {
             var content = WebServiceUtils.MakeStreamContent(string.Empty, Encoding.UTF8, "application/json");
-            var result = this.WebServiceWrapper.CustomWithResponse("ZED", "/api/ZED", "application/json", content, false);
+            var result = this.WebServiceDriver.CustomWithResponse("ZED", "/api/ZED", "application/json", content, false);
             Assert.AreEqual(HttpStatusCode.UseProxy, result.StatusCode);
         }
         #endregion 
@@ -65,7 +65,7 @@ namespace WebServiceTesterUnitTesting
         public void CustomStringWithoutContentStatusCode()
         {
             var content = WebServiceUtils.MakeStringContent("ZED?", Encoding.UTF8, "application/json");
-            var result = this.WebServiceWrapper.CustomWithResponse("ZED", "/api/ZED", "application/json", content.ToString(), Encoding.UTF8, "application/json", true, false);
+            var result = this.WebServiceDriver.CustomWithResponse("ZED", "/api/ZED", "application/json", content.ToString(), Encoding.UTF8, "application/json", true, false);
             Assert.AreEqual(HttpStatusCode.UseProxy, result.StatusCode);
         }
         #endregion

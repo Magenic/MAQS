@@ -18,9 +18,9 @@ namespace Magenic.Maqs.BaseEmailTest
     public class EmailTestObject : BaseTestObject
     {
         /// <summary>
-        /// Gets the email connection wrapper
+        /// Gets the email connection driver
         /// </summary>
-        private EmailDriver wrapper;
+        private EmailDriver driver;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EmailTestObject" /> class
@@ -35,9 +35,9 @@ namespace Magenic.Maqs.BaseEmailTest
         }
 
         /// <summary>
-        /// Gets the email driver
+        /// Gets the email driver manager
         /// </summary>
-        public EmailDriverManager EmailDriver
+        public EmailDriverManager EmailManager
         {
             get
             {
@@ -46,48 +46,48 @@ namespace Magenic.Maqs.BaseEmailTest
         }
 
         /// <summary>
-        /// Gets the email wrapper
+        /// Gets the email driver
         /// </summary>
-        public EmailDriver EmailWrapper
+        public EmailDriver EmailDriver
         {
             get
             {
-                if (this.wrapper != null)
+                if (this.driver != null)
                 {
-                    return this.wrapper;
+                    return this.driver;
                 }
 
-                return (this.ManagerStore[typeof(EmailDriverManager).FullName] as EmailDriverManager).Get();
+                return this.EmailManager.Get();
             }
         }
 
         /// <summary>
-        /// Override the email wrapper
+        /// Override the email driver
         /// </summary>
         /// <param name="emailConnection">Function for getting an email connection</param>
         public void OverrideDatabaseConnection(Func<ImapClient> emailConnection)
         {
-            if (this.wrapper != null)
+            if (this.driver != null)
             {
-                this.wrapper.Dispose();
-                this.wrapper = null;
+                this.driver.Dispose();
+                this.driver = null;
             }
 
             this.OverrideDriverManager(typeof(EmailDriverManager).FullName, new EmailDriverManager(emailConnection, this));
         }
 
         /// <summary>
-        /// Override the email wrapper
+        /// Override the email driver
         /// </summary>
-        /// <param name="emailWrapper">The new email wrapper</param>
-        public void OverrideDatabaseWrapper(EmailDriver emailWrapper)
+        /// <param name="emailDriver">The new email driver</param>
+        public void OverrideDatabaseDriver(EmailDriver emailDriver)
         {
-            if (this.wrapper != null)
+            if (this.driver != null)
             {
-                this.wrapper.Dispose();
+                this.driver.Dispose();
             }
 
-            this.wrapper = emailWrapper;
+            this.driver = emailDriver;
         }
     }
 }

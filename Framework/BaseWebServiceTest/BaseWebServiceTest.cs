@@ -25,9 +25,9 @@ namespace Magenic.Maqs.BaseWebServiceTest
         }
 
         /// <summary>
-        /// Gets or sets the web service wrapper
+        /// Gets or sets the web service driver
         /// </summary>
-        public WebServiceDriver WebServiceWrapper
+        public WebServiceDriver WebServiceDriver
         {
             get
             {

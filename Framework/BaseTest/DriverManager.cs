@@ -42,7 +42,7 @@ namespace Magenic.Maqs.BaseTest
         }
 
         /// <summary>
-        /// Gets or sets the underlying driver; like the web driver or database connection wrapper
+        /// Gets or sets the underlying driver; like the web driver or database connection driver
         /// </summary>
         protected object BaseDriver { get; set; }
 

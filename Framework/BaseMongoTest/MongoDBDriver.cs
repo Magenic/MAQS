@@ -1,7 +1,7 @@
 ﻿// <copyright file="MongoDBDriver.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
-// <summary>This is the wrapper for the mongo collection object</summary>
+// <summary>This is the driver for the mongo collection object</summary>
 //--------------------------------------------------
 using MongoDB.Driver;
 using System.Collections.Generic;

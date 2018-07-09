@@ -1,8 +1,8 @@
 ﻿//--------------------------------------------------
-// <copyright file="WebServiceWithWrapperGets.cs" company="Magenic">
+// <copyright file="WebServiceWithDriverGets.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
-// <summary>Web service get unit tests with the base test wrapper</summary>
+// <summary>Web service get unit tests with the base test driver</summary>
 //--------------------------------------------------
 using Magenic.Maqs.BaseWebServiceTest;
 using Magenic.Maqs.Utilities.Helper;
@@ -17,11 +17,11 @@ using WebServiceTesterUnitTesting.Model;
 namespace WebServiceTesterUnitTesting
 {
     /// <summary>
-    /// Test web service gets using the base test wrapper
+    /// Test web service gets using the base test driver
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class WebServiceWithWrapperGets : BaseWebServiceTest
+    public class WebServiceWithDriverGets : BaseWebServiceTest
     {
         /// <summary>
         /// Test XML get
@@ -30,7 +30,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void GetXmlDeserialized()
         {
-            ArrayOfProduct result = this.WebServiceWrapper.Get<ArrayOfProduct>("/api/XML_JSON/GetAllProducts", "application/xml");
+            ArrayOfProduct result = this.WebServiceDriver.Get<ArrayOfProduct>("/api/XML_JSON/GetAllProducts", "application/xml");
             Assert.AreEqual(result.Product.Length, 3, "Expected 3 products to be returned");
         }
 
@@ -42,7 +42,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void GetResponseAndDeserializeXml()
         {
-            HttpResponseMessage message = this.WebServiceWrapper.GetWithResponse("/api/XML_JSON/GetAllProducts", "application/xml");
+            HttpResponseMessage message = this.WebServiceDriver.GetWithResponse("/api/XML_JSON/GetAllProducts", "application/xml");
             ArrayOfProduct result = WebServiceUtils.DeserializeXmlDocument<ArrayOfProduct>(message);
             Assert.AreEqual(result.Product.Length, 3, "Expected 3 products to be returned");
         }
@@ -56,7 +56,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void GetJsonDeserialized()
         {
-            List<ProductJson> result = this.WebServiceWrapper.Get<List<ProductJson>>("/api/XML_JSON/GetAllProducts", "application/json");
+            List<ProductJson> result = this.WebServiceDriver.Get<List<ProductJson>>("/api/XML_JSON/GetAllProducts", "application/json");
             Assert.AreEqual(result.Count, 3, "Expected 3 products to be returned");
         }
         #endregion
@@ -69,7 +69,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void GetResponseAndDeserializeJson()
         {
-            HttpResponseMessage message = this.WebServiceWrapper.GetWithResponse("/api/XML_JSON/GetAllProducts", "application/json");
+            HttpResponseMessage message = this.WebServiceDriver.GetWithResponse("/api/XML_JSON/GetAllProducts", "application/json");
             List<ProductJson> result = WebServiceUtils.DeserializeJson<List<ProductJson>>(message);
             Assert.AreEqual(result.Count, 3, "Expected 3 products to be returned");
         }
@@ -83,7 +83,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void GetString()
         {
-            string result = this.WebServiceWrapper.Get("/api/String/1", "text/plain");
+            string result = this.WebServiceDriver.Get("/api/String/1", "text/plain");
             Assert.IsTrue(result.Contains("Tomato Soup"), "Was expeting a result with Tomato Soup but instead got - " + result);
         }
         #endregion
@@ -96,7 +96,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void GetImage()
         {
-            HttpResponseMessage result = this.WebServiceWrapper.GetWithResponse("/api/PNGFile/GetImage?image=Red", "image/png");
+            HttpResponseMessage result = this.WebServiceDriver.GetWithResponse("/api/PNGFile/GetImage?image=Red", "image/png");
 
             // Get the image
             Image image = Image.FromStream(result.Content.ReadAsStreamAsync().Result);

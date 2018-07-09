@@ -13,7 +13,7 @@ namespace $safeprojectname$
         /// <summary>
         /// The page url
         /// </summary>
-        private static readonly string PageUrl = SeleniumConfig.GetWebSiteBase() + "HomePage.html";
+        private static readonly string PageUrl = SeleniumConfig.GetWebSiteBase() + "Static/Training3/HomePage.html";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="$safeitemname$" /> class.
