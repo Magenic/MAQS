@@ -1,1 +1,0 @@
-These zip files get auto generated as part of the build process
