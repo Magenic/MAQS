@@ -1,0 +1,27 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+  <TemplateData>
+    <Name>MAQS SpecFlow Email Tests</Name>
+    <Description>Magenic's automation quick start framework for email testing using SpecFlow</Description>
+    <ProjectType>CSharp</ProjectType>
+    <ProjectSubType>Magenic SpecFlow Test</ProjectSubType>
+    <SortOrder>1000</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>Maqs SpecFlow Email Tests</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <Icon>__TemplateIcon.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <Project TargetFileName="Tests.csproj" File="TemplateTesting.csproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true" TargetFileName="App.config">App.config</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="EmailFeature.feature">EmailFeature.feature</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="EmailFeature.feature.cs">EmailFeature.feature.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="EmailFeatureSteps.cs">EmailFeatureSteps.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="packages.config">packages.config</ProjectItem>
+      <Folder Name="Properties" TargetFolderName="Properties">
+        <ProjectItem ReplaceParameters="true" TargetFileName="AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
+      </Folder>
+    </Project>
+  </TemplateContent>
+</VSTemplate>
