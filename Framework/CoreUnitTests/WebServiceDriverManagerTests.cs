@@ -27,7 +27,7 @@ namespace CoreUnitTests
             WebServiceDriver tempDriver = new WebServiceDriver(WebServiceConfig.GetWebServiceUri());
             this.WebServiceWrapper = tempDriver;
             
-            Assert.AreEqual(this.TestObject.WebServiceDriverManager.Get(), tempDriver);
+            Assert.AreEqual(this.TestObject.WebServiceManager.Get(), tempDriver);
         }
 
         /// <summary>
@@ -40,14 +40,14 @@ namespace CoreUnitTests
             this.TestObject.ManagerStore.Add("test", newDriver);
 
             Assert.AreNotEqual(this.TestObject.WebServiceDriver, (WebServiceDriverManager)this.TestObject.ManagerStore["test"]);
-            Assert.AreNotEqual(this.TestObject.WebServiceDriverManager.Get(), ((WebServiceDriverManager)this.TestObject.ManagerStore["test"]).Get());
+            Assert.AreNotEqual(this.TestObject.WebServiceManager.Get(), ((WebServiceDriverManager)this.TestObject.ManagerStore["test"]).Get());
         }
 
         /// <summary>
         /// Make sure the test object wrapper is the same as the one in the driver store
         /// </summary>
         [TestMethod]
-        public void DatabaseWrapperInDriverStore()
+        public void DatabaseDriverInDriverStore()
         {
             Assert.AreEqual(this.TestObject.WebServiceDriver, this.TestObject.GetDriverManager<WebServiceDriverManager>().Get());
         }

@@ -24,13 +24,13 @@ namespace Magenic.Maqs.BaseMongoTest
         }
 
         /// <summary>
-        /// Gets or sets the web service wrapper
+        /// Gets or sets the web service driver
         /// </summary>
-        public MongoDBDriver<T> MongoDBWrapper
+        public MongoDBDriver<T> MongoDBDriver
         {
             get
             {
-                return this.TestObject.MongoDBWrapper;
+                return this.TestObject.MongoDBDriver;
             }
 
             set

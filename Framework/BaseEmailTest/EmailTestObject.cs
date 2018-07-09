@@ -35,9 +35,9 @@ namespace Magenic.Maqs.BaseEmailTest
         }
 
         /// <summary>
-        /// Gets the email driver
+        /// Gets the email driver manager
         /// </summary>
-        public EmailDriverManager EmailDriver
+        public EmailDriverManager EmailManager
         {
             get
             {
@@ -46,9 +46,9 @@ namespace Magenic.Maqs.BaseEmailTest
         }
 
         /// <summary>
-        /// Gets the email wrapper
+        /// Gets the email driver
         /// </summary>
-        public EmailDriver EmailWrapper
+        public EmailDriver EmailDriver
         {
             get
             {
@@ -57,7 +57,7 @@ namespace Magenic.Maqs.BaseEmailTest
                     return this.wrapper;
                 }
 
-                return (this.ManagerStore[typeof(EmailDriverManager).FullName] as EmailDriverManager).Get();
+                return this.EmailManager.Get();
             }
         }
 
@@ -80,7 +80,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// Override the email wrapper
         /// </summary>
         /// <param name="emailWrapper">The new email wrapper</param>
-        public void OverrideDatabaseWrapper(EmailDriver emailWrapper)
+        public void OverrideDatabaseDriver(EmailDriver emailWrapper)
         {
             if (this.wrapper != null)
             {

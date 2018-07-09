@@ -35,15 +35,14 @@ namespace Magenic.Maqs.BaseWebServiceTest
         {
             get
             {
-                WebServiceDriverManager serviceDriver = this.WebServiceDriverManager;
-                return serviceDriver.Get();
+                return this.WebServiceManager.Get();
             }
         }
 
         /// <summary>
-        /// Gets the web service wrapper
+        /// Gets the web service driver manager
         /// </summary>
-        public WebServiceDriverManager WebServiceDriverManager
+        public WebServiceDriverManager WebServiceManager
         {
             get
             {

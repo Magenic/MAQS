@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------
-// <copyright file="EventFiringDatabaseWrapperTests.cs" company="Magenic">
+// <copyright file="EventFiringDatabaseDriverTests.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Database base Eventfiring wrapper test unit tests</summary>
@@ -26,7 +26,7 @@ namespace DatabaseUnitTests
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class EventFiringDatabaseWrapperTests : EventFiringDatabaseDriver
+    public class EventFiringDatabaseDriverTests : EventFiringDatabaseDriver
     {
         /// <summary>
         /// Database Event will modify this

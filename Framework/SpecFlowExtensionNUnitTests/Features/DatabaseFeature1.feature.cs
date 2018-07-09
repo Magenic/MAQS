@@ -64,20 +64,20 @@ namespace SpecFlowExtensionNUnitTests.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("DatabaseWrapper Available BaseDatabaseTestSteps")]
+        [NUnit.Framework.DescriptionAttribute("DatabaseDriver Available BaseDatabaseTestSteps")]
         [NUnit.Framework.CategoryAttribute("MAQS_Database")]
-        public virtual void DatabaseWrapperAvailableBaseDatabaseTestSteps()
+        public virtual void DatabaseDriverAvailableBaseDatabaseTestSteps()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("DatabaseWrapper Available BaseDatabaseTestSteps", new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("DatabaseDriver Available BaseDatabaseTestSteps", new string[] {
                         "MAQS_Database"});
 #line 5
 this.ScenarioSetup(scenarioInfo);
 #line 6
  testRunner.Given("class BaseDatabaseTestSteps", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 7
- testRunner.Then("DatabaseWrapper is not null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("DatabaseDriver is not null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 8
- testRunner.And("DatabaseWrapper is type DatabaseConnectionWrapper", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("DatabaseDriver is type DatabaseConnectionWrapper", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

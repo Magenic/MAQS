@@ -33,12 +33,12 @@ namespace Magenic.Maqs.BaseEmailTest
         {
             get
             {
-                return this.TestObject.EmailWrapper;
+                return this.TestObject.EmailDriver;
             }
 
             set
             {
-                this.TestObject.OverrideDatabaseWrapper(value);
+                this.TestObject.OverrideDatabaseDriver(value);
             }
         }
 

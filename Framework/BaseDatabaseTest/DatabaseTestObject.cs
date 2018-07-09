@@ -29,9 +29,9 @@ namespace Magenic.Maqs.BaseDatabaseTest
         }
 
         /// <summary>
-        /// Gets the database driver
+        /// Gets the database driver manager
         /// </summary>
-        public DatabaseDriverManager DatabaseDriver
+        public DatabaseDriverManager DatabaseManager
         {
             get
             {
@@ -42,11 +42,11 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// <summary>
         /// Gets the database wrapper
         /// </summary>
-        public DatabaseDriver DatabaseWrapper
+        public DatabaseDriver DatabaseDriver
         {
             get
             {
-                return this.DatabaseDriver.Get();
+                return this.DatabaseManager.Get();
             }
         }
 
@@ -63,18 +63,18 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// Override the database connection
         /// </summary>
         /// <param name="databaseConnection">New database connection</param>
-        public void OverrideDatabaseWrapper(IDbConnection databaseConnection)
+        public void OverrideDatabaseDriver(IDbConnection databaseConnection)
         {
             this.OverrideDriverManager(typeof(DatabaseDriverManager).FullName, new DatabaseDriverManager(() => databaseConnection, this));
         }
 
         /// <summary>
-        /// Override the database connection wrapper
+        /// Override the database connection driver
         /// </summary>
         /// <param name="wrapper">New database connection wrapper</param>
-        public void OverrideDatabaseWrapper(DatabaseDriver wrapper)
+        public void OverrideDatabaseDriver(DatabaseDriver wrapper)
         {
-            this.DatabaseDriver.OverwriteWrapper(wrapper);
+            this.DatabaseManager.OverwriteWrapper(wrapper);
         }
     }
 }

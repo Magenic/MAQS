@@ -41,9 +41,9 @@ namespace Magenic.Maqs.BaseSeleniumTest
         }
 
         /// <summary>
-        /// Gets the Selenium driver
+        /// Gets the Selenium driver manager
         /// </summary>
-        public SeleniumDriverManager SeleniumDriver
+        public SeleniumDriverManager WebManager
         {
             get
             {
@@ -58,7 +58,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             get
             {
-                return this.SeleniumDriver.Get();
+                return this.WebManager.Get();
             }
         }
 

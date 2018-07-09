@@ -27,16 +27,16 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// <summary>
         /// Gets or sets the web service wrapper
         /// </summary>
-        public DatabaseDriver DatabaseWrapper
+        public DatabaseDriver DatabaseDriver
         {
             get
             {
-                return this.TestObject.DatabaseWrapper;
+                return this.TestObject.DatabaseDriver;
             }
 
             set
             {
-                this.TestObject.OverrideDatabaseWrapper(value);
+                this.TestObject.OverrideDatabaseDriver(value);
             }
         }
 

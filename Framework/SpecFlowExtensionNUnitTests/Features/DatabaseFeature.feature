@@ -2,7 +2,7 @@
 	Database Tests
 
 @MAQS_Database
-Scenario: DatabaseWrapper Available BaseDatabaseTestSteps
+Scenario: DatabaseDriver Available BaseDatabaseTestSteps
 	Given class BaseDatabaseTestSteps
-	Then DatabaseWrapper is not null
-	And DatabaseWrapper is type DatabaseConnectionWrapper
+	Then DatabaseDriver is not null
+	And DatabaseDriver is type DatabaseConnectionWrapper

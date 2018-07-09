@@ -26,9 +26,9 @@ namespace CoreUnitTests
         public void CanOverrideEmailDriver()
         {
             EmailDriver temp = new EmailDriver(() => GetClient());
-            this.TestObject.EmailDriver.OverwriteWrapper(temp);
+            this.TestObject.EmailManager.OverwriteWrapper(temp);
 
-            Assert.AreEqual(this.TestObject.EmailDriver.Get().EmailConnection, EmailWrapper.EmailConnection);
+            Assert.AreEqual(this.TestObject.EmailManager.Get().EmailConnection, EmailWrapper.EmailConnection);
         }
 
         /// <summary>
@@ -40,8 +40,8 @@ namespace CoreUnitTests
             EmailDriverManager newDriver = new EmailDriverManager(() => GetClient(), this.TestObject);
             this.TestObject.ManagerStore.Add("test", newDriver);
 
-            Assert.AreNotEqual(this.TestObject.EmailDriver, (EmailDriverManager)this.TestObject.ManagerStore["test"]);
-            Assert.AreNotEqual(this.TestObject.EmailDriver.Get(), ((EmailDriverManager)this.TestObject.ManagerStore["test"]).Get());
+            Assert.AreNotEqual(this.TestObject.EmailManager, (EmailDriverManager)this.TestObject.ManagerStore["test"]);
+            Assert.AreNotEqual(this.TestObject.EmailManager.Get(), ((EmailDriverManager)this.TestObject.ManagerStore["test"]).Get());
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace CoreUnitTests
         [TestMethod]
         public void EmailWrapperInDriverStore()
         {
-            Assert.AreEqual(this.TestObject.EmailWrapper, this.TestObject.GetDriverManager<EmailDriverManager>().Get());
+            Assert.AreEqual(this.TestObject.EmailDriver, this.TestObject.GetDriverManager<EmailDriverManager>().Get());
         }
 
         /// <summary>

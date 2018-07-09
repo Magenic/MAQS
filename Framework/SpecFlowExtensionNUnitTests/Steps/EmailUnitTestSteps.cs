@@ -76,7 +76,7 @@ namespace SpecFlowExtensionNUnitTests.Steps
         [Then(@"BaseEmailTestSteps EmailWrapper is not null")]
         public void ThenEmailWrapperIsNotNull()
         {
-            Assert.IsNotNull(this.TestObject.EmailWrapper, "EmailWrapper for EmailTestObject class is null.");
+            Assert.IsNotNull(this.TestObject.EmailDriver, "EmailWrapper for EmailTestObject class is null.");
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace SpecFlowExtensionNUnitTests.Steps
         [Then(@"EmailWrapper is type EventFiringEmailConnectionWrapper")]
         public void AndEmailWrapperIsTypeEventFiringEmailConnectionWrapper()
         {
-            Assert.IsTrue(this.TestObject.EmailWrapper.GetType().Equals(typeof(EventFiringEmailDriver)), $"EmailWrapper for EmailTestObject class is the wrong type : {this.TestObject.EmailWrapper.GetType()}.");
+            Assert.IsTrue(this.TestObject.EmailDriver.GetType().Equals(typeof(EventFiringEmailDriver)), $"EmailWrapper for EmailTestObject class is the wrong type : {this.TestObject.EmailDriver.GetType()}.");
         }
     }
 }

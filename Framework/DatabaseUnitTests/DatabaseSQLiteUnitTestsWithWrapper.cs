@@ -34,7 +34,7 @@ namespace DatabaseUnitTests
         [DoNotParallelize]
         public void VerifyOrdersHasCorrectNumberOfRecordsSqlite()
         {
-            var orders = this.DatabaseWrapper.Query("select * from orders").ToList();
+            var orders = this.DatabaseDriver.Query("select * from orders").ToList();
             
             Assert.AreEqual(11, orders.Count);
         }
@@ -47,7 +47,7 @@ namespace DatabaseUnitTests
         [DoNotParallelize]
         public void VerifyOrdersMapIsCorrectSqlite()
         {
-            var orders = this.DatabaseWrapper.Query<Orders>("select * from orders").ToList();
+            var orders = this.DatabaseDriver.Query<Orders>("select * from orders").ToList();
 
             // Our database has 11 orders
             Assert.AreEqual(11, orders.Count());
@@ -61,7 +61,7 @@ namespace DatabaseUnitTests
         [DoNotParallelize]
         public void VerifyInsertOrdersIsCorrectSqlite()
         {
-            this.DatabaseWrapper.Connection.Close();
+            this.DatabaseDriver.Connection.Close();
 
             // Get original sqlite file
             var originalPath = this.GetDByPath();
@@ -72,8 +72,8 @@ namespace DatabaseUnitTests
 
             try
             {
-                this.DatabaseWrapper.Connection.Open();
-                var count = this.DatabaseWrapper.Insert(newOrder);
+                this.DatabaseDriver.Connection.Open();
+                var count = this.DatabaseDriver.Insert(newOrder);
 
                 // Our database has 12 orders
                 Assert.AreEqual(12, count);
@@ -81,9 +81,9 @@ namespace DatabaseUnitTests
             catch (Exception)
             {
                 // Rewrite the SQLite file
-                if (this.DatabaseWrapper.Connection.State.Equals(ConnectionState.Open))
+                if (this.DatabaseDriver.Connection.State.Equals(ConnectionState.Open))
                 {
-                    this.DatabaseWrapper.Connection.Close();
+                    this.DatabaseDriver.Connection.Close();
                 }
 
                 File.WriteAllBytes(originalPath, originalDatabase);
@@ -93,9 +93,9 @@ namespace DatabaseUnitTests
             finally
             {
                 // Rewrite the SQLite file again
-                if (this.DatabaseWrapper.Connection.State.Equals(ConnectionState.Open))
+                if (this.DatabaseDriver.Connection.State.Equals(ConnectionState.Open))
                 {
-                    this.DatabaseWrapper.Connection.Close();
+                    this.DatabaseDriver.Connection.Close();
                 }
 
                 File.WriteAllBytes(originalPath, originalDatabase);
@@ -110,7 +110,7 @@ namespace DatabaseUnitTests
         [DoNotParallelize]
         public void VerifyDeleteOrdersIsCorrectSqlite()
         {
-            this.DatabaseWrapper.Connection.Close();
+            this.DatabaseDriver.Connection.Close();
 
             // Get original sqlite file
             var originalPath = this.GetDByPath();
@@ -121,14 +121,14 @@ namespace DatabaseUnitTests
 
             try
             {
-                this.DatabaseWrapper.Connection.Open();
-                var count = this.DatabaseWrapper.Insert(newOrder);
+                this.DatabaseDriver.Connection.Open();
+                var count = this.DatabaseDriver.Insert(newOrder);
 
                 // Our database has 12 orders
                 Assert.AreEqual(12, count);
 
-                var isDeleted = this.DatabaseWrapper.Delete(newOrder);
-                var orders = this.DatabaseWrapper.Query<Orders>("select * from orders").ToList();
+                var isDeleted = this.DatabaseDriver.Delete(newOrder);
+                var orders = this.DatabaseDriver.Query<Orders>("select * from orders").ToList();
                 
                 // Our database has 11 orders
                 Assert.IsTrue(isDeleted);
@@ -137,9 +137,9 @@ namespace DatabaseUnitTests
             catch (Exception)
             {
                 // Rewrite the SQLite file again
-                if (this.DatabaseWrapper.Connection.State.Equals(ConnectionState.Open))
+                if (this.DatabaseDriver.Connection.State.Equals(ConnectionState.Open))
                 {
-                    this.DatabaseWrapper.Connection.Close();
+                    this.DatabaseDriver.Connection.Close();
                 }
 
                 File.WriteAllBytes(originalPath, originalDatabase);
@@ -149,9 +149,9 @@ namespace DatabaseUnitTests
             finally
             {
                 // Rewrite the SQLite file again
-                if (this.DatabaseWrapper.Connection.State.Equals(ConnectionState.Open))
+                if (this.DatabaseDriver.Connection.State.Equals(ConnectionState.Open))
                 {
-                    this.DatabaseWrapper.Connection.Close();
+                    this.DatabaseDriver.Connection.Close();
                 }
 
                 File.WriteAllBytes(originalPath, originalDatabase);
@@ -166,7 +166,7 @@ namespace DatabaseUnitTests
         [DoNotParallelize]
         public void VerifyUpdateOrdersIsCorrectSqlite()
         {
-            this.DatabaseWrapper.Connection.Close();
+            this.DatabaseDriver.Connection.Close();
 
             // Get original sqlite file
             var originalPath = this.GetDByPath();
@@ -175,16 +175,16 @@ namespace DatabaseUnitTests
 
             try
             {
-                this.DatabaseWrapper.Connection.Open();
-                var count = this.DatabaseWrapper.Insert(newOrder);
+                this.DatabaseDriver.Connection.Open();
+                var count = this.DatabaseDriver.Insert(newOrder);
 
                 // Our database has 12 orders
                 Assert.AreEqual(12, count);
 
                 newOrder.OrderName = "updated";
 
-                var deletedCount = this.DatabaseWrapper.Update(newOrder);
-                var order = this.DatabaseWrapper.Query<Orders>($"select * from orders where Id = {newOrder.Id}").FirstOrDefault();
+                var deletedCount = this.DatabaseDriver.Update(newOrder);
+                var order = this.DatabaseDriver.Query<Orders>($"select * from orders where Id = {newOrder.Id}").FirstOrDefault();
 
                 Assert.IsTrue(deletedCount);
                 Assert.AreEqual(newOrder.Id, order.Id);
@@ -192,9 +192,9 @@ namespace DatabaseUnitTests
             catch (Exception)
             {
                 // Rewrite the SQLite file again
-                if (this.DatabaseWrapper.Connection.State.Equals(ConnectionState.Open))
+                if (this.DatabaseDriver.Connection.State.Equals(ConnectionState.Open))
                 {
-                    this.DatabaseWrapper.Connection.Close();
+                    this.DatabaseDriver.Connection.Close();
                 }
 
                 File.WriteAllBytes(originalPath, originalDatabase);
@@ -204,9 +204,9 @@ namespace DatabaseUnitTests
             finally
             {
                 // Rewrite the SQLite file again
-                if (this.DatabaseWrapper.Connection.State.Equals(ConnectionState.Open))
+                if (this.DatabaseDriver.Connection.State.Equals(ConnectionState.Open))
                 {
-                    this.DatabaseWrapper.Connection.Close();
+                    this.DatabaseDriver.Connection.Close();
                 }
 
                 File.WriteAllBytes(originalPath, originalDatabase);

@@ -30,9 +30,9 @@ namespace Magenic.Maqs.BaseMongoTest
         }
 
         /// <summary>
-        /// Gets the Mongo driver
+        /// Gets the Mongo driver manager
         /// </summary>
-        public MongoDriverManager<T> MongoDBDriver
+        public MongoDriverManager<T> MongoDBManager
         {
             get
             {
@@ -41,13 +41,13 @@ namespace Magenic.Maqs.BaseMongoTest
         }
 
         /// <summary>
-        /// Gets the Mongo wrapper
+        /// Gets the Mongo driver
         /// </summary>
-        public MongoDBDriver<T> MongoDBWrapper
+        public MongoDBDriver<T> MongoDBDriver
         {
             get
             {
-                return this.MongoDBDriver.Get();
+                return this.MongoDBManager.Get();
             }
         }
 
@@ -69,7 +69,7 @@ namespace Magenic.Maqs.BaseMongoTest
         /// <param name="wrapper">New Mongo wrapper</param>
         public void OverrideMongoDBWrapper(MongoDBDriver<T> wrapper)
         {
-            this.MongoDBDriver.OverrideWrapper(wrapper);
+            this.MongoDBManager.OverrideWrapper(wrapper);
         }
     }
 }
