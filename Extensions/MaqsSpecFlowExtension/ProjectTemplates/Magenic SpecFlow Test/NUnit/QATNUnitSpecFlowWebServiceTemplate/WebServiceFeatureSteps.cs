@@ -1,5 +1,4 @@
 ﻿using Magenic.Maqs.SpecFlow.TestSteps;
-using NUnit.Framework;
 using TechTalk.SpecFlow;
 
 namespace $safeprojectname$
@@ -25,7 +24,7 @@ namespace $safeprojectname$
         [Given(@"condition")]
         public void GivenCondition()
         {
-			CallEndpoint();
+            // Add condition code...
         }
 
         /// <summary>
@@ -34,7 +33,7 @@ namespace $safeprojectname$
         [When(@"action")]
         public void WhenAction()
         {
-            // ScenarioContext.Current.Pending();
+            // Add action code...
         }
 
         /// <summary>
@@ -43,7 +42,7 @@ namespace $safeprojectname$
         [Then(@"verification")]
         public void ThenVerification()
         {
-            // ScenarioContext.Current.Pending();
+            // Add verification code...
         }
 
         /// <summary>
@@ -51,9 +50,8 @@ namespace $safeprojectname$
         /// </summary>
         private void CallEndpoint()
         {
-            // Calls an endpoint
-			string result = this.TestObject.WebServiceDriver.Get("/api/String/1", "text/plain", false);
-            Assert.IsTrue(result.Contains("Tomato Soup"), "Was expeting a result with Tomato Soup but instead got - " + result);
+            // calls the fake endpoint
+            this.TestObject.WebServiceDriver.Get("fake/endpoint", "application/json", true);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace $safeprojectname$
         [Given(@"condition")]
         public void GivenCondition()
         {
-            // ScenarioContext.Current.Pending();
+            // Add code...
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace $safeprojectname$
         [When(@"action")]
         public void WhenAction()
         {
-            // ScenarioContext.Current.Pending();
+            // Add code...
         }
 
         /// <summary>
@@ -42,8 +42,7 @@ namespace $safeprojectname$
         [Then(@"verification")]
         public void ThenVerification()
         {
-            // ScenarioContext.Current.Pending();
-			OpenPage();
+            // Add code...
         }
 
         /// <summary>

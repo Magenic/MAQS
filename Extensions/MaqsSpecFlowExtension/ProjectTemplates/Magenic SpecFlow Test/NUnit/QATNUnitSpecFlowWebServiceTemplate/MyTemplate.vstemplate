@@ -1,12 +1,12 @@
 <VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
   <TemplateData>
-    <Name>MAQS SpecFlow NUnit - Selenium Tests</Name>
-    <Description>Magenic's automation quick start framework for Selenium testing using SpecFlow</Description>
+    <Name>Maqs SpecFlow - NUnit - Web Service</Name>
+    <Description>Magenic's automation quick start framework for web service testing using SpecFlow</Description>
     <ProjectType>CSharp</ProjectType>
     <ProjectSubType>Magenic SpecFlow Test</ProjectSubType>
     <SortOrder>1000</SortOrder>
     <CreateNewFolder>true</CreateNewFolder>
-    <DefaultName>Maqs SpecFlow NUnit - Selenium Tests</DefaultName>
+    <DefaultName>Tests</DefaultName>
     <ProvideDefaultName>true</ProvideDefaultName>
     <LocationField>Enabled</LocationField>
     <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
@@ -19,9 +19,9 @@
       <Folder Name="Properties" TargetFolderName="Properties">
         <ProjectItem ReplaceParameters="true" TargetFileName="AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
       </Folder>
-      <ProjectItem ReplaceParameters="false" TargetFileName="SeleniumFeature.feature">SeleniumFeature.feature</ProjectItem>
-      <ProjectItem ReplaceParameters="true" TargetFileName="SeleniumFeature.feature.cs">SeleniumFeature.feature.cs</ProjectItem>
-      <ProjectItem ReplaceParameters="true" TargetFileName="SeleniumFeatureSteps.cs">SeleniumFeatureSteps.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="WebServiceFeature.feature">WebServiceFeature.feature</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="WebServiceFeature.feature.cs">WebServiceFeature.feature.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="WebServiceFeatureSteps.cs">WebServiceFeatureSteps.cs</ProjectItem>
     </Project>
   </TemplateContent>
 </VSTemplate>
