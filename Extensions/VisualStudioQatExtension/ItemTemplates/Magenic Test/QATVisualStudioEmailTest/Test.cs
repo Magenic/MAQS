@@ -16,7 +16,7 @@ namespace $rootnamespace$
         public void SampleTest()
         {
             // TODO: Add test code
-            // Assert.IsTrue(this.EmailWrapper.CanAccessEmailAccount(), "Could not access account");
+            // Assert.IsTrue(this.EmailDriver.CanAccessEmailAccount(), "Could not access account");
         }
     }
 }
