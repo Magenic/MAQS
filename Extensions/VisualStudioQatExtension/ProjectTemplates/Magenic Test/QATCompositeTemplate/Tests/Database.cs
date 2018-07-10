@@ -16,7 +16,7 @@ namespace $safeprojectname$
         // [TestMethod] - Disabled because this step will fail as the template does not include access to a test database
         public void SampleTest()
         {
-            var tables = this.DatabaseWrapper.Query("SELECT * FROM information_schema.tables").ToList();
+            var tables = this.DatabaseDriver.Query("SELECT * FROM information_schema.tables").ToList();
             Assert.AreEqual(10, tables.Count, "Expected 10 tables");
         }
     }
