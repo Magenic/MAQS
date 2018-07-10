@@ -1,5 +1,10 @@
 MAQS SpecFlow ExtensionRelease Notes:
 
+5.0.0 - 2018/07/11
+	- Extension built out
+		- Update to use MAQS V5
+		- Follow MAQS versioning
+
 1.0.0 - 2018/01/12
 	- Extension built out
 		- Step files connect to all types of Maqs test classes

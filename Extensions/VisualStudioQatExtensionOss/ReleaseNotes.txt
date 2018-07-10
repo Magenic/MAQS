@@ -1,4 +1,38 @@
 Maqs Framework Release Notes:
+5.0.0 - 2018/7/11
+	Major and/or breaking changes
+	- MAQS moved to .Net Standard 2.0
+	- Add .Net Core template
+	- Remove FluentElement
+	- Remove NUnit testing shim
+	- Documentation is now hosted on https://magenic.github.io/MAQS/#/
+	- Rename all wrappers drivers for consistancy
+	- Create driver managers to manage setup and cleanup of drivers
+	- Create driver store so you can add as many drivers (Selenium web drivers) as you want in a single test
+	- Break the app.config sections up so they are driver specific
+	- Add support for appsettings.json configurations - This is needed for .Net core support
+	Bug fixes and minor enhancements
+	- Fix HTML log line breaks
+	- Fix save source bug
+	- Stopped using generic exceptions
+	- Updated
+		Virtually all libraries were updated
+
+4.0.5 - 2018/3/29
+	Bug fixes and minor enhancements
+	- Replace FluentElement with LazyElement
+	- Do not require user friendly name for LazyElement
+	- Add generic remote browser setting - used when browserName is passed in via the RemoteSeleniumCapsMaqs
+	- Updated
+		Newtonsoft.Json 11.0.2
+		NUnit 3.10.1
+		Selenium.Support to 3.11.0
+		Selenium.WebDriver to 3.11.0
+		Selenium.WebDriver.ChromeDriver to 2.37.0
+		Selenium.WebDriver.IEDriver to 3.11.1
+		Selenium.WebDriver.GeckoDriver 0.20.0
+		Selenium.WebDriver.MicrosoftDriver 15.15063.0
+		
 4.0.4 - 2017/12/20
 	Bug fixes and minor enhancements
 	- Change Edge driver initialization to support page load strategy enum change

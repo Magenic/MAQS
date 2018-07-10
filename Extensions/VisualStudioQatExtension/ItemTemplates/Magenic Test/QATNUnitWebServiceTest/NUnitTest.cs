@@ -19,7 +19,7 @@ namespace $rootnamespace$
         public void SampleTest()
         {
             // TODO: Add test code
-            //ITEM result = this.WebServiceWrapper.Get<ITEM>("/api/GetITEM/1", "application/xml", false);
+            //ITEM result = this.WebServiceDriver.Get<ITEM>("/api/GetITEM/1", "application/xml", false);
         }
     }
 }
