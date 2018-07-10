@@ -4,13 +4,12 @@
 // </copyright>
 // <summary>This is the base Selenium test class</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseSeleniumTest.Extensions;
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Logging;
 using OpenQA.Selenium;
 using System;
 
-namespace Magenic.MaqsFramework.BaseSeleniumTest
+namespace Magenic.Maqs.BaseSeleniumTest
 {
     /// <summary>
     /// Generic base Selenium test class
@@ -62,35 +61,16 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                 if (this.Log is FileLogger && resultType != TestResultType.PASS && this.LoggingEnabledSetting != LoggingEnabled.NO)
                 {
                     SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.Log);
+
+                    if (SeleniumConfig.GetSavePagesourceOnFail())
+                    {
+                        SeleniumUtilities.SavePageSource(this.WebDriver, this.Log, "FinalPageSource");
+                    }
                 }
             }
             catch (Exception e)
             {
                 this.TryToLog(MessageType.WARNING, "Failed to get screen shot because: {0}", e.Message);
-            }
-
-            this.TryToLog(MessageType.INFORMATION, "Closing webDriver");
-
-            try
-            {
-                // Clear the waiter
-                this.WebDriver.RemoveWaitDriver();
-
-                // Quit
-                this.WebDriver.Quit();
-            }
-            catch (Exception e)
-            {
-                this.TryToLog(MessageType.WARNING, "Failed to quit because: {0}", e.Message);
-            }
-
-            try
-            {
-                this.WebDriver.Dispose();
-            }
-            catch (Exception e)
-            {
-                this.TryToLog(MessageType.WARNING, "Failed to dispose because: {0}", e.Message);
             }
         }
 

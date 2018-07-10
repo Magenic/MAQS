@@ -1,11 +1,11 @@
 ﻿//--------------------------------------------------
-// <copyright file="WebServiceWithWrapperDelete.cs" company="Magenic">
+// <copyright file="WebServiceWithDriverDelete.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Web service delete unit tests</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseWebServiceTest;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseWebServiceTest;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
@@ -14,11 +14,11 @@ using WebServiceTesterUnitTesting.Model;
 namespace WebServiceTesterUnitTesting
 {
     /// <summary>
-    /// Test web service gets using the base test wrapper
+    /// Test web service gets using the base test driver
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class WebServiceWithWrapperDelete : BaseWebServiceTest
+    public class WebServiceWithDriverDelete : BaseWebServiceTest
     {
         /// <summary>
         /// Delete Json request to assert status code
@@ -27,7 +27,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void DeleteJSONSerializedVerifyStatusCode()
         {
-            var result = this.WebServiceWrapper.DeleteWithResponse("/api/XML_JSON/Delete/1", "application/json", true);
+            var result = this.WebServiceDriver.DeleteWithResponse("/api/XML_JSON/Delete/1", "application/json", true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
 
@@ -38,11 +38,11 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void DeleteJSONSerializedVerifyStatusCodeWithAndWithoutHeaderOverride()
         {
-            var result = this.WebServiceWrapper.DeleteWithResponse("/api/XML_JSON/Delete/2", "application/json", false);
+            var result = this.WebServiceDriver.DeleteWithResponse("/api/XML_JSON/Delete/2", "application/json", false);
             Assert.AreEqual(HttpStatusCode.Conflict, result.StatusCode);
 
-            this.WebServiceWrapper.HttpClient.DefaultRequestHeaders.Add("pass", "word");
-            result = this.WebServiceWrapper.DeleteWithResponse("/api/XML_JSON/Delete/2", "application/json", true);
+            this.WebServiceDriver.HttpClient.DefaultRequestHeaders.Add("pass", "word");
+            result = this.WebServiceDriver.DeleteWithResponse("/api/XML_JSON/Delete/2", "application/json", true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
 
@@ -54,7 +54,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void DeleteJSONWithType()
         {
-            var result = this.WebServiceWrapper.Delete<ProductJson>("/api/XML_JSON/Delete/1", "application/json", true);
+            var result = this.WebServiceDriver.Delete<ProductJson>("/api/XML_JSON/Delete/1", "application/json", true);
             Assert.AreEqual(result, null);
         }
         #endregion
@@ -66,7 +66,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void DeleteXMLSerializedVerifyStatusCode()
         {
-            var result = this.WebServiceWrapper.DeleteWithResponse("/api/XML_JSON/Delete/1", "application/xml", true);
+            var result = this.WebServiceDriver.DeleteWithResponse("/api/XML_JSON/Delete/1", "application/xml", true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
 
@@ -78,7 +78,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void DeleteXMLSerializedVerifyEmptyString()
         {
-            var result = this.WebServiceWrapper.Delete("/api/XML_JSON/Delete/1", "application/xml", true);
+            var result = this.WebServiceDriver.Delete("/api/XML_JSON/Delete/1", "application/xml", true);
             Assert.AreEqual(string.Empty, result);
         }
         #endregion
@@ -90,7 +90,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void DeleteStringWithoutMakeContent()
         {
-            var result = this.WebServiceWrapper.Delete("/api/String/Delete/1", "text/plain", true);
+            var result = this.WebServiceDriver.Delete("/api/String/Delete/1", "text/plain", true);
             Assert.AreEqual(string.Empty, result);
         }
 
@@ -101,7 +101,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void DeleteStringWithMakeContent()
         {
-            var result = this.WebServiceWrapper.Delete("/api/String/Delete/1", "text/plain", true);
+            var result = this.WebServiceDriver.Delete("/api/String/Delete/1", "text/plain", true);
             Assert.AreEqual(string.Empty, result);
         }
 
@@ -113,7 +113,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void DeleteStringMakeContentStatusCode()
         {
-            var result = this.WebServiceWrapper.DeleteWithResponse("/api/String/Delete/1", "text/plain", true);
+            var result = this.WebServiceDriver.DeleteWithResponse("/api/String/Delete/1", "text/plain", true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
         #endregion
@@ -125,7 +125,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void DeleteExpectContentError()
         {
-            var result = this.WebServiceWrapper.DeleteWithResponse("/api/String/Delete/43", "text/plain", false);
+            var result = this.WebServiceDriver.DeleteWithResponse("/api/String/Delete/43", "text/plain", false);
             Assert.AreEqual(HttpStatusCode.NotFound, result.StatusCode);
         }
 
@@ -136,7 +136,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void DeleteExpectError()
         {
-            var result = this.WebServiceWrapper.Delete("/api/String/Delete/43", "text/plain", false);
+            var result = this.WebServiceDriver.Delete("/api/String/Delete/43", "text/plain", false);
             Assert.AreEqual("{\"Message\":\"Resource was not found\"}", result);
         }
     }

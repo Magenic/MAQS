@@ -4,11 +4,11 @@
 // </copyright>
 // <summary>Base teststeps code for tests using appium</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseAppiumTest;
+using Magenic.Maqs.BaseAppiumTest;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using TechTalk.SpecFlow;
-using MaqsAppium = Magenic.MaqsFramework.BaseAppiumTest.BaseAppiumTest;
+using MaqsAppium = Magenic.Maqs.BaseAppiumTest.BaseAppiumTest;
 
 namespace Magenic.Maqs.SpecFlow.TestSteps
 {

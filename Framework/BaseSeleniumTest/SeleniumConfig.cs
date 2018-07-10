@@ -4,8 +4,8 @@
 // </copyright>
 // <summary>Helper class for getting selenium specific configuration values</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Data;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.Utilities.Data;
+using Magenic.Maqs.Utilities.Helper;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
@@ -22,13 +22,18 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 
-namespace Magenic.MaqsFramework.BaseSeleniumTest
+namespace Magenic.Maqs.BaseSeleniumTest
 {
     /// <summary>
     /// Config class
     /// </summary>
     public static class SeleniumConfig
     {
+        /// <summary>
+        ///  Static name for the Selenium configuration section
+        /// </summary>
+        private const string SELENIUMSECTION = "SeleniumMaqs";
+
         /// <summary>
         /// Get the browser
         /// <para>If no browser is provide in the project configuration file we default to Chrome</para>
@@ -86,7 +91,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                         break;
 
                     case "REMOTE":
-                        webDriver = new RemoteWebDriver(new Uri(Config.GetValue("HubUrl")), GetRemoteCapabilities(), GetCommandTimeout());
+                        webDriver = new RemoteWebDriver(new Uri(Config.GetValueForSection(SELENIUMSECTION, "HubUrl")), GetRemoteCapabilities(), GetCommandTimeout());
                         break;
 
                     default:
@@ -129,7 +134,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// </example>
         public static string GetBrowserName()
         {
-            return Config.GetValue("Browser", "Chrome");
+            return Config.GetValueForSection(SELENIUMSECTION, "Browser", "Chrome");
         }
 
         /// <summary>
@@ -138,13 +143,13 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// <returns>The initialize timeout</returns>
         public static TimeSpan GetCommandTimeout()
         {
-            string value = Config.GetValue("SeleniumCommandTimeout", "60");
+            string value = Config.GetValueForSection(SELENIUMSECTION, "SeleniumCommandTimeout", "60000");
             if (!int.TryParse(value, out int timeout))
             {
                 throw new ArgumentException("SeleniumCommandTimeout should be a number but the current value is: " + value);
             }
 
-            return TimeSpan.FromSeconds(timeout);
+            return TimeSpan.FromMilliseconds(timeout);
         }
 
         /// <summary>
@@ -157,7 +162,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         public static string GetDriverHintPath()
         {
             string defaultPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            return Config.GetValue("WebDriverHintPath", defaultPath);
+            return Config.GetValueForSection(SELENIUMSECTION, "WebDriverHintPath", defaultPath);
         }
 
         /// <summary>
@@ -169,7 +174,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// </example>
         public static string GetRemoteBrowserName()
         {
-            return Config.GetValue("RemoteBrowser", "Chrome");
+            return Config.GetValueForSection(SELENIUMSECTION, "RemoteBrowser", "Chrome");
         }
 
         /// <summary>
@@ -181,7 +186,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// </example>
         public static string GetRemoteBrowserVersion()
         {
-            return Config.GetValue("RemoteBrowserVersion");
+            return Config.GetValueForSection(SELENIUMSECTION, "RemoteBrowserVersion");
         }
 
         /// <summary>
@@ -193,7 +198,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// </example>
         public static string GetRemotePlatform()
         {
-            return Config.GetValue("RemotePlatform");
+            return Config.GetValueForSection(SELENIUMSECTION, "RemotePlatform");
         }
 
         /// <summary>
@@ -218,7 +223,34 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// </example>
         public static string GetWebSiteBase()
         {
-            return Config.GetValue("WebSiteBase");
+            return Config.GetValueForSection(SELENIUMSECTION, "WebSiteBase");
+        }
+
+        /// <summary>
+        /// Get if we should save page source on fail
+        /// </summary>
+        /// <returns>True if we want to save page source on fail</returns>
+        public static bool GetSavePagesourceOnFail()
+        {
+            return Config.GetValueForSection(SELENIUMSECTION, "SavePagesourceOnFail").Equals("Yes", StringComparison.CurrentCultureIgnoreCase);
+        }
+
+        /// <summary>
+        /// Get if we should save screenshots on soft alert fails
+        /// </summary>
+        /// <returns>True if we want to save screenshots on soft alert fails</returns>
+        public static bool GetSoftAssertScreenshot()
+        {
+            return Config.GetValueForSection(SELENIUMSECTION, "SoftAssertScreenshot").Equals("Yes", StringComparison.CurrentCultureIgnoreCase);
+        }
+
+        /// <summary>
+        /// Get the format we want to capture screenshots with
+        /// </summary>
+        /// <returns>The desired format</returns>
+        public static string GetImageFormat()
+        {
+            return Config.GetValueForSection(SELENIUMSECTION, "ImageFormat", "PNG");
         }
 
         /// <summary>
@@ -405,7 +437,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// <returns>The timeout time span</returns>
         private static TimeSpan GetTimeoutTime()
         {
-            int timeoutTime = Convert.ToInt32(Config.GetValue("Timeout", "0"));
+            int timeoutTime = Convert.ToInt32(Config.GetValueForSection(SELENIUMSECTION, "BrowserTimeout", "0"));
             return TimeSpan.FromMilliseconds(timeoutTime);
         }
 
@@ -415,7 +447,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// <returns>The wait time span</returns>
         private static TimeSpan GetWaitTime()
         {
-            int waitTime = Convert.ToInt32(Config.GetValue("WaitTime", "0"));
+            int waitTime = Convert.ToInt32(Config.GetValueForSection(SELENIUMSECTION, "BrowserWaitTime", "0"));
             return TimeSpan.FromMilliseconds(waitTime);
         }
 
@@ -425,7 +457,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// <returns>string of desired browser size</returns>
         private static string GetBrowserSize()
         {
-            return Config.GetValue("BrowserSize", "MAXIMIZE").ToUpper();
+            return Config.GetValueForSection(SELENIUMSECTION, "BrowserSize", "MAXIMIZE").ToUpper();
         }
 
         /// <summary>

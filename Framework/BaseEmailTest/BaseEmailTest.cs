@@ -4,14 +4,14 @@
 // </copyright>
 // <summary>This is the base email test class</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Data;
-using Magenic.MaqsFramework.Utilities.Helper;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Data;
+using Magenic.Maqs.Utilities.Helper;
+using Magenic.Maqs.Utilities.Logging;
 using MailKit.Net.Imap;
 using System;
 
-namespace Magenic.MaqsFramework.BaseEmailTest
+namespace Magenic.Maqs.BaseEmailTest
 {
     /// <summary>
     /// Generic base email test class
@@ -27,18 +27,18 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         }
 
         /// <summary>
-        /// Gets or sets the email wrapper
+        /// Gets or sets the email driver
         /// </summary>
-        public EmailDriver EmailWrapper
+        public EmailDriver EmailDriver
         {
             get
             {
-                return this.TestObject.EmailWrapper;
+                return this.TestObject.EmailDriver;
             }
 
             set
             {
-                this.TestObject.OverrideDatabaseWrapper(value);
+                this.TestObject.OverrideDatabaseDriver(value);
             }
         }
 
@@ -70,7 +70,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
             };
             emailConnection.Connect(host, port, isSSL);
             emailConnection.Authenticate(username, password);
-            emailConnection.Timeout = Convert.ToInt32(Config.GetValue("Timeout", "10000"));
+            emailConnection.Timeout = EmailConfig.GetTimeout();
 
             emailConnection.NoOp();
 

@@ -4,10 +4,10 @@
 // </copyright>
 // <summary>Selenium driver</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseSeleniumTest.Extensions;
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Data;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.BaseSeleniumTest.Extensions;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Data;
+using Magenic.Maqs.Utilities.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.Events;
@@ -15,7 +15,7 @@ using System;
 using System.Reflection;
 using System.Text;
 
-namespace Magenic.MaqsFramework.BaseSeleniumTest
+namespace Magenic.Maqs.BaseSeleniumTest
 {
     /// <summary>
     /// Selenium driver store

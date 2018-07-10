@@ -1,11 +1,12 @@
-﻿using Magenic.MaqsFramework.BaseDatabaseTest;
-using Magenic.MaqsFramework.BaseSeleniumTest;
-using Magenic.MaqsFramework.BaseWebServiceTest;
+﻿using Magenic.Maqs.BaseDatabaseTest;
+using Magenic.Maqs.BaseSeleniumTest;
+using Magenic.Maqs.BaseWebServiceTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Models;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace $safeprojectname$
 {
@@ -22,11 +23,12 @@ namespace $safeprojectname$
         public static void TestSetup(TestContext context)
         {
             // Do database setup
-            using (DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper(DatabaseConfig.GetConnectionString()))
+            using (DatabaseDriver wrapper = new DatabaseDriver(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString()))
             {
                 SqlParameter state = new SqlParameter("StateAbbreviation", "MN");
-                DataTable table = wrapper.RunQueryProcedure("getStateAbbrevMatch", state);
-                Assert.AreEqual(1, table.Rows.Count, "Expected 1 state abbreviation to be returned.");
+
+                var result = wrapper.Query("getStateAbbrevMatch", new { StateAbbreviation = "MN" }, commandType: CommandType.StoredProcedure);
+                Assert.AreEqual(1, result.Count(), "Expected 1 state abbreviation to be returned.");
             }
         }
 
@@ -37,7 +39,7 @@ namespace $safeprojectname$
         public static void TestCleanup()
         {
             // Do web service post run cleanup
-            HttpClientWrapper client = new HttpClientWrapper(new Uri(WebServiceConfig.GetWebServiceUri()));
+            WebServiceDriver client = new WebServiceDriver(new Uri(WebServiceConfig.GetWebServiceUri()));
             string result = client.Delete("/api/String/Delete/1", "text/plain", true);
             Assert.AreEqual(string.Empty, result);
         }

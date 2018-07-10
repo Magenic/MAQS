@@ -4,10 +4,10 @@
 // </copyright>
 // <summary>Base driver manager</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.Utilities.Logging;
 using System;
 
-namespace Magenic.MaqsFramework.BaseTest
+namespace Magenic.Maqs.BaseTest
 {
     /// <summary>
     /// Base driver manager object
@@ -42,7 +42,7 @@ namespace Magenic.MaqsFramework.BaseTest
         }
 
         /// <summary>
-        /// Gets or sets the underlying driver; like the web driver or database connection wrapper
+        /// Gets or sets the underlying driver; like the web driver or database connection driver
         /// </summary>
         protected object BaseDriver { get; set; }
 

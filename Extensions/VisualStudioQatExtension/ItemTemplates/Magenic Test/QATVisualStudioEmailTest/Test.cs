@@ -1,4 +1,4 @@
-﻿using Magenic.MaqsFramework.BaseEmailTest;
+﻿using Magenic.Maqs.BaseEmailTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace $rootnamespace$

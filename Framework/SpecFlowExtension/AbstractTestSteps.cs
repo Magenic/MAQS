@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>Abstract class with TestSteps functions</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
+using Magenic.Maqs.BaseTest;
 using System;
 using TechTalk.SpecFlow;
 

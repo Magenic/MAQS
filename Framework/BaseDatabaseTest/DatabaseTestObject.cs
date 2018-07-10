@@ -4,12 +4,12 @@
 // </copyright>
 // <summary>Holds database context data</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Logging;
 using System;
 using System.Data;
 
-namespace Magenic.MaqsFramework.BaseDatabaseTest
+namespace Magenic.Maqs.BaseDatabaseTest
 {
     /// <summary>
     /// Database test context data
@@ -29,9 +29,9 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         }
 
         /// <summary>
-        /// Gets the database driver
+        /// Gets the database driver manager
         /// </summary>
-        public DatabaseDriverManager DatabaseDriver
+        public DatabaseDriverManager DatabaseManager
         {
             get
             {
@@ -40,13 +40,13 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         }
 
         /// <summary>
-        /// Gets the database wrapper
+        /// Gets the database driver
         /// </summary>
-        public DatabaseDriver DatabaseWrapper
+        public DatabaseDriver DatabaseDriver
         {
             get
             {
-                return this.DatabaseDriver.Get();
+                return this.DatabaseManager.Get();
             }
         }
 
@@ -63,18 +63,18 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         /// Override the database connection
         /// </summary>
         /// <param name="databaseConnection">New database connection</param>
-        public void OverrideDatabaseWrapper(IDbConnection databaseConnection)
+        public void OverrideDatabaseDriver(IDbConnection databaseConnection)
         {
             this.OverrideDriverManager(typeof(DatabaseDriverManager).FullName, new DatabaseDriverManager(() => databaseConnection, this));
         }
 
         /// <summary>
-        /// Override the database connection wrapper
+        /// Override the database connection driver
         /// </summary>
-        /// <param name="wrapper">New database connection wrapper</param>
-        public void OverrideDatabaseWrapper(DatabaseDriver wrapper)
+        /// <param name="driver">New database connection driver</param>
+        public void OverrideDatabaseDriver(DatabaseDriver driver)
         {
-            this.DatabaseDriver.OverwriteWrapper(wrapper);
+            this.DatabaseManager.OverwriteDriver(driver);
         }
     }
 }

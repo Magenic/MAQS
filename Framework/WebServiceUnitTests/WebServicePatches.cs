@@ -4,8 +4,8 @@
 // </copyright>
 // <summary>Web service get unit tests</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseWebServiceTest;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseWebServiceTest;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -25,7 +25,7 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// String to hold the URL
         /// </summary>
-        private static string url = Config.GetValue("WebServiceUri");
+        private static string url = WebServiceConfig.GetWebServiceUri();
         
         /// <summary>
         /// Verify the string status code

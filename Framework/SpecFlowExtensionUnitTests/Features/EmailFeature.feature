@@ -2,7 +2,7 @@
 	Email Tests
 
 @MAQS_Email
-Scenario: EmailWrapper Available BaseEmailTestSteps
+Scenario: EmailDriver Available BaseEmailTestSteps
 	Given class BaseEmailTestSteps
-	Then BaseEmailTestSteps EmailWrapper is not null
-	And EmailWrapper is type EventFiringEmailConnectionWrapper
+	Then BaseEmailTestSteps EmailDriver is not null
+	And EmailDriver is type EventFiringEmailConnectionDriver

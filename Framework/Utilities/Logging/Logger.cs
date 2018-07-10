@@ -4,10 +4,10 @@
 // </copyright>
 // <summary>Abstract logging interface</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Data;
+using Magenic.Maqs.Utilities.Data;
 using System;
 
-namespace Magenic.MaqsFramework.Utilities.Logging
+namespace Magenic.Maqs.Utilities.Logging
 {
     /// <summary>
     /// Abstract logging interface base class

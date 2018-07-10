@@ -4,13 +4,13 @@
 // </copyright>
 // <summary>The event firing database interactions</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Data;
+using Magenic.Maqs.Utilities.Data;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
 
-namespace Magenic.MaqsFramework.BaseDatabaseTest
+namespace Magenic.Maqs.BaseDatabaseTest
 {
     /// <summary>
     /// Wrap basic firing database interactions

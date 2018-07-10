@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>Unit tests for the generic wait</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;

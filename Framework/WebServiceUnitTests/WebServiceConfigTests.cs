@@ -4,8 +4,8 @@
 // </copyright>
 // <summary>Unit test web service configuration test</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseWebServiceTest;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseWebServiceTest;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -40,9 +40,9 @@ namespace WebServiceTesterUnitTesting
         public void GetWebServiceTimeout()
         {
             #region GetWebServiceTimeout
-            int timeout = WebServiceConfig.GetWebServiceTimeout();
+            TimeSpan timeout = WebServiceConfig.GetWebServiceTimeout();
             #endregion
-            Assert.AreEqual(timeout, 10);
+            Assert.AreEqual(timeout.Seconds, 10);
         }
     }
 }

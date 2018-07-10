@@ -4,9 +4,9 @@
 // </copyright>
 // <summary>Base teststeps code for tests using web services</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseWebServiceTest;
+using Magenic.Maqs.BaseWebServiceTest;
 using TechTalk.SpecFlow;
-using MaqsWeb = Magenic.MaqsFramework.BaseWebServiceTest.BaseWebServiceTest;
+using MaqsWeb = Magenic.Maqs.BaseWebServiceTest.BaseWebServiceTest;
 
 namespace Magenic.Maqs.SpecFlow.TestSteps
 {

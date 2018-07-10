@@ -4,8 +4,8 @@
 // </copyright>
 // <summary>Test the EventFiringWebServiceDriver class</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseWebServiceTest;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseWebServiceTest;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -13,7 +13,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace WebServiceTesterUnitTesting
 {
     /// <summary>
-    /// Test the EventFiringClientWrapper class
+    /// Test the EventFiringClientDriver class
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]

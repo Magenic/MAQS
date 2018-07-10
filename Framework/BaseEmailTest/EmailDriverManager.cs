@@ -4,13 +4,13 @@
 // </copyright>
 // <summary>Email driver</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Logging;
 using MailKit.Net.Imap;
 using System;
 using System.Data;
 
-namespace Magenic.MaqsFramework.BaseEmailTest
+namespace Magenic.Maqs.BaseEmailTest
 {
     /// <summary>
     /// Email driver
@@ -18,9 +18,9 @@ namespace Magenic.MaqsFramework.BaseEmailTest
     public class EmailDriverManager : DriverManager
     {
         /// <summary>
-        /// Cached instance of the email connection wrapper
+        /// Cached instance of the email connection driver
         /// </summary>
-        private EmailDriver wrapper;
+        private EmailDriver driver;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EmailDriverManager"/> class
@@ -36,58 +36,58 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// </summary>
         public override void Dispose()
         {
-            if (this.wrapper != null)
+            if (this.driver != null)
             {
                 (this.BaseDriver as ImapClient).Dispose();
-                this.wrapper.Dispose(); 
+                this.driver.Dispose(); 
             }
 
-            this.wrapper = null;
+            this.driver = null;
             this.BaseDriver = null;
         }
 
         /// <summary>
-        /// Override the email wrapper
+        /// Override the email driver
         /// </summary>
-        /// <param name="newWrapper">The new wrapper</param>
-        public void OverwriteWrapper(EmailDriver newWrapper)
+        /// <param name="newDriver">The new driver</param>
+        public void OverwriteDriver(EmailDriver newDriver)
         {
-            this.wrapper = newWrapper;
-            this.BaseDriver = newWrapper.EmailConnection;
+            this.driver = newDriver;
+            this.BaseDriver = newDriver.EmailConnection;
         }
 
         /// <summary>
-        /// Get the email connection wrapper
+        /// Get the email connection driver
         /// </summary>
-        /// <returns>The email connection wrapper</returns>
+        /// <returns>The email connection driver</returns>
         public new EmailDriver Get()
         {
-            if (this.wrapper == null)
+            if (this.driver == null)
             {
                 if (LoggingConfig.GetLoggingEnabledSetting() == LoggingEnabled.NO)
                 {
-                    this.Log.LogMessage(MessageType.INFORMATION, "Getting email wrapper");
-                    this.wrapper = new EmailDriver(() => base.Get() as ImapClient);
+                    this.Log.LogMessage(MessageType.INFORMATION, "Getting email driver");
+                    this.driver = new EmailDriver(() => base.Get() as ImapClient);
                 }
                 else
                 {
-                    this.Log.LogMessage(MessageType.INFORMATION, "Getting event firing email wrapper");
-                    this.wrapper = new EventFiringEmailDriver(() => base.Get() as ImapClient);
-                    this.MapEvents(this.wrapper as EventFiringEmailDriver);
+                    this.Log.LogMessage(MessageType.INFORMATION, "Getting event firing email driver");
+                    this.driver = new EventFiringEmailDriver(() => base.Get() as ImapClient);
+                    this.MapEvents(this.driver as EventFiringEmailDriver);
                 }
             }
 
-            return this.wrapper;
+            return this.driver;
         }
 
         /// <summary>
         /// Map email events to log events
         /// </summary>
-        /// <param name="eventFiringConnectionWrapper">The event firing email wrapper that we want mapped</param>
-        private void MapEvents(EventFiringEmailDriver eventFiringConnectionWrapper)
+        /// <param name="eventFiringConnectionDriver">The event firing email driver that we want mapped</param>
+        private void MapEvents(EventFiringEmailDriver eventFiringConnectionDriver)
         {
-            eventFiringConnectionWrapper.EmailEvent += this.Email_Event;
-            eventFiringConnectionWrapper.EmailErrorEvent += this.Email_Error;
+            eventFiringConnectionDriver.EmailEvent += this.Email_Event;
+            eventFiringConnectionDriver.EmailErrorEvent += this.Email_Error;
         }
 
         /// <summary>

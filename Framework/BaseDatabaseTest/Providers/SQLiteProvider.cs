@@ -7,7 +7,7 @@
 
 using Microsoft.Data.Sqlite;
 
-namespace Magenic.MaqsFramework.BaseDatabaseTest.Providers
+namespace Magenic.Maqs.BaseDatabaseTest.Providers
 {
     /// <summary>
     /// The Sqlite provider.

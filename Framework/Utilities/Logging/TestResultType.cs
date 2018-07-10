@@ -5,7 +5,7 @@
 // <summary>Test result type enumeration</summary>
 //--------------------------------------------------
 
-namespace Magenic.MaqsFramework.Utilities.Logging
+namespace Magenic.Maqs.Utilities.Logging
 {
     /// <summary>
     /// The type of result

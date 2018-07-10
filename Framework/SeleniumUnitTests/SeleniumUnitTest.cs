@@ -4,11 +4,11 @@
 // </copyright>
 // <summary>Test the selenium framework</summary>
 //-----------------------------------------------------
-using Magenic.MaqsFramework.BaseSeleniumTest;
-using Magenic.MaqsFramework.BaseSeleniumTest.Extensions;
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Helper;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.BaseSeleniumTest;
+using Magenic.Maqs.BaseSeleniumTest.Extensions;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Helper;
+using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
@@ -1353,20 +1353,10 @@ namespace SeleniumUnitTests
             this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
             SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.Log);
-            string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, Config.GetValue("ImageFormat").ToString());
+            string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, SeleniumConfig.GetImageFormat());
             Assert.IsTrue(File.Exists(filePath), "Fail to find screenshot");
-            Assert.AreEqual(Path.GetExtension(filePath), "." + Config.GetValue("ImageFormat").ToString(), "The screenshot format was not in correct Format format");
+            Assert.AreEqual(Path.GetExtension(filePath), "." + SeleniumConfig.GetImageFormat(), "The screenshot format was not in correct Format format");
             File.Delete(filePath);
-        }
-
-        /// <summary>
-        /// Verify the GetScreenShotFormat function has default value
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
-        public void GetImageFormatDefaultFormat()
-        {
-            Assert.AreEqual(SeleniumUtilities.GetScreenShotFormat("XXYYZZ"), ScreenshotImageFormat.Png, "The Incorrect Default Image Format was returned, expected: " + ScreenshotImageFormat.Png.ToString());
         }
 
         /// <summary>
@@ -1376,7 +1366,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void GetImageFormatFromConfig()
         {
-            Assert.AreEqual(SeleniumUtilities.GetScreenShotFormat(), ScreenshotImageFormat.Jpeg, "The Incorrect Image Format was returned, expected: " + Config.GetValue("ImageFormat"));
+            Assert.AreEqual(SeleniumUtilities.GetScreenShotFormat(), ScreenshotImageFormat.Jpeg, "The Incorrect Image Format was returned, expected: " + Config.GetGeneralValue("ImageFormat"));
         }
 
         /// <summary>

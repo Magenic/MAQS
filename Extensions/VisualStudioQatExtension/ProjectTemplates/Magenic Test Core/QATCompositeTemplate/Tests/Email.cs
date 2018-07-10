@@ -1,4 +1,4 @@
-﻿using Magenic.MaqsFramework.BaseEmailTest;
+﻿using Magenic.Maqs.BaseEmailTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests
@@ -7,7 +7,7 @@ namespace Tests
     /// Sample test class
     /// </summary>
     [TestClass]
-    public class Email : BaseEmailTest
+    public class $safeitemname$ : BaseEmailTest
     {
         /// <summary>
         /// Sample test

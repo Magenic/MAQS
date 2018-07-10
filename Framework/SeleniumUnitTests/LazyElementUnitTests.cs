@@ -4,10 +4,10 @@
 // </copyright>
 // <summary>Test the lazy element unit tests</summary>
 //-----------------------------------------------------
-using Magenic.MaqsFramework.BaseSeleniumTest;
-using Magenic.MaqsFramework.BaseSeleniumTest.Extensions;
-using Magenic.MaqsFramework.Utilities.Helper;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.BaseSeleniumTest;
+using Magenic.Maqs.BaseSeleniumTest.Extensions;
+using Magenic.Maqs.Utilities.Helper;
+using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using System;
@@ -130,7 +130,7 @@ namespace SeleniumUnitTests
         [TestInitialize]
         public void NavigateToTestPage()
         {
-            this.WebDriver.Navigate().GoToUrl(Config.GetValue("WebSiteBase") + "Automation");
+            this.WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Automation");
             this.WebDriver.Wait().ForPageLoad();
         }
 
@@ -246,7 +246,7 @@ namespace SeleniumUnitTests
             IWebElement footerElementAfter = footer.CachedElement;
 
             // Go to another page so the old element will be stale, this will force us to get a new one
-            this.WebDriver.Navigate().GoToUrl(Config.GetValue("WebSiteBase") + "Automation/AsyncPage");
+            this.WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Automation/AsyncPage");
 
             // Trigger a new find, this should be new because the cached element is stale
             value = footer.GetValue();
@@ -483,7 +483,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementSubmit()
         {
-            this.WebDriver.Navigate().GoToUrl(Config.GetValue("WebSiteBase") + "Employees");
+            this.WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Employees");
             this.WebDriver.Wait().ForClickableElement(By.CssSelector("A[href^='/Employees/Edit/']")).Click();
             this.WebDriver.Wait().ForPageLoad();
 

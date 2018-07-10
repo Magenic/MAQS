@@ -6,17 +6,22 @@
 //--------------------------------------------------
 using System;
 using System.Data;
-using Magenic.MaqsFramework.BaseDatabaseTest.Providers;
-using Magenic.MaqsFramework.Utilities.Data;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseDatabaseTest.Providers;
+using Magenic.Maqs.Utilities.Data;
+using Magenic.Maqs.Utilities.Helper;
 
-namespace Magenic.MaqsFramework.BaseDatabaseTest
+namespace Magenic.Maqs.BaseDatabaseTest
 {
     /// <summary>
     /// Config class
     /// </summary>
     public static class DatabaseConfig
     {
+        /// <summary>
+        ///  Static name for the database configuration section
+        /// </summary>
+        private const string DATABASESECTIION = "DatabaseMaqs";
+
         /// <summary>
         /// Get the database connection string
         /// </summary>
@@ -26,7 +31,7 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         /// </example>
         public static string GetConnectionString()
         {
-            return Config.GetValue("DataBaseConnectionString");
+            return Config.GetValueForSection(DATABASESECTIION, "DataBaseConnectionString");
         }
 
         /// <summary>
@@ -38,19 +43,7 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         /// </example>
         public static string GetProviderTypeString()
         {
-            return Config.GetValue("DataBaseProviderType");
-        }
-
-        /// <summary>
-        /// Get the database timeout in seconds
-        /// </summary>
-        /// <returns>The timeout in seconds from the config file or default of 30 seconds when no app.config key is found</returns>
-        /// <example>
-        /// <code source="../DatabaseUnitTests/DatabaseConfigUnitTests.cs" region="GetQueryTimeout" lang="C#" />
-        /// </example>
-        public static int GetQueryTimeout()
-        {
-            return int.Parse(Config.GetValue("DatabaseTimeout", "30"));
+            return Config.GetValueForSection(DATABASESECTIION, "DataBaseProviderType");
         }
 
         /// <summary>

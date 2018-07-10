@@ -4,8 +4,8 @@
 // </copyright>
 // <summary>Database driver store tests</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseDatabaseTest;
-using Magenic.MaqsFramework.WebServiceTester;
+using Magenic.Maqs.BaseDatabaseTest;
+using Magenic.Maqs.WebServiceTester;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net.Http;
 
@@ -24,9 +24,9 @@ namespace CoreUnitTests
         public void CanOverrideDatabaseDriver()
         {
             DatabaseDriver tempDriver = new DatabaseDriver(DatabaseConfig.GetOpenConnection());
-            this.DatabaseWrapper = tempDriver;
+            this.DatabaseDriver = tempDriver;
             
-            Assert.AreEqual(this.TestObject.DatabaseDriver.Get(), tempDriver);
+            Assert.AreEqual(this.TestObject.DatabaseManager.Get(), tempDriver);
         }
 
         /// <summary>
@@ -38,17 +38,17 @@ namespace CoreUnitTests
             DatabaseDriverManager newDriver = new DatabaseDriverManager(() => DatabaseConfig.GetOpenConnection(), this.TestObject);
             this.TestObject.ManagerStore.Add("test", newDriver);
 
-            Assert.AreNotEqual(this.TestObject.DatabaseDriver, (DatabaseDriverManager)this.TestObject.ManagerStore["test"]);
-            Assert.AreNotEqual(this.TestObject.DatabaseDriver.Get(), ((DatabaseDriverManager)this.TestObject.ManagerStore["test"]).Get());
+            Assert.AreNotEqual(this.TestObject.DatabaseManager, (DatabaseDriverManager)this.TestObject.ManagerStore["test"]);
+            Assert.AreNotEqual(this.TestObject.DatabaseManager.Get(), ((DatabaseDriverManager)this.TestObject.ManagerStore["test"]).Get());
         }
 
         /// <summary>
-        /// Make sure the test object wrapper is the same as the one in the driver store
+        /// Make sure the test object driver is the same as the one in the driver store
         /// </summary>
         [TestMethod]
-        public void DatabaseWrapperInDriverStore()
+        public void DatabaseDriverInDriverStore()
         {
-            Assert.AreEqual(this.TestObject.DatabaseWrapper, this.TestObject.GetDriverManager<DatabaseDriverManager>().Get());
+            Assert.AreEqual(this.TestObject.DatabaseDriver, this.TestObject.GetDriverManager<DatabaseDriverManager>().Get());
         }
 
         /// <summary>
@@ -70,10 +70,10 @@ namespace CoreUnitTests
         public void Intialized()
         {
             // Do something so we intialize the driver
-            this.DatabaseWrapper.Execute("Select * from Sys.Databases");
+            this.DatabaseDriver.Execute("Select * from Sys.Databases");
 
-            DatabaseDriverManager driverWrapper = this.TestObject.ManagerStore[typeof(DatabaseDriverManager).FullName] as DatabaseDriverManager;
-            Assert.IsTrue(driverWrapper.IsDriverIntialized(), "The driver should have been intialized");
+            DatabaseDriverManager driverDriver = this.TestObject.ManagerStore[typeof(DatabaseDriverManager).FullName] as DatabaseDriverManager;
+            Assert.IsTrue(driverDriver.IsDriverIntialized(), "The driver should have been intialized");
         }
 
         /// <summary>
@@ -82,8 +82,8 @@ namespace CoreUnitTests
         [TestMethod]
         public void NotIntialized()
         {
-            DatabaseDriverManager driverWrapper = this.TestObject.ManagerStore[typeof(DatabaseDriverManager).FullName] as DatabaseDriverManager;
-            Assert.IsFalse(driverWrapper.IsDriverIntialized(), "The driver should not be intialized until it gets used");
+            DatabaseDriverManager driverDriver = this.TestObject.ManagerStore[typeof(DatabaseDriverManager).FullName] as DatabaseDriverManager;
+            Assert.IsFalse(driverDriver.IsDriverIntialized(), "The driver should not be intialized until it gets used");
         }
     }
 }

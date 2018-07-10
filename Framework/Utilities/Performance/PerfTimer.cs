@@ -7,7 +7,7 @@
 using System;
 using System.Xml.Serialization;
 
-namespace Magenic.MaqsFramework.Utilities.Performance
+namespace Magenic.Maqs.Utilities.Performance
 {
     /// <summary>
     /// Response timer class - holds a single response timer

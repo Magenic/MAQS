@@ -4,8 +4,8 @@
 // </copyright>
 // <summary>Test class for config files</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseAppiumTest;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseAppiumTest;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Support.UI;
@@ -64,7 +64,7 @@ namespace AppiumUnitTests
 
             #endregion GetCommandTimeout
 
-            Assert.AreEqual(TimeSpan.FromSeconds(122).Ticks, initTimeout.Ticks);
+            Assert.AreEqual(122, initTimeout.TotalSeconds);
         }
 
         /// <summary>

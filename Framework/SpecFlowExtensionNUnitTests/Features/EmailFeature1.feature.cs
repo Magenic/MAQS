@@ -64,20 +64,20 @@ namespace SpecFlowExtensionNUnitTests.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("EmailWrapper Available BaseEmailTestSteps")]
+        [NUnit.Framework.DescriptionAttribute("EmailDriver Available BaseEmailTestSteps")]
         [NUnit.Framework.CategoryAttribute("MAQS_Email")]
-        public virtual void EmailWrapperAvailableBaseEmailTestSteps()
+        public virtual void EmailDriverAvailableBaseEmailTestSteps()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("EmailWrapper Available BaseEmailTestSteps", new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("EmailDriver Available BaseEmailTestSteps", new string[] {
                         "MAQS_Email"});
 #line 5
 this.ScenarioSetup(scenarioInfo);
 #line 6
  testRunner.Given("class BaseEmailTestSteps", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 7
- testRunner.Then("BaseEmailTestSteps EmailWrapper is not null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("BaseEmailTestSteps EmailDriver is not null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 8
- testRunner.And("EmailWrapper is type EventFiringEmailConnectionWrapper", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("EmailDriver is type EventFiringEmailConnectionDriver", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

@@ -4,9 +4,9 @@
 // </copyright>
 // <summary>Low level framework tests</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseEmailTest;
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseEmailTest;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using System.Diagnostics.CodeAnalysis;

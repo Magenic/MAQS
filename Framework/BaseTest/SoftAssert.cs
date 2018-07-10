@@ -4,13 +4,13 @@
 // </copyright>
 // <summary>This is the SoftAssert class</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Data;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.Utilities.Data;
+using Magenic.Maqs.Utilities.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Magenic.MaqsFramework.BaseTest
+namespace Magenic.Maqs.BaseTest
 {
     /// <summary>
     /// SoftAssert class

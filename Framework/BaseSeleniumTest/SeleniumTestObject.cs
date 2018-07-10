@@ -4,12 +4,12 @@
 // </copyright>
 // <summary>Holds Selenium context data</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Logging;
 using OpenQA.Selenium;
 using System;
 
-namespace Magenic.MaqsFramework.BaseSeleniumTest
+namespace Magenic.Maqs.BaseSeleniumTest
 {
     /// <summary>
     /// Selenium test context data
@@ -41,9 +41,9 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         }
 
         /// <summary>
-        /// Gets the Selenium driver
+        /// Gets the Selenium driver manager
         /// </summary>
-        public SeleniumDriverManager SeleniumDriver
+        public SeleniumDriverManager WebManager
         {
             get
             {
@@ -58,7 +58,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         {
             get
             {
-                return this.SeleniumDriver.Get();
+                return this.WebManager.Get();
             }
         }
 

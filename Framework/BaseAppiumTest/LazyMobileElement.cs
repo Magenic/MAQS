@@ -4,8 +4,8 @@
 // </copyright>
 // <summary>This is the LazyMobileElement class</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseSeleniumTest.Extensions;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.BaseSeleniumTest.Extensions;
+using Magenic.Maqs.Utilities.Logging;
 using OpenQA.Selenium;
 using System;
 using System.Collections.ObjectModel;
@@ -13,10 +13,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Text;
 
-namespace Magenic.MaqsFramework.BaseAppiumTest
+namespace Magenic.Maqs.BaseAppiumTest
 {
     /// <summary>
-    /// Wrapper for dynamically finding and interacting with elements
+    /// Driver for dynamically finding and interacting with elements
     /// </summary>
     public class LazyMobileElement : IWebElement
     {
@@ -395,7 +395,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
 
             try
             {
-                this.TestObject.Log.LogMessage(MessageType.VERBOSE, "Performing lazy wrapper find on: " + this.By);
+                this.TestObject.Log.LogMessage(MessageType.VERBOSE, "Performing lazy driver find on: " + this.By);
                 this.CachedElement = getElement();
                 return this.CachedElement;
             }
@@ -421,7 +421,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         {
             try
             {
-                this.TestObject.Log.LogMessage(MessageType.VERBOSE, "Performing lazy wrapper action: " + caller);
+                this.TestObject.Log.LogMessage(MessageType.VERBOSE, "Performing lazy driver action: " + caller);
                 elementAction.Invoke();
             }
             catch (Exception e)

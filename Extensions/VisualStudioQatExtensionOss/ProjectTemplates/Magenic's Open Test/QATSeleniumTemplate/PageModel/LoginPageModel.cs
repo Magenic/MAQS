@@ -1,6 +1,5 @@
-﻿using Magenic.MaqsFramework.BaseSeleniumTest;
-using Magenic.MaqsFramework.BaseSeleniumTest.Extensions;
-using Magenic.MaqsFramework.Utilities.Helper;
+﻿using Magenic.Maqs.BaseSeleniumTest;
+using Magenic.Maqs.BaseSeleniumTest.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 
@@ -14,7 +13,7 @@ namespace $safeprojectname$
         /// <summary>
         /// The page url
         /// </summary>
-        private static readonly string PageUrl = Config.GetValue("WebSiteBase") + "loginpage.html";
+        private static readonly string PageUrl = SeleniumConfig.GetWebSiteBase() + "Static/Training3/loginpage.html";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="$safeitemname$" /> class.
@@ -27,33 +26,33 @@ namespace $safeprojectname$
         /// <summary>
         /// Gets user name box
         /// </summary>
-        private FluentElement UserNameInput
+        private LazyElement UserNameInput
         {
-            get { return new FluentElement(this.testObject, By.CssSelector("#name"), "User name input"); }
+            get { return new LazyElement(this.testObject, By.CssSelector("#name"), "User name input"); }
         }
 
         /// <summary>
         /// Gets password box
         /// </summary>
-        private FluentElement PasswordInput
+        private LazyElement PasswordInput
         {
-            get { return new FluentElement(this.testObject, By.CssSelector("#pw"), "Password input"); }
+            get { return new LazyElement(this.testObject, By.CssSelector("#pw"), "Password input"); }
         }
 
         /// <summary>
         /// Gets login button
         /// </summary>
-        private FluentElement LoginButton
+        private LazyElement LoginButton
         {
-            get { return new FluentElement(this.testObject, By.CssSelector("#Login"), "Login button"); }
+            get { return new LazyElement(this.testObject, By.CssSelector("#Login"), "Login button"); }
         }
 
         /// <summary>
         /// Gets error message
         /// </summary>
-        private FluentElement ErrorMessage
+        private LazyElement ErrorMessage
         {
-            get { return new FluentElement(this.testObject, By.CssSelector("#LoginError"), "Error message"); }
+            get { return new LazyElement(this.testObject, By.CssSelector("#LoginError"), "Error message"); }
         }
 
         /// <summary>

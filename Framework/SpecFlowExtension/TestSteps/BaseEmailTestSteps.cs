@@ -4,9 +4,9 @@
 // </copyright>
 // <summary>Base teststeps code for tests using email</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseEmailTest;
+using Magenic.Maqs.BaseEmailTest;
 using TechTalk.SpecFlow;
-using MaqsEmail = Magenic.MaqsFramework.BaseEmailTest.BaseEmailTest;
+using MaqsEmail = Magenic.Maqs.BaseEmailTest.BaseEmailTest;
 
 namespace Magenic.Maqs.SpecFlow.TestSteps
 {

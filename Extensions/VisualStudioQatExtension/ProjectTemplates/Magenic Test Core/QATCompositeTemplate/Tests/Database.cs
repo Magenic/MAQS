@@ -1,4 +1,4 @@
-﻿using Magenic.MaqsFramework.BaseDatabaseTest;
+﻿using Magenic.Maqs.BaseDatabaseTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
@@ -8,7 +8,7 @@ namespace Tests
     /// Sample test class
     /// </summary>
     [TestClass]
-    public class Database : BaseDatabaseTest
+    public class $safeitemname$ : BaseDatabaseTest
     {
         /// <summary>
         /// Sample test

@@ -1,6 +1,6 @@
-﻿using Magenic.MaqsFramework.BaseSeleniumTest;
-using Magenic.MaqsFramework.BaseSeleniumTest.Extensions;
-using Magenic.MaqsFramework.Utilities.Helper;
+﻿using Magenic.Maqs.BaseSeleniumTest;
+using Magenic.Maqs.BaseSeleniumTest.Extensions;
+using Magenic.Maqs.Utilities.Helper;
 using OpenQA.Selenium;
 
 namespace $safeprojectname$
@@ -13,7 +13,7 @@ namespace $safeprojectname$
         /// <summary>
         /// The page url
         /// </summary>
-        private static readonly string PageUrl = Config.GetValue("WebSiteBase") + "HomePage.html";
+        private static readonly string PageUrl = SeleniumConfig.GetWebSiteBase() + "Static/Training3/HomePage.html";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="$safeitemname$" /> class.
@@ -26,9 +26,9 @@ namespace $safeprojectname$
         /// <summary>
         /// Gets welcome message
         /// </summary>
-        private FluentElement WelcomeMessage
+        private LazyElement WelcomeMessage
         {
-            get { return new FluentElement(this.testObject, By.CssSelector("#WelcomeMessage"), "Welcome message"); }
+            get { return new LazyElement(this.testObject, By.CssSelector("#WelcomeMessage"), "Welcome message"); }
         }
 
         /// <summary>

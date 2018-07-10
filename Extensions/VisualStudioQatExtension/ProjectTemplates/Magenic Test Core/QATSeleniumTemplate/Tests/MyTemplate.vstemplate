@@ -17,7 +17,8 @@
   <TemplateContent>
     <Project TargetFileName="Tests.csproj" File="Tests.csproj" ReplaceParameters="true">
       <ProjectItem ReplaceParameters="true" TargetFileName="appsettings.json">appsettings.json</ProjectItem>
-      <ProjectItem ReplaceParameters="true" TargetFileName="SeleniumTest.cs">SeleniumTest.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="SeleniumTestsNUnit.cs">SeleniumTestsNUnit.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="SeleniumTestsVSUnit.cs">SeleniumTestsVSUnit.cs</ProjectItem>
     </Project>
   </TemplateContent>
 </VSTemplate>

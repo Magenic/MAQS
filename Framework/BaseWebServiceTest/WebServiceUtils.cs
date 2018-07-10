@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>Web service utilies</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Data;
+using Magenic.Maqs.Utilities.Data;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Magenic.MaqsFramework.BaseWebServiceTest
+namespace Magenic.Maqs.BaseWebServiceTest
 {
     /// <summary>
     /// Web service utilities
@@ -31,7 +31,7 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         /// <param name="mediaType">The type of media</param>
         /// <returns>The string content</returns>
         /// <example>
-        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithWrapperPut.cs" region="MakeStringContent" lang="C#" />
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverPut.cs" region="MakeStringContent" lang="C#" />
         /// </example>
         public static StringContent MakeStringContent(string body, Encoding contentEncoding, string mediaType)
         {
@@ -46,7 +46,7 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         /// <param name="mediaType">The type of media</param>
         /// <returns>The stream content</returns>
         /// <example>
-        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithWrapperPut.cs" region="MakeStreamContent" lang="C#" />
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverPut.cs" region="MakeStreamContent" lang="C#" />
         /// </example>
         public static StreamContent MakeStreamContent(string body, Encoding contentEncoding, string mediaType)
         {
@@ -63,7 +63,7 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         /// <param name="mediaType">The type of media</param>
         /// <returns>The stream content</returns>
         /// <example>
-        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithWrapperPut.cs" region="MakeStreamContent" lang="C#" />
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverPut.cs" region="MakeStreamContent" lang="C#" />
         /// </example>
         public static StreamContent MakeStreamContent(Stream body, string mediaType)
         {
@@ -111,7 +111,7 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         /// <param name="message">The HTTP response</param>
         /// <returns>The XML document body deserialized</returns>
         /// <example>
-        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithWrapperGets.cs" region="DeserializeXmlDocument" lang="C#" />
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverGets.cs" region="DeserializeXmlDocument" lang="C#" />
         /// </example>
         public static T DeserializeXmlDocument<T>(HttpResponseMessage message)
         {
@@ -127,7 +127,7 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         /// <param name="message">The HTTP response</param>
         /// <returns>The JSON body deserialized</returns>
         /// <example>
-        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithWrapperGets.cs" region="DeserializeJson" lang="C#" />
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverGets.cs" region="DeserializeJson" lang="C#" />
         /// </example>
         public static T DeserializeJson<T>(HttpResponseMessage message)
         {

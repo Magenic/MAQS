@@ -11,8 +11,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Magenic.MaqsFramework.BaseDatabaseTest;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseDatabaseTest;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.Data.Sqlite;
 using NUnit.Framework;
 
@@ -30,7 +30,7 @@ namespace DatabaseUnitTests
         /// </summary>
         [Test]
         [Category(TestCategories.Database)]
-        public void VerifyOrdersSqliteNoWrapperDefault()
+        public void VerifyOrdersSqliteNoDriverDefault()
         {
             // Override the configuration
             var overrides = new Dictionary<string, string>()
@@ -39,11 +39,11 @@ namespace DatabaseUnitTests
                 { "DataBaseConnectionString", $"Data Source={ this.GetDByPath() }" },
             };
 
-            Config.AddTestSettingValues(overrides);
+            Config.AddTestSettingValues(overrides, "DatabaseMaqs");
 
-            DatabaseDriver wrapper = new DatabaseDriver();
+            DatabaseDriver driver = new DatabaseDriver();
 
-            var orders = wrapper.Query("select * from orders").ToList();
+            var orders = driver.Query("select * from orders").ToList();
             Assert.AreEqual(11, orders.Count);
         }
 
@@ -52,7 +52,7 @@ namespace DatabaseUnitTests
         /// </summary>
         [Test]
         [Category(TestCategories.Database)]
-        public void VerifyOrdersSqliteNoWrapperString()
+        public void VerifyOrdersSqliteNoDriverString()
         {
             // Override the configuration
             var overrides = new Dictionary<string, string>()
@@ -61,11 +61,11 @@ namespace DatabaseUnitTests
                 { "DataBaseConnectionString", $"Data Source={ this.GetDByPath() }" },
             };
 
-            Config.AddTestSettingValues(overrides);
+            Config.AddTestSettingValues(overrides, "DatabaseMaqs");
 
-            DatabaseDriver wrapper = new DatabaseDriver(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString());
+            DatabaseDriver driver = new DatabaseDriver(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString());
 
-            var orders = wrapper.Query("select * from orders").ToList();
+            var orders = driver.Query("select * from orders").ToList();
             Assert.AreEqual(11, orders.Count);
         }
 
@@ -74,7 +74,7 @@ namespace DatabaseUnitTests
         /// </summary>
         [Test]
         [Category(TestCategories.Database)]
-        public void VerifyOrdersSqliteNoWrapperFunction()
+        public void VerifyOrdersSqliteNoDriverFunction()
         {
             // Override the configuration
             var overrides =
@@ -83,15 +83,15 @@ namespace DatabaseUnitTests
                         { "DataBaseConnectionString", $"Data Source={this.GetDByPath()}" },
                     };
 
-            Config.AddTestSettingValues(overrides);
+            Config.AddTestSettingValues(overrides, "DatabaseMaqs");
 
             using (SqliteConnection connection = new SqliteConnection(DatabaseConfig.GetConnectionString()))
             {
                 SQLitePCL.Batteries.Init();
                 connection.Open();
-                DatabaseDriver wrapper = new DatabaseDriver(connection);
+                DatabaseDriver driver = new DatabaseDriver(connection);
 
-                var orders = wrapper.Query("select * from orders").ToList();
+                var orders = driver.Query("select * from orders").ToList();
                 Assert.AreEqual(11, orders.Count);
             }
         }

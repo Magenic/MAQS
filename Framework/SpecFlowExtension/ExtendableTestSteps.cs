@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>Extendable class for defining a test steps class</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
+using Magenic.Maqs.BaseTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using TechTalk.SpecFlow;

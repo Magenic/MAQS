@@ -7,7 +7,7 @@
 
 using Npgsql;
 
-namespace Magenic.MaqsFramework.BaseDatabaseTest.Providers
+namespace Magenic.Maqs.BaseDatabaseTest.Providers
 {
     /// <summary>
     /// The POSTGRE SQL provider.

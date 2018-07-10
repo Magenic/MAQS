@@ -4,10 +4,10 @@
 // </copyright>
 // <summary>This is the base MongoDB test class</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Logging;
 
-namespace Magenic.MaqsFramework.BaseMongoTest
+namespace Magenic.Maqs.BaseMongoTest
 {
     /// <summary>
     /// Generic base MongoDB test class
@@ -24,39 +24,39 @@ namespace Magenic.MaqsFramework.BaseMongoTest
         }
 
         /// <summary>
-        /// Gets or sets the web service wrapper
+        /// Gets or sets the web service driver
         /// </summary>
-        public MongoDBDriver<T> MongoDBWrapper
+        public MongoDBDriver<T> MongoDBDriver
         {
             get
             {
-                return this.TestObject.MongoDBWrapper;
+                return this.TestObject.MongoDBDriver;
             }
 
             set
             {
-                this.TestObject.OverrideMongoDBWrapper(value);
+                this.TestObject.OverrideMongoDBDriver(value);
             }
         }
 
         /// <summary>
-        /// Override the Mongo wrapper
+        /// Override the Mongo driver
         /// </summary>
-        /// <param name="wrapper">New Mongo wrapper</param>
-        public void OverrideConnectionWrapper(MongoDBDriver<T> wrapper)
+        /// <param name="driver">New Mongo driver</param>
+        public void OverrideConnectionDriver(MongoDBDriver<T> driver)
         {
-            this.TestObject.OverrideMongoDBWrapper(wrapper);
+            this.TestObject.OverrideMongoDBDriver(driver);
         }
 
         /// <summary>
-        /// Override the Mongo wrapper
+        /// Override the Mongo driver
         /// </summary>
         /// <param name="connectionString">Client connection string</param>
         /// <param name="databaseString">Database connection string</param>
         /// <param name="collectionString">Mongo collection string</param>
-        public void OverrideConnectionWrapper(string connectionString, string databaseString, string collectionString)
+        public void OverrideConnectionDriver(string connectionString, string databaseString, string collectionString)
         {
-            this.TestObject.OverrideMongoDBWrapper(connectionString, databaseString, collectionString);
+            this.TestObject.OverrideMongoDBDriver(connectionString, databaseString, collectionString);
         }
 
         /// <summary>

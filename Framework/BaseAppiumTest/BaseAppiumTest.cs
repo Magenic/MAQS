@@ -4,14 +4,15 @@
 // </copyright>
 // <summary>This is the base Appium test class</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Data;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Data;
+using Magenic.Maqs.Utilities.Helper;
+using Magenic.Maqs.Utilities.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using System;
 
-namespace Magenic.MaqsFramework.BaseAppiumTest
+namespace Magenic.Maqs.BaseAppiumTest
 {
     /// <summary>
     /// Generic base Appium test class
@@ -64,34 +65,16 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
                     this.LoggingEnabledSetting != LoggingEnabled.NO)
                 {
                     AppiumUtilities.CaptureScreenshot(this.AppiumDriver, this.Log);
+
+                    if (AppiumConfig.GetSavePagesourceOnFail())
+                    {
+                        AppiumUtilities.SavePageSource(this.AppiumDriver, this.Log, "FinalPageSource");
+                    }
                 }
             }
             catch (Exception exception)
             {
                 this.TryToLog(MessageType.WARNING, "Failed to get screen shot because: {0}", exception.Message);
-            }
-
-            this.TryToLog(MessageType.INFORMATION, "Closing Appium Driver");
-
-            // Removes wait driver and quits appium driver
-            try
-            {
-                this.AppiumDriver.RemoveWaitDriver();
-                this.AppiumDriver.Quit();
-            }
-            catch (Exception exception)
-            {
-                this.TryToLog(MessageType.WARNING, "Failed to quit because: {0}", exception.Message);
-            }
-
-            // Disposing of appium driver
-            try
-            {
-                this.AppiumDriver.Dispose();
-            }
-            catch (Exception exception)
-            {
-                this.TryToLog(MessageType.WARNING, "Failed to dispose because: {0}", exception.Message);
             }
         }
 

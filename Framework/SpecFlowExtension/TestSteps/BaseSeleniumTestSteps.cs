@@ -4,10 +4,10 @@
 // </copyright>
 // <summary>Base teststeps code for tests using selenium</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseSeleniumTest;
+using Magenic.Maqs.BaseSeleniumTest;
 using OpenQA.Selenium;
 using TechTalk.SpecFlow;
-using MaqsSelenium = Magenic.MaqsFramework.BaseSeleniumTest.BaseSeleniumTest;
+using MaqsSelenium = Magenic.Maqs.BaseSeleniumTest.BaseSeleniumTest;
 
 namespace Magenic.Maqs.SpecFlow.TestSteps
 {

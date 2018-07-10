@@ -1,11 +1,11 @@
 ﻿//--------------------------------------------------
-// <copyright file="EmailUnitWithoutWrapper.cs" company="Magenic">
+// <copyright file="EmailUnitWithoutDriver.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
-// <summary>Unit test email wrapper without base email test</summary>
+// <summary>Unit test email driver without base email test</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseEmailTest;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseEmailTest;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
 
@@ -16,7 +16,7 @@ namespace EmailUnitTests
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class EmailUnitWithoutWrapper
+    public class EmailUnitWithoutDriver
     {
         /// <summary>
         /// Make sure we can connect without extending the base email test

@@ -4,8 +4,8 @@
 // </copyright>
 // <summary>TestSteps class that inherits from BaseEmailTestSteps</summary>
 //--------------------------------------------------
+using Magenic.Maqs.BaseEmailTest;
 using Magenic.Maqs.SpecFlow.TestSteps;
-using Magenic.MaqsFramework.BaseEmailTest;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 
@@ -71,21 +71,21 @@ namespace SpecFlowExtensionNUnitTests.Steps
         }
 
         /// <summary>
-        /// EmailWrapper exists
+        /// EmailDriver exists
         /// </summary>
-        [Then(@"BaseEmailTestSteps EmailWrapper is not null")]
-        public void ThenEmailWrapperIsNotNull()
+        [Then(@"BaseEmailTestSteps EmailDriver is not null")]
+        public void ThenEmailDriverIsNotNull()
         {
-            Assert.IsNotNull(this.TestObject.EmailWrapper, "EmailWrapper for EmailTestObject class is null.");
+            Assert.IsNotNull(this.TestObject.EmailDriver, "EmailDriver for EmailTestObject class is null.");
         }
 
         /// <summary>
-        /// EmailWrapper exists
+        /// EmailDriver exists
         /// </summary>
-        [Then(@"EmailWrapper is type EventFiringEmailConnectionWrapper")]
-        public void AndEmailWrapperIsTypeEventFiringEmailConnectionWrapper()
+        [Then(@"EmailDriver is type EventFiringEmailConnectionDriver")]
+        public void AndEmailDriverIsTypeEventFiringEmailConnectionDriver()
         {
-            Assert.IsTrue(this.TestObject.EmailWrapper.GetType().Equals(typeof(EventFiringEmailDriver)), $"EmailWrapper for EmailTestObject class is the wrong type : {this.TestObject.EmailWrapper.GetType()}.");
+            Assert.IsTrue(this.TestObject.EmailDriver.GetType().Equals(typeof(EventFiringEmailDriver)), $"EmailDriver for EmailTestObject class is the wrong type : {this.TestObject.EmailDriver.GetType()}.");
         }
     }
 }

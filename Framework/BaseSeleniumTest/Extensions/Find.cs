@@ -4,12 +4,12 @@
 // </copyright>
 // <summary>This is the FindElements class</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Data;
+using Magenic.Maqs.Utilities.Data;
 using OpenQA.Selenium;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
+namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 {
     /// <summary>
     /// General Element functions for finding and returning Web Elements

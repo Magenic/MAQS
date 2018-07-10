@@ -4,8 +4,8 @@
 // </copyright>
 // <summary>Unit test database configuration test</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseDatabaseTest;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseDatabaseTest;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
 
@@ -38,17 +38,6 @@ namespace DatabaseUnitTests
         {
             string provider = DatabaseConfig.GetProviderTypeString();
             Assert.AreEqual(provider, "SQLSERVER");
-        }
-
-        /// <summary>
-        /// Gets the timeout value
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Database)]
-        public void GetDatabaseQueryTimeout()
-        {
-            int databaseTimeout = DatabaseConfig.GetQueryTimeout();
-            Assert.AreEqual(databaseTimeout, 30);
         }
 
         /// <summary>

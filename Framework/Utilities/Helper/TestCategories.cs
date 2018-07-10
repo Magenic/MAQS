@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Magenic.MaqsFramework.Utilities.Helper
+namespace Magenic.Maqs.Utilities.Helper
 {
     /// <summary>
     ///  Test category type of web service

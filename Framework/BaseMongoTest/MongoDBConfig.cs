@@ -4,18 +4,20 @@
 // </copyright>
 // <summary>Helper class for getting MongoDB specific configuration values</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Helper;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Configuration;
+using Magenic.Maqs.Utilities.Helper;
 
-namespace Magenic.MaqsFramework.BaseMongoTest
+namespace Magenic.Maqs.BaseMongoTest
 {
     /// <summary>
     /// Config class
     /// </summary>
     public static class MongoDBConfig
     {
+        /// <summary>
+        ///  Static name for the mongo configuration section
+        /// </summary>
+        private const string MONGOSECTION = "MongoMaqs";
+
         /// <summary>
         /// Get the client connection string
         /// </summary>
@@ -25,7 +27,7 @@ namespace Magenic.MaqsFramework.BaseMongoTest
         /// </example>
         public static string GetConnectionString()
         {
-            return Config.GetValue("MongoConnectionString");
+            return Config.GetValueForSection(MONGOSECTION, "MongoConnectionString");
         }
 
         /// <summary>
@@ -37,7 +39,7 @@ namespace Magenic.MaqsFramework.BaseMongoTest
         /// </example>
         public static string GetDatabaseString()
         {
-            return Config.GetValue("MongoDatabase");
+            return Config.GetValueForSection(MONGOSECTION, "MongoDatabase");
         }
 
         /// <summary>
@@ -46,7 +48,7 @@ namespace Magenic.MaqsFramework.BaseMongoTest
         /// <returns>The mongo collection string</returns>
         public static string GetCollectionString()
         {
-            return Config.GetValue("MongoCollection");
+            return Config.GetValueForSection(MONGOSECTION, "MongoCollection");
         }
 
         /// <summary>
@@ -58,7 +60,7 @@ namespace Magenic.MaqsFramework.BaseMongoTest
         /// </example>
         public static int GetQueryTimeout()
         {
-            return int.Parse(Config.GetValue("DatabaseTimeout", "30"));
+            return int.Parse(Config.GetValueForSection(MONGOSECTION, "MongoTimeout", "30"));
         }
     }
 }

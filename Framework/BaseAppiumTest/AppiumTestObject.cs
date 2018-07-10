@@ -4,13 +4,13 @@
 // </copyright>
 // <summary>Holds Appium context data</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using System;
 
-namespace Magenic.MaqsFramework.BaseAppiumTest
+namespace Magenic.Maqs.BaseAppiumTest
 {
     /// <summary>
     /// Appium test context data
@@ -48,7 +48,18 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         {
             get
             {
-                return this.ManagerStore[typeof(AppiumDriver<IWebElement>).FullName].Get() as AppiumDriver<IWebElement>;
+                return this.AppiumManager.Get();
+            }
+        }
+
+        /// <summary>
+        /// Gets the Appium driver manager
+        /// </summary>
+        public MobileDriverManager AppiumManager
+        {
+            get
+            {
+                return this.ManagerStore[typeof(AppiumDriver<IWebElement>).FullName] as MobileDriverManager;
             }
         }
 

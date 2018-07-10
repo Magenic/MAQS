@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------
-// <copyright file="DatabaseUnitTestsWithWrapper.cs" company="Magenic">
+// <copyright file="DatabaseUnitTestsWithDriver.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Database base test unit tests</summary>
@@ -11,8 +11,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using DatabaseUnitTests.Models;
-using Magenic.MaqsFramework.BaseDatabaseTest;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseDatabaseTest;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DatabaseUnitTests
@@ -22,7 +22,7 @@ namespace DatabaseUnitTests
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class DatabaseUnitTestsWithWrapper : BaseDatabaseTest
+    public class DatabaseUnitTestsWithDriver : BaseDatabaseTest
     {
         /// <summary>
         /// Check that we get back the state table
@@ -31,7 +31,7 @@ namespace DatabaseUnitTests
         [TestCategory(TestCategories.Database)]
         public void VerifyStateTableExists()
         {
-            var table = this.DatabaseWrapper.Query("SELECT * FROM information_schema.tables").ToList();
+            var table = this.DatabaseDriver.Query("SELECT * FROM information_schema.tables").ToList();
 
             Assert.IsTrue(table.Any(n => n.TABLE_NAME.Equals("States")));
         }
@@ -43,7 +43,7 @@ namespace DatabaseUnitTests
         [TestCategory(TestCategories.Database)]
         public void VerifyStateTableHasCorrectNumberOfRecords()
         {
-            var states = this.DatabaseWrapper.Query("SELECT * FROM States").ToList();
+            var states = this.DatabaseDriver.Query("SELECT * FROM States").ToList();
 
             // Our database only has 49 states
             Assert.AreEqual(49, states.Count, "Expected 49 states.");
@@ -56,7 +56,7 @@ namespace DatabaseUnitTests
         [TestCategory(TestCategories.Database)]
         public void VerifyStateTableHasCorrectNumberOfRecordsWithModels()
         {
-            var states = this.DatabaseWrapper.Query<States>("SELECT * FROM States").ToList();
+            var states = this.DatabaseDriver.Query<States>("SELECT * FROM States").ToList();
 
             // Our database only has 49 states
             Assert.AreEqual(49, states.Count, "Expected 49 states.");
@@ -69,7 +69,7 @@ namespace DatabaseUnitTests
         [TestCategory(TestCategories.Database)]
         public void VerifyStateTableDataIsCorrectWithModels()
         {
-            var states = this.DatabaseWrapper.Query<States>("SELECT * FROM States").ToList();
+            var states = this.DatabaseDriver.Query<States>("SELECT * FROM States").ToList();
 
             Assert.AreNotEqual(string.Empty, states.First().StateAbbreviation, "Expected nonempty state abbreviation.");
         }
@@ -81,7 +81,7 @@ namespace DatabaseUnitTests
         [TestCategory(TestCategories.Database)]
         public void VerifyProceduresActionWithAnUpdate()
         {
-            var result = this.DatabaseWrapper.Execute("setStateAbbrevToSelf", new { StateAbbreviation = "MN" }, commandType: CommandType.StoredProcedure);
+            var result = this.DatabaseDriver.Execute("setStateAbbrevToSelf", new { StateAbbreviation = "MN" }, commandType: CommandType.StoredProcedure);
             
             Assert.AreEqual(1, result, "Expected 1 state abbreviation to be updated.");
         }
@@ -94,7 +94,7 @@ namespace DatabaseUnitTests
         public void VerifyNonQuerySqlCallWorks()
         {
             string query = @"UPDATE States SET StateAbbreviation = 'WI' WHERE StateAbbreviation = 'WI'";
-            var result = this.DatabaseWrapper.Execute(query);
+            var result = this.DatabaseDriver.Execute(query);
             Assert.AreEqual(1, result, "Expected 1 state abbreviation to be updated.");
         }
 
@@ -105,7 +105,7 @@ namespace DatabaseUnitTests
         [TestCategory(TestCategories.Database)]
         public void VerifyProceduresActionWithNoUpdates()
         {
-            var result = this.DatabaseWrapper.Execute("setStateAbbrevToSelf", new { StateAbbreviation = "ZZ" }, commandType: CommandType.StoredProcedure);
+            var result = this.DatabaseDriver.Execute("setStateAbbrevToSelf", new { StateAbbreviation = "ZZ" }, commandType: CommandType.StoredProcedure);
 
             Assert.AreEqual(0, result, "Expected 0 state abbreviation to be updated.");
         }
@@ -117,7 +117,7 @@ namespace DatabaseUnitTests
         [TestCategory(TestCategories.Database)]
         public void VerifyProceduresQueryWithResult()
         {
-            var result = this.DatabaseWrapper.Execute("setStateAbbrevToSelf", new { StateAbbreviation = "MN" }, commandType: CommandType.StoredProcedure);
+            var result = this.DatabaseDriver.Execute("setStateAbbrevToSelf", new { StateAbbreviation = "MN" }, commandType: CommandType.StoredProcedure);
             
             Assert.AreEqual(1, result, "Expected 1 state abbreviation to be returned.");
         }
@@ -129,7 +129,7 @@ namespace DatabaseUnitTests
         [TestCategory(TestCategories.Database)]
         public void VerifyProceduresQueryWithoutResult()
         {
-            var result = this.DatabaseWrapper.Execute("setStateAbbrevToSelf", new { StateAbbreviation = "ZZ" }, commandType: CommandType.StoredProcedure);
+            var result = this.DatabaseDriver.Execute("setStateAbbrevToSelf", new { StateAbbreviation = "ZZ" }, commandType: CommandType.StoredProcedure);
             
             Assert.AreEqual(0, result, "Expected 0 state abbreviation to be returned.");
         }
@@ -145,7 +145,7 @@ namespace DatabaseUnitTests
             Assert.AreEqual(this.TestObject.Log, this.Log, "Logs don't match");
             Assert.AreEqual(this.TestObject.SoftAssert, this.SoftAssert, "Soft asserts don't match");
             Assert.AreEqual(this.TestObject.PerfTimerCollection, this.PerfTimerCollection, "Soft asserts don't match");
-            Assert.AreEqual(this.TestObject.DatabaseWrapper, this.DatabaseWrapper, "Web service wrapper don't match");
+            Assert.AreEqual(this.TestObject.DatabaseDriver, this.DatabaseDriver, "Web service driver don't match");
         }
 
         /// <summary>

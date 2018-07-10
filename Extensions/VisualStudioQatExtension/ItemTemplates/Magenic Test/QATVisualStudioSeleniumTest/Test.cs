@@ -1,4 +1,4 @@
-﻿using Magenic.MaqsFramework.BaseSeleniumTest;
+﻿using Magenic.Maqs.BaseSeleniumTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 // TODO: Add reference to object model
@@ -19,7 +19,7 @@ namespace $rootnamespace$
         public void SampleTest()
         {
             // TODO: Add test code
-            //PageModel page = new PageModel(this.WebDriver);
+            //PageModel page = new PageModel(this.TestObject);
             //page.OpenPage();
         }
     }

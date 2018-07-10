@@ -4,9 +4,9 @@
 // </copyright>
 // <summary>Base teststeps code for tests using databases</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseDatabaseTest;
+using Magenic.Maqs.BaseDatabaseTest;
 using TechTalk.SpecFlow;
-using MaqsDatabase = Magenic.MaqsFramework.BaseDatabaseTest.BaseDatabaseTest;
+using MaqsDatabase = Magenic.Maqs.BaseDatabaseTest.BaseDatabaseTest;
 
 namespace Magenic.Maqs.SpecFlow.TestSteps
 {

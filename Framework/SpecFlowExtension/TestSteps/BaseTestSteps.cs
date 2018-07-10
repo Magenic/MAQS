@@ -4,11 +4,11 @@
 // </copyright>
 // <summary>Base teststeps code for general SpecFlow tests</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
+using Magenic.Maqs.BaseTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using TechTalk.SpecFlow;
-using MaqsBase = Magenic.MaqsFramework.BaseTest.BaseTest;
+using MaqsBase = Magenic.Maqs.BaseTest.BaseTest;
 
 namespace Magenic.Maqs.SpecFlow.TestSteps
 {

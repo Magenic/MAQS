@@ -7,10 +7,10 @@
 using System;
 using System.Globalization;
 using System.IO;
-using Magenic.MaqsFramework.Utilities.Data;
+using Magenic.Maqs.Utilities.Data;
 using System.Web;
 
-namespace Magenic.MaqsFramework.Utilities.Logging
+namespace Magenic.Maqs.Utilities.Logging
 {
     /// <summary>
     /// Helper class for adding logs to an HTML file. Allows configurable file path.

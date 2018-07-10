@@ -1,16 +1,16 @@
 ﻿//--------------------------------------------------
-// <copyright file="EventFiringDatabaseWrapperTests.cs" company="Magenic">
+// <copyright file="EventFiringDatabaseDriverTests.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
-// <summary>Database base Eventfiring wrapper test unit tests</summary>
+// <summary>Database base Eventfiring driver test unit tests</summary>
 //--------------------------------------------------
 
 using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics.CodeAnalysis;
-using Magenic.MaqsFramework.BaseDatabaseTest;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseDatabaseTest;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DatabaseUnitTests
@@ -19,14 +19,14 @@ namespace DatabaseUnitTests
 
     using global::DatabaseUnitTests.Models;
 
-    using Magenic.MaqsFramework.Utilities.Data;
+    using Magenic.Maqs.Utilities.Data;
 
     /// <summary>
-    /// Unit tests for the event firing database wrapper.
+    /// Unit tests for the event firing database driver.
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class EventFiringDatabaseWrapperTests : EventFiringDatabaseDriver
+    public class EventFiringDatabaseDriverTests : EventFiringDatabaseDriver
     {
         /// <summary>
         /// Database Event will modify this

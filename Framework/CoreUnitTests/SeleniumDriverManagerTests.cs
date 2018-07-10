@@ -4,9 +4,9 @@
 // </copyright>
 // <summary>Selenium driver store tests</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseSeleniumTest;
-using Magenic.MaqsFramework.BaseSeleniumTest.Extensions;
-using Magenic.MaqsFramework.WebServiceTester;
+using Magenic.Maqs.BaseSeleniumTest;
+using Magenic.Maqs.BaseSeleniumTest.Extensions;
+using Magenic.Maqs.WebServiceTester;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using System.Net.Http;
@@ -44,7 +44,7 @@ namespace CoreUnitTests
         }
 
         /// <summary>
-        /// Make sure the test object wrapper is the same as the one in the driver store
+        /// Make sure the test object driver is the same as the one in the driver store
         /// </summary>
         [TestMethod]
         public void SeleniumWebDriverInDriverStore()
@@ -89,8 +89,8 @@ namespace CoreUnitTests
             // Do something so we intialize the web driver
             this.WebDriver.Manage().Window.Maximize();
 
-            SeleniumDriverManager driverWrapper = this.TestObject.ManagerStore[typeof(SeleniumDriverManager).FullName] as SeleniumDriverManager;
-            Assert.IsTrue(driverWrapper.IsDriverIntialized(), "The driver should have been intialized");
+            SeleniumDriverManager driverDriver = this.TestObject.ManagerStore[typeof(SeleniumDriverManager).FullName] as SeleniumDriverManager;
+            Assert.IsTrue(driverDriver.IsDriverIntialized(), "The driver should have been intialized");
         }
 
         /// <summary>
@@ -99,8 +99,8 @@ namespace CoreUnitTests
         [TestMethod]
         public void NotIntialized()
         {
-            SeleniumDriverManager driverWrapper = this.TestObject.ManagerStore[typeof(SeleniumDriverManager).FullName] as SeleniumDriverManager;
-            Assert.IsFalse(driverWrapper.IsDriverIntialized(), "The driver should not be intialized until it gets used");
+            SeleniumDriverManager driverDriver = this.TestObject.ManagerStore[typeof(SeleniumDriverManager).FullName] as SeleniumDriverManager;
+            Assert.IsFalse(driverDriver.IsDriverIntialized(), "The driver should not be intialized until it gets used");
         }
     }
 }

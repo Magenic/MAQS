@@ -4,8 +4,8 @@
 // </copyright>
 // <summary>Web service general unit tests</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseWebServiceTest;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseWebServiceTest;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -36,29 +36,29 @@ namespace WebServiceTesterUnitTesting
         };
 
         /// <summary>
-        /// Verify that the webService wrapper can be properly set 
+        /// Verify that the webService driver can be properly set 
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
-        public void SetWebServiceWrapper()
+        public void SetWebServiceDriver()
         {
-            WebServiceDriver wrapper = new WebServiceDriver(this.GetBaseWebServiceUrl());
-            this.WebServiceWrapper = wrapper;
-            Assert.AreEqual(this.TestObject.WebServiceDriver.ToString(), wrapper.ToString());
+            WebServiceDriver driver = new WebServiceDriver(this.GetBaseWebServiceUrl());
+            this.WebServiceDriver = driver;
+            Assert.AreEqual(this.TestObject.WebServiceDriver.ToString(), driver.ToString());
         }
 
         /// <summary>
-        /// Verify that SetupNoneEventFiringTester sets the ObjectUnderTest as WebClientWrapper without an event firing wrapper
+        /// Verify that SetupNoneEventFiringTester sets the ObjectUnderTest as WebClientDriver without an event firing driver
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void WebServiceSetupNoneEventFiringTesterTest()
         {
             // Turn off logging
-            Config.AddTestSettingValues(new Dictionary<string, string> { { "Log", "NO" } }, true);
+            Config.AddGeneralTestSettingValues(new Dictionary<string, string> { { "Log", "NO" } }, true);
 
-            WebServiceDriver wrapper = new WebServiceDriver(this.GetBaseWebServiceUrl());
-            Assert.AreEqual(this.TestObject.WebServiceDriver.ToString(), wrapper.ToString());
+            WebServiceDriver driver = new WebServiceDriver(this.GetBaseWebServiceUrl());
+            Assert.AreEqual(this.TestObject.WebServiceDriver.ToString(), driver.ToString());
         }
 
         /// <summary>
@@ -69,47 +69,47 @@ namespace WebServiceTesterUnitTesting
         [ExpectedException(typeof(AggregateException))]
         public void EnsureSuccessStatusCodeThrownException()
         {
-            var result = this.WebServiceWrapper.Post("notaurl", "image/GIF", null);
+            var result = this.WebServiceDriver.Post("notaurl", "image/GIF", null);
         }
 
         /// <summary>
-        /// Verify that WebServiceDriver Constructor overload properly creates wrapper
+        /// Verify that WebServiceDriver Constructor overload properly creates driver
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void WebServiceDriverConstructorTest()
         {
             Uri testUri = new Uri(this.GetBaseWebServiceUrl());
-            WebServiceDriver testWrapper = new WebServiceDriver(testUri);
-            testWrapper.SetCustomMediaFormatters(new List<MediaTypeFormatter>());
-            Assert.IsNotNull(testWrapper);
-            Assert.AreEqual(testWrapper.HttpClient.BaseAddress, testUri);
+            WebServiceDriver testDriver = new WebServiceDriver(testUri);
+            testDriver.SetCustomMediaFormatters(new List<MediaTypeFormatter>());
+            Assert.IsNotNull(testDriver);
+            Assert.AreEqual(testDriver.HttpClient.BaseAddress, testUri);
         }
 
         /// <summary>
-        /// Verify that WebServiceDriver Constructor overload properly creates wrapper
+        /// Verify that WebServiceDriver Constructor overload properly creates driver
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void WebServiceDriverConstructorTest2()
         {
-            WebServiceDriver testWrapper = new WebServiceDriver(this.GetBaseWebServiceUrl());
-            testWrapper.SetCustomMediaFormatters(new CustomXmlMediaTypeFormatter("application/xml", typeof(string)));
-            Assert.IsNotNull(testWrapper);
-            Assert.AreEqual(testWrapper.HttpClient.BaseAddress, this.GetBaseWebServiceUrl());
+            WebServiceDriver testDriver = new WebServiceDriver(this.GetBaseWebServiceUrl());
+            testDriver.SetCustomMediaFormatters(new CustomXmlMediaTypeFormatter("application/xml", typeof(string)));
+            Assert.IsNotNull(testDriver);
+            Assert.AreEqual(testDriver.HttpClient.BaseAddress, this.GetBaseWebServiceUrl());
         }
 
         /// <summary>
-        /// Verify that WebServiceDriver Constructor overload properly creates wrapper
+        /// Verify that WebServiceDriver Constructor overload properly creates driver
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void WebServiceDriverConstructorTest3()
         {
-            WebServiceDriver testWrapper = new WebServiceDriver(this.GetBaseWebServiceUrl());
-            testWrapper.SetCustomMediaFormatters(new List<MediaTypeFormatter>());
-            Assert.IsNotNull(testWrapper);
-            Assert.AreEqual(testWrapper.HttpClient.BaseAddress, this.GetBaseWebServiceUrl());
+            WebServiceDriver testDriver = new WebServiceDriver(this.GetBaseWebServiceUrl());
+            testDriver.SetCustomMediaFormatters(new List<MediaTypeFormatter>());
+            Assert.IsNotNull(testDriver);
+            Assert.AreEqual(testDriver.HttpClient.BaseAddress, this.GetBaseWebServiceUrl());
         }
 
         /// <summary>
@@ -119,12 +119,12 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void BaseHttpClientSetterTest()
         {
-            WebServiceDriver testWrapper = new WebServiceDriver(this.GetBaseWebServiceUrl());
-            testWrapper.SetCustomMediaFormatters(new List<MediaTypeFormatter>());
+            WebServiceDriver testDriver = new WebServiceDriver(this.GetBaseWebServiceUrl());
+            testDriver.SetCustomMediaFormatters(new List<MediaTypeFormatter>());
             HttpClient client = new HttpClient();
-            testWrapper.HttpClient = client;
-            Assert.AreEqual(testWrapper.HttpClient.ToString(), client.ToString());
-            Assert.AreEqual(testWrapper.HttpClient.Timeout.ToString(), client.Timeout.ToString());
+            testDriver.HttpClient = client;
+            Assert.AreEqual(testDriver.HttpClient.ToString(), client.ToString());
+            Assert.AreEqual(testDriver.HttpClient.Timeout.ToString(), client.Timeout.ToString());
         }
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace WebServiceTesterUnitTesting
         public void WebServiceUtilsDeserializeResponseThrownException()
         {
             StringContent content = WebServiceUtils.MakeStringContent<ProductJson>(Product, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = this.WebServiceWrapper.PutWithResponse("/api/XML_JSON/GetAnErrorPLZ", "application/json", content, false);
+            HttpResponseMessage response = this.WebServiceDriver.PutWithResponse("/api/XML_JSON/GetAnErrorPLZ", "application/json", content, false);
             ProductJson retObject = WebServiceUtils.DeserializeResponse<ProductJson>(response, new List<MediaTypeFormatter> { new CustomXmlMediaTypeFormatter("image/gif", typeof(ProductJson)) });
         }
 

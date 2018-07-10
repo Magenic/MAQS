@@ -1,11 +1,11 @@
 ﻿//--------------------------------------------------
-// <copyright file="WebServiceWrapperNUnitConfig.cs" company="Magenic">
+// <copyright file="WebServiceDriverNUnitConfig.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Configuration override tests for NUnit</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseWebServiceTest;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseWebServiceTest;
+using Magenic.Maqs.Utilities.Helper;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System.Diagnostics.CodeAnalysis;
@@ -18,7 +18,7 @@ namespace WebServiceTesterUnitTesting
     /// </summary>
     [TestFixture]
     [ExcludeFromCodeCoverage]
-    public class WebServiceWrapperNUnitConfig : BaseWebServiceTest
+    public class WebServiceDriverNUnitConfig : BaseWebServiceTest
     {
         /// <summary>
         /// Setup before running tests
@@ -40,7 +40,7 @@ namespace WebServiceTesterUnitTesting
         public void CheckIfOverrideNewWorks()
         {
             // Make sure the new key is not present
-            Assert.AreEqual("Value2", Config.GetValue("OverrideNUnitTestNew"));
+            Assert.AreEqual("Value2", Config.GetGeneralValue("OverrideNUnitTestNew"));
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace WebServiceTesterUnitTesting
         public void CheckIfOverrideExistingWorks()
         {
             // Make sure the new key is not present
-            Assert.AreEqual("Value", Config.GetValue("OverrideNUnitTest"));
+            Assert.AreEqual("Value", Config.GetGeneralValue("OverrideNUnitTest"));
         }
     }
 }

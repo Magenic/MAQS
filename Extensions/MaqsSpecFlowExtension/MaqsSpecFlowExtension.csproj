@@ -47,10 +47,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Getting Started Guide.doc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
     <Content Include="License.txt" />
     <Content Include="ProjectTemplates\Magenic SpecFlow Test\QATSpecFlowAppiumTemplate.zip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

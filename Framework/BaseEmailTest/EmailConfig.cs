@@ -4,13 +4,13 @@
 // </copyright>
 // <summary>Helper class for getting email specific configuration values</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Data;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.Utilities.Data;
+using Magenic.Maqs.Utilities.Helper;
 using System;
 using System.IO;
 using System.Reflection;
 
-namespace Magenic.MaqsFramework.BaseEmailTest
+namespace Magenic.Maqs.BaseEmailTest
 {
     /// <summary>
     /// Email configuration class
@@ -18,15 +18,20 @@ namespace Magenic.MaqsFramework.BaseEmailTest
     public static class EmailConfig
     {
         /// <summary>
+        ///  Static name for the email configuration section
+        /// </summary>
+        private const string DATABASESECTION = "EmailMaqs";
+
+        /// <summary>
         /// Get the host string
         /// </summary>
         /// <returns>The email host</returns>
         /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithoutWrapper.cs" region="GetHost" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithoutDriver.cs" region="GetHost" lang="C#" />
         /// </example>
         public static string GetHost()
         {
-            return Config.GetValue("EmailHost");
+            return Config.GetValueForSection(DATABASESECTION, "EmailHost");
         }
 
         /// <summary>
@@ -34,11 +39,11 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// </summary>
         /// <returns>The user name</returns>
         /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithoutWrapper.cs" region="GetUserName" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithoutDriver.cs" region="GetUserName" lang="C#" />
         /// </example>
         public static string GetUserName()
         {
-            return Config.GetValue("EmailUserName");
+            return Config.GetValueForSection(DATABASESECTION, "EmailUserName");
         }
 
         /// <summary>
@@ -46,11 +51,11 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// </summary>
         /// <returns>The password</returns>
         /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithoutWrapper.cs" region="GetPassword" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithoutDriver.cs" region="GetPassword" lang="C#" />
         /// </example>
         public static string GetPassword()
         {
-            return Config.GetValue("EmailPassword");
+            return Config.GetValueForSection(DATABASESECTION, "EmailPassword");
         }
 
         /// <summary>
@@ -58,11 +63,11 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// </summary>
         /// <returns>The port number</returns>
         /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithoutWrapper.cs" region="GetPort" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithoutDriver.cs" region="GetPort" lang="C#" />
         /// </example>
         public static int GetPort()
         {
-            return int.Parse(Config.GetValue("EmailPort", "143"));
+            return int.Parse(Config.GetValueForSection(DATABASESECTION, "EmailPort", "143"));
         }
 
         /// <summary>
@@ -70,7 +75,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// </summary>
         /// <returns>True if we should use SSL</returns>
         /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithoutWrapper.cs" region="GetEmailViaSSL" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithoutDriver.cs" region="GetEmailViaSSL" lang="C#" />
         /// </example>
         public static bool GetEmailViaSSL()
         {
@@ -82,7 +87,7 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// </summary>
         /// <returns>True if we are skipping SSL validation</returns>
         /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithoutWrapper.cs" region="SkipSSL" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithoutDriver.cs" region="SkipSSL" lang="C#" />
         /// </example>
         public static bool GetEmailSkipSslValidation()
         {
@@ -94,12 +99,21 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// </summary>
         /// <returns>String of file path</returns>
         /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithoutWrapper.cs" region="DownloadDirectory" lang="C#" />
+        /// <code source = "../EmailUnitTests/EmailUnitWithoutDriver.cs" region="DownloadDirectory" lang="C#" />
         /// </example>
         public static string GetAttachmentDownloadDirectory()
         {
             string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Attachments");
-            return Config.GetValue("AttachmentDownloadPath", path);
+            return Config.GetValueForSection(DATABASESECTION, "AttachmentDownloadPath", path);
+        }
+
+        /// <summary>
+        /// Get the timeout in milliseconds
+        /// </summary>
+        /// <returns>The timeout r</returns>
+        public static int GetTimeout()
+        {
+            return int.Parse(Config.GetValueForSection(DATABASESECTION, "EmailTimeout", "10000"));
         }
 
         /// <summary>
@@ -110,14 +124,14 @@ namespace Magenic.MaqsFramework.BaseEmailTest
         /// <returns>True if the values is yes</returns>
         private static bool GetYesOrNo(string key, string defaultValue)
         {
-            switch (Config.GetValue(key, defaultValue).ToUpper())
+            switch (Config.GetValueForSection(DATABASESECTION, key, defaultValue).ToUpper())
             {
                 case "YES":
                     return true;
                 case "NO":
                     return false;
                 default:
-                    throw new ArgumentException(StringProcessor.SafeFormatter(key + " value '{0}' is not a valid option", Config.GetValue(key)));
+                    throw new ArgumentException(StringProcessor.SafeFormatter(key + " value '{0}' is not a valid option", Config.GetValueForSection(DATABASESECTION, key, DATABASESECTION)));
             }
         }
     }

@@ -1,14 +1,14 @@
 ﻿// <copyright file="MongoDBDriver.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
-// <summary>This is the wrapper for the mongo collection object</summary>
+// <summary>This is the driver for the mongo collection object</summary>
 //--------------------------------------------------
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace Magenic.MaqsFramework.BaseMongoTest
+namespace Magenic.Maqs.BaseMongoTest
 {
     /// <summary>
     /// Class to wrap the IMongoCollection and related helper functions

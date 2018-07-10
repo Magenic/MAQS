@@ -1,4 +1,4 @@
-﻿using Magenic.MaqsFramework.BaseTest;
+﻿using Magenic.Maqs.BaseTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace $rootnamespace$

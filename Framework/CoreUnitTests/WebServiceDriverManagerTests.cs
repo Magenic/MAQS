@@ -4,9 +4,9 @@
 // </copyright>
 // <summary>Web service driver store tests</summary>
 //-------------------------------------------------- 
-using Magenic.MaqsFramework.BaseDatabaseTest;
-using Magenic.MaqsFramework.BaseWebServiceTest;
-using Magenic.MaqsFramework.WebServiceTester;
+using Magenic.Maqs.BaseDatabaseTest;
+using Magenic.Maqs.BaseWebServiceTest;
+using Magenic.Maqs.WebServiceTester;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net.Http;
 
@@ -25,9 +25,9 @@ namespace CoreUnitTests
         public void CanOverrideWebServiceDriver()
         {
             WebServiceDriver tempDriver = new WebServiceDriver(WebServiceConfig.GetWebServiceUri());
-            this.WebServiceWrapper = tempDriver;
+            this.WebServiceDriver = tempDriver;
             
-            Assert.AreEqual(this.TestObject.WebServiceDriverManager.Get(), tempDriver);
+            Assert.AreEqual(this.TestObject.WebServiceManager.Get(), tempDriver);
         }
 
         /// <summary>
@@ -40,14 +40,14 @@ namespace CoreUnitTests
             this.TestObject.ManagerStore.Add("test", newDriver);
 
             Assert.AreNotEqual(this.TestObject.WebServiceDriver, (WebServiceDriverManager)this.TestObject.ManagerStore["test"]);
-            Assert.AreNotEqual(this.TestObject.WebServiceDriverManager.Get(), ((WebServiceDriverManager)this.TestObject.ManagerStore["test"]).Get());
+            Assert.AreNotEqual(this.TestObject.WebServiceManager.Get(), ((WebServiceDriverManager)this.TestObject.ManagerStore["test"]).Get());
         }
 
         /// <summary>
-        /// Make sure the test object wrapper is the same as the one in the driver store
+        /// Make sure the test object driver is the same as the one in the driver store
         /// </summary>
         [TestMethod]
-        public void DatabaseWrapperInDriverStore()
+        public void DatabaseDriverInDriverStore()
         {
             Assert.AreEqual(this.TestObject.WebServiceDriver, this.TestObject.GetDriverManager<WebServiceDriverManager>().Get());
         }
@@ -71,10 +71,10 @@ namespace CoreUnitTests
         public void Intialized()
         {
             // Do something so we intialize the web driver
-            this.WebServiceWrapper.ToString();
+            this.WebServiceDriver.ToString();
 
-            WebServiceDriverManager driverWrapper = this.TestObject.ManagerStore[typeof(WebServiceDriverManager).FullName] as WebServiceDriverManager;
-            Assert.IsTrue(driverWrapper.IsDriverIntialized(), "The driver should have been intialized");
+            WebServiceDriverManager driverDriver = this.TestObject.ManagerStore[typeof(WebServiceDriverManager).FullName] as WebServiceDriverManager;
+            Assert.IsTrue(driverDriver.IsDriverIntialized(), "The driver should have been intialized");
         }
 
         /// <summary>
@@ -83,8 +83,8 @@ namespace CoreUnitTests
         [TestMethod]
         public void NotIntialized()
         {
-            WebServiceDriverManager driverWrapper = this.TestObject.ManagerStore[typeof(WebServiceDriverManager).FullName] as WebServiceDriverManager;
-            Assert.IsFalse(driverWrapper.IsDriverIntialized(), "The driver should not be intialized until it gets used");
+            WebServiceDriverManager driverDriver = this.TestObject.ManagerStore[typeof(WebServiceDriverManager).FullName] as WebServiceDriverManager;
+            Assert.IsFalse(driverDriver.IsDriverIntialized(), "The driver should not be intialized until it gets used");
         }
     }
 }

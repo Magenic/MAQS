@@ -4,10 +4,10 @@
 // </copyright>
 // <summary>Holds MongoDB context data</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Logging;
 
-namespace Magenic.MaqsFramework.BaseMongoTest
+namespace Magenic.Maqs.BaseMongoTest
 {
     /// <summary>
     /// Mongo test context data
@@ -30,9 +30,9 @@ namespace Magenic.MaqsFramework.BaseMongoTest
         }
 
         /// <summary>
-        /// Gets the Mongo driver
+        /// Gets the Mongo driver manager
         /// </summary>
-        public MongoDriverManager<T> MongoDBDriver
+        public MongoDriverManager<T> MongoDBManager
         {
             get
             {
@@ -41,35 +41,35 @@ namespace Magenic.MaqsFramework.BaseMongoTest
         }
 
         /// <summary>
-        /// Gets the Mongo wrapper
+        /// Gets the Mongo driver
         /// </summary>
-        public MongoDBDriver<T> MongoDBWrapper
+        public MongoDBDriver<T> MongoDBDriver
         {
             get
             {
-                return this.MongoDBDriver.Get();
+                return this.MongoDBManager.Get();
             }
         }
 
         /// <summary>
-        /// Override the Mongo wrapper settings
+        /// Override the Mongo driver settings
         /// </summary>
         /// <param name="connectionString">Client connection string</param>
         /// <param name="databaseString">Database connection string</param>
         /// <param name="collectionString">Mongo collection string</param>
-        public void OverrideMongoDBWrapper(string connectionString, string databaseString, string collectionString)
+        public void OverrideMongoDBDriver(string connectionString, string databaseString, string collectionString)
         {
             this.ManagerStore.Remove(typeof(MongoDriverManager<T>).FullName);
             this.ManagerStore.Add(typeof(MongoDriverManager<T>).FullName, new MongoDriverManager<T>(connectionString, databaseString, collectionString, this));
         }
 
         /// <summary>
-        /// Override the Mongo wrapper settings
+        /// Override the Mongo driver settings
         /// </summary>
-        /// <param name="wrapper">New Mongo wrapper</param>
-        public void OverrideMongoDBWrapper(MongoDBDriver<T> wrapper)
+        /// <param name="driver">New Mongo driver</param>
+        public void OverrideMongoDBDriver(MongoDBDriver<T> driver)
         {
-            this.MongoDBDriver.OverrideWrapper(wrapper);
+            this.MongoDBManager.OverrideDriver(driver);
         }
     }
 }

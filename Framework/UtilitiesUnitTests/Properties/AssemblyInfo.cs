@@ -1,4 +1,4 @@
-//------------------------------------------------
+﻿//------------------------------------------------
 // <copyright file="AssemblyInfo.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
@@ -21,5 +21,5 @@ using System.Runtime.InteropServices;
 [assembly: Guid("eb73f194-713a-4edb-8694-f9e8f989e4a8")]
 
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("5.0.0")]
+[assembly: AssemblyFileVersion("5.0.0")]

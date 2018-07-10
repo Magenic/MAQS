@@ -1,12 +1,12 @@
 ﻿//--------------------------------------------------
-// <copyright file="WebServiceWithWrapperPatch.cs" company="Magenic">
+// <copyright file="WebServiceWithDriverPatch.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Put unit tests</summary>
 //--------------------------------------------------
 
-using Magenic.MaqsFramework.BaseWebServiceTest;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseWebServiceTest;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
@@ -16,11 +16,11 @@ using WebServiceTesterUnitTesting.Model;
 namespace WebServiceTesterUnitTesting
 {
     /// <summary>
-    /// Test web service gets using the base test wrapper
+    /// Test web service gets using the base test driver
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class WebServiceWithWrapperPatch : BaseWebServiceTest
+    public class WebServiceWithDriverPatch : BaseWebServiceTest
     {
        /// <summary>
         /// Verify the string status code
@@ -36,7 +36,7 @@ namespace WebServiceTesterUnitTesting
             p.Name = "ff";
             p.Price = 3.25f;
             var content = WebServiceUtils.MakeStringContent<ProductJson>(p, Encoding.UTF8, "application/json");
-            var result = this.WebServiceWrapper.PatchWithResponse("/api/XML_JSON/Patch/1", "application/json", content, true);
+            var result = this.WebServiceDriver.PatchWithResponse("/api/XML_JSON/Patch/1", "application/json", content, true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
         #endregion
@@ -55,7 +55,7 @@ namespace WebServiceTesterUnitTesting
             p.Name = "ff";
             p.Price = 3.25f;
             var content = WebServiceUtils.MakeStringContent<ProductJson>(p, Encoding.UTF8, "application/json");
-            var result = this.WebServiceWrapper.Patch<ProductJson>("/api/XML_JSON/Patch/1", "application/json", content, true);
+            var result = this.WebServiceDriver.Patch<ProductJson>("/api/XML_JSON/Patch/1", "application/json", content, true);
             Assert.AreEqual(p.Category, result.Category);
             Assert.AreEqual(p.Id, result.Id);
             Assert.AreEqual(p.Name, result.Name);
@@ -76,7 +76,7 @@ namespace WebServiceTesterUnitTesting
             p.Name = "ff";
             p.Price = 3.25f;
             var content = WebServiceUtils.MakeStreamContent<ProductJson>(p, Encoding.UTF8, "application/json");
-            var result = this.WebServiceWrapper.PatchWithResponse("/api/XML_JSON/Patch/1", "application/json", content, true);
+            var result = this.WebServiceDriver.PatchWithResponse("/api/XML_JSON/Patch/1", "application/json", content, true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
 
@@ -93,7 +93,7 @@ namespace WebServiceTesterUnitTesting
             p.Name = "ff";
             p.Price = 3.25f;
             var content = WebServiceUtils.MakeStringContent<Product>(p, Encoding.UTF8, "application/xml");
-            var result = this.WebServiceWrapper.PatchWithResponse("/api/XML_JSON/Patch/1", "application/xml", content);
+            var result = this.WebServiceDriver.PatchWithResponse("/api/XML_JSON/Patch/1", "application/xml", content);
 
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
@@ -111,7 +111,7 @@ namespace WebServiceTesterUnitTesting
             p.Name = "ff";
             p.Price = 3.25f;
             var content = WebServiceUtils.MakeStreamContent<Product>(p, Encoding.UTF8, "application/xml");
-            var result = this.WebServiceWrapper.PatchWithResponse("/api/XML_JSON/Patch/1", "application/xml", content);
+            var result = this.WebServiceDriver.PatchWithResponse("/api/XML_JSON/Patch/1", "application/xml", content);
 
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
@@ -129,7 +129,7 @@ namespace WebServiceTesterUnitTesting
             p.Name = "ff";
             p.Price = 3.25f;
             var content = WebServiceUtils.MakeStringContent<Product>(p, Encoding.UTF8, "application/xml");
-            var result = this.WebServiceWrapper.Patch<Product>("/api/XML_JSON/Patch/1", "application/xml", content, true);
+            var result = this.WebServiceDriver.Patch<Product>("/api/XML_JSON/Patch/1", "application/xml", content, true);
             Assert.AreEqual(p.Category, result.Category);
             Assert.AreEqual(p.Id, result.Id);
             Assert.AreEqual(p.Name, result.Name);
@@ -143,7 +143,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PatchStringWithoutMakeContent()
         {
-            var result = this.WebServiceWrapper.Patch("/api/String/Patch/1", "text/plain", "Test", Encoding.UTF8, "text/plain");
+            var result = this.WebServiceDriver.Patch("/api/String/Patch/1", "text/plain", "Test", Encoding.UTF8, "text/plain");
             Assert.AreEqual("\"Patched\"", result);
         }
 
@@ -155,7 +155,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PatchStreamWithoutMakeContent()
         {
-            var result = this.WebServiceWrapper.Patch("/api/String/Patch/1", "text/plain", "Test", Encoding.UTF8, "text/plain", false, true);
+            var result = this.WebServiceDriver.Patch("/api/String/Patch/1", "text/plain", "Test", Encoding.UTF8, "text/plain", false, true);
             Assert.AreEqual("\"Patched\"", result);
         }
         #endregion
@@ -169,7 +169,7 @@ namespace WebServiceTesterUnitTesting
         public void PatchStringWithMakeContent()
         {
             var content = WebServiceUtils.MakeStringContent("Test", Encoding.UTF8, "text/plain");
-            var result = this.WebServiceWrapper.Patch("/api/String/Patch/1", "text/plain", content, true);
+            var result = this.WebServiceDriver.Patch("/api/String/Patch/1", "text/plain", content, true);
             Assert.AreEqual("\"Patched\"", result);
         }
         #endregion
@@ -182,7 +182,7 @@ namespace WebServiceTesterUnitTesting
         public void PatchStreamWithMakeContent()
         {
             var content = WebServiceUtils.MakeStreamContent("Test", Encoding.UTF8, "text/plain");
-            var result = this.WebServiceWrapper.Patch("/api/String/Patch/1", "text/plain", content, true);
+            var result = this.WebServiceDriver.Patch("/api/String/Patch/1", "text/plain", content, true);
             Assert.AreEqual("\"Patched\"", result);
         }
 
@@ -193,7 +193,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PatchStringWithoutContentStatusCode()
         {
-            var result = this.WebServiceWrapper.PatchWithResponse("/api/String/Patch/1", "text/plain", "Test", Encoding.UTF8, "text/plain", true, true);
+            var result = this.WebServiceDriver.PatchWithResponse("/api/String/Patch/1", "text/plain", "Test", Encoding.UTF8, "text/plain", true, true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
 
@@ -205,7 +205,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PatchStreamWithoutContentStatusCode()
         {
-            var result = this.WebServiceWrapper.PatchWithResponse("/api/String/Patch/1", "text/plain", "Test", Encoding.UTF8, "text/plain", false, true);
+            var result = this.WebServiceDriver.PatchWithResponse("/api/String/Patch/1", "text/plain", "Test", Encoding.UTF8, "text/plain", false, true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
         #endregion
@@ -218,7 +218,7 @@ namespace WebServiceTesterUnitTesting
         public void PatchStringMakeContentStatusCode()
         {
             var content = WebServiceUtils.MakeStringContent("Test", Encoding.UTF8, "text/plain");
-            var result = this.WebServiceWrapper.PatchWithResponse("/api/String/Patch/1", "text/plain", content, true);
+            var result = this.WebServiceDriver.PatchWithResponse("/api/String/Patch/1", "text/plain", content, true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
 
@@ -229,7 +229,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PatchExpectContentError()
         {
-            var result = this.WebServiceWrapper.PatchWithResponse("/api/String/Patch/1", "text/plain", null, false);
+            var result = this.WebServiceDriver.PatchWithResponse("/api/String/Patch/1", "text/plain", null, false);
             Assert.AreEqual(HttpStatusCode.BadRequest, result.StatusCode);
         }
 
@@ -240,7 +240,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PatchExpectStringError()
         {
-            var result = this.WebServiceWrapper.Patch("/api/String/Patch/1", "text/plain", null, false);
+            var result = this.WebServiceDriver.Patch("/api/String/Patch/1", "text/plain", null, false);
             var expected = "{\"Message\":\"Value is required\"}";
             Assert.IsTrue(result.Equals(expected), $"Assert Failed. Expected:{expected}, Actual:{result}");
         }

@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>This is the Appium driver wait extensions class</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Data;
+using Magenic.Maqs.Utilities.Data;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Support.UI;
@@ -12,7 +12,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Threading;
 
-namespace Magenic.MaqsFramework.BaseAppiumTest
+namespace Magenic.Maqs.BaseAppiumTest
 {
     /// <summary>
     /// Appium driver wait extension methods

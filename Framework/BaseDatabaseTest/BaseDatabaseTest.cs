@@ -5,11 +5,11 @@
 // <summary>This is the base database test class</summary>
 //--------------------------------------------------
 
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Logging;
 using System.Data;
 
-namespace Magenic.MaqsFramework.BaseDatabaseTest
+namespace Magenic.Maqs.BaseDatabaseTest
 {
     /// <summary>
     /// Generic base database test class
@@ -25,18 +25,18 @@ namespace Magenic.MaqsFramework.BaseDatabaseTest
         }
 
         /// <summary>
-        /// Gets or sets the web service wrapper
+        /// Gets or sets the web service driver
         /// </summary>
-        public DatabaseDriver DatabaseWrapper
+        public DatabaseDriver DatabaseDriver
         {
             get
             {
-                return this.TestObject.DatabaseWrapper;
+                return this.TestObject.DatabaseDriver;
             }
 
             set
             {
-                this.TestObject.OverrideDatabaseWrapper(value);
+                this.TestObject.OverrideDatabaseDriver(value);
             }
         }
 

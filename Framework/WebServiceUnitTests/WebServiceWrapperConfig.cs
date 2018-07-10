@@ -1,11 +1,11 @@
 ﻿//--------------------------------------------------
-// <copyright file="WebServiceWrapperConfig.cs" company="Magenic">
+// <copyright file="WebServiceDriverConfig.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Configuration override tests</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseWebServiceTest;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseWebServiceTest;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -18,7 +18,7 @@ namespace WebServiceTesterUnitTesting
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class WebServiceWrapperConfig : BaseWebServiceTest
+    public class WebServiceDriverConfig : BaseWebServiceTest
     {
          /// <summary>
         /// Setup test with properties
@@ -43,7 +43,7 @@ namespace WebServiceTesterUnitTesting
         public void CheckIfOverrideNewWorks()
         {
             // Make sure the new key is not present
-            Assert.AreEqual("Setup", Config.GetValue("SetupTest"));
+            Assert.AreEqual("Setup", Config.GetGeneralValue("SetupTest"));
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace WebServiceTesterUnitTesting
         public void CheckIfOverrideExistingWorks()
         {
             // Make sure the new key is not present
-            Assert.AreEqual("Overridden", Config.GetValue("OverrideTest"));
+            Assert.AreEqual("Overridden", Config.GetGeneralValue("OverrideTest"));
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace WebServiceTesterUnitTesting
             string defaultValue = "Setup2";
 
             // Get base key values
-            Assert.AreEqual(defaultValue, Config.GetValue(key));
+            Assert.AreEqual(defaultValue, Config.GetGeneralValue(key));
 
             // Try to override something that has already been overriden
             Dictionary<string, string> overrides = new Dictionary<string, string>();
@@ -77,16 +77,16 @@ namespace WebServiceTesterUnitTesting
             Config.AddTestSettingValues(overrides);
 
             // The secondary override should fail as we already overrode it once
-            Assert.AreEqual(defaultValue, Config.GetValue(key));
+            Assert.AreEqual(defaultValue, Config.GetGeneralValue(key));
 
             // Try the override again, but this time tell the override to allow itself to be overrode
             defaultValue += "_SecondOverride";
             overrides = new Dictionary<string, string>();
             overrides.Add(key, defaultValue);
-            Config.AddTestSettingValues(overrides, true);
+            Config.AddGeneralTestSettingValues(overrides, true);
 
             // Make sure the force override worked
-            Assert.AreEqual(defaultValue, Config.GetValue(key));
+            Assert.AreEqual(defaultValue, Config.GetGeneralValue(key));
         }
     }
 }

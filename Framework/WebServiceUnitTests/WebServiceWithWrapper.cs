@@ -1,11 +1,11 @@
 ﻿//--------------------------------------------------
-// <copyright file="WebServiceWithWrapper.cs" company="Magenic">
+// <copyright file="WebServiceWithDriver.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Web service general unit tests</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseWebServiceTest;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseWebServiceTest;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
@@ -13,11 +13,11 @@ using System.Text;
 namespace WebServiceTesterUnitTesting
 {
     /// <summary>
-    /// Test web service wrapper testing
+    /// Test web service driver testing
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class WebServiceWithWrapper : BaseWebServiceTest
+    public class WebServiceWithDriver : BaseWebServiceTest
     {
         /// <summary>
         /// Make sure the test objects map properly
@@ -30,7 +30,7 @@ namespace WebServiceTesterUnitTesting
             Assert.AreEqual(this.TestObject.Log, this.Log, "Logs don't match");
             Assert.AreEqual(this.TestObject.SoftAssert, this.SoftAssert, "Soft asserts don't match");
             Assert.AreEqual(this.TestObject.PerfTimerCollection, this.PerfTimerCollection, "Soft asserts don't match");
-            Assert.AreEqual(this.TestObject.WebServiceDriver, this.WebServiceWrapper, "Web service wrapper don't match");
+            Assert.AreEqual(this.TestObject.WebServiceDriver, this.WebServiceDriver, "Web service driver don't match");
         }
 
         /// <summary>

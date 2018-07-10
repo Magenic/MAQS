@@ -4,9 +4,9 @@
 // </copyright>
 // <summary>Test class for utility files</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseAppiumTest;
-using Magenic.MaqsFramework.Utilities.Helper;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.BaseAppiumTest;
+using Magenic.Maqs.Utilities.Helper;
+using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 

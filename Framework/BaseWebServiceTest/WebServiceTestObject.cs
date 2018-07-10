@@ -4,13 +4,13 @@
 // </copyright>
 // <summary>Holds web service context data</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Logging;
-using Magenic.MaqsFramework.WebServiceTester;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Logging;
+using Magenic.Maqs.WebServiceTester;
 using System;
 using System.Net.Http;
 
-namespace Magenic.MaqsFramework.BaseWebServiceTest
+namespace Magenic.Maqs.BaseWebServiceTest
 {
     /// <summary>
     /// Web service test context data
@@ -20,7 +20,7 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         /// <summary>
         /// Initializes a new instance of the <see cref="WebServiceTestObject" /> class
         /// </summary>
-        /// <param name="httpClient">The test's http client wrapper</param>
+        /// <param name="httpClient">The test's http client driver</param>
         /// <param name="logger">The test's logger</param>
         /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
         public WebServiceTestObject(Func<HttpClient> httpClient, Logger logger, string fullyQualifiedTestName) : base(logger, fullyQualifiedTestName)
@@ -29,21 +29,20 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         }
 
         /// <summary>
-        /// Gets the web service wrapper
+        /// Gets the web service driver
         /// </summary>
         public WebServiceDriver WebServiceDriver
         {
             get
             {
-                WebServiceDriverManager serviceDriver = this.WebServiceDriverManager;
-                return serviceDriver.Get();
+                return this.WebServiceManager.Get();
             }
         }
 
         /// <summary>
-        /// Gets the web service wrapper
+        /// Gets the web service driver manager
         /// </summary>
-        public WebServiceDriverManager WebServiceDriverManager
+        public WebServiceDriverManager WebServiceManager
         {
             get
             {
@@ -72,10 +71,10 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         /// <summary>
         /// Override the http client driver
         /// </summary>
-        /// <param name="webServiceDriver">An http client wrapper</param>
+        /// <param name="webServiceDriver">An http client driver</param>
         public void OverrideWebServiceDriver(WebServiceDriver webServiceDriver)
         {
-            (this.ManagerStore[typeof(WebServiceDriverManager).FullName] as WebServiceDriverManager).OverrideWrapper(webServiceDriver);
+            (this.ManagerStore[typeof(WebServiceDriverManager).FullName] as WebServiceDriverManager).OverrideDriver(webServiceDriver);
         }
     }
 }
