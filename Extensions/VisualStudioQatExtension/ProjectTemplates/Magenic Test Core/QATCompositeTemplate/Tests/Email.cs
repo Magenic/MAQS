@@ -15,7 +15,7 @@ namespace Tests
         // [TestMethod] - Disabled because this step will fail as the template does not include access to a test email account
         public void SampleTest()
         {
-            Assert.IsTrue(this.EmailWrapper.CanAccessEmailAccount(), "Could not access account");
+            Assert.IsTrue(this.EmailDriver.CanAccessEmailAccount(), "Could not access account");
         }
     }
 }
