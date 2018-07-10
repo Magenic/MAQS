@@ -52,6 +52,7 @@ function ZipFiles($inputDirectory, $outputDirectory){
         if(($input -ne $nunitDir1) -and ($input -ne $nunitDir2) -and ($input -ne $outputDirectory)){
             Write-Host "Zipping " $input
             Compress-Archive -Path $inputDir -DestinationPath $destination -Force
+            ##Copy-Item "C:\Users\TroyW\Desktop\QATBaseTemplate.zip" -Destination $destination -Force
         }
     }
 }
