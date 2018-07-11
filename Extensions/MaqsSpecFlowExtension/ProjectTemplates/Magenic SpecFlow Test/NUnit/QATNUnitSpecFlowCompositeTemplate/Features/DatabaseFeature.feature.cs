@@ -17,7 +17,7 @@ namespace $safeprojectname$.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [NUnit.Framework.TestFixtureAttribute()]]
+    [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("DatabaseFeature")]
     [NUnit.Framework.CategoryAttribute("MAQS_Database")]
     public partial class DatabaseFeatureFeature
