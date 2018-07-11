@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace $safeprojectname$.Features
+namespace $safeprojectname$
 {
     using TechTalk.SpecFlow;
     
