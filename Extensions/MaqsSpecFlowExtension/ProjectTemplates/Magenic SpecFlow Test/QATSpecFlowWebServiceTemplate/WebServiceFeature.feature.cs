@@ -62,7 +62,7 @@ namespace $safeprojectname$
             if (((testRunner.FeatureContext != null) 
                         && (testRunner.FeatureContext.FeatureInfo.Title != "WebServiceFeature")))
             {
-                global::$safeprojectname$.Features.WebServiceFeatureFeature.FeatureSetup(null);
+                global::$safeprojectname$.WebServiceFeatureFeature.FeatureSetup(null);
             }
         }
         

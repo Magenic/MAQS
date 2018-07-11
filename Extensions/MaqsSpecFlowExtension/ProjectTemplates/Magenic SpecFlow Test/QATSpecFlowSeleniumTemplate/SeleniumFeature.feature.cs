@@ -62,7 +62,7 @@ namespace $safeprojectname$
             if (((testRunner.FeatureContext != null) 
                         && (testRunner.FeatureContext.FeatureInfo.Title != "SeleniumFeature")))
             {
-                global::$safeprojectname$.Features.SeleniumFeatureFeature.FeatureSetup(null);
+                global::$safeprojectname$.SeleniumFeatureFeature.FeatureSetup(null);
             }
         }
         
