@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Appium_Tests_Tests1
+namespace $safeprojectname$
 {
     using TechTalk.SpecFlow;
     
@@ -62,7 +62,7 @@ namespace Appium_Tests_Tests1
             if (((testRunner.FeatureContext != null) 
                         && (testRunner.FeatureContext.FeatureInfo.Title != "AppiumFeature")))
             {
-                global::Appium_Tests_Tests1.AppiumFeatureFeature.FeatureSetup(null);
+                global::$safeprojectname$.AppiumFeatureFeature.FeatureSetup(null);
             }
         }
         

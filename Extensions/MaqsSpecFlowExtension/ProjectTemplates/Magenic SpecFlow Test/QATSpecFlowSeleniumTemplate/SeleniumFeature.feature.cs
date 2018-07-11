@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Maqs_SpecFlow_Selenium_Tests1
+namespace $safeprojectname$
 {
     using TechTalk.SpecFlow;
     
@@ -49,7 +49,7 @@ namespace Maqs_SpecFlow_Selenium_Tests1
             if (((TechTalk.SpecFlow.FeatureContext.Current != null) 
                         && (TechTalk.SpecFlow.FeatureContext.Current.FeatureInfo.Title != "SeleniumFeature")))
             {
-                Maqs_SpecFlow_Selenium_Tests1.SeleniumFeatureFeature.FeatureSetup(null);
+                $safeprojectname$.SeleniumFeatureFeature.FeatureSetup(null);
             }
         }
         

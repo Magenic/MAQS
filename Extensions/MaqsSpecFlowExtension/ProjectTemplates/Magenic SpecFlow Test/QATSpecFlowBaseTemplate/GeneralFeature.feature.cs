@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Maqs_SpecFlow_Base_Tests1
+namespace $safeprojectname$
 {
     using TechTalk.SpecFlow;
     
@@ -62,7 +62,7 @@ namespace Maqs_SpecFlow_Base_Tests1
             if (((testRunner.FeatureContext != null) 
                         && (testRunner.FeatureContext.FeatureInfo.Title != "GeneralFeature")))
             {
-                global::Maqs_SpecFlow_Base_Tests1.GeneralFeatureFeature.FeatureSetup(null);
+                global::$safeprojectname$.GeneralFeatureFeature.FeatureSetup(null);
             }
         }
         
