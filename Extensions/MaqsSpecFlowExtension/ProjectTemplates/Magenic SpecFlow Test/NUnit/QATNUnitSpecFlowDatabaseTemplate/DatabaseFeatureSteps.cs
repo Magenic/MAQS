@@ -46,7 +46,6 @@ namespace $safeprojectname$
         public void ThenVerification()
         {
             // ScenarioContext.Current.Pending();
-			Assert.IsTrue(QueryDatabase());
         }
 
         /// <summary>
