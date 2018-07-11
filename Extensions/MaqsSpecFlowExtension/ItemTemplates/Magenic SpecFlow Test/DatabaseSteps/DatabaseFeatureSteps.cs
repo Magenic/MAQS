@@ -53,7 +53,7 @@ namespace $rootnamespace$
         /// <returns>The data table returned</returns>
         private DataTable QueryDatabase(string query)
         {
-            return this.TestObject.DatabaseWrapper.QueryAndGetDataTable(query);
+            return this.TestObject.DatabaseDriver.QueryAndGetDataTable(query);
         }
     }
 }

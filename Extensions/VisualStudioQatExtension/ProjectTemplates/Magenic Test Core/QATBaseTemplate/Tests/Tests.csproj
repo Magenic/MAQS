@@ -13,11 +13,16 @@
     <PackageReference Include="Magenic.Maqs" Version="5.0.0" />
   </ItemGroup>  
   <ItemGroup>
-    <EmbeddedResource Update="appsettings.json">
+    <None Include="nuget.config" />
+  </ItemGroup> 
+  <ItemGroup>
+    <None Remove="appsettings.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <None Include="nuget.config" />
-  </ItemGroup>  
+  </ItemGroup>    
   <Target Name="CopyFiles" BeforeTargets="BeforeCompile" Condition="Exists('$(ProjectDir)nuget.config')">
     <Copy SourceFiles="$(ProjectDir)nuget.config" DestinationFiles="$(SolutionDir).nuget\NuGet.Config" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true">
     </Copy>

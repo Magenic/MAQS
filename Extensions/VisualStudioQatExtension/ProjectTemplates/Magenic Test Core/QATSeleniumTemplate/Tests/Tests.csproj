@@ -24,10 +24,13 @@
     <ProjectReference Include="..\PageModel\PageModel.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Update="appsettings.json">
+    <None Remove="appsettings.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-  </ItemGroup>
+  </ItemGroup>  
   <ItemGroup>
     <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
   </ItemGroup>
