@@ -4,9 +4,9 @@
 // </copyright>
 // <summary>Low level framework tests</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseMongoDBTest;
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseMongoTest;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Bson;
 using NUnit.Framework;
@@ -36,7 +36,7 @@ namespace MongoDBUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Framework)]
-        [ExpectedException(typeof(System.Exception))]
+        [ExpectedException(typeof(AssertFailedException))]
         public new void SoftAssertWithFailure()
         {
             base.SoftAssertWithFailure();
@@ -70,7 +70,7 @@ namespace MongoDBUnitTests
         /// <returns>The base test as base Mongo</returns>
         protected override BaseTest GetBaseTest()
         {
-            return new BaseMongoDBTest<BsonDocument>();
+            return new BaseMongoTest<BsonDocument>();
         }
     }
 }

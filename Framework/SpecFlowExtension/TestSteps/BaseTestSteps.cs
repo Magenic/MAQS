@@ -4,12 +4,13 @@
 // </copyright>
 // <summary>Base teststeps code for general SpecFlow tests</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
+using Magenic.Maqs.BaseTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using TechTalk.SpecFlow;
+using MaqsBase = Magenic.Maqs.BaseTest.BaseTest;
 
-namespace SpecFlowMAQSExtension.TestSteps
+namespace Magenic.Maqs.SpecFlow.TestSteps
 {
     /// <summary>
     /// Base for TestSteps classes
@@ -42,7 +43,7 @@ namespace SpecFlowMAQSExtension.TestSteps
         internal override void SetupBaseTest()
         {
             // Build/setup a new base test
-            BaseTest basetest = new BaseTest();
+            MaqsBase basetest = new MaqsBase();
 
             // necessary for MsTest log files to have the correct name
             try
@@ -68,7 +69,7 @@ namespace SpecFlowMAQSExtension.TestSteps
         /// </summary>
         internal override void TeardownBaseTest()
         {
-            this.LocalScenarioContext.Get<BaseTest>($"MAQSBASETEST").Teardown();
+            this.LocalScenarioContext.Get<MaqsBase>($"MAQSBASETEST").Teardown();
         }
     }
 }

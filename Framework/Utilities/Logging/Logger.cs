@@ -4,10 +4,10 @@
 // </copyright>
 // <summary>Abstract logging interface</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Data;
+using Magenic.Maqs.Utilities.Data;
 using System;
 
-namespace Magenic.MaqsFramework.Utilities.Logging
+namespace Magenic.Maqs.Utilities.Logging
 {
     /// <summary>
     /// Abstract logging interface base class
@@ -22,7 +22,7 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         /// <summary>
         /// Log Level value area
         /// </summary>
-        private MessageType logLevel = MessageType.INFORMATION;
+        private MessageType logLevel;
 
         /// <summary>
         /// Log Level value save area
@@ -33,7 +33,7 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         /// Initializes a new instance of the <see cref="Logger" /> class.
         /// </summary>
         /// <param name="level">The logging level</param>
-        public Logger(MessageType level = MessageType.INFORMATION)
+        protected Logger(MessageType level = MessageType.INFORMATION)
         {
             this.logLevel = level;
         }

@@ -4,15 +4,15 @@
 // </copyright>
 // <summary>Helper class for getting selenium specific configuration values</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseSeleniumTest.Extensions;
-using Magenic.MaqsFramework.Utilities.Data;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.BaseSeleniumTest.Extensions;
+using Magenic.Maqs.Utilities.Data;
+using Magenic.Maqs.Utilities.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 
-namespace Magenic.MaqsFramework.BaseSeleniumTest
+namespace Magenic.Maqs.BaseSeleniumTest
 {
     /// <summary>
     /// Contains functions for interacting with IWebElement objects
@@ -238,7 +238,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
             }
             else
             {
-                throw new Exception("String is either null or empty");
+                throw new ArgumentException("String is either null or empty");
             }
         }
 
@@ -320,7 +320,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// </example>
         public static void SlowType(this ISearchContext searchContext, By by, string textToEnter)
         {
-            foreach (char singleLetter in textToEnter.ToCharArray())
+            foreach (char singleLetter in textToEnter)
             {
                 searchContext.Wait().ForClickableElement(by).SendKeys(singleLetter.ToString());
                 System.Threading.Thread.Sleep(500);
@@ -349,8 +349,8 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
             catch (Exception e)
             {
                 logger.ContinueLogging();
-                logger.LogMessage(MessageType.ERROR, "An error occured: " + e);
-                throw new Exception("Exception durring sending secret keys: " + e.Message);
+                logger.LogMessage(MessageType.ERROR, "Exception durring sending secret keys: " + e.Message + Environment.NewLine + e.StackTrace);
+                throw e;
             }
         }
     }

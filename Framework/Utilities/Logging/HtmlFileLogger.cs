@@ -7,10 +7,10 @@
 using System;
 using System.Globalization;
 using System.IO;
-using Magenic.MaqsFramework.Utilities.Data;
+using Magenic.Maqs.Utilities.Data;
 using System.Web;
 
-namespace Magenic.MaqsFramework.Utilities.Logging
+namespace Magenic.Maqs.Utilities.Logging
 {
     /// <summary>
     /// Helper class for adding logs to an HTML file. Allows configurable file path.
@@ -50,21 +50,6 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         protected override string Extension
         {
             get { return ".html"; }
-        }
-
-        /// <summary>
-        /// Dispose the class
-        /// </summary>
-        public void Dispose()
-        {
-            if (File.Exists(this.FilePath))
-            {
-                var writer = new StreamWriter(this.FilePath, true);
-
-                writer.WriteLine("</body></html>");
-                writer.Flush();
-                writer.Close();
-            }
         }
 
         /// <summary>
@@ -112,6 +97,31 @@ namespace Magenic.MaqsFramework.Utilities.Logging
                     console.LogMessage(MessageType.ERROR, StringProcessor.SafeFormatter("Failed to write to event log because: {0}", e.Message));
                     console.LogMessage(messageType, message, args);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Dispose the class
+        /// </summary>
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Dispose the class
+        /// </summary>
+        /// <param name="disposing">True if you want to release managed resources</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing && File.Exists(this.FilePath))
+            {
+                var writer = new StreamWriter(this.FilePath, true);
+
+                writer.WriteLine("</body></html>");
+                writer.Flush();
+                writer.Close();
             }
         }
 

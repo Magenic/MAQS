@@ -4,8 +4,8 @@
 // </copyright>
 // <summary>Test class for appium test object files</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseAppiumTest;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseAppiumTest;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AppiumUnitTests

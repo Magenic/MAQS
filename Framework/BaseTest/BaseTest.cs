@@ -4,25 +4,25 @@
 // </copyright>
 // <summary>Base code for tests without a system under test object like web drivers or database connections</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Data;
-using Magenic.MaqsFramework.Utilities.Helper;
-using Magenic.MaqsFramework.Utilities.Logging;
-using Magenic.MaqsFramework.Utilities.Performance;
+using Magenic.Maqs.Utilities.Data;
+using Magenic.Maqs.Utilities.Helper;
+using Magenic.Maqs.Utilities.Logging;
+using Magenic.Maqs.Utilities.Performance;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using System;
-using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 using System.Runtime.ExceptionServices;
 using System.Text;
 using NUnitTestContext = NUnit.Framework.TestContext;
 using VSTestContext = Microsoft.VisualStudio.TestTools.UnitTesting.TestContext;
 
-namespace Magenic.MaqsFramework.BaseTest
+namespace Magenic.Maqs.BaseTest
 {
     /// <summary>
     /// Base for tests without a defined system under test
@@ -40,10 +40,7 @@ namespace Magenic.MaqsFramework.BaseTest
         /// </summary>
         public BaseTest()
         {
-            this.Loggers = new ConcurrentDictionary<string, Logger>();
             this.LoggedExceptions = new ConcurrentDictionary<string, List<string>>();
-            this.SoftAsserts = new ConcurrentDictionary<string, SoftAssert>();
-            this.PerfTimerCollectionSet = new ConcurrentDictionary<string, PerfTimerCollection>();
             this.BaseTestObjects = new ConcurrentDictionary<string, BaseTestObject>();
         }
 
@@ -54,19 +51,12 @@ namespace Magenic.MaqsFramework.BaseTest
         {
             get
             {
-                string key = this.GetFullyQualifiedTestClassName();
-                if (!this.PerfTimerCollectionSet.ContainsKey(key))
-                {
-                    this.PerfTimerCollection = new PerfTimerCollection(this.Log, key);
-                }
-
-                return this.PerfTimerCollectionSet[key];
+                return this.TestObject.PerfTimerCollection;
             }
 
             set
             {
-                string key = this.GetFullyQualifiedTestClassName();
-                this.PerfTimerCollectionSet.AddOrUpdate(key, value, (oldkey, oldvalue) => value);
+                this.TestObject.PerfTimerCollection = value;
             }
         }
 
@@ -77,18 +67,12 @@ namespace Magenic.MaqsFramework.BaseTest
         {
             get
             {
-                if (!this.SoftAsserts.ContainsKey(this.GetFullyQualifiedTestClassName()))
-                {
-                    this.SoftAssert = this.GetSoftAssert();
-                }
-
-                return this.SoftAsserts[this.GetFullyQualifiedTestClassName()];
+                return this.TestObject.SoftAssert;
             }
 
             set
             {
-                string key = this.GetFullyQualifiedTestClassName();
-                this.SoftAsserts.AddOrUpdate(this.GetFullyQualifiedTestClassName(), value, (oldkey, oldvalue) => value);
+                this.TestObject.SoftAssert = value;
             }
         }
 
@@ -99,19 +83,12 @@ namespace Magenic.MaqsFramework.BaseTest
         {
             get
             {
-                // If no logger is provided fall back to the console logger
-                if (!this.Loggers.ContainsKey(this.GetFullyQualifiedTestClassName()))
-                {
-                    return new ConsoleLogger();
-                }
-
-                return this.Loggers[this.GetFullyQualifiedTestClassName()];
+                return this.TestObject.Log;
             }
 
             set
             {
-                string key = this.GetFullyQualifiedTestClassName();
-                this.Loggers.AddOrUpdate(this.GetFullyQualifiedTestClassName(), value, (oldkey, oldvalue) => value);
+                this.TestObject.Log = value;
             }
         }
 
@@ -133,7 +110,6 @@ namespace Magenic.MaqsFramework.BaseTest
 
             set
             {
-                string key = this.GetFullyQualifiedTestClassName();
                 this.LoggedExceptions.AddOrUpdate(this.GetFullyQualifiedTestClassName(), value, (oldkey, oldvalue) => value);
             }
         }
@@ -187,24 +163,9 @@ namespace Magenic.MaqsFramework.BaseTest
         protected LoggingEnabled LoggingEnabledSetting { get; private set; }
 
         /// <summary>
-        /// Gets or sets the Dictionary of performance timer collections (for multi-threaded test execution)
-        /// </summary>
-        private ConcurrentDictionary<string, PerfTimerCollection> PerfTimerCollectionSet { get; set; }
-
-        /// <summary>
-        /// Gets or sets the logging objects
-        /// </summary>
-        private ConcurrentDictionary<string, Logger> Loggers { get; set; }
-
-        /// <summary>
         /// Gets or sets the logged exceptions
         /// </summary>
         private ConcurrentDictionary<string, List<string>> LoggedExceptions { get; set; }
-
-        /// <summary>
-        /// Gets or sets the soft assert objects
-        /// </summary>
-        private ConcurrentDictionary<string, SoftAssert> SoftAsserts { get; set; }
 
         /// <summary>
         /// Setup before a test
@@ -216,8 +177,8 @@ namespace Magenic.MaqsFramework.BaseTest
             // Update configuration with propeties passes in by the test context
             this.UpdateConfigParameters();
 
-            // Make sure the logging works
-            this.SetupLogging();
+            // Create the test object
+            this.CreateNewTestObject();
         }
 
         /// <summary>
@@ -256,6 +217,8 @@ namespace Magenic.MaqsFramework.BaseTest
                 this.TryToLog(MessageType.WARNING, "Test had an unexpected result of {0}", this.GetResultText());
             }
 
+            this.BeforeLoggingTeardown(resultType);
+
             // Cleanup log files we don't want
             try
             {
@@ -272,62 +235,35 @@ namespace Magenic.MaqsFramework.BaseTest
 
             // Get the Fully Qualified Test Name
             string fullyQualifiedTestName = this.GetFullyQualifiedTestClassName();
+            PerfTimerCollection collection = this.TestObject.PerfTimerCollection;
 
-            if (this.PerfTimerCollectionSet.ContainsKey(fullyQualifiedTestName))
-            {
-                PerfTimerCollection collection = this.PerfTimerCollectionSet[fullyQualifiedTestName];
-
-                // Write out the performance timers
-                collection.Write(this.Log);
-
-                // Release the perf time collection for the test
-                this.PerfTimerCollectionSet.TryRemove(fullyQualifiedTestName, out collection);
-                collection = null;
-            }
+            // Write out the performance timers
+            collection.Write(this.Log);
 
             // Attach log and screen shot if we can
             this.AttachLogAndSceenshot(fullyQualifiedTestName);
 
             // Release the logged messages
-            List<string> loggedMessages;
-            this.LoggedExceptions.TryRemove(fullyQualifiedTestName, out loggedMessages);
+            this.LoggedExceptions.TryRemove(fullyQualifiedTestName, out List<string> loggedMessages);
             loggedMessages = null;
 
-            // Relese the soft assert object
-            SoftAssert softAssert;
-            this.SoftAsserts.TryRemove(fullyQualifiedTestName, out softAssert);
-            softAssert = null;
-
-            // Release the logger
-            Logger logger;
-            this.Loggers.TryRemove(fullyQualifiedTestName, out logger);
-            logger = null;
-
             // Relese the base test object
-            BaseTestObject baseTestObject;
-            this.BaseTestObjects.TryRemove(fullyQualifiedTestName, out baseTestObject);
+            this.BaseTestObjects.TryRemove(fullyQualifiedTestName, out BaseTestObject baseTestObject);
+            baseTestObject.Dispose();
             baseTestObject = null;
 
             // Force the test to fail
             if (forceTestFailure)
             {
-                throw new Exception("Test was forced to fail in the cleanup - Likely the result of a soft assert failure.");
+                throw new AssertFailedException("Test was forced to fail in the cleanup - Likely the result of a soft assert failure.");
             }
         }
 
         /// <summary>
-        /// Method to get a new soft assert object
+        /// Create a logger
         /// </summary>
-        /// <returns>A soft assert object</returns>
-        protected virtual SoftAssert GetSoftAssert()
-        {
-            return new SoftAssert(this.Log);
-        }
-
-        /// <summary>
-        /// Setup logging data
-        /// </summary>
-        protected void SetupLogging()
+        /// <returns>A logger</returns>
+        protected Logger CreateLogger()
         {
             this.LoggedExceptionList = new List<string>();
             this.LoggingEnabledSetting = LoggingConfig.GetLoggingEnabledSetting();
@@ -338,7 +274,7 @@ namespace Magenic.MaqsFramework.BaseTest
 
             if (this.LoggingEnabledSetting != LoggingEnabled.NO)
             {
-                this.Log = LoggingConfig.GetLogger(
+                return LoggingConfig.GetLogger(
                     StringProcessor.SafeFormatter(
                     "{0} - {1}",
                     this.GetFullyQualifiedTestClassName(),
@@ -346,7 +282,7 @@ namespace Magenic.MaqsFramework.BaseTest
             }
             else
             {
-                this.Log = new ConsoleLogger();
+                return new ConsoleLogger();
             }
         }
 
@@ -431,7 +367,7 @@ namespace Magenic.MaqsFramework.BaseTest
             StringBuilder messages = new StringBuilder();
             messages.AppendLine(StringProcessor.SafeFormatter(message, args));
 
-            var methodInfo = System.Reflection.MethodBase.GetCurrentMethod();
+            var methodInfo = MethodBase.GetCurrentMethod();
             var fullName = methodInfo.DeclaringType.FullName + "." + methodInfo.Name;
 
             foreach (string stackLevel in Environment.StackTrace.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
@@ -451,7 +387,16 @@ namespace Magenic.MaqsFramework.BaseTest
         /// </summary>
         protected virtual void CreateNewTestObject()
         {
-            this.TestObject = new BaseTestObject(this.Log, this.SoftAssert, this.PerfTimerCollection);
+            Logger newLogger = this.CreateLogger();
+            this.TestObject = new BaseTestObject(newLogger, new SoftAssert(newLogger), this.GetFullyQualifiedTestClassName());
+        }
+
+        /// <summary>
+        /// Steps to do before logging teardown results - If not override nothing is done before logging the results
+        /// </summary>
+        /// <param name="resultType">The test result</param>
+        protected virtual void BeforeLoggingTeardown(TestResultType resultType)
+        {
         }
 
         /// <summary>
@@ -472,7 +417,8 @@ namespace Magenic.MaqsFramework.BaseTest
         {
             try
             {
-                if (!this.DoesLoggerExist())
+                // Only do this is we are logging
+                if (LoggingConfig.GetLoggingEnabledSetting() == LoggingEnabled.NO)
                 {
                     return;
                 }
@@ -488,7 +434,7 @@ namespace Magenic.MaqsFramework.BaseTest
 
                 // Get the inner exception and specific test name
                 Exception inner = ex.InnerException;
-                string innerStack = inner.StackTrace == null ? string.Empty : inner.StackTrace;
+                string innerStack = inner.StackTrace ?? string.Empty;
 
                 string message = inner.Message + Environment.NewLine + innerStack;
                 List<string> messages = this.LoggedExceptionList;
@@ -507,15 +453,6 @@ namespace Magenic.MaqsFramework.BaseTest
             {
                 this.TryToLog(MessageType.WARNING, "Failed to log exception because: " + ex.Message);
             }
-        }
-
-        /// <summary>
-        /// Does a logger exist for the test type
-        /// </summary>
-        /// <returns>True if a logger exists</returns>
-        private bool DoesLoggerExist()
-        {
-            return this.Loggers.ContainsKey(this.GetFullyQualifiedTestClassName());
         }
 
         /// <summary>
@@ -598,6 +535,7 @@ namespace Magenic.MaqsFramework.BaseTest
                 {
                     // Update configuration settings for Visual Studio unit test
                     List<string> propeties = new List<string>();
+                    IDictionary<string, object> contextProperties = (IDictionary<string, object>)this.testContextInstance.GetType().InvokeMember("Properties", BindingFlags.GetProperty, null, this.testContextInstance, null);
 
                     // Get a list of framework reserved properties so we can exclude them
                     foreach (var property in this.testContextInstance.GetType().GetProperties())
@@ -605,12 +543,12 @@ namespace Magenic.MaqsFramework.BaseTest
                         propeties.Add(property.Name);
                     }
 
-                    foreach (DictionaryEntry property in this.testContextInstance.Properties)
+                    foreach (KeyValuePair<string, object> property in contextProperties)
                     {
-                        if (!propeties.Contains(property.Key as string) && property.Value is string)
+                        if (!propeties.Contains(property.Key) && property.Value is string)
                         {
                             // Add the override properties
-                            passedInParameters.Add(property.Key as string, property.Value as string);
+                            passedInParameters.Add(property.Key, property.Value as string);
                         }
                     }
                 }
@@ -641,32 +579,33 @@ namespace Magenic.MaqsFramework.BaseTest
         /// <param name="fullyQualifiedTestName">The fully qualified test name</param>
         private void AttachLogAndSceenshot(string fullyQualifiedTestName)
         {
-            try
-            {
-                // This only works for VS unit test so check that first
-                if (this.testContextInstance != null)
-                {
-                    // Only attach if we can find the log file
-                    if (this.Loggers.ContainsKey(fullyQualifiedTestName) && this.Loggers[fullyQualifiedTestName] is FileLogger && File.Exists(((FileLogger)this.Loggers[fullyQualifiedTestName]).FilePath))
-                    {
-                        string path = ((FileLogger)this.Loggers[fullyQualifiedTestName]).FilePath;
-                        string nameWithoutExtension = Path.GetFileNameWithoutExtension(path);
+            //// TODO
+            ////try
+            ////{
+            ////    // This only works for VS unit test so check that first
+            ////    if (this.testContextInstance != null)
+            ////    {
+            ////        // Only attach if we can find the log file
+            ////        if (this.Loggers.ContainsKey(fullyQualifiedTestName) && this.Loggers[fullyQualifiedTestName] is FileLogger && File.Exists(((FileLogger)this.Loggers[fullyQualifiedTestName]).FilePath))
+            ////        {
+            ////            string path = ((FileLogger)this.Loggers[fullyQualifiedTestName]).FilePath;
+            ////            string nameWithoutExtension = Path.GetFileNameWithoutExtension(path);
 
-                        // Find all files that share the same base file name - file name without extension
-                        foreach (string file in Directory.GetFiles(Path.GetDirectoryName(path), fullyQualifiedTestName + "*", SearchOption.TopDirectoryOnly))
-                        {
-                            if (nameWithoutExtension.Equals(Path.GetFileNameWithoutExtension(file), StringComparison.CurrentCultureIgnoreCase))
-                            {
-                                this.TestContext.AddResultFile(file);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                this.TryToLog(MessageType.WARNING, "Failed to attach log or screenshot because: " + e.Message);
-            }
+            ////            // Find all files that share the same base file name - file name without extension
+            ////            foreach (string file in Directory.GetFiles(Path.GetDirectoryName(path), fullyQualifiedTestName + "*", SearchOption.TopDirectoryOnly))
+            ////            {
+            ////                if (nameWithoutExtension.Equals(Path.GetFileNameWithoutExtension(file), StringComparison.CurrentCultureIgnoreCase))
+            ////                {
+            ////                    this.TestContext.AddResultFile(file);
+            ////                }
+            ////            }
+            ////        }
+            ////    }
+            ////}
+            ////catch (Exception e)
+            ////{
+            ////    this.TryToLog(MessageType.WARNING, "Failed to attach log or screenshot because: " + e.Message);
+            ////}
         }
     }
 }

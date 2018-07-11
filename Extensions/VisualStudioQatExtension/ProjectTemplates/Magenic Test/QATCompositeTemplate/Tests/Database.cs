@@ -1,6 +1,6 @@
-﻿using Magenic.MaqsFramework.BaseDatabaseTest;
+﻿using Magenic.Maqs.BaseDatabaseTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Data;
+using System.Linq;
 
 namespace $safeprojectname$
 {
@@ -16,8 +16,8 @@ namespace $safeprojectname$
         // [TestMethod] - Disabled because this step will fail as the template does not include access to a test database
         public void SampleTest()
         {
-            DataTable table = this.DatabaseWrapper.QueryAndGetDataTable("SELECT * FROM information_schema.tables");
-            Assert.AreEqual(table.Rows.Count, 10, "Expected 10 tables");
+            var tables = this.DatabaseWrapper.Query("SELECT * FROM information_schema.tables").ToList();
+            Assert.AreEqual(10, tables.Count, "Expected 10 tables");
         }
     }
 }

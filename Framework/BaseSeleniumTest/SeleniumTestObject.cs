@@ -4,12 +4,12 @@
 // </copyright>
 // <summary>Holds Selenium context data</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Logging;
-using Magenic.MaqsFramework.Utilities.Performance;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Logging;
 using OpenQA.Selenium;
+using System;
 
-namespace Magenic.MaqsFramework.BaseSeleniumTest
+namespace Magenic.Maqs.BaseSeleniumTest
 {
     /// <summary>
     /// Selenium test context data
@@ -21,16 +21,63 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// </summary>
         /// <param name="webDriver">The test's Selenium web driver</param>
         /// <param name="logger">The test's logger</param>
-        /// <param name="softAssert">The test's soft assert</param>
-        /// <param name="perfTimerCollection">The test's performance timer collection</param>
-        public SeleniumTestObject(IWebDriver webDriver, Logger logger, SoftAssert softAssert, PerfTimerCollection perfTimerCollection) : base(logger, softAssert, perfTimerCollection)
+        /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
+        public SeleniumTestObject(IWebDriver webDriver, Logger logger, string fullyQualifiedTestName) : base(logger, fullyQualifiedTestName)
         {
-            this.WebDriver = webDriver;
+            this.ManagerStore.Add(typeof(SeleniumDriverManager).FullName, new SeleniumDriverManager(() => webDriver, this));
+            this.SoftAssert = new SeleniumSoftAssert(this);
         }
 
         /// <summary>
-        /// Gets the web driver
+        /// Initializes a new instance of the <see cref="SeleniumTestObject" /> class
         /// </summary>
-        public IWebDriver WebDriver { get; private set; }
+        /// <param name="getDriver">Function for getting a Selenium web driver</param>
+        /// <param name="logger">The test's logger</param>
+        /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
+        public SeleniumTestObject(Func<IWebDriver> getDriver, Logger logger, string fullyQualifiedTestName) : base(logger, fullyQualifiedTestName)
+        {
+            this.ManagerStore.Add(typeof(SeleniumDriverManager).FullName, new SeleniumDriverManager(getDriver, this));
+            this.SoftAssert = new SeleniumSoftAssert(this);
+        }
+
+        /// <summary>
+        /// Gets the Selenium driver manager
+        /// </summary>
+        public SeleniumDriverManager WebManager
+        {
+            get
+            {
+                return this.ManagerStore[typeof(SeleniumDriverManager).FullName] as SeleniumDriverManager;
+            }
+        }
+
+        /// <summary>
+        /// Gets the Selenium web driver
+        /// </summary>
+        public IWebDriver WebDriver
+        {
+            get
+            {
+                return this.WebManager.Get();
+            }
+        }
+
+        /// <summary>
+        /// Override the Selenium web driver
+        /// </summary>
+        /// <param name="webDriver">New web driver</param>
+        public void OverrideWebDriver(IWebDriver webDriver)
+        {
+            this.OverrideDriverManager(typeof(SeleniumDriverManager).FullName, new SeleniumDriverManager(() => webDriver, this));
+        }
+
+        /// <summary>
+        /// Override the function for creating a Selenium web driver
+        /// </summary>
+        /// <param name="getDriver">Function for creating a web driver</param>
+        public void OverrideWebDriver(Func<IWebDriver> getDriver)
+        {
+            this.OverrideDriverManager(typeof(SeleniumDriverManager).FullName, new SeleniumDriverManager(getDriver, this));
+        }
     }
 }

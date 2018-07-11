@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>Unit test configuration tests</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -26,9 +26,9 @@ namespace UtilitiesUnitTesting
         public void GetValueWithString()
         {
             #region GetValueString
-            string value = Config.GetValue("WaitTime");
+            string value = Config.GetGeneralValue("WaitTime");
             #endregion
-            Assert.AreEqual(value, "100");
+            Assert.AreEqual("100", value);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace UtilitiesUnitTesting
         public void GetValueWithStringAndDefault()
         {
             #region GetValueWithDefault
-            string value = Config.GetValue("DoesNotExist", "Default");
+            string value = Config.GetGeneralValue("DoesNotExist", "Default");
             #endregion
             Assert.AreEqual(value, "Default");
         }
@@ -66,7 +66,7 @@ namespace UtilitiesUnitTesting
         {
             // Simple override data
             string key = "SimpleOverride";
-            string baseValue = Config.GetValue(key);
+            string baseValue = Config.GetGeneralValue(key);
             string overrideValue = baseValue + "_Override";
 
             // Override the configuration
@@ -75,7 +75,7 @@ namespace UtilitiesUnitTesting
             Config.AddTestSettingValues(overrides);
 
             // Make sure it worked
-            Assert.AreEqual(overrideValue, Config.GetValue(key));
+            Assert.AreEqual(overrideValue, Config.GetGeneralValue(key));
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace UtilitiesUnitTesting
             string value = "TestValue";
             
             // Make sure the new key is not present
-            Assert.AreEqual(string.Empty, Config.GetValue(key));
+            Assert.AreEqual(string.Empty, Config.GetGeneralValue(key));
 
             // Set the override
             Dictionary<string, string> overrides = new Dictionary<string, string>();
@@ -97,7 +97,7 @@ namespace UtilitiesUnitTesting
             Config.AddTestSettingValues(overrides);
 
             // Make sure the override worked
-            Assert.AreEqual(value, Config.GetValue(key));
+            Assert.AreEqual(value, Config.GetGeneralValue(key));
         }
 
         /// <summary>
@@ -112,8 +112,8 @@ namespace UtilitiesUnitTesting
             string key2 = "Override2";
 
             // Get base key values
-            string baseValue = Config.GetValue(key);
-            string baseValue2 = Config.GetValue(key2);
+            string baseValue = Config.GetGeneralValue(key);
+            string baseValue2 = Config.GetGeneralValue(key2);
 
             // Set override value
             string overrideValue = baseValue + "_Override";
@@ -129,19 +129,19 @@ namespace UtilitiesUnitTesting
             Config.AddTestSettingValues(overrides);
 
             // The secondary override should fail as we already overrode it once
-            Assert.AreEqual(overrideValue, Config.GetValue(key));
+            Assert.AreEqual(overrideValue, Config.GetGeneralValue(key));
 
             // Try the override again, but this time tell the override to allow itself to be overrode
             overrideValue += "_SecondOverride";
             overrides = new Dictionary<string, string>();
             overrides.Add(key, overrideValue);
-            Config.AddTestSettingValues(overrides, true);
+            Config.AddGeneralTestSettingValues(overrides, true);
 
             // Make sure the force override worked
-            Assert.AreEqual(overrideValue, Config.GetValue(key));
+            Assert.AreEqual(overrideValue, Config.GetGeneralValue(key));
 
             // Make sure the value we didn't override was not affected
-            Assert.AreEqual(baseValue2, Config.GetValue(key2));
+            Assert.AreEqual(baseValue2, Config.GetGeneralValue(key2));
         }
     }
 }

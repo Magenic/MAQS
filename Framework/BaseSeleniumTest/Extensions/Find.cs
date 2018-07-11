@@ -4,12 +4,12 @@
 // </copyright>
 // <summary>This is the FindElements class</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Data;
+using Magenic.Maqs.Utilities.Data;
 using OpenQA.Selenium;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
+namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 {
     /// <summary>
     /// General Element functions for finding and returning Web Elements
@@ -19,7 +19,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// <summary>
         /// The search context item
         /// </summary>
-        private ISearchContext searchItem;
+        private readonly ISearchContext searchItem;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Find"/> class.
@@ -44,7 +44,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
             // returns the 1st element in the collection if it is not null or empty
             ICollection<IWebElement> elementList = this.ElemList(by, assert);
 
-            if (elementList == null || elementList.Count() == 0)
+            if (!elementList.Any())
             {
                 return null;
             }
@@ -68,7 +68,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
             // loop through elementList collection to find text match -- returns if found, else null
             ICollection<IWebElement> elementList = this.ElemList(by, assert);
 
-            if (elementList == null || elementList.Count() == 0)
+            if (!elementList.Any())
             {
                 return null;
             }
@@ -99,22 +99,21 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         {
             // return -1 if index not found..  assert a fail if true
             ICollection<IWebElement> elementList = this.ElemList(by, assert);
-            int index = -1;
 
-            if (elementList == null || (elementList.Count() == 0))
+            if (!elementList.Any())
             {
-                return index;
+                return -1;
             }
 
             for (int i = 0; i < elementList.Count(); i++)
             {
                 if (elementList.ElementAt(i).Text.Equals(text))
                 {
-                    return index = i;
+                    return i;
                 }
             }
 
-            return index;
+            return -1;
         }
 
         /// <summary>
@@ -129,12 +128,10 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public int IndexOfElementWithText(ICollection<IWebElement> list, string text, bool assert = true)
         {
-            int index = -1;
-
             // if list size was null or empty and assert was true
-            if ((list == null || list.Count() == 0) && assert == true)
+            if (!list.Any() && assert == true)
             {
-                throw new NotFoundException(StringProcessor.SafeFormatter("Empty or null Element Collection passed in {0}", list.ToString()));
+                throw new NotFoundException(StringProcessor.SafeFormatter("Empty or null Element Collection passed in {0}", list?.ToString() ?? "NULL list"));
             }
 
             // if assert was true and list size > 0
@@ -142,15 +139,14 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
             {
                 if (list.ElementAt(i).Text.Equals(text))
                 {
-                    IWebElement element = list.ElementAt(i);
-                    return index = i;
+                    return i;
                 }
             }
 
             // if assert is  == false and no match was found
             if (assert == false)
             {
-                return index;
+                return -1;
             }
 
             // if assert is == true and no match was found
@@ -167,7 +163,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         {
             ICollection<IWebElement> elems = this.searchItem.FindElements(by);
 
-            if (elems.Count() > 0 || assert == false)
+            if (elems.Count > 0 || assert == false)
             {
                 return elems;
             }

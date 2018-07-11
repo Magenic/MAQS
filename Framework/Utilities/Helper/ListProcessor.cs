@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Magenic.MaqsFramework.Utilities.Data
+namespace Magenic.Maqs.Utilities.Data
 {
     /// <summary>
     /// Contains methods for processing lists
@@ -27,7 +27,7 @@ namespace Magenic.MaqsFramework.Utilities.Data
         public static string CreateCommaDelimitedString(List<string> stringList, bool sort = false)
         {
             bool firstElement = true;
-            string commaDelimitedString = string.Empty;
+            StringBuilder commaDelimitedString = new StringBuilder();
 
             if (sort)
             {
@@ -38,16 +38,16 @@ namespace Magenic.MaqsFramework.Utilities.Data
             {
                 if (firstElement)
                 {
-                    commaDelimitedString = text;
+                    commaDelimitedString.Append(text);
                     firstElement = false;
                 }
                 else
                 {
-                    commaDelimitedString += StringProcessor.SafeFormatter(", {0}", text);
+                    commaDelimitedString.Append(StringProcessor.SafeFormatter(", {0}", text));
                 }
             }
 
-            return commaDelimitedString;
+            return commaDelimitedString.ToString();
         }
 
         /// <summary>

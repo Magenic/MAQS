@@ -4,11 +4,13 @@
 // </copyright>
 // <summary>Holds web service context data</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Logging;
-using Magenic.MaqsFramework.Utilities.Performance;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Logging;
+using Magenic.Maqs.WebServiceTester;
+using System;
+using System.Net.Http;
 
-namespace Magenic.MaqsFramework.BaseWebServiceTest
+namespace Magenic.Maqs.BaseWebServiceTest
 {
     /// <summary>
     /// Web service test context data
@@ -18,18 +20,61 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         /// <summary>
         /// Initializes a new instance of the <see cref="WebServiceTestObject" /> class
         /// </summary>
-        /// <param name="httpClientWrapper">The test's http client wrapper</param>
+        /// <param name="httpClient">The test's http client driver</param>
         /// <param name="logger">The test's logger</param>
-        /// <param name="softAssert">The test's soft assert</param>
-        /// <param name="perfTimerCollection">The test's performance timer collection</param>
-        public WebServiceTestObject(HttpClientWrapper httpClientWrapper, Logger logger, SoftAssert softAssert, PerfTimerCollection perfTimerCollection) : base(logger, softAssert, perfTimerCollection)
+        /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
+        public WebServiceTestObject(Func<HttpClient> httpClient, Logger logger, string fullyQualifiedTestName) : base(logger, fullyQualifiedTestName)
         {
-            this.WebServiceWrapper = httpClientWrapper;
+            this.ManagerStore.Add(typeof(WebServiceDriverManager).FullName, new WebServiceDriverManager(httpClient, this));
         }
 
         /// <summary>
-        /// Gets the web driver
+        /// Gets the web service driver
         /// </summary>
-        public HttpClientWrapper WebServiceWrapper { get; private set; }
+        public WebServiceDriver WebServiceDriver
+        {
+            get
+            {
+                return this.WebServiceManager.Get();
+            }
+        }
+
+        /// <summary>
+        /// Gets the web service driver manager
+        /// </summary>
+        public WebServiceDriverManager WebServiceManager
+        {
+            get
+            {
+                return this.ManagerStore[typeof(WebServiceDriverManager).FullName] as WebServiceDriverManager;
+            }
+        }
+
+        /// <summary>
+        /// Override the http client
+        /// </summary>
+        /// <param name="httpClient">The new http client</param>
+        public void OverrideWebServiceDriver(HttpClient httpClient)
+        {
+            this.OverrideDriverManager(typeof(WebServiceDriverManager).FullName, new WebServiceDriverManager(() => httpClient, this));
+        }
+
+        /// <summary>
+        /// Override the http client
+        /// </summary>
+        /// <param name="httpClient">Function for getting a new http client</param>
+        public void OverrideWebServiceDriver(Func<HttpClient> httpClient)
+        {
+            this.OverrideDriverManager(typeof(WebServiceDriverManager).FullName, new WebServiceDriverManager(httpClient, this));
+        }
+
+        /// <summary>
+        /// Override the http client driver
+        /// </summary>
+        /// <param name="webServiceDriver">An http client driver</param>
+        public void OverrideWebServiceDriver(WebServiceDriver webServiceDriver)
+        {
+            (this.ManagerStore[typeof(WebServiceDriverManager).FullName] as WebServiceDriverManager).OverrideDriver(webServiceDriver);
+        }
     }
 }

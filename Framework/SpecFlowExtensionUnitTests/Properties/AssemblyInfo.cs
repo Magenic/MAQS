@@ -1,11 +1,11 @@
-﻿//--------------------------------------------------
+﻿//------------------------------------------------
 // <copyright file="AssemblyInfo.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
-// <summary>Assembly File</summary>
+// <summary>This is the assembly info class</summary>
 //--------------------------------------------------
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("SpecFlowExtensionUnitTests")]
@@ -13,14 +13,15 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("SpecFlowExtensionUnitTests")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCopyright("Copyright © Magenic 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
+[assembly: DoNotParallelize]
 
 [assembly: ComVisible(false)]
 
-[assembly: Guid("fd2bf0a7-c476-48ea-8135-e2afba1b550c")]
+[assembly: Guid("37f9b3ac-f61b-46e9-9dc6-b16860a2c272")]
 
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("4.0.5")]
-[assembly: AssemblyFileVersion("4.0.5")]
+[assembly: AssemblyVersion("5.0.0")]
+[assembly: AssemblyFileVersion("5.0.0")]

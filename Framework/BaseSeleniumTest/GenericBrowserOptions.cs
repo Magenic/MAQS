@@ -9,7 +9,7 @@ using OpenQA.Selenium.Remote;
 using System;
 using System.Collections.Generic;
 
-namespace Magenic.MaqsFramework.BaseSeleniumTest
+namespace Magenic.Maqs.BaseSeleniumTest
 {
     /// <summary>
     /// Generic browser options
@@ -19,7 +19,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// <summary>
         /// The dictionary of capabilities
         /// </summary>
-        private Dictionary<string, object> capabilities = new Dictionary<string, object>();
+        private readonly Dictionary<string, object> capabilities = new Dictionary<string, object>();
 
         /// <summary>
         /// Add new capabilities

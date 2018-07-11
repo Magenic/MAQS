@@ -1,4 +1,4 @@
-﻿using Magenic.MaqsFramework.BaseWebServiceTest;
+﻿using Magenic.Maqs.BaseWebServiceTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Models.WebService;
 

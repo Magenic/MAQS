@@ -2,10 +2,10 @@
 // <copyright file="MongoDBTests.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
-// <summary>Unit test class for the MongoDB wrapper</summary>
+// <summary>Unit test class for the MongoDB driver</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseMongoDBTest;
-using Magenic.MaqsFramework.Utilities.Helper;
+using Magenic.Maqs.BaseMongoTest;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -19,7 +19,7 @@ namespace MongoDBUnitTests
     /// Test basic mongo base test functionality
     /// </summary>
     [TestClass]
-    public class MongoDBTests : BaseMongoDBTest<BsonDocument>
+    public class MongoDBTests : BaseMongoTest<BsonDocument>
     {
         /// <summary>
         /// Test the list all collection items helper function
@@ -28,7 +28,7 @@ namespace MongoDBUnitTests
         [TestCategory(TestCategories.MongoDB)]
         public void TestMongoListAllCollectionItems()
         {
-            List<BsonDocument> collectionItems = this.ObjectUnderTest.ListAllCollectionItems();
+            List<BsonDocument> collectionItems = this.MongoDBDriver.ListAllCollectionItems();
             foreach (BsonDocument bson in collectionItems)
             {
                 Assert.IsTrue(bson.Contains("lid"));
@@ -44,7 +44,7 @@ namespace MongoDBUnitTests
         [TestCategory(TestCategories.MongoDB)]
         public void TestMongoCountItemsInCollection()
         {
-            Assert.AreEqual(4, this.ObjectUnderTest.CountAllItemsInCollection());
+            Assert.AreEqual(4, this.MongoDBDriver.CountAllItemsInCollection());
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace MongoDBUnitTests
         {
             var filter = Builders<BsonDocument>.Filter.Eq("lid", "test3");
 
-            var value = this.ObjectUnderTest.Collection.Find(filter).ToList()[0]["lid"].ToString();
+            var value = this.MongoDBDriver.Collection.Find(filter).ToList()[0]["lid"].ToString();
             Assert.AreEqual("test3", value);
         }
 
@@ -68,7 +68,7 @@ namespace MongoDBUnitTests
         public void TestMongoQueryAndReturnFirst()
         {
             var filter = Builders<BsonDocument>.Filter.Eq("lid", "test3");
-            BsonDocument document = this.ObjectUnderTest.Collection.Find(filter).ToList().First();
+            BsonDocument document = this.MongoDBDriver.Collection.Find(filter).ToList().First();
             Assert.AreEqual(document["lid"].ToString(), "test3");
         }
 
@@ -80,7 +80,7 @@ namespace MongoDBUnitTests
         public void TestMongoFindListWithKey()
         {
             var filter = Builders<BsonDocument>.Filter.Exists("lid");
-            List<BsonDocument> documentList = this.ObjectUnderTest.Collection.Find(filter).ToList();
+            List<BsonDocument> documentList = this.MongoDBDriver.Collection.Find(filter).ToList();
             foreach (BsonDocument documents in documentList)
             {
                 Assert.AreNotEqual(documents["lid"].ToString(), string.Empty);
@@ -97,7 +97,7 @@ namespace MongoDBUnitTests
         public void TestMongoLinqQuery()
         {
             IMongoQueryable<BsonDocument> query =
-                from e in this.ObjectUnderTest.Collection.AsQueryable<BsonDocument>()
+                from e in this.MongoDBDriver.Collection.AsQueryable<BsonDocument>()
                 where e["lid"] == "test1"
                 select e;
             List<BsonDocument> retList = query.ToList<BsonDocument>();
@@ -118,18 +118,31 @@ namespace MongoDBUnitTests
             Assert.AreEqual(this.TestObject.Log, this.Log, "Logs don't match");
             Assert.AreEqual(this.TestObject.SoftAssert, this.SoftAssert, "Soft asserts don't match");
             Assert.AreEqual(this.TestObject.PerfTimerCollection, this.PerfTimerCollection, "Soft asserts don't match");
-            Assert.AreEqual(this.TestObject.MongoDBCollectionWrapper, this.MongoDBWrapper, "Web service wrapper don't match");
+            Assert.AreEqual(this.TestObject.MongoDBDriver, this.MongoDBDriver, "Web service driver don't match");
         }
 
         /// <summary>
-        /// Test the event firing collection wrapper
+        /// Test the event firing collection driver
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.MongoDB)]
+        [DoNotParallelize]
         public void MongoDBTestSetupEventFiringTestObject()
         {
-            this.SetupEventFiringTester();
-            Assert.AreEqual(4, this.ObjectUnderTest.CountAllItemsInCollection());
+            string logging = Config.GetGeneralValue("Log");
+
+            try
+            {
+                // Turn on logging
+                Config.AddGeneralTestSettingValues(new Dictionary<string, string> { { "Log", "Yes" } }, true);
+
+                // Make sure this is an event firing driver
+                Assert.IsInstanceOfType(this.TestObject.MongoDBDriver, typeof(EventFiringMongoDBDriver<BsonDocument>));
+            }
+            finally
+            {
+                Config.AddGeneralTestSettingValues(new Dictionary<string, string> { { "Log", logging } }, true);
+            }
         }
     }
 }

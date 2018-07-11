@@ -2,7 +2,7 @@
 	Web Service Tests
 
 @MAQS_WebService
-Scenario: WebServiceWrapper Available BaseWebServiceTestSteps
+Scenario: WebServiceDriver Available BaseWebServiceTestSteps
 	Given class BaseWebServiceTestSteps
-	Then BaseWebServiceTestSteps WebServiceWrapper is not null
-	And BaseWebServiceTestSteps WebServiceWrapper is type EventFiringHttpClientWrapper
+	Then BaseWebServiceTestSteps WebServiceDriver is not null
+	And BaseWebServiceTestSteps WebServiceDriver is type EventFiringWebServiceDriver

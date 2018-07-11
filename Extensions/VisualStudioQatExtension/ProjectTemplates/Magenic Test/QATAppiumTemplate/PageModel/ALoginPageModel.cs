@@ -1,5 +1,5 @@
-﻿using Magenic.MaqsFramework.BaseAppiumTest;
-using Magenic.MaqsFramework.BaseSeleniumTest.Extensions;
+﻿using Magenic.Maqs.BaseAppiumTest;
+using Magenic.Maqs.BaseSeleniumTest.Extensions;
 using OpenQA.Selenium;
 namespace $safeprojectname$
 {
@@ -16,22 +16,22 @@ namespace $safeprojectname$
         /// <summary>
         /// The user name input element 'By' finder
         /// </summary>
-        protected abstract FluentMobileElement UserNameInput { get; }
+        protected abstract LazyMobileElement UserNameInput { get; }
 
         /// <summary>
         /// The password input element 'By' finder
         /// </summary>
-        protected abstract FluentMobileElement PasswordInput { get; }
+        protected abstract LazyMobileElement PasswordInput { get; }
 
         /// <summary>
         /// The login button element 'By' finder
         /// </summary>
-        protected abstract FluentMobileElement LoginButton { get; }
+        protected abstract LazyMobileElement LoginButton { get; }
 
         /// <summary>
         /// The error message element 'By' finder
         /// </summary>
-        protected abstract FluentMobileElement ErrorMessage { get; }
+        protected abstract LazyMobileElement ErrorMessage { get; }
 
         /// <summary>
         /// Enter the user credentials

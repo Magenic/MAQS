@@ -4,13 +4,13 @@
 // </copyright>
 // <summary>This is the Appium utilities class</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.Utilities.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using System;
 using System.IO;
 
-namespace Magenic.MaqsFramework.BaseAppiumTest
+namespace Magenic.Maqs.BaseAppiumTest
 {
     /// <summary>
     /// Static class for the appium utilities

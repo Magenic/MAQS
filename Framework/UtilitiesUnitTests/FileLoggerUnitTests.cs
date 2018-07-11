@@ -4,10 +4,10 @@
 // </copyright>
 // <summary>Test the file logger</summary>
 //-----------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Data;
-using Magenic.MaqsFramework.Utilities.Helper;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Data;
+using Magenic.Maqs.Utilities.Helper;
+using Magenic.Maqs.Utilities.Logging;
 using NUnit.Framework;
 using System;
 using System.Collections;
@@ -218,8 +218,11 @@ namespace UtilitiesUnitTesting
         [Category(TestCategories.Utilities)]
         public void FileLoggerSetFilePath()
         {
-            FileLogger logger = new FileLogger(string.Empty, "FileLoggerSetFilePath", MessageType.GENERIC, true);
-            logger.FilePath = "test file path";
+            FileLogger logger = new FileLogger(string.Empty, "FileLoggerSetFilePath", MessageType.GENERIC, true)
+            {
+                FilePath = "test file path"
+            };
+
             Assert.AreEqual(logger.FilePath, "test file path");
         }
 
@@ -230,8 +233,11 @@ namespace UtilitiesUnitTesting
         [Category(TestCategories.Utilities)]
         public void FileLoggerCatchThrownException()
         {
-            FileLogger logger = new FileLogger(string.Empty, "FileLoggerCatchThrownException", MessageType.GENERIC, true);
-            logger.FilePath = "<>";
+            FileLogger logger = new FileLogger(string.Empty, "FileLoggerCatchThrownException", MessageType.GENERIC, true)
+            {
+                FilePath = "<>"
+            };
+
             logger.LogMessage(MessageType.GENERIC, "test throws error");
         }
 

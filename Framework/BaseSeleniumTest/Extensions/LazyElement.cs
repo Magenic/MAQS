@@ -4,7 +4,8 @@
 // </copyright>
 // <summary>This is the LazyElement class</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.Utilities.Helper;
+using Magenic.Maqs.Utilities.Logging;
 using OpenQA.Selenium;
 using System;
 using System.Collections.ObjectModel;
@@ -13,10 +14,10 @@ using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
+namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 {
     /// <summary>
-    /// Wrapper for dynamically finding and interacting with elements
+    /// Driver for dynamically finding and interacting with elements
     /// </summary>
     public class LazyElement : IWebElement
     {
@@ -26,7 +27,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         private string userFriendlyName;
 
         /// <summary>
-        /// The parent fluent element
+        /// The parent lazy element
         /// </summary>
         private LazyElement parent;
 
@@ -49,7 +50,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// <summary>
         /// Initializes a new instance of the <see cref="LazyElement" /> class
         /// </summary>
-        /// <param name="parent">The parent fluent element</param>
+        /// <param name="parent">The parent lazy element</param>
         /// <param name="locator">The 'by' selector for the element</param>
         /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
         /// <example>
@@ -85,7 +86,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         public IWebElement CachedElement { get; private set; }
 
         /// <summary>
-        /// Gets a value indicating whether the fluent element is enabled
+        /// Gets a value indicating whether the lazy element is enabled
         /// </summary>
         /// <example>
         /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementEnabled" lang="C#" />
@@ -94,12 +95,15 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         {
             get
             {
-                return this.GetElement(this.GetTheExistingElement).Enabled;
+                return GenericWait.WaitFor<bool>(() =>
+                {
+                    return this.GetElement(this.GetTheExistingElement).Enabled;
+                });
             }
         }
 
         /// <summary>
-        /// Gets a value indicating whether the fluent element is selected
+        /// Gets a value indicating whether the lazy element is selected
         /// </summary>
         /// <example>
         /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementSelected" lang="C#" />
@@ -108,12 +112,15 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         {
             get
             {
-                return this.GetElement(this.GetTheExistingElement).Selected;
+                return GenericWait.WaitFor<bool>(() =>
+                {
+                    return this.GetElement(this.GetTheExistingElement).Selected;
+                });
             }
         }
 
         /// <summary>
-        /// Gets a value indicating whether the fluent element is displayed
+        /// Gets a value indicating whether the lazy element is displayed
         /// </summary>
         /// <example>
         /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementDisplayed" lang="C#" />
@@ -122,12 +129,15 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         {
             get
             {
-                return this.GetElement(this.GetTheExistingElement).Displayed;
+                return GenericWait.WaitFor<bool>(() =>
+                {
+                    return this.GetElement(this.GetTheExistingElement).Displayed;
+                });
             }
         }
 
         /// <summary>
-        /// Gets the fluent element's tag name
+        /// Gets the lazy element's tag name
         /// </summary>
         /// <example>
         /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementTagName" lang="C#" />
@@ -136,12 +146,15 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         {
             get
             {
-                return this.GetElement(this.GetTheExistingElement).TagName;
+                return GenericWait.WaitFor<string>(() =>
+                {
+                    return this.GetElement(this.GetTheExistingElement).TagName;
+                });
             }
         }
 
         /// <summary>
-        /// Gets the fluent element's text
+        /// Gets the lazy element's text
         /// </summary>
         /// <example>
         /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementText" lang="C#" />
@@ -150,12 +163,15 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         {
             get
             {
-                return this.GetElement(this.GetTheExistingElement).Text;
+                return GenericWait.WaitFor<string>(() =>
+                {
+                    return this.GetElement(this.GetTheExistingElement).Text;
+                });
             }
         }
 
         /// <summary>
-        /// Gets the fluent element's location
+        /// Gets the lazy element's location
         /// </summary>
         /// <example>
         /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementLocation" lang="C#" />
@@ -164,12 +180,15 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         {
             get
             {
-                return this.GetElement(this.GetTheVisibleElement).Location;
+                return GenericWait.WaitFor<Point>(() =>
+                {
+                    return this.GetElement(this.GetTheVisibleElement).Location;
+                });
             }
         }
 
         /// <summary>
-        /// Gets the fluent element's size
+        /// Gets the lazy element's size
         /// </summary>
         /// <example>
         /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementSize" lang="C#" />
@@ -178,33 +197,44 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         {
             get
             {
-                return this.GetElement(this.GetTheVisibleElement).Size;
+                return GenericWait.WaitFor<Size>(() =>
+                {
+                    return this.GetElement(this.GetTheVisibleElement).Size;
+                });
             }
         }
 
         /// <summary>
-        /// Click the fluent element 
+        /// Click the lazy element 
         /// </summary>
         /// <example>
         /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementClick" lang="C#" />
         /// </example>
         public void Click()
         {
-            IWebElement element = this.GetElement(this.GetTheClickableElement);
-            this.ExecuteEvent(() => element.Click(), "Click");
+            GenericWait.WaitFor(() =>
+            {
+                IWebElement element = this.GetElement(this.GetTheClickableElement);
+                this.ExecuteEvent(() => element.Click(), "Click");
+                return true;
+            });
         }
 
         /// <summary>
-        /// Send keys to the fluent element
+        /// Send keys to the lazy element
         /// </summary>
-        /// <param name="keys">The keys to send to the fluent element</param>
+        /// <param name="keys">The keys to send to the lazy element</param>
         /// <example>
         /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementSendKeys" lang="C#" />
         /// </example>
         public void SendKeys(string keys)
         {
-            IWebElement element = this.GetElement(this.GetTheVisibleElement);
-            this.ExecuteEvent(() => element.SendKeys(keys), "SendKeys");
+            GenericWait.WaitFor(() =>
+            {
+                IWebElement element = this.GetElement(this.GetTheVisibleElement);
+                this.ExecuteEvent(() => element.SendKeys(keys), "SendKeys");
+                return true;
+            });
         }
 
         /// <summary>
@@ -226,33 +256,41 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
             catch (Exception e)
             {
                 this.TestObject.Log.ContinueLogging();
-                this.TestObject.Log.LogMessage(MessageType.ERROR, "An error occured: " + e);
-                throw new Exception("Exception durring sending secret keys: " + e.Message);
+                this.TestObject.Log.LogMessage(MessageType.ERROR, "Exception durring sending secret keys: " + e.Message + Environment.NewLine + e.StackTrace);
+                throw e;
             }
         }
 
         /// <summary>
-        /// Clear the fluent element 
+        /// Clear the lazy element 
         /// </summary>
         /// <example>
         /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementClear" lang="C#" />
         /// </example>
         public void Clear()
         {
-            IWebElement element = this.GetElement(this.GetTheVisibleElement);
-            this.ExecuteEvent(() => element.Clear(), "Clear");
+            GenericWait.WaitFor(() =>
+            {
+                IWebElement element = this.GetElement(this.GetTheVisibleElement);
+                this.ExecuteEvent(() => element.Clear(), "Clear");
+                return true;
+            });
         }
 
         /// <summary>
-        /// Submit the fluent element 
+        /// Submit the lazy element 
         /// </summary>
         /// <example>
         /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementSubmit" lang="C#" />
         /// </example>
         public void Submit()
         {
-            IWebElement element = this.GetElement(this.GetTheExistingElement);
-            this.ExecuteEvent(() => element.Submit(), "Submit");
+            GenericWait.WaitFor(() =>
+            {
+                IWebElement element = this.GetElement(this.GetTheExistingElement);
+                this.ExecuteEvent(() => element.Submit(), "Submit");
+                return true;
+            });
         }
 
         /// <summary>
@@ -265,7 +303,10 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public string GetAttribute(string attributeName)
         {
-            return this.GetElement(this.GetTheExistingElement).GetAttribute(attributeName);
+            return GenericWait.WaitFor<string>(() =>
+            {
+                return this.GetElement(this.GetTheExistingElement).GetAttribute(attributeName);
+            });
         }
 
         /// <summary>
@@ -277,7 +318,10 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public string GetValue()
         {
-            return this.GetElement(this.GetTheVisibleElement).GetAttribute("value");
+            return GenericWait.WaitFor<string>(() =>
+            {
+                return this.GetElement(this.GetTheVisibleElement).GetAttribute("value");
+            });
         }
 
         /// <summary>
@@ -290,7 +334,10 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// </example>
         public string GetCssValue(string attributeName)
         {
-            return this.GetElement(this.GetTheExistingElement).GetCssValue(attributeName);
+            return GenericWait.WaitFor<string>(() =>
+            {
+                return this.GetElement(this.GetTheExistingElement).GetCssValue(attributeName);
+            });
         }
 
         /// <summary>
@@ -395,7 +442,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
 
             try
             {
-                this.TestObject.Log.LogMessage(MessageType.VERBOSE, "Performing fluent wrapper find on: " + this.By);
+                this.TestObject.Log.LogMessage(MessageType.VERBOSE, "Performing lazy driver find on: " + this.By);
                 this.CachedElement = getElement();
                 return this.CachedElement;
             }
@@ -421,7 +468,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         {
             try
             {
-                this.TestObject.Log.LogMessage(MessageType.VERBOSE, "Performing fluent wrapper action: " + caller);
+                this.TestObject.Log.LogMessage(MessageType.VERBOSE, "Performing lazy driver action: " + caller);
                 elementAction.Invoke();
             }
             catch (Exception e)

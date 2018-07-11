@@ -4,9 +4,9 @@
 // </copyright>
 // <summary>TestSteps class that inherits from BaseWebServiceTestSteps</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseWebServiceTest;
+using Magenic.Maqs.BaseWebServiceTest;
+using Magenic.Maqs.SpecFlow.TestSteps;
 using NUnit.Framework;
-using SpecFlowMAQSExtension.TestSteps;
 using TechTalk.SpecFlow;
 
 namespace SpecFlowExtensionNUnitTests.Steps
@@ -71,21 +71,21 @@ namespace SpecFlowExtensionNUnitTests.Steps
         }
 
         /// <summary>
-        /// WebServiceWrapper exists
+        /// WebServiceDriver exists
         /// </summary>
-        [Then(@"BaseWebServiceTestSteps WebServiceWrapper is not null")]
+        [Then(@"BaseWebServiceTestSteps WebServiceDriver is not null")]
         public void ThenWebDriverIsNotNull()
         {
-            Assert.IsNotNull(this.TestObject.WebServiceWrapper, "WebServiceWrapper for BaseWebServiceTestSteps class is null.");
+            Assert.IsNotNull(this.TestObject.WebServiceDriver, "WebServiceDriver for BaseWebServiceTestSteps class is null.");
         }
 
         /// <summary>
-        /// WebServiceWrapper exists
+        /// WebServiceDriver exists
         /// </summary>
-        [Then(@"BaseWebServiceTestSteps WebServiceWrapper is type EventFiringHttpClientWrapper")]
-        public void AndWebDriverIsTypeHttpClientWrapper()
+        [Then(@"BaseWebServiceTestSteps WebServiceDriver is type EventFiringWebServiceDriver")]
+        public void AndWebDriverIsTypeWebServiceDriver()
         {
-            Assert.IsTrue(this.TestObject.WebServiceWrapper.GetType().Equals(typeof(EventFiringHttpClientWrapper)), $"WebServiceWrapper for BaseWebServiceTestSteps class is the wrong type : {this.TestObject.WebServiceWrapper.GetType()}.");
+            Assert.IsTrue(this.TestObject.WebServiceDriver.GetType().Equals(typeof(EventFiringWebServiceDriver)), $"WebServiceDriver for BaseWebServiceTestSteps class is the wrong type : {this.TestObject.WebServiceDriver.GetType()}.");
         }
     }
 }

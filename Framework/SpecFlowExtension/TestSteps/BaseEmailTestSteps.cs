@@ -4,16 +4,17 @@
 // </copyright>
 // <summary>Base teststeps code for tests using email</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseEmailTest;
+using Magenic.Maqs.BaseEmailTest;
 using TechTalk.SpecFlow;
+using MaqsEmail = Magenic.Maqs.BaseEmailTest.BaseEmailTest;
 
-namespace SpecFlowMAQSExtension.TestSteps
+namespace Magenic.Maqs.SpecFlow.TestSteps
 {
     /// <summary>
     /// Base for email TestSteps classes
     /// </summary>
     [Binding, Scope(Tag = "MAQS_Email")]
-    public class BaseEmailTestSteps : ExtendableTestSteps<EmailTestObject, BaseEmailTest, EmailConnectionWrapper>
+    public class BaseEmailTestSteps : ExtendableTestSteps<EmailTestObject, MaqsEmail>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseEmailTestSteps" /> class

@@ -1,6 +1,6 @@
-﻿using Magenic.MaqsFramework.BaseSeleniumTest;
-using Magenic.MaqsFramework.BaseSeleniumTest.Extensions;
-using Magenic.MaqsFramework.Utilities.Helper;
+﻿using Magenic.Maqs.BaseSeleniumTest;
+using Magenic.Maqs.BaseSeleniumTest.Extensions;
+using Magenic.Maqs.Utilities.Helper;
 using OpenQA.Selenium;
 
 namespace $safeprojectname$
@@ -13,7 +13,7 @@ namespace $safeprojectname$
         /// <summary>
         /// The page url
         /// </summary>
-        private static string PageUrl = Config.GetValue("WebSiteBase") + "Static/Training3/HomePage.html";
+        private static string PageUrl = SeleniumConfig.GetWebSiteBase() + "Static/Training3/HomePage.html";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="$safeitemname$" /> class.

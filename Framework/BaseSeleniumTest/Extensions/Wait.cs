@@ -4,13 +4,13 @@
 // </copyright>
 // <summary>Wait extension for web drivers and elements</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Data;
+using Magenic.Maqs.Utilities.Data;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Threading;
 
-namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
+namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 {
     /// <summary>
     /// Web driver wait extension methods
@@ -20,12 +20,12 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         /// <summary>
         /// The search context item
         /// </summary>
-        private ISearchContext searchItem;
+        private readonly ISearchContext searchItem;
 
         /// <summary>
         /// The wait driver
         /// </summary>
-        private WebDriverWait webDriverWait;
+        private readonly WebDriverWait webDriverWait;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Wait"/> class.
@@ -122,7 +122,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         {
             if (!this.UntilAbsentElement(by))
             {
-                throw new Exception(StringProcessor.SafeFormatter("The element '{0}' is still present.", by.ToString()));
+                throw new TimeoutException(StringProcessor.SafeFormatter("The element '{0}' is still present.", by.ToString()));
             }
         }
 
@@ -136,7 +136,7 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest.Extensions
         {
             if (!this.UntilPageLoad())
             {
-                throw new Exception("Page load took longer than timeout configuration");
+                throw new TimeoutException("Page load took longer than timeout configuration");
             }
         }
 

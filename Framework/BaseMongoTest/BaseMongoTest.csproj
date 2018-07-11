@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>5.0.0</Version>
+    <AssemblyName>Magenic.Maqs.BaseMongoTest</AssemblyName>
+    <RootNamespace>Magenic.Maqs.BaseMongoTest</RootNamespace>
+    <PackageId>Magenic.Maqs.BaseMongoTest</PackageId>
+    <Authors>Magenic.Maqs.BaseMongoTest</Authors>
+    <Company>Magenic.Maqs.BaseMongoTest</Company>
+    <Product>Magenic.Maqs.BaseMongoTest</Product>
+    <ApplicationIcon>MAQS.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MongoDB.Bson" Version="2.7.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.7.0" />
+    <PackageReference Include="MongoDB.Driver.Core" Version="2.7.0" />
+    <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BaseTest\BaseTest.csproj" />
+  </ItemGroup>
+
+</Project>

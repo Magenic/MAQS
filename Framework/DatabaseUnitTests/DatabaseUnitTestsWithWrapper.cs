@@ -1,17 +1,19 @@
 ﻿//--------------------------------------------------
-// <copyright file="DatabaseUnitTestsWithWrapper.cs" company="Magenic">
+// <copyright file="DatabaseUnitTestsWithDriver.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
 // <summary>Database base test unit tests</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseDatabaseTest;
-using Magenic.MaqsFramework.Utilities.Helper;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
+
+using System;
 using System.Data;
-using System.Data.SqlClient;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Text;
+using DatabaseUnitTests.Models;
+using Magenic.Maqs.BaseDatabaseTest;
+using Magenic.Maqs.Utilities.Helper;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DatabaseUnitTests
 {
@@ -20,28 +22,19 @@ namespace DatabaseUnitTests
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class DatabaseUnitTestsWithWrapper : BaseDatabaseTest
+    public class DatabaseUnitTestsWithDriver : BaseDatabaseTest
     {
         /// <summary>
         /// Check that we get back the state table
         /// </summary>
-        #region QueryAndGetTableData
         [TestMethod]
         [TestCategory(TestCategories.Database)]
         public void VerifyStateTableExists()
         {
-            DataTable table = this.DatabaseWrapper.QueryAndGetDataTable("SELECT * FROM information_schema.tables");
+            var table = this.DatabaseDriver.Query("SELECT * FROM information_schema.tables").ToList();
 
-            // Get the list of table names
-            List<string> tablesNames = new List<string>(table.Rows.Count);
-            foreach (DataRow row in table.Rows)
-            {
-                tablesNames.Add((string)row["TABLE_NAME"]);
-            }
-
-            Assert.IsTrue(tablesNames.Contains("States"));
+            Assert.IsTrue(table.Any(n => n.TABLE_NAME.Equals("States")));
         }
-        #endregion
 
         /// <summary>
         /// Check if we get the expect number of results
@@ -50,27 +43,49 @@ namespace DatabaseUnitTests
         [TestCategory(TestCategories.Database)]
         public void VerifyStateTableHasCorrectNumberOfRecords()
         {
-            DataTable table = this.DatabaseWrapper.QueryAndGetDataTable("SELECT * FROM States");
+            var states = this.DatabaseDriver.Query("SELECT * FROM States").ToList();
 
             // Our database only has 49 states
-            Assert.AreEqual(49, table.Rows.Count, "Expected 49 states.");
+            Assert.AreEqual(49, states.Count, "Expected 49 states.");
+        }
+
+        /// <summary>
+        /// Check if we get the expect number of results, mapping to an object
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Database)]
+        public void VerifyStateTableHasCorrectNumberOfRecordsWithModels()
+        {
+            var states = this.DatabaseDriver.Query<States>("SELECT * FROM States").ToList();
+
+            // Our database only has 49 states
+            Assert.AreEqual(49, states.Count, "Expected 49 states.");
+        }
+
+        /// <summary>
+        /// Check if we get the expected mapped data when mapping to an object
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Database)]
+        public void VerifyStateTableDataIsCorrectWithModels()
+        {
+            var states = this.DatabaseDriver.Query<States>("SELECT * FROM States").ToList();
+
+            Assert.AreNotEqual(string.Empty, states.First().StateAbbreviation, "Expected nonempty state abbreviation.");
         }
 
         /// <summary>
         /// Check if Procedures actions can update an item
         /// </summary>
-        #region RunActionProcedure
         [TestMethod]
         [TestCategory(TestCategories.Database)]
         public void VerifyProceduresActionWithAnUpdate()
         {
-            SqlParameter state = new SqlParameter("StateAbbreviation", "MN");
-            int result = this.DatabaseWrapper.RunActionProcedure("setStateAbbrevToSelf", state);
+            var result = this.DatabaseDriver.Execute("setStateAbbrevToSelf", new { StateAbbreviation = "MN" }, commandType: CommandType.StoredProcedure);
+            
             Assert.AreEqual(1, result, "Expected 1 state abbreviation to be updated.");
         }
-        #endregion
-
-        #region NonQuerySqlCall
+        
         /// <summary>
         /// Verify that a non query SQL call works
         /// </summary>
@@ -79,10 +94,9 @@ namespace DatabaseUnitTests
         public void VerifyNonQuerySqlCallWorks()
         {
             string query = @"UPDATE States SET StateAbbreviation = 'WI' WHERE StateAbbreviation = 'WI'";
-            int result = this.DatabaseWrapper.NonQueryAndGetRowsAffected(query);
+            var result = this.DatabaseDriver.Execute(query);
             Assert.AreEqual(1, result, "Expected 1 state abbreviation to be updated.");
         }
-        #endregion
 
         /// <summary>
         /// Check if Procedures actions work when no items are affected
@@ -91,24 +105,22 @@ namespace DatabaseUnitTests
         [TestCategory(TestCategories.Database)]
         public void VerifyProceduresActionWithNoUpdates()
         {
-            SqlParameter state = new SqlParameter("StateAbbreviation", "ZZ");
-            int result = this.DatabaseWrapper.RunActionProcedure("setStateAbbrevToSelf", state);
+            var result = this.DatabaseDriver.Execute("setStateAbbrevToSelf", new { StateAbbreviation = "ZZ" }, commandType: CommandType.StoredProcedure);
+
             Assert.AreEqual(0, result, "Expected 0 state abbreviation to be updated.");
         }
 
         /// <summary>
         /// Check if Procedures queries work when an item is returned
         /// </summary>
-        #region RunQueryProcedure
         [TestMethod]
         [TestCategory(TestCategories.Database)]
         public void VerifyProceduresQueryWithResult()
         {
-            SqlParameter state = new SqlParameter("StateAbbreviation", "MN");
-            DataTable table = this.DatabaseWrapper.RunQueryProcedure("getStateAbbrevMatch", state);
-            Assert.AreEqual(1, table.Rows.Count, "Expected 1 state abbreviation to be returned.");
+            var result = this.DatabaseDriver.Execute("setStateAbbrevToSelf", new { StateAbbreviation = "MN" }, commandType: CommandType.StoredProcedure);
+            
+            Assert.AreEqual(1, result, "Expected 1 state abbreviation to be returned.");
         }
-        #endregion
 
         /// <summary>
         /// Check if Procedures queries work when no results are found
@@ -117,31 +129,9 @@ namespace DatabaseUnitTests
         [TestCategory(TestCategories.Database)]
         public void VerifyProceduresQueryWithoutResult()
         {
-            SqlParameter state = new SqlParameter("StateAbbreviation", "ZZ");
-            DataTable table = this.DatabaseWrapper.RunQueryProcedure("getStateAbbrevMatch", state);
-            Assert.AreEqual(0, table.Rows.Count, "Expected 0 state abbreviation to be returned.");
-        }
-
-        /// <summary>
-        /// Test to verify a stored procedure exists
-        /// </summary>
-        #region ProcedureExists
-        [TestMethod]
-        [TestCategory(TestCategories.Database)]
-        public void VerifyStoredProcedureExists()
-        {
-            Assert.IsTrue(this.DatabaseWrapper.CheckForProcedure("getStateAbbrevMatch"));
-        }
-        #endregion
-
-        /// <summary>
-        /// Test to verify a stored procedure doesn't exist
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Database)]
-        public void VerifyStoredProcedureDoesntExists()
-        {
-            Assert.IsFalse(this.DatabaseWrapper.CheckForProcedure("getStateAbbrevMatch1"));
+            var result = this.DatabaseDriver.Execute("setStateAbbrevToSelf", new { StateAbbreviation = "ZZ" }, commandType: CommandType.StoredProcedure);
+            
+            Assert.AreEqual(0, result, "Expected 0 state abbreviation to be returned.");
         }
 
         /// <summary>
@@ -155,7 +145,7 @@ namespace DatabaseUnitTests
             Assert.AreEqual(this.TestObject.Log, this.Log, "Logs don't match");
             Assert.AreEqual(this.TestObject.SoftAssert, this.SoftAssert, "Soft asserts don't match");
             Assert.AreEqual(this.TestObject.PerfTimerCollection, this.PerfTimerCollection, "Soft asserts don't match");
-            Assert.AreEqual(this.TestObject.DatabaseWrapper, this.DatabaseWrapper, "Web service wrapper don't match");
+            Assert.AreEqual(this.TestObject.DatabaseDriver, this.DatabaseDriver, "Web service driver don't match");
         }
 
         /// <summary>
@@ -167,7 +157,6 @@ namespace DatabaseUnitTests
         public void DatabaseTestObjectValuesCanBeUsed()
         {
             this.TestObject.SetValue("1", "one");
-
             Assert.AreEqual(this.TestObject.Values["1"], "one");
             string outValue;
             Assert.IsFalse(this.TestObject.Values.TryGetValue("2", out outValue), "Didn't expect to get value for key '2', but got " + outValue);
@@ -179,7 +168,7 @@ namespace DatabaseUnitTests
         [TestMethod]
         [TestCategory(TestCategories.Database)]
         [TestCategory(TestCategories.Utilities)]
-        public void DatabaseTestObjectObjectssCanBeUsed()
+        public void DatabaseTestObjectObjectsCanBeUsed()
         {
             StringBuilder builder = new StringBuilder();
             this.TestObject.SetObject("1", builder);

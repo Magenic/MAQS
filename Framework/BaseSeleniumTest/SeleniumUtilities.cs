@@ -4,16 +4,16 @@
 // </copyright>
 // <summary>Utilities class for generic selenium methods</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Data;
-using Magenic.MaqsFramework.Utilities.Helper;
-using Magenic.MaqsFramework.Utilities.Logging;
+using Magenic.Maqs.Utilities.Data;
+using Magenic.Maqs.Utilities.Helper;
+using Magenic.Maqs.Utilities.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
 using System;
 using System.IO;
 using System.Reflection;
 
-namespace Magenic.MaqsFramework.BaseSeleniumTest
+namespace Magenic.Maqs.BaseSeleniumTest
 {
     /// <summary>
     /// Static class for the selenium utilities
@@ -225,10 +225,9 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// Gets the Screenshot Format to save images
         /// </summary>
         /// <returns>Desired ImageFormat Type</returns>
-        /// <param name="imageFormat">Image Format Screen format screen</param>
-        public static ScreenshotImageFormat GetScreenShotFormat(string imageFormat = "ImageFormat")
+        public static ScreenshotImageFormat GetScreenShotFormat()
         {
-            switch (Config.GetValue(imageFormat, "PNG").ToUpper())
+            switch (SeleniumConfig.GetImageFormat().ToUpper())
             {
                 case "BMP":
                     return ScreenshotImageFormat.Bmp;
@@ -241,7 +240,24 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
                 case "TIFF":
                     return ScreenshotImageFormat.Tiff;
                 default:
-                    throw new ArgumentException(StringProcessor.SafeFormatter("ImageFormat '{0}' is not a valid option", Config.GetValue("ScreenShotFormat", "PNG")));
+                    throw new ArgumentException(StringProcessor.SafeFormatter("ImageFormat '{0}' is not a valid option", SeleniumConfig.GetImageFormat()));
+            }
+        }
+
+        /// <summary>
+        /// Make sure the web driver is shut down
+        /// </summary>
+        /// <param name="driver">The web driver</param>
+        public static void KillDriver(this IWebDriver driver)
+        {
+            try
+            {
+                driver?.Close();
+                driver?.Quit();
+            }
+            finally
+            {
+                driver?.Dispose();
             }
         }
     }

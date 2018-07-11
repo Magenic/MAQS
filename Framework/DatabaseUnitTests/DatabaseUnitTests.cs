@@ -2,15 +2,17 @@
 // <copyright file="DatabaseUnitTests.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
-// <summary>Unit test database wrapper without base database test</summary>
+// <summary>Unit test database driver without base database test</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseDatabaseTest;
-using Magenic.MaqsFramework.Utilities.Helper;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
+
+using System;
 using System.Data;
-using System.Data.SqlClient;
+using Magenic.Maqs.BaseDatabaseTest;
+using Magenic.Maqs.Utilities.Helper;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using DatabaseUnitTests.Models;
 
 namespace DatabaseUnitTests
 {
@@ -26,20 +28,13 @@ namespace DatabaseUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Database)]
-        public void VerifyStateTableExistsNoWrapper()
+        public void VerifyStateTableExistsNoDriver()
         {
-            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper(DatabaseConfig.GetConnectionString());
+            DatabaseDriver driver = new DatabaseDriver();
 
-            DataTable table = wrapper.QueryAndGetDataTable("SELECT * FROM information_schema.tables");
+            var table = driver.Query("SELECT * FROM information_schema.tables");
 
-            // Get the list of table names
-            List<string> tablesNames = new List<string>(table.Rows.Count);
-            foreach (DataRow row in table.Rows)
-            {
-                tablesNames.Add((string)row["TABLE_NAME"]);
-            }
-
-            Assert.IsTrue(tablesNames.Contains("States"));
+            Assert.IsTrue(table.Any(n => n.TABLE_NAME.Equals("States")));
         }
 
         /// <summary>
@@ -47,14 +42,30 @@ namespace DatabaseUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Database)]
-        public void VerifyStateTableHasCorrectNumberOfRecordsNoWrapper()
+        public void VerifyStateTableHasCorrectNumberOfRecordsNoDriver()
         {
-            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper(DatabaseConfig.GetConnectionString());
+            DatabaseDriver driver = new DatabaseDriver();
 
-            DataTable table = wrapper.QueryAndGetDataTable("SELECT * FROM States");
+            var table = driver.Query("SELECT * FROM States").ToList();
 
             // Our database only has 49 states
-            Assert.AreEqual(49, table.Rows.Count, "Expected 49 states.");
+            Assert.AreEqual(49, table.Count, "Expected 49 states.");
+        }
+
+        /// <summary>
+        /// Check if we get the expect number of results
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Database)]
+        public void VerifyStateTableHasCorrectNumberOfRecordsNoDriverWithModels()
+        {
+            DatabaseDriver driver = new DatabaseDriver();
+
+            var states = driver.Query<States>("SELECT * FROM States").ToList();
+
+            // Our database only has 49 states
+            Assert.AreEqual(49, states.Count, "Expected 49 states.");
+            Assert.AreNotEqual(string.Empty, states.First().StateAbbreviation, "Expected nonempty state abbreviation.");
         }
 
         /// <summary>
@@ -62,12 +73,12 @@ namespace DatabaseUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Database)]
-        public void VerifyProceduresActionWithAnUpdateNoWrapper()
+        public void VerifyProceduresActionWithAnUpdateNoDriver()
         {
-            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper(DatabaseConfig.GetConnectionString());
+            DatabaseDriver driver = new DatabaseDriver(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString());
 
-            SqlParameter state = new SqlParameter("StateAbbreviation", "MN");
-            int result = wrapper.RunActionProcedure("setStateAbbrevToSelf", state);
+            var result = driver.Execute("setStateAbbrevToSelf", new { StateAbbreviation = "MN" }, commandType: CommandType.StoredProcedure);
+
             Assert.AreEqual(1, result, "Expected 1 state abbreviation to be updated.");
         }
 
@@ -76,12 +87,12 @@ namespace DatabaseUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Database)]
-        public void VerifyProceduresActionWithNoUpdatesNoWrapper()
+        public void VerifyProceduresActionWithNoUpdatesNoDriver()
         {
-            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper(DatabaseConfig.GetConnectionString());
+            DatabaseDriver driver = new DatabaseDriver(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString());
 
-            SqlParameter state = new SqlParameter("StateAbbreviation", "ZZ");
-            int result = wrapper.RunActionProcedure("setStateAbbrevToSelf", state);
+            var result = driver.Execute("setStateAbbrevToSelf", new { StateAbbreviation = "ZZ" }, commandType: CommandType.StoredProcedure);
+            
             Assert.AreEqual(0, result, "Expected 0 state abbreviation to be updated.");
         }
 
@@ -90,13 +101,13 @@ namespace DatabaseUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Database)]
-        public void VerifyProceduresQueryWithResultNoWrapper()
+        public void VerifyProceduresQueryWithResultNoDriver()
         {
-            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper(DatabaseConfig.GetConnectionString());
+            DatabaseDriver driver = new DatabaseDriver(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString());
 
-            SqlParameter state = new SqlParameter("StateAbbreviation", "MN");
-            DataTable table = wrapper.RunQueryProcedure("getStateAbbrevMatch", state);
-            Assert.AreEqual(1, table.Rows.Count, "Expected 1 state abbreviation to be returned.");
+            var result = driver.Query("getStateAbbrevMatch", new { StateAbbreviation = "MN" }, commandType: CommandType.StoredProcedure);
+
+            Assert.AreEqual(1, result.Count(), "Expected 1 state abbreviation to be returned.");
         }
 
         /// <summary>
@@ -104,13 +115,13 @@ namespace DatabaseUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Database)]
-        public void VerifyProceduresQueryWithoutResultNoWrapper()
+        public void VerifyProceduresQueryWithoutResultNoDriver()
         {
-            DatabaseConnectionWrapper wrapper = new DatabaseConnectionWrapper(DatabaseConfig.GetConnectionString());
+            DatabaseDriver driver = new DatabaseDriver(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString());
 
-            SqlParameter state = new SqlParameter("StateAbbreviation", "ZZ");
-            DataTable table = wrapper.RunQueryProcedure("getStateAbbrevMatch", state);
-            Assert.AreEqual(0, table.Rows.Count, "Expected 0 state abbreviation to be returned.");
+            var result = driver.Query("getStateAbbrevMatch", new { StateAbbreviation = "ZZ" }, commandType: CommandType.StoredProcedure);
+            
+            Assert.AreEqual(0, result.Count(), "Expected 0 state abbreviation to be returned.");
         }
     }
 }

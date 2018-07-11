@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>This is the Appium driver wait extensions class</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Data;
+using Magenic.Maqs.Utilities.Data;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Support.UI;
@@ -12,7 +12,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Threading;
 
-namespace Magenic.MaqsFramework.BaseAppiumTest
+namespace Magenic.Maqs.BaseAppiumTest
 {
     /// <summary>
     /// Appium driver wait extension methods
@@ -68,8 +68,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         /// <returns>True if the wait driver was removed</returns>
         public static bool RemoveWaitDriver(this AppiumDriver<IWebElement> driver)
         {
-            WebDriverWait temp;
-            return waitCollection.TryRemove(driver, out temp);
+            return waitCollection.TryRemove(driver, out WebDriverWait temp);
         }
 
         /// <summary>
@@ -81,7 +80,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         {
             if (!WaitUntilAbsentElement(driver, by))
             {
-                throw new Exception(StringProcessor.SafeFormatter("The element '{0}' is still present.", by.ToString()));
+                throw new TimeoutException(StringProcessor.SafeFormatter("The element '{0}' is still present.", by.ToString()));
             }
         }
 
@@ -93,7 +92,7 @@ namespace Magenic.MaqsFramework.BaseAppiumTest
         {
             if (!WaitUntilPageLoad(driver))
             {
-                throw new Exception("Page load took longer than timeout configuration");
+                throw new TimeoutException("Page load took longer than timeout configuration");
             }
         }
 

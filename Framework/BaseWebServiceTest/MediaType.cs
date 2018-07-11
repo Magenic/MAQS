@@ -5,7 +5,7 @@
 // <summary>Web service MediaType class page</summary>
 //--------------------------------------------------
 
-namespace Magenic.MaqsFramework.BaseWebServiceTest
+namespace Magenic.Maqs.BaseWebServiceTest
 {
     /// <summary>
     ///  Test media type of web service

@@ -4,14 +4,11 @@
 // </copyright>
 // <summary>Selenium override for the soft asserts</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
-using Magenic.MaqsFramework.Utilities.Data;
-using Magenic.MaqsFramework.Utilities.Helper;
-using Magenic.MaqsFramework.Utilities.Logging;
-using OpenQA.Selenium;
-using System;
+using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Data;
+using Magenic.Maqs.Utilities.Helper;
 
-namespace Magenic.MaqsFramework.BaseSeleniumTest
+namespace Magenic.Maqs.BaseSeleniumTest
 {
     /// <summary>
     /// Soft Assert override for selenium tests
@@ -21,17 +18,16 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
         /// <summary>
         /// WebDriver to be used
         /// </summary>
-        private IWebDriver webDriver;
+        private readonly SeleniumTestObject testObject;
 
         /// <summary>
         /// Initializes a new instance of the SeleniumSoftAssert class
         /// </summary>
-        /// <param name="webDriver">The webdriver to use</param>
-        /// <param name="logger">The logger to use</param>
-        public SeleniumSoftAssert(IWebDriver webDriver, Logger logger)
-            : base(logger)
+        /// <param name="seleniumTestObject">The related Selenium test object</param>
+        public SeleniumSoftAssert(SeleniumTestObject seleniumTestObject)
+            : base(seleniumTestObject.Log)
         {
-            this.webDriver = webDriver;
+            this.testObject = seleniumTestObject;
         }
 
         /// <summary>
@@ -63,14 +59,14 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
             
             if (!didPass)
             {
-                if (Config.GetValue("SoftAssertScreenshot", "No").ToUpper().Equals("YES"))
+                if (SeleniumConfig.GetSoftAssertScreenshot())
                 {
-                    SeleniumUtilities.CaptureScreenshot(this.webDriver, this.Log, this.TextToAppend(softAssertName));
+                    SeleniumUtilities.CaptureScreenshot(this.testObject.WebDriver, this.Log, this.TextToAppend(softAssertName));
                 }
 
-                if (Config.GetValue("SavePagesourceOnFail", "No").ToUpper().Equals("YES"))
+                if (SeleniumConfig.GetSavePagesourceOnFail())
                 {
-                    SeleniumUtilities.SavePageSource(this.webDriver, this.Log, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
+                    SeleniumUtilities.SavePageSource(this.testObject.WebDriver, this.Log, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
                 }
 
                 return false;
@@ -95,14 +91,14 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
 
             if (!didPass)
             {
-                if (Config.GetValue("SoftAssertScreenshot", "No").ToUpper().Equals("YES"))
+                if (SeleniumConfig.GetSoftAssertScreenshot())
                 {
-                    SeleniumUtilities.CaptureScreenshot(this.webDriver, this.Log, this.TextToAppend(softAssertName));
+                    SeleniumUtilities.CaptureScreenshot(this.testObject.WebDriver, this.Log, this.TextToAppend(softAssertName));
                 }
 
-                if (Config.GetValue("SavePagesourceOnFail", "No").ToUpper().Equals("YES"))
+                if (SeleniumConfig.GetSavePagesourceOnFail())
                 {
-                    SeleniumUtilities.SavePageSource(this.webDriver, this.Log, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
+                    SeleniumUtilities.SavePageSource(this.testObject.WebDriver, this.Log, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
                 }
 
                 return false;
@@ -127,14 +123,14 @@ namespace Magenic.MaqsFramework.BaseSeleniumTest
 
             if (!didPass)
             {
-                if (Config.GetValue("SoftAssertScreenshot", "No").ToUpper().Equals("YES"))
+                if (SeleniumConfig.GetSoftAssertScreenshot())
                 {
-                    SeleniumUtilities.CaptureScreenshot(this.webDriver, this.Log, this.TextToAppend(softAssertName));
+                    SeleniumUtilities.CaptureScreenshot(this.testObject.WebDriver, this.Log, this.TextToAppend(softAssertName));
                 }
 
-                if (Config.GetValue("SavePagesourceOnFail", "No").ToUpper().Equals("YES"))
+                if (SeleniumConfig.GetSavePagesourceOnFail())
                 {
-                    SeleniumUtilities.SavePageSource(this.webDriver, this.Log, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
+                    SeleniumUtilities.SavePageSource(this.testObject.WebDriver, this.Log, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
                 }
 
                 return false;

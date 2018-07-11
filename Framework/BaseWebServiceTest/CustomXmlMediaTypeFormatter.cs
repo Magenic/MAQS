@@ -11,7 +11,7 @@ using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Xml.Serialization;
 
-namespace Magenic.MaqsFramework.BaseWebServiceTest
+namespace Magenic.Maqs.BaseWebServiceTest
 {
     /// <summary>
     /// Create a custom xml media type formatter
@@ -21,7 +21,7 @@ namespace Magenic.MaqsFramework.BaseWebServiceTest
         /// <summary>
         /// A list of object type and serializer mappings
         /// </summary>
-        private Dictionary<Type, XmlSerializer> serializers;
+        private readonly Dictionary<Type, XmlSerializer> serializers;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CustomXmlMediaTypeFormatter" /> class

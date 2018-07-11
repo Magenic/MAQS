@@ -4,24 +4,23 @@
 // </copyright>
 // <summary>Extendable class for defining a test steps class</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseTest;
+using Magenic.Maqs.BaseTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using TechTalk.SpecFlow;
 
-namespace SpecFlowMAQSExtension
+namespace Magenic.Maqs.SpecFlow
 {
     /// <summary>
     /// Abstract a TestSteps class
     /// </summary>
     /// <typeparam name="O">The base test object class</typeparam>
     /// <typeparam name="T">The base test class</typeparam>
-    /// <typeparam name="C">The extendable test class</typeparam>
-    public abstract class ExtendableTestSteps<O, T, C> : AbstractTestSteps<O> 
-        where O : BaseTestObject where C : class where T : BaseExtendableTest<C, O>, new()
+    public abstract class ExtendableTestSteps<O, T> : AbstractTestSteps<O> 
+        where O : BaseTestObject where T : BaseExtendableTest<O>, new()
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ExtendableTestSteps{O,T,C}"/> class.
+        /// Initializes a new instance of the <see cref="ExtendableTestSteps{O,T}"/> class.
         /// </summary>
         /// <param name="context">The scenario context.</param>
         protected ExtendableTestSteps(ScenarioContext context) : base(context)

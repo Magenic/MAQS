@@ -27,10 +27,10 @@
       <DocumentationSource sourceFile="..\Utilities\Utilities.csproj" />
       <DocumentationSource sourceFile="..\BaseSeleniumTest\BaseSeleniumTest.csproj" />
       <DocumentationSource sourceFile="..\BaseTest\BaseTest.csproj" />
-      <DocumentationSource sourceFile="..\packages\Selenium.WebDriver.3.11.0\lib\net40\WebDriver.dll" />
-      <DocumentationSource sourceFile="..\packages\Selenium.WebDriver.3.11.0\lib\net40\WebDriver.xml" />
-      <DocumentationSource sourceFile="..\packages\Selenium.Support.3.11.0\lib\net40\WebDriver.Support.dll" />
-      <DocumentationSource sourceFile="..\packages\Selenium.Support.3.11.0\lib\net40\WebDriver.Support.xml" />
+      <DocumentationSource sourceFile="..\packages\Selenium.WebDriver.3.13.1\lib\net40\WebDriver.dll" />
+      <DocumentationSource sourceFile="..\packages\Selenium.WebDriver.3.13.1\lib\net40\WebDriver.xml" />
+      <DocumentationSource sourceFile="..\packages\Selenium.Support.3.13.1\lib\net40\WebDriver.Support.dll" />
+      <DocumentationSource sourceFile="..\packages\Selenium.Support.3.13.1\lib\net40\WebDriver.Support.xml" />
       <DocumentationSource sourceFile="..\packages\NUnit.3.10.1\lib\net45\nunit.framework.dll" />
       <DocumentationSource sourceFile="..\packages\NUnit.3.10.1\lib\net45\nunit.framework.xml" />
     </DocumentationSources>
@@ -90,7 +90,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <!-- NOTE: Update the version number in the path (YYYY.M.D.R) to match the package version -->
-    <SHFBROOT>$(SolutionDir)packages\EWSoftware.SHFB.2017.12.30.2\tools</SHFBROOT>
+    <SHFBROOT>$(SolutionDir)packages\EWSoftware.SHFB.2017.5.15.0\tools</SHFBROOT>
   </PropertyGroup>
   <PropertyGroup>
     <OutputType>Library</OutputType>
@@ -99,7 +99,7 @@
     <StartupObject />
   </PropertyGroup>
   <!-- Import the SHFB build targets -->
-  <Import Project="$(SolutionDir)packages\EWSoftware.SHFB.2017.12.30.2\tools\SandcastleHelpFileBuilder.targets" />
+  <Import Project="$(SolutionDir)packages\EWSoftware.SHFB.2017.5.15.0\tools\SandcastleHelpFileBuilder.targets" />
   <!-- The pre-build and post-build event properties must appear *after* the targets file import in order to be
 			 evaluated correctly. -->
   <PropertyGroup>

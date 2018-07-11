@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Magenic.MaqsFramework.Utilities.Helper
+namespace Magenic.Maqs.Utilities.Helper
 {
     /// <summary>
     ///  Test category type of web service
@@ -37,6 +37,11 @@ namespace Magenic.MaqsFramework.Utilities.Helper
         /// String for utilities unit test category
         /// </summary>
         public const string Utilities = "Utilities Unit Tests";
+
+        /// <summary>
+        /// String for utilities unit test category
+        /// </summary>
+        public const string UtilitiesCore = "Utilities .Net Core Unit Tests";
 
         /// <summary>
         /// String for web service unit test category

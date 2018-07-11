@@ -1,4 +1,4 @@
-﻿using Magenic.MaqsFramework.BaseAppiumTest;
+﻿using Magenic.Maqs.BaseAppiumTest;
 using OpenQA.Selenium;
 namespace $safeprojectname$
 {
@@ -10,25 +10,25 @@ namespace $safeprojectname$
         /// <summary>
         /// The user name input element 'By' finder
         /// </summary>
-        protected override FluentMobileElement GreetingMessage
+        protected override LazyMobileElement GreetingMessage
         {
-            get { return new FluentMobileElement(this.TestObject, By.Id("Welcome"), "Welcome Label"); }
+            get { return new LazyMobileElement(this.TestObject, By.Id("Welcome"), "Welcome Label"); }
         }
 
         /// <summary>
         /// The user name input element 'By' finder
         /// </summary>
-        protected override FluentMobileElement TimeDisc
+        protected override LazyMobileElement TimeDisc
         {
-            get { return new FluentMobileElement(this.TestObject, By.Id("TimeDesc"), "Timer Label"); }
+            get { return new LazyMobileElement(this.TestObject, By.Id("TimeDesc"), "Timer Label"); }
         }
 
         /// <summary>
         /// The password input element 'By' finder
         /// </summary>
-        protected override FluentMobileElement Time
+        protected override LazyMobileElement Time
         {
-            get { return new FluentMobileElement(this.TestObject, By.Id("Time"), "Timer"); }
+            get { return new LazyMobileElement(this.TestObject, By.Id("Time"), "Timer"); }
         }
 
         /// <summary>

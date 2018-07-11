@@ -4,10 +4,9 @@
 // </copyright>
 // <summary>TestSteps class that inherits from BaseEmailTestSteps</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.BaseDatabaseTest;
+using Magenic.Maqs.BaseDatabaseTest;
+using Magenic.Maqs.SpecFlow.TestSteps;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SpecFlowMAQSExtension.TestSteps;
-using System.Data;
 using TechTalk.SpecFlow;
 
 namespace SpecFlowExtensionUnitTests.Steps
@@ -72,31 +71,21 @@ namespace SpecFlowExtensionUnitTests.Steps
         }
 
         /// <summary>
-        /// DatabaseWrapper exists
+        /// DatabaseDriver exists
         /// </summary>
-        [Then(@"DatabaseWrapper is not null")]
-        public void ThenDatabaseWrapperIsNotNull()
+        [Then(@"DatabaseDriver is not null")]
+        public void ThenDatabaseDriverIsNotNull()
         {
-            Assert.IsNotNull(this.TestObject.DatabaseWrapper, "DatabaseWrapper for BaseDatabaseTestSteps class is null.");
+            Assert.IsNotNull(this.TestObject.DatabaseDriver, "DatabaseDriver for BaseDatabaseTestSteps class is null.");
         }
 
         /// <summary>
-        /// DatabaseWrapper exists
+        /// DatabaseDriver exists
         /// </summary>
-        [Then(@"DatabaseWrapper is type DatabaseConnectionWrapper")]
-        public void AndDatabaseWrapperIsTypeIWebDriver()
+        [Then(@"DatabaseDriver is type DatabaseConnectionDriver")]
+        public void AndDatabaseDriverIsTypeIWebDriver()
         {
-            Assert.IsTrue(this.TestObject.DatabaseWrapper.GetType().Equals(typeof(EventFiringDatabaseConnectionWrapper)), $"DatabaseWrapper for BaseDatabaseTestSteps class is the wrong type : {this.TestObject.DatabaseWrapper.GetType()}.");
-        }
-
-        /// <summary>
-        /// Queries the database and returns the table
-        /// </summary>
-        /// <param name="query">The query string</param>
-        /// <returns>The data table returned</returns>
-        private DataTable QueryDatabase(string query)
-        {
-            return this.TestObject.DatabaseWrapper.QueryAndGetDataTable(query);
+            Assert.IsTrue(this.TestObject.DatabaseDriver.GetType().Equals(typeof(EventFiringDatabaseDriver)), $"DatabaseDriver for BaseDatabaseTestSteps class is the wrong type : {this.TestObject.DatabaseDriver.GetType()}.");
         }
     }
 }

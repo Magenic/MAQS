@@ -1,4 +1,4 @@
-﻿using Magenic.MaqsFramework.BaseAppiumTest;
+﻿using Magenic.Maqs.BaseAppiumTest;
 using OpenQA.Selenium;
 namespace $safeprojectname$
 {
@@ -10,33 +10,33 @@ namespace $safeprojectname$
         /// <summary>
         /// The user name input element 'By' finder
         /// </summary>
-        protected override FluentMobileElement UserNameInput
+        protected override LazyMobileElement UserNameInput
         {
-            get { return new FluentMobileElement(this.TestObject, By.Id("UserName"), "User Name Field"); }
+            get { return new LazyMobileElement(this.TestObject, By.Id("UserName"), "User Name Field"); }
         }
 
         /// <summary>
         /// The password input element 'By' finder
         /// </summary>
-        protected override FluentMobileElement PasswordInput
+        protected override LazyMobileElement PasswordInput
         {
-            get { return new FluentMobileElement(this.TestObject, By.Id("Password"), "Password Field"); }
+            get { return new LazyMobileElement(this.TestObject, By.Id("Password"), "Password Field"); }
         }
 
         /// <summary>
         /// The login button element 'By' finder
         /// </summary>
-        protected override FluentMobileElement LoginButton
+        protected override LazyMobileElement LoginButton
         {
-            get { return new FluentMobileElement(this.TestObject, By.Id("Login"), "Login Button"); }
+            get { return new LazyMobileElement(this.TestObject, By.Id("Login"), "Login Button"); }
         }
 
         /// <summary>
         /// The error message element 'By' finder
         /// </summary>
-        protected override FluentMobileElement ErrorMessage
+        protected override LazyMobileElement ErrorMessage
         {
-            get { return new FluentMobileElement(this.TestObject, By.Id("message"), "Error Message Label"); }
+            get { return new LazyMobileElement(this.TestObject, By.Id("message"), "Error Message Label"); }
         }
 
         /// <summary>

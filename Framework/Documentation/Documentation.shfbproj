@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <!-- The configuration and platform will be used to determine which assemblies to include from solution and
 				 project Documentation sources -->
@@ -31,25 +31,25 @@
       <DocumentationSource sourceFile="..\BaseWebServiceTest\BaseWebServiceTest.csproj" />
       <DocumentationSource sourceFile="..\BaseDatabaseTest\BaseDatabaseTest.csproj" />
       <DocumentationSource sourceFile="..\BaseEmailTest\BaseEmailTest.csproj" />
-      <DocumentationSource sourceFile="..\BaseMongoDBTest\BaseMongoDBTest.csproj" />
-      <DocumentationSource sourceFile="..\packages\Selenium.WebDriver.3.11.0\lib\net40\WebDriver.dll" />
-      <DocumentationSource sourceFile="..\packages\Selenium.WebDriver.3.11.0\lib\net40\WebDriver.xml" />
-      <DocumentationSource sourceFile="..\packages\Selenium.Support.3.11.0\lib\net40\WebDriver.Support.dll" />
-      <DocumentationSource sourceFile="..\packages\Selenium.Support.3.11.0\lib\net40\WebDriver.Support.xml" />
+      <!-- <DocumentationSource sourceFile="..\BaseMongoDBTest\BaseMongoDBTest.csproj" />
+      <DocumentationSource sourceFile="..\packages\Selenium.WebDriver.3.13.1\lib\net40\WebDriver.dll" />
+      <DocumentationSource sourceFile="..\packages\Selenium.WebDriver.3.13.1\lib\net40\WebDriver.xml" />
+      <DocumentationSource sourceFile="..\packages\Selenium.Support.3.13.1\lib\net40\WebDriver.Support.dll" />
+      <DocumentationSource sourceFile="..\packages\Selenium.Support.3.13.1\lib\net40\WebDriver.Support.xml" />
       <DocumentationSource sourceFile="..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll" />
       <DocumentationSource sourceFile="..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.xml" />
       <DocumentationSource sourceFile="..\packages\Appium.WebDriver.3.0.0.2\lib\net45\appium-dotnet-driver.dll" />
       <DocumentationSource sourceFile="..\packages\Appium.WebDriver.3.0.0.2\lib\net45\appium-dotnet-driver.XML" />
-      <DocumentationSource sourceFile="..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll" />
-      <DocumentationSource sourceFile="..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.xml" />
+      <DocumentationSource sourceFile="..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll" />
+      <DocumentationSource sourceFile="..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.xml" />
       <DocumentationSource sourceFile="..\packages\NUnit.3.10.1\lib\net45\nunit.framework.dll" />
       <DocumentationSource sourceFile="..\packages\NUnit.3.10.1\lib\net45\nunit.framework.xml" />
-      <DocumentationSource sourceFile="..\packages\MailKit.2.0.2\lib\net45\MailKit.dll" />
-      <DocumentationSource sourceFile="..\packages\MailKit.2.0.2\lib\net45\MailKit.xml" />
-      <DocumentationSource sourceFile="..\packages\MimeKit.2.0.2\lib\net45\MimeKit.dll" />
-      <DocumentationSource sourceFile="..\packages\MimeKit.2.0.2\lib\net45\MimeKit.xml" />
+      <DocumentationSource sourceFile="..\packages\MailKit.2.0.4\lib\net45\MailKit.dll" />
+      <DocumentationSource sourceFile="..\packages\MailKit.2.0.4\lib\net45\MailKit.xml" />
+      <DocumentationSource sourceFile="..\packages\MimeKit.2.0.4\lib\net45\MimeKit.dll" />
+      <DocumentationSource sourceFile="..\packages\MimeKit.2.0.4\lib\net45\MimeKit.xml" />-->
     </DocumentationSources>
-    <HelpFileVersion>4.0.4</HelpFileVersion>
+    <HelpFileVersion>5.0.0</HelpFileVersion>
     <MaximumGroupParts>2</MaximumGroupParts>
     <NamespaceGrouping>False</NamespaceGrouping>
     <SyntaxFilters>Standard</SyntaxFilters>
@@ -101,25 +101,35 @@
     </ComponentConfigurations>
     <SaveComponentCacheCapacity>0</SaveComponentCacheCapacity>
     <FrameworkVersion>.NET Framework 4.5</FrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <WarningLevel>0</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Win32' ">
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Win32' ">
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <!-- NOTE: Update the version number in the path (YYYY.M.D.R) to match the package version -->

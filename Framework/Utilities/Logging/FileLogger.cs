@@ -4,13 +4,13 @@
 // </copyright>
 // <summary>Writes event logs to plain text file</summary>
 //--------------------------------------------------
-using Magenic.MaqsFramework.Utilities.Data;
+using Magenic.Maqs.Utilities.Data;
 using System;
 using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace Magenic.MaqsFramework.Utilities.Logging
+namespace Magenic.Maqs.Utilities.Logging
 {
     /// <summary>
     ///  Helper class for adding logs to a plain text file. Allows configurable file path.
@@ -28,16 +28,6 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         private const string DEFAULTLOGNAME = "FileLog.txt";
 
         /// <summary>
-        /// Create a private string for the path of the file
-        /// </summary>
-        private string filePath;
-
-        /// <summary>
-        /// Creates a private string for the directory of the folder
-        /// </summary>
-        private string directory;
-
-        /// <summary>
         ///  Initializes a new instance of the FileLogger class
         /// </summary>
         /// <param name="logFolder">Where log files should be saved</param>
@@ -47,18 +37,20 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         public FileLogger(string logFolder = "", string name = DEFAULTLOGNAME, MessageType messageLevel = MessageType.INFORMATION, bool append = false)
             : base(messageLevel)
         {
+            string directory;
+
             if (string.IsNullOrEmpty(logFolder))
             {
-                this.directory = this.DEFAULTLOGFOLDER;
+                directory = this.DEFAULTLOGFOLDER;
             }
             else
             {
-                this.directory = logFolder;
+                directory = logFolder;
             }
 
-            if (!Directory.Exists(this.directory))
+            if (!Directory.Exists(directory))
             {
-                Directory.CreateDirectory(this.directory);
+                Directory.CreateDirectory(directory);
             }
 
             if (!name.EndsWith(this.Extension, StringComparison.CurrentCultureIgnoreCase))
@@ -66,11 +58,11 @@ namespace Magenic.MaqsFramework.Utilities.Logging
                 name += this.Extension;
             }
 
-            this.filePath = Path.Combine(this.directory, MakeValidFileName(name));
+            this.FilePath = Path.Combine(directory, MakeValidFileName(name));
 
-            if (File.Exists(this.filePath) && !append)
+            if (File.Exists(this.FilePath) && !append)
             {
-                StreamWriter writer = new StreamWriter(this.filePath, false);
+                StreamWriter writer = new StreamWriter(this.FilePath, false);
                 writer.Write(string.Empty);
                 writer.Flush();
                 writer.Close();
@@ -80,11 +72,7 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         /// <summary>
         /// Gets or sets the FilePath value
         /// </summary>
-        public string FilePath
-        {
-            get { return this.filePath; }
-            set { this.filePath = value; }
-        }
+        public string FilePath { get; set; }
 
         /// <summary>
         /// Gets the file extension
@@ -118,7 +106,7 @@ namespace Magenic.MaqsFramework.Utilities.Logging
                 // Log the message
                 try
                 {
-                    StreamWriter writer = new StreamWriter(this.filePath, true);
+                    StreamWriter writer = new StreamWriter(this.FilePath, true);
 
                     string date = DateTime.UtcNow.ToString(Logger.DEFAULTDATEFORMAT, CultureInfo.InvariantCulture);
                     writer.WriteLine(StringProcessor.SafeFormatter("{0}{1}", Environment.NewLine, date));
@@ -148,7 +136,7 @@ namespace Magenic.MaqsFramework.Utilities.Logging
         {
             if (string.IsNullOrEmpty(name))
             {
-                throw new Exception("Blank file name was provide");
+                throw new ArgumentException("Blank file name was provide");
             }
 
             // Create a regex to replace invalid characters

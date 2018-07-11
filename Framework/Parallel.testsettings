@@ -1,17 +1,10 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<TestSettings name="Parallel" id="43d372bc-7993-431b-b542-64d1a6e41d7d" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
-  <Description>These are default test settings for a local test run.</Description>
+<?xml version="1.0" encoding="UTF-8"?>
+<TestSettings
+  id="9a335fa0-9392-498a-bcff-bdf187d0873f"
+  name="Parallel"
+  enableDefaultDataCollectors="false"
+  xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Description><!--_locID_text="Description1"-->These are default test settings for a local test run.</Description>
   <Deployment enabled="false" />
-  <Execution parallelTestCount="0">
-    <Timeouts runTimeout="1800000" />
-    <TestTypeSpecific>
-      <UnitTestRunConfig testTypeId="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b">
-        <AssemblyResolution>
-          <TestDirectory useLoadContext="true" />
-        </AssemblyResolution>
-      </UnitTestRunConfig>
-    </TestTypeSpecific>
-    <AgentRule name="LocalMachineDefaultRole">
-    </AgentRule>
-  </Execution>
+  <Execution parallelTestCount="0" />
 </TestSettings>

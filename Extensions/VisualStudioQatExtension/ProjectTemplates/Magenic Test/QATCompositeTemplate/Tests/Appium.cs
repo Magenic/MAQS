@@ -1,4 +1,4 @@
-﻿using Magenic.MaqsFramework.BaseAppiumTest;
+﻿using Magenic.Maqs.BaseAppiumTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Models.Appium;
 
