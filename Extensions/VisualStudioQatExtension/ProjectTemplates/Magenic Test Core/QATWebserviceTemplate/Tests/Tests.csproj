@@ -18,10 +18,13 @@
     <ProjectReference Include="..\WebServiceModel\WebServiceModel.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Update="appsettings.json">
+    <None Remove="appsettings.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-  </ItemGroup> 
+  </ItemGroup>  
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

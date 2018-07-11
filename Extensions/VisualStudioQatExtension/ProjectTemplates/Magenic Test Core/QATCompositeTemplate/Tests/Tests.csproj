@@ -31,10 +31,13 @@
     <PackageReference Include="System.Security.Permissions" Version="4.5.0" /> 
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Update="appsettings.json">
+    <None Remove="appsettings.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-  </ItemGroup>
+  </ItemGroup>  
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj" />
   </ItemGroup>
