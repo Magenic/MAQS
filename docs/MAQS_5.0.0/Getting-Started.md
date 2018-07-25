@@ -2,25 +2,18 @@
 
 ## Installation
 The first step is to install MAQS.  Checkout the [MAQS Installation](MAQS_5.0.0/Installation) guide.  
-  
-Optional installs are NUnit and StyleCop.
 
 ## Building Your First Project
-After the MAQS Visual Studio Extension and NuGet package have been installed, you're ready to start testing.
+After the MAQS Visual Studio Extension has been installed, you're ready to start testing.
 
 
-1. Go To File > New > Project
+1. Go To File > New > Project  
 ![New Project](resources/NewProject1.png)  
 
-2. Under Templates (in the side panel)
-
-3. Magenic's Open Test
+2. Under Templates in the side panel, select "Magenic's Open Test" 
 ![New Project](resources/NewProject2.png)  
 
-There are two options, MAQS Framework - Selenium , that will start a project with tests run in VSTest, or MAQS Framework - NUnit - Selenium.  
-The only difference is the test adapter used with the included test templates.
-
-Finally name the solution whatever you'd like to name, and click "ok".
+3. Finally, name the solution whatever you'd like and click "ok".
 ## Adding a Page Model
 To add a new Page Model from a template
 
