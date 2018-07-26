@@ -2,7 +2,7 @@
 
 - Open Source
 
-	- [Installation](MAQS_5.0.0/Installation.md)
+	- [Installation](MAQS_5.0.0/OpenSourceInstallation.md)
 	- [Getting Started](MAQS_5.0.0/Getting-Started.md)
 
 	- Open Source Features
@@ -42,13 +42,16 @@
 
 - Enterprise
 
-	- [Installation](MAQS_5.0.0/Installation.md)
+	- [Installation](MAQS_5.0.0/EnterpriseInstallation.md)
 	- [Getting Started](MAQS_5.0.0/Getting-Started.md)
 
 	- Enterprise Features
 
 		- [i. Utilities]()
 			- [i. Generic Wait](MAQS_5.0.0/Generic-Waits.md)
+			- [ii. Configurations](MAQS_5.0.0/)
+			- [iii. FakerData](MAQS_5.0.0/)
+			- [iv. Logger](MAQS_5.0.0/)
 		- [ii. Selenium]()
 			- [ii. Waits](MAQS_5.0.0/Waits.md)
 			- [iii. Soft Assert](MAQS_5.0.0/Soft-Asserts.md)

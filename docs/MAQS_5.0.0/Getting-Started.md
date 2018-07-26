@@ -18,33 +18,34 @@ After the MAQS Visual Studio Extension has been installed, you're ready to start
 To add a new Page Model from a template
 
 1. Right click PageModel project.
-2. Click Add ? New Item.  This will open a list of templates.  
+2. Click "Add>New Item". This will open a list of templates.  
 ![New Page Model](resources/NewPageModel1.png)  
-3. Under Magenic's Open Test select the "MAQS Selenium Page Model Class"
-3. Choose a name
+3. Under "Magenic's Open Test" select the "MAQS Selenium Page Model Class"
+3. Name your page model class
 4. Click the "Add" Button  
 ![New Page Model](resources/NewPageModel2.png)  
 
 This will add a template for a Page Object Model.  The template is filled with sample code and methods.  The methods included are common methods used on every page.
+
 ## Adding a Test
 ### VSTest Test
 1. Right click PageModel project.
-2. Click Add ? New Item.  This will open a list of templates.  
+2. Click "Add>New Item". This will open a list of templates.  
 ![New Test](resources/NewTest1.png)  
-3. Under Magenic's Open Test select the "MAQS Selenium VS Test Class"
-3. Choose a name
-4. Click the "Add" Button  
+3. Under "Magenic's Open Test" select the "MAQS Selenium VS Test Class"
+4. Name your test class
+5. Click the "Add" Button  
 ![New Test](resources/NewTest2.png)  
 
-The VSTest class will generate a template for a VSTest TestClass and include a sample VSTest TestMethod.  When run this will use the VSTest test runner to execute tests.
+The VSTest class will generate a template for a VSTest TestClass and include a sample VSTest TestMethod. Visual Studio will use VSTest test runner to execute tests when the solution is ran.
 ### NUnit Test
 1. Right click PageModel project.
-2. Click Add ? New Item.  This will open a list of templates.  
-![New NUnit](resources/NewTest1.png)  
-3. Expand the Magenic's Open Test and select the NUnit Only
-3. Select Maqs Selenium NUnit Test Class
-4. Choose a name
-5. Click the "Add" Button  
+2. Click "Add>New Item". This will open a list of templates.  
+![New NUnit](resources/NewTest1.png)
+3. Expand the "Magenic's Open Test"
+4. Select "Maqs Selenium NUnit Test Class"
+5. Name your test class
+6. Click the "Add" Button  
 ![New NUnit](resources/NewNUnitTest2.png)
 
 
