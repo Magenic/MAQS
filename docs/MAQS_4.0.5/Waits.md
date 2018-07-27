@@ -31,7 +31,7 @@ private static By button = By.CssSelector("button");
 IWebElement element = this.webDriver.FindElement(button);
 
 //element waits for an absent element
-element.Wait()ForAbsentElement(button);
+element.Wait().ForAbsentElement(button);
 ```
 
 ### For an Element's Attribute Text to Contain Text
@@ -423,7 +423,7 @@ Waits until the element has specific, case-sensitive text.
 If the element's text is exactly equal to the expected text before the timeout, then it returns true, else it returns false.
 #### Written as
 ```csharp
-UntilContainsText(By bySelector, string elementText);
+UntilExactText(By bySelector, string elementText);
 ```
 #### Example:
 ```csharp
