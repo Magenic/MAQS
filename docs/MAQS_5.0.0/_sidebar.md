@@ -7,21 +7,21 @@
 
 	- Open Source Features
 
-		- [i. Utilities]()
+		- i. Utilities
 
 			- [i. Generic Wait](MAQS_5.0.0/Generic-Waits.md)
 			- [ii. Configurations](MAQS_5.0.0/OpenSourceConfiguration.md)
 			- [iii. FakerData](MAQS_5.0.0/)
 			- [iv. Logger](MAQS_5.0.0/)
 
-		- [ii. Selenium]()
+		- ii. Selenium
 
 			- [i. Lazy Element](MAQS_5.0.0/)
 			- [ii. Waits](MAQS_5.0.0/Waits.md)
 			- [iii. Soft Assert](MAQS_5.0.0/Soft-Asserts.md)
 			- [iv. Action Builder](MAQS_5.0.0/Action-Builder.md)
 			- [v. Element Handler](MAQS_5.0.0/Element-Handler.md)
-			- [vi. Configurations](MAQS_5.0.0/Configuration.md)
+			- [vi. Config](MAQS_5.0.0/Config.md)
 			- [vii. Find](MAQS_5.0.0/)
 			- [vii. Test Object](MAQS_5.0.0/)
 			- [viii. Utilities](MAQS_5.0.0/)
@@ -57,7 +57,7 @@
 			- [iii. Soft Assert](MAQS_5.0.0/Soft-Asserts.md)
 			- [iv. Action Builder](MAQS_5.0.0/Action-Builder.md)
 			- [v. Element Handler](MAQS_5.0.0/Element-Handler.md)
-			- [vi. Configurations](MAQS_5.0.0/Configuration.md)
+			- [vi. Config](MAQS_5.0.0/Config.md)
 		- [iii. Appium]()
 		- [iv. Database]()
 		- [v. Email]()
