@@ -37,7 +37,7 @@ This will add a template for a Page Object Model.  The template is filled with s
 5. Click the "Add" Button  
 ![New Test](resources/NewTest2.png)  
 
-The VSTest class will generate a template for a VSTest TestClass and include a sample VSTest TestMethod. Visual Studio will use VSTest test runner to execute tests when the solution is ran.
+The VSTest class will generate a template for a VSTest TestClass and include a sample VSTest TestMethod. Visual Studio will use VSTest test runner to execute tests when the solution is run.
 ### NUnit Test
 1. Right click PageModel project.
 2. Click "Add>New Item". This will open a list of templates.  
@@ -51,32 +51,25 @@ The VSTest class will generate a template for a VSTest TestClass and include a s
 
 This will generate a template for the NUnit TestFixture with a sample NUnit Test.
 ## Running Tests
-Tests can be run through the command line using MSTest or NUnit, or through Visual Studio using the test explorer.
+Tests can be run through the command line using MSTest or NUnit. You can also run through Visual Studio using the test explorer.
 
 ### Enable Test Explorer
 To enable the Test Explorer window
-1. Go to Test in the main menu bar
-2. Go to Windows in Test
-3. Click Text Explorer in Test  
+1. Go to "Test>Windows>Test Explorer"  
 ![Test Explorer](resources/TestExplorer1.png)
 
-#### Running Tests from Test Explorer
-Tests can be run singularliy by right clicking a test and either clicking "Debug Selected Tests" to run in debug mode or clicking "Run Selected Tests" to run the tests normally.
+### Running Tests from Test Explorer
+There are 3 options to running tests from test explorer
+1. Tests can be run individually by right clicking a test and clicking "Debug Selected Tests" to run in debug mode
+2. Tests can also be run individually or in multiples(based on selected tests) by right clicking and selecting "Run Selected Tests" to run the tests normally.
+3. All tests can be run by clicking "Run All" 
 
-#### Organizing Tests
-Tests can be organized to more easily filter through what could potentially be a test solution with thousands of tests.  There are two ways to change the grouping:
+### Organizing Tests
 
-Right-click inside the Test Explorer window and select Group By.  
-![Test Grouping](resources/Groupin1.png)
+An easy way to group tests is to give those tests a trait attribute. These are written in the test classes. These traits can be used to group tests in the test explorer.
 
-Left-click the Group by button in the top left corner off the Test Explorer, to the left of the Search field.   
-![Test Explorer](resources/Groupin2.png)
-
-##### Adding Traits to tests
-An easy way to group tests is to give those tests a trait attribute.  These are written in the test classes.
-
-###### VSTest Traits
-Above the test method, either before or after the TestMethod attribute, add another attribute with the TestCategory tag.
+#### VSTest Traits
+Above the test method, add an attribute with the TestCategory tag.
 
 Written As
 ```csharp
@@ -95,8 +88,17 @@ string testCategory = "Login Tests"
 ```
 Test methods with multiple TestCategory attributes will add that test case to each attribute group, but the test will only be run once when running all tests.
 
-###### NUnit Traits
-Above the test method, either before or after the Test attribute, add another attribute with the Category tag.
+#### Grouping Tests
+Tests can be organized to filter through what could potentially be a test solution with thousands of tests. There are two ways to change the grouping:
+
+1. Right-click inside the Test Explorer window and select "Group By".  
+![Test Grouping](resources/Groupin2.png)
+
+2. Left-click the Group by icon button in the top left corner of the Test Explorer, to the left of the Search field.   
+![Test Explorer](resources/Groupin1.png)
+ 
+#### NUnit Traits
+Above the test method, add an attribute with the Category tag.
 
 Written As
 ```csharp
@@ -117,4 +119,4 @@ Test methods with multiple Category attributes will add that test case to each a
 
 
 ## Configurations
-There are a number of configurations included with MAQS.  Checkout the [MAQS Configurations](MAQS_5.0.0/Configuration.md) guide.
+There are a number of configurations included with MAQS.  Checkout the [MAQS Configurations](MAQS_5.0.0/OpenSourceConfiguration.md) guide.

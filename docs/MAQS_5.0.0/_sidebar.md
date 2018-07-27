@@ -10,7 +10,7 @@
 		- [i. Utilities]()
 
 			- [i. Generic Wait](MAQS_5.0.0/Generic-Waits.md)
-			- [ii. Configurations](MAQS_5.0.0/)
+			- [ii. Configurations](MAQS_5.0.0/OpenSourceConfiguration.md)
 			- [iii. FakerData](MAQS_5.0.0/)
 			- [iv. Logger](MAQS_5.0.0/)
 
@@ -49,7 +49,7 @@
 
 		- [i. Utilities]()
 			- [i. Generic Wait](MAQS_5.0.0/Generic-Waits.md)
-			- [ii. Configurations](MAQS_5.0.0/)
+			- [ii. Configurations](MAQS_5.0.0/EnterpriseConfiguration.md)
 			- [iii. FakerData](MAQS_5.0.0/)
 			- [iv. Logger](MAQS_5.0.0/)
 		- [ii. Selenium]()
