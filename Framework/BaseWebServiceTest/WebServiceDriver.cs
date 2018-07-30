@@ -8,6 +8,7 @@
 using Magenic.Maqs.Utilities.Data;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
@@ -104,6 +105,23 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <summary>
         /// Execute a web service get
         /// </summary>
+        /// <typeparam name="T">The expected response type</typeparam>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="expectedMediaType">The type of media you are expecting back</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <returns>The response deserialized as - <typeparamref name="T"/></returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverGets.cs" region="GetWithType" lang="C#" />
+        /// </example>
+        public T Get<T>(string requestUri, string expectedMediaType, HttpStatusCode expectedStatus)
+        {
+            HttpResponseMessage response = this.GetWithResponse(requestUri, expectedMediaType, expectedStatus);
+            return WebServiceUtils.DeserializeResponse<T>(response, this.supportedFormatters);
+        }
+
+        /// <summary>
+        /// Execute a web service get
+        /// </summary>
         /// <param name="requestUri">The request uri</param>
         /// <param name="expectedMediaType">The type of media you are expecting back</param>
         /// <param name="expectSuccess">Assert a success code was returned</param>
@@ -122,6 +140,22 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// </summary>
         /// <param name="requestUri">The request uri</param>
         /// <param name="expectedMediaType">The type of media you are expecting back</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <returns>The response content as a string</returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverGets.cs" region="GetWithString" lang="C#" />
+        /// </example>
+        public string Get(string requestUri, string expectedMediaType, HttpStatusCode expectedStatus)
+        {
+            HttpResponseMessage response = this.GetWithResponse(requestUri, expectedMediaType, expectedStatus);
+            return response.Content.ReadAsStringAsync().Result;
+        }
+
+        /// <summary>
+        /// Execute a web service get
+        /// </summary>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="expectedMediaType">The type of media you are expecting back</param>
         /// <param name="expectSuccess">Assert a success code was returned</param>
         /// <returns>The http response message</returns>
         /// <example>
@@ -130,6 +164,21 @@ namespace Magenic.Maqs.BaseWebServiceTest
         public HttpResponseMessage GetWithResponse(string requestUri, string expectedMediaType, bool expectSuccess = true)
         {
             return this.GetContent(requestUri, expectedMediaType, expectSuccess).Result;
+        }
+
+        /// <summary>
+        /// Execute a web service get
+        /// </summary>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="expectedMediaType">The type of media you are expecting back</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <returns>The http response message</returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverGets.cs" region="GetWithImage" lang="C#" />
+        /// </example>
+        public HttpResponseMessage GetWithResponse(string requestUri, string expectedMediaType, HttpStatusCode expectedStatus)
+        {
+            return this.GetContent(requestUri, expectedMediaType, expectedStatus).Result;
         }
 
         /// <summary>
@@ -153,6 +202,24 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <summary>
         /// Execute a web service post
         /// </summary>
+        /// <typeparam name="T">The expected response type</typeparam>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="expectedMediaType">The type of media being requested</param>
+        /// <param name="content">The post content</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <returns>The response deserialized as - <typeparamref name="T"/></returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverPost.cs" region="PostWithType" lang="C#" />
+        /// </example>
+        public T Post<T>(string requestUri, string expectedMediaType, HttpContent content, HttpStatusCode expectedStatus)
+        {
+            HttpResponseMessage response = this.PostWithResponse(requestUri, expectedMediaType, content, expectedStatus);
+            return WebServiceUtils.DeserializeResponse<T>(response, this.supportedFormatters);
+        }
+
+        /// <summary>
+        /// Execute a web service post
+        /// </summary>
         /// <param name="requestUri">The request uri</param>
         /// <param name="expectedMediaType">The type of media being requested</param>
         /// <param name="content">The post content</param>
@@ -164,6 +231,23 @@ namespace Magenic.Maqs.BaseWebServiceTest
         public string Post(string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
         {
             HttpResponseMessage response = this.PostWithResponse(requestUri, expectedMediaType, content, expectSuccess);
+            return response.Content.ReadAsStringAsync().Result;
+        }
+
+        /// <summary>
+        /// Execute a web service post
+        /// </summary>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="expectedMediaType">The type of media being requested</param>
+        /// <param name="content">The post content</param>
+        /// <param name="expectedStatus">Assert a specific status was returned</param>
+        /// <returns>The response body as a string</returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverPost.cs" region="PostWithString" lang="C#" />
+        /// </example>
+        public string Post(string requestUri, string expectedMediaType, HttpContent content, HttpStatusCode expectedStatus)
+        {
+            HttpResponseMessage response = this.PostWithResponse(requestUri, expectedMediaType, content, expectedStatus);
             return response.Content.ReadAsStringAsync().Result;
         }
 
@@ -195,6 +279,26 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="content">The post content</param>
         /// <param name="contentEncoding">How to encode the post content</param>
         /// <param name="postMediaType">The type of the media being posted</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <param name="contentAsString">If true pass content as StringContent, else pass as StreamContent</param>
+        /// <returns>The response body as a string</returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverPost.cs" region="PostWithoutCreatingContent" lang="C#" />
+        /// </example>
+        public string Post(string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, HttpStatusCode expectedStatus, bool contentAsString = true)
+        {
+            HttpResponseMessage response = this.PostWithResponse(requestUri, expectedMediaType, content, contentEncoding, postMediaType, expectedStatus, contentAsString);
+            return response.Content.ReadAsStringAsync().Result;
+        }
+
+        /// <summary>
+        /// Execute a web service post
+        /// </summary>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="expectedMediaType">The type of media being requested</param>
+        /// <param name="content">The post content</param>
+        /// <param name="contentEncoding">How to encode the post content</param>
+        /// <param name="postMediaType">The type of the media being posted</param>
         /// <param name="contentAsString">If true pass content as StringContent, else pass as StreamContent</param>
         /// <param name="expectSuccess">Assert a success code was returned</param>
         /// <returns>The response body as a string</returns>
@@ -213,6 +317,26 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="requestUri">The request uri</param>
         /// <param name="expectedMediaType">The type of media being requested</param>
         /// <param name="content">The post content</param>
+        /// <param name="contentEncoding">How to encode the post content</param>
+        /// <param name="postMediaType">The type of the media being posted</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <param name="contentAsString">If true pass content as StringContent, else pass as StreamContent</param>
+        /// <returns>The response body as a string</returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverPost.cs" region="PostWithResponse" lang="C#" />
+        /// </example>
+        public HttpResponseMessage PostWithResponse(string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, HttpStatusCode expectedStatus, bool contentAsString = true)
+        {
+            HttpContent httpContent = CreateContent(content, contentEncoding, postMediaType, contentAsString);
+            return this.PostWithResponse(requestUri, expectedMediaType, httpContent, expectedStatus);
+        }
+
+        /// <summary>
+        /// Execute a web service post
+        /// </summary>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="expectedMediaType">The type of media being requested</param>
+        /// <param name="content">The post content</param>
         /// <param name="expectSuccess">Assert a success code was returned</param>
         /// <returns>The http response message</returns>
         /// <example>
@@ -221,6 +345,22 @@ namespace Magenic.Maqs.BaseWebServiceTest
         public HttpResponseMessage PostWithResponse(string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
         {
             return this.PostContent(requestUri, expectedMediaType, content, expectSuccess).Result;
+        }
+
+        /// <summary>
+        /// Execute a web service post
+        /// </summary>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="expectedMediaType">The type of media being requested</param>
+        /// <param name="content">The post content</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <returns>The http response message</returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverPost.cs" region="PostWithResponseContent" lang="C#" />
+        /// </example>
+        public HttpResponseMessage PostWithResponse(string requestUri, string expectedMediaType, HttpContent content, HttpStatusCode expectedStatus)
+        {
+            return this.PostContent(requestUri, expectedMediaType, content, expectedStatus).Result;
         }
 
         /// <summary>
@@ -244,6 +384,24 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <summary>
         /// Execute a web service put
         /// </summary>
+        /// <typeparam name="T">The expected response type</typeparam>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="expectedMediaType">The type of media being requested</param>
+        /// <param name="content">The put content</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <returns>The response deserialized as - <typeparamref name="T"/></returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverPut.cs" region="PutWithType" lang="C#" />
+        /// </example>
+        public T Put<T>(string requestUri, string expectedMediaType, HttpContent content, HttpStatusCode expectedStatus)
+        {
+            HttpResponseMessage response = this.PutWithResponse(requestUri, expectedMediaType, content, expectedStatus);
+            return WebServiceUtils.DeserializeResponse<T>(response, this.supportedFormatters);
+        }
+
+        /// <summary>
+        /// Execute a web service put
+        /// </summary>
         /// <param name="requestUri">The request uri</param>
         /// <param name="expectedMediaType">The type of media being requested</param>
         /// <param name="content">The put content</param>
@@ -256,6 +414,24 @@ namespace Magenic.Maqs.BaseWebServiceTest
         public string Put(string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
         {
             HttpResponseMessage response = this.PutWithResponse(requestUri, expectedMediaType, content, expectSuccess);
+            return response.Content.ReadAsStringAsync().Result;
+        }
+
+        /// <summary>
+        /// Execute a web service put
+        /// </summary>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="expectedMediaType">The type of media being requested</param>
+        /// <param name="content">The put content</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <returns>The response body as a string</returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverPut.cs" region="PutWithXML" lang="C#" />
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverPut.cs" region="PutWithString" lang="C#" />
+        /// </example>
+        public string Put(string requestUri, string expectedMediaType, HttpContent content, HttpStatusCode expectedStatus)
+        {
+            HttpResponseMessage response = this.PutWithResponse(requestUri, expectedMediaType, content, expectedStatus);
             return response.Content.ReadAsStringAsync().Result;
         }
 
@@ -287,6 +463,26 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="content">The put content</param>
         /// <param name="contentEncoding">How to encode the put content</param>
         /// <param name="postMediaType">The type of the media being put</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <param name="contentAsString">If true pass content as StringContent, else pass as StreamContent</param>
+        /// <returns>The response body as a string</returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverPut.cs" region="PutWithStringContent" lang="C#" />
+        /// </example>
+        public string Put(string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, HttpStatusCode expectedStatus, bool contentAsString = true)
+        {
+            HttpResponseMessage response = this.PutWithResponse(requestUri, expectedMediaType, content, contentEncoding, postMediaType, expectedStatus, contentAsString);
+            return response.Content.ReadAsStringAsync().Result;
+        }
+
+        /// <summary>
+        /// Execute a web service put
+        /// </summary>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="expectedMediaType">The type of media being requested</param>
+        /// <param name="content">The put content</param>
+        /// <param name="contentEncoding">How to encode the put content</param>
+        /// <param name="postMediaType">The type of the media being put</param>
         /// <param name="contentAsString">If true pass content as StringContent, else pass as StreamContent</param>
         /// <param name="expectSuccess">Assert a success code was returned</param>
         /// <returns>The http response message</returns>
@@ -305,6 +501,26 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="requestUri">The request uri</param>
         /// <param name="expectedMediaType">The type of media being requested</param>
         /// <param name="content">The put content</param>
+        /// <param name="contentEncoding">How to encode the put content</param>
+        /// <param name="postMediaType">The type of the media being put</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <param name="contentAsString">If true pass content as StringContent, else pass as StreamContent</param>
+        /// <returns>The http response message</returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverPut.cs" region="PutWithResponse" lang="C#" />
+        /// </example>
+        public HttpResponseMessage PutWithResponse(string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, HttpStatusCode expectedStatus, bool contentAsString = true)
+        {
+            HttpContent httpContent = CreateContent(content, contentEncoding, postMediaType, contentAsString);
+            return this.PutWithResponse(requestUri, expectedMediaType, httpContent, expectedStatus);
+        }
+
+        /// <summary>
+        /// Execute a web service put
+        /// </summary>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="expectedMediaType">The type of media being requested</param>
+        /// <param name="content">The put content</param>
         /// <param name="expectSuccess">Assert a success code was returned</param>
         /// <returns>The http response message</returns>
         /// <example>
@@ -313,6 +529,22 @@ namespace Magenic.Maqs.BaseWebServiceTest
         public HttpResponseMessage PutWithResponse(string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
         {
             return this.PutContent(requestUri, expectedMediaType, content, expectSuccess).Result;
+        }
+
+        /// <summary>
+        /// Execute a web service put
+        /// </summary>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="expectedMediaType">The type of media being requested</param>
+        /// <param name="content">The put content</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <returns>The http response message</returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverPut.cs" region="PutWithResponseJSON" lang="C#" />
+        /// </example>
+        public HttpResponseMessage PutWithResponse(string requestUri, string expectedMediaType, HttpContent content, HttpStatusCode expectedStatus)
+        {
+            return this.PutContent(requestUri, expectedMediaType, content, expectedStatus).Result;
         }
 
         /// <summary>
@@ -336,6 +568,24 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <summary>
         /// Execute a web service patch
         /// </summary>
+        /// <typeparam name="T">The expected response type</typeparam>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="expectedMediaType">The type of media being requested</param>
+        /// <param name="content">The put content</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <returns>The response deserialized as - <typeparamref name="T"/></returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverPatch.cs" region="PatchWithType" lang="C#" />
+        /// </example>
+        public T Patch<T>(string requestUri, string expectedMediaType, HttpContent content, HttpStatusCode expectedStatus)
+        {
+            HttpResponseMessage response = this.PatchWithResponse(requestUri, expectedMediaType, content, expectedStatus);
+            return WebServiceUtils.DeserializeResponse<T>(response, this.supportedFormatters);
+        }
+
+        /// <summary>
+        /// Execute a web service patch
+        /// </summary>
         /// <param name="requestUri">The request uri</param>
         /// <param name="expectedMediaType">The type of media being requested</param>
         /// <param name="content">The put content</param>
@@ -347,6 +597,23 @@ namespace Magenic.Maqs.BaseWebServiceTest
         public string Patch(string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
         {
             HttpResponseMessage response = this.PatchWithResponse(requestUri, expectedMediaType, content, expectSuccess);
+            return response.Content.ReadAsStringAsync().Result;
+        }
+
+        /// <summary>
+        /// Execute a web service patch
+        /// </summary>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="expectedMediaType">The type of media being requested</param>
+        /// <param name="content">The put content</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <returns>The response body as a string</returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverPatch.cs" region="PatchWithString" lang="C#" />
+        /// </example>
+        public string Patch(string requestUri, string expectedMediaType, HttpContent content, HttpStatusCode expectedStatus)
+        {
+            HttpResponseMessage response = this.PatchWithResponse(requestUri, expectedMediaType, content, expectedStatus);
             return response.Content.ReadAsStringAsync().Result;
         }
 
@@ -378,6 +645,26 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="content">The put content</param>
         /// <param name="contentEncoding">How to encode the put content</param>
         /// <param name="postMediaType">The type of the media being put</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <param name="contentAsString">If true pass content as StringContent, else pass as StreamContent</param>
+        /// <returns>The response body as a string</returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverPatch.cs" region="PatchWithoutCreatingContent" lang="C#" />
+        /// </example>
+        public string Patch(string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, HttpStatusCode expectedStatus, bool contentAsString = true)
+        {
+            HttpResponseMessage response = this.PatchWithResponse(requestUri, expectedMediaType, content, contentEncoding, postMediaType, expectedStatus, contentAsString);
+            return response.Content.ReadAsStringAsync().Result;
+        }
+
+        /// <summary>
+        /// Execute a web service patch
+        /// </summary>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="expectedMediaType">The type of media being requested</param>
+        /// <param name="content">The put content</param>
+        /// <param name="contentEncoding">How to encode the put content</param>
+        /// <param name="postMediaType">The type of the media being put</param>
         /// <param name="contentAsString">If true pass content as StringContent, else pass as StreamContent</param>
         /// <param name="expectSuccess">Assert a success code was returned</param>
         /// <returns>The http response message</returns>
@@ -388,6 +675,26 @@ namespace Magenic.Maqs.BaseWebServiceTest
         {
             HttpContent httpContent = CreateContent(content, contentEncoding, postMediaType, contentAsString);
             return this.PatchWithResponse(requestUri, expectedMediaType, httpContent, expectSuccess);
+        }
+
+        /// <summary>
+        /// Execute a web service patch
+        /// </summary>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="expectedMediaType">The type of media being requested</param>
+        /// <param name="content">The put content</param>
+        /// <param name="contentEncoding">How to encode the put content</param>
+        /// <param name="postMediaType">The type of the media being put</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <param name="contentAsString">If true pass content as StringContent, else pass as StreamContent</param>
+        /// <returns>The http response message</returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverPatch.cs" region="PatchWithResponse" lang="C#" />
+        /// </example>
+        public HttpResponseMessage PatchWithResponse(string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, HttpStatusCode expectedStatus, bool contentAsString = true)
+        {
+            HttpContent httpContent = CreateContent(content, contentEncoding, postMediaType, contentAsString);
+            return this.PatchWithResponse(requestUri, expectedMediaType, httpContent, expectedStatus);
         }
 
         /// <summary>
@@ -407,6 +714,22 @@ namespace Magenic.Maqs.BaseWebServiceTest
         }
 
         /// <summary>
+        /// Execute a web service patch
+        /// </summary>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="expectedMediaType">The type of media being requested</param>
+        /// <param name="content">The put content</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <returns>The http response message</returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverPatch.cs" region="PatchWithResponseContent" lang="C#" />
+        /// </example>
+        public HttpResponseMessage PatchWithResponse(string requestUri, string expectedMediaType, HttpContent content, HttpStatusCode expectedStatus)
+        {
+            return this.PatchContent(requestUri, expectedMediaType, content, expectedStatus).Result;
+        }
+
+        /// <summary>
         /// Execute a web service delete
         /// </summary>
         /// <typeparam name="T">The expected response type</typeparam>
@@ -420,6 +743,23 @@ namespace Magenic.Maqs.BaseWebServiceTest
         public T Delete<T>(string requestUri, string expectedMediaType, bool expectSuccess = true)
         {
             HttpResponseMessage response = this.DeleteWithResponse(requestUri, expectedMediaType, expectSuccess);
+            return WebServiceUtils.DeserializeResponse<T>(response, this.supportedFormatters);
+        }
+
+        /// <summary>
+        /// Execute a web service delete
+        /// </summary>
+        /// <typeparam name="T">The expected response type</typeparam>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="expectedMediaType">The type of media being requested</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <returns>The response by deserialized as the <typeparamref name="T"/></returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverDelete.cs" region="DeleteWithType" lang="C#" />
+        /// </example>
+        public T Delete<T>(string requestUri, string expectedMediaType, HttpStatusCode expectedStatus)
+        {
+            HttpResponseMessage response = this.DeleteWithResponse(requestUri, expectedMediaType, expectedStatus);
             return WebServiceUtils.DeserializeResponse<T>(response, this.supportedFormatters);
         }
 
@@ -444,6 +784,22 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// </summary>
         /// <param name="requestUri">The request uri</param>
         /// <param name="expectedMediaType">The type of media being requested</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <returns>The response as a string</returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverDelete.cs" region="DeleteWithXML" lang="C#" />
+        /// </example> 
+        public string Delete(string requestUri, string expectedMediaType, HttpStatusCode expectedStatus)
+        {
+            HttpResponseMessage response = this.DeleteWithResponse(requestUri, expectedMediaType, expectedStatus);
+            return response.Content.ReadAsStringAsync().Result;
+        }
+
+        /// <summary>
+        /// Execute a web service delete
+        /// </summary>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="expectedMediaType">The type of media being requested</param>
         /// <param name="expectSuccess">Assert a success code was returned</param>
         /// <returns>The http response message</returns>
         /// <example>
@@ -452,6 +808,21 @@ namespace Magenic.Maqs.BaseWebServiceTest
         public HttpResponseMessage DeleteWithResponse(string requestUri, string expectedMediaType, bool expectSuccess = true)
         {
             return this.DeleteContent(requestUri, expectedMediaType, expectSuccess).Result;
+        }
+
+        /// <summary>
+        /// Execute a web service delete
+        /// </summary>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="expectedMediaType">The type of media being requested</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <returns>The http response message</returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverDelete.cs" region="DeleteWithStringResponse" lang="C#" />
+        /// </example> 
+        public HttpResponseMessage DeleteWithResponse(string requestUri, string expectedMediaType, HttpStatusCode expectedStatus)
+        {
+            return this.DeleteContent(requestUri, expectedMediaType, expectedStatus).Result;
         }
 
         /// <summary>
@@ -473,6 +844,22 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <summary>
         /// Execute a web service call with a custom verb
         /// </summary>
+        /// <typeparam name="T">The expected response type</typeparam>
+        /// <param name="customType">The custom HTTP verb</param>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="expectedMediaType">Type of media being requested</param>
+        /// <param name="content">Content of the message</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <returns>HTTP response message</returns>
+        public T Custom<T>(string customType, string requestUri, string expectedMediaType, HttpContent content, HttpStatusCode expectedStatus)
+        {
+            HttpResponseMessage response = this.CustomWithResponse(customType, requestUri, expectedMediaType, content, expectedStatus);
+            return WebServiceUtils.DeserializeResponse<T>(response, this.supportedFormatters);
+        }
+
+        /// <summary>
+        /// Execute a web service call with a custom verb
+        /// </summary>
         /// <param name="customType">Custom HTTP verb</param>
         /// <param name="requestUri">The request URI </param>
         /// <param name="expectedMediaType">The type of media being requested</param>
@@ -482,6 +869,21 @@ namespace Magenic.Maqs.BaseWebServiceTest
         public string Custom(string customType, string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
         {
             HttpResponseMessage response = this.CustomWithResponse(customType, requestUri, expectedMediaType, content, expectSuccess);
+            return response.Content.ReadAsStringAsync().Result;
+        }
+
+        /// <summary>
+        /// Execute a web service call with a custom verb
+        /// </summary>
+        /// <param name="customType">Custom HTTP verb</param>
+        /// <param name="requestUri">The request URI </param>
+        /// <param name="expectedMediaType">The type of media being requested</param>
+        /// <param name="content">Content of the message</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <returns>The HTTP response message</returns>
+        public string Custom(string customType, string requestUri, string expectedMediaType, HttpContent content, HttpStatusCode expectedStatus)
+        {
+            HttpResponseMessage response = this.CustomWithResponse(customType, requestUri, expectedMediaType, content, expectedStatus);
             return response.Content.ReadAsStringAsync().Result;
         }
 
@@ -500,6 +902,24 @@ namespace Magenic.Maqs.BaseWebServiceTest
         public string Custom(string customType, string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, bool contentAsString = true, bool expectSuccess = true)
         {
             HttpResponseMessage response = this.CustomWithResponse(customType, requestUri, expectedMediaType, content, contentEncoding, postMediaType, contentAsString, expectSuccess);
+            return response.Content.ReadAsStringAsync().Result;
+        }
+
+        /// <summary>
+        /// Execute a web service call with a custom verb
+        /// </summary>
+        /// <param name="customType">Custom HTTP Verb</param>
+        /// <param name="requestUri">The request URI</param>
+        /// <param name="expectedMediaType">The expected media type</param>
+        /// <param name="content">Content of the message</param>
+        /// <param name="contentEncoding">How content was encoded</param>
+        /// <param name="postMediaType">Media type</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <param name="contentAsString">The message content as a string</param>
+        /// <returns>The HTTP Response message</returns>
+        public string Custom(string customType, string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, HttpStatusCode expectedStatus, bool contentAsString = true)
+        {
+            HttpResponseMessage response = this.CustomWithResponse(customType, requestUri, expectedMediaType, content, contentEncoding, postMediaType, expectedStatus, contentAsString);
             return response.Content.ReadAsStringAsync().Result;
         }
 
@@ -527,6 +947,27 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <summary>
         /// Execute a web service call with a custom verb
         /// </summary>
+        /// <param name="customType">the Custom HTTP Verb</param>
+        /// <param name="requestUri">The Request URI</param>
+        /// <param name="expectedMediaType">The expected media type</param>
+        /// <param name="content">The Content of the message</param>
+        /// <param name="contentEncoding">How content was encoded</param>
+        /// <param name="postMediaType">Media type</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <param name="contentAsString">The content as a a string</param>
+        /// <returns>The HTTP response message</returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverCustomVerb.cs" region="CustomWithoutContent" lang="C#" />
+        /// </example>
+        public HttpResponseMessage CustomWithResponse(string customType, string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, HttpStatusCode expectedStatus, bool contentAsString = true)
+        {
+            HttpContent httpContent = CreateContent(content, contentEncoding, postMediaType, contentAsString);
+            return this.CustomWithResponse(customType, requestUri, expectedMediaType, httpContent, expectedStatus);
+        }
+
+        /// <summary>
+        /// Execute a web service call with a custom verb
+        /// </summary>
         /// <param name="customType">The custom HTTP verb</param>
         /// <param name="requestUri">The requested URI</param>
         /// <param name="expectedMediaType">The expected media type</param>
@@ -539,6 +980,23 @@ namespace Magenic.Maqs.BaseWebServiceTest
         public HttpResponseMessage CustomWithResponse(string customType, string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
         {
             return this.CustomContent(requestUri, customType, expectedMediaType, content, expectSuccess).Result;
+        }
+
+        /// <summary>
+        /// Execute a web service call with a custom verb
+        /// </summary>
+        /// <param name="customType">The custom HTTP verb</param>
+        /// <param name="requestUri">The requested URI</param>
+        /// <param name="expectedMediaType">The expected media type</param>
+        /// <param name="content">The content</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <returns>The HTTP response message</returns>
+        /// <example>
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverCustomVerb.cs" region="CustomVerbStatusCode" lang="C#" />
+        /// </example>
+        public HttpResponseMessage CustomWithResponse(string customType, string requestUri, string expectedMediaType, HttpContent content, HttpStatusCode expectedStatus)
+        {
+            return this.CustomContent(requestUri, customType, expectedMediaType, content, expectedStatus).Result;
         }
 
         /// <summary>
@@ -559,6 +1017,25 @@ namespace Magenic.Maqs.BaseWebServiceTest
             {
                 EnsureSuccessStatusCode(response);
             }
+
+            return response;
+        }
+
+        /// <summary>
+        /// Do a web service post for the given uri, content and media type
+        /// </summary>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="responseMediaType">The response media type</param>
+        /// <param name="content">The post body</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <returns>A http response message</returns>
+        protected async virtual Task<HttpResponseMessage> PostContent(string requestUri, string responseMediaType, HttpContent content, HttpStatusCode expectedStatus)
+        {
+            this.AddAcceptIfNotPresent(responseMediaType);
+            HttpResponseMessage response = await this.HttpClient.PostAsync(requestUri, content).ConfigureAwait(false);
+
+            // We check for specific status
+            EnsureStatusCodesMatch(response, expectedStatus);
 
             return response;
         }
@@ -591,6 +1068,25 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="requestUri">The request uri</param>
         /// <param name="responseMediaType">The response media type</param>
         /// <param name="content">The put body</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <returns>A http response message</returns>
+        protected async virtual Task<HttpResponseMessage> PutContent(string requestUri, string responseMediaType, HttpContent content, HttpStatusCode expectedStatus)
+        {
+            this.AddAcceptIfNotPresent(responseMediaType);
+            HttpResponseMessage response = await this.HttpClient.PutAsync(requestUri, content).ConfigureAwait(false);
+
+            // We check for specific status
+            EnsureStatusCodesMatch(response, expectedStatus);
+
+            return response;
+        }
+
+        /// <summary>
+        /// Do a web service put for the given uri, content and media type
+        /// </summary>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="responseMediaType">The response media type</param>
+        /// <param name="content">The put body</param>
         /// <param name="expectSuccess">Assert a success code was returned</param>
         /// <returns>A http response message</returns>
         protected async virtual Task<HttpResponseMessage> PatchContent(string requestUri, string responseMediaType, HttpContent content, bool expectSuccess = true)
@@ -609,6 +1105,31 @@ namespace Magenic.Maqs.BaseWebServiceTest
             {
                 EnsureSuccessStatusCode(response);
             }
+
+            return response;
+        }
+
+        /// <summary>
+        /// Do a web service put for the given uri, content and media type
+        /// </summary>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="responseMediaType">The response media type</param>
+        /// <param name="content">The put body</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <returns>A http response message</returns>
+        protected async virtual Task<HttpResponseMessage> PatchContent(string requestUri, string responseMediaType, HttpContent content, HttpStatusCode expectedStatus)
+        {
+            HttpMethod method = new HttpMethod("PATCH");
+
+            HttpRequestMessage message = new HttpRequestMessage(method, requestUri)
+            {
+                Content = content
+            };
+
+            this.AddAcceptIfNotPresent(responseMediaType);
+            HttpResponseMessage response = await this.HttpClient.SendAsync(message).ConfigureAwait(false);
+
+            EnsureStatusCodesMatch(response, expectedStatus);
 
             return response;
         }
@@ -643,6 +1164,32 @@ namespace Magenic.Maqs.BaseWebServiceTest
         }
 
         /// <summary>
+        /// Do a web service call with the given custom verb, content, and return type
+        /// </summary>
+        /// <param name="requestUri">The request URI</param>
+        /// <param name="customVerb">The custom HTTP request verb to be used</param>
+        /// <param name="responseMediaType">The expected response type</param>
+        /// <param name="content">The content of the message</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <returns>The HTTP response message</returns>
+        protected async virtual Task<HttpResponseMessage> CustomContent(string requestUri, string customVerb, string responseMediaType, HttpContent content, HttpStatusCode expectedStatus)
+        {
+            HttpMethod method = new HttpMethod(customVerb);
+
+            HttpRequestMessage message = new HttpRequestMessage(method, requestUri)
+            {
+                Content = content
+            };
+
+            this.AddAcceptIfNotPresent(responseMediaType);
+            HttpResponseMessage response = await this.HttpClient.SendAsync(message).ConfigureAwait(false);
+
+            EnsureStatusCodesMatch(response, expectedStatus);
+
+            return response;
+        }
+
+        /// <summary>
         /// Do a web service delete for the given uri
         /// </summary>
         /// <param name="requestUri">The request uri</param>
@@ -658,6 +1205,23 @@ namespace Magenic.Maqs.BaseWebServiceTest
             {
                 EnsureSuccessStatusCode(response);
             }
+
+            return response;
+        }
+
+        /// <summary>
+        /// Do a web service delete for the given uri
+        /// </summary>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="returnMediaType">The expected response media type</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <returns>A http response message</returns>
+        protected async virtual Task<HttpResponseMessage> DeleteContent(string requestUri, string returnMediaType, HttpStatusCode expectedStatus)
+        {
+            HttpResponseMessage response = await this.HttpClient.DeleteAsync(requestUri).ConfigureAwait(false);
+
+            // We check for specific status
+            EnsureStatusCodesMatch(response, expectedStatus);
 
             return response;
         }
@@ -679,6 +1243,24 @@ namespace Magenic.Maqs.BaseWebServiceTest
             {
                 EnsureSuccessStatusCode(response);
             }
+
+            return response;
+        }
+
+        /// <summary>
+        /// Do a web service get for the given uri and media type
+        /// </summary>
+        /// <param name="requestUri">The request uri</param>
+        /// <param name="mediaType">What type of media are we expecting</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <returns>A http response message</returns>
+        protected async virtual Task<HttpResponseMessage> GetContent(string requestUri, string mediaType, HttpStatusCode expectedStatus)
+        {
+            this.AddAcceptIfNotPresent(mediaType);
+            HttpResponseMessage response = await this.HttpClient.GetAsync(requestUri).ConfigureAwait(false);
+
+            // We check for specific status
+            EnsureStatusCodesMatch(response, expectedStatus);
 
             return response;
         }
@@ -730,6 +1312,36 @@ namespace Magenic.Maqs.BaseWebServiceTest
                     Environment.NewLine,
                     (int)response.StatusCode,
                     response.StatusCode,
+                    body));
+            }
+        }
+
+        /// <summary>
+        /// Ensure the HTTP response has specified status, if not throw a user friendly error message
+        /// </summary>
+        /// <param name="response">The HTTP response</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        private static void EnsureStatusCodesMatch(HttpResponseMessage response, HttpStatusCode expectedStatus)
+        {
+            // Make sure a response was returned
+            if (response == null)
+            {
+                throw new HttpRequestException("Response was null");
+            }
+
+            // Check if it was a success and if not create a user friendly error message
+            if (response.StatusCode != expectedStatus)
+            {
+                string body = response.Content.ReadAsStringAsync().Result;
+
+                throw new HttpRequestException(
+                    StringProcessor.SafeFormatter(
+                        "Response status did not match expected.{0}Response code was: {1} ({2}){0}Expected code was: {3}{4}{0}{5}",
+                    Environment.NewLine,
+                    (int)response.StatusCode,
+                    response.StatusCode,
+                    (int)expectedStatus,
+                    expectedStatus,
                     body));
             }
         }
