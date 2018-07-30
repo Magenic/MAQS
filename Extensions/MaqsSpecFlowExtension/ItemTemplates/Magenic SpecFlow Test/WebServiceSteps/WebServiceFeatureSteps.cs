@@ -51,7 +51,7 @@ namespace $rootnamespace$
         private void CallEndpoint()
         {
             // calls the fake endpoint
-            this.TestObject.WebServiceWrapper.Get("fake/endpoint", "application/json", true);
+            this.TestObject.WebServiceDriver.Get("fake/endpoint", "application/json", true);
         }
     }
 }

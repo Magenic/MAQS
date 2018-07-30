@@ -79,6 +79,9 @@
     <Reference Include="Magenic.Maqs.SpecFlow">
       <HintPath>..\packages\Magenic.Maqs.SpecFlow.5.0.0\lib\net471\Magenic.Maqs.SpecFlow.dll</HintPath>
     </Reference>
+    <Reference Include="MimeKit, Version=2.0.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
+      <HintPath>..\packages\MimeKit.2.0.5\lib\net45\MimeKit.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />

@@ -18,7 +18,7 @@ namespace $rootnamespace$
         public void SampleTest()
         {
             // TODO: Add test code
-            // var tables = this.DatabaseWrapper.Query("SELECT * FROM information_schema.tables").ToList();
+            // var tables = this.DatabaseDriver.Query("SELECT * FROM information_schema.tables").ToList();
             // Assert.AreEqual(10, tables.Count, "Expected 10 tables");
         }
     }

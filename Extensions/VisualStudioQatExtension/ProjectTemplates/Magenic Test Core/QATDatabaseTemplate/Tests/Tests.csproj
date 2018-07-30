@@ -20,10 +20,15 @@
   </ItemGroup>  
   <ItemGroup>
     <None Include="nuget.config" />
-	<EmbeddedResource Update="appsettings.json">
+  </ItemGroup>
+    <ItemGroup>
+    <None Remove="appsettings.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-  </ItemGroup>
+  </ItemGroup>  
   <Target Name="CopyFiles" BeforeTargets="BeforeCompile" Condition="Exists('$(ProjectDir)nuget.config')">
     <Copy SourceFiles="$(ProjectDir)nuget.config" DestinationFiles="$(SolutionDir).nuget\NuGet.Config" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true">
     </Copy>

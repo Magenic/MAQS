@@ -1,4 +1,27 @@
 MAQS Release Notes:
+5.0.0 - 2018/7/11
+	Major and/or breaking changes
+	- MAQS (all but Appium) moved to .Net Standard 2.0
+	- Add .Net Core templates
+	- Remove FluentElement
+	- Remove NUnit testing shim
+	- Database tests now leverage Daper
+	   This means we now have support for SQLite, SQL CE, Firebird, Oracle, MySQL, PostgreSQL and SQL Server
+	   Also have support for database object mapping 
+	- Documentation is now hosted on https://magenic.github.io/MAQS/#/
+	- WinAppDriver for Appium is now supported
+	- Rename all wrappers drivers for consistancy
+	- Create driver managers to manage setup and cleanup of drivers
+	- Create driver store so you can add as many drivers (database, web service, Selenium web driver, etc.) as you want in a single test
+	- Break the app.config sections up so they are driver specific
+	- Add support for appsettings.json configurations - This is needed for .Net core support
+	Bug fixes and minor enhancements
+	- Fix HTML log line breaks
+	- Fix save source bug
+	- Stopped using generic exceptions
+	- Updated
+		Virtually all libraries were updated
+
 4.0.5 - 2018/3/29
 	Bug fixes and minor enhancements
 	- Replace FluentElement with LazyElement

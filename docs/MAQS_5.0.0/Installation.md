@@ -54,4 +54,4 @@ There are two options, MAQS Framework - Selenium , that will start a project wit
 
 Finally name the solution whatever you'd like to name, and click "ok".
 
-For next steps, check our [Getting Started guide](MAQS_4.0.5/Getting-Started.md).
+For next steps, check our [Getting Started guide](MAQS_5.0.0/Getting-Started.md).

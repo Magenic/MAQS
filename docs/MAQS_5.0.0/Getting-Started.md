@@ -1,7 +1,7 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> Getting Started
 
 ## Installation
-The first step is to install MAQS.  Checkout the [MAQS Installation](MAQS_4.0.5/Installation) guide.  
+The first step is to install MAQS.  Checkout the [MAQS Installation](MAQS_5.0.0/Installation) guide.  
   
 Optional installs are NUnit and StyleCop.
 
@@ -123,4 +123,4 @@ Test methods with multiple Category attributes will add that test case to each a
 
 
 ## Configurations
-There are a number of configurations included with MAQS.  Checkout the [MAQS Configurations](MAQS_4.0.5/Configuration.md) guide.
+There are a number of configurations included with MAQS.  Checkout the [MAQS Configurations](MAQS_5.0.0/Configuration.md) guide.

@@ -16,7 +16,7 @@ namespace Tests
         [TestMethod]
         public void GetXmlDeserialized()
         {
-            ProductXml result = this.WebServiceWrapper.Get<ProductXml>("/api/XML_JSON/GetProduct/1", "application/xml", false);
+            ProductXml result = this.WebServiceDriver.Get<ProductXml>("/api/XML_JSON/GetProduct/1", "application/xml", false);
 
             Assert.AreEqual(result.Id, 1, "Expected to get product 1");
         }
@@ -27,7 +27,7 @@ namespace Tests
         [TestMethod]
         public void GetJsonDeserialized()
         {
-            ProductJson result = this.WebServiceWrapper.Get<ProductJson>("/api/XML_JSON/GetProduct/1", "application/json", false);
+            ProductJson result = this.WebServiceDriver.Get<ProductJson>("/api/XML_JSON/GetProduct/1", "application/json", false);
 
             Assert.AreEqual(result.Id, 1, "Expected to get product 1");
         }
