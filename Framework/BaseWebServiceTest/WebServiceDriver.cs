@@ -1336,7 +1336,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
 
                 throw new HttpRequestException(
                     StringProcessor.SafeFormatter(
-                        "Response status did not match expected.{0}Response code was: {1} ({2}){0}Expected code was: {3}{4}{0}{5}",
+                        "Response status did not match expected.{0}Response code was: {1} ({2}){0}Expected code was: {3} ({4}){0}{5}",
                     Environment.NewLine,
                     (int)response.StatusCode,
                     response.StatusCode,
