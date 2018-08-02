@@ -1,53 +1,125 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> Configurations
 
 ## Introduction
-This document will cover the configurations that can be made to MAQS (Magenic Automation Quick-Start) tests.
+The below section will cover global test settings.
 
 ## Application Configuration
-The MAQS project solutions make use of a collection of configurations tied to the MAQS base solution.  These configurations are stored in an XML document called the app.config.
-The app.config file includes configurations for each project solution, as well as generic configurations for handling MAQS specific functions.
-### General Test Configurations
-There are general test configurations included in every project template. They control wait time, time-out, and log levels.
-#### Wait Time & Timeout
-The generic wait methods included with MAQS are methods that contain a loop where the called method will try to wait for certain conditions to be met, and if the conditions aren’t met, the method will wait the set wait time and check again if the conditions are met.
-Once the method has waited after a set amount of time, it will timeout and throw an exception. This timeout is also set in the app.config.
-The WaitTime and Timeout configurations can be modified to allow for longer or shorter wait times and/or have the test wait longer or shorter on certain conditions.  
-![Time Examples](resources/time.png)
-#### Log Configuration
-MAQS contains configurations for a test log in the app.config file. Options to adjust when a log is created for a test, the level of specificity, and the format of the log are included in every project.
-##### Logging Format
-The option to enable the log is located in the app.config. The options available are to create a log with the file format as plain text (.txt), Hypertext Markup Language(.html), or to output the log to the Visual Studio console. <br>
-![LogType](resources/LoggingType.png)
-##### Log Conditions  
-The option to set the conditions in which a log is created is set in the app.config.  
-![Conditions under which a long is created](resources/logconditions.png)  
+The MAQS project solutions make use of a collection of configurations. These configurations are stored in an XML document called the **app.config**.
+The **app.config** file includes configurations for each project solution, as well as generic configurations for handling MAQS specific functions.
 
-With the default option "Yes," a test will always create a corresponding log after the test finishes. The other options are “No” and “OnFail.” “No” will never create a log under any circumstance, while “OnFail” will only create a log if the test fails.
-##### Log Output Location
-![Where the log file is output](resources/loglocation.png)  
-A log file path can be defined to a specific folder or shared folder that the test runner has access to.  Simply set the value for the key “FileLoggerPath” to be the preferred location. 
+### MagenicMaqs - General Test Configurations
+General test configurations are included in every project template. They control wait time, time-out, and log levels.
+#### Wait Time
+Polling time (how long the code waits between retries) used for generic waits in milliseconds.
+##### Examples
+```xml
+<!-- Generic wait time in milliseconds - AKA how long do you wait for rechecking something -->
+<add key="WaitTime" value="1000" />
+```
 
-##### Log Level
-![The levels of logs](resources/logleveldiagram.png)  
-Each log level is grouped into a hierarchy, with the highest log levels also including any messages from lower log levels in the hierarchy.
-Verbose mode includes all information gathered by the logger, which includes any navigation that occurs on the page, and anytime the WebDriver attempts to find an element or interact with an element. Verbose mode will result in many, often superfluous, lines of information.
-Information mode includes messages for when a WebDriver is loaded, a value is identified, an element is interacted with, or whenever the WebDriver throws an exception.
-Generic mode is the default logging level. It includes performance timers, and log interactions such as when a performance timer log is saved.
-Success mode will output a message anytime a soft assert is successful, or as a test ends and the test is successful.
-Warning mode will output a message anytime a soft assert fails, the test is met with unexpected results, or the test configuration fails to update.
-Error mode will only display messages that would fail a test. This includes a test failed, a test resulted in being inconclusive, a setup failed, or the final soft assert data contains any failed soft asserts.
-Suspended mode will result in no information written to the log. 
+#### Timeout
+The overall timeout for generic waits in milliseconds.
+##### Examples
+```xml
+<!-- Generic time-out in milliseconds -->
+<add key="Timeout" value="10000" />
+```
 
-### Selenium Test Configuration
+#### Log
+This setting dictates if and/or when logs are created. With the default option "Yes," a test will always create a corresponding log after the test finishes. The other options are “No” and “OnFail.” “No” will never create a log under any circumstance, while “OnFail” will only create a log if the test fails.
+##### Examples
+```xml
+ <!-- Do you want to create logs for your tests
+<add key="Log" value="YES"/>
+<add key="Log" value="NO"/>
+<add key="Log" value="OnFail"/>-->
+<add key="Log" value="OnFail" />
+```
+#### Logging Levels
+This setting dictates how verbose the logging will be. With the default option, "Information", the log will include everything but Verbose messages. 
+
+Levels
+ - Verbose option - Logs everything
+ - Information(Default) - Logs informative, generic, success, warning, and error messages
+ - Generic - Logs generic, success, warning, and error messages
+ - Success - Logs success, warning, and error messages
+ - Warning - Logs all warning and error messages
+ - Error - Only logs error messages
+
+##### Examples
+```xml
+<!--Logging Levels
+<add key="LogLevel" value="VERBOSE"/>
+<add key="LogLevel" value="INFORMATION"/>
+<add key="LogLevel" value="GENERIC"/>
+<add key="LogLevel" value="SUCCESS"/>
+<add key="LogLevel" value="WARNING"/>
+<add key="LogLevel" value="ERROR"/>-->
+<add key="LogLevel" value="INFORMATION" />
+```
+#### Logging Types
+This setting dictates the format of the log files. 
+
+Types
+ - Console - Prints to console logger, no file is created.
+ - TXT(Default) - Creates a TXT file.
+ - HTML - Creates a HTML file.
+
+##### Examples
+```xml
+<!-- Logging Types
+<add key="LogType" value="CONSOLE"/>
+<add key="LogType" value="TXT"/>
+<add key="LogType" value="HTML"/>-->
+<add key="LogType" value="HTML" />
+```
+
+#### Log Output Location - Optional
+The log file path can be set to a specific folder or shared drive that the test runner has access to.  
+_*By default, logs end up in the "log" folder. This is located in the same folder as the test DLL._
+
+##### Examples
+```xml
+<!-- Log file path - Defaults to build location if no value is defined
+<add key="FileLoggerPath" value="C:\Frameworks\"/>-->
+```
+
+### SeleniumMaqs - Selenium Test Configuration
 Selenium specific configurations assist in switching between web browsers, setting up remote browser settings, selecting a specific WebDriver, or setting base root information.
 #### Local Browser Settings 
-![Local Browser Settings](resources/LocalBrowserSettings.png) 
-A browser key is included in the app.config to define which web browser will be used for tests. To switch between browsers simply change the value of the key “Browser” to the intended browser.
-The WebDriver will go off the path to the browser on the machine the test is being run on.
-The web browser needs to be installed for tests to be run against that browser.
-#### WebDriver Hint Path
-![WebDriver Hintpath](resources/webdriver%20hint%20path.png)  
-The WebDriver used by the tests can be overridden to point towards a different web driver and/or a specific version of a web driver, such as ChromeDriver, FirefoxDriver, etc. This is useful for compatibility tests to compare tests between browser versions.
+This setting dictates which browser is used for Selenium tests. 
+- Chrome (Default)
+- HeadlessChrome - Chrome running without the UI
+- Internet Explorer or IE
+- Firefox
+- PhantomJS - A headless web browser, this will be depricated in the future
+- Edge
+- Remote - Tells MAQS it will be running against a grid.  
+*See Remote Browser Settings section below if you intend to use Grid
+
+##### Examples
+```xml
+ <!--Local browser settings
+ <add key="Browser" value="Chrome"/>
+ <add key="Browser" value="HeadlessChrome"/>
+ <add key="Browser" value="Internet Explorer"/>
+ <add key="Browser" value="Firefox"/>
+ <add key="Browser" value="PhantomJS"/>
+ <add key="Browser" value="Edge"/> 
+ <add key="Browser" value="Remote"/> -->
+ <add key="Browser" value="Chrome" />
+```
+
+#### WebDriver Hint Path - Optional
+This setting allows you to provide an alternate path for where to find your webdriver.  By default the test will look for the webdriver in it's current folder.  
+_*By default, MAQS will only look in the test DLL folder for webdrivers._
+
+##### Examples
+```xml
+<!-- Web driver hint path override - This is the first place Maqs will try to find your web drive 
+<add key="WebDriverHintPath" value="C:\Frameworks"/>-->
+```
+
 #### Remote Browser Settings
 ![Remote Browser Settings](resources/remote%20browser%20settings.png) 
 The app.config file can be configured to send tests to a hub for distribution. The “Browser” key needs to have a value set to “Remote.” The “RemoteBrowser” key needs to be set to the web browser that the tests will be run against. Finally, it needs the key “HubUrl” value set to the URL of the hub that will distribute the tests. 

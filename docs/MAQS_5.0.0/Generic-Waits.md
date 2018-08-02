@@ -165,7 +165,7 @@ string textResults = GenericWait.WaitFor<string>(this.IsParamTest, TimeSpan.From
 
 ### Wait For an Expected Argument Type, And Return a Type
 --------------
-Waits for the passed in method to return true, or for the method to time out.  If the method times out, throw an exception.  The wait will return the type passed in.
+This function will return the type passed in or throw an exception if the method times out.
 
 #### Written As
 ```csharp
