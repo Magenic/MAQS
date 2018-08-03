@@ -110,6 +110,23 @@ This setting dictates which browser is used for Selenium tests.
  <add key="Browser" value="Chrome" />
 ```
 
+#### Browser Resize Settings - Optional 
+
+This option will specify what size you would like the browser window to be when it is initialized.
+- Maximize (Default) - Opens the browser maximized
+- Default - MAQS does not change your browser size. 
+- Custom - Specify any size you want the browser to open up with in pixels (ie 600x1600).
+
+##### Examples
+```xml
+<!--Browser Resize settings
+<add key="BrowserSize" value ="MAXIMIZE"/>
+<add key="BrowserSize" value="DEFAULT"/>
+<add key="BrowserSize" value="600x1600"/>-->
+<add key="BrowserSize" value="MAXIMIZE"/>
+```
+
+
 #### WebDriver Hint Path - Optional
 This setting allows you to provide an alternate path for where to find your webdriver.  By default the test will look for the webdriver in it's current folder.  
 _*By default, MAQS will only look in the test DLL folder for webdrivers._
@@ -120,12 +137,56 @@ _*By default, MAQS will only look in the test DLL folder for webdrivers._
 <add key="WebDriverHintPath" value="C:\Frameworks"/>-->
 ```
 
-#### Remote Browser Settings
-![Remote Browser Settings](resources/remote%20browser%20settings.png) 
-The app.config file can be configured to send tests to a hub for distribution. The “Browser” key needs to have a value set to “Remote.” The “RemoteBrowser” key needs to be set to the web browser that the tests will be run against. Finally, it needs the key “HubUrl” value set to the URL of the hub that will distribute the tests. 
-To use these configurations, Selenium Grid hub and node servers must be set up beforehand (see http://www.seleniumhq.org/docs/07_selenium_grid.jsp for more information), or pay services that will provide test environments.
+#### Remote Browser Settings - Optional
+The app.config file can be configured to send tests to a hub for distribution. 
+1. Update “Browser” key to “Remote” value.
+2. Update Local Browser Settings to “Remote“ value.
+3. Set “RemoteBrowser” key to the web browser that the tests will be run against.  
+(for options see the above section Local Browser Settings)
+4. Update the “HubUrl” value to the URL of the hub that will distribute the tests.  
+
+*To use these configurations, Selenium Grid hub and node servers must be set up beforehand (see http://www.seleniumhq.org/docs/07_selenium_grid.jsp for more information)*  
+
 There are additional options for configuring the remote browser environment. You can specify the remote platform to use (Windows, macOS, Linux, etc.), as well as what browser version should be used for the specified remote browser.
-![Remote Browser Settings](resources/extendedremotebrowsersettings.png)  
+
+##### Examples
+```xml
+<!-- Remote browser settings - RemoteBrowser can be any standard browser (IE, Firefox, Chrome, Edge or Safari) or use GENERIC and define the browserName in RemoteSeleniumCapsMaqs
+<add key="Browser" value="REMOTE"/> -->
+<add key="RemoteBrowser" value="GENERIC"/>
+<add key="HubUrl" value="http://localhost:4444/wd/hub"/>
+
+<!-- Extended remote browser settings - OS (xp, win7, win8, win8.1, win10, os x, os x 10.6, os x 10.8, os x 10.9, os x 10.10, os x 10.11, solaris, linux, android, +more)-->
+<add key="RemotePlatform" value="win7"/>
+
+<!-- Extended remote browser settings - Browser version-->
+<add key="RemoteBrowserVersion" value="44"/>
+```
+
+#### Selenium Command Timeout
+
+##### Examples
+```xml
+<!-- Command Time-out in milliseconds -->
+<add key="SeleniumCommandTimeout" value="60000"/>
+```
+
+#### Browser Wait Time
+
+##### Examples
+```xml
+<!-- Wait time in milliseconds - AKA how long do you wait for rechecking something -->
+<add key="BrowserWaitTime" value="1000" />
+```
+
+#### Browser Timeout
+
+##### Examples
+```xml
+<!-- Time-out in milliseconds -->
+<add key="BrowserTimeout" value="10000" />
+```
+
 ## Test Settings
 "There are two types of file for configuring tests. *.runsettings are used for unit tests. And *.testsettings for lab environment tests, web performance and load tests, and for customizing some types of diagnostic data adapters such as Intellitrace and event log adapters"
 https://msdn.microsoft.com/en-us/library/jj635153.aspx
