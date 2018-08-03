@@ -119,6 +119,7 @@
     <Compile Include="WebServiceNonStandardHttpContentTests.cs" />
     <Compile Include="WebServiceNUnit.cs" />
     <Compile Include="WebServicePatches.cs" />
+    <Compile Include="WebServiceStatusCodes.cs" />
     <Compile Include="WebServiceWithWrapper.cs" />
     <Compile Include="WebServiceWithWrapperCustomVerb.cs" />
     <Compile Include="WebServiceWithWrapperDelete.cs" />
