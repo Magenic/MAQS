@@ -75,3 +75,33 @@ Success mode will output a message anytime a soft assert is successful, or as a 
 Warning mode will output a message anytime a soft assert fails, the test is met with unexpected results, or the test configuration fails to update.
 Error mode will only display messages that would fail a test. This includes a test failed, a test resulted in being inconclusive, a setup failed, or the final soft assert data contains any failed soft asserts.
 Suspended mode will result in no information written to the log. 
+
+
+
+## Test Settings
+"There are two types of file for configuring tests. *.runsettings are used for unit tests. And *.testsettings for lab environment tests, web performance and load tests, and for customizing some types of diagnostic data adapters such as Intellitrace and event log adapters"
+https://msdn.microsoft.com/en-us/library/jj635153.aspx
+
+Both test settings files are written in XML (eXtensible Markup Language).
+### Run Settings Configurations
+A .runsettings file can be added as a test setting to add additional configurations when running unit tests. This allows tests to be run on additional cores on a single machine, to run on different versions of the unit test framework, or to specify where the results of the test should be output.
+#### Adding Run Settings
+To add a .runsettings file to a test solution, go to the top toolbar and under Test → Test Settings, choose the "Select Test Settings File" option, and finally add a .runsettings file.  
+![Remote Browser Settings](resources/AddNewTestSettings.png)  
+Since there is no way to have Visual Studio generate a template of a .runsettings file, you can instead add an example .runsettings file to your solution such as this one found on Microsoft's MSDN website: https://msdn.microsoft.com/en-us/library/jj635153.aspx#example
+### Test Settings Configurations
+.test settings files are useful for collecting data from tests running across multiple platforms, specifying environmental conditions, or collecting diagnostic data.
+.testsettings are always used by default in load tests and web performance tests.
+#### Creating Test Settings
+To create a .testsettings file, open the context menu on your solution, go to Add → New Item, select the Test Settings category and choose a Test Settings file. A wizard window will appear providing options to be configured for the .testsettings file.  
+![Remote Browser Settings](resources/remotebrowsersettings.png)  
+#### Adding Test Settings
+To add a .testsettings file to a test solution, go to the top toolbar and under Test → Test Settings, choose the "Select Test Settings File" option, and finally add a .testsettings file.  
+![Remote Browser Settings](resources/AddNewTestSettings.png)  
+#### Test Settings for Selenium Grid
+The main use of a .testsettings file is to control the distribution of tests over Selenium Grid, allowing tests to be executed in parallel.
+### Major Differences
+While a .testsettings file can be used in the same way as a .runsettings file to control settings such as framework version, target platform, or a results directory, it is mainly used for controlling the distribution of tests run in parallel over multiple machines.
+.testsettings can also be configured to collect other information, such as recording video of the tests running.
+.runsettings can only run a test.dll single-threaded, meaning it can only be run on one machine.
+.runsettings is negligibly faster than .testsettings, but can only be used to run tests locally.
