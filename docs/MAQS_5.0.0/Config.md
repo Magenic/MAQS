@@ -4,17 +4,40 @@
 Config is class file granting access to properties in the App.config. 
 
 ## Available methods
-If you need use value for key named 'input' from the App.config file, you can write:
+### Get General Value
+This pulls configuration values from MagenicMaqs section of your app.config. It will return an emtpy string if the key is not found in the app.config.
 
 ```csharp
-Config.GetValue("input”);  
+Config.GetGeneralValue("Key”);  
 ```
 
-If you want to return a default value if "input" key is not found, you can write:
+This pulls configuration values from MagenicMaqs section of your app.config. It will return the default value if the key is not found in the app.config.
+```csharp
+Config.GetGeneralValue("Key", "DefaultValueToBeReturned");  
+```
+
+This pulls configuration values from the provided section of your app.config. It will return an emtpy string if the key is not found in the app.config.
 
 ```csharp
-Config.GetValue("input”, "DefaultValueToBeReturned");  
+Config.GetValueForSection("SeleniumMaqs", "Key"))
+
 ```
+This pulls configuration values from the provided section of your app.config. It will return the default value if the key is not found in the app.config.
+
+```csharp
+Config.GetValueForSection("SeleniumMaqs", "Key", "DefaultValueToBeReturned");
+```
+
+
+
+
+
+
+
+
+
+
+
 
 In some cases, testers may need to add a dynamic value in the Configuration in order to use it later in the test. In order to do that, use the following method:
 ```csharp
@@ -26,5 +49,7 @@ You can also check if the Config contains value for a key by using:
 Config.DoesKeyExist("key");
 ``` 
 
-
+Assert.AreEqual("SAMPLEGenz", Config.GetValueForSection("MagenicMaqs", "SectionAdd"));
+            Assert.AreEqual("SAMPLEGen", Config.GetGeneralValue("SectionOverride"));
+            Assert.AreEqual("SAMPLEAppz", Config.GetValueForSection("AppiumMaqs", "SectionAdd")); 
 
