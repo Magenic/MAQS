@@ -49,6 +49,7 @@ FakerData.GenerateUSPhoneNumber();
 ```csharp
 
 ```
+#### Social Security Number
 ##### Written As
 To generate a valid Social Securuty number, you can use:
 
@@ -60,6 +61,7 @@ FakerData.GenerateSocialSecurityNumber(withDashesBoolean);
 
 ```
 
+#### Random Number from a List
 ##### Written As
 
 To generate a random value from a list, you can use:

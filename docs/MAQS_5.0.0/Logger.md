@@ -1,74 +1,86 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> Logger
 
-TODO: Sadie - Formatting
+
 ## Overview
-Faker Data provides the ability to generate random and valid (wherever applicable) data during runtime.
+The Logger captures test execution information.   
+_*By default, log files end up in the "log" folder. This is located in the same folder as the test DLL._
 
-### Time Utilities
-For getting current system time, you can use:  
+###  Types of Loggers
 
-#### Written As
+ - Console Logger
+ - File Logger
+    - File (.txt)
+    - HTML (.html)
 
-```csharp
-FakerData.GenerateInstantSpecificTime();  
-```
+###  Console Logger
+Writes test execution logging information to the console
+
+###  File Logger
+Writes test execution logging information as a .txt file   
+
+*Naming convention: _FullyQualifiedName - UTCTime_*
 
 #### Examples
-```csharp
-string S = FakerData.GenerateInstantSpecificTime().toString();   
-Console.WriteLine(S);
-// Output: 08/06/2018 15:46:13 
 ```
-
-### Data Generation
-
-#### IDs
-To generate a unique ID, you can use:
-##### Written As
-
-```csharp
-FakerData.GenerateUniqueId();  
+CompositeUnitTests.Base.CanRunTest - 2018-08-07-02-01-28-3500.txt 
 ```
-##### Examples
-```csharp
-string S = FakerData.GenerateUniqueId().toString();   
-Console.WriteLine(S);
-// Output: 118c4cf9-49b9-4d34-8f6a-0185990dbf86
+###  HTML Logger
+Writes test execution logging information as a html file
 
-```
-TODO: DUSTIN - Fakerdata
-#### Phone Number
-To generate a valid US phone number, you can use:
+*Naming convention: _FullyQualifiedName - UTCTime_*
 
-##### Written As
-
-```csharp
-FakerData.GenerateUSPhoneNumber();  
-```
-##### Examples
-```csharp
-
-```
-##### Written As
-To generate a valid Social Securuty number, you can use:
-
-```csharp
-FakerData.GenerateSocialSecurityNumber(withDashesBoolean);  
-```
-##### Examples
-```csharp
-
-```
-
-##### Written As
-
-To generate a random value from a list, you can use:
-
-```csharp
-FakerData.GeneralRandomizer(stringList);  
-```
 #### Examples
-```csharp
-
+```
+CompositeUnitTests.Base.CanRunTest - 2018-08-07-02-01-28-3500.html 
 ```
 
+## How to Use Logger
+
+### Logging with MessageTypes
+##### Written As
+
+```csharp
+        [TestMethod]
+        public void TestWithLogging() 
+        {
+            this.Log.LogMessage(MessageType.VERBOSE, "Verbose logging message");
+            this.Log.LogMessage(MessageType.INFORMATION, "Information logging message");
+            this.Log.LogMessage(MessageType.GENERIC, "Generic logging message");
+            this.Log.LogMessage(MessageType.SUCCESS, "Success logging message");
+            this.Log.LogMessage(MessageType.WARNING, "Warning logging message");
+            this.Log.LogMessage(MessageType.ERROR, "Error logging message"); 
+        }
+```
+
+### Logging without MessageTypes
+*Messages that don't provide MessageTypes are categorized as generic messages.*
+##### Written As
+
+```csharp
+        [TestMethod]
+        public void TestWithLogging() 
+        {
+            this.Log.LogMessage("Generic massage"); 
+        }
+```
+
+## Changing Logging Level
+Ability to dynamically change logging level at runtime.
+##### Written As
+
+```csharp
+              // Change your logging level
+            this.Log.SetLoggingLevel(MessageType.WARNING);
+            this.Log.LogMessage(MessageType.GENERIC, "Will not be logged");
+```
+## Suspend and Resume Logging
+Ability to Suspend and Resume Logging.
+##### Written As
+
+```csharp
+            this.Log.LogMessage(MessageType.ERROR, "Logged"); 
+            this.Log.SuspendLogging();
+            this.Log.LogMessage(MessageType.ERROR, "Not Logged"); 
+            this.Log.ContinueLogging(); 
+            this.Log.LogMessage(MessageType.ERROR, "Logged"); 
+```
