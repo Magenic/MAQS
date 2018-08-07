@@ -13,8 +13,8 @@
 		- ii. Utilities
 
 			- [i. Generic Wait](MAQS_5.0.0/Generic-Waits.md)
-			- [ii. FakerData](MAQS_5.0.0/)
-			- [iii. Logger](MAQS_5.0.0/)
+			- [ii. FakerData](MAQS_5.0.0/FakerData.md)
+			- [iii. Logger](MAQS_5.0.0/Logger.md)
 			- [iv. Config](MAQS_5.0.0/Config.md)
 		- iii. Selenium
 
