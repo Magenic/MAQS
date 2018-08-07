@@ -16,11 +16,12 @@ This pulls configuration values from MagenicMaqs section of your app.config. It 
 Config.GetGeneralValue("Key", "DefaultValueToBeReturned");  
 ```
 
+### Get Specific Section Value
+
 This pulls configuration values from the provided section of your app.config. It will return an emtpy string if the key is not found in the app.config.
 
 ```csharp
 Config.GetValueForSection("SeleniumMaqs", "Key"))
-
 ```
 This pulls configuration values from the provided section of your app.config. It will return the default value if the key is not found in the app.config.
 
@@ -28,28 +29,30 @@ This pulls configuration values from the provided section of your app.config. It
 Config.GetValueForSection("SeleniumMaqs", "Key", "DefaultValueToBeReturned");
 ```
 
+### Checking if key exists
+Does a key exist in the MagenicMaqs section of the config file.
 
-
-
-
-
-
-
-
-
-
-
-In some cases, testers may need to add a dynamic value in the Configuration in order to use it later in the test. In order to do that, use the following method:
 ```csharp
-Config.AddTestSettingValues(IDictionary<string, string> configurations, bool overrideExisting = false);
-``` 
+Config.DoesKeyExist("Key");
+```
+Does a key exist in the specified section of the config file.
 
-You can also check if the Config contains value for a key by using: 
 ```csharp
-Config.DoesKeyExist("key");
-``` 
+Config.DoesKeyExist("Key", "SeleniumMaqs");    
+```
 
-Assert.AreEqual("SAMPLEGenz", Config.GetValueForSection("MagenicMaqs", "SectionAdd"));
-            Assert.AreEqual("SAMPLEGen", Config.GetGeneralValue("SectionOverride"));
-            Assert.AreEqual("SAMPLEAppz", Config.GetValueForSection("AppiumMaqs", "SectionAdd")); 
+### Add or Override configurations
+Ability to Add or Override settings for MagenicMaqs section of the config.
 
+```csharp
+        Dictionary<string, string> overrides = new Dictionary<string, string>();
+            overrides.Add("Key", "Value");
+            Config.AddGeneralTestSettingValues(overrides); 
+```
+Ability to Add or Override settings for the specified section of the config.
+
+```csharp
+        Dictionary<string, string> overrides = new Dictionary<string, string>();
+            overrides.Add("Key", "Value");
+            Config.AddTestSettingValues(overrides,"SeleniumMaqs"); 
+```
