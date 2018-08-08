@@ -18,7 +18,7 @@
 			- [iv. Config](MAQS_5.0.0/Config.md)
 		- iii. Selenium
 
-			- [i. Lazy Element](MAQS_5.0.0/)
+			- [i. Lazy Element](MAQS_5.0.0/LazyElement.md)
 			- [ii. Waits](MAQS_5.0.0/Waits.md)
 			- [iii. Soft Assert](MAQS_5.0.0/Soft-Asserts.md)
 			- [iv. Action Builder](MAQS_5.0.0/Action-Builder.md)
