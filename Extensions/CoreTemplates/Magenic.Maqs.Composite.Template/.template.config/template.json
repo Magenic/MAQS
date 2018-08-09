@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Magenic",
+  "classifications": [ "Test" ], 
+  "name": "Magenic.Maqs.Composite",
+  "identity": "Magenic.Maqs.Composite.CSharp",         
+  "groupIdentity":"Magenic.Maqs.Composite.Sample",
+  "shortName": "Maqs.Composite",
+  "tags": {
+    "language": "C#",
+    "type":"project"
+  },
+  "sourceName": "Tests"
+}
