@@ -35,7 +35,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         {
             get
             {
-                return this.WebServiceManager.Get();
+                return this.WebServiceManager.GetWebServiceDriver();
             }
         }
 

@@ -32,6 +32,16 @@ namespace Magenic.Maqs.WebServiceTester
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="WebServiceDriverManager" /> class
+        /// </summary>
+        /// <param name="getDriver">Function for creating an http client</param>
+        /// <param name="testObject">The associated test object</param>
+        public WebServiceDriverManager(WebServiceDriver getDriver, BaseTestObject testObject) : base(() => getDriver, testObject)
+        {
+            this.driver = getDriver;
+        }
+
+        /// <summary>
         /// Dispose of the driver
         /// </summary>
         public override void Dispose()
@@ -52,24 +62,33 @@ namespace Magenic.Maqs.WebServiceTester
         /// Get the http driver
         /// </summary>
         /// <returns>The http driver</returns>
-        public new WebServiceDriver Get()
+        public WebServiceDriver GetWebServiceDriver()
         {
             if (this.driver == null)
             {
                 if (LoggingConfig.GetLoggingEnabledSetting() == LoggingEnabled.NO)
                 {
                     this.Log.LogMessage(MessageType.INFORMATION, "Getting web service driver");
-                    this.driver = new WebServiceDriver(base.Get() as HttpClient);
+                    this.driver = new WebServiceDriver(GetBase() as HttpClient);
                 }
                 else
                 {
                     this.Log.LogMessage(MessageType.INFORMATION, "Getting event firing web service driver");
-                    this.driver = new EventFiringWebServiceDriver(base.Get() as HttpClient);
+                    this.driver = new EventFiringWebServiceDriver(GetBase() as HttpClient);
                     this.MapEvents(this.driver as EventFiringWebServiceDriver);
                 }
             }
 
             return this.driver;
+        }
+
+        /// <summary>
+        /// Get the service driver
+        /// </summary>
+        /// <returns>The web service driver</returns>
+        public override object Get()
+        {
+            return this.GetWebServiceDriver();
         }
 
         /// <summary>

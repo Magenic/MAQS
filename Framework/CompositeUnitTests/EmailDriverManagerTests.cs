@@ -10,7 +10,7 @@ using MailKit.Net.Imap;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net.Http;
 
-namespace CoreUnitTests
+namespace CompositeUnitTests
 {
     /// <summary>
     /// Test the email driver store

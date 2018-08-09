@@ -120,15 +120,15 @@
     <Compile Include="WebServiceNUnit.cs" />
     <Compile Include="WebServicePatches.cs" />
     <Compile Include="WebServiceStatusCodes.cs" />
-    <Compile Include="WebServiceWithWrapper.cs" />
-    <Compile Include="WebServiceWithWrapperCustomVerb.cs" />
-    <Compile Include="WebServiceWithWrapperDelete.cs" />
-    <Compile Include="WebServiceWithWrapperGets.cs" />
-    <Compile Include="WebServiceWithWrapperPatch.cs" />
-    <Compile Include="WebServiceWithWrapperPost.cs" />
-    <Compile Include="WebServiceWithWrapperPut.cs" />
-    <Compile Include="WebServiceWrapperConfig.cs" />
-    <Compile Include="WebServiceWrapperNUnitConfig.cs" />
+    <Compile Include="WebServiceWithDriver.cs" />
+    <Compile Include="WebServiceWithDriverCustomVerb.cs" />
+    <Compile Include="WebServiceWithDriverDelete.cs" />
+    <Compile Include="WebServiceWithDriverGets.cs" />
+    <Compile Include="WebServiceWithDriverPatch.cs" />
+    <Compile Include="WebServiceWithDriverPost.cs" />
+    <Compile Include="WebServiceWithDriverPut.cs" />
+    <Compile Include="WebServiceDriverConfig.cs" />
+    <Compile Include="WebServiceDriverNUnitConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

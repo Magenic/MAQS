@@ -4,8 +4,10 @@
 // </copyright>
 // <summary>Web service delete unit tests</summary>
 //--------------------------------------------------
+using Magenic.Maqs.BaseTest;
 using Magenic.Maqs.BaseWebServiceTest;
 using Magenic.Maqs.Utilities.Helper;
+using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
@@ -29,6 +31,22 @@ namespace WebServiceTesterUnitTesting
         {
             var result = this.WebServiceDriver.DeleteWithResponse("/api/XML_JSON/Delete/1", "application/json", true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
+
+            // Change your logging level
+            this.Log.SetLoggingLevel(MessageType.INFORMATION);
+
+            this.Log.SuspendLogging();
+
+            // So something you don't want in the logs
+            this.Log.ContinueLogging();
+
+            this.Log.LogMessage("Generic massage");
+            this.Log.LogMessage(MessageType.VERBOSE, "Verbose logging message");
+            this.Log.LogMessage(MessageType.INFORMATION, "Verbose logging message");
+            this.Log.LogMessage(MessageType.GENERIC, "Verbose logging message");
+            this.Log.LogMessage(MessageType.SUCCESS, "Verbose logging message");
+            this.Log.LogMessage(MessageType.WARNING, "Verbose logging message");
+            this.Log.LogMessage(MessageType.ERROR, "Verbose logging message");
         }
 
         /// <summary>

@@ -8,7 +8,7 @@ using Magenic.Maqs.BaseTest;
 using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace CoreUnitTests
+namespace CompositeUnitTests
 {
     /// <summary>
     /// Simple base test
@@ -26,7 +26,7 @@ namespace CoreUnitTests
         }
 
         /// <summary>
-        /// Can we add to a specific section
+        /// Can we add to a section
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.UtilitiesCore)]
@@ -36,7 +36,7 @@ namespace CoreUnitTests
         }
 
         /// <summary>
-        /// Can we add to the general config
+        /// Can we override general
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.UtilitiesCore)]
@@ -46,13 +46,13 @@ namespace CoreUnitTests
         }
 
         /// <summary>
-        /// Can we override JSON values
+        /// Can we override in a section
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.UtilitiesCore)]
         public void TestRunSettingOverrideSection()
         {
-            Assert.AreEqual("ANOTHERSAMPLE", Config.GetValueForSection("Magenicmaqs", "SectionOverrideCore"));
+            Assert.AreEqual("SAMPLEGen", Config.GetValueForSection("Magenicmaqs", "SectionOverride"));
         }
     }
 }

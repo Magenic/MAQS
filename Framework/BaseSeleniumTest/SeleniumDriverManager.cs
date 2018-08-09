@@ -46,7 +46,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
 
             try
             {
-                IWebDriver driver = this.Get();
+                IWebDriver driver = this.GetWebDriver();
                 driver?.KillDriver();
             }
             catch (Exception e)
@@ -62,7 +62,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// Get the web driver
         /// </summary>
         /// <returns>The web driver</returns>
-        public new IWebDriver Get()
+        public IWebDriver GetWebDriver()
         {
             IWebDriver tempDriver;
 
@@ -77,7 +77,16 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 this.LoggingStartup(tempDriver);
             }
 
-            return base.Get() as IWebDriver;
+            return this.GetBase() as IWebDriver;
+        }
+
+        /// <summary>
+        /// Get the web driver
+        /// </summary>
+        /// <returns>The web driver</returns>
+        public override object Get()
+        {
+            return this.GetWebDriver();
         }
 
         /// <summary>

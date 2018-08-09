@@ -153,6 +153,17 @@ namespace Magenic.Maqs.BaseTest
         }
 
         /// <summary>
+        /// Gets the driver store
+        /// </summary>
+        public ManagerDictionary ManagerStore
+        {
+            get
+            {
+                return this.TestObject.ManagerStore;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the BaseContext objects
         /// </summary>
         internal ConcurrentDictionary<string, BaseTestObject> BaseTestObjects { get; set; }

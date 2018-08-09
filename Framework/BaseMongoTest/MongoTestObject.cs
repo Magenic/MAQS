@@ -47,7 +47,7 @@ namespace Magenic.Maqs.BaseMongoTest
         {
             get
             {
-                return this.MongoDBManager.Get();
+                return this.MongoDBManager.GetMongoDriver();
             }
         }
 
