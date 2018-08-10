@@ -52,7 +52,7 @@ private LazyElement DialogOneButton
     }
 ```
 ### Clear 
-This method allows the user to clear a specific element.
+This method clears a specific element.
 
 #### Written as
 ```csharp
@@ -64,7 +64,135 @@ This method allows the user to clear a specific element.
 
 ```
 
+### FindElement 
+This method returns the first element based on the referenced element and selection strategy.
+#### Written as
+```csharp
 
+```
 
+#### Example
+```csharp
 
+```
+### FindElements
+This method returns all elements based on the referenced element and selection strategy.
+#### Written as
+```csharp
 
+```
+
+#### Example
+```csharp
+
+```
+### GetAttribute
+This method returns the attribute's value.
+#### Written as
+```csharp
+
+```
+
+#### Example
+```csharp
+
+```
+### GetCssValue
+This method returns the Css value for a given attribute.
+#### Written as
+```csharp
+
+```
+
+#### Example
+```csharp
+
+```
+### GetProperty
+This method returns the value of a Javascript property of an element.
+#### Written as
+```csharp
+
+```
+
+#### Example
+```csharp
+
+```
+### GetTheClickableElement
+This method waits for and returns the clickable element. 
+#### Written as
+```csharp
+
+```
+
+#### Example
+```csharp
+
+```
+### GetTheExistingElement
+This method waits for and returns the element. 
+#### Written as
+```csharp
+
+```
+
+#### Example
+```csharp
+
+```
+### GetTheVisibleElement
+This method waits for and returns the visible element. 
+#### Written as
+```csharp
+
+```
+
+#### Example
+```csharp
+
+```
+### GetValue
+????
+#### Written as
+```csharp
+
+```
+
+#### Example
+```csharp
+
+```
+### SendKeys
+????
+#### Written as
+```csharp
+
+```
+
+#### Example
+```csharp
+
+```
+### SendSecretKeys
+????
+#### Written as
+```csharp
+
+```
+
+#### Example
+```csharp
+
+```
+### Submit
+????
+#### Written as
+```csharp
+
+```
+
+#### Example
+```csharp
+
+```
