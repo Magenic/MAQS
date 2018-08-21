@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Magenic",
+  "classifications": [ "Test" ], 
+  "name": "Magenic.Maqs.Email",
+  "identity": "Magenic.Maqs.Email.CSharp",         
+  "groupIdentity":"Magenic.Maqs.Email.Sample",
+  "shortName": "Maqs.Email",
+  "tags": {
+    "language": "C#",
+    "type":"project"
+  },
+  "sourceName": "Tests"
+}

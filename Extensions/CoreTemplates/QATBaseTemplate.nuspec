@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>Magenic.Maqs.Templates</id>
+    <version>5.0.1</version>
+    <authors>Magenic</authors>
+    <owners>Magenic</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://raw.githubusercontent.com/Magenic/MAQS/master/LICENSE</licenseUrl>
+    <iconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</iconUrl>
+    <projectUrl>https://github.com/Magenic/MAQS</projectUrl>
+    <description>.NET MAQS</description>
+    <language>en-US</language>
+    <packageTypes>
+      <packageType name="Template" />
+    </packageTypes>
+  </metadata>
+</package>

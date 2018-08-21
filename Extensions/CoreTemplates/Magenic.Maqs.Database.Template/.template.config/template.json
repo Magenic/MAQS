@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Magenic",
+  "classifications": [ "Test" ], 
+  "name": "Magenic.Maqs.Database",
+  "identity": "Magenic.Maqs.Database.CSharp",         
+  "groupIdentity":"Magenic.Maqs.Database.Sample",
+  "shortName": "Maqs.Database",
+  "tags": {
+    "language": "C#",
+    "type":"project"
+  },
+  "sourceName": "Tests"
+}
