@@ -98,8 +98,13 @@ namespace CompositeUnitTests
             {
                 ServerCertificateValidationCallback = (s, c, h, e) => true
             };
-            client.Connect("imap.gmail.com", 993, true);
-            client.Authenticate("maqsbaseemailtest@gmail.com", "Magenic3");
+
+            string host = EmailConfig.GetHost();
+            string username = EmailConfig.GetUserName();
+            string password = EmailConfig.GetPassword();
+
+            client.Connect(host, 993, true);
+            client.Authenticate(username, password);
             client.Timeout = 10000;
 
             return client;
