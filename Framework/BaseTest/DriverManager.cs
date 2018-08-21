@@ -58,10 +58,21 @@ namespace Magenic.Maqs.BaseTest
         public bool IsDriverIntialized() => this.BaseDriver != null;
 
         /// <summary>
+        /// Get the driver
+        /// </summary>
+        /// <returns>The driver</returns>
+        public abstract object Get();
+
+        /// <summary>
+        /// Cleanup the underlying driver
+        /// </summary>
+        public abstract void Dispose();
+
+        /// <summary>
         /// Get the underlying driver
         /// </summary>
         /// <returns>The underlying driver</returns>
-        public object Get()
+        protected object GetBase()
         {
             // Initialize the driver if we haven't already
             if (this.BaseDriver == null)
@@ -71,10 +82,5 @@ namespace Magenic.Maqs.BaseTest
 
             return this.BaseDriver;
         }
-
-        /// <summary>
-        /// Cleanup the underlying driver
-        /// </summary>
-        public abstract void Dispose();
     }
 }

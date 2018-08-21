@@ -54,11 +54,11 @@ namespace Magenic.Maqs.BaseMongoTest
         /// Get the Mongo driver
         /// </summary>
         /// <returns>The Mongo driver</returns>
-        public new MongoDBDriver<T> Get()
+        public MongoDBDriver<T> GetMongoDriver()
         {
             if (this.driver == null)
             {
-                ValueTuple<string, string, string> temp = (ValueTuple<string, string, string>)base.Get();
+                ValueTuple<string, string, string> temp = (ValueTuple<string, string, string>)GetBase();
 
                 if (LoggingConfig.GetLoggingEnabledSetting() == LoggingEnabled.NO)
                 {
@@ -74,6 +74,15 @@ namespace Magenic.Maqs.BaseMongoTest
             }
 
             return this.driver;
+        }
+
+        /// <summary>
+        /// Get the Mongo driver
+        /// </summary>
+        /// <returns>The Mongo driver</returns>
+        public override object Get()
+        {
+            return this.GetMongoDriver();
         }
 
         /// <summary>

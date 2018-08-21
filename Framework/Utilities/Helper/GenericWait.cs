@@ -100,22 +100,29 @@ namespace Magenic.Maqs.Utilities.Helper
         {
             // Set start time and exception holder
             DateTime start = DateTime.Now;
-            
+
+            T value = waitForTrue();
+
             // Checks if the two values are equal
-            bool paramsAreEqual = ParamsEqual(waitForTrue(), comparativeValue);
-            
+            bool paramsAreEqual = ParamsEqual(value, comparativeValue);
+
             // While the params are not equal & the timout hasn't met, keep checking
             while (!paramsAreEqual && (DateTime.Now - start) < timeoutFromConfig)
             {
-                // Check if they are equal (running them through another function because we can't use an operator with T
-                paramsAreEqual = ParamsEqual(waitForTrue(), comparativeValue);
-
                 // If they aren't, wait
                 Thread.Sleep(retryTimeFromConfig);
+
+                value = waitForTrue();
+
+                // Check if they are equal (running them through another function because we can't use an operator with T
+                if (ParamsEqual(value, comparativeValue))
+                {
+                    return value;
+                }
             }
 
             // return the value regardless
-            return waitForTrue();
+            return value;
         }
 
         /// <summary>
@@ -135,21 +142,25 @@ namespace Magenic.Maqs.Utilities.Helper
             // Set start time and exception holder
             DateTime start = DateTime.Now;
 
+            T value = waitForTrue();
+
             // Checks if the two values are equal
-            bool paramsAreEqual = ParamsEqual(waitForTrue(), comparativeValue);
+            bool paramsAreEqual = ParamsEqual(value, comparativeValue);
 
             // While the params are not equal & the timout hasn't met, keep checking
             while (!paramsAreEqual && (DateTime.Now - start) < timeout)
-            {
-                // Check if they are equal (running them through another function because we can't use an operator with T
-                paramsAreEqual = ParamsEqual(waitForTrue(), comparativeValue);
-
+            {                
                 // If they aren't, wait
                 Thread.Sleep(retryTime);
+
+                value = waitForTrue();
+
+                // Check if they are equal (running them through another function because we can't use an operator with T
+                paramsAreEqual = ParamsEqual(value, comparativeValue);
             }
 
             // return the value regardless
-            return waitForTrue();
+            return value;
         }
 
         /// <summary>
@@ -172,11 +183,11 @@ namespace Magenic.Maqs.Utilities.Helper
             // While the params are not equal & the timout hasn't met, keep checking
             while (!paramsAreEqual && (DateTime.Now - start) < timeoutFromConfig)
             {
-                // Check if they are equal (running them through another function because we can't use an operator with T
-                paramsAreEqual = ParamsEqual(waitForTrue(), comparativeValue);
-
                 // If they aren't, wait
                 Thread.Sleep(retryTimeFromConfig);
+
+                // Check if they are equal (running them through another function because we can't use an operator with T
+                paramsAreEqual = ParamsEqual(waitForTrue(), comparativeValue);
             }
 
             if (!paramsAreEqual)
@@ -243,7 +254,7 @@ namespace Magenic.Maqs.Utilities.Helper
         {
             return Wait(waitFor, retryTimeFromConfig, timeoutFromConfig, arg);
         }
-        
+
         /// <summary>
         /// Wait until the wait for true function returns true or times out
         /// </summary>
@@ -436,7 +447,7 @@ namespace Magenic.Maqs.Utilities.Helper
                 foreach (var item2 in param)
                 {
                     // Compare each item
-                    if (item != item2)
+                    if (!item.Equals(item2))
                     {
                         // If any do not match, then they are not equal
                         return false;

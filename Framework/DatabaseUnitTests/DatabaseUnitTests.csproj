@@ -132,11 +132,11 @@
   <ItemGroup>
     <Compile Include="BaseFrameworkTests.cs" />
     <Compile Include="DatabaseConfigUnitTests.cs" />
-    <Compile Include="DatabaseSQLiteUnitTestsWithWrapper.cs" />
+    <Compile Include="DatabaseSQLiteUnitTestsWithDriver.cs" />
     <Compile Include="DatabaseUnitTests.cs" />
     <Compile Include="DatabaseSQLiteUnitTests.cs" />
-    <Compile Include="DatabaseUnitTestsWithWrapper.cs" />
-    <Compile Include="EventFiringDatabaseWrapperTests.cs" />
+    <Compile Include="DatabaseUnitTestsWithDriver.cs" />
+    <Compile Include="EventFiringDatabaseDriverTests.cs" />
     <Compile Include="Models\Orders.cs" />
     <Compile Include="Models\Products.cs" />
     <Compile Include="Models\States.cs" />

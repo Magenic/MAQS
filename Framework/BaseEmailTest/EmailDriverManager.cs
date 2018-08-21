@@ -60,24 +60,33 @@ namespace Magenic.Maqs.BaseEmailTest
         /// Get the email connection driver
         /// </summary>
         /// <returns>The email connection driver</returns>
-        public new EmailDriver Get()
+        public EmailDriver GetEmailDriver()
         {
             if (this.driver == null)
             {
                 if (LoggingConfig.GetLoggingEnabledSetting() == LoggingEnabled.NO)
                 {
                     this.Log.LogMessage(MessageType.INFORMATION, "Getting email driver");
-                    this.driver = new EmailDriver(() => base.Get() as ImapClient);
+                    this.driver = new EmailDriver(() => GetBase() as ImapClient);
                 }
                 else
                 {
                     this.Log.LogMessage(MessageType.INFORMATION, "Getting event firing email driver");
-                    this.driver = new EventFiringEmailDriver(() => base.Get() as ImapClient);
+                    this.driver = new EventFiringEmailDriver(() => GetBase() as ImapClient);
                     this.MapEvents(this.driver as EventFiringEmailDriver);
                 }
             }
 
             return this.driver;
+        }
+
+        /// <summary>
+        /// Get the email driver
+        /// </summary>
+        /// <returns>The email driver</returns>
+        public override object Get()
+        {
+            return this.GetEmailDriver();
         }
 
         /// <summary>

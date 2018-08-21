@@ -46,7 +46,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
         {
             get
             {
-                return this.DatabaseManager.Get();
+                return this.DatabaseManager.GetDatabaseDriver();
             }
         }
 

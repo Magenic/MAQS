@@ -7,4 +7,25 @@
       <Scope>MethodLevel</Scope>
     </Parallelize>
   </MSTest>
+  <TestRunParameters>  
+    <Parameter name="SeleniumMaqs:Adding" value="SAMPLE" />
+    <Parameter name="MagenicMaqs:SectionOverrideCore" value="ANOTHERSAMPLE" />
+    <Parameter name="Grog" value="YetAnother" />
+    <Parameter name="Magenicmaqs:SectionOverride" value="SAMPLEGen" />
+    <Parameter name="Appiummaqs:SectionOverride" value="SAMPLEApp" />
+    <Parameter name="AppiumCaPsMaqs:SectionOverride" value="SAMPLEAppCap" />
+    <Parameter name="DatabasEMaqs:SectionOverride" value="SAMPLEDatabase" />
+    <Parameter name="EmailMaqS:SectionOverride" value="SAMPLEEmail" />
+    <Parameter name="SeleniumMAqs:SectionOverride" value="SAMPLESel" />
+    <Parameter name="RemoteseleniumCapsMaqs:SectionOverride" value="SAMPLESelCap" />
+    <Parameter name="WebServiceMaqs:SectionOverride" value="SAMPLEWeb" />
+    <Parameter name="magenicMaqs:SectionAdd" value="SAMPLEGenz" />
+    <Parameter name="appiummaqs:SectionAdd" value="SAMPLEAppz" />
+    <Parameter name="appiumCapsMaqs:SectionAdd" value="SAMPLEAppCapz" />
+    <Parameter name="Databasemaqs:SectionAdd" value="SAMPLEDatabasez" />
+    <Parameter name="Emailmaqs:SectionAdd" value="SAMPLEEmailz" />
+    <Parameter name="SeleniumMaqs:SectionAdd" value="SAMPLESelz" />
+    <Parameter name="RemoteseleniumCapsMaqs:SectionAdd" value="SAMPLESelCapz" />
+    <Parameter name="webServiceMaqs:SectionAdd" value="SAMPLEWebz" />
+  </TestRunParameters>  
 </RunSettings>

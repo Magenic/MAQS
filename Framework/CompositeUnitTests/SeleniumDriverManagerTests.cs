@@ -11,7 +11,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using System.Net.Http;
 
-namespace CoreUnitTests
+namespace CompositeUnitTests
 {
     /// <summary>
     /// Test the Selenium driver store

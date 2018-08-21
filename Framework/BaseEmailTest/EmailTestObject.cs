@@ -57,7 +57,7 @@ namespace Magenic.Maqs.BaseEmailTest
                     return this.driver;
                 }
 
-                return this.EmailManager.Get();
+                return this.EmailManager.GetEmailDriver();
             }
         }
 

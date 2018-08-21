@@ -1,8 +1,8 @@
 ﻿//--------------------------------------------------
-// <copyright file="WebServiceWithDriver.cs" company="Magenic">
+// <copyright file="WebServiceStatusCodes.cs" company="Magenic">
 //  Copyright 2018 Magenic, All rights Reserved
 // </copyright>
-// <summary>Web service general unit tests</summary>
+// <summary>Web service statues unit tests</summary>
 //--------------------------------------------------
 using Magenic.Maqs.BaseWebServiceTest;
 using Magenic.Maqs.Utilities.Helper;
