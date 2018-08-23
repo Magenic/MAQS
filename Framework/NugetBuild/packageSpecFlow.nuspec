@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
-  <metadata>
+  <metadata minClientVersion="3.6">
     <id>Magenic.Maqs.SpecFlow</id>
-    <version>5.0.0</version>
+    <version>5.1.0</version>
     <title>MAQS SpecFlow Add-on</title>
     <authors>Magenic</authors>
     <owners>Magenic</owners>
@@ -11,7 +11,6 @@
     <copyright>Copyright © Magenic 2018</copyright>
     <licenseUrl>https://github.com/Magenic/MAQS/blob/develop/LICENSE</licenseUrl>
     <iconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</iconUrl>
-    <minClientVersion>3.6</minClientVersion>
     <summary>Magenic's automation quick start framework - SpecFlow extension. MAQS is a modular test automation framework that can be used as the base for your automation project or individual pieces can be used to enhance existing frameworks. Utilizing project templates, NuGet, and utility libraries we are able to have a functioning framework up and running in minutes, almost entirely removing on the initial time investment on implementating an automation solution.</summary>
     <releaseNotes>5.0.0 - 2018/7/11
 	Major and/or breaking changes
@@ -31,7 +30,7 @@
 	- Stopped using generic exceptions
 	- Updated
 		Virtually all libraries were updated</releaseNotes>
-    <projecturl>https://github.com/Magenic/MAQS</projecturl>
+    <projectUrl>https://github.com/Magenic/MAQS</projectUrl>
     <tags>test selenium appium automation NUnit MSTest TestFramework SpecFlow</tags>
     <dependencies>
       <dependency id="Magenic.Maqs" version="5.0.0" />

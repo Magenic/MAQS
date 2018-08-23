@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
-  <metadata>
+<metadata minClientVersion="3.6">
     <id>Magenic.Maqs.Templates</id>
-    <version>5.0.1</version>
+    <version>5.1.0</version>
     <authors>Magenic</authors>
     <owners>Magenic</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
