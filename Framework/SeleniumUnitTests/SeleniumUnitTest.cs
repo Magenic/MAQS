@@ -904,7 +904,7 @@ namespace SeleniumUnitTests
             IWebElement element = driver.FindElement(AutomationShowDialog1);
 
             IWebDriver basedriver = SeleniumUtilities.WebElementToWebDriver(element);
-            Assert.AreEqual("OpenQA.Selenium.PhantomJS.PhantomJSDriver", basedriver.GetType().ToString());
+            Assert.AreEqual("OpenQA.Selenium.Chrome.ChromeDriver", basedriver.GetType().ToString());
         }
 
         /// <summary>

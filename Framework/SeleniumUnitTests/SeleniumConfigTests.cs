@@ -59,7 +59,7 @@ namespace UnitTests
 
             #endregion GetBrowserName
 
-            Assert.IsTrue(driverName.Equals("PhantomJS", StringComparison.InvariantCultureIgnoreCase));
+            Assert.IsTrue(driverName.Equals("HeadlessChrome", StringComparison.InvariantCultureIgnoreCase));
         }
 
         /// <summary>
@@ -76,7 +76,8 @@ namespace UnitTests
              * Verify new and old driver size values are the same
              */
 
-            var driverManualSize = SeleniumConfig.Browser();
+            //Using PhantomJS because headless Chrome does not respect Maximize as of 8/24/2018
+            var driverManualSize = SeleniumConfig.Browser("PhantomJS");
 
             try
             {
@@ -93,7 +94,7 @@ namespace UnitTests
                    "SeleniumMaqs",
                    true);
 
-                var driverConfigSize = SeleniumConfig.Browser();
+                var driverConfigSize = SeleniumConfig.Browser("PhantomJS");
 
                 try
                 {
@@ -327,7 +328,7 @@ namespace UnitTests
         {
             #region GetBrowserWithString
 
-            IWebDriver driver = SeleniumConfig.Browser("phantomjs");
+            IWebDriver driver = SeleniumConfig.Browser("HeadlessChrome");
 
             #endregion GetBrowserWithString            
 

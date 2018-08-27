@@ -1,4 +1,13 @@
-MAQS Release Notes:
+Maqs Framework Release Notes:
+5.1.0 - 2018/8/23
+	Bug fixes and minor enhancements
+	- Add granular config overrides/adds
+	- Make Driver store cleanup after itself
+	- Add Get for all driver managers
+	- Added .NET Core templates
+	- Update nuspec files adding summary, release Notes, projectUrl, and tags
+	- Add status code checking to web service driver
+
 5.0.0 - 2018/7/11
 	Major and/or breaking changes
 	- MAQS (all but Appium) moved to .Net Standard 2.0
@@ -38,7 +47,7 @@ MAQS Release Notes:
 		MailKit 2.0.2
 		Selenium.WebDriver.GeckoDriver 0.20.0
 		Selenium.WebDriver.MicrosoftDriver 15.15063.0
-
+		
 4.0.4 - 2017/12/20
 	Bug fixes and minor enhancements
 	- Change Edge driver initialization to support page load strategy enum change
@@ -94,7 +103,7 @@ MAQS Release Notes:
 		Selenium.WebDriver.ChromeDriver to 2.319.0
 		Selenium.WebDriver.GeckoDriver.Win32 0.18.0
 		MailKit 1.16.2
-	
+
 4.0.1 - 2017/5/24
 	- Support multiple screenshot formats
 	- Allow fluent elements to be bases off a parent fluent element

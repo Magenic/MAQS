@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -8,7 +8,7 @@
     <Authors>Magenic.Maqs.BaseEmailTest</Authors>
     <Company>Magenic.Maqs.BaseEmailTest</Company>
     <Product>Magenic.Maqs.BaseEmailTest</Product>
-    <Version>5.0.0</Version>
+    <Version>5.1.0</Version>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>
   </PropertyGroup>
 

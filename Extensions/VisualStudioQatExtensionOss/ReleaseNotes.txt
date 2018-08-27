@@ -1,4 +1,13 @@
 Maqs Framework Release Notes:
+5.1.0 - 2018/8/23
+	Bug fixes and minor enhancements
+	- Add granular config overrides/adds
+	- Make Driver store cleanup after itself
+	- Add Get for all driver managers
+	- Added .NET Core templates
+	- Update nuspec files adding summary, release Notes, projectUrl, and tags
+	- Add status code checking to web service driver
+
 5.0.0 - 2018/7/11
 	Major and/or breaking changes
 	- MAQS moved to .Net Standard 2.0
