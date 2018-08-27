@@ -31,7 +31,7 @@ namespace CoreUnitTests
             Assert.AreEqual(false, Config.DoesKeyExist("Browser"));
             Assert.AreEqual(true, Config.DoesKeyExist("Browser", "SeleniumMaqs"));
             Assert.AreEqual("OnFail", Config.GetGeneralValue("Log", "NO")); 
-            Assert.AreEqual("PhantomJS", Config.GetValueForSection("SeleniumMaqs", "Browser", "NO"));
+            Assert.AreEqual("HeadlessChrome", Config.GetValueForSection("SeleniumMaqs", "Browser", "NO"));
         }
 
         /// <summary>
