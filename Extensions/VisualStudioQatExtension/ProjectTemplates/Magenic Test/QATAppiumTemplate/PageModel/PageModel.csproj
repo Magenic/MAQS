@@ -40,17 +40,17 @@
       <HintPath>..\..\packages\Castle.Core.4.3.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseAppiumTest">
-      <HintPath>..\..\packages\Magenic.Maqs.5.0.0\lib\net471\Magenic.Maqs.BaseAppiumTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Maqs.5.1.0\lib\net471\Magenic.Maqs.BaseAppiumTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseSeleniumTest">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Magenic.Maqs.5.0.0\lib\netstandard2.0\Magenic.Maqs.BaseSeleniumTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Maqs.5.1.0\lib\netstandard2.0\Magenic.Maqs.BaseSeleniumTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseTest">
-      <HintPath>..\..\packages\Magenic.Maqs.5.0.0\lib\netstandard2.0\Magenic.Maqs.BaseTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Maqs.5.1.0\lib\netstandard2.0\Magenic.Maqs.BaseTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.Maqs.Utilities">
-      <HintPath>..\..\packages\Magenic.Maqs.5.0.0\lib\netstandard2.0\Magenic.Maqs.Utilities.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Maqs.5.1.0\lib\netstandard2.0\Magenic.Maqs.Utilities.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework">
@@ -73,11 +73,11 @@
     <Reference Include="System.Xml" />
     <Reference Include="WebDriver">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Selenium.WebDriver.3.11.0\lib\net40\WebDriver.dll</HintPath>
+      <HintPath>..\..\packages\Selenium.WebDriver.3.13.1\lib\net40\WebDriver.dll</HintPath>
     </Reference>
     <Reference Include="WebDriver.Support">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Selenium.Support.3.11.0\lib\net40\WebDriver.Support.dll</HintPath>
+      <HintPath>..\..\packages\Selenium.Support.3.13.1\lib\net40\WebDriver.Support.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

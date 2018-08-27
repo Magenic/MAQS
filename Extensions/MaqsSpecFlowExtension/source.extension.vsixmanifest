@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="09167626-e62f-4a22-acca-f85402697131" Version="5.0.0" Language="en-US" Publisher="Magenic" />
+        <Identity Id="09167626-e62f-4a22-acca-f85402697131" Version="5.1.0" Language="en-US" Publisher="Magenic" />
         <DisplayName>Maqs SpecFlow Extension</DisplayName>
         <Description xml:space="preserve">Magenic's automation quick start framework extension for SpecFlow testing</Description>
         <MoreInfo>https://magenic.com/what-we-do/support-optimization/quality-assurance</MoreInfo>
