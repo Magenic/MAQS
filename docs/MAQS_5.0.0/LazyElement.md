@@ -140,95 +140,135 @@ welcomeText.GetCssValue("color");
 This method returns the value of an element's Javascript property.
 #### Written as
 ```csharp
-// TODO: Come back and fill this in
+this.ElementID.GetProperty("Property Name");
 ```
 
 #### Example
 ```csharp
-// TODO: Come back and fill this in
+LazyElement chatWindow =
+    new LazyElement(
+    this.TestObject,
+    By.CssSelector("#ChatWindow"),
+    "The Chat Window popup");
+
+chatWindow.GetProperty("isTyping");
 ```
 ### GetTheClickableElement
-This method requires a parent lazy element, which returns the first clickable element under the parent that matches the given selector. 
+This method waits for the element to be clickable and returns it. 
 #### Written as
 ```csharp
-this.ParentElementID.GetClickableElement(By.MethodOfSelction("Selector"));
+this.ElementID.GetTheClickableElement();
 ```
 
 #### Example
 ```csharp
-// Initializing Lazy Element for a parent element, in this case a table
+LazyElement homeButton = 
+    new LazyElement(
+    this.TestObject,
+    By.CssSelector("#HomeButton"),
+    "The button to return to home");
+
+homeButton.GetTheClickableElement();
+```
+### GetTheExistingElement
+This method waits for the element to exist and returns it. 
+#### Written as
+```csharp
+this.ElementID.GetTheExistingElement();
+```
+
+#### Example
+```csharp
 LazyElement table = 
     new LazyElement(
     this.TestObject,
     By.CssSelector("#entryTable"),
     "The table element which contains all rows of user data");
 
-// Find the first clickable link within the table
-table.GetTheClickableElement(By.HTMLSelector(".href"));
-```
-### GetTheExistingElement
-This method requires a parent lazy element, which returns the first visable element under the parent that matches the given selector. 
-#### Written as
-```csharp
-this.ParentElementID.GetClickableElement(By.MethodOfSelction("Selector"));
-```
-
-#### Example
-```csharp
-
+table.GetTheExistingElement();
 ```
 ### GetTheVisibleElement
-This method waits for and returns the visible element. 
+This method waits the element to be visible and returns it. 
 #### Written as
 ```csharp
-
+this.ElementID.GetTheVisibleElement();
 ```
 
 #### Example
 ```csharp
+LazyElement welcomeMessage = 
+    new LazyElement(
+    this.TestObject,
+    By.CssSelector("#WelcomeMessage"),
+    "The Welcome Message on the HomePage");
 
+welcomeMessage.GetTheVisibleElement();
 ```
 ### GetValue
-????
+This method returns the HTML attribute "value" from the lazy element.
 #### Written as
 ```csharp
-
+this.ElementID.GetValue()
 ```
 
 #### Example
 ```csharp
+LazyElement homeButton = 
+    new LazyElement(
+    this.TestObject,
+    By.CssSelector("#HomeButton"),
+    "The button to return to home");
 
+passwordField.GetValue();
 ```
 ### SendKeys
-????
+Simulates typing text into the lazy element.
 #### Written as
 ```csharp
-
+this.ElementID.SendKeys("UserName")
 ```
 
 #### Example
 ```csharp
+LazyElement chatWindow =
+    new LazyElement(
+    this.TestObject,
+    By.CssSelector("#ChatWindow"),
+    "The Chat Window popup");
 
+chatWindow.SendKeys("Lorem Ipsum");
 ```
 ### SendSecretKeys
-????
+Simulates typing text into the lazy element without logging.
 #### Written as
 ```csharp
-
+this.ElementID.SendSecretKeys("Password1")
 ```
 
 #### Example
 ```csharp
+LazyElement Password =
+    new LazyElement(
+    this.TestObject,
+    By.CssSelector("#Password"),
+    "The password field");
 
+chatWindow.SendSecretKeys("Password1");
 ```
 ### Submit
-????
+Submits this element to the web server.
 #### Written as
 ```csharp
-
+this.ElementID.Submit()
 ```
 
 #### Example
 ```csharp
+LazyElement WebForm =
+    new LazyElement(
+    this.TestObject,
+    By.CssSelector("#WebForm"),
+    "The Web From for the claim");
 
+WebForm.Submit()
 ```
