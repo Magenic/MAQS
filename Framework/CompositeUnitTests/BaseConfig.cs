@@ -49,15 +49,15 @@ namespace CompositeUnitTests
         [TestCategory(TestCategories.Utilities)]
         public void SectionAdds()
         {
-            Assert.AreEqual("SAMPLEGenz", Config.GetValueForSection("MagenicMaqs", "SectionAdd"));
+            Assert.AreEqual("SAMPLEGenz", Config.GetValueForSection(ConfigSection.MagenicMaqs, "SectionAdd"));
             Assert.AreEqual("SAMPLEGen", Config.GetGeneralValue("SectionOverride"));
-            Assert.AreEqual("SAMPLEAppz", Config.GetValueForSection("AppiumMaqs", "SectionAdd"));
-            Assert.AreEqual("SAMPLEAppCapz", Config.GetValueForSection("AppiumCapsMaqs", "SectionAdd"));
-            Assert.AreEqual("SAMPLEDatabasez", Config.GetValueForSection("DatabaseMaqs", "SectionAdd"));
-            Assert.AreEqual("SAMPLEEmailz", Config.GetValueForSection("EmailMaqs", "SectionAdd"));
-            Assert.AreEqual("SAMPLESelz", Config.GetValueForSection("SeleniumMaqs", "SectionAdd"));
-            Assert.AreEqual("SAMPLESelCapz", Config.GetValueForSection("RemoteSeleniumCapsMaqs", "SectionAdd"));
-            Assert.AreEqual("SAMPLEWebz", Config.GetValueForSection("WebServiceMaqs", "SectionAdd"));
+            Assert.AreEqual("SAMPLEAppz", Config.GetValueForSection(ConfigSection.AppiumMaqs, "SectionAdd"));
+            Assert.AreEqual("SAMPLEAppCapz", Config.GetValueForSection(ConfigSection.AppiumCapsMaqs, "SectionAdd"));
+            Assert.AreEqual("SAMPLEDatabasez", Config.GetValueForSection(ConfigSection.DatabaseMaqs, "SectionAdd"));
+            Assert.AreEqual("SAMPLEEmailz", Config.GetValueForSection(ConfigSection.EmailMaqs, "SectionAdd"));
+            Assert.AreEqual("SAMPLESelz", Config.GetValueForSection(ConfigSection.SeleniumMaqs, "SectionAdd"));
+            Assert.AreEqual("SAMPLESelCapz", Config.GetValueForSection(ConfigSection.RemoteSeleniumCapsMaqs, "SectionAdd"));
+            Assert.AreEqual("SAMPLEWebz", Config.GetValueForSection(ConfigSection.WebServiceMaqs, "SectionAdd"));
         }
 
         /// <summary>
