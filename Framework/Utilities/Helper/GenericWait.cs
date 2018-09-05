@@ -375,9 +375,6 @@ namespace Magenic.Maqs.Utilities.Helper
 
             do
             {
-                // Clear out old exception
-                exception = null;
-
                 try
                 {
                     return waitFor();
@@ -413,9 +410,6 @@ namespace Magenic.Maqs.Utilities.Helper
 
             do
             {
-                // Clear out old exception
-                exception = null;
-
                 try
                 {
                     return waitFor(arg);

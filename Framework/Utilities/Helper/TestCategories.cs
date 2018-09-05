@@ -5,12 +5,6 @@
 // <summary>Web service MediaType class page</summary>
 //--------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Magenic.Maqs.Utilities.Helper
 {
     /// <summary>
