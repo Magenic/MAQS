@@ -93,12 +93,11 @@ namespace Magenic.Maqs.Utilities.Helper
         {
             section = section.ToLower();
             Dictionary<string, string> sectionValues = new Dictionary<string, string>();
-            ConcurrentDictionary<string, string> configSectionValues = new ConcurrentDictionary<string, string>();
-            ConcurrentDictionary<string, string> configsectionOverrideValues = new ConcurrentDictionary<string, string>();
 
-            List<string> keyList = configValues.TryGetValue(section, out configSectionValues) ? new List<string>(configSectionValues.Keys) : new List<string>();
+            // Get the list of keys for both configuration and configuration overrides
+            List<string> keyList = configValues.TryGetValue(section, out ConcurrentDictionary<string, string> configSectionValues) ? new List<string>(configSectionValues.Keys) : new List<string>();
 
-            if (configOverrides.TryGetValue(section, out configsectionOverrideValues))
+            if (configOverrides.TryGetValue(section, out ConcurrentDictionary<string, string> configsectionOverrideValues))
             {
                 keyList = keyList.Union(configsectionOverrideValues.Keys).ToList();
             }
