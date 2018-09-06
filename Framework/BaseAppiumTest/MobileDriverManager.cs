@@ -40,7 +40,7 @@ namespace Magenic.Maqs.BaseAppiumTest
 
             try
             {
-                AppiumDriver<IWebElement> driver = this.Get();
+                AppiumDriver<IWebElement> driver = this.GetMobileDriver();
 
                 if (driver != null)
                 {
@@ -61,9 +61,18 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// Get the Appium driver
         /// </summary>
         /// <returns>The Appium driver</returns>
-        public new AppiumDriver<IWebElement> Get()
+        public AppiumDriver<IWebElement> GetMobileDriver()
         {
-            return base.Get() as AppiumDriver<IWebElement>;
+            return GetBase() as AppiumDriver<IWebElement>;
+        }
+
+        /// <summary>
+        /// Get the Appium driver
+        /// </summary>
+        /// <returns>The Appium driver</returns>
+        public override object Get()
+        {
+            return this.GetMobileDriver();
         }
     }
 }

@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Magenic",
+  "classifications": [ "Test" ], 
+  "name": "Magenic.Maqs.Selenium",
+  "identity": "Magenic.Maqs.Selenium.CSharp",         
+  "groupIdentity":"Magenic.Maqs.Selenium.Sample",
+  "shortName": "Maqs.Selenium",
+  "tags": {
+    "language": "C#",
+    "type":"project"
+  },
+  "sourceName": "Tests"
+  }
+}

@@ -153,6 +153,17 @@ namespace Magenic.Maqs.BaseTest
         }
 
         /// <summary>
+        /// Gets the driver store
+        /// </summary>
+        public ManagerDictionary ManagerStore
+        {
+            get
+            {
+                return this.TestObject.ManagerStore;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the BaseContext objects
         /// </summary>
         internal ConcurrentDictionary<string, BaseTestObject> BaseTestObjects { get; set; }
@@ -439,10 +450,8 @@ namespace Magenic.Maqs.BaseTest
                 string message = inner.Message + Environment.NewLine + innerStack;
                 List<string> messages = this.LoggedExceptionList;
 
-                string setupNamespace = typeof(BaseTest).Namespace;
-
                 // Make sure this error is associated with the current test and that we have not logged it yet
-                if (innerStack.Contains(setupNamespace) ||
+                if (innerStack.ToLower().Contains("magenic.maqs") ||
                     (innerStack.Contains("at " + this.GetFullyQualifiedTestClassName() + "(") && !messages.Contains(message)))
                 {
                     this.TryToLog(MessageType.ERROR, message);

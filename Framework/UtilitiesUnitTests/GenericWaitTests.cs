@@ -35,6 +35,16 @@ namespace UtilitiesUnitTesting
         private static readonly TimeSpan TESTTIMEOUT = TimeSpan.FromMilliseconds(500);
 
         /// <summary>
+        /// Counter for unit tests
+        /// </summary>
+        private static int number = 0;
+
+        /// <summary>
+        /// Bool for unit tests
+        /// </summary>
+        private static bool initialReturnValue = false;
+
+        /// <summary>
         /// Test wait until with no parameters works when the wait function returns true
         /// </summary>
         #region WaitUntil
@@ -42,7 +52,9 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void PassNoParamUntilTest()
         {
-            Assert.IsTrue(GenericWait.WaitUntil(IsNotParamTest), "Failed no parameter test");
+            int loop = 0;
+
+            Assert.IsTrue(GenericWait.WaitUntil(() => loop++ > 3), "Failed no parameter test");
         }
         #endregion
 
@@ -52,8 +64,10 @@ namespace UtilitiesUnitTesting
         #region WaitFor
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
+        [DoNotParallelize]
         public void PassNoParamForTest()
         {
+            initialReturnValue = false;
             GenericWait.WaitFor(IsNotParamTest);
         }
         #endregion
@@ -64,9 +78,11 @@ namespace UtilitiesUnitTesting
         #region WaitUntilWithType
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
+        [DoNotParallelize]
         public void PassStringUntilTest()
         {
-            Assert.IsTrue(GenericWait.WaitUntil<string>(this.IsParamTestString, TESTSTRING), "Failed single parameter test");
+            number = 0;
+            Assert.IsTrue(GenericWait.WaitUntil<string>(this.IsParamTestString, TESTSTRING + "3"), "Failed single parameter test");
         }
         #endregion
 
@@ -76,9 +92,11 @@ namespace UtilitiesUnitTesting
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
+        [DoNotParallelize]
         public void PassStringsEqual()
         {
-            Assert.IsTrue(GenericWait.WaitUntilMatch<string>(this.FunctionTestString, "test string").Equals("test string"), "Failed expected parameter test.");
+            number = 0;
+            Assert.IsTrue(GenericWait.WaitUntilMatch<string>(this.FunctionTestString, "Test String3").Equals("Test String3"), "Failed expected parameter test.");
         }
 
         /// <summary>
@@ -86,9 +104,11 @@ namespace UtilitiesUnitTesting
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
+        [DoNotParallelize]
         public void PassStringsEqualOverride()
         {
-            Assert.IsTrue(GenericWait.WaitUntilMatch<string>(this.FunctionTestString, TESTRETRY, TESTTIMEOUT, "test string").Equals("test string"), "Failed expected parameter test.");
+            number = 0;
+            Assert.IsTrue(GenericWait.WaitUntilMatch<string>(this.FunctionTestString, TESTRETRY, TESTTIMEOUT, "Test String3").Equals("Test String3"), "Failed expected parameter test.");
         }
         #endregion
 
@@ -98,9 +118,11 @@ namespace UtilitiesUnitTesting
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
+        [DoNotParallelize]
         public void PassStringWaitFor()
         {
-            GenericWait.WaitForMatch<string>(this.FunctionTestString, "test string");
+            int number = 0;
+            GenericWait.WaitForMatch<string>(() => TESTSTRING + ++number, TESTSTRING + "3");
         }
 
         /// <summary>
@@ -108,9 +130,11 @@ namespace UtilitiesUnitTesting
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
+        [DoNotParallelize]
         public void PassStringWaitForOverride()
         {
-            GenericWait.WaitForMatch<string>(this.FunctionTestString, TESTRETRY, TESTTIMEOUT, "test string");
+            number = 0;
+            GenericWait.WaitForMatch<string>(this.FunctionTestString, TESTRETRY, TESTTIMEOUT, TESTSTRING + "3");
         }
         #endregion
 
@@ -120,9 +144,11 @@ namespace UtilitiesUnitTesting
         #region WaitForWithType
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
+        [DoNotParallelize]
         public void PassStringForTest()
         {
-            GenericWait.WaitFor<string>(this.IsParamTestString, TESTSTRING);
+            int number = 0;
+            GenericWait.WaitFor<string>((p) => p.Equals(TESTSTRING + number++), TESTSTRING + "3");
         }
         #endregion
 
@@ -311,7 +337,8 @@ namespace UtilitiesUnitTesting
         /// <returns>Always returns true</returns>
         private static bool IsNotParamTest()
         {
-            return true;
+            initialReturnValue = !initialReturnValue;
+            return !initialReturnValue;
         }
         
         /// <summary>
@@ -330,7 +357,7 @@ namespace UtilitiesUnitTesting
         /// <returns>True if the constant and passed in test strings match</returns>
         private bool IsParamTestString(string testString)
         {
-            return testString.Equals(TESTSTRING);
+            return testString.Equals(TESTSTRING + number++);
         }
 
         /// <summary>
@@ -354,7 +381,7 @@ namespace UtilitiesUnitTesting
         /// <returns>Always returns a specific string</returns>
         private string FunctionTestString()
         {
-            return "test string";
+            return TESTSTRING + number++;
         }
 
         /// <summary>

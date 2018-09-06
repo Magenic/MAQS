@@ -5,6 +5,7 @@
 // <summary>Helper class for getting application configuration values</summary>
 //--------------------------------------------------
 using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,7 +24,7 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <summary>
         /// The default MAQS session
         /// </summary>
-        private const string DEFAULTMAQSSECTION = "magenicmaqs";
+        private const ConfigSection DEFAULTMAQSSECTION = ConfigSection.MagenicMaqs;
 
         /// <summary>
         /// Thread safe collection of configuration overrides
@@ -76,28 +77,35 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <summary>
         /// Get a specific config section
         /// </summary>
+        /// <param name="section">The configuration section</param>
+        /// <returns>Section values, with overrides respected</returns>
+        public static Dictionary<string, string> GetSection(ConfigSection section)
+        {
+            return GetSection(section.ToString());
+        }
+
+        /// <summary>
+        /// Get a specific config section
+        /// </summary>
         /// <param name="section">The name of the section</param>
         /// <returns>Section values, with overrides respected</returns>
         public static Dictionary<string, string> GetSection(string section)
         {
+            section = section.ToLower();
             Dictionary<string, string> sectionValues = new Dictionary<string, string>();
 
-            // Check if the section exists
-            if (configValues.TryGetValue(section.ToLower(), out ConcurrentDictionary<string, string> keysAndValues))
+            // Get the list of keys for both configuration and configuration overrides
+            List<string> keyList = configValues.TryGetValue(section, out ConcurrentDictionary<string, string> configSectionValues) ? new List<string>(configSectionValues.Keys) : new List<string>();
+
+            if (configOverrides.TryGetValue(section, out ConcurrentDictionary<string, string> configsectionOverrideValues))
             {
-                // Loop over all the key value pairs
-                foreach (var keyAndValue in keysAndValues)
-                {
-                    // Always default to our override values
-                    if (configOverrides.ContainsKey(section) && TryGetSectionValue(keyAndValue.Key, configOverrides[section], out string overrideValue))
-                    {
-                        sectionValues.Add(keyAndValue.Key, overrideValue);
-                    }
-                    else if (TryGetSectionValue(keyAndValue.Key, keysAndValues, out string outValue))
-                    {
-                        sectionValues.Add(keyAndValue.Key, outValue);
-                    }
-                }
+                keyList = keyList.Union(configsectionOverrideValues.Keys).ToList();
+            }
+
+            // Loop over all the key value pairs
+            foreach (var key in keyList)
+            {
+                sectionValues.Add(key, GetValueForSection(section, key));
             }
 
             return sectionValues;
@@ -119,26 +127,49 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <param name="configurations">Dictionary of configuration overrides</param>
         /// <param name="section">What section it should be added to</param>
         /// <param name="overrideExisting">If the override already exists should we override it</param>
-        public static void AddTestSettingValues(IDictionary<string, string> configurations, string section = DEFAULTMAQSSECTION, bool overrideExisting = false)
+        public static void AddTestSettingValues(IDictionary<string, string> configurations, ConfigSection section = DEFAULTMAQSSECTION, bool overrideExisting = false)
         {
+            AddTestSettingValues(configurations, section.ToString(), overrideExisting);
+        }
+
+        /// <summary>
+        /// Add configuration override values
+        /// </summary>
+        /// <param name="configurations">Dictionary of configuration overrides</param>
+        /// <param name="section">What section it should be added to</param>
+        /// <param name="overrideExisting">If the override already exists should we override it</param>
+        public static void AddTestSettingValues(IDictionary<string, string> configurations, string section, bool overrideExisting = false)
+        {
+            section = section.ToLower();
+
             // Loop over all the configuration overrides
             foreach (KeyValuePair<string, string> configuration in configurations)
             {
-                // Make sure the section exists
-                if (!configOverrides.ContainsKey(section))
+                string configKey = configuration.Key;
+                string specificSection = section.ToLower();
+
+                // If the key follows this format SECTION:KEY extract the section and key from it
+                if (configKey != null && configKey.Contains(":") && configKey.Split(':')[0].Length > 0 && configKey.Split(':')[1].Length > 0)
                 {
-                    configOverrides.TryAdd(section, new ConcurrentDictionary<string, string>());
+                    specificSection = configKey.Split(':')[0].ToLower();
+                    configKey = configKey.Split(':')[1];
+                }
+
+                // Make sure the section exists
+                if (!configOverrides.ContainsKey(specificSection))
+                {
+                    configOverrides.TryAdd(specificSection, new ConcurrentDictionary<string, string>());
                 }
 
                 // See if we need to add a new key value pair
-                if (!configOverrides[section].ContainsKey(configuration.Key))
+                if (!configOverrides[specificSection].ContainsKey(configKey))
                 {
-                    configOverrides[section].TryAdd(configuration.Key, configuration.Value);
+                    configOverrides[specificSection].TryAdd(configKey, configuration.Value);
                 }
                 else if (overrideExisting)
                 {
                     // We want to override existing values
-                    configOverrides[section].AddOrUpdate(configuration.Key, configuration.Value, (key, oldValue) => configuration.Value);
+                    configOverrides[specificSection].AddOrUpdate(configKey, configuration.Value, (key, oldValue) => configuration.Value);
                 }
             }
         }
@@ -160,12 +191,35 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <summary>
         /// Get the value from a specific section
         /// </summary>
+        /// <param name="section">The configuration section</param>
+        /// <param name="key">The key</param>
+        /// <returns>The configuration value - Returns the empty string if the key is not found</returns>
+        public static string GetValueForSection(ConfigSection section, string key)
+        {
+            return GetValueForSection(section.ToString(), key, string.Empty);
+        }
+
+        /// <summary>
+        /// Get the value from a specific section
+        /// </summary>
         /// <param name="section">The section name</param>
         /// <param name="key">The key</param>
         /// <returns>The configuration value - Returns the empty string if the key is not found</returns>
         public static string GetValueForSection(string section, string key)
         {
             return GetValueForSection(section, key, string.Empty);
+        }
+
+        /// <summary>
+        /// Get the configuration value for a specific key
+        /// </summary>
+        /// <param name="section">The configuration section</param>
+        /// <param name="key">Config file key</param>
+        /// <param name="defaultValue">Default value - Returned the key cannot be found</param>
+        /// <returns>The configuration value</returns>
+        public static string GetValueForSection(ConfigSection section, string key, string defaultValue)
+        {
+            return GetValueForSection(section.ToString(), key, defaultValue);
         }
 
         /// <summary>
@@ -180,6 +234,8 @@ namespace Magenic.Maqs.Utilities.Helper
         /// </example>
         public static string GetValueForSection(string section, string key, string defaultValue)
         {
+            section = section.ToLower();
+
             if (configOverrides.ContainsKey(section) && TryGetSectionValue(key, configOverrides[section], out string overrideValue))
             {
                 // Return test run override value
@@ -199,14 +255,28 @@ namespace Magenic.Maqs.Utilities.Helper
         /// Does the configuration key exist
         /// </summary>
         /// <param name="key">Config file key</param>
+        /// <param name="section">The configuration section</param>
+        /// <returns>True if the key exists</returns>
+        [Browsable(false)]
+        public static bool DoesKeyExist(string key, ConfigSection section = ConfigSection.MagenicMaqs)
+        {
+            return DoesKeyExist(key, section.ToString());
+        }
+
+        /// <summary>
+        /// Does the configuration key exist
+        /// </summary>
+        /// <param name="key">Config file key</param>
         /// <param name="section">The section name</param>
         /// <returns>True if the key exists</returns>
         /// <example>
         /// <code source = "../UtilitiesUnitTests/ConfigUnitTests.cs" region="DoesKeyExist" lang="C#" />
         /// </example>
         [Browsable(false)]
-        public static bool DoesKeyExist(string key, string section = DEFAULTMAQSSECTION)
+        public static bool DoesKeyExist(string key, string section)
         {
+            section = section.ToLower();
+
             return (configOverrides.ContainsKey(section) && TryGetSectionValue(key, configOverrides[section], out string value)) || TryGetDefaultSectionValue(key, section, out string value2);
         }
 
@@ -219,9 +289,10 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <returns>True if the value was found</returns>
         private static bool TryGetDefaultSectionValue(string key, string section, out string value)
         {
+            section = section.ToLower();
             value = null;
 
-            if (configValues.TryGetValue(section.ToLower(), out ConcurrentDictionary<string, string> values))
+            if (configValues.TryGetValue(section, out ConcurrentDictionary<string, string> values))
             {
                 TryGetSectionValue(key, values, out value);
             }

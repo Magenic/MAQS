@@ -1,10 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>5.0.0.0</AssemblyVersion>
-    <FileVersion>5.0.0.0</FileVersion>
-    <Version>5.0.0</Version>
+    <AssemblyVersion>5.1.0</AssemblyVersion>
+    <FileVersion>5.1.0</FileVersion>
+    <Version>5.1.0</Version>
     <AssemblyName>Magenic.Maqs.BaseSeleniumTest</AssemblyName>
     <RootNamespace>Magenic.Maqs.BaseSeleniumTest</RootNamespace>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>

@@ -58,7 +58,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             get
             {
-                return this.WebManager.Get();
+                return this.WebManager.GetWebDriver();
             }
         }
 

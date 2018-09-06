@@ -47,24 +47,33 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// Get the database driver
         /// </summary>
         /// <returns>The database driver</returns>
-        public new DatabaseDriver Get()
+        public DatabaseDriver GetDatabaseDriver()
         {
             if (this.driver == null)
             {
                 if (LoggingConfig.GetLoggingEnabledSetting() == LoggingEnabled.NO)
                 {
                     this.Log.LogMessage(MessageType.INFORMATION, "Getting database driver");
-                    this.driver = new DatabaseDriver(base.Get() as IDbConnection);
+                    this.driver = new DatabaseDriver(GetBase() as IDbConnection);
                 }
                 else
                 {
                     this.Log.LogMessage(MessageType.INFORMATION, "Getting event firing database driver");
-                    this.driver = new EventFiringDatabaseDriver(base.Get() as IDbConnection);
+                    this.driver = new EventFiringDatabaseDriver(GetBase() as IDbConnection);
                     this.MapEvents(this.driver as EventFiringDatabaseDriver);
                 }
             }
 
             return this.driver;
+        }
+
+        /// <summary>
+        /// Get the database driver
+        /// </summary>
+        /// <returns>The database driver</returns>
+        public override object Get()
+        {
+            return this.GetDatabaseDriver();
         }
 
         /// <summary>

@@ -105,8 +105,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseFrameworkTests.cs" />
-    <Compile Include="EmailUnitWithoutWrapper.cs" />
-    <Compile Include="EmailUnitWithWrapper.cs" />
+    <Compile Include="EmailUnitWithoutDriver.cs" />
+    <Compile Include="EmailUnitWithDriver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="app.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

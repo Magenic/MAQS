@@ -29,7 +29,7 @@ namespace Magenic.Maqs.BaseTest
             this.PerfTimerCollection = new PerfTimerCollection(logger, fullyQualifiedTestName);
             this.Values = new Dictionary<string, string>();
             this.Objects = new Dictionary<string, object>();
-            this.ManagerStore = new Dictionary<string, DriverManager>();
+            this.ManagerStore = new ManagerDictionary();
 
             logger.LogMessage(MessageType.INFORMATION, "Setup test object for " + fullyQualifiedTestName);
         }
@@ -46,7 +46,7 @@ namespace Magenic.Maqs.BaseTest
             this.PerfTimerCollection = new PerfTimerCollection(logger, fullyQualifiedTestName);
             this.Values = new Dictionary<string, string>();
             this.Objects = new Dictionary<string, object>();
-            this.ManagerStore = new Dictionary<string, DriverManager>();
+            this.ManagerStore = new ManagerDictionary();
 
             logger.LogMessage(MessageType.INFORMATION, "Setup test object for " + fullyQualifiedTestName);
         }
@@ -95,7 +95,7 @@ namespace Magenic.Maqs.BaseTest
         /// <summary>
         /// Gets a dictionary of string key and driver value pairs
         /// </summary>
-        public Dictionary<string, DriverManager> ManagerStore { get; private set; }
+        public ManagerDictionary ManagerStore { get; private set; }
 
         /// <summary>
         /// Sets a string value, will replace if the key already exists

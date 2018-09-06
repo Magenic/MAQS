@@ -25,7 +25,7 @@ namespace CoreUnitTests
         [TestMethod]
         public void CanOverrideWebDriver()
         {
-            IWebDriver tempDriver = SeleniumConfig.Browser("phantomjs");
+            IWebDriver tempDriver = SeleniumConfig.Browser("HeadlessChrome");
             this.WebDriver = tempDriver;
 
             Assert.AreEqual(this.TestObject.WebDriver.GetLowLevelDriver(), tempDriver.GetLowLevelDriver());
@@ -37,10 +37,10 @@ namespace CoreUnitTests
         [TestMethod]
         public void CanUseMultiple()
         {
-            SeleniumDriverManager newDriver = new SeleniumDriverManager(() => SeleniumConfig.Browser("phantomjs"), this.TestObject);
-            this.TestObject.ManagerStore.Add("test", newDriver);
+            SeleniumDriverManager newDriver = new SeleniumDriverManager(() => SeleniumConfig.Browser("HeadlessChrome"), this.TestObject);
+            this.ManagerStore.Add("test", newDriver);
 
-            Assert.AreNotEqual(this.TestObject.WebDriver.GetLowLevelDriver(), ((SeleniumDriverManager)this.TestObject.ManagerStore["test"]).Get().GetLowLevelDriver());
+            Assert.AreNotEqual(this.TestObject.WebDriver.GetLowLevelDriver(), ((SeleniumDriverManager)this.ManagerStore["test"]).GetWebDriver().GetLowLevelDriver());
         }
 
         /// <summary>
@@ -70,14 +70,14 @@ namespace CoreUnitTests
         [TestMethod]
         public void SeparateInteractions()
         {
-            SeleniumDriverManager newDriver = new SeleniumDriverManager(() => SeleniumConfig.Browser("phantomjs"), this.TestObject);
-            newDriver.Get().Navigate().GoToUrl("http://magenicautomation.azurewebsites.net/");
+            SeleniumDriverManager newDriver = new SeleniumDriverManager(() => SeleniumConfig.Browser("HeadlessChrome"), this.TestObject);
+            newDriver.GetWebDriver().Navigate().GoToUrl("http://magenicautomation.azurewebsites.net/");
 
-            this.TestObject.ManagerStore.Add("test", newDriver);
+            this.ManagerStore.Add("test", newDriver);
 
             this.TestObject.WebDriver.Navigate().GoToUrl("http://magenicautomation.azurewebsites.net/Automation");
 
-            Assert.AreNotEqual(this.TestObject.WebDriver.Url, ((SeleniumDriverManager)this.TestObject.ManagerStore["test"]).Get().Url);
+            Assert.AreNotEqual(this.TestObject.WebDriver.Url, ((SeleniumDriverManager)this.ManagerStore["test"]).GetWebDriver().Url);
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace CoreUnitTests
             // Do something so we intialize the web driver
             this.WebDriver.Manage().Window.Maximize();
 
-            SeleniumDriverManager driverDriver = this.TestObject.ManagerStore[typeof(SeleniumDriverManager).FullName] as SeleniumDriverManager;
+            SeleniumDriverManager driverDriver = this.ManagerStore[typeof(SeleniumDriverManager).FullName] as SeleniumDriverManager;
             Assert.IsTrue(driverDriver.IsDriverIntialized(), "The driver should have been intialized");
         }
 
@@ -99,7 +99,7 @@ namespace CoreUnitTests
         [TestMethod]
         public void NotIntialized()
         {
-            SeleniumDriverManager driverDriver = this.TestObject.ManagerStore[typeof(SeleniumDriverManager).FullName] as SeleniumDriverManager;
+            SeleniumDriverManager driverDriver = this.ManagerStore[typeof(SeleniumDriverManager).FullName] as SeleniumDriverManager;
             Assert.IsFalse(driverDriver.IsDriverIntialized(), "The driver should not be intialized until it gets used");
         }
     }

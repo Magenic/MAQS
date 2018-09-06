@@ -7,6 +7,7 @@
 using Magenic.Maqs.BaseEmailTest;
 using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace EmailUnitTests
@@ -25,7 +26,12 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void BasicConnectionTest()
         {
-            using (EmailDriver test = new EmailDriver("imap.gmail.com", "maqsbaseemailtest@gmail.com", "Magenic3", 993, 10000, true, true))
+            string host = EmailConfig.GetHost();
+            string username = EmailConfig.GetUserName();
+            string password = EmailConfig.GetPassword();
+            int port = EmailConfig.GetPort();
+
+            using (EmailDriver test = new EmailDriver(host, username, password, port, 10000, true, true))
             {
                 test.EmailConnection.NoOp();
             }
@@ -49,12 +55,26 @@ namespace EmailUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Email)]
+        [DoNotParallelize]
         public void GetUserNameTest()
         {
-            #region GetUserName
-            string username = EmailConfig.GetUserName();
-            #endregion
-            Assert.AreEqual(username, "maqsbaseemailtest@gmail.com");
+            // Replace the password so it doesn't need to be hardcoded in our test
+            string saveName = EmailConfig.GetUserName();
+            string tempName = "TEMP";
+
+            Config.AddTestSettingValues(new Dictionary<string, string> { { "EmailUserName", tempName } }, "EmailMaqs", true);
+
+            try
+            {
+                #region GetUserName
+                string username = EmailConfig.GetUserName();
+                #endregion
+                Assert.AreEqual(username, tempName);
+            }
+            finally
+            {
+                Config.AddTestSettingValues(new Dictionary<string, string> { { "EmailUserName", saveName } }, "EmailMaqs", true);
+            }
         }
         
         /// <summary>
@@ -62,12 +82,26 @@ namespace EmailUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Email)]
+        [DoNotParallelize]
         public void GetPasswordTest()
         {
-            #region GetPassword
-            string password = EmailConfig.GetPassword();
-            #endregion
-            Assert.AreEqual(password, "Magenic3");
+            // Replace the password so it doesn't need to be hardcoded in our test
+            string savePass = EmailConfig.GetPassword();
+            string tempPass = "TEMP";
+
+            Config.AddTestSettingValues(new Dictionary<string, string> { { "EmailPassword", tempPass } }, "EmailMaqs", true);
+
+            try
+            {
+                #region GetPassword
+                string password = EmailConfig.GetPassword();
+                #endregion
+                Assert.AreEqual(password, tempPass);
+            }
+            finally
+            {
+                Config.AddTestSettingValues(new Dictionary<string, string> { { "EmailPassword", savePass } }, "EmailMaqs", true);
+            }
         }
         
         /// <summary>

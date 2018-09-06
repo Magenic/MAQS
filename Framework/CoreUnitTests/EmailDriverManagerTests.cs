@@ -28,7 +28,7 @@ namespace CoreUnitTests
             EmailDriver temp = new EmailDriver(() => GetClient());
             this.TestObject.EmailManager.OverwriteDriver(temp);
 
-            Assert.AreEqual(this.TestObject.EmailManager.Get().EmailConnection, EmailDriver.EmailConnection);
+            Assert.AreEqual(this.TestObject.EmailManager.GetEmailDriver().EmailConnection, EmailDriver.EmailConnection);
         }
 
         /// <summary>
@@ -38,10 +38,10 @@ namespace CoreUnitTests
         public void CanUseMultiple()
         {
             EmailDriverManager newDriver = new EmailDriverManager(() => GetClient(), this.TestObject);
-            this.TestObject.ManagerStore.Add("test", newDriver);
+            this.ManagerStore.Add("test", newDriver);
 
-            Assert.AreNotEqual(this.TestObject.EmailManager, (EmailDriverManager)this.TestObject.ManagerStore["test"]);
-            Assert.AreNotEqual(this.TestObject.EmailManager.Get(), ((EmailDriverManager)this.TestObject.ManagerStore["test"]).Get());
+            Assert.AreNotEqual(this.TestObject.EmailManager, (EmailDriverManager)this.ManagerStore["test"]);
+            Assert.AreNotEqual(this.TestObject.EmailManager.Get(), ((EmailDriverManager)this.ManagerStore["test"]).Get());
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace CoreUnitTests
             // Do something so we initalize the driver
             this.EmailDriver.CanAccessEmailAccount();
 
-            EmailDriverManager driverDriver = this.TestObject.ManagerStore[typeof(EmailDriverManager).FullName] as EmailDriverManager;
+            EmailDriverManager driverDriver = this.ManagerStore[typeof(EmailDriverManager).FullName] as EmailDriverManager;
             Assert.IsTrue(driverDriver.IsDriverIntialized(), "The driver should have been intialized");
         }
 
@@ -84,7 +84,7 @@ namespace CoreUnitTests
         [TestMethod]
         public void NotIntialized()
         {
-            EmailDriverManager driverDriver = this.TestObject.ManagerStore[typeof(EmailDriverManager).FullName] as EmailDriverManager;
+            EmailDriverManager driverDriver = this.ManagerStore[typeof(EmailDriverManager).FullName] as EmailDriverManager;
             Assert.IsFalse(driverDriver.IsDriverIntialized(), "The driver should not be intialized until it gets used");
         }
 
@@ -98,8 +98,13 @@ namespace CoreUnitTests
             {
                 ServerCertificateValidationCallback = (s, c, h, e) => true
             };
-            client.Connect("imap.gmail.com", 993, true);
-            client.Authenticate("maqsbaseemailtest@gmail.com", "Magenic3");
+
+            string host = EmailConfig.GetHost();
+            string username = EmailConfig.GetUserName();
+            string password = EmailConfig.GetPassword();
+
+            client.Connect(host, 993, true);
+            client.Authenticate(username, password);
             client.Timeout = 10000;
 
             return client;

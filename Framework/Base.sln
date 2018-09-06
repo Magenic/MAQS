@@ -50,6 +50,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecFlowExtensionNUnitTests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDBUnitTests", "MongoDBUnitTests\MongoDBUnitTests.csproj", "{F4AB7FF4-21E6-4CBB-8547-ABFB3FD8A498}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeUnitTests", "CompositeUnitTests\CompositeUnitTests.csproj", "{6F51C4EC-FBCD-476A-8DF6-CB4A05A1D47C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -429,6 +431,24 @@ Global
 		{F4AB7FF4-21E6-4CBB-8547-ABFB3FD8A498}.ReleaseShim|iPhone.Build.0 = Release|Any CPU
 		{F4AB7FF4-21E6-4CBB-8547-ABFB3FD8A498}.ReleaseShim|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{F4AB7FF4-21E6-4CBB-8547-ABFB3FD8A498}.ReleaseShim|iPhoneSimulator.Build.0 = Release|Any CPU
+		{6F51C4EC-FBCD-476A-8DF6-CB4A05A1D47C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F51C4EC-FBCD-476A-8DF6-CB4A05A1D47C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F51C4EC-FBCD-476A-8DF6-CB4A05A1D47C}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{6F51C4EC-FBCD-476A-8DF6-CB4A05A1D47C}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{6F51C4EC-FBCD-476A-8DF6-CB4A05A1D47C}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{6F51C4EC-FBCD-476A-8DF6-CB4A05A1D47C}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{6F51C4EC-FBCD-476A-8DF6-CB4A05A1D47C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F51C4EC-FBCD-476A-8DF6-CB4A05A1D47C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F51C4EC-FBCD-476A-8DF6-CB4A05A1D47C}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{6F51C4EC-FBCD-476A-8DF6-CB4A05A1D47C}.Release|iPhone.Build.0 = Release|Any CPU
+		{6F51C4EC-FBCD-476A-8DF6-CB4A05A1D47C}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{6F51C4EC-FBCD-476A-8DF6-CB4A05A1D47C}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{6F51C4EC-FBCD-476A-8DF6-CB4A05A1D47C}.ReleaseShim|Any CPU.ActiveCfg = Release|Any CPU
+		{6F51C4EC-FBCD-476A-8DF6-CB4A05A1D47C}.ReleaseShim|Any CPU.Build.0 = Release|Any CPU
+		{6F51C4EC-FBCD-476A-8DF6-CB4A05A1D47C}.ReleaseShim|iPhone.ActiveCfg = Release|Any CPU
+		{6F51C4EC-FBCD-476A-8DF6-CB4A05A1D47C}.ReleaseShim|iPhone.Build.0 = Release|Any CPU
+		{6F51C4EC-FBCD-476A-8DF6-CB4A05A1D47C}.ReleaseShim|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{6F51C4EC-FBCD-476A-8DF6-CB4A05A1D47C}.ReleaseShim|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

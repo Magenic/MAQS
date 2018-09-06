@@ -48,7 +48,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         {
             get
             {
-                return this.AppiumManager.Get();
+                return this.AppiumManager.GetMobileDriver();
             }
         }
 

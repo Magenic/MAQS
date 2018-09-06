@@ -37,10 +37,10 @@ namespace CoreUnitTests
         public void CanUseMultiple()
         {
             MongoDriverManager<BsonDocument> newDriver = new MongoDriverManager<BsonDocument>(MongoDBConfig.GetConnectionString(), MongoDBConfig.GetDatabaseString(), MongoDBConfig.GetCollectionString(),  this.TestObject);
-            this.TestObject.ManagerStore.Add("test", newDriver);
+            this.ManagerStore.Add("test", newDriver);
 
-            Assert.AreNotEqual(this.TestObject.MongoDBDriver, (MongoDriverManager<BsonDocument>)this.TestObject.ManagerStore["test"]);
-            Assert.AreNotEqual(this.TestObject.MongoDBManager.Get(), ((MongoDriverManager<BsonDocument>)this.TestObject.ManagerStore["test"]).Get());
+            Assert.AreNotEqual(this.TestObject.MongoDBDriver, (MongoDriverManager<BsonDocument>)this.ManagerStore["test"]);
+            Assert.AreNotEqual(this.TestObject.MongoDBManager.Get(), ((MongoDriverManager<BsonDocument>)this.ManagerStore["test"]).Get());
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace CoreUnitTests
             // Do something so we intialize the web driver
             this.MongoDBDriver.IsCollectionEmpty();
 
-            MongoDriverManager<BsonDocument> driverDriver = this.TestObject.ManagerStore[typeof(MongoDriverManager<BsonDocument>).FullName] as MongoDriverManager<BsonDocument>;
+            MongoDriverManager<BsonDocument> driverDriver = this.ManagerStore[typeof(MongoDriverManager<BsonDocument>).FullName] as MongoDriverManager<BsonDocument>;
             Assert.IsTrue(driverDriver.IsDriverIntialized(), "The driver should have been intialized");
         }
 
@@ -83,7 +83,7 @@ namespace CoreUnitTests
         [TestMethod]
         public void NotIntialized()
         {
-            MongoDriverManager<BsonDocument> driverDriver = this.TestObject.ManagerStore[typeof(MongoDriverManager<BsonDocument>).FullName] as MongoDriverManager<BsonDocument>;
+            MongoDriverManager<BsonDocument> driverDriver = this.ManagerStore[typeof(MongoDriverManager<BsonDocument>).FullName] as MongoDriverManager<BsonDocument>;
             Assert.IsFalse(driverDriver.IsDriverIntialized(), "The driver should not be intialized until it gets used");
         }
     }

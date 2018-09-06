@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8A7D80DD-9E56-4865-AF1B-9DE939DB63A6}") = "Tests", "Maqs Framework - Email1\Tests\Tests.csproj", "{D28E88A9-7275-4B0E-87A0-92A13746DF43}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D28E88A9-7275-4B0E-87A0-92A13746DF43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D28E88A9-7275-4B0E-87A0-92A13746DF43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D28E88A9-7275-4B0E-87A0-92A13746DF43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D28E88A9-7275-4B0E-87A0-92A13746DF43}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5F9D9F18-95D0-4DB7-B463-5DE5DA7D5DEB}
+	EndGlobalSection
+EndGlobal
