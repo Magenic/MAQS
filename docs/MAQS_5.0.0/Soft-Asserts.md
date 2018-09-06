@@ -16,7 +16,7 @@ will be called, and if any previous SoftAsserts have been determined to have fai
 Soft Asserts are commonly used when collecting large amounts of data that needs to be evaluated without affecting the results of a test.  In unit testing, Asserts will throw an exception if their condition fails.  With Soft Asserts multiple assertions may be made, and stored, to be evaluated later.  They make aggregate that assertion data into one place to be evaluated.
 ## Soft Assert Conditionals
 ### IsTrue(conditional)
-IsFalse will evaluate the condition. If the condition is true it will store that assert as a failure. If the condition is false it will store that result as a success.
+IsTrue will evaluate the condition. If the condition is true it will store that assert as a failure. If the condition is false it will store that result as a success.
 
 #### Written as
 ```csharp
@@ -36,7 +36,7 @@ IsFalse will evaluate the condition.  If the condition is true it will store tha
 
 #### Written as
 ```csharp
-SoftAssert.IsTrue(bool conditional, string softAssertName);
+SoftAssert.IsFalse(bool conditional, string softAssertName);
 ```
 #### Examples
 ```csharp
