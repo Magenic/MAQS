@@ -10,17 +10,7 @@ Intializing Lazy Element
 #### Written as
 ```csharp
 // Initializing Lazy Element
-//*Note*
-private LazyElement ElementID TODO: Var note
-    {
-        get 
-        { 
-            return new LazyElement(
-                    this.TestObject, 
-                    By.CssSelector("#ElementSelector"), 
-                    "User friendly name for logging"); 
-        }
-    }
+LazyElement elementID =  new LazyElement(this.TestObject, By.CssSelector("#ElementSelector"), "User friendly name for logging"); 
 ```
 
 ### Click 
@@ -100,7 +90,7 @@ LazyElement table =
     "The table element which contains all rows of user data");
 
 // Finds all row elements in the table
-table.FindElements(By.HTMLSelector(".tr")); // TODO: HTML??????
+table.FindElements(By.HTMLSelector(".tr"));
 ```
 ### GetAttribute
 This method returns the attribute's value from the lazy element.
@@ -222,10 +212,10 @@ LazyElement homeButton =
 passwordField.GetValue();
 ```
 ### SendKeys
-Simulates typing text into the lazy element.
+This method enters the provided text into the lazy element.
 #### Written as
 ```csharp
-this.ElementID.SendKeys("UserName")
+this.ElementID.SendKeys("MESSAGE BEING SENT")
 ```
 
 #### Example
@@ -239,10 +229,10 @@ LazyElement chatWindow =
 chatWindow.SendKeys("Lorem Ipsum");
 ```
 ### SendSecretKeys
-Simulates typing text into the lazy element without logging.
+This method enters the provided text into the lazy element without test logging.
 #### Written as
 ```csharp
-this.ElementID.SendSecretKeys("Password1")
+this.ElementID.SendSecretKeys("SECERET MESSAGE BEING SENT")
 ```
 
 #### Example
@@ -256,7 +246,7 @@ LazyElement Password =
 chatWindow.SendSecretKeys("Password1");
 ```
 ### Submit
-Submits this element to the web server.
+This method submits the lazy element to the web server.
 #### Written as
 ```csharp
 this.ElementID.Submit()
