@@ -11,7 +11,9 @@ The main idea behind MAQS is to avoid **reinventing the wheel**. Most automation
 
 ## Help files
 * [MAQS 4.0.5](https://magenic.github.io/MAQS/#/MAQS_4.0.5/Introduction)
+* [MAQS 4.0.6](https://magenic.github.io/MAQS/#/MAQS_4.0.6/Introduction)
 * [MAQS 5.0.0](https://magenic.github.io/MAQS/#/MAQS_5.0.0/Introduction)
+* [MAQS 5.1.0](https://magenic.github.io/MAQS/#/MAQS_5.1.0/Introduction)
 
 ## License
 The MIT License (MIT)
