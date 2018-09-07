@@ -24,16 +24,12 @@
 			- [iv. Action Builder](MAQS_5.1.0/Action-Builder.md)
 			- [v. Element Handler](MAQS_5.1.0/Element-Handler.md)
 			- [vi. Selenium Config](MAQS_5.1.0/SeleniumConfig.md)
-			- [vii. Find](MAQS_5.1.0/)
-			- [vii. Test Object](MAQS_5.1.0/)
-			- [viii. Utilities](MAQS_5.1.0/)
-			- [ix. Screen Capture](MAQS_5.1.0/)
-			- [x. Page Source](MAQS_5.1.0/)
-			- [xi. Kill Driver](MAQS_5.1.0/)
-
-		
-
-
+			- [vii. Find](MAQS_5.1.0/ComingSoon.md)
+			- [vii. Test Object](MAQS_5.1.0/ComingSoon.md)
+			- [viii. Utilities](MAQS_5.1.0/ComingSoon.md)
+			- [ix. Screen Capture](MAQS_5.1.0/ComingSoon.md)
+			- [x. Page Source](MAQS_5.1.0/ComingSoon.md)
+			- [xi. Kill Driver](MAQS_5.1.0/ComingSoon.md)
 
 - Enterprise
 
@@ -43,23 +39,32 @@
 	- Enterprise Features
 
 		- i. Settings
-			- [i. Configurations](MAQS_5.1.0/EnterpriseConfiguration.md)
 
-		- [ii. Utilities]()
+			- [i. Configurations](MAQS_5.1.0/EnterpriseConfiguration.md)
+		- ii. Utilities
+
 			- [i. Generic Wait](MAQS_5.1.0/Generic-Waits.md)
-			- [ii. FakerData](MAQS_5.1.0/)
-			- [iii. Logger](MAQS_5.1.0/)
+			- [ii. FakerData](MAQS_5.1.0/FakerData.md)
+			- [iii. Logger](MAQS_5.1.0/Logger.md)
 			- [iv. Config](MAQS_5.1.0/Config.md)
-		- [iii. Selenium]()
+		- iii. Selenium
+
+			- [i. Lazy Element](MAQS_5.1.0/LazyElement.md)
 			- [ii. Waits](MAQS_5.1.0/Waits.md)
 			- [iii. Soft Assert](MAQS_5.1.0/Soft-Asserts.md)
 			- [iv. Action Builder](MAQS_5.1.0/Action-Builder.md)
 			- [v. Element Handler](MAQS_5.1.0/Element-Handler.md)
 			- [vi. Selenium Config](MAQS_5.1.0/SeleniumConfig.md)
-		- [iv. Appium]()
-		- [v. Database]()
-		- [vi. Email]()
-		- [vii. WebServices]()
+			- [vii. Find](MAQS_5.1.0/ComingSoon.md)
+			- [vii. Test Object](MAQS_5.1.0/ComingSoon.md)
+			- [viii. Utilities](MAQS_5.1.0/ComingSoon.md)
+			- [ix. Screen Capture](MAQS_5.1.0/ComingSoon.md)
+			- [x. Page Source](MAQS_5.1.0/ComingSoon.md)
+			- [xi. Kill Driver](MAQS_5.1.0/ComingSoon.md)
+		- [iv. Appium](MAQS_5.1.0/ComingSoon.md)
+		- [v. Database](MAQS_5.1.0/ComingSoon.md)
+		- [vi. Email](MAQS_5.1.0/ComingSoon.md)
+		- [vii. WebServices](MAQS_5.1.0/ComingSoon.md)
 	
 
 - [FAQ](MAQS_5.1.0/MAQS-FAQ.md)
