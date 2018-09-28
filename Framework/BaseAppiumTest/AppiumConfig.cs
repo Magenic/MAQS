@@ -12,9 +12,9 @@ using OpenQA.Selenium.Appium.Android;
 using OpenQA.Selenium.Appium.Enums;
 using OpenQA.Selenium.Appium.iOS;
 using OpenQA.Selenium.Appium.Windows;
-using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 
@@ -126,16 +126,16 @@ namespace Magenic.Maqs.BaseAppiumTest
             switch (platformName.ToUpper())
             {
                 case "ANDROID":
-                    appiumDriver = new AndroidDriver<IWebElement>(GetMobileHubUrl(), GetMobileCapabilities(), GetCommandTimeout());
+                    appiumDriver = new AndroidDriver<IWebElement>(GetMobileHubUrl(), GetMobileOptions(), GetCommandTimeout());
                     break;
 
                 case "IOS":
-                    appiumDriver = new IOSDriver<IWebElement>(GetMobileHubUrl(), GetMobileCapabilities(), GetCommandTimeout());
+                    appiumDriver = new IOSDriver<IWebElement>(GetMobileHubUrl(), GetMobileOptions(), GetCommandTimeout());
                     break;
 
                 case "WIN":
                 case "WINDOWS":
-                    appiumDriver = new WindowsDriver<IWebElement>(GetMobileHubUrl(), GetMobileCapabilities(), GetCommandTimeout());
+                    appiumDriver = new WindowsDriver<IWebElement>(GetMobileHubUrl(), GetMobileOptions(), GetCommandTimeout());
                     break;
 
                 default:
@@ -170,41 +170,44 @@ namespace Magenic.Maqs.BaseAppiumTest
         }
 
         /// <summary>
-        /// Get the mobile desired capability
+        /// Get the mobile options
         /// </summary>
-        /// <returns>The mobile desired capability</returns>
-        private static DesiredCapabilities GetMobileCapabilities()
+        /// <returns>The mobile options</returns>
+        private static AppiumOptions GetMobileOptions()
         {
-            DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.SetCapability(MobileCapabilityType.DeviceName, GetDeviceName());
-            capabilities.SetCapability(MobileCapabilityType.PlatformVersion, GetPlatformVersion());
-            capabilities.SetCapability(MobileCapabilityType.PlatformName, GetPlatformName().ToUpper());
-            capabilities.SetMobileCapabilities();
+            AppiumOptions options = new AppiumOptions();
 
-            return capabilities;
+            options.AddAdditionalCapability(MobileCapabilityType.DeviceName, GetDeviceName());
+            options.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, GetPlatformVersion());
+            options.AddAdditionalCapability(MobileCapabilityType.PlatformName, GetPlatformName().ToUpper());
+            options.SetMobileOptions();
+
+            return options;
         }
 
         /// <summary>
-        /// Sets mobile specific capabilities from the configuration
+        /// Reads the AppiumCapsMaqs section and appends to the driver options
         /// </summary>
-        /// <param name="desiredCapabilities"> Capabilities object passed in</param>
-        /// <returns>Custom mobile capabilities object</returns>
-        private static DesiredCapabilities SetMobileCapabilities(this DesiredCapabilities desiredCapabilities)
+        /// <param name="appiumOptions">The driver options to make this an extension method</param>
+        /// <returns>The altered <see cref="DriverOptions"/> driver options</returns>
+        private static AppiumOptions SetMobileOptions(this AppiumOptions appiumOptions)
         {
-            if (!(ConfigurationManager.GetSection(MOBILECAPS) is NameValueCollection mobileCapabilitySection))
+            Dictionary<string, string> remoteCapabilitySection = Config.GetSection(ConfigSection.AppiumCapsMaqs);
+
+            if (remoteCapabilitySection == null)
             {
-                return desiredCapabilities;
+                return appiumOptions;
             }
 
-            foreach (var key in mobileCapabilitySection.AllKeys)
+            foreach (KeyValuePair<string, string> keyValue in remoteCapabilitySection)
             {
-                if (mobileCapabilitySection[key].Length > 0)
+                if (remoteCapabilitySection[keyValue.Key].Length > 0)
                 {
-                    desiredCapabilities.SetCapability(key, mobileCapabilitySection[key]);
+                    appiumOptions.AddAdditionalCapability(keyValue.Key, keyValue.Value);
                 }
             }
 
-            return desiredCapabilities;
+            return appiumOptions;
         }
     }
 }

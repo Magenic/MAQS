@@ -9,8 +9,8 @@ using Magenic.Maqs.BaseSeleniumTest.Extensions;
 using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
-using OpenQA.Selenium.PhantomJS;
 using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
 using System.IO;
 using System.Reflection;
 
@@ -26,13 +26,7 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Google URL
         /// </summary>
-        private string googleUrl = "https://www.google.com";
-
-        /// <summary>
-        /// Google search box css selector for standard visual browser
-        /// <para>This selector should not be included in the Phantom JS configuration this code uses</para>
-        /// </summary>
-        private string searchBoxCssSelector = "#lst-ib";
+        private string googleUrl = "https://www.magenic.com";
 
         /// <summary>
         /// Verify WaitForAbsentElement wait works
@@ -43,8 +37,8 @@ namespace SeleniumUnitTests
         {
             this.WebDriver.Navigate().GoToUrl(this.googleUrl);
 
-            // With our default driver this selector will be found
-            this.WebDriver.Wait().ForAbsentElement(By.CssSelector(this.searchBoxCssSelector));
+            Assert.AreEqual(501, this.WebDriver.Manage().Window.Size.Width, "Override sets the with to 501");
+            Assert.AreEqual(199, this.WebDriver.Manage().Window.Size.Height, "Override sets the height to 199");
         }
 
         /// <summary>
@@ -53,25 +47,10 @@ namespace SeleniumUnitTests
         /// <returns>The web driver we want to use - Web driver override</returns>
         protected override IWebDriver GetBrowser()
         {
-            IWebDriver webDriver;
+            IWebDriver driver = SeleniumConfig.Browser("Chrome");
+            driver.Manage().Window.Size = new Size(501, 199);
 
-            string currentPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string binaryPath = Path.GetFullPath(Path.Combine(currentPath, "..\\..\\..\\Binaries"));
-
-            if (File.Exists(Path.Combine(currentPath, "phantomjs.exe")))
-            {
-#pragma warning disable CS0618 // Type or member is obsolete
-                webDriver = new PhantomJSDriver(currentPath);
-#pragma warning restore CS0618 // Type or member is obsolete
-            }
-            else
-            {
-#pragma warning disable CS0618 // Type or member is obsolete
-                webDriver = new PhantomJSDriver(binaryPath);
-#pragma warning restore CS0618 // Type or member is obsolete
-            }
-
-            return webDriver;
+            return driver;
         }
     }
 }

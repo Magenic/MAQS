@@ -11,7 +11,6 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
-using OpenQA.Selenium.PhantomJS;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Safari;
 using OpenQA.Selenium.Support.UI;
@@ -87,8 +86,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                         break;
 
                     case "PHANTOMJS":
-                        webDriver = InitializePhantomJSDriver();
-                        break;
+                        throw new ArgumentException(StringProcessor.SafeFormatter("Selenium no longer supports PhantomJS", browser));
 
                     case "REMOTE":
                         webDriver = new RemoteWebDriver(new Uri(Config.GetValueForSection(SELENIUMSECTION, "HubUrl")), GetRemoteCapabilities(), GetCommandTimeout());
@@ -380,10 +378,6 @@ namespace Magenic.Maqs.BaseSeleniumTest
                     options = new SafariOptions();
                     break;
 
-                case "GENERIC":
-                    options = new GenericBrowserOptions();
-                    break;
-
                 default:
                     throw new ArgumentException(StringProcessor.SafeFormatter("Remote browser type '{0}' is not supported", remoteBrowser));
             }
@@ -413,7 +407,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <returns>The altered <see cref="DriverOptions"/> driver options</returns>
         private static DriverOptions SetDriverOptions(this DriverOptions driverOptions)
         {
-            Dictionary<string, string> remoteCapabilitySection = Config.GetSection("RemoteSeleniumCapsMaqs");
+            Dictionary<string, string> remoteCapabilitySection = Config.GetSection(ConfigSection.RemoteSeleniumCapsMaqs);
 
             if (remoteCapabilitySection == null)
             {
@@ -424,7 +418,22 @@ namespace Magenic.Maqs.BaseSeleniumTest
             {
                 if (remoteCapabilitySection[keyValue.Key].Length > 0)
                 {
-                    driverOptions.AddAdditionalCapability(keyValue.Key, keyValue.Value);
+                    if (driverOptions is ChromeOptions)
+                    {
+                        ((ChromeOptions)driverOptions).AddAdditionalCapability(keyValue.Key, keyValue.Value, true);
+                    }
+                    else if (driverOptions is FirefoxOptions)
+                    {
+                        ((FirefoxOptions)driverOptions).AddAdditionalCapability(keyValue.Key, keyValue.Value, true);
+                    }
+                    else if (driverOptions is InternetExplorerOptions)
+                    {
+                        ((InternetExplorerOptions)driverOptions).AddAdditionalCapability(keyValue.Key, keyValue.Value, true);
+                    }
+                    else
+                    {
+                        driverOptions.AddAdditionalCapability(keyValue.Key, keyValue.Value);
+                    }
                 }
             }
 
@@ -597,19 +606,6 @@ namespace Magenic.Maqs.BaseSeleniumTest
             };
 
             return new EdgeDriver(GetDriverLocation("MicrosoftWebDriver.exe", GetProgramFilesFolder("Microsoft Web Driver", "MicrosoftWebDriver.exe")), edgeOptions, GetCommandTimeout());
-        }
-
-        /// <summary>
-        /// Initialize a new PhantomJS driver
-        /// </summary>
-        /// <returns>A new PhantomJS driver</returns>
-        private static IWebDriver InitializePhantomJSDriver()
-        {
-            PhantomJSOptions phantomOptions = new PhantomJSOptions();
-            phantomOptions.AddAdditionalCapability("phantomjs.page.settings.userAgent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:26.0) Gecko/20100101 Firefox/26.0");
-#pragma warning disable CS0618 // Type or member is obsolete
-            return new PhantomJSDriver(GetDriverLocation("phantomjs.exe"), phantomOptions, GetCommandTimeout());
-#pragma warning restore CS0618 // Type or member is obsolete
         }
     }
 }
