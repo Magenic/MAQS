@@ -13,18 +13,20 @@
     <iconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</iconUrl>
     <summary>Magenic's automation quick start framework - SpecFlow extension. MAQS is a modular test automation framework that can be used as the base for your automation project or individual pieces can be used to enhance existing frameworks. Utilizing project templates, NuGet, and utility libraries we are able to have a functioning framework up and running in minutes, almost entirely removing on the initial time investment on implementating an automation solution.</summary>
     <releaseNotes>
-      5.1.0 - 2018/8/23
-      - Add granular config overrides/adds
-      - Make Driver store cleanup after itself
-      - Add Get for all driver managers
-      - Create Nuget .net Core templates
-      - Update nuspec files adding summary, release Notes, projectUrl, and tags
-      - Add status code checking to web service driver
+      5.1.1 - 2018/10/5
+      - Bug fixes and minor enhancements
+      - Build and package both .Net Standard and .Net framework libraries
+      - Reintroduce automatically adding log and screenshot files to test results
+        - For Microsoft.VisualStudio.TestTools.UnitTesting tests only
+        - Only works for .Net framework, this feature is not available for .Net core
+      - Update to Appium 4
+      - Remove generic remote browser options
+      - Pull PhantomJS support as it has been deprecated and removed from Selenium
     </releaseNotes>
     <projectUrl>https://github.com/Magenic/MAQS</projectUrl>
     <tags>test selenium appium automation NUnit MSTest TestFramework SpecFlow</tags>
     <dependencies>
-      <dependency id="Magenic.Maqs" version="5.2.0" />
+      <dependency id="Magenic.Maqs" version="5.1.1" />
       <dependency id="NUnit" version="3.10.1" />
       <dependency id="MSTest.TestFramework" version="1.2.1" />
       <dependency id="Microsoft.Extensions.Configuration" version="2.1.1" />
