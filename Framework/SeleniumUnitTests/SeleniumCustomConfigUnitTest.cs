@@ -5,14 +5,11 @@
 // <summary>Test the selenium framework with a custom configuration</summary>
 //-----------------------------------------------------
 using Magenic.Maqs.BaseSeleniumTest;
-using Magenic.Maqs.BaseSeleniumTest.Extensions;
 using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
-using System.IO;
-using System.Reflection;
 
 namespace SeleniumUnitTests
 {
@@ -37,7 +34,7 @@ namespace SeleniumUnitTests
         {
             this.WebDriver.Navigate().GoToUrl(this.googleUrl);
 
-            Assert.AreEqual(501, this.WebDriver.Manage().Window.Size.Width, "Override sets the with to 501");
+            Assert.AreEqual(701, this.WebDriver.Manage().Window.Size.Width, "Override sets the with to 701");
             Assert.AreEqual(199, this.WebDriver.Manage().Window.Size.Height, "Override sets the height to 199");
         }
 
@@ -48,7 +45,7 @@ namespace SeleniumUnitTests
         protected override IWebDriver GetBrowser()
         {
             IWebDriver driver = SeleniumConfig.Browser("Chrome");
-            driver.Manage().Window.Size = new Size(501, 199);
+            driver.Manage().Window.Size = new Size(701, 199);
 
             return driver;
         }

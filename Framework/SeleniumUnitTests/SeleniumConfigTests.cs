@@ -77,7 +77,7 @@ namespace UnitTests
              */
 
             // Using PhantomJS because headless Chrome does not respect Maximize as of 8/24/2018
-            var driverManualSize = SeleniumConfig.Browser("PhantomJS");
+            var driverManualSize = SeleniumConfig.Browser("Chrome");
 
             try
             {
@@ -94,7 +94,7 @@ namespace UnitTests
                    "SeleniumMaqs",
                    true);
 
-                var driverConfigSize = SeleniumConfig.Browser("PhantomJS");
+                var driverConfigSize = SeleniumConfig.Browser("Chrome");
 
                 try
                 {
