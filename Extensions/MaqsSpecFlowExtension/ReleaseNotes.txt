@@ -1,5 +1,15 @@
 MAQS SpecFlow ExtensionRelease Notes:
 
+5.1.1 - 2018/10/5
+	- Bug fixes and minor enhancements
+		- Build and package both .Net Standard and .Net framework libraries
+		- Reintroduce automatically adding log and screenshot files to test results
+			- For Microsoft.VisualStudio.TestTools.UnitTesting tests only 
+			- Only works for .Net framework, this feature is not available for .Net core
+		- Update to Appium 4
+		- Remove generic remote browser options
+		- Pull PhantomJS support as it has been deprecated and removed from Selenium
+
 5.0.0 - 2018/07/11
 	- Extension built out
 		- Update to use MAQS V5
@@ -7,6 +17,6 @@ MAQS SpecFlow ExtensionRelease Notes:
 
 1.0.0 - 2018/01/12
 	- Extension built out
-		- Step files connect to all types of Maqs test classes
+		- Step files connect to all types of MAQS test classes
 		- Project and Item templates created
 		- VSIX project created

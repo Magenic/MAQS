@@ -11,7 +11,6 @@
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.6" />
     <PackageReference Include="NUnit" Version="3.10.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
-    <PackageReference Include="PhantomJS" Version="2.1.1" />
     <PackageReference Include="Selenium.WebDriver" Version="3.13.1" />
     <PackageReference Include="Selenium.Support" Version="3.13.1" />
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="2.40.0" />
@@ -43,7 +42,6 @@
   </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(SolutionDir)packages\chromedriver.exe"') do copy /Y "%25%25m" "$(TargetDir)"
-FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(SolutionDir)packages\phantomjs.exe"') do copy /Y "%25%25m" "$(TargetDir)"
 FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(SolutionDir)packages\IEDriverServer.exe"') do copy /Y "%25%25m" "$(TargetDir)"
 FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(SolutionDir)packages\geckodriver.exe"') do copy /Y "%25%25m" "$(TargetDir)"
 FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(SolutionDir)packages\MicrosoftWebDriver.exe"') do copy /Y "%25%25m" "$(TargetDir)" </PostBuildEvent>
