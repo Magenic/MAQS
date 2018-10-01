@@ -39,30 +39,30 @@
   </PropertyGroup>
   <ItemGroup>
 	<Reference Include="Magenic.Maqs.BaseTest">
-      <HintPath>..\..\packages\Magenic.Maqs.5.1.0\lib\netstandard2.0\Magenic.Maqs.BaseTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Maqs.5.1.1\lib\netstandard2.0\Magenic.Maqs.BaseTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseAppiumTest">
-      <HintPath>..\..\packages\Magenic.Maqs.5.1.0\lib\net471\Magenic.Maqs.BaseAppiumTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Maqs.5.1.1\lib\net471\Magenic.Maqs.BaseAppiumTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseDatabaseTest">
-      <HintPath>..\..\packages\Magenic.Maqs.5.1.0\lib\netstandard2.0\Magenic.Maqs.BaseDatabaseTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Maqs.5.1.1\lib\netstandard2.0\Magenic.Maqs.BaseDatabaseTest.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseEmailTest">
-      <HintPath>..\..\packages\Magenic.Maqs.5.1.0\lib\netstandard2.0\Magenic.Maqs.BaseEmailTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Maqs.5.1.1\lib\netstandard2.0\Magenic.Maqs.BaseEmailTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseSeleniumTest">
-      <HintPath>..\..\packages\Magenic.Maqs.5.1.0\lib\netstandard2.0\Magenic.Maqs.BaseSeleniumTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Maqs.5.1.1\lib\netstandard2.0\Magenic.Maqs.BaseSeleniumTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.Maqs.Utilities">
-      <HintPath>..\..\packages\Magenic.Maqs.5.1.0\lib\netstandard2.0\Magenic.Maqs.Utilities.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Maqs.5.1.1\lib\netstandard2.0\Magenic.Maqs.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.Maqs.WebServiceTester">
-      <HintPath>..\..\packages\Magenic.Maqs.5.1.0\lib\netstandard2.0\Magenic.Maqs.WebServiceTester.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Maqs.5.1.1\lib\netstandard2.0\Magenic.Maqs.WebServiceTester.dll</HintPath>
       <Private>True</Private>
     </Reference>
 	<Reference Include="appium-dotnet-driver">
-      <HintPath>..\..\packages\Appium.WebDriver.3.0.0.2\lib\net45\appium-dotnet-driver.dll</HintPath>
+      <HintPath>..\..\packages\Appium.WebDriver.4.0.0.3-beta\lib\net45\appium-dotnet-driver.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core, Version=4.0.0.0">
       <HintPath>..\..\packages\Castle.Core.4.3.1\lib\net45\Castle.Core.dll</HintPath>
@@ -173,11 +173,11 @@
     <Reference Include="System.Net.Http.WebRequest" />
 	<Reference Include="System.Security" />
     <Reference Include="WebDriver">
-      <HintPath>..\..\packages\Selenium.WebDriver.3.13.1\lib\net40\WebDriver.dll</HintPath>
+      <HintPath>..\..\packages\Selenium.WebDriver.3.14.0\lib\net40\WebDriver.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="WebDriver.Support">
-      <HintPath>..\..\packages\Selenium.Support.3.13.1\lib\net40\WebDriver.Support.dll</HintPath>
+      <HintPath>..\..\packages\Selenium.Support.3.14.0\lib\net40\WebDriver.Support.dll</HintPath>
       <Private>True</Private>
     </Reference>
 	<Reference Include="System.Text.Encoding.CodePages">
