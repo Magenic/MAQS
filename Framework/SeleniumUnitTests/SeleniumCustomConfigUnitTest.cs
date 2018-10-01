@@ -26,7 +26,7 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Google URL
         /// </summary>
-        private string googleUrl = "https://www.magenic.com";
+        private readonly string googleUrl = "https://www.magenic.com";
 
         /// <summary>
         /// Verify WaitForAbsentElement wait works

@@ -283,8 +283,7 @@ namespace SeleniumUnitTests
         public void TryWaitForAttributeTextContains()
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
-            IWebElement element;
-            bool found = this.WebDriver.Wait().TryForAttributeTextContains(AsyncLoadingTextDiv, "none;", "style", element: out element);
+            bool found = this.WebDriver.Wait().TryForAttributeTextContains(AsyncLoadingTextDiv, "none;", "style", element: out IWebElement element);
             Assert.IsTrue(found, "False was returned");
             Assert.IsNotNull(element, "Null element was returned");
         }
@@ -297,8 +296,7 @@ namespace SeleniumUnitTests
         public void TryWaitForAttributeTextContainsDontFind()
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
-            IWebElement element;
-            bool found = this.WebDriver.Wait().TryForAttributeTextContains(FoodTable, "Flower Table", "Summmary", out element);
+            bool found = this.WebDriver.Wait().TryForAttributeTextContains(FoodTable, "Flower Table", "Summmary", out IWebElement element);
             Assert.IsFalse(found, "True was unexpectedly returned");
             Assert.IsNull(element, "Element was not null");
         }
@@ -313,8 +311,7 @@ namespace SeleniumUnitTests
         public void TryWaitForAttributeTextEquals()
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
-            IWebElement element;
-            bool found = this.WebDriver.Wait().TryForAttributeTextEquals(AsyncLoadingTextDiv, "display: block;", "style", out element);
+            bool found = this.WebDriver.Wait().TryForAttributeTextEquals(AsyncLoadingTextDiv, "display: block;", "style", out IWebElement element);
             Assert.IsTrue(found, "False was returned");
             Assert.IsNotNull(element, "Null element was returned");
         }
@@ -327,8 +324,7 @@ namespace SeleniumUnitTests
         public void TryWaitForAttributeTextEqualsDontFind()
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
-            IWebElement element;
-            bool found = this.WebDriver.Wait().TryForAttributeTextEquals(FoodTable, "Flower Table", "Summmary", out element);
+            bool found = this.WebDriver.Wait().TryForAttributeTextEquals(FoodTable, "Flower Table", "Summmary", out IWebElement element);
             Assert.IsFalse(found, "True was unexpectedly returned");
             Assert.IsNull(element, "Element was not null");
         }
@@ -343,8 +339,7 @@ namespace SeleniumUnitTests
         public void TryWaitForClickableElement()
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
-            IWebElement element;
-            bool found = this.WebDriver.Wait().TryForClickableElement(HomeButtonCssSelector, out element);
+            bool found = this.WebDriver.Wait().TryForClickableElement(HomeButtonCssSelector, out IWebElement element);
             Assert.IsTrue(found, "False was returned");
             Assert.IsNotNull(element, "Null element was returned");
         }
@@ -359,8 +354,7 @@ namespace SeleniumUnitTests
         public void TryScrollIntoViewElement()
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
-            IWebElement element;
-            bool found = this.WebDriver.Wait().TryForClickableElementAndScrollIntoView(AutomationShowDialog1, out element);
+            bool found = this.WebDriver.Wait().TryForClickableElementAndScrollIntoView(AutomationShowDialog1, out IWebElement element);
             Assert.IsTrue(found, "False was returned.");
             Assert.IsNotNull(element, "Failed to find element.");
         }
@@ -375,8 +369,7 @@ namespace SeleniumUnitTests
         public void TryWaitForContainsText()
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
-            IWebElement element;
-            bool found = this.WebDriver.Wait().TryForContainsText(AutomationNamesLabel, "Name", out element);
+            bool found = this.WebDriver.Wait().TryForContainsText(AutomationNamesLabel, "Name", out IWebElement element);
             Assert.IsTrue(found, "False was returned");
             Assert.IsNotNull(element, "Null element was returned");
         }
@@ -391,8 +384,7 @@ namespace SeleniumUnitTests
         public void TryWaitForElementExist()
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
-            IWebElement element;
-            bool found = this.WebDriver.Wait().TryForElementExist(HomeButtonCssSelector, out element);
+            bool found = this.WebDriver.Wait().TryForElementExist(HomeButtonCssSelector, out IWebElement element);
             Assert.IsTrue(found, "False was returned");
             Assert.IsNotNull(element, "Null element was returned");
         }
@@ -407,8 +399,7 @@ namespace SeleniumUnitTests
         public void TryWaitUntilExactText()
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
-            IWebElement element;
-            bool found = this.WebDriver.Wait().TryForExactText(AsyncOptionsLabel, "Options", out element);
+            bool found = this.WebDriver.Wait().TryForExactText(AsyncOptionsLabel, "Options", out IWebElement element);
             Assert.IsTrue(found, "False was returned");
             Assert.IsNotNull(element, "Null element was returned");
         }
@@ -423,8 +414,7 @@ namespace SeleniumUnitTests
         public void TryWaitForVisibleElement()
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
-            IWebElement element;
-            bool found = this.WebDriver.Wait().TryForVisibleElement(AsyncDropdownCssSelector, out element);
+            bool found = this.WebDriver.Wait().TryForVisibleElement(AsyncDropdownCssSelector, out IWebElement element);
             Assert.IsTrue(found, "False was returned");
             Assert.IsNotNull(element, "Null element was returned");
         }
@@ -1185,8 +1175,7 @@ namespace SeleniumUnitTests
             this.TestObject.SetValue("1", "one");
 
             Assert.AreEqual(this.TestObject.Values["1"], "one");
-            string outValue;
-            Assert.IsFalse(this.TestObject.Values.TryGetValue("2", out outValue), "Didn't expect to get value for key '2', but got " + outValue);
+            Assert.IsFalse(this.TestObject.Values.TryGetValue("2", out string outValue), "Didn't expect to get value for key '2', but got " + outValue);
         }
 
         /// <summary>
@@ -1202,8 +1191,7 @@ namespace SeleniumUnitTests
 
             Assert.AreEqual(this.TestObject.Objects["1"], builder);
 
-            object outObject;
-            Assert.IsFalse(this.TestObject.Objects.TryGetValue("2", out outObject), "Didn't expect to get value for key '2'");
+            Assert.IsFalse(this.TestObject.Objects.TryGetValue("2", out object outObject), "Didn't expect to get value for key '2'");
 
             builder.Append("123");
 
