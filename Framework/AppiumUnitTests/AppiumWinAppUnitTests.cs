@@ -38,10 +38,11 @@ namespace AppiumUnitTests
         /// <returns>Windows application driver instance of the Appium Driver</returns>
         protected override AppiumDriver<IWebElement> GetMobileDevice()
         {
-            DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.SetCapability("app", "Microsoft.WindowsCalculator_8wekyb3d8bbwe!App");
-            capabilities.SetCapability(MobileCapabilityType.Udid, "0C0E26E7-966B-4C89-A765-32C5C997A456");
-            return new WindowsDriver<IWebElement>(new Uri("http://127.0.0.1:4723"), capabilities);
+            AppiumOptions options = new AppiumOptions();
+
+            options.AddAdditionalCapability("app", "Microsoft.WindowsCalculator_8wekyb3d8bbwe!App");
+            options.AddAdditionalCapability(MobileCapabilityType.Udid, "0C0E26E7-966B-4C89-A765-32C5C997A456");
+            return new WindowsDriver<IWebElement>(new Uri("http://127.0.0.1:4723"), options);
         }
     }
 }

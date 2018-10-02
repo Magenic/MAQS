@@ -1,4 +1,14 @@
-Maqs Framework Release Notes:
+MAQS Framework Release Notes:
+
+5.1.1 - 2018/10/5
+	Bug fixes and minor enhancements
+	- Build and package both .Net Standard and .Net framework libraries
+	- Reintroduce automatically adding log and screenshot files to test results
+		- For Microsoft.VisualStudio.TestTools.UnitTesting tests only 
+		- Only works for .Net framework, this feature is not available for .Net core
+	- Remove generic remote browser options
+	- Pull PhantomJS support as it has been deprecated and removed from Selenium
+
 5.1.0 - 2018/8/23
 	Bug fixes and minor enhancements
 	- Add granular config overrides/adds
@@ -15,7 +25,7 @@ Maqs Framework Release Notes:
 	- Remove FluentElement
 	- Remove NUnit testing shim
 	- Documentation is now hosted on https://magenic.github.io/MAQS/#/
-	- Rename all wrappers drivers for consistancy
+	- Rename all wrappers drivers for consistency
 	- Create driver managers to manage setup and cleanup of drivers
 	- Create driver store so you can add as many drivers (Selenium web drivers) as you want in a single test
 	- Break the app.config sections up so they are driver specific
