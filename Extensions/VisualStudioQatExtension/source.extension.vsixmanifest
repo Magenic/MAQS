@@ -6,7 +6,7 @@
         <Description xml:space="preserve">Magenic's automation quick start framework</Description>
         <MoreInfo>https://magenic.com/what-we-do/support-optimization/quality-assurance</MoreInfo>
         <License>License.txt</License>
-        <GettingStartedGuide>https://magenic.github.io/MAQS/#/MAQS_5.0.0/Introduction</GettingStartedGuide>
+        <GettingStartedGuide>https://magenic.github.io/MAQS/#/MAQS_5/Introduction</GettingStartedGuide>
         <ReleaseNotes>ReleaseNotes.txt</ReleaseNotes>
         <Icon>QATTest.ico</Icon>
         <PreviewImage>QATTest.ico</PreviewImage>
