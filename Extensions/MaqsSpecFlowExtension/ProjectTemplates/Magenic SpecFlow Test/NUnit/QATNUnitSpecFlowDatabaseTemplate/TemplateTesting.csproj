@@ -44,16 +44,16 @@
       <HintPath>..\packages\Dapper.Contrib.1.50.5\lib\net451\Dapper.Contrib.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.Maqs.SpecFlow">
-      <HintPath>..\packages\Magenic.Maqs.SpecFlow.5.0.0\lib\net471\Magenic.Maqs.SpecFlow.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.SpecFlow.5.1.1\lib\net471\Magenic.Maqs.SpecFlow.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseDatabaseTest">
-      <HintPath>..\packages\Magenic.Maqs.5.0.0\lib\netstandard2.0\Magenic.Maqs.BaseDatabaseTest.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.5.1.1\lib\net471\Magenic.Maqs.BaseDatabaseTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseTest">
-      <HintPath>..\packages\Magenic.Maqs.5.0.0\lib\netstandard2.0\Magenic.Maqs.BaseTest.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.5.1.1\lib\net471\Magenic.Maqs.BaseTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.Maqs.Utilities">
-      <HintPath>..\packages\Magenic.Maqs.5.0.0\lib\netstandard2.0\Magenic.Maqs.Utilities.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.5.1.1\lib\net471\Magenic.Maqs.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="TechTalk.SpecFlow">
       <HintPath>..\packages\SpecFlow.2.3.2\lib\net45\TechTalk.SpecFlow.dll</HintPath>

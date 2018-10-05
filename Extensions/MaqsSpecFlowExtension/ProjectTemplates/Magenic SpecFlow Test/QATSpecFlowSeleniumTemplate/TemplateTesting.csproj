@@ -38,25 +38,25 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Magenic.Maqs.BaseAppiumTest">
-      <HintPath>..\packages\Magenic.Maqs.5.0.0\lib\net471\Magenic.Maqs.BaseAppiumTest.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.5.1.1\lib\net471\Magenic.Maqs.BaseAppiumTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseDatabaseTest">
-      <HintPath>..\packages\Magenic.Maqs.5.0.0\lib\netstandard2.0\Magenic.Maqs.BaseDatabaseTest.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.5.1.1\lib\net471\Magenic.Maqs.BaseDatabaseTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseEmailTest">
-      <HintPath>..\packages\Magenic.Maqs.5.0.0\lib\netstandard2.0\Magenic.Maqs.BaseEmailTest.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.5.1.1\lib\net471\Magenic.Maqs.BaseEmailTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseSeleniumTest">
-      <HintPath>..\packages\Magenic.Maqs.5.0.0\lib\netstandard2.0\Magenic.Maqs.BaseSeleniumTest.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.5.1.1\lib\net471\Magenic.Maqs.BaseSeleniumTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseTest">
-      <HintPath>..\packages\Magenic.Maqs.5.0.0\lib\netstandard2.0\Magenic.Maqs.BaseTest.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.5.1.1\lib\net471\Magenic.Maqs.BaseTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.Maqs.Utilities">
-      <HintPath>..\packages\Magenic.Maqs.5.0.0\lib\netstandard2.0\Magenic.Maqs.Utilities.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.5.1.1\lib\net471\Magenic.Maqs.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.Maqs.WebServiceTester">
-      <HintPath>..\packages\Magenic.Maqs.5.0.0\lib\netstandard2.0\Magenic.Maqs.WebServiceTester.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.5.1.1\lib\net471\Magenic.Maqs.WebServiceTester.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework">
       <HintPath>..\packages\MSTest.TestFramework.1.3.0-beta2\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
@@ -71,7 +71,7 @@
       <HintPath>..\packages\NUnit.3.10.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.Maqs.SpecFlow">
-      <HintPath>..\packages\Magenic.Maqs.SpecFlow.5.0.0\lib\net471\Magenic.Maqs.SpecFlow.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.SpecFlow.5.1.1\lib\net471\Magenic.Maqs.SpecFlow.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -81,10 +81,10 @@
       <HintPath>..\packages\SpecFlow.2.3.2\lib\net45\TechTalk.SpecFlow.dll</HintPath>
     </Reference>
     <Reference Include="WebDriver, Version=3.13.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Selenium.WebDriver.3.13.1\lib\net45\WebDriver.dll</HintPath>
+      <HintPath>..\packages\Selenium.WebDriver.3.14.0\lib\net45\WebDriver.dll</HintPath>
     </Reference>
     <Reference Include="WebDriver.Support, Version=3.13.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Selenium.Support.3.13.1\lib\net45\WebDriver.Support.dll</HintPath>
+      <HintPath>..\packages\Selenium.Support.3.14.0\lib\net45\WebDriver.Support.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.Configuration">
       <HintPath>..\packages\Microsoft.Extensions.Configuration.2.1.1\lib\netstandard2.0\Microsoft.Extensions.Configuration.dll</HintPath>

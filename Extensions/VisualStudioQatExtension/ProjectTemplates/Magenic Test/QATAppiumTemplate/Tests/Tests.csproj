@@ -39,14 +39,14 @@
   </PropertyGroup>
   <ItemGroup>
 	<Reference Include="Magenic.Maqs.BaseTest">
-      <HintPath>..\..\packages\Magenic.Maqs.5.1.1\lib\netstandard2.0\Magenic.Maqs.BaseTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Maqs.5.1.1\lib\net471\Magenic.Maqs.BaseTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseAppiumTest">
       <HintPath>..\..\packages\Magenic.Maqs.5.1.1\lib\net471\Magenic.Maqs.BaseAppiumTest.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Magenic.Maqs.Utilities">
-      <HintPath>..\..\packages\Magenic.Maqs.5.1.1\lib\netstandard2.0\Magenic.Maqs.Utilities.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Maqs.5.1.1\lib\net471\Magenic.Maqs.Utilities.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="appium-dotnet-driver">
