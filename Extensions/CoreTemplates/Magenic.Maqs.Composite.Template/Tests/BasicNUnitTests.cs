@@ -7,7 +7,7 @@ namespace Tests
     /// BasicNUnitTest test class with NUnit
     /// </summary>
     [TestFixture]
-    public class BasicNUnitTest : BaseTest
+    public class BasicNUnitTests : BaseTest
     {
         /// <summary>
         /// Sample test

@@ -1,12 +1,11 @@
-﻿using System;
-using Magenic.Maqs.BaseAppiumTest;
+﻿using Magenic.Maqs.BaseAppiumTest;
 using OpenQA.Selenium;
-namespace PageModel
+namespace Models.Mobile
 {
-     /// <summary>
-    /// Page object for the AndroidLoginPageModel inheriting from the ALoginPageModel
+    /// <summary>
+    /// Page object for the IOSLoginPageModel inheriting from the ALoginPageModel
     /// </summary>
-    public class AndroidLoginPageModel : ALoginPageModel
+    public class IOSLoginPageModel : ALoginPageModel
     {
         /// <summary>
         /// The user name input element 'By' finder
@@ -41,10 +40,10 @@ namespace PageModel
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AndroidLoginPageModel" /> class.
+        /// Initializes a new instance of the <see cref="IOSLoginPageModel" /> class.
         /// </summary>
         /// <param name="testObject">The appium test object</param>
-        public AndroidLoginPageModel(AppiumTestObject testObject)
+        public IOSLoginPageModel(AppiumTestObject testObject)
         {
             this.TestObject = testObject;
         }
@@ -55,7 +54,7 @@ namespace PageModel
         /// <returns>The iOS version of the HomePageModel</returns>
         protected override AHomePageModel GetHomePageModel()
         {
-            return new AndroidHomePageModel(TestObject);
+            return new IOSHomePageModel(TestObject);
         }
     }
 }

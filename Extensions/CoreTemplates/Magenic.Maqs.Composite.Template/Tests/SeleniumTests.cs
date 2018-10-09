@@ -13,7 +13,7 @@ namespace Tests
     /// Composite Selenium test class
     /// </summary>
     [TestClass]
-    public class SeleniumTest : BaseSeleniumTest
+    public class SeleniumTests : BaseSeleniumTest
     {
         /// <summary>
         /// Do database setup for test run
