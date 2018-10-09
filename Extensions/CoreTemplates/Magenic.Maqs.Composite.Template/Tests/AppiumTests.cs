@@ -4,15 +4,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.iOS;
 using OpenQA.Selenium.Appium.Android;
-using PageModel;
+using Models.Mobile;
 
 namespace Tests
 {
     /// <summary>
-    /// AppiumTestsVSUnit test class with VSUnit
+    /// AppiumTests test class with VSUnit
     /// </summary>
     [TestClass]
-    public class AppiumTestsVSUnit : BaseAppiumTest
+    public class AppiumTests : BaseAppiumTest
     {
          /// <summary>
         /// The starting page

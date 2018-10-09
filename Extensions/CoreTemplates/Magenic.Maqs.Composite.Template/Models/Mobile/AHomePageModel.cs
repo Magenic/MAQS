@@ -1,7 +1,7 @@
 ﻿using Magenic.Maqs.BaseAppiumTest;
 using Magenic.Maqs.BaseSeleniumTest.Extensions;
 using OpenQA.Selenium;
-namespace PageModel
+namespace Models.Mobile
 {
     /// <summary>
     /// Page object for AHomePageModel

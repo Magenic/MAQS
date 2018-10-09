@@ -1,12 +1,11 @@
-﻿using System;
-using Magenic.Maqs.BaseAppiumTest;
+﻿using Magenic.Maqs.BaseAppiumTest;
 using OpenQA.Selenium;
-namespace PageModel
+namespace Models.Mobile
 {
     /// <summary>
-    /// Page object for AndroidHomePageModel inheriting from the AHomePageModel
+    /// Page object for IOSHomePageModel inheriting from the AHomePageModel
     /// </summary>
-    public class AndroidHomePageModel : AHomePageModel
+    public class IOSHomePageModel : AHomePageModel
     {
         /// <summary>
         /// The greeting message element 'By' finder
@@ -33,10 +32,10 @@ namespace PageModel
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AndroidHomePageModel" /> class.
+        /// Initializes a new instance of the <see cref="IOSHomePageModel" /> class.
         /// </summary>
         /// <param name="testObject">The appium test object</param>
-        public AndroidHomePageModel(AppiumTestObject testObject)
+        public IOSHomePageModel(AppiumTestObject testObject)
         {
             this.TestObject = testObject;
         }

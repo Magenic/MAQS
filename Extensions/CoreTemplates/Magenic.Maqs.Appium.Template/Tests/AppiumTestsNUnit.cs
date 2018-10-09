@@ -6,13 +6,13 @@ using OpenQA.Selenium.Appium.iOS;
 using OpenQA.Selenium.Appium.Android;
 using PageModel;
 
-namespace $safeprojectname$
+namespace Tests
 {
     /// <summary>
-    /// $safeitemname$ test class with NUnit
+    /// AppiumTestsNUnit test class with NUnit
     /// </summary>
     [TestFixture]
-    public class $safeitemname$ : BaseAppiumTest
+    public class AppiumTestsNUnit : BaseAppiumTest
     {
          /// <summary>
         /// The starting page

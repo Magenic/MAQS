@@ -1,6 +1,6 @@
 ﻿using Magenic.Maqs.BaseAppiumTest;
 using OpenQA.Selenium;
-namespace $safeprojectname$
+namespace PageModel
 {
     /// <summary>
     /// Page object for the IOSLoginPageModel inheriting from the ALoginPageModel

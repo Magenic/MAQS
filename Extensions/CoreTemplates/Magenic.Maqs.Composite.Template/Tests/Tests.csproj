@@ -5,6 +5,7 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Appium.WebDriver" Version="4.0.0.3-beta" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="MailKit" Version="2.0.4" />
     <PackageReference Include="MimeKit" Version="2.0.4" />
