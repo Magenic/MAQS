@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Magenic",
+  "classifications": [ "Test" ], 
+  "name": "Magenic.Maqs.Appium",
+  "identity": "Magenic.Maqs.Appium.CSharp",         
+  "groupIdentity":"Magenic.Maqs.Appium.Sample",
+  "shortName": "Maqs.Appium",
+  "tags": {
+    "language": "C#",
+    "type":"project"
+  },
+  "sourceName": "Tests"
+}
