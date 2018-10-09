@@ -8,7 +8,7 @@ namespace $safeprojectname$
     public class IOSHomePageModel : AHomePageModel
     {
         /// <summary>
-        /// The user name input element 'By' finder
+        /// The greeting message element 'By' finder
         /// </summary>
         protected override LazyMobileElement GreetingMessage
         {
@@ -16,7 +16,7 @@ namespace $safeprojectname$
         }
 
         /// <summary>
-        /// The user name input element 'By' finder
+        /// The time description element 'By' finder
         /// </summary>
         protected override LazyMobileElement TimeDisc
         {
@@ -24,7 +24,7 @@ namespace $safeprojectname$
         }
 
         /// <summary>
-        /// The password input element 'By' finder
+        /// The time element 'By' finder
         /// </summary>
         protected override LazyMobileElement Time
         {

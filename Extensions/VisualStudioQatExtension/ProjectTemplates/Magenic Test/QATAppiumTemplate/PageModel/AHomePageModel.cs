@@ -14,42 +14,42 @@ namespace $safeprojectname$
         protected AppiumTestObject TestObject;
 
         /// <summary>
-        /// The user name input element 'By' finder
+        /// The greeting message element 'By' finder
         /// </summary>
         protected abstract LazyMobileElement GreetingMessage { get; }
 
         /// <summary>
-        /// The user name input element 'By' finder
+        /// The time description input element 'By' finder
         /// </summary>
         protected abstract LazyMobileElement TimeDisc { get; }
 
         /// <summary>
-        /// The password input element 'By' finder
+        /// The time element 'By' finder
         /// </summary>
         protected abstract LazyMobileElement Time { get; }
 
         /// <summary>
-        /// Get username text from label
+        /// Get greeting text from label
         /// </summary>
-        /// <returns>username text string</returns>
+        /// <returns>Greeting text string</returns>
         public string GetGreetingMessage()
         {
             return GreetingMessage.Text;
         }
 
         /// <summary>
-        /// Get username text from label
+        /// Get the time description text from label
         /// </summary>
-        /// <returns>username text string</returns>
+        /// <returns>Time description text string</returns>
         public string GetTimeDiscription()
         {
             return TimeDisc.Text;
         }
 
         /// <summary>
-        /// Get password text from label
+        /// Get time from label
         /// </summary>
-        /// /// <returns>password text string</returns>
+        /// /// <returns>Time text string</returns>
         public string GetTime()
         {
             return Time.Text;
