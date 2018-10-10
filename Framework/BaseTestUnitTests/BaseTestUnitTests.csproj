@@ -102,10 +102,12 @@
   <ItemGroup>
     <ProjectReference Include="..\BaseTest\BaseTest.csproj">
       <Project>{2194bdf2-6625-41ec-a7c1-bffa14687503}</Project>
+	  <SetTargetFramework>TargetFramework=net471</SetTargetFramework>
       <Name>BaseTest</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utilities\Utilities.csproj">
       <Project>{aa8faa47-1380-424b-85b7-41f52a6b1f9d}</Project>
+	  <SetTargetFramework>TargetFramework=net471</SetTargetFramework>
       <Name>Utilities</Name>
     </ProjectReference>
   </ItemGroup>

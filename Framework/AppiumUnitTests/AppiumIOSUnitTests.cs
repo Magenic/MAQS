@@ -37,14 +37,15 @@ namespace AppiumUnitTests
         /// <returns>iOS instance of the Appium Driver</returns>
         protected override AppiumDriver<IWebElement> GetMobileDevice()
         {
-            DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.SetCapability(CapabilityType.Platform, "MAC");
-            capabilities.SetCapability(CapabilityType.Version, "10.3");
-            capabilities.SetCapability("deviceName", "iPhone 7");
-            capabilities.SetCapability("bundleId", "com.teamtreehouse.Diary");
-            capabilities.SetCapability("automationName", "XCUITest");
-            capabilities.SetCapability(MobileCapabilityType.Udid, "0C0E26E7-966B-4C89-A765-32C5C997A456");
-            return new IOSDriver<IWebElement>(AppiumConfig.GetMobileHubUrl(), capabilities);
+            AppiumOptions options = new AppiumOptions();
+
+            options.AddAdditionalCapability(CapabilityType.Platform, "MAC");
+            options.AddAdditionalCapability(CapabilityType.Version, "10.3");
+            options.AddAdditionalCapability("deviceName", "iPhone 7");
+            options.AddAdditionalCapability("bundleId", "com.teamtreehouse.Diary");
+            options.AddAdditionalCapability("automationName", "XCUITest");
+            options.AddAdditionalCapability(MobileCapabilityType.Udid, "0C0E26E7-966B-4C89-A765-32C5C997A456");
+            return new IOSDriver<IWebElement>(AppiumConfig.GetMobileHubUrl(), options);
         }
     }
 }

@@ -10,10 +10,8 @@ It …
 The main idea behind MAQS is to avoid **reinventing the wheel**. Most automation engagements have you doing the same basic steps to get a functioning framework implemented. Utilizing project templates, NuGet, and utility libraries we are able to have a functioning framework up and running in minutes, almost entirely removing on the initial time investment on implementating an automation solution.
 
 ## Help files
-* [MAQS 4.0.5](https://magenic.github.io/MAQS/#/MAQS_4.0.5/Introduction)
-* [MAQS 4.0.6](https://magenic.github.io/MAQS/#/MAQS_4.0.6/Introduction)
-* [MAQS 5.0.0](https://magenic.github.io/MAQS/#/MAQS_5.0.0/Introduction)
-* [MAQS 5.1.0](https://magenic.github.io/MAQS/#/MAQS_5.1.0/Introduction)
+* [MAQS 4](https://magenic.github.io/MAQS/#/MAQS_4/Introduction)
+* [MAQS 5](https://magenic.github.io/MAQS/#/MAQS_5/Introduction)
 
 ## License
 The MIT License (MIT)

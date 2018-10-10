@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>5.1.0</AssemblyVersion>
-    <FileVersion>5.1.0</FileVersion>
-    <Version>5.1.0</Version>
+    <TargetFrameworks>net471;netstandard2.0</TargetFrameworks>
+    <AssemblyVersion>5.1.1</AssemblyVersion>
+    <FileVersion>5.1.1</FileVersion>
+    <Version>5.1.1</Version>
     <AssemblyName>Magenic.Maqs.BaseSeleniumTest</AssemblyName>
     <RootNamespace>Magenic.Maqs.BaseSeleniumTest</RootNamespace>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>
@@ -16,8 +16,8 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Selenium.Support" Version="3.13.1" />
-    <PackageReference Include="Selenium.WebDriver" Version="3.13.1" />
+    <PackageReference Include="Selenium.Support" Version="3.14.0" />
+    <PackageReference Include="Selenium.WebDriver" Version="3.14.0" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.5.0" />
   </ItemGroup>
   

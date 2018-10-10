@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>net471;netstandard2.0</TargetFrameworks>
     <AssemblyName>Magenic.Maqs.Utilities</AssemblyName>
     <RootNamespace>Magenic.Maqs.Utilities</RootNamespace>
-    <AssemblyVersion>5.1.0</AssemblyVersion>
-    <FileVersion>5.1.0</FileVersion>
-    <Version>5.1.0</Version>
+    <AssemblyVersion>5.1.1</AssemblyVersion>
+    <FileVersion>5.1.1</FileVersion>
+    <Version>5.1.1</Version>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>
   </PropertyGroup>
 
@@ -25,5 +25,13 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.1" />
   </ItemGroup>
+
+  <Choose>
+    <When Condition=" '$(TargetFramework)' != 'netstandard2.0' ">
+      <ItemGroup>
+        <Reference Include="System.Web" />
+      </ItemGroup>
+    </When>
+  </Choose>
 
 </Project>

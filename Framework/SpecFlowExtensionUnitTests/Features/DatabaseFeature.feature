@@ -2,7 +2,7 @@
 	Database Tests
 
 @MAQS_Database
-Scenario: DatabaseDriver Available BaseDatabaseTestSteps
+Scenario: Driver in BaseDatabaseTestSteps
 	Given class BaseDatabaseTestSteps
 	Then DatabaseDriver is not null
 	And DatabaseDriver is type DatabaseConnectionDriver

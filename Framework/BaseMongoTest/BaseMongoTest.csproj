@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>5.1.0</Version>
+    <TargetFrameworks>net471;netstandard2.0</TargetFrameworks>
+    <Version>5.1.1</Version>
     <AssemblyName>Magenic.Maqs.BaseMongoTest</AssemblyName>
     <RootNamespace>Magenic.Maqs.BaseMongoTest</RootNamespace>
     <PackageId>Magenic.Maqs.BaseMongoTest</PackageId>

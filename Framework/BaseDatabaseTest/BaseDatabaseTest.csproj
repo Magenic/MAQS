@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>net471;netstandard2.0</TargetFrameworks>
     <AssemblyName>Magenic.Maqs.BaseDatabaseTest</AssemblyName>
     <RootNamespace>Magenic.Maqs.BaseDatabaseTest</RootNamespace>
-    <Version>5.1.0</Version>
+    <Version>5.1.1</Version>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>
   </PropertyGroup>
 
@@ -17,7 +17,7 @@
     <PackageReference Include="Dapper" Version="1.50.5" />
     <PackageReference Include="Dapper.Contrib" Version="1.50.5" />
     <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="2.1.0" />
-    <PackageReference Include="Npgsql" Version="4.0.1" />
+    <PackageReference Include="Npgsql" Version="4.0.3" />
     <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="1.1.11" />
     <PackageReference Include="SQLitePCLRaw.core" Version="1.1.11" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />

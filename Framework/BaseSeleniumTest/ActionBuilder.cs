@@ -61,8 +61,6 @@ namespace Magenic.Maqs.BaseSeleniumTest
 
         /// <summary>
         /// Performs a right-click on an element
-        /// Known Issue: This does not currently work for PhantomJS due to known issue with Right-Click. Issue may be resolved in future versions of PhantomJS.
-        /// URL for Issue: <c>https://github.com/ariya/phantomjs/issues/11429</c>
         /// </summary>
         /// <param name="webDriver">The IWebDriver</param>
         /// <param name="by">By selector for the element</param>

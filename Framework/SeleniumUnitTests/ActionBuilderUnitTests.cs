@@ -123,10 +123,7 @@ namespace SeleniumUnitTests
 
         /// <summary>
         /// Check that a right-click context menu can be triggered successfully
-        /// Known Issue: This does not currently pass for PhantomJS due to known issue with Right-Click. Issue may be resolved in future versions of PhantomJS.
-        /// URL for Issue: <c>https://github.com/ariya/phantomjs/issues/11429</c>
         /// </summary>
-        [Ignore]
         #region RightClick
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
