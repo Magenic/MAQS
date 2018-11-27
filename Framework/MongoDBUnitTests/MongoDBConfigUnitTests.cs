@@ -28,7 +28,7 @@ namespace MongoDBUnitTests
             #region GetConnection
             string connection = MongoDBConfig.GetConnectionString();
             #endregion
-            Assert.AreEqual("mongodb://10.155.45.36:27017", connection);
+            Assert.AreEqual("mongodb://localhost:27017", connection);
         }
 
         /// <summary>

@@ -695,5 +695,36 @@ namespace SeleniumUnitTests
             Assert.AreNotEqual(null, this.InputBox.GetTheExistingElement());
         }
         #endregion
+
+        /// <summary>
+        /// Verify lazy element to string
+        /// </summary>
+        #region LazyElementToString
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementToString()
+        {
+            // Hard-coded userFriendlyName due to private access on LazyElement
+            var toString = 
+                this.FlowerTableLazyElement.By.ToString() + "Flower table";
+            Assert.AreEqual(toString, this.FlowerTableLazyElement.ToString());
+        }
+        #endregion
+
+        /// <summary>
+        /// Verify lazy element with parent to string
+        /// </summary>
+        #region LazyElementWithParentToString
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementWithParentToString()
+        {
+            // Hard-coded userFriendlyName due to private access on LazyElement
+            var toString =
+                this.FlowerTableLazyElement.By.ToString() + "Flower table" +
+                this.FlowerTableCaptionWithParent.By.ToString() + "Flower table caption";
+            Assert.AreEqual(toString, this.FlowerTableCaptionWithParent.ToString());
+        }
+        #endregion
     }
 }

@@ -419,6 +419,24 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         }
 
         /// <summary>
+        /// Returns a string that represents the current object
+        /// </summary>
+        /// <returns>String of the current object</returns>
+        public override string ToString()
+        {
+            string temp = string.Empty;
+
+            // Check if LazyElement has a parent
+            // If so, prefix parent's ToString()
+            if (this.parent != null)
+            {
+                temp += this.parent.ToString();
+            }
+
+            return temp += this.By.ToString() + this.userFriendlyName;
+        }
+
+        /// <summary>
         /// Get a web element
         /// </summary>
         /// <param name="getElement">The get web element function</param>

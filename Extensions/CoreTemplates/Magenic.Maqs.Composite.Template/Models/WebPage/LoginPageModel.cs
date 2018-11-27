@@ -9,7 +9,7 @@ namespace Models
     /// <summary>
     /// Page object for the Automation page
     /// </summary>
-    public class LoginPageModel : BasePageModel
+    public class LoginPageModel : BaseSeleniumPageModel
     {
         /// <summary>
         /// The page url
@@ -29,7 +29,7 @@ namespace Models
         /// </summary>
         private LazyElement UserNameInput
         {
-            get { return new LazyElement(this.testObject, By.CssSelector("#name"), "User name input"); }
+            get { return this.GetLazyElement(By.CssSelector("#name"), "User name input"); }
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Models
         /// </summary>
         private LazyElement PasswordInput
         {
-            get { return new LazyElement(this.testObject, By.CssSelector("#pw"), "Password input"); }
+            get { return this.GetLazyElement(By.CssSelector("#pw"), "Password input"); }
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Models
         /// </summary>
         private LazyElement LoginButton
         {
-            get { return new LazyElement(this.testObject, By.CssSelector("#Login"), "Login button"); }
+            get { return this.GetLazyElement(By.CssSelector("#Login"), "Login button"); }
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace Models
         /// </summary>
         private LazyElement ErrorMessage
         {
-            get { return new LazyElement(this.testObject, By.CssSelector("#LoginError"), "Error message"); }
+            get { return this.GetLazyElement(By.CssSelector("#LoginError"), "Error message"); }
         }
 
         /// <summary>

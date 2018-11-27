@@ -8,7 +8,7 @@ namespace PageModel
     /// <summary>
     /// Page object for the Automation page
     /// </summary>
-    public class HomePageModel : BasePageModel
+    public class HomePageModel : BaseSeleniumPageModel
     {
         /// <summary>
         /// The page url
@@ -28,7 +28,7 @@ namespace PageModel
         /// </summary>
         private LazyElement WelcomeMessage
         {
-            get { return new LazyElement(this.testObject, By.CssSelector("#WelcomeMessage"), "Welcome message"); }
+            get { return this.GetLazyElement(By.CssSelector("#WelcomeMessage"), "Welcome message"); }
         }
 
         /// <summary>
