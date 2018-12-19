@@ -46,24 +46,24 @@ namespace Magenic.Maqs.BaseTest
         }
 
         /// <summary>
-        /// Boolean if the user checked for failures
+        /// Gets if the user checked for failures
         /// </summary>
-        protected bool DidUserCheckForFailures { get; set; } = false;
+        protected bool DidUserCheckForFailures { get; private set; } = false;
 
         /// <summary>
         /// Gets a count of total number of Asserts
         /// </summary>
-        protected int NumberOfAsserts { get; set; }
+        protected int NumberOfAsserts { get; private set; }
 
         /// <summary>
         /// Gets a count of total number of Passed Asserts
         /// </summary>
-        protected int NumberOfPassedAsserts { get; set; }
+        protected int NumberOfPassedAsserts { get; private set; }
 
         /// <summary>
         /// Gets a count of total number of Failed Asserts
         /// </summary>
-        protected int NumberOfFailedAsserts { get; set; }
+        protected int NumberOfFailedAsserts { get; private set; }
 
         /// <summary>
         /// Gets the logger being used
