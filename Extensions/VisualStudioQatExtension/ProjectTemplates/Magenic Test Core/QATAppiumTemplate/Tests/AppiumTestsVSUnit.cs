@@ -26,11 +26,11 @@ namespace $safeprojectname$
         public void SetupStartingPage()
         {
             Type driverType = this.TestObject.AppiumDriver.GetType();
-            if (driverType == typeof(IOSDriver<AppiumWebElement>))
+            if (driverType.Name == typeof(IOSDriver<AppiumWebElement>).Name)
             {
                 startingPage = new IOSLoginPageModel(this.TestObject);
             }
-            else if (driverType == typeof(AndroidDriver<AppiumWebElement>))
+            else if (driverType.Name == typeof(AndroidDriver<AppiumWebElement>).Name)
             {
                 startingPage = new AndroidLoginPageModel(this.TestObject);
             }

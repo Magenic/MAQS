@@ -91,7 +91,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Appium\ApplicationLogin.cs" />
+  	<Compile Include="Appium\AHomePageModel.cs" />
+    <Compile Include="Appium\ALoginPageModel.cs" />
+    <Compile Include="Appium\AndroidHomePageModel.cs" />
+    <Compile Include="Appium\AndroidLoginPageModel.cs" />
+    <Compile Include="Appium\IOSHomePageModel.cs" />
+    <Compile Include="Appium\IOSLoginPageModel.cs" />
     <Compile Include="WebPage\LoginPageModel.cs" />
     <Compile Include="WebPage\HomePageModel.cs" />
     <Compile Include="WebPage\BasePageModel.cs" />

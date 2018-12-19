@@ -8,12 +8,12 @@ namespace $safeprojectname$
     /// </summary>
     public class AndroidLoginPageModel : ALoginPageModel
     {
-        /// <summary>
+                /// <summary>
         /// The user name input element 'By' finder
         /// </summary>
         protected override LazyMobileElement UserNameInput
         {
-            get { return new LazyMobileElement(this.TestObject, By.Id("UserName"), "User Name Field"); }
+            get { return new LazyMobileElement(this.TestObject, By.XPath("//android.widget.EditText[@resource-id='com.magenic.appiumtesting.maqsregistrydemo:id/userNameField']"), "User Name Field"); }
         }
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace $safeprojectname$
         /// </summary>
         protected override LazyMobileElement PasswordInput
         {
-            get { return new LazyMobileElement(this.TestObject, By.Id("Password"), "Password Field"); }
+            get { return new LazyMobileElement(this.TestObject, By.XPath("//android.widget.EditText[@resource-id='com.magenic.appiumtesting.maqsregistrydemo:id/passwordField']"), "Password Field"); }
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace $safeprojectname$
         /// </summary>
         protected override LazyMobileElement LoginButton
         {
-            get { return new LazyMobileElement(this.TestObject, By.Id("Login"), "Login Button"); }
+            get { return new LazyMobileElement(this.TestObject, By.XPath("//android.widget.Button[@resource-id='com.magenic.appiumtesting.maqsregistrydemo:id/loginButton']"), "Login Button"); }
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace $safeprojectname$
         /// </summary>
         protected override LazyMobileElement ErrorMessage
         {
-            get { return new LazyMobileElement(this.TestObject, By.Id("message"), "Error Message Label"); }
+            get { return new LazyMobileElement(this.TestObject, By.XPath("//android.widget.TextView[@resource-id='android:id/message']"), "Error Message Label"); }
         }
 
         /// <summary>
