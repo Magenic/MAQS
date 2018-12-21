@@ -253,11 +253,10 @@ namespace Magenic.Maqs.BaseSeleniumTest
             try
             {
                 driver?.Close();
-                driver?.Quit();
             }
             finally
             {
-                driver?.Dispose();
+                driver?.Quit();
             }
         }
     }

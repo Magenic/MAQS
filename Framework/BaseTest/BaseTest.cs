@@ -258,8 +258,12 @@ namespace Magenic.Maqs.BaseTest
             this.LoggedExceptions.TryRemove(fullyQualifiedTestName, out List<string> loggedMessages);
             loggedMessages = null;
 
-            // Relese the base test object
+            // Release the base test object
             this.BaseTestObjects.TryRemove(fullyQualifiedTestName, out BaseTestObject baseTestObject);
+
+            // Create console logger to log subsequent messages
+            this.TestObject = new BaseTestObject(new ConsoleLogger(), this.GetFullyQualifiedTestClassName());
+
             baseTestObject.Dispose();
             baseTestObject = null;
 
