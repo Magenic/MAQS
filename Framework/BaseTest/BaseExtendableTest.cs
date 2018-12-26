@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="BaseExtendableTest.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>Base code for test classes that setup test objects like web drivers or database connections</summary>
 //--------------------------------------------------

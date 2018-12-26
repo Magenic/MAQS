@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="SeleniumUnitTestSteps.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>TestSteps class that inherits from BaseSeleniumTestSteps</summary>
 //--------------------------------------------------
@@ -10,7 +10,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium.Support.Events;
 using TechTalk.SpecFlow;
 
-namespace SpecFlowExtensionUnitTests.Steps
+namespace SpecFlowExtUnitTests.Steps
 {
     /// <summary>
     /// BaseSelenium unit test steps

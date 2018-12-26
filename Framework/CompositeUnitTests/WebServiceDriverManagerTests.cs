@@ -7,6 +7,7 @@
 using Magenic.Maqs.BaseDatabaseTest;
 using Magenic.Maqs.BaseTest;
 using Magenic.Maqs.BaseWebServiceTest;
+using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.WebServiceTester;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net.Http;
@@ -17,6 +18,7 @@ namespace CompositeUnitTests
     /// Test the web driver store
     /// </summary>
     [TestClass]
+    [TestCategory(TestCategories.WebService)]
     public class WebServiceDriverManagerTests : BaseWebServiceTest
     {
         /// <summary>

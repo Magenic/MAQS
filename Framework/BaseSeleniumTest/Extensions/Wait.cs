@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="Wait.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>Wait extension for web drivers and elements</summary>
 //--------------------------------------------------

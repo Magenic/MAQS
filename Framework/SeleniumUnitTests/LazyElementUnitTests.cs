@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------
 // <copyright file="LazyElementUnitTests.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>Test the lazy element unit tests</summary>
 //-----------------------------------------------------

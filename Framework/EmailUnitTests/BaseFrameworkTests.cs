@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="BaseFrameworkTests.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>Low level framework tests</summary>
 //--------------------------------------------------
@@ -17,6 +17,7 @@ namespace EmailUnitTests
     /// Framework unit test class
     /// </summary>
     [TestClass]
+    [DoNotParallelize]
     [ExcludeFromCodeCoverage]
     public class BaseFrameworkTests : BaseTestUnitTests.BaseFrameworkTests
     {

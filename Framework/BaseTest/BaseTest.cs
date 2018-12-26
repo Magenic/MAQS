@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="BaseTest.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>Base code for tests without a system under test object like web drivers or database connections</summary>
 //--------------------------------------------------
@@ -609,7 +609,15 @@ namespace Magenic.Maqs.BaseTest
                         {
                             if (nameWithoutExtension.Equals(Path.GetFileNameWithoutExtension(file), StringComparison.CurrentCultureIgnoreCase))
                             {
-                                this.TestContext.AddResultFile(file);
+                                try
+                                {
+                                    Path.GetFullPath(file);
+                                    this.TestContext.AddResultFile(file);
+                                }
+                                catch(Exception attachError)
+                                {
+                                    this.Log.LogMessage(MessageType.WARNING, "Failed to attach test result file because: " + attachError.Message);
+                                }
                             }
                         }
                     }

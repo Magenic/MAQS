@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="AppiumUnitTestSteps.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>TestSteps class that inherits from BaseAppiumTestSteps</summary>
 //--------------------------------------------------
@@ -11,7 +11,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using TechTalk.SpecFlow;
 
-namespace SpecFlowExtensionUnitTests.Steps
+namespace SpecFlowExtUnitTests.Steps
 {
     /// <summary>
     /// BaseAppium unit test steps

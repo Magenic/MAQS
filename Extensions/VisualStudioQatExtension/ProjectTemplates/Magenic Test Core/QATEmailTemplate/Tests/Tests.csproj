@@ -5,14 +5,14 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>  
   <ItemGroup>
-    <PackageReference Include="NUnit" Version="3.10.1" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
-    <PackageReference Include="Magenic.Maqs" Version="5.1.1" />
-    <PackageReference Include="MailKit" Version="2.0.4" />
-    <PackageReference Include="MimeKit" Version="2.0.4" />
+    <PackageReference Include="NUnit" Version="3.11.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.12.0" />
+    <PackageReference Include="Magenic.Maqs" Version="5.2.0" />
+    <PackageReference Include="MailKit" Version="2.1.1" />
+    <PackageReference Include="MimeKit" Version="2.1.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.2" />
-    <PackageReference Include="MSTest.TestAdapter" Version="1.3.2" />
-    <PackageReference Include="MSTest.TestFramework" Version="1.3.2" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.4.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.5.0" />   
   </ItemGroup>  
   <ItemGroup>

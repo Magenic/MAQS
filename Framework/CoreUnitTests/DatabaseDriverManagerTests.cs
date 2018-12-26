@@ -1,10 +1,11 @@
 ﻿//--------------------------------------------------
 // <copyright file="DatabaseDriverManagerTests.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>Database driver store tests</summary>
 //--------------------------------------------------
 using Magenic.Maqs.BaseDatabaseTest;
+using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.WebServiceTester;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net.Http;
@@ -15,6 +16,7 @@ namespace CoreUnitTests
     /// Test the database driver store
     /// </summary>
     [TestClass]
+    [TestCategory(TestCategories.Database)]
     public class DatabaseDriverManagerTests : BaseDatabaseTest
     {
         /// <summary>

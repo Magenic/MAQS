@@ -6,14 +6,14 @@ using OpenQA.Selenium;
 namespace $safeprojectname$
 {
     /// <summary>
-    /// Page object for the Automation page
+    /// Page object for the $safeitemname$ page
     /// </summary>
-    public class $safeitemname$ : BasePageModel
+    public class $safeitemname$ : BaseSeleniumPageModel
     {
         /// <summary>
         /// The page url
         /// </summary>
-        private static string PageUrl = SeleniumConfig.GetWebSiteBase() + "Static/Training3/HomePage.html";
+        private static readonly string PageUrl = SeleniumConfig.GetWebSiteBase() + "Static/Training3/HomePage.html";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="$safeitemname$" /> class.
@@ -28,7 +28,7 @@ namespace $safeprojectname$
         /// </summary>
         private LazyElement WelcomeMessage
         {
-            get { return new LazyElement(this.testObject, By.CssSelector("#WelcomeMessage"), "Welcome message"); }
+            get { return this.GetLazyElement(By.CssSelector("#WelcomeMessage"), "Welcome message"); }
         }
 
         /// <summary>

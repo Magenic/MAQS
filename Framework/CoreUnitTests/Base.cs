@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="Base.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>Core Base unit tests</summary>
 //--------------------------------------------------
@@ -14,6 +14,7 @@ namespace CoreUnitTests
     /// Simple base test
     /// </summary>
     [TestClass]
+    [TestCategory(TestCategories.Framework)]
     public class Base : BaseTest
     {
         /// <summary>

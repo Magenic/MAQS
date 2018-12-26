@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="AppiumWinAppUnitTests.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>Test class for windows application driver related functions</summary>
 //--------------------------------------------------

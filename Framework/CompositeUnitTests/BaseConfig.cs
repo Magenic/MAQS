@@ -14,6 +14,7 @@ namespace CompositeUnitTests
     /// Simple base test
     /// </summary>
     [TestClass]
+    [TestCategory(TestCategories.Utilities)]
     public class BaseConfig : BaseTest
     {
         /// <summary>

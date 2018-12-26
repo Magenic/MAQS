@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="BaseUnitTestSteps.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>TestSteps class that inherits from BaseTestSteps</summary>
 //--------------------------------------------------
@@ -9,7 +9,7 @@ using Magenic.Maqs.SpecFlow.TestSteps;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TechTalk.SpecFlow;
 
-namespace SpecFlowExtensionUnitTests.Steps
+namespace SpecFlowExtUnitTests.Steps
 {
     /// <summary>
     /// Base unit test steps

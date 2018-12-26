@@ -1,10 +1,11 @@
 ﻿//--------------------------------------------------
 // <copyright file="MongoDriverManagerTests.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>Mongo database driver store tests</summary>
 //-------------------------------------------------- 
 using Magenic.Maqs.BaseMongoTest;
+using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.WebServiceTester;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Bson;
@@ -16,6 +17,8 @@ namespace CoreUnitTests
     /// Test the Mongo driver store
     /// </summary>
     [TestClass]
+    [TestCategory(TestCategories.MongoDB)]
+    [DoNotParallelize]
     public class MongoDriverManagerTests : BaseMongoTest<BsonDocument>
     {
         /// <summary>
@@ -65,7 +68,7 @@ namespace CoreUnitTests
         }
 
         /// <summary>
-        /// Make sure the driver is  initialized if we use it
+        /// Make sure the driver is initialized if we use it
         /// </summary>
         [TestMethod]
         public void Intialized()

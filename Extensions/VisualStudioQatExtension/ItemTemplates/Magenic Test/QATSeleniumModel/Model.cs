@@ -7,7 +7,7 @@ namespace $rootnamespace$
     /// <summary>
     /// Page object for $safeitemname$
     /// </summary>
-    public class $safeitemname$
+    public class $safeitemname$ : BaseSeleniumPageModel
     {
         /// <summary>
         /// The page url
@@ -15,17 +15,11 @@ namespace $rootnamespace$
         private const string PageUrl = "https://SOMETHING";
 
         /// <summary>
-        /// Selenium test object
-        /// </summary>
-        private SeleniumTestObject testObject;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="$safeitemname$" /> class.
         /// </summary>
         /// <param name="testObject">The selenium test object</param>
-        public $safeitemname$(SeleniumTestObject testObject)
+        public $safeitemname$(SeleniumTestObject testObject) : base(testObject)
         {
-            this.testObject = testObject;
         }
 		
 		/// <summary>
@@ -33,7 +27,7 @@ namespace $rootnamespace$
         /// </summary>
         private LazyElement Sample
         {
-            get { return new LazyElement(this.testObject, By.CssSelector("#CSS_ID"), "Sample message"); }
+            get { return this.GetLazyElement(By.CssSelector("#CSS_ID"), "Sample message"); }
         }
 
         /// <summary>
