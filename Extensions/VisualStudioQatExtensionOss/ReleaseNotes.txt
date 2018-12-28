@@ -1,5 +1,12 @@
 MAQS Framework Release Notes:
-
+5.2.0 - 2018/12/21
+	Bug fixes and minor enhancements
+	- Check for long file paths before attaching them to a test run result
+	- Streamline Selenium cleanup
+	- Make it easier to override soft assert
+	- Stop creating a second log file when a test fails because of a soft assert
+	- Add a base Selenium page object model
+	
 5.1.1 - 2018/10/5
 	Bug fixes and minor enhancements
 	- Build and package both .Net Standard and .Net framework libraries

@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="MongoDBTests.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>Unit test class for the MongoDB driver</summary>
 //--------------------------------------------------
@@ -127,7 +127,8 @@ namespace MongoDBUnitTests
         [TestMethod]
         [TestCategory(TestCategories.MongoDB)]
         [DoNotParallelize]
-        public void MongoDBTestSetupEventFiringTestObject()
+        [Ignore]
+        public void MongoSetupEventFiringTestObject()
         {
             string logging = Config.GetGeneralValue("Log");
 

@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="SoftAssert.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>This is the SoftAssert class</summary>
 //--------------------------------------------------
@@ -28,11 +28,6 @@ namespace Magenic.Maqs.BaseTest
         private readonly List<string> listOfExceptions = new List<string>();
 
         /// <summary>
-        /// Boolean if the user checked for failures
-        /// </summary>
-        private bool didUserCheckForFailures = false;
-
-        /// <summary>
         /// Initializes a new instance of the SoftAssert class.
         /// Setup the Logger
         /// </summary>
@@ -49,6 +44,11 @@ namespace Magenic.Maqs.BaseTest
         {
             this.Log = new ConsoleLogger();
         }
+
+        /// <summary>
+        /// Gets if the user checked for failures
+        /// </summary>
+        protected bool DidUserCheckForFailures { get; private set; } = false;
 
         /// <summary>
         /// Gets a count of total number of Asserts
@@ -86,11 +86,11 @@ namespace Magenic.Maqs.BaseTest
         /// <example>
         /// <code source="../UtilitiesUnitTests/SoftAssertUnitTests.cs" region="SoftAssertChecked" lang="C#" />
         /// </example>
-        public bool DidUserCheck()
+        public virtual bool DidUserCheck()
         {
             if (this.NumberOfAsserts > 0)
             {
-                return this.didUserCheckForFailures;
+                return this.DidUserCheckForFailures;
             }
             else
             {
@@ -105,7 +105,7 @@ namespace Magenic.Maqs.BaseTest
         /// <example>
         /// <code source="../UtilitiesUnitTests/SoftAssertUnitTests.cs" region="SoftAssertDidFail" lang="C#" />
         /// </example>
-        public bool DidSoftAssertsFail()
+        public virtual bool DidSoftAssertsFail()
         {
             return this.NumberOfFailedAsserts > 0;
         }
@@ -215,7 +215,7 @@ namespace Magenic.Maqs.BaseTest
         /// <summary>
         /// Log final assert count summary
         /// </summary>
-        public void LogFinalAssertData()
+        public virtual void LogFinalAssertData()
         {
             StringBuilder message = new StringBuilder();
             MessageType type;
@@ -267,7 +267,7 @@ namespace Magenic.Maqs.BaseTest
         public void FailTestIfAssertFailed(string message)
         {
             this.LogFinalAssertData();
-            this.didUserCheckForFailures = true;
+            this.DidUserCheckForFailures = true;
 
             if (this.DidSoftAssertsFail())
             {
@@ -290,7 +290,7 @@ namespace Magenic.Maqs.BaseTest
         public bool Assert(Action assertFunction)
         {
             // Resetting every time we invoke a test to verify the user checked for failures
-            this.didUserCheckForFailures = false;
+            this.DidUserCheckForFailures = false;
             bool result = false;
 
             try
@@ -330,7 +330,7 @@ namespace Magenic.Maqs.BaseTest
         public bool AssertFails(Action assertFunction, Type expectedException, string assertName, string failureMessage = "")
         {
             // Resetting every time we invoke a test to verify the user checked for failures
-            this.didUserCheckForFailures = false;
+            this.DidUserCheckForFailures = false;
             bool result = false;
 
             try
@@ -375,7 +375,7 @@ namespace Magenic.Maqs.BaseTest
         private bool InvokeTest(Action test, string expectedText, string actualText, string message)
         {
             // Resetting every time we invoke a test to verify the user checked for failures
-            this.didUserCheckForFailures = false;
+            this.DidUserCheckForFailures = false;
             bool result = false;
 
             try
@@ -410,7 +410,7 @@ namespace Magenic.Maqs.BaseTest
         private bool InvokeTest(Action test, string softAssertName, string message)
         {
             // Resetting every time we invoke a test to verify the user checked for failures
-            this.didUserCheckForFailures = false;
+            this.DidUserCheckForFailures = false;
             bool result = false;
 
             try

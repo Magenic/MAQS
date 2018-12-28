@@ -41,37 +41,37 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseDatabaseTest">
-      <HintPath>..\..\packages\Magenic.Maqs.5.1.1\lib\net471\Magenic.Maqs.BaseDatabaseTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Maqs.5.2.0\lib\net471\Magenic.Maqs.BaseDatabaseTest.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseSeleniumTest">
-      <HintPath>..\..\packages\Magenic.Maqs.5.1.1\lib\net471\Magenic.Maqs.BaseSeleniumTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Maqs.5.2.0\lib\net471\Magenic.Maqs.BaseSeleniumTest.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseTest">
-      <HintPath>..\..\packages\Magenic.Maqs.5.1.1\lib\net471\Magenic.Maqs.BaseTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Maqs.5.2.0\lib\net471\Magenic.Maqs.BaseTest.dll</HintPath>
     </Reference>
 	<Reference Include="Magenic.Maqs.BaseAppiumTest">
-      <HintPath>..\..\packages\Magenic.Maqs.5.1.1\lib\net471\Magenic.Maqs.BaseAppiumTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Maqs.5.2.0\lib\net471\Magenic.Maqs.BaseAppiumTest.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Magenic.Maqs.Utilities">
-      <HintPath>..\..\packages\Magenic.Maqs.5.1.1\lib\net471\Magenic.Maqs.Utilities.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Maqs.5.2.0\lib\net471\Magenic.Maqs.Utilities.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Magenic.Maqs.WebServiceTester">
-      <HintPath>..\..\packages\Magenic.Maqs.5.1.1\lib\net471\Magenic.Maqs.WebServiceTester.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Maqs.5.2.0\lib\net471\Magenic.Maqs.WebServiceTester.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework">
-      <HintPath>..\..\packages\MSTest.TestFramework.1.3.2\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
+      <HintPath>..\..\packages\MSTest.TestFramework.1.4.0\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions">
-      <HintPath>..\..\packages\MSTest.TestFramework.1.3.2\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
+      <HintPath>..\..\packages\MSTest.TestFramework.1.4.0\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -82,19 +82,23 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WebDriver">
-      <HintPath>..\..\packages\Selenium.WebDriver.3.14.0\lib\net40\WebDriver.dll</HintPath>
+      <HintPath>..\..\packages\Selenium.WebDriver.3.141.0\lib\net40\WebDriver.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="WebDriver.Support">
-      <HintPath>..\..\packages\Selenium.Support.3.14.0\lib\net40\WebDriver.Support.dll</HintPath>
+      <HintPath>..\..\packages\Selenium.Support.3.141.0\lib\net40\WebDriver.Support.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Appium\ApplicationLogin.cs" />
+  	<Compile Include="Appium\AHomePageModel.cs" />
+    <Compile Include="Appium\ALoginPageModel.cs" />
+    <Compile Include="Appium\AndroidHomePageModel.cs" />
+    <Compile Include="Appium\AndroidLoginPageModel.cs" />
+    <Compile Include="Appium\IOSHomePageModel.cs" />
+    <Compile Include="Appium\IOSLoginPageModel.cs" />
     <Compile Include="WebPage\LoginPageModel.cs" />
     <Compile Include="WebPage\HomePageModel.cs" />
-    <Compile Include="WebPage\BasePageModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebService\ProductJson.cs" />
     <Compile Include="WebService\ProductXml.cs" />

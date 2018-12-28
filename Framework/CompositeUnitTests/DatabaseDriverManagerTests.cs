@@ -5,6 +5,7 @@
 // <summary>Database driver store tests</summary>
 //--------------------------------------------------
 using Magenic.Maqs.BaseDatabaseTest;
+using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.WebServiceTester;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net.Http;
@@ -15,6 +16,8 @@ namespace CompositeUnitTests
     /// Test the database driver store
     /// </summary>
     [TestClass]
+    [TestCategory(TestCategories.Database)]
+    [TestCategory(TestCategories.Utilities)]
     public class DatabaseDriverManagerTests : BaseDatabaseTest
     {
         /// <summary>

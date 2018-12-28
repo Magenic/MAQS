@@ -2,8 +2,8 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
 <metadata minClientVersion="3.6">
     <id>Magenic.Maqs.Templates</id>
+    <version>5.2.0</version>
 	<title>Enterprise MAQS Core Templates</title>
-    <version>5.1.1</version>
     <authors>Magenic</authors>
     <owners>Magenic</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -11,11 +11,16 @@
     <iconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</iconUrl>
     <projectUrl>https://github.com/Magenic/MAQS</projectUrl>
     <description>Magenic's automation quick start .Net Core enterprise templates</description>
-    <copyright>Copyright © Magenic 2018</copyright>
+    <copyright>Copyright © Magenic 2019</copyright>
     <summary>Templates for Magenic's enterprise automation framework. 
 This package includes templates for browser, mobile, webservice, database, generic and composite test solutions.
 *The enterprise version of MAQS is currently only available to Magenic clients and is required to leverage these templates.</summary>
-    <releaseNotes>5.1.1 - 2018/10/5
+    <releaseNotes>
+	5.2.0 - 2018/12/21
+      Update Appium templates to support the latest version of Appium
+	  Add a base Selenium page object model
+	
+	5.1.1 - 2018/10/5
       Initial release
     </releaseNotes>
     <tags>test MAQS NUnit MSTest TestFramework Enterprise</tags>

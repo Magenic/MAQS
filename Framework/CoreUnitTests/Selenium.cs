@@ -1,10 +1,11 @@
 //--------------------------------------------------
 // <copyright file="Selenium.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>Core Selenium unit tests</summary>
 //--------------------------------------------------
 using Magenic.Maqs.BaseSeleniumTest;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CoreUnitTests
@@ -13,6 +14,7 @@ namespace CoreUnitTests
     /// Simple Selenium test
     /// </summary>
     [TestClass]
+    [TestCategory(TestCategories.Selenium)]
     public class Selenium : BaseSeleniumTest
     {
         /// <summary>

@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="ElementHandler.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>Helper class for getting selenium specific configuration values</summary>
 //--------------------------------------------------

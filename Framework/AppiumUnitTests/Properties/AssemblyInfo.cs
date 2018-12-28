@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="AssemblyInfo.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>Test class for config files</summary>
 //--------------------------------------------------
@@ -22,5 +22,5 @@ using System.Runtime.InteropServices;
 [assembly: Guid("03a57b20-ef13-4e86-9721-34a75f44cc0e")]
 
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("5.1.1")]
-[assembly: AssemblyFileVersion("5.1.1")]
+[assembly: AssemblyVersion("5.2.0")]
+[assembly: AssemblyFileVersion("5.2.0")]

@@ -18,7 +18,6 @@
     <Project TargetFileName="Models.csproj" File="Models.csproj" ReplaceParameters="true">      
       <ProjectItem ReplaceParameters="true" TargetFileName="nuget.config">nuget.config</ProjectItem>
       <Folder Name="WebPage" TargetFolderName="WebPage">
-        <ProjectItem ReplaceParameters="true" TargetFileName="BasePageModel.cs">BasePageModel.cs</ProjectItem>
         <ProjectItem ReplaceParameters="true" TargetFileName="LoginPageModel.cs">LoginPageModel.cs</ProjectItem>
         <ProjectItem ReplaceParameters="true" TargetFileName="HomePageModel.cs">HomePageModel.cs</ProjectItem>
       </Folder>

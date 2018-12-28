@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="GenericWaitTests.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>Unit tests for the generic wait</summary>
 //--------------------------------------------------
@@ -275,7 +275,7 @@ namespace UtilitiesUnitTesting
         public void CustomTimeoutWithoutParamTest()
         {
             DateTime start = DateTime.Now;
-            TimeSpan max = TESTTIMEOUT + TESTRETRY;
+            TimeSpan max = TESTTIMEOUT + TESTRETRY + TESTRETRY;
 
             GenericWait.Wait(this.IsParamTest, TESTRETRY, TESTTIMEOUT, false);
             TimeSpan duration = DateTime.Now - start;

@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="TestProvider.cs" company="Magenic">
-//   Copyright 2018 Magenic, All rights Reserved
+//   Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>
 //   The test provider classed used to test custom providers.

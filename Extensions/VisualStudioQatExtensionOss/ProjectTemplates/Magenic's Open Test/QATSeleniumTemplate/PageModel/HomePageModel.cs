@@ -8,7 +8,7 @@ namespace $safeprojectname$
     /// <summary>
     /// Page object for the $safeitemname$ page
     /// </summary>
-    public class $safeitemname$ : BasePageModel
+    public class $safeitemname$ : BaseSeleniumPageModel
     {
         /// <summary>
         /// The page url
@@ -28,7 +28,7 @@ namespace $safeprojectname$
         /// </summary>
         private LazyElement WelcomeMessage
         {
-            get { return new LazyElement(this.testObject, By.CssSelector("#WelcomeMessage"), "Welcome message"); }
+			get { return this.GetLazyElement(By.CssSelector("#WelcomeMessage"), "Welcome message"); }
         }
 
         /// <summary>

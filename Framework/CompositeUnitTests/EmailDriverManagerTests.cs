@@ -5,6 +5,7 @@
 // <summary>Email driver store tests</summary>
 //-------------------------------------------------- 
 using Magenic.Maqs.BaseEmailTest;
+using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.WebServiceTester;
 using MailKit.Net.Imap;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -17,6 +18,8 @@ namespace CompositeUnitTests
     /// </summary>
     [TestClass]
     [DoNotParallelize]
+    [TestCategory(TestCategories.Email)]
+    [TestCategory(TestCategories.Utilities)]
     public class EmailDriverManagerTests : BaseEmailTest
     {
         /// <summary>

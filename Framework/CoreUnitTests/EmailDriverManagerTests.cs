@@ -1,10 +1,11 @@
 ﻿//--------------------------------------------------
 // <copyright file="EmailDriverManagerTests.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>Email driver store tests</summary>
 //-------------------------------------------------- 
 using Magenic.Maqs.BaseEmailTest;
+using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.WebServiceTester;
 using MailKit.Net.Imap;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -17,6 +18,7 @@ namespace CoreUnitTests
     /// </summary>
     [TestClass]
     [DoNotParallelize]
+    [TestCategory(TestCategories.Email)]
     public class EmailDriverManagerTests : BaseEmailTest
     {
         /// <summary>

@@ -1,26 +1,25 @@
 ﻿using Magenic.Maqs.BaseSeleniumTest;
 using Magenic.Maqs.BaseSeleniumTest.Extensions;
-using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 
 namespace $safeprojectname$
 {
     /// <summary>
-    /// Page object for the Automation page
+    /// Page object for the $safeitemname$ page
     /// </summary>
-    public class LoginPageModel : BasePageModel
+    public class $safeitemname$ : BaseSeleniumPageModel
     {
         /// <summary>
         /// The page url
         /// </summary>
-        private static string PageUrl = SeleniumConfig.GetWebSiteBase() + "Static/Training3/loginpage.html";
+        private static readonly string PageUrl = SeleniumConfig.GetWebSiteBase() + "Static/Training3/loginpage.html";
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LoginPageModel" /> class.
+        /// Initializes a new instance of the <see cref="$safeitemname$" /> class.
         /// </summary>
         /// <param name="testObject">The test object</param>
-        public LoginPageModel(SeleniumTestObject testObject) : base(testObject)
+        public $safeitemname$(SeleniumTestObject testObject) : base(testObject)
         {
         }
 
@@ -29,7 +28,7 @@ namespace $safeprojectname$
         /// </summary>
         private LazyElement UserNameInput
         {
-            get { return new LazyElement(this.testObject, By.CssSelector("#name"), "User name input"); }
+            get { return this.GetLazyElement(By.CssSelector("#name"), "User name input"); }
         }
 
         /// <summary>
@@ -37,7 +36,7 @@ namespace $safeprojectname$
         /// </summary>
         private LazyElement PasswordInput
         {
-            get { return new LazyElement(this.testObject, By.CssSelector("#pw"), "Password input"); }
+            get { return this.GetLazyElement(By.CssSelector("#pw"), "Password input"); }
         }
 
         /// <summary>
@@ -45,7 +44,7 @@ namespace $safeprojectname$
         /// </summary>
         private LazyElement LoginButton
         {
-            get { return new LazyElement(this.testObject, By.CssSelector("#Login"), "Login button"); }
+            get { return this.GetLazyElement(By.CssSelector("#Login"), "Login button"); }
         }
 
         /// <summary>
@@ -53,7 +52,7 @@ namespace $safeprojectname$
         /// </summary>
         private LazyElement ErrorMessage
         {
-            get { return new LazyElement(this.testObject, By.CssSelector("#LoginError"), "Error message"); }
+            get { return this.GetLazyElement(By.CssSelector("#LoginError"), "Error message"); }
         }
 
         /// <summary>

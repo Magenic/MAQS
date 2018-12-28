@@ -1,6 +1,6 @@
 //--------------------------------------------------
 // <copyright file="ConsoleLogger.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>Helper class for console logging</summary>
 //--------------------------------------------------

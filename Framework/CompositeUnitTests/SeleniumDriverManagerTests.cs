@@ -6,6 +6,7 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseSeleniumTest;
 using Magenic.Maqs.BaseSeleniumTest.Extensions;
+using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.WebServiceTester;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
@@ -17,6 +18,7 @@ namespace CompositeUnitTests
     /// Test the Selenium driver store
     /// </summary>
     [TestClass]
+    [TestCategory(TestCategories.Selenium)]
     public class SeleniumDriverManagerTests : BaseSeleniumTest
     {
         /// <summary>

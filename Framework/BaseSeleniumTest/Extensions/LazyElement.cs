@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="LazyElement.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>This is the LazyElement class</summary>
 //--------------------------------------------------
@@ -416,6 +416,24 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         public ReadOnlyCollection<IWebElement> FindElements(By by)
         {
             return this.GetTheExistingElement().FindElements(by);
+        }
+
+        /// <summary>
+        /// Returns a string that represents the current object
+        /// </summary>
+        /// <returns>String of the current object</returns>
+        public override string ToString()
+        {
+            string temp = string.Empty;
+
+            // Check if LazyElement has a parent
+            // If so, prefix parent's ToString()
+            if (this.parent != null)
+            {
+                temp += this.parent.ToString();
+            }
+
+            return temp += this.By.ToString() + this.userFriendlyName;
         }
 
         /// <summary>

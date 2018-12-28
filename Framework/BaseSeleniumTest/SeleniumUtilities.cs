@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="SeleniumUtilities.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>Utilities class for generic selenium methods</summary>
 //--------------------------------------------------
@@ -253,11 +253,10 @@ namespace Magenic.Maqs.BaseSeleniumTest
             try
             {
                 driver?.Close();
-                driver?.Quit();
             }
             finally
             {
-                driver?.Dispose();
+                driver?.Quit();
             }
         }
     }
