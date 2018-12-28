@@ -11,7 +11,7 @@
     <iconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</iconUrl>
     <projectUrl>https://github.com/Magenic/MAQS</projectUrl>
     <description>Magenic's automation quick start .Net Core enterprise templates</description>
-    <copyright>Copyright © Magenic 2018</copyright>
+    <copyright>Copyright © Magenic 2019</copyright>
     <summary>Templates for Magenic's enterprise automation framework. 
 This package includes templates for browser, mobile, webservice, database, generic and composite test solutions.
 *The enterprise version of MAQS is currently only available to Magenic clients and is required to leverage these templates.</summary>
