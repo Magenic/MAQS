@@ -1,4 +1,8 @@
 MAQS Framework Release Notes:
+5.2.1 - 2019/1/7
+	Bug fix
+	- Fix project template
+
 5.2.0 - 2018/12/21
 	Bug fixes and minor enhancements
 	- Check for long file paths before attaching them to a test run result
