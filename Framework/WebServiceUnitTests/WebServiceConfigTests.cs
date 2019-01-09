@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="WebServiceConfigTests.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>Unit test web service configuration test</summary>
 //--------------------------------------------------
@@ -42,7 +42,7 @@ namespace WebServiceTesterUnitTesting
             #region GetWebServiceTimeout
             TimeSpan timeout = WebServiceConfig.GetWebServiceTimeout();
             #endregion
-            Assert.AreEqual(timeout.Seconds, 10);
+            Assert.AreEqual(10, timeout.Seconds);
         }
     }
 }

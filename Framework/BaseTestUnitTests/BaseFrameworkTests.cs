@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="BaseFrameworkTests.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>Low level framework tests</summary>
 //--------------------------------------------------
@@ -22,18 +22,9 @@ namespace BaseTestUnitTests
     public class BaseFrameworkTests
     {
         /// <summary>
-        /// The test context
-        /// </summary>
-        private Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContextInstance;
-
-        /// <summary>
         /// Gets or sets the text context
         /// </summary>
-        public Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext
-        {
-            get { return this.testContextInstance; }
-            set { this.testContextInstance = value; }
-        }
+        public Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext { get; set; }
 
         /// <summary>
         ///  Base test does soft assert check

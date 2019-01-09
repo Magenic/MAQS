@@ -46,7 +46,7 @@ namespace Magenic.Maqs.BaseTest
         }
 
         /// <summary>
-        /// Gets if the user checked for failures
+        /// Gets a value indicating whether the user checked for failures
         /// </summary>
         protected bool DidUserCheckForFailures { get; private set; } = false;
 

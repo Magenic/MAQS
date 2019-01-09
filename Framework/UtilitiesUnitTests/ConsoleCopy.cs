@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="ConsoleCopy.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>Copy console output to a file for testing. Copied off the internet.</summary>
 //--------------------------------------------------
@@ -18,19 +18,19 @@ namespace UtilitiesUnitTesting
     public class ConsoleCopy : IDisposable
     {
         /// <summary>
-        /// used to write to the log file
-        /// </summary>
-        private StreamWriter fileWriter;
-
-        /// <summary>
         /// used to write to both the console and the log
         /// </summary>
-        private TextWriter doubleWriter;
+        private readonly TextWriter doubleWriter;
         
         /// <summary>
         /// stores the original Console output
         /// </summary>
-        private TextWriter oldOut;
+        private readonly TextWriter oldOut;
+
+        /// <summary>
+        /// used to write to the log file
+        /// </summary>
+        private StreamWriter fileWriter;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConsoleCopy"/> class 
@@ -60,6 +60,14 @@ namespace UtilitiesUnitTesting
         }
 
         /// <summary>
+        /// Finalizes an instance of the <see cref="ConsoleCopy" /> class
+        /// </summary>
+        ~ConsoleCopy()
+        {
+            this.Dispose(false);
+        }
+
+        /// <summary>
         /// Cleans up the writers and reverts the console
         /// </summary>
         public void Dispose()
@@ -72,7 +80,8 @@ namespace UtilitiesUnitTesting
         /// Cleans up the writers and reverts the console
         /// </summary>
         /// <param name="disposing">True if you want to release managed resources</param>
-        public void Dispose(bool disposing)
+        [SuppressMessage("Microsoft.Usage", "CA2213:DisposableFieldsShouldBeDisposed", MessageId = "doubleWriter")]
+        protected virtual void Dispose(bool disposing)
         {
             Console.SetOut(this.oldOut);
             if (this.fileWriter != null)
@@ -91,12 +100,12 @@ namespace UtilitiesUnitTesting
             /// <summary>
             /// used to write to the log file
             /// </summary>
-            private TextWriter fileOutput;
+            private readonly TextWriter fileOutput;
 
             /// <summary>
             /// used to write to the console
             /// </summary>
-            private TextWriter consoleOutput;
+            private readonly TextWriter consoleOutput;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="DoubleWriter"/> class

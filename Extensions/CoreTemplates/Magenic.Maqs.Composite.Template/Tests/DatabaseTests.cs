@@ -17,7 +17,7 @@ namespace Tests
         public void SampleTest()
         {
             var table = this.DatabaseDriver.Query("SELECT * FROM information_schema.tables");
-            Assert.AreEqual(table.Count(), 10, "Expected 10 tables");
+            Assert.AreEqual(10, table.Count(), "Expected 10 tables");
         }
     }
 }

@@ -120,6 +120,7 @@
     <Compile Include="SeleniumConfigTests.cs" />
     <Compile Include="SeleniumCustomConfigUnitTest.cs" />
     <Compile Include="SeleniumNUnitTest.cs" />
+    <Compile Include="SeleniumPageModel.cs" />
     <Compile Include="SeleniumUnitTest.cs" />
     <Compile Include="SeleniumWebElementTest.cs" />
     <Compile Include="SeleniumPageObjectUnitTests.cs" />

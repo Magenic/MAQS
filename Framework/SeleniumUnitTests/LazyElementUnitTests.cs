@@ -191,12 +191,11 @@ namespace SeleniumUnitTests
             LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
 
             // Trigger a find and save off the element
-            string value = footer.GetValue();
+            footer.GetValue();
             IWebElement footerElementBefore = footer.CachedElement;
 
             // Do the event again and save off the chanced element 
-            value = footer.GetValue();
-            IWebElement footerElementAfter = footer.CachedElement;
+            footer.GetValue();
 
             // Make sure doing a new find returns an element that is not the same as the cached element
             Assert.AreNotEqual(this.WebDriver.FindElement(footer.By), footerElementBefore);
@@ -214,11 +213,11 @@ namespace SeleniumUnitTests
             LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
 
             // Trigger a find and save off the element
-            string value = footer.GetValue();
+            footer.GetValue();
             IWebElement footerElementBefore = footer.CachedElement;
 
             // Do the event again and save off the chanced element 
-            value = footer.GetValue();
+            footer.GetValue();
             IWebElement footerElementAfter = footer.CachedElement;
 
             // Make sure the second event didn't trigger a new find
@@ -238,18 +237,17 @@ namespace SeleniumUnitTests
             LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
 
             // Trigger a find and save off the element
-            string value = footer.GetValue();
+            footer.GetValue();
             IWebElement footerElementBefore = footer.CachedElement;
 
             // Do the event again and save off the chanced element 
-            value = footer.GetValue();
-            IWebElement footerElementAfter = footer.CachedElement;
+            footer.GetValue();
 
             // Go to another page so the old element will be stale, this will force us to get a new one
             this.WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Automation/AsyncPage");
 
             // Trigger a new find, this should be new because the cached element is stale
-            value = footer.GetValue();
+            footer.GetValue();
             Assert.AreNotEqual(footerElementBefore, footer.CachedElement);
         }
         #endregion
@@ -281,7 +279,7 @@ namespace SeleniumUnitTests
             // Create the lazy element and use it
             LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
 
-            IWebElement cacheFooter = footer.GetTheVisibleElement();
+            footer.GetTheVisibleElement();
 
             // Make sure get clickable triggers a new find
             Assert.AreNotEqual(footer.CachedElement, footer.GetTheClickableElement());
@@ -299,7 +297,7 @@ namespace SeleniumUnitTests
             // Create the lazy element and use it
             LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
 
-            IWebElement cacheFooter = footer.GetTheVisibleElement();
+            footer.GetTheVisibleElement();
 
             // Make sure get exists triggers a new find
             Assert.AreNotEqual(footer.CachedElement, footer.GetTheExistingElement());
@@ -317,7 +315,7 @@ namespace SeleniumUnitTests
             // Create the lazy element and use it
             LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
 
-            IWebElement cacheFooter = footer.GetTheVisibleElement();
+            footer.GetTheVisibleElement();
 
             // Make sure get visible triggers a new find
             Assert.AreNotEqual(footer.CachedElement, footer.GetTheVisibleElement());
@@ -705,9 +703,9 @@ namespace SeleniumUnitTests
         public void LazyElementToString()
         {
             // Hard-coded userFriendlyName due to private access on LazyElement
-            var toString = 
+            var stringValue = 
                 this.FlowerTableLazyElement.By.ToString() + "Flower table";
-            Assert.AreEqual(toString, this.FlowerTableLazyElement.ToString());
+            Assert.AreEqual(stringValue, this.FlowerTableLazyElement.ToString());
         }
         #endregion
 
@@ -720,10 +718,10 @@ namespace SeleniumUnitTests
         public void LazyElementWithParentToString()
         {
             // Hard-coded userFriendlyName due to private access on LazyElement
-            var toString =
+            var stringValue =
                 this.FlowerTableLazyElement.By.ToString() + "Flower table" +
                 this.FlowerTableCaptionWithParent.By.ToString() + "Flower table caption";
-            Assert.AreEqual(toString, this.FlowerTableCaptionWithParent.ToString());
+            Assert.AreEqual(stringValue, this.FlowerTableCaptionWithParent.ToString());
         }
         #endregion
     }

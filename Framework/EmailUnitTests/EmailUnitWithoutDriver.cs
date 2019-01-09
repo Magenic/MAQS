@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="EmailUnitWithoutDriver.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>Unit test email driver without base email test</summary>
 //--------------------------------------------------
@@ -47,7 +47,7 @@ namespace EmailUnitTests
             #region GetHost
             string host = EmailConfig.GetHost();
             #endregion
-            Assert.AreEqual(host, "imap.gmail.com");
+            Assert.AreEqual("imap.gmail.com", host);
         }
         
         /// <summary>
@@ -114,7 +114,7 @@ namespace EmailUnitTests
             #region GetPort
             int port = EmailConfig.GetPort();
             #endregion
-            Assert.AreEqual(port, 993);
+            Assert.AreEqual(993, port);
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace EmailUnitTests
             #region GetEmailViaSSL
             bool ssl = EmailConfig.GetEmailViaSSL();
             #endregion
-            Assert.AreEqual(ssl, true);
+            Assert.AreEqual(true, ssl);
         }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace EmailUnitTests
             #region SkipSSL
             bool skipSsl = EmailConfig.GetEmailSkipSslValidation();
             #endregion
-            Assert.AreEqual(skipSsl, true);
+            Assert.AreEqual(true, skipSsl);
         }
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace EmailUnitTests
             #region DownloadDirectory
             string downloadDirectory = EmailConfig.GetAttachmentDownloadDirectory();
             #endregion
-            Assert.AreEqual(downloadDirectory, @"C:\Frameworks\downloads");
+            Assert.AreEqual(@"C:\Frameworks\downloads", downloadDirectory);
         }
     }
 }

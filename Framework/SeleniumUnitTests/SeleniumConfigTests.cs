@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="SeleniumConfigTests.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>Test class for config files</summary>
 //--------------------------------------------------
@@ -239,7 +239,7 @@ namespace UnitTests
 
             #endregion GetRemoteName
 
-            Assert.AreEqual(browser, "Chrome");
+            Assert.AreEqual("Chrome", browser);
         }
 
         /// <summary>
@@ -364,7 +364,8 @@ namespace UnitTests
                     },
                    "SeleniumMaqs",
                     true);
-                IWebDriver driver = SeleniumConfig.Browser("remote");
+
+                SeleniumConfig.Browser("remote");
             }
             finally
             {

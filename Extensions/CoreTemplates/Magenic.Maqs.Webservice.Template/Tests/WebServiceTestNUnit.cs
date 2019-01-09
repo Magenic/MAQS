@@ -18,7 +18,7 @@ namespace Tests
         {
             ProductXml result = this.WebServiceDriver.Get<ProductXml>("/api/XML_JSON/GetProduct/1", "application/xml", false);
 
-            Assert.AreEqual(result.Id, 1, "Expected to get product 1");
+            Assert.AreEqual(1, result.Id, "Expected to get product 1");
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace Tests
         {
             ProductJson result = this.WebServiceDriver.Get<ProductJson>("/api/XML_JSON/GetProduct/1", "application/json", false);
 
-            Assert.AreEqual(result.Id, 1, "Expected to get product 1");
+            Assert.AreEqual(1, result.Id, "Expected to get product 1");
         }
     }
 }

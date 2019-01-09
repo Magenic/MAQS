@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------
 // <copyright file="FileLoggerUnitTests.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>Test the file logger</summary>
 //-----------------------------------------------------
@@ -30,7 +30,7 @@ namespace UtilitiesUnitTesting
         /// <summary>
         /// Gets logging level test data
         /// </summary>
-        private static IEnumerable LoggingLevels
+        public static IEnumerable LoggingLevels
         {
             get
             {
@@ -223,7 +223,7 @@ namespace UtilitiesUnitTesting
                 FilePath = "test file path"
             };
 
-            Assert.AreEqual(logger.FilePath, "test file path");
+            Assert.AreEqual("test file path", logger.FilePath);
         }
 
         /// <summary>
@@ -302,13 +302,28 @@ namespace UtilitiesUnitTesting
         /// <returns>The contents of the file</returns>
         private string ReadTextFile(string fileName)
         {
-            using (FileStream fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            Stream fileStream = null;
+            string returnValue = string.Empty;
+
+            try
             {
+                fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+
                 using (StreamReader textReader = new StreamReader(fileStream))
                 {
-                    return textReader.ReadToEnd();
+                    fileStream = null;
+                    returnValue = textReader.ReadToEnd();
                 }
             }
+            finally
+            {
+                if (fileStream != null)
+                {
+                    fileStream.Dispose();
+                }
+            }
+
+            return returnValue;
         }
 
         /// <summary>

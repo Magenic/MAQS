@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="WebServiceDriverManagerTests.cs" company="Magenic">
-//  Copyright 2018 Magenic, All rights Reserved
+//  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>Web service driver store tests</summary>
 //-------------------------------------------------- 
@@ -41,7 +41,7 @@ namespace CompositeUnitTests
         {
             WebServiceDriverManager newDriver = new WebServiceDriverManager(() => new HttpClient(), this.TestObject);
             this.ManagerStore.Add("test", newDriver);
-            var kdkd = this.ManagerStore.GetDriver<WebServiceDriver, WebServiceDriverManager>();
+            this.ManagerStore.GetDriver<WebServiceDriver, WebServiceDriverManager>();
 
             Assert.AreNotEqual(this.TestObject.WebServiceDriver, (WebServiceDriverManager)this.ManagerStore["test"]);
             Assert.AreNotEqual(this.TestObject.WebServiceManager.Get(), this.ManagerStore.GetDriver<WebServiceDriver>("test"));
