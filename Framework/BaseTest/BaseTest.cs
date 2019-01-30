@@ -596,38 +596,52 @@ namespace Magenic.Maqs.BaseTest
         /// <param name="fullyQualifiedTestName">The fully qualified test name</param>
         private void AttachLogAndSceenshot(string fullyQualifiedTestName)
         {
+            bool filesWereAttached = false;
 #if NET471
             try
             {
                 // This only works for VS unit test so check that first
                 if (this.testContextInstance != null)
                 {
-                    // Only attach if we can find the log file
+                    // Only attach log if it is a file logger and we can find it
                     if (this.Log is FileLogger && File.Exists(((FileLogger)this.Log).FilePath))
                     {
                         string path = ((FileLogger)this.Log).FilePath;
                         this.TestObject.AssociatedFiles.Add(path);
                     }
 
-                    try
+                    // Attach all existing associated files
+                    foreach (string path in this.TestObject.AssociatedFiles)
                     {
-                        // Attach all associated files
-                        foreach (string path in this.TestObject.AssociatedFiles)
+                        if (File.Exists(path))
                         {
                             this.TestContext.AddResultFile(path);
                         }
                     }
-                    catch (Exception attachError)
-                    {
-                        this.Log.LogMessage(MessageType.WARNING, "Failed to attach test result file because: " + attachError.Message);
-                    }
+
+                    filesWereAttached = true;
                 }
             }
             catch (Exception e)
             {
-                this.TryToLog(MessageType.WARNING, "Failed to attach log or screenshot because: " + e.Message);
+                this.TryToLog(MessageType.WARNING, "Failed to attach test result file because: " + e.Message);
             }
 #endif
+            if (this.Log is FileLogger && File.Exists(((FileLogger)this.Log).FilePath) && filesWereAttached == false)
+            {
+                string path = ((FileLogger)this.Log).FilePath;
+                this.TestObject.AssociatedFiles.Remove(path);
+                string listOfFilesMessage = "List of Associated Files: " + Environment.NewLine;
+                foreach (string assocPath in this.TestObject.AssociatedFiles)
+                {
+                    if (File.Exists(assocPath))
+                    {
+                        listOfFilesMessage += assocPath + Environment.NewLine;
+                    }
+                }
+
+                this.TryToLog(MessageType.GENERIC, listOfFilesMessage);
+            }
         }
     }
 }
