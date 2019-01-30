@@ -26,11 +26,12 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="webDriver">The WebDriver</param>
         /// <param name="log">The logger being used</param>
         /// <param name="appendName">Appends a name to the end of a filename</param>
+        /// <param name="testObject">The TestObject to associate the file with</param>
         /// <returns>Boolean if the save of the image was successful</returns>
         /// <example>
         /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="CaptureScreenshot" lang="C#" />
         /// </example>
-        public static bool CaptureScreenshot(this IWebDriver webDriver, Logger log, string appendName = "")
+        public static bool CaptureScreenshot(this IWebDriver webDriver, Logger log, SeleniumTestObject testObject, string appendName = "")
         {
             try
             {
@@ -40,7 +41,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 if (!(log is FileLogger))
                 {
                     // Since this is not a file logger we will need to use a generic file name
-                    path = CaptureScreenshot(webDriver, LoggingConfig.GetLogDirectory(), "ScreenCap" + appendName, GetScreenShotFormat());
+                    path = CaptureScreenshot(webDriver, testObject, LoggingConfig.GetLogDirectory(), "ScreenCap" + appendName, GetScreenShotFormat());
                 }
                 else
                 {
@@ -48,7 +49,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                     string fullpath = ((FileLogger)log).FilePath;
                     string directory = Path.GetDirectoryName(fullpath);
                     string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fullpath) + appendName;
-                    path = CaptureScreenshot(webDriver, directory, fileNameWithoutExtension, GetScreenShotFormat());
+                    path = CaptureScreenshot(webDriver, testObject, directory, fileNameWithoutExtension, GetScreenShotFormat());
                 }
 
                 log.LogMessage(MessageType.INFORMATION, "Screenshot saved: " + path);
@@ -65,11 +66,12 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// To capture a screenshot during execution
         /// </summary>
         /// <param name="webDriver">The WebDriver</param>
+        /// <param name="testObject">The TestObject to associate the file with</param>
         /// <param name="directory">The directory file path</param>
         /// <param name="fileNameWithoutExtension">Filename without extension</param>
         /// <param name="imageFormat">Optional Screenshot Image format parameter; Default imageFormat is PNG</param>
         /// <returns>Path to the log file</returns>
-        public static string CaptureScreenshot(this IWebDriver webDriver, string directory, string fileNameWithoutExtension, ScreenshotImageFormat imageFormat = ScreenshotImageFormat.Png)
+        public static string CaptureScreenshot(this IWebDriver webDriver, SeleniumTestObject testObject, string directory, string fileNameWithoutExtension, ScreenshotImageFormat imageFormat = ScreenshotImageFormat.Png)
         {
             Screenshot screenShot = ((ITakesScreenshot)webDriver).GetScreenshot();
 
@@ -84,6 +86,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
 
             // Save the screenshot
             screenShot.SaveAsFile(path, imageFormat);
+            testObject.AssociatedFiles.Add(path);
 
             return path;
         }
@@ -93,12 +96,13 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// </summary>
         /// <param name="webDriver">The WebDriver</param>
         /// <param name="log">The logger being used</param>
+        /// <param name="testObject">The TestObject to associate the file with</param>
         /// <param name="appendName">Appends a name to the end of a filename</param>
         /// <returns>Boolean if the save of the page source was successful</returns>
         /// <example>
         /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="SavePageSource" lang="C#" />
         /// </example>
-        public static bool SavePageSource(this IWebDriver webDriver, Logger log, string appendName = "")
+        public static bool SavePageSource(this IWebDriver webDriver, Logger log, SeleniumTestObject testObject, string appendName = "")
         {
             try
             {
@@ -108,7 +112,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 if (!(log is FileLogger))
                 {
                     // Since this is not a file logger we will need to use a generic file name
-                    path = SavePageSource(webDriver, LoggingConfig.GetLogDirectory(), "PageSource" + appendName);
+                    path = SavePageSource(webDriver, testObject, LoggingConfig.GetLogDirectory(), "PageSource" + appendName);
                 }
                 else
                 {
@@ -117,7 +121,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                     string directory = Path.GetDirectoryName(fullpath);
                     string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fullpath) + "_PS" + appendName;
 
-                    path = SavePageSource(webDriver, directory, fileNameWithoutExtension);
+                    path = SavePageSource(webDriver, testObject, directory, fileNameWithoutExtension);
                 }
 
                 log.LogMessage(MessageType.INFORMATION, "Page Source saved: " + path);
@@ -134,10 +138,11 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// To capture Page Source during execution
         /// </summary>
         /// <param name="webDriver">The WebDriver</param>
+        /// <param name="testObject">The TestObject to associate the file with</param>
         /// <param name="directory">The directory file path</param>
         /// <param name="fileNameWithoutExtension">Filename without extension</param>
         /// <returns>Path to the log file</returns>
-        public static string SavePageSource(this IWebDriver webDriver, string directory, string fileNameWithoutExtension)
+        public static string SavePageSource(this IWebDriver webDriver, SeleniumTestObject testObject, string directory, string fileNameWithoutExtension)
         {
             // Save the current page source into a string
             string pageSource = webDriver.PageSource;
@@ -160,6 +165,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             // Write page source to a new file
             writer.Write(pageSource);
             writer.Close();
+            testObject.AssociatedFiles.Add(path);
             return path;
         }
 

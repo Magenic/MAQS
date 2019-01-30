@@ -21,10 +21,11 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// To capture a screenshot during execution
         /// </summary>
         /// <param name="appiumDriver">The AppiumDriver</param>
+        /// <param name="testObject">The TestObject to associate the screenshot with</param>
         /// <param name="log">The logger being used</param>
         /// <param name="appendName">Appends a name to the end of a filename</param>
         /// <returns>Boolean if the save of the image was successful</returns>
-        public static bool CaptureScreenshot(this AppiumDriver<IWebElement> appiumDriver, Logger log, string appendName = "")
+        public static bool CaptureScreenshot(this AppiumDriver<IWebElement> appiumDriver, Logger log, AppiumTestObject testObject, string appendName = "")
         {
             try
             {
@@ -36,7 +37,7 @@ namespace Magenic.Maqs.BaseAppiumTest
                 string fullpath = ((FileLogger)log).FilePath;
                 string directory = Path.GetDirectoryName(fullpath);
                 string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fullpath) + appendName;
-                CaptureScreenshot(appiumDriver, directory, fileNameWithoutExtension);
+                CaptureScreenshot(appiumDriver, testObject, directory, fileNameWithoutExtension);
 
                 log.LogMessage(MessageType.INFORMATION, "Screenshot saved");
                 return true;
@@ -52,14 +53,16 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// To capture a screenshot during execution
         /// </summary>
         /// <param name="appiumDriver">The AppiumDriver</param>
+        /// <param name="testObject">The TestObject to associate the screenshot with</param>
         /// <param name="directory">The directory file path</param>
         /// <param name="fileNameWithoutExtension">Filename without extension</param>
-        public static void CaptureScreenshot(this AppiumDriver<IWebElement> appiumDriver, string directory, string fileNameWithoutExtension)
+        public static void CaptureScreenshot(this AppiumDriver<IWebElement> appiumDriver, AppiumTestObject testObject, string directory, string fileNameWithoutExtension)
         {
             Screenshot screenshot = ((ITakesScreenshot)appiumDriver).GetScreenshot();
 
             string path = Path.Combine(directory, fileNameWithoutExtension + ".png");
 
+            testObject.AssociatedFiles.Add(path);
             screenshot.SaveAsFile(path, ScreenshotImageFormat.Png);
         }
 
@@ -68,12 +71,13 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// </summary>
         /// <param name="appiumDriver">The AppiumDriver</param>
         /// <param name="log">The logger being used</param>
+        /// <param name="testObject">The TestObject to associate the file with</param>
         /// <param name="appendName">Appends a name to the end of a filename</param>
         /// <returns>Boolean if the save of the page source was successful</returns>
         /// <example>
         /// <code source = "../AppiumUnitTests/AppiumUtilitiesTests.cs" region="SavePageSource" lang="C#" />
         /// </example>
-        public static bool SavePageSource(this AppiumDriver<IWebElement> appiumDriver, Logger log, string appendName = "")
+        public static bool SavePageSource(this AppiumDriver<IWebElement> appiumDriver, Logger log, AppiumTestObject testObject, string appendName = "")
         {
             try
             {
@@ -83,7 +87,7 @@ namespace Magenic.Maqs.BaseAppiumTest
                 if (!(log is FileLogger))
                 {
                     // Since this is not a file logger we will need to use a generic file name
-                    path = SavePageSource(appiumDriver, LoggingConfig.GetLogDirectory(), "PageSource" + appendName);
+                    path = SavePageSource(appiumDriver, testObject, LoggingConfig.GetLogDirectory(), "PageSource" + appendName);
                 }
                 else
                 {
@@ -92,7 +96,7 @@ namespace Magenic.Maqs.BaseAppiumTest
                     string directory = Path.GetDirectoryName(fullpath);
                     string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fullpath) + "_PS" + appendName;
 
-                    path = SavePageSource(appiumDriver, directory, fileNameWithoutExtension);
+                    path = SavePageSource(appiumDriver, testObject, directory, fileNameWithoutExtension);
                 }
 
                 log.LogMessage(MessageType.INFORMATION, "Page Source saved: " + path);
@@ -109,10 +113,11 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// To capture Page Source during execution
         /// </summary>
         /// <param name="appiumDriver">The AppiumDriver</param>
+        /// <param name="testObject">The TestObject to associate the file with</param>
         /// <param name="directory">The directory file path</param>
         /// <param name="fileNameWithoutExtension">Filename without extension</param>
         /// <returns>Path to the log file</returns>
-        public static string SavePageSource(this AppiumDriver<IWebElement> appiumDriver, string directory, string fileNameWithoutExtension)
+        public static string SavePageSource(this AppiumDriver<IWebElement> appiumDriver, AppiumTestObject testObject, string directory, string fileNameWithoutExtension)
         {
             // Save the current page source into a string
             string pageSource = appiumDriver.PageSource;
@@ -135,6 +140,8 @@ namespace Magenic.Maqs.BaseAppiumTest
             // Write page source to a new file
             writer.Write(pageSource);
             writer.Close();
+
+            testObject.AssociatedFiles.Add(path);
             return path;
         }
     }

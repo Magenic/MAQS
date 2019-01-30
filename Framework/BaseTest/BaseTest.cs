@@ -250,6 +250,10 @@ namespace Magenic.Maqs.BaseTest
 
             // Write out the performance timers
             collection.Write(this.Log);
+            if (collection.FileName != null)
+            {
+                this.TestObject.AssociatedFiles.Add(collection.FileName);
+            }
 
             // Attach log and screen shot if we can
             this.AttachLogAndSceenshot(fullyQualifiedTestName);
@@ -602,24 +606,20 @@ namespace Magenic.Maqs.BaseTest
                     if (this.Log is FileLogger && File.Exists(((FileLogger)this.Log).FilePath))
                     {
                         string path = ((FileLogger)this.Log).FilePath;
-                        string nameWithoutExtension = Path.GetFileNameWithoutExtension(path);
+                        this.TestObject.AssociatedFiles.Add(path);
+                    }
 
-                        // Find all files that share the same base file name - file name without extension
-                        foreach (string file in Directory.GetFiles(Path.GetDirectoryName(path), fullyQualifiedTestName + "*", SearchOption.TopDirectoryOnly))
+                    try
+                    {
+                        // Attach all associated files
+                        foreach (string path in this.TestObject.AssociatedFiles)
                         {
-                            if (nameWithoutExtension.Equals(Path.GetFileNameWithoutExtension(file), StringComparison.CurrentCultureIgnoreCase))
-                            {
-                                try
-                                {
-                                    Path.GetFullPath(file);
-                                    this.TestContext.AddResultFile(file);
-                                }
-                                catch(Exception attachError)
-                                {
-                                    this.Log.LogMessage(MessageType.WARNING, "Failed to attach test result file because: " + attachError.Message);
-                                }
-                            }
+                            this.TestContext.AddResultFile(path);
                         }
+                    }
+                    catch (Exception attachError)
+                    {
+                        this.Log.LogMessage(MessageType.WARNING, "Failed to attach test result file because: " + attachError.Message);
                     }
                 }
             }

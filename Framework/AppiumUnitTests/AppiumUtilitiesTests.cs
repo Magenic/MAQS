@@ -25,7 +25,7 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void CaptureScreenshotTest()
         {
-            AppiumUtilities.CaptureScreenshot(this.TestObject.AppiumDriver, this.Log);
+            AppiumUtilities.CaptureScreenshot(this.TestObject.AppiumDriver, this.Log, this.TestObject);
             string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, ".png");
             Assert.IsTrue(File.Exists(filePath), "Fail to find screenshot");
             File.Delete(filePath);
@@ -39,7 +39,7 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void SavePageSourceTest()
         {
-            AppiumUtilities.SavePageSource(this.TestObject.AppiumDriver, this.Log);
+            AppiumUtilities.SavePageSource(this.TestObject.AppiumDriver, this.Log, this.TestObject);
             string logLocation = ((FileLogger)this.Log).FilePath;
             string pageSourceFilelocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + "_PS.txt";
 
@@ -57,7 +57,7 @@ namespace AppiumUnitTests
         {
             FileLogger tempLogger = new FileLogger();
             tempLogger.FilePath = "<>"; // illegal file path
-            bool successfullyCaptured = AppiumUtilities.SavePageSource(this.AppiumDriver, tempLogger);
+            bool successfullyCaptured = AppiumUtilities.SavePageSource(this.AppiumDriver, tempLogger, this.TestObject);
 
             Assert.IsFalse(successfullyCaptured);
         }
@@ -69,7 +69,7 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void SavePageSourceNoExistingDirectory()
         {
-            string pageSourcePath = AppiumUtilities.SavePageSource(this.AppiumDriver, "TempTestDirectory", "TempTestFilePath");
+            string pageSourcePath = AppiumUtilities.SavePageSource(this.AppiumDriver, this.TestObject, "TempTestDirectory", "TempTestFilePath");
             Assert.IsTrue(File.Exists(pageSourcePath), "Fail to find Page Source");
             File.Delete(pageSourcePath);
         }

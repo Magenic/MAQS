@@ -30,6 +30,7 @@ namespace Magenic.Maqs.BaseTest
             this.Values = new Dictionary<string, string>();
             this.Objects = new Dictionary<string, object>();
             this.ManagerStore = new ManagerDictionary();
+            this.AssociatedFiles = new HashSet<string>();
 
             logger.LogMessage(MessageType.INFORMATION, "Setup test object for " + fullyQualifiedTestName);
         }
@@ -47,6 +48,7 @@ namespace Magenic.Maqs.BaseTest
             this.Values = new Dictionary<string, string>();
             this.Objects = new Dictionary<string, object>();
             this.ManagerStore = new ManagerDictionary();
+            this.AssociatedFiles = new HashSet<string>();
 
             logger.LogMessage(MessageType.INFORMATION, "Setup test object for " + fullyQualifiedTestName);
         }
@@ -63,6 +65,7 @@ namespace Magenic.Maqs.BaseTest
             this.Values = baseTestObject.Values;
             this.Objects = baseTestObject.Objects;
             this.ManagerStore = baseTestObject.ManagerStore;
+            this.AssociatedFiles = baseTestObject.AssociatedFiles;
 
             baseTestObject.Log.LogMessage(MessageType.INFORMATION, "Setup test object");
         }
@@ -96,6 +99,11 @@ namespace Magenic.Maqs.BaseTest
         /// Gets a dictionary of string key and driver value pairs
         /// </summary>
         public ManagerDictionary ManagerStore { get; private set; }
+
+        /// <summary>
+        /// Gets a hashset of unique associated files
+        /// </summary>
+        public HashSet<string> AssociatedFiles { get; private set; }
 
         /// <summary>
         /// Sets a string value, will replace if the key already exists
