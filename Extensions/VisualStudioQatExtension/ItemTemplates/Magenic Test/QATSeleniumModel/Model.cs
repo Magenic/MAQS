@@ -23,7 +23,7 @@ namespace $rootnamespace$
         }
 		
 		/// <summary>
-        /// Sample fluent element
+        /// Sample lazy element
         /// </summary>
         private LazyElement Sample
         {
