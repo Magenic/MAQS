@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("BaseTestUnitTests")]
-[assembly: AssemblyCopyright("Copyright © Magenic 2018")]
+[assembly: AssemblyCopyright("Copyright © Magenic 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
