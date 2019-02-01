@@ -7,7 +7,6 @@
 using Magenic.Maqs.BaseAppiumTest;
 using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OpenQA.Selenium;
 
 namespace AppiumUnitTests
 {
@@ -25,8 +24,6 @@ namespace AppiumUnitTests
         public void AppiumTestObjectTest()
         {
             Assert.IsNotNull(this.TestObject.AppiumDriver);
-            var oByTemp = By.XPath("//*[@content-desc='{0}']");
-            this.TestObject.AppiumDriver.FindElement(oByTemp).C
         }
     }
 }
