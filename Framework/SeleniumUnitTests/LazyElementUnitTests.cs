@@ -176,7 +176,7 @@ namespace SeleniumUnitTests
             // Create the lazy element and use it
             LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
 
-            // Make sure we are getting ack the same cached element
+            // Make sure we are getting back the same cached element
             Assert.IsNull(footer.CachedElement, "The cached element should be null as we never triggered a find");
         }
 
@@ -194,7 +194,7 @@ namespace SeleniumUnitTests
             footer.GetValue();
             IWebElement footerElementBefore = footer.CachedElement;
 
-            // Do the event again and save off the chanced element 
+            // Do the event again and save off the changed element 
             footer.GetValue();
 
             // Make sure doing a new find returns an element that is not the same as the cached element
@@ -216,7 +216,7 @@ namespace SeleniumUnitTests
             footer.GetValue();
             IWebElement footerElementBefore = footer.CachedElement;
 
-            // Do the event again and save off the chanced element 
+            // Do the event again and save off the changed element 
             footer.GetValue();
             IWebElement footerElementAfter = footer.CachedElement;
 
@@ -240,7 +240,7 @@ namespace SeleniumUnitTests
             footer.GetValue();
             IWebElement footerElementBefore = footer.CachedElement;
 
-            // Do the event again and save off the chanced element 
+            // Do the event again and save off the changed element 
             footer.GetValue();
 
             // Go to another page so the old element will be stale, this will force us to get a new one
