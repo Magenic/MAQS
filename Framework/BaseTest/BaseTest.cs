@@ -252,7 +252,7 @@ namespace Magenic.Maqs.BaseTest
             collection.Write(this.Log);
             if (collection.FileName != null)
             {
-                this.TestObject.AddAssociatedFile(collection.FileName);
+                this.TestObject.AddAssociatedFile(LoggingConfig.GetLogDirectory() + "\\" + collection.FileName);
             }
 
             // Attach log and screen shot if we can
@@ -597,6 +597,11 @@ namespace Magenic.Maqs.BaseTest
         private void AttachLogAndSceenshot(string fullyQualifiedTestName)
         {
             bool filesWereAttached = false;
+            string logPath = string.Empty;
+            if (this.Log is FileLogger && File.Exists(((FileLogger)this.Log).FilePath))
+            {
+                logPath = ((FileLogger)this.Log).FilePath;
+            }
 #if NET471
             try
             {
@@ -604,15 +609,13 @@ namespace Magenic.Maqs.BaseTest
                 if (this.testContextInstance != null)
                 {
                     // Only attach log if it is a file logger and we can find it
-                    if (this.Log is FileLogger && File.Exists(((FileLogger)this.Log).FilePath))
+                    if (!string.IsNullOrEmpty(logPath))
                     {
-                        string path = ((FileLogger)this.Log).FilePath;
-                        this.TestObject.AddAssociatedFile(path);
+                        this.TestObject.AddAssociatedFile(logPath);
                     }
 
                     // Attach all existing associated files
-                    string[] associatedFiles = this.TestObject.GetArrayOfAssociatedFiles();
-                    foreach (string path in associatedFiles)
+                    foreach (string path in this.TestObject.GetArrayOfAssociatedFiles())
                     {
                         if (File.Exists(path))
                         {
@@ -628,19 +631,23 @@ namespace Magenic.Maqs.BaseTest
                 this.TryToLog(MessageType.WARNING, "Failed to attach test result file because: " + e.Message);
             }
 #endif
-            if (this.Log is FileLogger && File.Exists(((FileLogger)this.Log).FilePath) && filesWereAttached == false)
+            // if attachment failed or project is core, write the list of files to the log
+            if (!string.IsNullOrEmpty(logPath) && filesWereAttached == false)
             {
-                string path = ((FileLogger)this.Log).FilePath;
-                this.TestObject.RemoveAssociatedFile(path);
+                this.TestObject.RemoveAssociatedFile(logPath);
                 string listOfFilesMessage = "List of Associated Files: " + Environment.NewLine;
-                string[] associatedFiles = this.TestObject.GetArrayOfAssociatedFiles();
-                foreach (string assocPath in associatedFiles)
+
+                int filesAdded = 0;
+                foreach (string assocPath in this.TestObject.GetArrayOfAssociatedFiles())
                 {
                     if (File.Exists(assocPath))
                     {
                         listOfFilesMessage += assocPath + Environment.NewLine;
+                        filesAdded++;
                     }
                 }
+
+                listOfFilesMessage += filesAdded == 0 ? "NONE" : string.Empty; 
 
                 this.TryToLog(MessageType.GENERIC, listOfFilesMessage);
             }
