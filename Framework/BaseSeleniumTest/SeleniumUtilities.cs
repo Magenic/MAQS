@@ -86,7 +86,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
 
             // Save the screenshot
             screenShot.SaveAsFile(path, imageFormat);
-            testObject.AssociatedFiles.Add(path);
+            testObject.AddAssociatedFile(path);
 
             return path;
         }
@@ -165,7 +165,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             // Write page source to a new file
             writer.Write(pageSource);
             writer.Close();
-            testObject.AssociatedFiles.Add(path);
+            testObject.AddAssociatedFile(path);
             return path;
         }
 

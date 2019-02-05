@@ -32,6 +32,19 @@ namespace AppiumUnitTests
         }
 
         /// <summary>
+        /// Verify when a screenshot is captured it is associated to the test object
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Appium)]
+        public void CaptureScreenshotTestObjectAssociation()
+        {
+            AppiumUtilities.CaptureScreenshot(this.TestObject.AppiumDriver, this.Log, this.TestObject);
+            string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, ".png");
+            Assert.IsTrue(this.TestObject.ContainsAssociatedFile(filePath), "Failed to find screenshot");
+            File.Delete(filePath);
+        }
+
+        /// <summary>
         /// Verify SavePageSource works - Validating that the Page Source file was created
         /// </summary>
         #region SavePageSource
@@ -66,11 +79,23 @@ namespace AppiumUnitTests
         /// Verify that SavePageSource creates Directory if it does not exist already 
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
+        [TestCategory(TestCategories.Appium)]
         public void SavePageSourceNoExistingDirectory()
         {
             string pageSourcePath = AppiumUtilities.SavePageSource(this.AppiumDriver, this.TestObject, "TempTestDirectory", "TempTestFilePath");
             Assert.IsTrue(File.Exists(pageSourcePath), "Fail to find Page Source");
+            File.Delete(pageSourcePath);
+        }
+
+        /// <summary>
+        /// Verify when a page source is saved it is associated to the test object
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Appium)]
+        public void SavedPageSourceTestObjectAssociation()
+        {
+            string pageSourcePath = AppiumUtilities.SavePageSource(this.AppiumDriver, this.TestObject, "TempTestDirectory", "TempTestFilePath");
+            Assert.IsTrue(this.TestObject.ContainsAssociatedFile(pageSourcePath), "Failed to find page source");
             File.Delete(pageSourcePath);
         }
     }

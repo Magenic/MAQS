@@ -62,7 +62,7 @@ namespace Magenic.Maqs.BaseAppiumTest
 
             string path = Path.Combine(directory, fileNameWithoutExtension + ".png");
 
-            testObject.AssociatedFiles.Add(path);
+            testObject.AddAssociatedFile(path);
             screenshot.SaveAsFile(path, ScreenshotImageFormat.Png);
         }
 
@@ -141,7 +141,7 @@ namespace Magenic.Maqs.BaseAppiumTest
             writer.Write(pageSource);
             writer.Close();
 
-            testObject.AssociatedFiles.Add(path);
+            testObject.AddAssociatedFile(path);
             return path;
         }
     }

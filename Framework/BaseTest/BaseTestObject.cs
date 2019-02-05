@@ -8,6 +8,7 @@ using Magenic.Maqs.Utilities.Logging;
 using Magenic.Maqs.Utilities.Performance;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Magenic.Maqs.BaseTest
 {
@@ -101,9 +102,9 @@ namespace Magenic.Maqs.BaseTest
         public ManagerDictionary ManagerStore { get; private set; }
 
         /// <summary>
-        /// Gets a hashset of unique associated files
+        /// Gets a hashset of unique associated files to attach to the test context
         /// </summary>
-        public HashSet<string> AssociatedFiles { get; private set; }
+        protected HashSet<string> AssociatedFiles { get; private set; }
 
         /// <summary>
         /// Sets a string value, will replace if the key already exists
@@ -175,6 +176,51 @@ namespace Magenic.Maqs.BaseTest
         public void AddDriverManager(string key, DriverManager driver)
         {
             this.ManagerStore.Add(key, driver);
+        }
+
+        /// <summary>
+        /// Checks if the file exists and if so attempts to add it to the associated files set
+        /// </summary>
+        /// <param name="path">path of the file</param>
+        /// <returns>True if the file exists and was sucessfully added, false if the file doesn't exist or was already added</returns>
+        public bool AddAssociatedFile(string path)
+        {
+            if (File.Exists(path))
+            {
+                return this.AssociatedFiles.Add(path);
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Removes the file path from the associated file set
+        /// </summary>
+        /// <param name="path">path of the file</param>
+        /// <returns>True if the file path was sucessfully removed, false if the file wasn't in the set</returns>
+        public bool RemoveAssociatedFile(string path)
+        {
+            return this.AssociatedFiles.Remove(path);
+        }
+
+        /// <summary>
+        /// Returns an array of the file paths associated with the test object
+        /// </summary>
+        /// <returns>An array of the assoicated files</returns>
+        public string[] GetArrayOfAssociatedFiles()
+        {
+            string[] associatedFiles = new string[this.AssociatedFiles.Count];
+            this.AssociatedFiles.CopyTo(associatedFiles, 0);
+            return associatedFiles;
+        }
+
+        /// <summary>
+        /// Returns an array of the file paths associated with the test object
+        /// </summary>
+        /// <returns>Whether the exact file path is contained in the Hashmap</returns>
+        public bool ContainsAssociatedFile(string path)
+        {
+            return this.AssociatedFiles.Contains(path);
         }
 
         /// <summary>

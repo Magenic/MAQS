@@ -727,6 +727,22 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Verify that the captured screenshot is associated to the test object
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void CapturedScreenshotTestObjectAssociation()
+        {
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            this.WebDriver.Wait().ForPageLoad();
+            string pagePicPath = SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject, "TempTestDirectory", "TempTestFilePath");
+
+            Assert.IsTrue(this.TestObject.ContainsAssociatedFile(pagePicPath), "The captured screenshot wasn't added to the associated files");
+
+            File.Delete(pagePicPath);
+        }
+
+        /// <summary>
         /// Verify that SavePageSource creates Directory if it does not exist already 
         /// </summary>
         [TestMethod]
@@ -737,6 +753,22 @@ namespace SeleniumUnitTests
             this.WebDriver.Wait().ForPageLoad();
             string pageSourcePath = SeleniumUtilities.SavePageSource(this.WebDriver, this.TestObject, "TempTestDirectory", "TempTestFilePath");
             Assert.IsTrue(File.Exists(pageSourcePath), "Fail to find Page Source");
+            File.Delete(pageSourcePath);
+        }
+
+        /// <summary>
+        /// Verify that the captured screenshot is associated to the test object
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void SavedPageSourceTestObjectAssociation()
+        {
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            this.WebDriver.Wait().ForPageLoad();
+            string pageSourcePath = SeleniumUtilities.SavePageSource(this.WebDriver, this.TestObject, "TempTestDirectory", "TempTestFilePath");
+
+            Assert.IsTrue(this.TestObject.ContainsAssociatedFile(pageSourcePath), "The saved page source wasn't added to the associated files");
+
             File.Delete(pageSourcePath);
         }
 

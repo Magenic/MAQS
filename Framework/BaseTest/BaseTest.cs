@@ -252,7 +252,7 @@ namespace Magenic.Maqs.BaseTest
             collection.Write(this.Log);
             if (collection.FileName != null)
             {
-                this.TestObject.AssociatedFiles.Add(collection.FileName);
+                this.TestObject.AddAssociatedFile(collection.FileName);
             }
 
             // Attach log and screen shot if we can
@@ -607,11 +607,12 @@ namespace Magenic.Maqs.BaseTest
                     if (this.Log is FileLogger && File.Exists(((FileLogger)this.Log).FilePath))
                     {
                         string path = ((FileLogger)this.Log).FilePath;
-                        this.TestObject.AssociatedFiles.Add(path);
+                        this.TestObject.AddAssociatedFile(path);
                     }
 
                     // Attach all existing associated files
-                    foreach (string path in this.TestObject.AssociatedFiles)
+                    string[] associatedFiles = this.TestObject.GetArrayOfAssociatedFiles();
+                    foreach (string path in associatedFiles)
                     {
                         if (File.Exists(path))
                         {
@@ -630,9 +631,10 @@ namespace Magenic.Maqs.BaseTest
             if (this.Log is FileLogger && File.Exists(((FileLogger)this.Log).FilePath) && filesWereAttached == false)
             {
                 string path = ((FileLogger)this.Log).FilePath;
-                this.TestObject.AssociatedFiles.Remove(path);
+                this.TestObject.RemoveAssociatedFile(path);
                 string listOfFilesMessage = "List of Associated Files: " + Environment.NewLine;
-                foreach (string assocPath in this.TestObject.AssociatedFiles)
+                string[] associatedFiles = this.TestObject.GetArrayOfAssociatedFiles();
+                foreach (string assocPath in associatedFiles)
                 {
                     if (File.Exists(assocPath))
                     {
