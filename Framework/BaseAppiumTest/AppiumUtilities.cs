@@ -21,8 +21,8 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// To capture a screenshot during execution
         /// </summary>
         /// <param name="appiumDriver">The AppiumDriver</param>
-        /// <param name="testObject">The TestObject to associate the screenshot with</param>
         /// <param name="log">The logger being used</param>
+        /// <param name="testObject">The TestObject to associate the screenshot with</param>
         /// <param name="appendName">Appends a name to the end of a filename</param>
         /// <returns>Boolean if the save of the image was successful</returns>
         public static bool CaptureScreenshot(this AppiumDriver<IWebElement> appiumDriver, Logger log, AppiumTestObject testObject, string appendName = "")

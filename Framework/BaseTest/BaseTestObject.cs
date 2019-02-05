@@ -102,7 +102,7 @@ namespace Magenic.Maqs.BaseTest
         public ManagerDictionary ManagerStore { get; private set; }
 
         /// <summary>
-        /// Gets a hashset of unique associated files to attach to the test context
+        /// Gets a hash set of unique associated files to attach to the test context
         /// </summary>
         protected HashSet<string> AssociatedFiles { get; private set; }
 
@@ -182,7 +182,7 @@ namespace Magenic.Maqs.BaseTest
         /// Checks if the file exists and if so attempts to add it to the associated files set
         /// </summary>
         /// <param name="path">path of the file</param>
-        /// <returns>True if the file exists and was sucessfully added, false if the file doesn't exist or was already added</returns>
+        /// <returns>True if the file exists and was successfully added, false if the file doesn't exist or was already added</returns>
         public bool AddAssociatedFile(string path)
         {
             if (File.Exists(path))
@@ -197,7 +197,7 @@ namespace Magenic.Maqs.BaseTest
         /// Removes the file path from the associated file set
         /// </summary>
         /// <param name="path">path of the file</param>
-        /// <returns>True if the file path was sucessfully removed, false if the file wasn't in the set</returns>
+        /// <returns>True if the file path was successfully removed, false if the file wasn't in the set</returns>
         public bool RemoveAssociatedFile(string path)
         {
             return this.AssociatedFiles.Remove(path);
@@ -206,7 +206,7 @@ namespace Magenic.Maqs.BaseTest
         /// <summary>
         /// Returns an array of the file paths associated with the test object
         /// </summary>
-        /// <returns>An array of the assoicated files</returns>
+        /// <returns>An array of the associated files</returns>
         public string[] GetArrayOfAssociatedFiles()
         {
             string[] associatedFiles = new string[this.AssociatedFiles.Count];
@@ -217,7 +217,8 @@ namespace Magenic.Maqs.BaseTest
         /// <summary>
         /// Returns an array of the file paths associated with the test object
         /// </summary>
-        /// <returns>Whether the exact file path is contained in the Hashmap</returns>
+        /// <param name="path">The file path to search for</param>
+        /// <returns>Whether the exact file path is contained in the set</returns>
         public bool ContainsAssociatedFile(string path)
         {
             return this.AssociatedFiles.Contains(path);

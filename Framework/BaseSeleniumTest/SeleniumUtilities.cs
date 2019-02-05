@@ -25,8 +25,8 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// </summary>
         /// <param name="webDriver">The WebDriver</param>
         /// <param name="log">The logger being used</param>
-        /// <param name="appendName">Appends a name to the end of a filename</param>
         /// <param name="testObject">The TestObject to associate the file with</param>
+        /// <param name="appendName">Appends a name to the end of a filename</param>
         /// <returns>Boolean if the save of the image was successful</returns>
         /// <example>
         /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="CaptureScreenshot" lang="C#" />
