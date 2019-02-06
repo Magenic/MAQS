@@ -40,17 +40,37 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Magenic.Maqs.BaseAppiumTest">
+      <HintPath>..\packages\Magenic.Maqs.5.2.0\lib\net471\Magenic.Maqs.BaseAppiumTest.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Magenic.Maqs.BaseDatabaseTest">
+      <HintPath>..\packages\Magenic.Maqs.5.2.0\lib\net471\Magenic.Maqs.BaseDatabaseTest.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Magenic.Maqs.BaseEmailTest">
+      <HintPath>..\packages\Magenic.Maqs.5.2.0\lib\net471\Magenic.Maqs.BaseEmailTest.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Magenic.Maqs.BaseSeleniumTest">
+      <HintPath>..\packages\Magenic.Maqs.5.2.0\lib\net471\Magenic.Maqs.BaseSeleniumTest.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Magenic.Maqs.BaseTest">
       <HintPath>..\packages\Magenic.Maqs.5.2.0\lib\net471\Magenic.Maqs.BaseTest.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Magenic.Maqs.SpecFlow">
       <HintPath>..\packages\Magenic.Maqs.SpecFlow.5.2.0\lib\net471\Magenic.Maqs.SpecFlow.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Magenic.Maqs.Utilities">
       <HintPath>..\packages\Magenic.Maqs.5.2.0\lib\net471\Magenic.Maqs.Utilities.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Magenic.Maqs.WebServiceTester">
       <HintPath>..\packages\Magenic.Maqs.5.2.0\lib\net471\Magenic.Maqs.WebServiceTester.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Extensions.Configuration">
       <HintPath>..\packages\Microsoft.Extensions.Configuration.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.dll</HintPath>
@@ -78,9 +98,11 @@
     </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework">
       <HintPath>..\packages\MSTest.TestFramework.1.4.0\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions">
       <HintPath>..\packages\MSTest.TestFramework.1.4.0\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -113,7 +135,8 @@
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="TechTalk.SpecFlow">
-      <HintPath>..\packages\SpecFlow.2.3.2\lib\net45\TechTalk.SpecFlow.dll</HintPath>
+      <HintPath>..\packages\SpecFlow.2.4.0\lib\net45\TechTalk.SpecFlow.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -143,9 +166,6 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\NUnit.3.10.1\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit.3.10.1\build\NUnit.props'))" />
-    <Error Condition="!Exists('..\packages\NUnit3TestAdapter.3.10.0\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit3TestAdapter.3.10.0\build\net35\NUnit3TestAdapter.props'))" />
-    <Error Condition="!Exists('..\packages\SpecFlow.2.3.2\build\SpecFlow.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SpecFlow.2.3.2\build\SpecFlow.targets'))" />
   </Target>
-  <Import Project="..\packages\SpecFlow.2.3.2\build\SpecFlow.targets" Condition="Exists('..\packages\SpecFlow.2.3.2\build\SpecFlow.targets')" />
+  <Import Project="..\packages\SpecFlow.2.4.0\build\SpecFlow.targets" Condition="Exists('..\packages\SpecFlow.2.4.0\build\SpecFlow.targets')" />
 </Project>
