@@ -6,6 +6,7 @@
 //--------------------------------------------------
 
 using Dapper.Contrib.Extensions;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DatabaseUnitTests.Models
 {
@@ -13,6 +14,7 @@ namespace DatabaseUnitTests.Models
     /// Class representing the orders table.
     /// </summary>
     [Table("Orders")]
+    [ExcludeFromCodeCoverage]
     public class Orders
     {
         /// <summary>

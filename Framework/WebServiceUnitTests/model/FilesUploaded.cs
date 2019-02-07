@@ -5,12 +5,14 @@
 // <summary>FilesUploaded model</summary>
 //--------------------------------------------------
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace WebServiceTesterUnitTesting.Model
 {
     /// <summary>
     /// Employee Model
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class FilesUploaded
     {
         /// <summary>

@@ -5,12 +5,14 @@
 // <summary>Employee model</summary>
 //--------------------------------------------------
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace WebServiceTesterUnitTesting.Model
 {
     /// <summary>
     /// Employee Model
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class Files
     {
         /// <summary>
