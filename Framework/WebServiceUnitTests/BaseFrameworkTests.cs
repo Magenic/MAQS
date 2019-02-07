@@ -36,6 +36,7 @@ namespace WebServiceTesterUnitTesting
         [TestMethod]
         [TestCategory(TestCategories.Framework)]
         [ExpectedException(typeof(AssertFailedException))]
+        [NonParallelizable]
         public new void SoftAssertWithFailure()
         {
             base.SoftAssertWithFailure();

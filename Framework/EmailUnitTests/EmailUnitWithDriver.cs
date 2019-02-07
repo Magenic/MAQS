@@ -26,6 +26,7 @@ namespace EmailUnitTests
     /// Test basic email testing with the base email test
     /// </summary>
     [TestClass]
+    [DoNotParallelize]
     [ExcludeFromCodeCoverage]
     public class EmailUnitWithDriver : BaseEmailTest
     {

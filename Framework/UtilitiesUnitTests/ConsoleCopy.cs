@@ -80,7 +80,7 @@ namespace UtilitiesUnitTesting
         /// Cleans up the writers and reverts the console
         /// </summary>
         /// <param name="disposing">True if you want to release managed resources</param>
-        [SuppressMessage("Microsoft.Usage", "CA2213:DisposableFieldsShouldBeDisposed", MessageId = "doubleWriter")]
+        [SuppressMessage("Microsoft.Usage", "CA2213:DisposableFieldsShouldBeDisposed", MessageId = "doubleWriter", Justification = "Needed for unit testing")]
         protected virtual void Dispose(bool disposing)
         {
             Console.SetOut(this.oldOut);

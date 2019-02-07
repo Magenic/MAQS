@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-
+    <ProjectGuid>{D3E59B9F-445E-4484-9B2F-B3FE3ED82CE5}</ProjectGuid>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
@@ -10,8 +10,8 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.4.0" />
     <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
-    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="2.45.0" />
-    <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.23.0.3" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="2.46.0" />
+    <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.24.0" />
     <PackageReference Include="System.Runtime" Version="4.3.0" />
   </ItemGroup>
 

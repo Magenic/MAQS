@@ -30,16 +30,14 @@ namespace Magenic.Maqs.BaseSeleniumTest
         protected BaseSeleniumPageModel(SeleniumTestObject testObject)
         {
             this.TestObject = testObject;
+            this.WebDriver = testObject.WebDriver;
             this.lazyElementStore = new Dictionary<string, LazyElement>();
         }
 
         /// <summary>
         /// Gets the webdriver from the test object
         /// </summary>
-        protected IWebDriver WebDriver
-        {
-            get { return this.TestObject.WebDriver; }
-        }
+        protected IWebDriver WebDriver { get; private set; }
 
         /// <summary>
         /// Gets the log from the test object
@@ -63,11 +61,21 @@ namespace Magenic.Maqs.BaseSeleniumTest
         protected SeleniumTestObject TestObject { get; set; }
 
         /// <summary>
+        /// Override the webdriver 
+        /// This allows you to use something other than the default tests object webdriver.
+        /// </summary>
+        /// <param name="webDriver">The override webdriver</param>
+        public void OverrideWebDriver(IWebDriver webDriver)
+        {
+            this.WebDriver = webDriver;
+        }
+
+        /// <summary>
         /// Check if the page has been loaded
         /// </summary>
         /// <returns>True if the page was loaded</returns>
         public abstract bool IsPageLoaded();
-
+        
         /// <summary>
         /// Gets LazyElement from page model's lazy element store if it exists, otherwise
         /// initializes a new instance of the LazyElement and adds it to the lazy element store

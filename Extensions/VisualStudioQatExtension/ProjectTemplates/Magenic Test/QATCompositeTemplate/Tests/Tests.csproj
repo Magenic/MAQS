@@ -40,26 +40,26 @@
   </PropertyGroup>
   <ItemGroup>
 	<Reference Include="Magenic.Maqs.BaseTest">
-      <HintPath>..\..\packages\Magenic.Maqs.5.2.0\lib\net471\Magenic.Maqs.BaseTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Maqs.5.3.0\lib\net471\Magenic.Maqs.BaseTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseAppiumTest">
-      <HintPath>..\..\packages\Magenic.Maqs.5.2.0\lib\net471\Magenic.Maqs.BaseAppiumTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Maqs.5.3.0\lib\net471\Magenic.Maqs.BaseAppiumTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseDatabaseTest">
-      <HintPath>..\..\packages\Magenic.Maqs.5.2.0\lib\net471\Magenic.Maqs.BaseDatabaseTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Maqs.5.3.0\lib\net471\Magenic.Maqs.BaseDatabaseTest.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseEmailTest">
-      <HintPath>..\..\packages\Magenic.Maqs.5.2.0\lib\net471\Magenic.Maqs.BaseEmailTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Maqs.5.3.0\lib\net471\Magenic.Maqs.BaseEmailTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseSeleniumTest">
-      <HintPath>..\..\packages\Magenic.Maqs.5.2.0\lib\net471\Magenic.Maqs.BaseSeleniumTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Maqs.5.3.0\lib\net471\Magenic.Maqs.BaseSeleniumTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.Maqs.Utilities">
-      <HintPath>..\..\packages\Magenic.Maqs.5.2.0\lib\net471\Magenic.Maqs.Utilities.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Maqs.5.3.0\lib\net471\Magenic.Maqs.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.Maqs.WebServiceTester">
-      <HintPath>..\..\packages\Magenic.Maqs.5.2.0\lib\net471\Magenic.Maqs.WebServiceTester.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Maqs.5.3.0\lib\net471\Magenic.Maqs.WebServiceTester.dll</HintPath>
       <Private>True</Private>
     </Reference>
 	<Reference Include="appium-dotnet-driver">
@@ -78,10 +78,10 @@
       <HintPath>..\..\packages\BouncyCastle.1.8.2\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="MailKit">
-      <HintPath>..\..\packages\MailKit.2.1.1\lib\net45\MailKit.dll</HintPath>
+      <HintPath>..\..\packages\MailKit.2.1.2\lib\net45\MailKit.dll</HintPath>
     </Reference>
 	<Reference Include="MimeKit">
-      <HintPath>..\..\packages\MimeKit.2.1.1\lib\net45\MimeKit.dll</HintPath>
+      <HintPath>..\..\packages\MimeKit.2.1.2\lib\net45\MimeKit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Data.Sqlite">
