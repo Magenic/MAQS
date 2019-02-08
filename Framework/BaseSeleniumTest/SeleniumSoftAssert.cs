@@ -61,12 +61,12 @@ namespace Magenic.Maqs.BaseSeleniumTest
             {
                 if (SeleniumConfig.GetSoftAssertScreenshot())
                 {
-                    SeleniumUtilities.CaptureScreenshot(this.testObject.WebDriver, this.Log, this.testObject, this.TextToAppend(softAssertName));
+                    SeleniumUtilities.CaptureScreenshot(this.testObject.WebDriver, this.testObject, this.TextToAppend(softAssertName));
                 }
 
                 if (SeleniumConfig.GetSavePagesourceOnFail())
                 {
-                    SeleniumUtilities.SavePageSource(this.testObject.WebDriver, this.Log, this.testObject, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
+                    SeleniumUtilities.SavePageSource(this.testObject.WebDriver, this.testObject, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
                 }
 
                 return false;
@@ -93,12 +93,12 @@ namespace Magenic.Maqs.BaseSeleniumTest
             {
                 if (SeleniumConfig.GetSoftAssertScreenshot())
                 {
-                    SeleniumUtilities.CaptureScreenshot(this.testObject.WebDriver, this.Log, this.testObject, this.TextToAppend(softAssertName));
+                    SeleniumUtilities.CaptureScreenshot(this.testObject.WebDriver, this.testObject, this.TextToAppend(softAssertName));
                 }
 
                 if (SeleniumConfig.GetSavePagesourceOnFail())
                 {
-                    SeleniumUtilities.SavePageSource(this.testObject.WebDriver, this.Log, this.testObject, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
+                    SeleniumUtilities.SavePageSource(this.testObject.WebDriver, this.testObject, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
                 }
 
                 return false;
@@ -125,12 +125,12 @@ namespace Magenic.Maqs.BaseSeleniumTest
             {
                 if (SeleniumConfig.GetSoftAssertScreenshot())
                 {
-                    SeleniumUtilities.CaptureScreenshot(this.testObject.WebDriver, this.Log, this.testObject, this.TextToAppend(softAssertName));
+                    SeleniumUtilities.CaptureScreenshot(this.testObject.WebDriver, this.testObject, this.TextToAppend(softAssertName));
                 }
 
                 if (SeleniumConfig.GetSavePagesourceOnFail())
                 {
-                    SeleniumUtilities.SavePageSource(this.testObject.WebDriver, this.Log, this.testObject, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
+                    SeleniumUtilities.SavePageSource(this.testObject.WebDriver, this.testObject, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
                 }
 
                 return false;

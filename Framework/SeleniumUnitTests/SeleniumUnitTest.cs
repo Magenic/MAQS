@@ -647,12 +647,27 @@ namespace SeleniumUnitTests
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
-            SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.Log, this.TestObject);
-            string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, ".Jpeg");
+            SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject);
+            string filePath = Path.ChangeExtension(((FileLogger)this.TestObject.Log).FilePath, ".Jpeg");
             Assert.IsTrue(File.Exists(filePath), "Fail to find screenshot");
             File.Delete(filePath);
         }
         #endregion
+
+        /// <summary>
+        /// Verify deprecated version of CaptureScreenshot works - Validating that the screenshot was created
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void TryScreenshotDeprecated()
+        {
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            this.WebDriver.Wait().ForPageLoad();
+            SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.Log);
+            string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, ".Jpeg");
+            Assert.IsTrue(File.Exists(filePath), "Fail to find screenshot");
+            File.Delete(filePath);
+        }
 
         /// <summary>
         /// Verify CaptureScreenshot works with console logger - Validating that the screenshot was created
@@ -666,10 +681,33 @@ namespace SeleniumUnitTests
 
             // Create a console logger and calculate the file location
             ConsoleLogger consoleLogger = new ConsoleLogger();
+            this.TestObject.Log = consoleLogger;
             string expectedPath = Path.Combine(LoggingConfig.GetLogDirectory(), "ScreenCapDelete.Jpeg");
 
             // Take a screenshot
-            SeleniumUtilities.CaptureScreenshot(this.WebDriver, consoleLogger, this.TestObject, "Delete");
+            SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject, "Delete");
+
+            // Make sure we got the screenshot and than cleanup
+            Assert.IsTrue(File.Exists(expectedPath), "Fail to find screenshot");
+            File.Delete(expectedPath);
+        }
+
+        /// <summary>
+        /// Verify deprecated CaptureScreenshot works with console logger - Validating that the screenshot was created
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void TryScreenshotWithConsoleLoggerDeprecated()
+        {
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            this.WebDriver.Wait().ForPageLoad();
+
+            // Create a console logger and calculate the file location
+            ConsoleLogger consoleLogger = new ConsoleLogger();
+            string expectedPath = Path.Combine(LoggingConfig.GetLogDirectory(), "ScreenCapDelete.Jpeg");
+
+            // Take a screenshot
+            SeleniumUtilities.CaptureScreenshot(this.WebDriver, consoleLogger, "Delete");
 
             // Make sure we got the screenshot and than cleanup
             Assert.IsTrue(File.Exists(expectedPath), "Fail to find screenshot");
@@ -688,18 +726,19 @@ namespace SeleniumUnitTests
                 FilePath = "<>" // illegal file path
             };
 
+            this.TestObject.Log = tempLogger;
             this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
-            bool successfullyCaptured = SeleniumUtilities.CaptureScreenshot(this.WebDriver, tempLogger, this.TestObject);
+            bool successfullyCaptured = SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject);
             Assert.IsFalse(successfullyCaptured);
         }
 
         /// <summary>
-        /// Verify that SavePageSource properly handles exceptions and returns false
+        /// Verify that deprecated CaptureScreenshot properly handles exceptions and returns false
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void SavePageSourceThrownException()
+        public void CaptureScreenshotThrownExceptionDeprecated()
         {
             FileLogger tempLogger = new FileLogger
             {
@@ -708,8 +747,8 @@ namespace SeleniumUnitTests
 
             this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
-            bool successfullySaved = SeleniumUtilities.SavePageSource(this.WebDriver, tempLogger, this.TestObject);
-            Assert.IsFalse(successfullySaved);
+            bool successfullyCaptured = SeleniumUtilities.CaptureScreenshot(this.WebDriver, tempLogger);
+            Assert.IsFalse(successfullyCaptured);
         }
 
         /// <summary>
@@ -721,7 +760,21 @@ namespace SeleniumUnitTests
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
-            string screenShotPath = SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject, "TempTestDirectory", "TempTestFilePath", SeleniumUtilities.GetScreenShotFormat());
+            string screenShotPath = SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject, "TempTestDirectory", "CapScreenShotNoDir", SeleniumUtilities.GetScreenShotFormat());
+            Assert.IsTrue(File.Exists(screenShotPath), "Fail to find screenshot");
+            File.Delete(screenShotPath);
+        }
+
+        /// <summary>
+        /// Verify that deprecated CaptureScreenshot creates Directory if it does not exist already 
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void CaptureScreenshotNoExistingDirectoryDeprecated()
+        {
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            this.WebDriver.Wait().ForPageLoad();
+            string screenShotPath = SeleniumUtilities.CaptureScreenshot(this.WebDriver, "TempTestDirectory", "OldCapScreenShotNoDir", SeleniumUtilities.GetScreenShotFormat());
             Assert.IsTrue(File.Exists(screenShotPath), "Fail to find screenshot");
             File.Delete(screenShotPath);
         }
@@ -735,41 +788,11 @@ namespace SeleniumUnitTests
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
-            string pagePicPath = SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject, "TempTestDirectory", "TempTestFilePath");
+            string pagePicPath = SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject, "TempTestDirectory", "TestObjAssocTest");
 
             Assert.IsTrue(this.TestObject.ContainsAssociatedFile(pagePicPath), "The captured screenshot wasn't added to the associated files");
 
             File.Delete(pagePicPath);
-        }
-
-        /// <summary>
-        /// Verify that SavePageSource creates Directory if it does not exist already 
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
-        public void SavePageSourceNoExistingDirectory()
-        {
-            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
-            this.WebDriver.Wait().ForPageLoad();
-            string pageSourcePath = SeleniumUtilities.SavePageSource(this.WebDriver, this.TestObject, "TempTestDirectory", "TempTestFilePath");
-            Assert.IsTrue(File.Exists(pageSourcePath), "Fail to find Page Source");
-            File.Delete(pageSourcePath);
-        }
-
-        /// <summary>
-        /// Verify that the captured screenshot is associated to the test object
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
-        public void SavedPageSourceTestObjectAssociation()
-        {
-            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
-            this.WebDriver.Wait().ForPageLoad();
-            string pageSourcePath = SeleniumUtilities.SavePageSource(this.WebDriver, this.TestObject, "TempTestDirectory", "TempTestFilePath");
-
-            Assert.IsTrue(this.TestObject.ContainsAssociatedFile(pageSourcePath), "The saved page source wasn't added to the associated files");
-
-            File.Delete(pageSourcePath);
         }
 
         /// <summary>
@@ -918,12 +941,124 @@ namespace SeleniumUnitTests
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
-            string pageSourcePath = SeleniumUtilities.SavePageSource(this.WebDriver, this.TestObject, "TempTestDirectory", "TempTestFilePath");
+            string pageSourcePath = SeleniumUtilities.SavePageSource(this.WebDriver, this.TestObject, "TempTestDirectory", "SeleniumPSFile");
             Assert.IsTrue(File.Exists(pageSourcePath), "Failed to find Page Source");
             File.Delete(pageSourcePath);
         }
         #endregion
 
+        /// <summary>
+        /// Verify that page source file is being created using deprecated method
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void SeleniumPageSourceFileIsCreatedDeprecated()
+        {
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            this.WebDriver.Wait().ForPageLoad();
+            string pageSourcePath = SeleniumUtilities.SavePageSource(this.WebDriver, "TempTestDirectory", "OldSeleniumPSFile");
+            Assert.IsTrue(File.Exists(pageSourcePath), "Failed to find Page Source");
+            File.Delete(pageSourcePath);
+        }
+
+        /// <summary>
+        /// Verify SavePageSource works with console logger - Validating that page source was created
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void SeleniumPageSourceWithConsoleLogger()
+        {
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            this.WebDriver.Wait().ForPageLoad();
+
+            // Create a console logger and calculate the file location
+            ConsoleLogger consoleLogger = new ConsoleLogger();
+            string expectedPath = Path.Combine(LoggingConfig.GetLogDirectory(), "PageSourceConsole.txt");
+            this.TestObject.Log = consoleLogger;
+
+            // Take a screenshot
+            SeleniumUtilities.SavePageSource(this.WebDriver, this.TestObject, "Console");
+
+            // Make sure we got the screenshot and than cleanup
+            Assert.IsTrue(File.Exists(expectedPath), "Fail to find screenshot");
+            File.Delete(expectedPath);
+        }
+
+        /// <summary>
+        /// Verify deprecated SavePageSource works with console logger - Validating that page source was created
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void SeleniumPageSourceWithConsoleLoggerDeprecated()
+        {
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            this.WebDriver.Wait().ForPageLoad();
+
+            // Create a console logger and calculate the file location
+            ConsoleLogger consoleLogger = new ConsoleLogger();
+            string expectedPath = Path.Combine(LoggingConfig.GetLogDirectory(), "PageSourceOldConsole.txt");
+
+            // Take a screenshot
+            SeleniumUtilities.SavePageSource(this.WebDriver, consoleLogger, "OldConsole");
+
+            // Make sure we got the screenshot and than cleanup
+            Assert.IsTrue(File.Exists(expectedPath), "Fail to find screenshot");
+            File.Delete(expectedPath);
+        }
+
+        /// <summary>
+        /// Verify that SavePageSource properly handles exceptions and returns false
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void SavePageSourceThrownException()
+        {
+            FileLogger tempLogger = new FileLogger
+            {
+                FilePath = "<>" // illegal file path
+            };
+
+            this.TestObject.Log = tempLogger;
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            this.WebDriver.Wait().ForPageLoad();
+            bool successfullySaved = SeleniumUtilities.SavePageSource(this.WebDriver, this.TestObject);
+            Assert.IsFalse(successfullySaved);
+        }
+
+        /// <summary>
+        /// Verify that deprecated SavePageSource properly handles exceptions and returns false
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void SavePageSourceThrownExceptionDeprecated()
+        {
+            FileLogger tempLogger = new FileLogger
+            {
+                FilePath = "<>" // illegal file path
+            };
+
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            this.WebDriver.Wait().ForPageLoad();
+            bool successfullySaved = SeleniumUtilities.SavePageSource(this.WebDriver, tempLogger);
+            Assert.IsFalse(successfullySaved);
+        }
+
+        /// <summary>
+        /// Verify that the captured screenshot is associated to the test object
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void SavedPageSourceTestObjectAssociation()
+        {
+            this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            this.WebDriver.Wait().ForPageLoad();
+            string pageSourcePath = SeleniumUtilities.SavePageSource(this.WebDriver, this.TestObject, "TempTestDirectory", "TestObjAssocTest");
+
+            Assert.IsTrue(this.TestObject.ContainsAssociatedFile(pageSourcePath), "The saved page source wasn't added to the associated files");
+
+            File.Delete(pageSourcePath);
+        }
+        
         /// <summary>
         /// Test WebElementToDriver with an unwrappedDriver
         /// </summary>
@@ -1339,7 +1474,7 @@ namespace SeleniumUnitTests
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
-            string screenShotPath = SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject, "TempTestDirectory", "TempTestFilePath", ScreenshotImageFormat.Jpeg);
+            string screenShotPath = SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject, "TempTestDirectory", "TempTestFilePath", imageFormat: ScreenshotImageFormat.Jpeg);
             Assert.IsTrue(File.Exists(screenShotPath), "Fail to find screenshot");
             Assert.AreEqual(Path.GetExtension(screenShotPath), ".Jpeg", "The screenshot format was not in '.Jpeg' format");
             File.Delete(screenShotPath);
@@ -1354,7 +1489,7 @@ namespace SeleniumUnitTests
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
-            string screenShotPath = SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject, "TempTestDirectory", "TempTestFilePath", ScreenshotImageFormat.Png);
+            string screenShotPath = SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject, "TempTestDirectory", "TempTestFilePath", imageFormat: ScreenshotImageFormat.Png);
             Assert.IsTrue(File.Exists(screenShotPath), "Fail to find screenshot");
             Assert.AreEqual(Path.GetExtension(screenShotPath), ".Png", "The screenshot format was not in '.Png' format");
             File.Delete(screenShotPath);
@@ -1384,7 +1519,7 @@ namespace SeleniumUnitTests
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
-            SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.Log, this.TestObject);
+            SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject);
             string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, SeleniumConfig.GetImageFormat());
             Assert.IsTrue(File.Exists(filePath), "Fail to find screenshot");
             Assert.AreEqual(Path.GetExtension(filePath), "." + SeleniumConfig.GetImageFormat(), "The screenshot format was not in correct Format format");

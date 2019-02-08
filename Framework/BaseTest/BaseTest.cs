@@ -255,8 +255,8 @@ namespace Magenic.Maqs.BaseTest
                 this.TestObject.AddAssociatedFile(LoggingConfig.GetLogDirectory() + "\\" + collection.FileName);
             }
 
-            // Attach log and screen shot if we can
-            this.AttachLogAndSceenshot(fullyQualifiedTestName);
+            // Attach associated files if we can
+            this.AttachAssociatedFiles();
 
             // Release the logged messages
             this.LoggedExceptions.TryRemove(fullyQualifiedTestName, out List<string> loggedMessages);
@@ -591,12 +591,10 @@ namespace Magenic.Maqs.BaseTest
         }
 
         /// <summary>
-        /// For VS unit tests attach the log and screen shot if they exist
+        /// For VS unit tests attach the all of the files in the associated files set if they exist, else write to log
         /// </summary>
-        /// <param name="fullyQualifiedTestName">The fully qualified test name</param>
-        private void AttachLogAndSceenshot(string fullyQualifiedTestName)
+        private void AttachAssociatedFiles()
         {
-            bool filesWereAttached = false;
             string logPath = string.Empty;
             if (this.Log is FileLogger && File.Exists(((FileLogger)this.Log).FilePath))
             {
@@ -623,7 +621,7 @@ namespace Magenic.Maqs.BaseTest
                         }
                     }
 
-                    filesWereAttached = true;
+                    return;
                 }
             }
             catch (Exception e)
@@ -632,22 +630,24 @@ namespace Magenic.Maqs.BaseTest
             }
 #endif
             // if attachment failed or project is core, write the list of files to the log
-            if (!string.IsNullOrEmpty(logPath) && filesWereAttached == false)
+            if (!string.IsNullOrEmpty(logPath))
             {
                 this.TestObject.RemoveAssociatedFile(logPath);
+            }
+
+            string[] assocFiles = this.TestObject.GetArrayOfAssociatedFiles();
+
+            if (assocFiles.Length > 0)
+            {
                 string listOfFilesMessage = "List of Associated Files: " + Environment.NewLine;
 
-                int filesAdded = 0;
-                foreach (string assocPath in this.TestObject.GetArrayOfAssociatedFiles())
+                foreach (string assocPath in assocFiles)
                 {
                     if (File.Exists(assocPath))
                     {
                         listOfFilesMessage += assocPath + Environment.NewLine;
-                        filesAdded++;
                     }
                 }
-
-                listOfFilesMessage += filesAdded == 0 ? "NONE" : string.Empty; 
 
                 this.TryToLog(MessageType.GENERIC, listOfFilesMessage);
             }

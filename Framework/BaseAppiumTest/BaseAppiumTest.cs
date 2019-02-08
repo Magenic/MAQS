@@ -64,11 +64,11 @@ namespace Magenic.Maqs.BaseAppiumTest
                 if (this.Log is FileLogger && resultType != TestResultType.PASS &&
                     this.LoggingEnabledSetting != LoggingEnabled.NO)
                 {
-                    AppiumUtilities.CaptureScreenshot(this.AppiumDriver, this.Log, this.TestObject);
+                    AppiumUtilities.CaptureScreenshot(this.AppiumDriver, this.TestObject);
 
                     if (AppiumConfig.GetSavePagesourceOnFail())
                     {
-                        AppiumUtilities.SavePageSource(this.AppiumDriver, this.Log, this.TestObject, "FinalPageSource");
+                        AppiumUtilities.SavePageSource(this.AppiumDriver, this.TestObject, "FinalPageSource");
                     }
                 }
             }

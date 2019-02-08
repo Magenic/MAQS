@@ -70,12 +70,12 @@ namespace CoreUnitTests
 
             // create test files
             Directory.CreateDirectory("TeardownTest");
-            File.Create(@"TeardownTest/FileToAttach1.txt").Dispose();
-            File.Create(@"TeardownTest/FileToAttach2.txt").Dispose();
+            File.Create(@"TeardownTest/AssocFileToAttach1.txt").Dispose();
+            File.Create(@"TeardownTest/AssocFileToAttach2.txt").Dispose();
 
             // add associated files
-            this.TestObject.AddAssociatedFile(@"TeardownTest/FileToAttach1.txt");
-            this.TestObject.AddAssociatedFile(@"TeardownTest/FileToAttach2.txt");
+            this.TestObject.AddAssociatedFile(@"TeardownTest/AssocFileToAttach1.txt");
+            this.TestObject.AddAssociatedFile(@"TeardownTest/AssocFileToAttach2.txt");
 
             // call the teardown to add associated files
             this.Teardown();
@@ -90,8 +90,8 @@ namespace CoreUnitTests
                     if (lines[x] == "GENERIC:	List of Associated Files: ")
                     {
                         messageIsWritten = true;
-                        Assert.AreEqual(@"TeardownTest/FileToAttach1.txt", lines[x + 1]);
-                        Assert.AreEqual(@"TeardownTest/FileToAttach2.txt", lines[x + 2]);
+                        Assert.AreEqual(@"TeardownTest/AssocFileToAttach1.txt", lines[x + 1]);
+                        Assert.AreEqual(@"TeardownTest/AssocFileToAttach2.txt", lines[x + 2]);
                     }
                 }
             }
@@ -112,8 +112,8 @@ namespace CoreUnitTests
             string logFilePath = ((FileLogger)this.Log).FilePath;
 
             // add non existant associated files
-            this.TestObject.AddAssociatedFile(@"TeardownTest/FileToAttach1.txt");
-            this.TestObject.AddAssociatedFile(@"TeardownTest/FileToAttach2.txt");
+            this.TestObject.AddAssociatedFile(@"TeardownTest/FakeFileToAttach1.txt");
+            this.TestObject.AddAssociatedFile(@"TeardownTest/FakeFileToAttach2.txt");
 
             // call the teardown to add associated files
             this.Teardown();
@@ -126,7 +126,7 @@ namespace CoreUnitTests
                 {
                     if (lines[x] == "GENERIC:	List of Associated Files: ")
                     {
-                        Assert.AreEqual("NONE", lines[x + 1]);
+                        Assert.Fail("Associated files logged despite the files not existing");
                     }
                 }
             }

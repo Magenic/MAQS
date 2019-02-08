@@ -21,24 +21,23 @@ namespace Magenic.Maqs.BaseSeleniumTest
     public static class SeleniumUtilities
     {
         /// <summary>
-        /// To capture a screenshot during execution
+        /// Capture a screenshot during execution and associate to the testObject
         /// </summary>
         /// <param name="webDriver">The WebDriver</param>
-        /// <param name="log">The logger being used</param>
-        /// <param name="testObject">The TestObject to associate the file with</param>
+        /// <param name="testObject">The test object to associate and log to</param>
         /// <param name="appendName">Appends a name to the end of a filename</param>
         /// <returns>Boolean if the save of the image was successful</returns>
         /// <example>
         /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="CaptureScreenshot" lang="C#" />
         /// </example>
-        public static bool CaptureScreenshot(this IWebDriver webDriver, Logger log, SeleniumTestObject testObject, string appendName = "")
+        public static bool CaptureScreenshot(this IWebDriver webDriver, SeleniumTestObject testObject, string appendName = "")
         {
             try
             {
                 string path = string.Empty;
 
                 // Check if we are using a file logger
-                if (!(log is FileLogger))
+                if (!(testObject.Log is FileLogger))
                 {
                     // Since this is not a file logger we will need to use a generic file name
                     path = CaptureScreenshot(webDriver, testObject, LoggingConfig.GetLogDirectory(), "ScreenCap" + appendName, GetScreenShotFormat());
@@ -46,18 +45,18 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 else
                 {
                     // Calculate the file name
-                    string fullpath = ((FileLogger)log).FilePath;
+                    string fullpath = ((FileLogger)testObject.Log).FilePath;
                     string directory = Path.GetDirectoryName(fullpath);
                     string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fullpath) + appendName;
                     path = CaptureScreenshot(webDriver, testObject, directory, fileNameWithoutExtension, GetScreenShotFormat());
                 }
 
-                log.LogMessage(MessageType.INFORMATION, "Screenshot saved: " + path);
+                testObject.Log.LogMessage(MessageType.INFORMATION, "Screenshot saved: " + path);
                 return true;
             }
             catch (Exception exception)
             {
-                log.LogMessage(MessageType.ERROR, "Screenshot error: {0}", exception.ToString());
+                testObject.Log.LogMessage(MessageType.ERROR, "Screenshot error: {0}", exception.ToString());
                 return false;
             }
         }
@@ -66,7 +65,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// To capture a screenshot during execution
         /// </summary>
         /// <param name="webDriver">The WebDriver</param>
-        /// <param name="testObject">The TestObject to associate the file with</param>
+        /// <param name="testObject">The test object to associate the screenshot with</param>
         /// <param name="directory">The directory file path</param>
         /// <param name="fileNameWithoutExtension">Filename without extension</param>
         /// <param name="imageFormat">Optional Screenshot Image format parameter; Default imageFormat is PNG</param>
@@ -91,18 +90,16 @@ namespace Magenic.Maqs.BaseSeleniumTest
             return path;
         }
 
+        #region ObsoleteCaptureScreenshot
         /// <summary>
-        /// To capture a page source during execution
+        /// To capture a screenshot during execution
         /// </summary>
         /// <param name="webDriver">The WebDriver</param>
         /// <param name="log">The logger being used</param>
-        /// <param name="testObject">The TestObject to associate the file with</param>
         /// <param name="appendName">Appends a name to the end of a filename</param>
-        /// <returns>Boolean if the save of the page source was successful</returns>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="SavePageSource" lang="C#" />
-        /// </example>
-        public static bool SavePageSource(this IWebDriver webDriver, Logger log, SeleniumTestObject testObject, string appendName = "")
+        /// <returns>Boolean if the save of the image was successful</returns>
+        [Obsolete("CaptureScreenshot that does not take a SeleniumTestObject parameter is deprecated")]
+        public static bool CaptureScreenshot(this IWebDriver webDriver, Logger log, string appendName = "")
         {
             try
             {
@@ -112,24 +109,94 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 if (!(log is FileLogger))
                 {
                     // Since this is not a file logger we will need to use a generic file name
-                    path = SavePageSource(webDriver, testObject, LoggingConfig.GetLogDirectory(), "PageSource" + appendName);
+                    path = CaptureScreenshot(webDriver, LoggingConfig.GetLogDirectory(), "ScreenCap" + appendName, GetScreenShotFormat());
                 }
                 else
                 {
                     // Calculate the file name
                     string fullpath = ((FileLogger)log).FilePath;
                     string directory = Path.GetDirectoryName(fullpath);
+                    string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fullpath) + appendName;
+                    path = CaptureScreenshot(webDriver, directory, fileNameWithoutExtension, GetScreenShotFormat());
+                }
+
+                log.LogMessage(MessageType.INFORMATION, "Screenshot saved: " + path);
+                return true;
+            }
+            catch (Exception exception)
+            {
+                log.LogMessage(MessageType.ERROR, "Screenshot error: {0}", exception.ToString());
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// To capture a screenshot during execution
+        /// </summary>
+        /// <param name="webDriver">The WebDriver</param>
+        /// <param name="directory">The directory file path</param>
+        /// <param name="fileNameWithoutExtension">Filename without extension</param>
+        /// <param name="imageFormat">Optional Screenshot Image format parameter; Default imageFormat is PNG</param>
+        /// <returns>Path to the log file</returns>
+        [Obsolete("CaptureScreenshot that does not take a SeleniumTestObject parameter is deprecated")]
+        public static string CaptureScreenshot(this IWebDriver webDriver, string directory, string fileNameWithoutExtension, ScreenshotImageFormat imageFormat = ScreenshotImageFormat.Png)
+        {
+            Screenshot screenShot = ((ITakesScreenshot)webDriver).GetScreenshot();
+
+            // Make sure the directory exists
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            // Calculate the file name
+            string path = Path.Combine(directory, fileNameWithoutExtension + "." + imageFormat.ToString());
+
+            // Save the screenshot
+            screenShot.SaveAsFile(path, imageFormat);
+
+            return path;
+        }
+        #endregion
+
+        /// <summary>
+        /// To capture a page source during execution
+        /// </summary>
+        /// <param name="webDriver">The WebDriver</param>
+        /// <param name="testObject">The TestObject to associate the file with</param>
+        /// <param name="appendName">Appends a name to the end of a filename</param>
+        /// <returns>Boolean if the save of the page source was successful</returns>
+        /// <example>
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="SavePageSource" lang="C#" />
+        /// </example>
+        public static bool SavePageSource(this IWebDriver webDriver, SeleniumTestObject testObject, string appendName = "")
+        {
+            try
+            {
+                string path = string.Empty;
+
+                // Check if we are using a file logger
+                if (!(testObject.Log is FileLogger))
+                {
+                    // Since this is not a file logger we will need to use a generic file name
+                    path = SavePageSource(webDriver, testObject, LoggingConfig.GetLogDirectory(), "PageSource" + appendName);
+                }
+                else
+                {
+                    // Calculate the file name
+                    string fullpath = ((FileLogger)testObject.Log).FilePath;
+                    string directory = Path.GetDirectoryName(fullpath);
                     string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fullpath) + "_PS" + appendName;
 
                     path = SavePageSource(webDriver, testObject, directory, fileNameWithoutExtension);
                 }
 
-                log.LogMessage(MessageType.INFORMATION, "Page Source saved: " + path);
+                testObject.Log.LogMessage(MessageType.INFORMATION, "Page Source saved: " + path);
                 return true;
             }
             catch (Exception exception)
             {
-                log.LogMessage(MessageType.ERROR, "Page Source error: {0}", exception.ToString());
+                testObject.Log.LogMessage(MessageType.ERROR, "Page Source error: {0}", exception.ToString());
                 return false;
             }
         }
@@ -168,6 +235,82 @@ namespace Magenic.Maqs.BaseSeleniumTest
             testObject.AddAssociatedFile(path);
             return path;
         }
+
+        #region Obsolete SavePageSource
+        /// <summary>
+        /// To capture a page source during execution
+        /// </summary>
+        /// <param name="webDriver">The WebDriver</param>
+        /// <param name="log">The logger being used</param>
+        /// <param name="appendName">Appends a name to the end of a filename</param>
+        /// <returns>Boolean if the save of the page source was successful</returns>
+        [Obsolete("SavePageSource that does not take a SeleniumTestObject parameter is deprecated")]
+        public static bool SavePageSource(this IWebDriver webDriver, Logger log, string appendName = "")
+        {
+            try
+            {
+                string path = string.Empty;
+
+                // Check if we are using a file logger
+                if (!(log is FileLogger))
+                {
+                    // Since this is not a file logger we will need to use a generic file name
+                    path = SavePageSource(webDriver, LoggingConfig.GetLogDirectory(), "PageSource" + appendName);
+                }
+                else
+                {
+                    // Calculate the file name
+                    string fullpath = ((FileLogger)log).FilePath;
+                    string directory = Path.GetDirectoryName(fullpath);
+                    string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fullpath) + "_PS" + appendName;
+
+                    path = SavePageSource(webDriver, directory, fileNameWithoutExtension);
+                }
+
+                log.LogMessage(MessageType.INFORMATION, "Page Source saved: " + path);
+                return true;
+            }
+            catch (Exception exception)
+            {
+                log.LogMessage(MessageType.ERROR, "Page Source error: {0}", exception.ToString());
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// To capture Page Source during execution
+        /// </summary>
+        /// <param name="webDriver">The WebDriver</param>
+        /// <param name="directory">The directory file path</param>
+        /// <param name="fileNameWithoutExtension">Filename without extension</param>
+        /// <returns>Path to the log file</returns>
+        [Obsolete("SavePageSource that does not take a SeleniumTestObject parameter is deprecated")]
+        public static string SavePageSource(this IWebDriver webDriver, string directory, string fileNameWithoutExtension)
+        {
+            // Save the current page source into a string
+            string pageSource = webDriver.PageSource;
+
+            // Make sure the directory exists
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            // Calculate the file name
+            string path = Path.Combine(directory, fileNameWithoutExtension + ".txt");
+
+            // Create new instance of Streamwriter and Auto Flush after each call
+            StreamWriter writer = new StreamWriter(path, false)
+            {
+                AutoFlush = true
+            };
+
+            // Write page source to a new file
+            writer.Write(pageSource);
+            writer.Close();
+            return path;
+        }
+        #endregion
 
         /// <summary>
         /// Get the javaScript executor from a web element or web driver
