@@ -45,12 +45,12 @@ namespace Magenic.Maqs.BaseAppiumTest
             {
                 if (AppiumConfig.GetSoftAssertScreenshot())
                 {
-                    AppiumUtilities.CaptureScreenshot(this.appiumTestObject.AppiumDriver, this.Log, this.TextToAppend(softAssertName));
+                    AppiumUtilities.CaptureScreenshot(this.appiumTestObject.AppiumDriver, this.appiumTestObject, this.TextToAppend(softAssertName));
                 }
 
                 if (AppiumConfig.GetSavePagesourceOnFail())
                 {
-                    AppiumUtilities.SavePageSource(this.appiumTestObject.AppiumDriver, this.Log, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
+                    AppiumUtilities.SavePageSource(this.appiumTestObject.AppiumDriver, this.appiumTestObject, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
                 }
 
                 return false;
