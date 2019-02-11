@@ -6,7 +6,6 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseTest;
 using Magenic.Maqs.Utilities.Data;
-using Magenic.Maqs.Utilities.Helper;
 
 namespace Magenic.Maqs.BaseSeleniumTest
 {
@@ -56,8 +55,8 @@ namespace Magenic.Maqs.BaseSeleniumTest
         public override bool AreEqual(string expectedText, string actualText, string softAssertName, string message = "")
         {
             bool didPass = base.AreEqual(expectedText, actualText, softAssertName, message);
-            
-            if (!didPass)
+
+            if (!didPass && this.testObject.GetDriverManager<SeleniumDriverManager>().IsDriverIntialized())
             {
                 if (SeleniumConfig.GetSoftAssertScreenshot())
                 {
@@ -69,6 +68,10 @@ namespace Magenic.Maqs.BaseSeleniumTest
                     SeleniumUtilities.SavePageSource(this.testObject.WebDriver, this.Log, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
                 }
 
+                return false;
+            }
+            else if (!didPass)
+            {
                 return false;
             }
 
@@ -89,7 +92,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             bool didPass = base.IsFalse(condition, softAssertName, failureMessage);
 
-            if (!didPass)
+            if (!didPass && this.testObject.GetDriverManager<SeleniumDriverManager>().IsDriverIntialized())
             {
                 if (SeleniumConfig.GetSoftAssertScreenshot())
                 {
@@ -101,6 +104,10 @@ namespace Magenic.Maqs.BaseSeleniumTest
                     SeleniumUtilities.SavePageSource(this.testObject.WebDriver, this.Log, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
                 }
 
+                return false;
+            }
+            else if (!didPass)
+            {
                 return false;
             }
 
@@ -121,7 +128,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             bool didPass = base.IsTrue(condition, softAssertName, failureMessage);
 
-            if (!didPass)
+            if (!didPass && this.testObject.GetDriverManager<SeleniumDriverManager>().IsDriverIntialized())
             {
                 if (SeleniumConfig.GetSoftAssertScreenshot())
                 {
@@ -133,6 +140,10 @@ namespace Magenic.Maqs.BaseSeleniumTest
                     SeleniumUtilities.SavePageSource(this.testObject.WebDriver, this.Log, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
                 }
 
+                return false;
+            }
+            else if (!didPass)
+            {
                 return false;
             }
 
