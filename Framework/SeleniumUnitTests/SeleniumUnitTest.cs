@@ -955,9 +955,7 @@ namespace SeleniumUnitTests
 
             bool isFalse = seleniumSoftAssert.IsFalse(true, "testSoftAssert", "message");
 
-            Assert.IsTrue(File.Exists(pageSourceLocation), "Fail to find page source");
-            File.Delete(pageSourceLocation);
-
+            Assert.IsTrue(!File.Exists(pageSourceLocation), "Should not have captured page source");
             Assert.IsFalse(isFalse);
         }
 
