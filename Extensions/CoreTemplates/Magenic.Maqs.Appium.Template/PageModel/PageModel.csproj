@@ -9,7 +9,8 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Appium.WebDriver" Version="4.0.0.3-beta" />
+    <PackageReference Include="Appium.WebDriver" Version="4.0.0.5-beta" />
+	<PackageReference Include="DotNetSeleniumExtras.PageObjects" Version="3.11.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.2" />
     <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
     <PackageReference Include="NUnit" Version="3.11.0" />

@@ -60,7 +60,7 @@ namespace $safeprojectname$
         /// </summary>
         public void OpenLoginPage()
         {
-            this.testObject.WebDriver.Navigate().GoToUrl(PageUrl);
+            this.TestObject.WebDriver.Navigate().GoToUrl(PageUrl);
             this.AssertPageLoaded();
         }
 
@@ -86,7 +86,7 @@ namespace $safeprojectname$
             this.EnterCredentials(userName, password);
             this.LoginButton.Click();
 
-            return new HomePageModel(this.testObject);
+            return new HomePageModel(this.TestObject);
         }
 
         /// <summary>

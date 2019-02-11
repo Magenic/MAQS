@@ -57,5 +57,24 @@ namespace $safeprojectname$
             var table = this.TestObject.DatabaseDriver.Query("SELECT * FROM information_schema.tables").ToList();
 			return table.Any(n => n.TABLE_NAME.Equals("States"));
         }
+
+        //// Store objects
+        //[Given(@"initial")]
+        //public void GivenInitial()
+        //{
+        //    OBJECTTYPE statefulObjectName = new OBJECTTYPE(); 
+        //    this.LocalScenarioContext.Add(statefulObjectName);
+
+        //    OBJECTTYPE statefulObjectName2 = new OBJECTTYPE();
+        //    this.LocalScenarioContext.Add("SpecificName", statefulObjectName2);
+        //}
+
+        //// Get objects
+        //[When(@"later")]
+        //public void WhenLater()
+        //{
+        //    OBJECTTYPE statefulObjectName = this.LocalScenarioContext.Get<OBJECTTYPE>();
+        //    OBJECTTYPE statefulObjectName2 = this.LocalScenarioContext.Get<OBJECTTYPE>("SpecificName");
+        //}
     }
 }

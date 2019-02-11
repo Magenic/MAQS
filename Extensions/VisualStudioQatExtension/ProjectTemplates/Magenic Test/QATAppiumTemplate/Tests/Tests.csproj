@@ -51,7 +51,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="appium-dotnet-driver">
-      <HintPath>..\..\packages\Appium.WebDriver.4.0.0.3-beta\lib\net45\appium-dotnet-driver.dll</HintPath>
+      <HintPath>..\..\packages\Appium.WebDriver.4.0.0.5-beta\lib\net45\Appium.Net.dll</HintPath>
+    </Reference>
+	<Reference Include="SeleniumExtras.PageObjects">
+      <HintPath>..\..\packages\DotNetSeleniumExtras.PageObjects.3.11.0\lib\net45\SeleniumExtras.PageObjects.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core, Version=4.0.0.0">
       <HintPath>..\..\packages\Castle.Core.4.3.1\lib\net45\Castle.Core.dll</HintPath>

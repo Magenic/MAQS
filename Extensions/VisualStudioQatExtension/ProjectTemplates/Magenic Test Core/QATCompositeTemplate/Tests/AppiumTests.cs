@@ -4,12 +4,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.iOS;
 using OpenQA.Selenium.Appium.Android;
-using PageModel;
+using Models.Appium;
 
 namespace $safeprojectname$
 {
     /// <summary>
-    /// $safeitemname$ test class with VSUnit
+    /// $safeitemname$ test class
     /// </summary>
     [TestClass]
     public class $safeitemname$ : BaseAppiumTest
@@ -48,7 +48,7 @@ namespace $safeprojectname$
         {
             string expectedError = "Use the following credentials: \r\n(User Name: Ted Password: 123)";
             startingPage.LoginWithInvalidCredentials("Not", "Valid");
-            string actualError = startingPage.GetErrorMessage();
+
             Assert.AreEqual(expectedError, startingPage.GetErrorMessage());
         }
 
