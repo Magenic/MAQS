@@ -98,5 +98,18 @@ namespace SeleniumUnitTests
             lazyElement.GetTheExistingElement();
             Assert.AreEqual(lazyElement.CachedElement, this.basePageModel.FlowerTableCaptionWithParent.CachedElement);
         }
+
+        /// <summary>
+        /// Verify we can override the page object webdriver
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void OverridePageObjectWebdriver()
+        {
+            var oldWebDriver = this.basePageModel.GetWebDriver();
+            this.basePageModel.OverrideWebDriver(SeleniumConfig.Browser());
+
+            Assert.AreNotEqual(oldWebDriver, this.basePageModel.GetWebDriver(), "The webdriver was not updated");
+        }
     }
 }

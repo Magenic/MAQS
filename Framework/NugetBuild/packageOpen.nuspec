@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata minClientVersion="3.6">
     <id>Magenic.Open.Maqs</id>
-    <version>5.2.0</version>
+    <version>5.3.0</version>
     <title>Open MAQS</title>
     <authors>Magenic</authors>
     <owners>Magenic</owners>
@@ -13,13 +13,18 @@
     <iconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</iconUrl>
     <summary>Magenic's open source automation framework leveraging Selenium. MAQS is a modular test automation framework that can be used as the base for your automation project or individual pieces can be used to enhance existing frameworks. Utilizing project templates, NuGet, and utility libraries we are able to have a functioning framework up and running in minutes, almost entirely removing on the initial time investment on implementating an automation solution.</summary>
     <releaseNotes>
+      5.3.0 - 2019/2/9
+      Bug fixes and minor enhancements
+      - Enhance how we add associated files to a test
+      - Enhance Selenium page object model to support web driver overrides
+      
       5.2.0 - 2018/12/21
       Bug fixes and minor enhancements
       - Check for long file paths before attaching them to a test run result
       - Streamline Selenium cleanup
       - Make it easier to override soft assert
       - Stop creating a second log file when a test fails because of a soft assert
-      
+
       5.1.1 - 2018/10/5
       Bug fixes and minor enhancements
       - Build and package both .Net Standard and .Net framework libraries

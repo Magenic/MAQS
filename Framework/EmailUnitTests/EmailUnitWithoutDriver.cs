@@ -16,6 +16,7 @@ namespace EmailUnitTests
     /// Test basic email testing without a base test
     /// </summary>
     [TestClass]
+    [DoNotParallelize]
     [ExcludeFromCodeCoverage]
     public class EmailUnitWithoutDriver
     {

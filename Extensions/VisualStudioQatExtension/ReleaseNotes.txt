@@ -1,4 +1,12 @@
 Maqs Framework Release Notes:
+5.3.0 - 2019/2/9
+	Bug fixes and minor enhancements
+	- Template updates
+	- Enhance how we add associated files to a test
+	- Enhance Selenium page object model to support web driver overrides
+	- Don't take screenshots and get page source if the driver was never initialized
+	- Make sure the .Net 4.7.1 SDK is installed 
+	
 5.2.0 - 2018/12/21
 	Bug fixes and minor enhancements
 	- Check for long file paths before attaching them to a test run result

@@ -37,6 +37,7 @@ namespace MongoDBUnitTests
         [TestMethod]
         [TestCategory(TestCategories.Framework)]
         [ExpectedException(typeof(AssertFailedException))]
+        [NonParallelizable]
         public new void SoftAssertWithFailure()
         {
             base.SoftAssertWithFailure();

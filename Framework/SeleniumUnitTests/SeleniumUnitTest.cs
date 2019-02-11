@@ -888,6 +888,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void SeleniumSoftAssertIsFalseTrueCondition()
         {
+            // Make sure we initialized the web driver
+            Assert.IsNotNull(this.WebDriver);
+
             SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(this.TestObject);
             string logLocation = ((FileLogger)this.Log).FilePath;
             string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " testSoftAssert" + " (1).Jpeg";
@@ -901,12 +904,32 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Verify that a screenshot is not taken if no browswer is initalized and the SeleniumSoftAssert.IsFalse gets a true condition and the logger is set to log screenshots
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void SeleniumSoftAssertIsFalseTrueConditionNoBrowser()
+        {
+            SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(this.TestObject);
+            string logLocation = ((FileLogger)this.Log).FilePath;
+            string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " testSoftAssert" + " (1).Jpeg";
+
+            bool isFalse = seleniumSoftAssert.IsFalse(true, "testSoftAssert", "message");
+
+            Assert.IsFalse(File.Exists(screenShotLocation), "Should not have taken screenshot");
+            Assert.IsFalse(isFalse);
+        }
+
+        /// <summary>
         /// Verify that page source is saved if the SeleniumSoftAssert.IsFalse gets a true condition and the logger is set to save Page Source
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void SeleniumSoftAssertIsFalseTrueConditionPageSource()
         {
+            // Make sure we initialized the web driver
+            Assert.IsNotNull(this.WebDriver);
+
             SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(this.TestObject);
             string logLocation = ((FileLogger)this.Log).FilePath;
             string pageSourceLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + "_PS (1).txt";
@@ -916,6 +939,23 @@ namespace SeleniumUnitTests
             Assert.IsTrue(File.Exists(pageSourceLocation), "Fail to find page source");
             File.Delete(pageSourceLocation);
 
+            Assert.IsFalse(isFalse);
+        }
+
+        /// <summary>
+        /// Verify that page source is not saved if no browswer is initalized and the SeleniumSoftAssert.IsFalse gets a true condition and the logger is set to save Page Source
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void SeleniumSoftAssertIsFalseTrueConditionPageSourceNoBrowser()
+        {
+            SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(this.TestObject);
+            string logLocation = ((FileLogger)this.Log).FilePath;
+            string pageSourceLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + "_PS (1).txt";
+
+            bool isFalse = seleniumSoftAssert.IsFalse(true, "testSoftAssert", "message");
+
+            Assert.IsTrue(!File.Exists(pageSourceLocation), "Should not have captured page source");
             Assert.IsFalse(isFalse);
         }
 

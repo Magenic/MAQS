@@ -4,8 +4,9 @@
     <TargetFrameworks>net471;netstandard2.0</TargetFrameworks>
     <AssemblyName>Magenic.Maqs.BaseDatabaseTest</AssemblyName>
     <RootNamespace>Magenic.Maqs.BaseDatabaseTest</RootNamespace>
-    <Version>5.2.0</Version>
+    <Version>5.3.0</Version>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>
+    <ProjectGuid>{40C69F26-3B81-43D3-AC2E-2F9B5104AE38}</ProjectGuid>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

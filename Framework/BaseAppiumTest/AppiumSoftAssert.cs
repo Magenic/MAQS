@@ -41,7 +41,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         {
             bool didPass = base.AreEqual(expectedText, actualText, softAssertName, message);
 
-            if (!didPass)
+            if (!didPass && this.appiumTestObject.GetDriverManager<MobileDriverManager>().IsDriverIntialized())
             {
                 if (AppiumConfig.GetSoftAssertScreenshot())
                 {
@@ -53,6 +53,10 @@ namespace Magenic.Maqs.BaseAppiumTest
                     AppiumUtilities.SavePageSource(this.appiumTestObject.AppiumDriver, this.appiumTestObject, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
                 }
 
+                return false;
+            }
+            else if (!didPass)
+            {
                 return false;
             }
 

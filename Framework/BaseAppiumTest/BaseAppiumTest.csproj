@@ -4,8 +4,9 @@
     <TargetFrameworks>net471;netstandard2.0</TargetFrameworks>
     <AssemblyName>Magenic.Maqs.BaseAppiumTest</AssemblyName>
     <RootNamespace>Magenic.Maqs.BaseAppiumTest</RootNamespace>
-    <Version>5.2.0</Version>
+    <Version>5.3.0</Version>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>
+    <ProjectGuid>{4CEE19ED-7646-45CF-BB47-1AED4494DDC2}</ProjectGuid>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -14,7 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Appium.WebDriver" Version="4.0.0.4-beta" />
+    <PackageReference Include="Appium.WebDriver" Version="4.0.0.5-beta" />
     <PackageReference Include="Selenium.Support" Version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.5.0" />

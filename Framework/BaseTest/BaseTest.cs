@@ -147,7 +147,6 @@ namespace Magenic.Maqs.BaseTest
 
             set
             {
-                string key = this.GetFullyQualifiedTestClassName();
                 this.BaseTestObjects.AddOrUpdate(this.GetFullyQualifiedTestClassName(), value, (oldkey, oldvalue) => value);
             }
         }
