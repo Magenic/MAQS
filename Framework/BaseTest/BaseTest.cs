@@ -249,9 +249,13 @@ namespace Magenic.Maqs.BaseTest
 
             // Write out the performance timers
             collection.Write(this.Log);
+            if (collection.FileName != null)
+            {
+                this.TestObject.AddAssociatedFile(LoggingConfig.GetLogDirectory() + "\\" + collection.FileName);
+            }
 
-            // Attach log and screen shot if we can
-            this.AttachLogAndSceenshot(fullyQualifiedTestName);
+            // Attach associated files if we can
+            this.AttachAssociatedFiles();
 
             // Release the logged messages
             this.LoggedExceptions.TryRemove(fullyQualifiedTestName, out List<string> loggedMessages);
@@ -586,47 +590,66 @@ namespace Magenic.Maqs.BaseTest
         }
 
         /// <summary>
-        /// For VS unit tests attach the log and screen shot if they exist
+        /// For VS unit tests attach the all of the files in the associated files set if they exist, else write to log
         /// </summary>
-        /// <param name="fullyQualifiedTestName">The fully qualified test name</param>
-        private void AttachLogAndSceenshot(string fullyQualifiedTestName)
+        private void AttachAssociatedFiles()
         {
+            string logPath = string.Empty;
+            if (this.Log is FileLogger && File.Exists(((FileLogger)this.Log).FilePath))
+            {
+                logPath = ((FileLogger)this.Log).FilePath;
+            }
 #if NET471
             try
             {
                 // This only works for VS unit test so check that first
                 if (this.testContextInstance != null)
                 {
-                    // Only attach if we can find the log file
-                    if (this.Log is FileLogger && File.Exists(((FileLogger)this.Log).FilePath))
+                    // Only attach log if it is a file logger and we can find it
+                    if (!string.IsNullOrEmpty(logPath))
                     {
-                        string path = ((FileLogger)this.Log).FilePath;
-                        string nameWithoutExtension = Path.GetFileNameWithoutExtension(path);
+                        this.TestObject.AddAssociatedFile(logPath);
+                    }
 
-                        // Find all files that share the same base file name - file name without extension
-                        foreach (string file in Directory.GetFiles(Path.GetDirectoryName(path), fullyQualifiedTestName + "*", SearchOption.TopDirectoryOnly))
+                    // Attach all existing associated files
+                    foreach (string path in this.TestObject.GetArrayOfAssociatedFiles())
+                    {
+                        if (File.Exists(path))
                         {
-                            if (nameWithoutExtension.Equals(Path.GetFileNameWithoutExtension(file), StringComparison.CurrentCultureIgnoreCase))
-                            {
-                                try
-                                {
-                                    Path.GetFullPath(file);
-                                    this.TestContext.AddResultFile(file);
-                                }
-                                catch(Exception attachError)
-                                {
-                                    this.Log.LogMessage(MessageType.WARNING, "Failed to attach test result file because: " + attachError.Message);
-                                }
-                            }
+                            this.TestContext.AddResultFile(path);
                         }
                     }
+
+                    return;
                 }
             }
             catch (Exception e)
             {
-                this.TryToLog(MessageType.WARNING, "Failed to attach log or screenshot because: " + e.Message);
+                this.TryToLog(MessageType.WARNING, "Failed to attach test result file because: " + e.Message);
             }
 #endif
+            // if attachment failed or project is core, write the list of files to the log
+            if (!string.IsNullOrEmpty(logPath))
+            {
+                this.TestObject.RemoveAssociatedFile(logPath);
+            }
+
+            string[] assocFiles = this.TestObject.GetArrayOfAssociatedFiles();
+
+            if (assocFiles.Length > 0)
+            {
+                string listOfFilesMessage = "List of Associated Files: " + Environment.NewLine;
+
+                foreach (string assocPath in assocFiles)
+                {
+                    if (File.Exists(assocPath))
+                    {
+                        listOfFilesMessage += assocPath + Environment.NewLine;
+                    }
+                }
+
+                this.TryToLog(MessageType.GENERIC, listOfFilesMessage);
+            }
         }
     }
 }

@@ -8,6 +8,7 @@ using Magenic.Maqs.Utilities.Logging;
 using Magenic.Maqs.Utilities.Performance;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Magenic.Maqs.BaseTest
 {
@@ -30,6 +31,7 @@ namespace Magenic.Maqs.BaseTest
             this.Values = new Dictionary<string, string>();
             this.Objects = new Dictionary<string, object>();
             this.ManagerStore = new ManagerDictionary();
+            this.AssociatedFiles = new HashSet<string>();
 
             logger.LogMessage(MessageType.INFORMATION, "Setup test object for " + fullyQualifiedTestName);
         }
@@ -47,6 +49,7 @@ namespace Magenic.Maqs.BaseTest
             this.Values = new Dictionary<string, string>();
             this.Objects = new Dictionary<string, object>();
             this.ManagerStore = new ManagerDictionary();
+            this.AssociatedFiles = new HashSet<string>();
 
             logger.LogMessage(MessageType.INFORMATION, "Setup test object for " + fullyQualifiedTestName);
         }
@@ -63,6 +66,7 @@ namespace Magenic.Maqs.BaseTest
             this.Values = baseTestObject.Values;
             this.Objects = baseTestObject.Objects;
             this.ManagerStore = baseTestObject.ManagerStore;
+            this.AssociatedFiles = baseTestObject.AssociatedFiles;
 
             baseTestObject.Log.LogMessage(MessageType.INFORMATION, "Setup test object");
         }
@@ -96,6 +100,11 @@ namespace Magenic.Maqs.BaseTest
         /// Gets a dictionary of string key and driver value pairs
         /// </summary>
         public ManagerDictionary ManagerStore { get; private set; }
+
+        /// <summary>
+        /// Gets a hash set of unique associated files to attach to the test context
+        /// </summary>
+        protected HashSet<string> AssociatedFiles { get; private set; }
 
         /// <summary>
         /// Sets a string value, will replace if the key already exists
@@ -167,6 +176,52 @@ namespace Magenic.Maqs.BaseTest
         public void AddDriverManager(string key, DriverManager driver)
         {
             this.ManagerStore.Add(key, driver);
+        }
+
+        /// <summary>
+        /// Checks if the file exists and if so attempts to add it to the associated files set
+        /// </summary>
+        /// <param name="path">path of the file</param>
+        /// <returns>True if the file exists and was successfully added, false if the file doesn't exist or was already added</returns>
+        public bool AddAssociatedFile(string path)
+        {
+            if (File.Exists(path))
+            {
+                return this.AssociatedFiles.Add(path);
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Removes the file path from the associated file set
+        /// </summary>
+        /// <param name="path">path of the file</param>
+        /// <returns>True if the file path was successfully removed, false if the file wasn't in the set</returns>
+        public bool RemoveAssociatedFile(string path)
+        {
+            return this.AssociatedFiles.Remove(path);
+        }
+
+        /// <summary>
+        /// Returns an array of the file paths associated with the test object
+        /// </summary>
+        /// <returns>An array of the associated files</returns>
+        public string[] GetArrayOfAssociatedFiles()
+        {
+            string[] associatedFiles = new string[this.AssociatedFiles.Count];
+            this.AssociatedFiles.CopyTo(associatedFiles, 0);
+            return associatedFiles;
+        }
+
+        /// <summary>
+        /// Returns an array of the file paths associated with the test object
+        /// </summary>
+        /// <param name="path">The file path to search for</param>
+        /// <returns>Whether the exact file path is contained in the set</returns>
+        public bool ContainsAssociatedFile(string path)
+        {
+            return this.AssociatedFiles.Contains(path);
         }
 
         /// <summary>

@@ -58,15 +58,13 @@ namespace Magenic.Maqs.BaseSeleniumTest
             // Try to take a screen shot
             try
             {
-                if (this.TestObject.GetDriverManager<SeleniumDriverManager>().IsDriverIntialized() && this.Log is FileLogger && resultType != TestResultType.PASS && this.LoggingEnabledSetting != LoggingEnabled.NO)
+                if (this.Log is FileLogger && resultType != TestResultType.PASS && this.LoggingEnabledSetting != LoggingEnabled.NO)
                 {
-                    {
-                        SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.Log);
+                    SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject);
 
-                        if (SeleniumConfig.GetSavePagesourceOnFail())
-                        {
-                            SeleniumUtilities.SavePageSource(this.WebDriver, this.Log, "FinalPageSource");
-                        }
+                    if (SeleniumConfig.GetSavePagesourceOnFail())
+                    {
+                        SeleniumUtilities.SavePageSource(this.WebDriver, this.TestObject, "FinalPageSource");
                     }
                 }
             }
