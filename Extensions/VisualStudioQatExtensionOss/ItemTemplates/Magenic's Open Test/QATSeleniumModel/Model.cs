@@ -1,14 +1,13 @@
 ﻿using Magenic.Maqs.BaseSeleniumTest;
 using Magenic.Maqs.BaseSeleniumTest.Extensions;
-using Magenic.Maqs.Utilities.Helper;
 using OpenQA.Selenium;
 
 namespace $rootnamespace$
 {
-	/// <summary>
+    /// <summary>
     /// Page object for $safeitemname$
     /// </summary>
-    public class $safeitemname$
+    public class $safeitemname$ : BaseSeleniumPageModel
     {
         /// <summary>
         /// The page url
@@ -16,35 +15,36 @@ namespace $rootnamespace$
         private static readonly string PageUrl = SeleniumConfig.GetWebSiteBase() + "PAGE.html";
 
         /// <summary>
-        /// Selenium test object
-        /// </summary>
-        private SeleniumTestObject testObject;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="$safeitemname$" /> class.
         /// </summary>
         /// <param name="testObject">The selenium test object</param>
-        public $safeitemname$(SeleniumTestObject testObject)
+        public $safeitemname$(SeleniumTestObject testObject) : base(testObject)
         {
-            this.testObject = testObject;
         }
-
-        /// <summary>
-        /// Gets the sample element
+		
+		/// <summary>
+        /// Sample lazy element
         /// </summary>
         private LazyElement Sample
         {
-            get { return new LazyElement(this.testObject, By.CssSelector("#CSS_ID"), "SAMPLE"); }
+            get { return this.GetLazyElement(By.CssSelector("#CSS_ID"), "Sample message"); }
         }
 
         /// <summary>
-        /// Check if the page has been loaded
+        /// Open the page
         /// </summary>
-        /// <returns>True if the page was loaded</returns>
-        public bool IsPageLoaded()
+        public void OpenPage()
         {
-            return this.Sample.Displayed;
+            // sample open login page
+            this.TestObject.WebDriver.Navigate().GoToUrl(PageUrl);
+        }
+
+        /// <summary>
+        /// Check if the login page is loaded
+        /// </summary>
+        public override bool IsPageLoaded()
+        {
+			return this.WebDriver.Url.Equals(PageUrl, System.StringComparison.CurrentCultureIgnoreCase);
         }
     }
-	
 }
