@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata minClientVersion="3.6">
     <id>Magenic.Maqs</id>
-    <version>5.3.0</version>
+    <version>5.3.1</version>
     <title>MAQS Framework</title>
     <authors>Magenic</authors>
     <owners>Magenic</owners>
@@ -13,6 +13,11 @@
     <iconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</iconUrl>
     <summary>Magenic's automation quick start framework. MAQS is a modular test automation framework that can be used as the base for your automation project or individual pieces can be used to enhance existing frameworks. Utilizing project templates, NuGet, and utility libraries we are able to have a functioning framework up and running in minutes, almost entirely removing on the initial time investment on implementating an automation solution.</summary>
     <releaseNotes>
+      5.3.1 - 2019/2/20
+      Bug fixes and minor enhancements
+      - Appium fix for soft assert
+      - Selenium template fix
+      
       5.3.0 - 2019/2/9
       Bug fixes and minor enhancements
       - Enhance how we add associated files to a test

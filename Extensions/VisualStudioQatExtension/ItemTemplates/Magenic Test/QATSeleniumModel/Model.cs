@@ -12,7 +12,7 @@ namespace $rootnamespace$
         /// <summary>
         /// The page url
         /// </summary>
-        private const string PageUrl = "https://SOMETHING";
+        private static readonly string PageUrl = SeleniumConfig.GetWebSiteBase() + "PAGE.html";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="$safeitemname$" /> class.
@@ -36,21 +36,15 @@ namespace $rootnamespace$
         public void OpenPage()
         {
             // sample open login page
-            this.testObject.WebDriver.Navigate().GoToUrl(PageUrl);
-            this.AssertPageLoaded();
+            this.TestObject.WebDriver.Navigate().GoToUrl(PageUrl);
         }
 
         /// <summary>
-        /// Verify we are on the login page
+        /// Check if the login page is loaded
         /// </summary>
-        public void AssertPageLoaded()
+        public override bool IsPageLoaded()
         {
-			//Assert depends on what testing framework is being used
-            //Assert.IsTrue(
-            //    this.webDriver.Url.Equals(PageUrl, System.StringComparison.CurrentCultureIgnoreCase),
-            //    "Expected to be on '{0}', but was on '{1}' instead",
-            //    PageUrl,
-            //    this.webDriver.Url);
+			return this.WebDriver.Url.Equals(PageUrl, System.StringComparison.CurrentCultureIgnoreCase);
         }
     }
 }

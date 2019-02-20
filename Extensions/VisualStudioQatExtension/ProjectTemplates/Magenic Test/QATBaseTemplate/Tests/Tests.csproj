@@ -41,10 +41,10 @@
   </PropertyGroup>
   <ItemGroup>
 	<Reference Include="Magenic.Maqs.BaseTest">
-      <HintPath>..\..\packages\Magenic.Maqs.5.3.0\lib\net471\Magenic.Maqs.BaseTest.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Maqs.5.3.1\lib\net471\Magenic.Maqs.BaseTest.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.Maqs.Utilities">
-      <HintPath>..\..\packages\Magenic.Maqs.5.3.0\lib\net471\Magenic.Maqs.Utilities.dll</HintPath>
+      <HintPath>..\..\packages\Magenic.Maqs.5.3.1\lib\net471\Magenic.Maqs.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.Configuration">
       <HintPath>..\..\packages\Microsoft.Extensions.Configuration.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.dll</HintPath>

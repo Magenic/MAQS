@@ -41,34 +41,34 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Magenic.Maqs.BaseAppiumTest">
-      <HintPath>..\packages\Magenic.Maqs.5.3.0\lib\net471\Magenic.Maqs.BaseAppiumTest.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.5.3.1\lib\net471\Magenic.Maqs.BaseAppiumTest.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseDatabaseTest">
-      <HintPath>..\packages\Magenic.Maqs.5.3.0\lib\net471\Magenic.Maqs.BaseDatabaseTest.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.5.3.1\lib\net471\Magenic.Maqs.BaseDatabaseTest.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseEmailTest">
-      <HintPath>..\packages\Magenic.Maqs.5.3.0\lib\net471\Magenic.Maqs.BaseEmailTest.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.5.3.1\lib\net471\Magenic.Maqs.BaseEmailTest.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseSeleniumTest">
-      <HintPath>..\packages\Magenic.Maqs.5.3.0\lib\net471\Magenic.Maqs.BaseSeleniumTest.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.5.3.1\lib\net471\Magenic.Maqs.BaseSeleniumTest.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseTest">
-      <HintPath>..\packages\Magenic.Maqs.5.3.0\lib\net471\Magenic.Maqs.BaseTest.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.5.3.1\lib\net471\Magenic.Maqs.BaseTest.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Magenic.Maqs.SpecFlow">
-      <HintPath>..\packages\Magenic.Maqs.SpecFlow.5.3.0\lib\net471\Magenic.Maqs.SpecFlow.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.SpecFlow.5.3.1\lib\net471\Magenic.Maqs.SpecFlow.dll</HintPath>
     </Reference>
     <Reference Include="Magenic.Maqs.Utilities">
-      <HintPath>..\packages\Magenic.Maqs.5.3.0\lib\net471\Magenic.Maqs.Utilities.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.5.3.1\lib\net471\Magenic.Maqs.Utilities.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Magenic.Maqs.WebServiceTester">
-      <HintPath>..\packages\Magenic.Maqs.5.3.0\lib\net471\Magenic.Maqs.WebServiceTester.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.5.3.1\lib\net471\Magenic.Maqs.WebServiceTester.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Extensions.Configuration">

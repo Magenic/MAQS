@@ -1,4 +1,8 @@
 MAQS SpecFlow ExtensionRelease Notes:
+5.3.1 - 2019/2/20
+	Bug fixes and minor enhancements
+	- Appium fix for soft assert
+	
 5.3.0 - 2019/2/9
 	Bug fixes and minor enhancements
 	- Template updates
