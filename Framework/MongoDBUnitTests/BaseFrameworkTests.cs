@@ -19,6 +19,7 @@ namespace MongoDBUnitTests
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
+    [DoNotParallelize]
     public class BaseFrameworkTests : BaseTestUnitTests.BaseFrameworkTests
     {
         /// <summary>
@@ -37,7 +38,6 @@ namespace MongoDBUnitTests
         [TestMethod]
         [TestCategory(TestCategories.Framework)]
         [ExpectedException(typeof(AssertFailedException))]
-        [NonParallelizable]
         public new void SoftAssertWithFailure()
         {
             base.SoftAssertWithFailure();
