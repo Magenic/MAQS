@@ -18,6 +18,7 @@ namespace WebServiceTesterUnitTesting
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
+    [DoNotParallelize]
     public class BaseFrameworkTests : BaseTestUnitTests.BaseFrameworkTests
     {
         /// <summary>

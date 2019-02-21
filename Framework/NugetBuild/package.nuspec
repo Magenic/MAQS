@@ -9,7 +9,8 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Magenic's automation quick start framework</description>
     <copyright>Copyright © Magenic 2019</copyright>
-    <licenseUrl>https://github.com/Magenic/MAQS/blob/develop/LICENSE</licenseUrl>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <iconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</iconUrl>
     <summary>Magenic's automation quick start framework. MAQS is a modular test automation framework that can be used as the base for your automation project or individual pieces can be used to enhance existing frameworks. Utilizing project templates, NuGet, and utility libraries we are able to have a functioning framework up and running in minutes, almost entirely removing on the initial time investment on implementating an automation solution.</summary>
     <releaseNotes>
