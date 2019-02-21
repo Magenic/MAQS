@@ -4,9 +4,9 @@
     <TargetFrameworks>net471;netstandard2.0</TargetFrameworks>
     <AssemblyName>Magenic.Maqs.BaseTest</AssemblyName>
     <RootNamespace>Magenic.Maqs.BaseTest</RootNamespace>
-    <AssemblyVersion>5.3.0</AssemblyVersion>
-    <FileVersion>5.3.0</FileVersion>
-    <Version>5.3.0</Version>
+    <AssemblyVersion>5.3.1</AssemblyVersion>
+    <FileVersion>5.3.1</FileVersion>
+    <Version>5.3.1</Version>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>
     <ProjectGuid>{B7763B2A-906B-4843-9C88-7189A98DF152}</ProjectGuid>
   </PropertyGroup>

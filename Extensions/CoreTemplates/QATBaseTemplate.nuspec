@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
 <metadata minClientVersion="3.6">
     <id>Magenic.Maqs.Templates</id>
-    <version>5.3.0</version>
+    <version>5.3.1</version>
 	<title>Enterprise MAQS Core Templates</title>
     <authors>Magenic</authors>
     <owners>Magenic</owners>
@@ -16,6 +16,17 @@
 This package includes templates for browser, mobile, webservice, database, generic and composite test solutions.
 *The enterprise version of MAQS is currently only available to Magenic clients and is required to leverage these templates.</summary>
     <releaseNotes>
+    5.3.1 - 2019/2/20
+      Bug fixes and minor enhancements
+      - Appium fix for soft assert
+	  
+	5.3.0 - 2019/2/9
+		Bug fixes and minor enhancements
+		- Template updates
+		- Enhance how we add associated files to a test
+		- Enhance Selenium page object model to support web driver overrides
+		- Don't take screenshots and get page source if the driver was never initialized
+	  
 	5.2.1.1 - 2019/1/31
       Add nuget.config for all projects in the templates
 	  
