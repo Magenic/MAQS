@@ -4,10 +4,12 @@
 // </copyright>
 // <summary>Unit test database configuration test</summary>
 //--------------------------------------------------
+using Dapper;
 using Magenic.Maqs.BaseDatabaseTest;
 using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace DatabaseUnitTests
 {
