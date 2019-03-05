@@ -65,5 +65,18 @@ namespace DatabaseUnitTests
             Assert.IsNotNull(connection);
             Assert.AreEqual("Data Source=testdb;", connection.ConnectionString);
         }
+
+        /// <summary>
+        /// Check that we get back the state table
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Database)]
+        public void VerifyStateTableExistsCustomProvider()
+        {
+            var connection = DatabaseConfig.GetOpenConnection(new TestProvider());
+            var table = connection.Query("SELECT * FROM information_schema.tables");
+
+            Assert.IsTrue(table.Any(n => n.TABLE_NAME.Equals("States")));
+        }
     }
 }

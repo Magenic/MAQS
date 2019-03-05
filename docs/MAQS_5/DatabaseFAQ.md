@@ -8,3 +8,4 @@ There are multiple ways to use a custom provider.
 
 * [Override the GetDataBaseConnection method](MAQS_5/DatabaseBaseTest.md)
 * [Create your own DatabaseDriver](MAQS_5/DatabaseDriver.md)
+* [Implement the IProvider Class](MAQS_5/DatabaseProviders.md)

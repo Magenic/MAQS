@@ -15,12 +15,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="1.50.5" />
-    <PackageReference Include="Dapper.Contrib" Version="1.50.5" />
-    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="2.2.0" />
-    <PackageReference Include="Npgsql" Version="4.0.4" />
-    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="1.1.12" />
-    <PackageReference Include="SQLitePCLRaw.core" Version="1.1.12" />
+    <PackageReference Include="Dapper" Version="1.60.1" />
+    <PackageReference Include="Dapper.Contrib" Version="1.60.1" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="2.2.2" />
+    <PackageReference Include="Npgsql" Version="4.0.5" />
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="1.1.13" />
+    <PackageReference Include="SQLitePCLRaw.core" Version="1.1.13" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.6.0" />
   </ItemGroup>
