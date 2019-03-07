@@ -44,7 +44,6 @@ namespace Magenic.Maqs.BaseAppiumTest
 
                 if (driver != null)
                 {
-                    driver?.Close();
                     driver?.Quit();
                     driver?.Dispose();
                 }
