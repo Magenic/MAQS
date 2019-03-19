@@ -8,7 +8,7 @@ Config is class file granting access to properties in the App.config.
 This pulls configuration values from MagenicMaqs section of your app.config. It will return an emtpy string if the key is not found in the app.config.
 
 ```csharp
-Config.GetGeneralValue("Key”);  
+Config.GetGeneralValue("Key");  
 ```
 
 This pulls configuration values from MagenicMaqs section of your app.config. It will return the default value if the key is not found in the app.config.

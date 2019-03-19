@@ -7,6 +7,8 @@
 using Magenic.Maqs.BaseAppiumTest;
 using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Appium;
 
 namespace AppiumUnitTests
 {
@@ -24,6 +26,35 @@ namespace AppiumUnitTests
         public void AppiumTestObjectTest()
         {
             Assert.IsNotNull(this.TestObject.AppiumDriver);
+        }
+
+        /// <summary>
+        /// Test for getting instance of Wait Driver
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Appium)]
+        public void GetAndCloseDriverTest()
+        {
+            AppiumDriver<IWebElement> driver = AppiumConfig.MobileDevice();
+            try
+            {
+                Assert.IsNotNull(driver);
+            }
+            finally
+            {
+                driver.Quit();
+                driver.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// Test for getting instance of Wait Driver
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Appium)]
+        public void GetAndCloseDriverTestFromManager()
+        {
+            this.TestObject.GetDriverManager<MobileDriverManager>().Dispose();
         }
     }
 }

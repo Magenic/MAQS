@@ -4,12 +4,12 @@
 The WebServiceUtils class is a utility class for working with HTTP content and serialization 
 
 # Available methods
-[MakeStringContent](##MakeStringContent)  
-[MakeStreamContent](##MakeStreamContent)  
-[MakeNonStandardStreamContent](##MakeNonStandardStreamContent)  
-[DeserializeXmlDocument](##DeserializeXmlDocument)  
-[DeserializeJson](##DeserializeJson)  
-[DeserializeResponse](##DeserializeResponse)  
+[MakeStringContent](#MakeStringContent)  
+[MakeStreamContent](#MakeStreamContent)  
+[MakeNonStandardStreamContent](#MakeNonStandardStreamContent)  
+[DeserializeXmlDocument](#DeserializeXmlDocument)  
+[DeserializeJson](#DeserializeJson)  
+[DeserializeResponse](#DeserializeResponse)  
 
 ##  MakeStringContent
 Turn a string into string content

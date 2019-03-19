@@ -11,7 +11,7 @@
 ## The IProvider Interface
 An IProvider interface defines a ***connection*** type and database connection setup method. DatabaseConfig provides a convenient GetOpenConnection that takes an IProvider.
 
-```
+```csharp
     /// <summary>
     /// The test provider class for testing
     /// </summary>
@@ -38,7 +38,15 @@ An IProvider interface defines a ***connection*** type and database connection s
 ### Define Your Own IProvider
 After implementing the IProvider interface, use the connection as you normally would with Dapper:
 
-```
+```csharp
     var connection = DatabaseConfig.GetOpenConnection(new TestProvider());
     var table = connection.Query("SELECT * FROM SOMETABLE");
+```
+
+### Update the App.Config
+
+Update the ***DataBaseProviderType*** with the fully qualified class name ***namespace.classname***
+
+```csharp
+<add key="DataBaseProviderType" value="namespace.classname" />
 ```

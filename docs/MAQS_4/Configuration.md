@@ -22,10 +22,10 @@ The option to enable the log is located in the app.config. The options available
 The option to set the conditions in which a log is created is set in the app.config.  
 ![Conditions under which a long is created](resources/logconditions.png)  
 
-With the default option "Yes," a test will always create a corresponding log after the test finishes. The other options are “No” and “OnFail.” “No” will never create a log under any circumstance, while “OnFail” will only create a log if the test fails.
+With the default option "Yes," a test will always create a corresponding log after the test finishes. The other options are "No" and "OnFail." "No" will never create a log under any circumstance, while "OnFail" will only create a log if the test fails.
 ##### Log Output Location
 ![Where the log file is output](resources/loglocation.png)  
-A log file path can be defined to a specific folder or shared folder that the test runner has access to.  Simply set the value for the key “FileLoggerPath” to be the preferred location. 
+A log file path can be defined to a specific folder or shared folder that the test runner has access to.  Simply set the value for the key "FileLoggerPath" to be the preferred location. 
 
 ##### Log Level
 ![The levels of logs](resources/logleveldiagram.png)  
@@ -42,7 +42,7 @@ Suspended mode will result in no information written to the log.
 Selenium specific configurations assist in switching between web browsers, setting up remote browser settings, selecting a specific WebDriver, or setting base root information.
 #### Local Browser Settings 
 ![Local Browser Settings](resources/LocalBrowserSettings.png) 
-A browser key is included in the app.config to define which web browser will be used for tests. To switch between browsers simply change the value of the key “Browser” to the intended browser.
+A browser key is included in the app.config to define which web browser will be used for tests. To switch between browsers simply change the value of the key "Browser" to the intended browser.
 The WebDriver will go off the path to the browser on the machine the test is being run on.
 The web browser needs to be installed for tests to be run against that browser.
 #### WebDriver Hint Path
@@ -50,7 +50,7 @@ The web browser needs to be installed for tests to be run against that browser.
 The WebDriver used by the tests can be overridden to point towards a different web driver and/or a specific version of a web driver, such as ChromeDriver, FirefoxDriver, etc. This is useful for compatibility tests to compare tests between browser versions.
 #### Remote Browser Settings
 ![Remote Browser Settings](resources/remote%20browser%20settings.png) 
-The app.config file can be configured to send tests to a hub for distribution. The “Browser” key needs to have a value set to “Remote.” The “RemoteBrowser” key needs to be set to the web browser that the tests will be run against. Finally, it needs the key “HubUrl” value set to the URL of the hub that will distribute the tests. 
+The app.config file can be configured to send tests to a hub for distribution. The "Browser" key needs to have a value set to "Remote." The "RemoteBrowser" key needs to be set to the web browser that the tests will be run against. Finally, it needs the key "HubUrl" value set to the URL of the hub that will distribute the tests. 
 To use these configurations, Selenium Grid hub and node servers must be set up beforehand (see http://www.seleniumhq.org/docs/07_selenium_grid.jsp for more information), or pay services that will provide test environments.
 There are additional options for configuring the remote browser environment. You can specify the remote platform to use (Windows, macOS, Linux, etc.), as well as what browser version should be used for the specified remote browser.
 ![Remote Browser Settings](resources/extendedremotebrowsersettings.png)  

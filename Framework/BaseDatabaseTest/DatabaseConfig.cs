@@ -35,9 +35,9 @@ namespace Magenic.Maqs.BaseDatabaseTest
         }
 
         /// <summary>
-        /// Get the database connection string
+        /// Get the database provider type string
         /// </summary>
-        /// <returns>The connection string</returns>
+        /// <returns>The provider type string</returns>
         /// <example>
         /// <code source="../DatabaseUnitTests/DatabaseConfigUnitTests.cs" region="GetOpenConnection" lang="C#" />
         /// </example>
@@ -123,7 +123,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// <exception cref="Exception"> Throws exception if the provider type is not supported </exception>
         private static IProvider<IDbConnection> GetProvider(string providerType)
         {
-            IProvider<IDbConnection> provider = null;
+            IProvider<IDbConnection> provider = null;            
 
             switch (providerType.ToUpper())
             {
@@ -141,7 +141,56 @@ namespace Magenic.Maqs.BaseDatabaseTest
                     break;
 
                 default:
-                    throw new ArgumentException(StringProcessor.SafeFormatter($"Provider type '{providerType}' is not supported"));
+                    provider = GetCustomProviderType(providerType);
+                    break;
+            }
+
+            return provider;
+        }
+
+        /// <summary>
+        /// Checks if the provider type key value is supported and trys to create the type.
+        /// </summary>
+        /// <param name="providerType"> The fully qualified provider type name. Namespace.TypeName</param>
+        /// <returns> The provider</returns>
+        private static IProvider<IDbConnection> GetCustomProviderType(string providerType)
+        {
+            if (String.IsNullOrWhiteSpace(providerType))
+            {
+                throw new ArgumentException(StringProcessor.SafeFormatter($"Provider type is Empty"));
+            }
+
+            IProvider<IDbConnection> provider = null;
+
+            try
+            {
+                Type type = Type.GetType(providerType);
+
+                if (type != null)
+                {
+                    provider = (IProvider<IDbConnection>)Activator.CreateInstance(type);
+                }
+                else
+                {
+                    foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
+                    {
+                        type = asm.GetType(providerType);
+                        if (type != null)
+                        {
+                            provider = (IProvider<IDbConnection>)Activator.CreateInstance(type);
+                            break;
+                        }
+                    }
+                }                
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException(StringProcessor.SafeFormatter($"Provider type '{providerType}' is not supported or not a fully qualified type name. <Namespace>.<TypeName>. {e.Message}. {e.StackTrace}"));
+            }
+
+            if (provider == null)
+            {
+                throw new ArgumentException(StringProcessor.SafeFormatter($"Provider type '{providerType}' is not supported or not a fully qualified type name. <Namespace>.<TypeName>."));
             }
 
             return provider;

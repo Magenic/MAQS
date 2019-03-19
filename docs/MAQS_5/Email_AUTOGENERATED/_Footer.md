@@ -1,4 +1,4 @@
-﻿Maqs Help
+Maqs Help
 
 
 
