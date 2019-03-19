@@ -1,83 +1,359 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> Configurations
 
 ## Introduction
-This document will cover the configurations that can be made to MAQS (Magenic Automation Quick-Start) tests.
+The below section will cover global test settings.
 
 ## Application Configuration
-The MAQS project solutions make use of a collection of configurations tied to the MAQS base solution.  These configurations are stored in an XML document called the app.config.
-The app.config file includes configurations for each project solution, as well as generic configurations for handling MAQS specific functions.
-### General Test Configurations
-There are general test configurations included in every project template. They control wait time, time-out, and log levels.
-#### Wait Time & Timeout
-The generic wait methods included with MAQS are methods that contain a loop where the called method will try to wait for certain conditions to be met, and if the conditions aren’t met, the method will wait the set wait time and check again if the conditions are met.
-Once the method has waited after a set amount of time, it will timeout and throw an exception. This timeout is also set in the app.config.
-The WaitTime and Timeout configurations can be modified to allow for longer or shorter wait times and/or have the test wait longer or shorter on certain conditions.  
-![Time Examples](resources/time.png)
-#### Log Configuration
-MAQS contains configurations for a test log in the app.config file. Options to adjust when a log is created for a test, the level of specificity, and the format of the log are included in every project.
-##### Logging Format
-The option to enable the log is located in the app.config. The options available are to create a log with the file format as plain text (.txt), Hypertext Markup Language(.html), or to output the log to the Visual Studio console. <br>
-![LogType](resources/LoggingType.png)
-##### Log Conditions  
-The option to set the conditions in which a log is created is set in the app.config.  
-![Conditions under which a long is created](resources/logconditions.png)  
+The MAQS project solutions make use of a collection of configurations. These configurations are stored in an XML document called the **app.config**.
+The **app.config** file includes configurations for each project solution, as well as generic configurations for handling MAQS specific functions.  
+*The .Net Core version of MAQS leverages a JSON version of this file called **appsettings.json**.  
+The XML and JSON versions of the configuration files follow a very similar format.*
 
-With the default option "Yes," a test will always create a corresponding log after the test finishes. The other options are “No” and “OnFail.” “No” will never create a log under any circumstance, while “OnFail” will only create a log if the test fails.
-##### Log Output Location
-![Where the log file is output](resources/loglocation.png)  
-A log file path can be defined to a specific folder or shared folder that the test runner has access to.  Simply set the value for the key “FileLoggerPath” to be the preferred location. 
+### MagenicMaqs - General Test Configurations
+General test configurations are included in every project template. They control wait time, time-out, and log levels.
+#### Wait Time
+Polling time (how long the code waits between retries) used for generic waits in milliseconds.
+##### Examples
+```xml
+<!-- Generic wait time in milliseconds - AKA how long do you wait for rechecking something -->
+<add key="WaitTime" value="1000" />
+```
 
-##### Log Level
-![The levels of logs](resources/logleveldiagram.png)  
-Each log level is grouped into a hierarchy, with the highest log levels also including any messages from lower log levels in the hierarchy.
-Verbose mode includes all information gathered by the logger, which includes any navigation that occurs on the page, and anytime the WebDriver attempts to find an element or interact with an element. Verbose mode will result in many, often superfluous, lines of information.
-Information mode includes messages for when a WebDriver is loaded, a value is identified, an element is interacted with, or whenever the WebDriver throws an exception.
-Generic mode is the default logging level. It includes performance timers, and log interactions such as when a performance timer log is saved.
-Success mode will output a message anytime a soft assert is successful, or as a test ends and the test is successful.
-Warning mode will output a message anytime a soft assert fails, the test is met with unexpected results, or the test configuration fails to update.
-Error mode will only display messages that would fail a test. This includes a test failed, a test resulted in being inconclusive, a setup failed, or the final soft assert data contains any failed soft asserts.
-Suspended mode will result in no information written to the log. 
+#### Timeout
+The overall timeout for generic waits in milliseconds.
+##### Examples
+```xml
+<!-- Generic time-out in milliseconds -->
+<add key="Timeout" value="10000" />
+```
 
-### Selenium Test Configuration
-Selenium specific configurations assist in switching between web browsers, setting up remote browser settings, selecting a specific WebDriver, or setting base root information.
-#### Local Browser Settings 
-![Local Browser Settings](resources/LocalBrowserSettings.png) 
-A browser key is included in the app.config to define which web browser will be used for tests. To switch between browsers simply change the value of the key “Browser” to the intended browser.
-The WebDriver will go off the path to the browser on the machine the test is being run on.
-The web browser needs to be installed for tests to be run against that browser.
-#### WebDriver Hint Path
-![WebDriver Hintpath](resources/webdriver%20hint%20path.png)  
-The WebDriver used by the tests can be overridden to point towards a different web driver and/or a specific version of a web driver, such as ChromeDriver, FirefoxDriver, etc. This is useful for compatibility tests to compare tests between browser versions.
-#### Remote Browser Settings
-![Remote Browser Settings](resources/remote%20browser%20settings.png) 
-The app.config file can be configured to send tests to a hub for distribution. The “Browser” key needs to have a value set to “Remote.” The “RemoteBrowser” key needs to be set to the web browser that the tests will be run against. Finally, it needs the key “HubUrl” value set to the URL of the hub that will distribute the tests. 
-To use these configurations, Selenium Grid hub and node servers must be set up beforehand (see http://www.seleniumhq.org/docs/07_selenium_grid.jsp for more information), or pay services that will provide test environments.
-There are additional options for configuring the remote browser environment. You can specify the remote platform to use (Windows, macOS, Linux, etc.), as well as what browser version should be used for the specified remote browser.
-![Remote Browser Settings](resources/extendedremotebrowsersettings.png)  
-## Test Settings
-"There are two types of file for configuring tests. *.runsettings are used for unit tests. And *.testsettings for lab environment tests, web performance and load tests, and for customizing some types of diagnostic data adapters such as Intellitrace and event log adapters"
-https://msdn.microsoft.com/en-us/library/jj635153.aspx
+#### Log
+This setting dictates if and/or when logs are created. With the default option "Yes," a test will always create a corresponding log after the test finishes. The other options are "No" and "OnFail." "No" will never create a log under any circumstance, while "OnFail" will only create a log if the test fails.
+##### Examples
+```xml
+ <!-- Do you want to create logs for your tests
+<add key="Log" value="YES"/>
+<add key="Log" value="NO"/>
+<add key="Log" value="OnFail"/>-->
+<add key="Log" value="OnFail" />
+```
+#### Logging Levels
+This setting dictates how verbose the logging will be. With the default option, "Information", the log will include everything but Verbose messages. 
 
-Both test settings files are written in XML (eXtensible Markup Language).
-### Run Settings Configurations
-A .runsettings file can be added as a test setting to add additional configurations when running unit tests. This allows tests to be run on additional cores on a single machine, to run on different versions of the unit test framework, or to specify where the results of the test should be output.
-#### Adding Run Settings
-To add a .runsettings file to a test solution, go to the top toolbar and under Test → Test Settings, choose the "Select Test Settings File" option, and finally add a .runsettings file.  
-![Remote Browser Settings](resources/AddNewTestSettings.png)  
-Since there is no way to have Visual Studio generate a template of a .runsettings file, you can instead add an example .runsettings file to your solution such as this one found on Microsoft's MSDN website: https://msdn.microsoft.com/en-us/library/jj635153.aspx#example
-### Test Settings Configurations
-.test settings files are useful for collecting data from tests running across multiple platforms, specifying environmental conditions, or collecting diagnostic data.
-.testsettings are always used by default in load tests and web performance tests.
-#### Creating Test Settings
-To create a .testsettings file, open the context menu on your solution, go to Add → New Item, select the Test Settings category and choose a Test Settings file. A wizard window will appear providing options to be configured for the .testsettings file.  
-![Remote Browser Settings](resources/remotebrowsersettings.png)  
-#### Adding Test Settings
-To add a .testsettings file to a test solution, go to the top toolbar and under Test → Test Settings, choose the "Select Test Settings File" option, and finally add a .testsettings file.  
-![Remote Browser Settings](resources/AddNewTestSettings.png)  
-#### Test Settings for Selenium Grid
-The main use of a .testsettings file is to control the distribution of tests over Selenium Grid, allowing tests to be executed in parallel.
-### Major Differences
-While a .testsettings file can be used in the same way as a .runsettings file to control settings such as framework version, target platform, or a results directory, it is mainly used for controlling the distribution of tests run in parallel over multiple machines.
-.testsettings can also be configured to collect other information, such as recording video of the tests running.
-.runsettings can only run a test.dll single-threaded, meaning it can only be run on one machine.
-.runsettings is negligibly faster than .testsettings, but can only be used to run tests locally.
+Levels
+ - Verbose option - Logs everything
+ - Information(Default) - Logs informative, generic, success, warning, and error messages
+ - Generic - Logs generic, success, warning, and error messages
+ - Success - Logs success, warning, and error messages
+ - Warning - Logs all warning and error messages
+ - Error - Only logs error messages
+
+##### Examples
+```xml
+<!--Logging Levels
+<add key="LogLevel" value="VERBOSE"/>
+<add key="LogLevel" value="INFORMATION"/>
+<add key="LogLevel" value="GENERIC"/>
+<add key="LogLevel" value="SUCCESS"/>
+<add key="LogLevel" value="WARNING"/>
+<add key="LogLevel" value="ERROR"/>-->
+<add key="LogLevel" value="INFORMATION" />
+```
+#### Logging Types
+This setting dictates the format of the log files. 
+
+Types
+ - Console - Prints to console logger, no file is created.
+ - TXT(Default) - Creates a TXT file.
+ - HTML - Creates a HTML file.
+
+##### Examples
+```xml
+<!-- Logging Types
+<add key="LogType" value="CONSOLE"/>
+<add key="LogType" value="TXT"/>
+<add key="LogType" value="HTML"/>-->
+<add key="LogType" value="HTML" />
+```
+
+#### Log Output Location - Optional
+The log file path can be set to a specific folder or shared drive that the test runner has access to.  
+_*By default, logs end up in the "log" folder. This is located in the same folder as the test DLL._
+
+##### Examples
+```xml
+<!-- Log file path - Defaults to build location if no value is defined
+<add key="FileLoggerPath" value="C:\Frameworks\"/>-->
+```
+
+# Full Configuration
+## App.Config
+Primarily uses with the .Net Framework implementation of MAQS.
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <section name="MagenicMaqs" type="System.Configuration.NameValueSectionHandler" />
+    <section name="AppiumMaqs" type="System.Configuration.NameValueSectionHandler"/>
+    <section name="AppiumCapsMaqs" type="System.Configuration.NameValueSectionHandler"/>
+    <section name="DatabaseMaqs" type="System.Configuration.NameValueSectionHandler" />
+    <section name="EmailMaqs" type="System.Configuration.NameValueSectionHandler"/>
+    <section name="SeleniumMaqs" type="System.Configuration.NameValueSectionHandler"/>
+    <section name="RemoteSeleniumCapsMaqs" type="System.Configuration.NameValueSectionHandler"/>
+    <section name="WebServiceMaqs" type="System.Configuration.NameValueSectionHandler"/>
+  </configSections>
+  <MagenicMaqs>
+    <!-- Generic wait time in milliseconds - AKA how long do you wait for rechecking something -->
+    <add key="WaitTime" value="1000" />
+
+    <!-- Generic time-out in milliseconds -->
+    <add key="Timeout" value="10000" />
+
+    <!-- Do you want to create logs for your tests
+    <add key="Log" value="YES"/>
+    <add key="Log" value="NO"/>
+    <add key="Log" value="OnFail"/>-->
+    <add key="Log" value="OnFail" />
+
+    <!--Logging Levels
+    <add key="LogLevel" value="VERBOSE"/>
+    <add key="LogLevel" value="INFORMATION"/>
+    <add key="LogLevel" value="GENERIC"/>
+    <add key="LogLevel" value="SUCCESS"/>
+    <add key="LogLevel" value="WARNING"/>
+    <add key="LogLevel" value="ERROR"/>-->
+    <add key="LogLevel" value="INFORMATION" />
+
+    <!-- Logging Types
+    <add key="LogType" value="CONSOLE"/>
+    <add key="LogType" value="TXT"/>
+    <add key="LogType" value="HTML"/>-->
+    <add key="LogType" value="TXT" />
+
+    <!-- Log file path - Defaults to build location if no value is defined
+    <add key="FileLoggerPath" value="C:\Frameworks\"/>-->
+  </MagenicMaqs>
+  <AppiumMaqs>
+    <!--Device platform
+    <add key="PlatformName" value="ANDROID"/>
+    <add key="PlatformName" value="IOS"/>
+    <add key="PlatformName" value="WINDOWS"/> -->
+    <add key="PlatformName" value="Android"/>
+    
+    <!--Device settings - Optional, used primarily for cloud based services    -->
+    <add key="PlatformVersion" value="8.1"/>
+    <add key="DeviceName" value="Android GoogleAPI Emulator"/>
+
+    <!-- Appium or grid connection -->
+    <!-- <add key="MobileHubUrl" value="http://ondemand.saucelabs.com:80/wd/hub" /> -->
+    <add key="MobileHubUrl" value="http://127.0.0.1:4723/wd/hub" />
+    
+    <!-- Command time-out in milliseconds
+    <add key="MobileCommandTimeout" value="60000"/> -->
+
+    <!-- Wait time in milliseconds - AKA how long do you wait for rechecking something -->
+    <add key="MobileWaitTime" value="1000" />
+
+    <!-- Time-out in milliseconds -->
+    <add key="MobileTimeout" value="10000" />
+
+    <!-- Do you want to take screenshots upon Soft Assert Failures
+    <add key="SoftAssertScreenshot" value="YES"/>
+    <add key="SoftAssertScreenshot" value="NO"/>-->
+    <add key="SoftAssertScreenshot" value="NO"/>
+
+    <!-- Screenshot Image Formats
+    <add key="ImageFormat" value="Bmp"/>
+    <add key="ImageFormat" value="Gif"/>
+    <add key="ImageFormat" value="Jpeg"/>
+    <add key="ImageFormat" value="Png"/>
+    <add key="ImageFormat" value="Tiff"/>-->
+    <add key="ImageFormat" value="Png"/>
+
+    <!-- Do you want to save page source when a Soft Assert fails
+    <add key="SavePagesourceOnFail" value="YES"/>
+    <add key="SavePagesourceOnFail" value="NO"/> -->
+    <add key="SavePagesourceOnFail" value="NO"/>
+  </AppiumMaqs>
+  <AppiumCapsMaqs>
+    <!-- Local App File Path -->
+    <!-- <add key="app" value="/path/to/app/package"/> -->
+    <!-- Sauce Labs Configuration Settings-->
+    <!--<add key="username" value="Sauce_Labs_Username"/> -->
+    <!--<add key="accessKey" value="Sauce_Labs_Accesskey"/> -->
+    <!--<add key="appiumVersion" value="1.7.1"/> -->
+    <!-- <add key="app" value="sauce-storage:app-name.extension"/> -->
+    <add key="app" value="App_Path" />
+    <add key="appActivity" value="com.magenic.appiumtesting.maqsregistrydemo.LoginPage" />
+    <add key="appPackage" value="com.magenic.appiumtesting.maqsregistrydemo" /> 
+  </AppiumCapsMaqs>
+  <DatabaseMaqs>
+    <!--<add key="DataBaseProviderType" value="SQLSERVER" />
+    <add key="DataBaseConnectionString" value="Data Source=DB;Initial Catalog=MagenicAutomation;Persist Security Info=True;User ID=ID;Password=PW;Connection Timeout=30" />   
+    <add key="DataBaseProviderType" value="POSTGRE" />
+    <add key="DataBaseConnectionString" value="Server=127.0.0.1;Port=1234;Database=maqs;User Id=UserID;Password=PW;" />    
+    <add key="DataBaseProviderType" value="SQLITE" />
+    <add key="DataBaseConnectionString" value="Data Source=PATH\TO\MyDatabase.sqlite;" />-->
+    <add key="DataBaseProviderType" value="SQLSERVER" />
+    <add key="DataBaseConnectionString" value="CONNECTION" />
+  </DatabaseMaqs>
+  <EmailMaqs>
+    <!--IMAP connection settings-->
+    <add key="EmailHost" value="imap.PROVIDER.com" />
+    <add key="EmailUserName" value="FAKENAME@PROVIDER.com" />
+    <add key="EmailPassword" value="PASSWORD" />
+    <add key="EmailPort" value="993" />
+    <add key="ConnectViaSSL" value="Yes" />
+    <add key="SkipSslValidation" value="Yes" />
+    
+    <!-- Time-out in milliseconds -->
+    <add key="EmailTimeout" value="10000" />
+
+    <!-- Download attachment path - Defaults to attachments folder under the build location if no value is defined
+    <add key="AttachmentDownloadPath" value="C:\Frameworks\downloads"/>-->
+  </EmailMaqs>
+  <SeleniumMaqs>
+    <!-- Root to website -->
+    <add key="WebSiteBase" value="http://magenicautomation.azurewebsites.net/" />
+
+    <!--Local browser settings
+    <add key="Browser" value="Chrome"/>
+    <add key="Browser" value="HeadlessChrome"/>
+    <add key="Browser" value="Internet Explorer"/>
+    <add key="Browser" value="Firefox"/>
+    <add key="Browser" value="PhantomJS"/>
+    <add key="Browser" value="Edge"/> -->
+    <add key="Browser" value="Chrome" />
+
+    <!--Browser Resize settings
+    <add key="BrowserSize" value ="MAXIMIZE"/>
+    <add key="BrowserSize" value="DEFAULT"/>
+    <add key="BrowserSize" value="600x1600"/>-->
+    <add key="BrowserSize" value="MAXIMIZE"/>
+
+    <!-- Web driver hint path override - This is the first place Maqs will try to find your web drive -->
+    <add key="WebDriverHintPath" value="C:\Frameworks"/>
+
+    <!-- Remote browser settings - RemoteBrowser can be any standard browse; such as IE, Firefox, Chrome, Edge or Safari
+    <add key="Browser" value="REMOTE"/> -->
+    <add key="RemoteBrowser" value="Chrome"/>
+    <add key="HubUrl" value="http://localhost:4444/wd/hub"/>
+
+    <!-- Extended remote browser settings - OS (xp, win7, win8, win8.1, win10, os x, os x 10.6, os x 10.8, os x 10.9, os x 10.10, os x 10.11, solaris, linux, android, +more)-->
+    <!-- <add key="RemotePlatform" value="win7"/>-->
+
+    <!-- Extended remote browser settings - Browser version-->
+    <!-- <add key="RemoteBrowserVersion" value="44"/>-->
+
+    <!-- Command Time-out in milliseconds -->
+    <add key="SeleniumCommandTimeout" value="60000"/>
+
+    <!-- Wait time in milliseconds - AKA how long do you wait for rechecking something -->
+    <add key="BrowserWaitTime" value="1000" />
+
+    <!-- Time-out in milliseconds -->
+    <add key="BrowserTimeout" value="10000" />
+    
+    <!-- Do you want to take screenshots upon Soft Assert Failures
+    <add key="SoftAssertScreenshot" value="YES"/>
+    <add key="SoftAssertScreenshot" value="NO"/>-->
+    <add key="SoftAssertScreenshot" value="NO"/>
+
+    <!-- Screenshot Image Formats
+    <add key="ImageFormat" value="Bmp"/>
+    <add key="ImageFormat" value="Gif"/>
+    <add key="ImageFormat" value="Jpeg"/>
+    <add key="ImageFormat" value="Png"/>
+    <add key="ImageFormat" value="Tiff"/>-->
+    <add key="ImageFormat" value="Png"/>
+
+    <!-- Do you want to save page source when a Soft Assert fails
+    <add key="SavePagesourceOnFail" value="YES"/>
+    <add key="SavePagesourceOnFail" value="NO"/> -->
+    <add key="SavePagesourceOnFail" value="NO"/>
+  </SeleniumMaqs>
+  <RemoteSeleniumCapsMaqs>
+    <!-- Cloud based Grid settings
+    <add key="username" value="Sauce_Labs_Username"/>
+    <add key="accessKey" value="Sauce_Labs_Accesskey"/>
+    <add key="browserName" value="Chrome"/>
+    <add key="platform" value="OS X 10.11"/>
+    <add key="version" value="54.0"/> -->
+  </RemoteSeleniumCapsMaqs>
+  <WebServiceMaqs>
+    <!-- Web service root -->
+    <add key="WebServiceUri" value="http://magenicautomation.azurewebsites.net" />
+    
+    <!-- Time-out in milliseconds -->
+    <add key="WebServiceTimeout" value="10000" />
+  </WebServiceMaqs>
+</configuration>
+```
+## appsettings.json
+Primarily uses with the .Net Core implementation of MAQS.
+```json
+{
+  "MagenicMaqs": {
+    "WaitTime": "100",
+    "Timeout": "10000",
+    "Log": "OnFail",
+    "LogLevel": "INFORMATION",
+    "LogType": "TXT"
+  },
+  "AppiumMaqs": {
+    "PlatformName": "Android",
+    "PlatformVersion": "6.0",
+    "DeviceName": "Android GoogleAPI Emulator",
+    "MobileHubUrl": "http://ondemand.saucelabs.com:80/wd/hub",
+    "MobileWaitTime": "1000",
+    "MobileTimeout": "10000",
+    "SoftAssertScreenshot": "NO",
+    "ImageFormat": "Png",
+    "SavePagesourceOnFail": "NO"
+  },
+   "AppiumCapsMaqs": {
+    "username": "Sauce_Labs_Username",
+    "accessKey": "Sauce_Labs_Accesskey",
+    "appiumVersion": "1.7.1",
+    "app": "sauce-storage:app-name.extension"
+  },
+  "DatabaseMaqs": {
+    "DataBaseProviderType": "SQLSERVER",
+    "DataBaseConnectionString": "Data Source=DATABASE;Initial Catalog=TEST_DB;Persist Security Info=True;User ID=USER_ID;Password=USER_PASSWORD;Connection Timeout=30"
+  },
+  "EmailMaqs": {
+    "EmailHost": "imap.PROVIDER.com",
+    "EmailUserName": "FAKENAME@PROVIDER.com",
+    "EmailPassword": "PASSWORD",
+    "EmailPort": "993",
+    "ConnectViaSSL": "Yes",
+    "SkipSslValidation": "Yes",
+    "AttachmentDownloadPath": "C:\\Frameworks\\downloads",
+    "EmailTimeout": "10000"
+  },
+  "SeleniumMaqs": {
+    "WebSiteBase": "http://magenicautomation.azurewebsites.net/",
+    "Browser": "Chrome",
+	"HubUrl": "http://localhost:4444/wd/hub",
+	"RemoteBrowser": "Chrome",
+    "SeleniumCommandTimeout": "60000",
+    "BrowserWaitTime": "100",
+    "BrowserTimeout": "10000",
+    "BrowserSize": "MAXIMIZE",
+    "SoftAssertScreenshot": "NO",
+    "ImageFormat": "Png",
+    "SavePagesourceOnFail": "NO"
+  },
+  "RemoteSeleniumCapsMaqs": {
+    "Username": "Sauce_Labs_Username",
+    "AccessKey": "Sauce_Labs_Accesskey",
+    "BrowserName": "Chrome",
+    "Platform": "OS X 10.11",
+    "Version": "54.0"
+  },
+  "WebServiceMaqs": {
+    "WebServiceUri": "http://magenicautomation.azurewebsites.net",
+    "WebServiceTimeout": "1000"
+  }
+}
+```

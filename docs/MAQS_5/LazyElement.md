@@ -4,8 +4,8 @@
 A Lazy Element is a handler that enables lazy initialization(not creating an object in memory til its needed)with built in wait methods. 
 ## Lazy Element Methods
 
-### Intialization 
-Intializing Lazy Element
+### Initialization 
+Initializing Lazy Element
 
 #### Written as
 ```csharp
@@ -232,7 +232,7 @@ chatWindow.SendKeys("Lorem Ipsum");
 This method enters the provided text into the lazy element without test logging.
 #### Written as
 ```csharp
-this.ElementID.SendSecretKeys("SECERET MESSAGE BEING SENT")
+this.ElementID.SendSecretKeys("SECRET MESSAGE BEING SENT")
 ```
 
 #### Example

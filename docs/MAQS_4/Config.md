@@ -7,13 +7,13 @@ Config is class file granting access to properties in the App.config.
 If you need use value for key named 'input' from the App.config file, you can write:
 
 ```csharp
-Config.GetValue("input”);  
+Config.GetValue("input");  
 ```
 
 If you want to return a default value if "input" key is not found, you can write:
 
 ```csharp
-Config.GetValue("input”, "DefaultValueToBeReturned");  
+Config.GetValue("input", "DefaultValueToBeReturned");  
 ```
 
 In some cases, testers may need to add a dynamic value in the Configuration in order to use it later in the test. In order to do that, use the following method:

@@ -26,7 +26,7 @@ The overall timeout for generic waits in milliseconds.
 ```
 
 #### Log
-This setting dictates if and/or when logs are created. With the default option "Yes," a test will always create a corresponding log after the test finishes. The other options are “No” and “OnFail.” “No” will never create a log under any circumstance, while “OnFail” will only create a log if the test fails.
+This setting dictates if and/or when logs are created. With the default option "Yes," a test will always create a corresponding log after the test finishes. The other options are "No" and "OnFail." "No" will never create a log under any circumstance, while "OnFail" will only create a log if the test fails.
 ##### Examples
 ```xml
  <!-- Do you want to create logs for your tests
@@ -139,10 +139,10 @@ _*By default, MAQS will only look in the test DLL folder for webdrivers._
 
 #### Remote Browser Settings when using Selenium Grid
 The app.config file can be configured to send tests to a hub for distribution. 
-1. Update “Browser” key to “Remote” value.
-2. Set “RemoteBrowser” key to the web browser that the tests will be run against.  
+1. Update "Browser" key to "Remote" value.
+2. Set "RemoteBrowser" key to the web browser that the tests will be run against.  
 (for options see the above section Local Browser Settings or use GENERIC and define the browserName in RemoteSeleniumCapsMaqs)
-3. Update the “HubUrl” value to the path of your Selenium grid instance.
+3. Update the "HubUrl" value to the path of your Selenium grid instance.
 
 *To use these configurations, Selenium Grid hub and node servers must be set up beforehand (see http://www.seleniumhq.org/docs/07_selenium_grid.jsp for more information)*  
 

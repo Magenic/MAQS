@@ -1,0 +1,8 @@
+#main {
+  max-width: 90%;
+}
+
+.markdown-section pre>code
+{
+  background-color: #f7f7f7;
+}

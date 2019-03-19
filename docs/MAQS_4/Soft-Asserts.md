@@ -4,7 +4,7 @@
 Soft Asserts are a collection of assertions.  When a soft assert is called it will determine the results of a condition, along with a name for the soft assert, and a failure message, and save that to a collection of Soft Asserts.  It will also save the results of that Soft Assert to the log.
 To call a Soft Assert, for example the IsEqual that will which compare two inputs, in a test simply write 
 ```csharp
-SoftAssert.IsEqual(input 1, input 2, “Comparing input 1 and input 2”);  
+SoftAssert.IsEqual(input 1, input 2, "Comparing input 1 and input 2");  
 ```
 If the success of a test is dependent on the results of the assertions, then the method 
 ```csharp

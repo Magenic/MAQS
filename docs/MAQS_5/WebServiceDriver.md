@@ -16,12 +16,12 @@ Each web driver call has a similar format
 
 
 # Available calls
-[Get](##Get)  
-[Put](##Put)  
-[Post](##Post)  
-[Patch](##Patch)  
-[Delete](##Delete)  
-[Custom](##Custom)
+[Get](#Get)  
+[Put](#Put)  
+[Post](#Post)  
+[Patch](#Patch)  
+[Delete](#Delete)  
+[Custom](#Custom)
 
 ## Get
 Execute a "get" call and get the response body back as a string
