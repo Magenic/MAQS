@@ -46,6 +46,12 @@ namespace Magenic.Maqs.BaseDatabaseTest
             return Config.GetValueForSection(DATABASESECTIION, "DataBaseProviderType");
         }
 
+
+
+
+
+
+
         /// <summary>
         /// Gets the database connection based on configuration values
         /// </summary>
@@ -55,7 +61,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// <returns> The database connection client </returns>
         public static IDbConnection GetOpenConnection<T>(IProvider<T> provider, string connectionString = "") where T : class
         {
-            return (IDbConnection)provider.SetupDataBaseConnection(!string.IsNullOrWhiteSpace(connectionString) ? connectionString : GetConnectionString());
+            return ConnectionFactory.GetOpenConnection(provider, connectionString);
         }
 
         /// <summary>
@@ -64,7 +70,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// <returns>The database connection</returns>
         public static IDbConnection GetOpenConnection()
         {
-            return GetOpenConnection(GetProviderTypeString(), GetConnectionString());
+            return ConnectionFactory.GetOpenConnection(GetProviderTypeString(), GetConnectionString());
         }
 
         /// <summary>
@@ -75,125 +81,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// <returns> The database connection </returns>
         public static IDbConnection GetOpenConnection(string providerType, string connectionString)
         {
-            IDbConnection connection = null;
-
-            try
-            {
-                connection = GetProvider(providerType).SetupDataBaseConnection(connectionString);
-                connection.Open();
-                return connection;
-            }
-            catch (Exception e)
-            {
-                if (e.GetType() == typeof(ArgumentException))
-                {
-                    throw e;
-                }
-
-                try
-                {
-                    // Try to cleanup
-                    connection?.Dispose();
-                }
-                catch (Exception quitExecption)
-                {
-                    throw new Exception("Connection setup and teardown failed", quitExecption);
-                }
-
-                // Log that something went wrong
-                throw new Exception("Connection setup failed.", e);
-            }
-        }
-
-        /// <summary>
-        /// Invokes the function to return the connection client
-        /// </summary>
-        /// <param name="setupDataBaseConnectionOverride"> The setup data base connection override. </param>
-        /// <returns> The <see cref="IDbConnection"/>. client </returns>
-        internal static IDbConnection GetOpenConnection(Func<IDbConnection> setupDataBaseConnectionOverride)
-        {
-            return setupDataBaseConnectionOverride();
-        }
-
-        /// <summary>
-        /// Gets the provider based on the provider type.
-        /// </summary>
-        /// <param name="providerType"> The provider type. </param>
-        /// <returns> The <see cref="IProvider"/> object </returns>
-        /// <exception cref="Exception"> Throws exception if the provider type is not supported </exception>
-        private static IProvider<IDbConnection> GetProvider(string providerType)
-        {
-            IProvider<IDbConnection> provider = null;            
-
-            switch (providerType.ToUpper())
-            {
-                case "SQL":
-                case "SQLSERVER":
-                    provider = new SQLServerProvider();
-                    break;
-                case "SQLITE":
-                    provider = new SqliteProvider();
-                    break;
-
-                case "POSTGRESQL":
-                case "POSTGRE":
-                    provider = new PostgreSqlProvider();
-                    break;
-
-                default:
-                    provider = GetCustomProviderType(providerType);
-                    break;
-            }
-
-            return provider;
-        }
-
-        /// <summary>
-        /// Checks if the provider type key value is supported and trys to create the type.
-        /// </summary>
-        /// <param name="providerType"> The fully qualified provider type name. Namespace.TypeName</param>
-        /// <returns> The provider</returns>
-        private static IProvider<IDbConnection> GetCustomProviderType(string providerType)
-        {
-            if (String.IsNullOrWhiteSpace(providerType))
-            {
-                throw new ArgumentException(StringProcessor.SafeFormatter($"Provider type is Empty"));
-            }
-
-            IProvider<IDbConnection> provider = null;
-
-            try
-            {
-                Type type = Type.GetType(providerType);
-
-                if (type != null)
-                {
-                    provider = (IProvider<IDbConnection>)Activator.CreateInstance(type);
-                }
-                else
-                {
-                    foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
-                    {
-                        type = asm.GetType(providerType);
-                        if (type != null)
-                        {
-                            provider = (IProvider<IDbConnection>)Activator.CreateInstance(type);
-                            break;
-                        }
-                    }
-                }                
-            }
-            catch (Exception e)
-            {
-                throw new ArgumentException(StringProcessor.SafeFormatter($"Provider type '{providerType}' is not supported or not a fully qualified type name. <Namespace>.<TypeName>. {e.Message}. {e.StackTrace}"));
-            }
-
-            if (provider == null)
-            {
-                throw new ArgumentException(StringProcessor.SafeFormatter($"Provider type '{providerType}' is not supported or not a fully qualified type name. <Namespace>.<TypeName>."));
-            }
-
-            return provider;
+            return ConnectionFactory.GetOpenConnection(providerType, connectionString);
         }
     }
 }

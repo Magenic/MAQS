@@ -27,7 +27,7 @@ namespace CoreUnitTests
         [TestMethod]
         public void CanOverrideWebDriver()
         {
-            IWebDriver tempDriver = SeleniumConfig.Browser("HeadlessChrome");
+            IWebDriver tempDriver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.HeadlessChrome);
             this.WebDriver = tempDriver;
 
             Assert.AreEqual(this.TestObject.WebDriver.GetLowLevelDriver(), tempDriver.GetLowLevelDriver());
@@ -39,7 +39,7 @@ namespace CoreUnitTests
         [TestMethod]
         public void CanUseMultiple()
         {
-            SeleniumDriverManager newDriver = new SeleniumDriverManager(() => SeleniumConfig.Browser("HeadlessChrome"), this.TestObject);
+            SeleniumDriverManager newDriver = new SeleniumDriverManager(() => WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.HeadlessChrome), this.TestObject);
             this.ManagerStore.Add("test", newDriver);
 
             Assert.AreNotEqual(this.TestObject.WebDriver.GetLowLevelDriver(), ((SeleniumDriverManager)this.ManagerStore["test"]).GetWebDriver().GetLowLevelDriver());
@@ -72,7 +72,7 @@ namespace CoreUnitTests
         [TestMethod]
         public void SeparateInteractions()
         {
-            SeleniumDriverManager newDriver = new SeleniumDriverManager(() => SeleniumConfig.Browser("HeadlessChrome"), this.TestObject);
+            SeleniumDriverManager newDriver = new SeleniumDriverManager(() => WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.HeadlessChrome), this.TestObject);
             newDriver.GetWebDriver().Navigate().GoToUrl("http://magenicautomation.azurewebsites.net/");
 
             this.ManagerStore.Add("test", newDriver);

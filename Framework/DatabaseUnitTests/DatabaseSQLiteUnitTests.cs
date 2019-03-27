@@ -23,6 +23,7 @@ namespace DatabaseUnitTests
     /// </summary>
     [TestFixture]
     [ExcludeFromCodeCoverage]
+    [NonParallelizable]
     public class DatabaseSQLiteUnitTests
     {
         /// <summary>
@@ -32,6 +33,9 @@ namespace DatabaseUnitTests
         [Category(TestCategories.Database)]
         public void VerifyOrdersSqliteNoDriverDefault()
         {
+            System.Console.WriteLine(DatabaseConfig.GetConnectionString());
+            System.Console.WriteLine(DatabaseConfig.GetProviderTypeString());
+
             // Override the configuration
             var overrides = new Dictionary<string, string>()
             {
@@ -39,7 +43,10 @@ namespace DatabaseUnitTests
                 { "DataBaseConnectionString", $"Data Source={ this.GetDByPath() }" },
             };
 
-            Config.AddTestSettingValues(overrides, "DatabaseMaqs");
+            Config.AddTestSettingValues(overrides, "DatabaseMaqs", true);
+
+            System.Console.WriteLine(DatabaseConfig.GetConnectionString());
+            System.Console.WriteLine(DatabaseConfig.GetProviderTypeString());
 
             DatabaseDriver driver = new DatabaseDriver();
 
@@ -61,7 +68,7 @@ namespace DatabaseUnitTests
                 { "DataBaseConnectionString", $"Data Source={ this.GetDByPath() }" },
             };
 
-            Config.AddTestSettingValues(overrides, "DatabaseMaqs");
+            Config.AddTestSettingValues(overrides, "DatabaseMaqs", true);
 
             DatabaseDriver driver = new DatabaseDriver(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString());
 

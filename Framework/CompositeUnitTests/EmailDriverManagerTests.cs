@@ -97,20 +97,11 @@ namespace CompositeUnitTests
         /// <returns>An email connection</returns>
         private static ImapClient GetClient()
         {
-            ImapClient client = new ImapClient
-            {
-                ServerCertificateValidationCallback = (s, c, h, e) => true
-            };
-
             string host = EmailConfig.GetHost();
             string username = EmailConfig.GetUserName();
             string password = EmailConfig.GetPassword();
 
-            client.Connect(host, 993, true);
-            client.Authenticate(username, password);
-            client.Timeout = 10000;
-
-            return client;
+            return ClientFactory.GetEmailClient(host, username, password, 993, 10000, true, true);
         }
     }
 }

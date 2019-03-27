@@ -24,12 +24,12 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <summary>
         /// A user friendly name, for logging purposes
         /// </summary>
-        private string userFriendlyName;
+        private readonly string userFriendlyName;
 
         /// <summary>
         /// The parent lazy element
         /// </summary>
-        private LazyElement parent;
+        private readonly LazyElement parent;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LazyElement" /> class
@@ -433,7 +433,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 temp += this.parent.ToString();
             }
 
-            return temp += this.By.ToString() + this.userFriendlyName;
+            return temp + this.By.ToString() + this.userFriendlyName;
         }
 
         /// <summary>
@@ -449,7 +449,10 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             {
                 try
                 {
+#pragma warning disable S1481
+                    // Do this to make sure we waited for the element to exist
                     bool visible = this.CachedElement.Displayed;
+#pragma warning restore S1481
                     return this.CachedElement;
                 }
                 catch (Exception e)

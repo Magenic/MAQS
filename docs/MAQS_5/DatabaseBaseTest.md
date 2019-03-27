@@ -8,9 +8,9 @@ By default, the BaseDatabaseTest will use one of the included [MAQS Providers](M
 There are two primary ways to override the database connection.
   
 The first way is to simply replace the DatebaseDriver.  
-*This is often done in a test intialize, but it can also be done inside your test.*
+*This is often done in a test initialize, but it can also be done inside your test.*
 ```csharp
-IDbConnection connection = DatabaseConfig.GetOpenConnection("SQLITE", $"Data Source={GetDByPath()}");
+IDbConnection connection = ConnectionFactory.GetOpenConnection("SQLITE", $"Data Source={GetDByPath()}");
 this.DatabaseDriver = new DatabaseDriver(connection);
 ```
 

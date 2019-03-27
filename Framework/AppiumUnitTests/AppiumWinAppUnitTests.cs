@@ -11,7 +11,6 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Enums;
 using OpenQA.Selenium.Appium.Windows;
-using OpenQA.Selenium.Remote;
 using System;
 
 namespace AppiumUnitTests

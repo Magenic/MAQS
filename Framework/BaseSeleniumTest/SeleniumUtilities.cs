@@ -5,7 +5,6 @@
 // <summary>Utilities class for generic selenium methods</summary>
 //--------------------------------------------------
 using Magenic.Maqs.Utilities.Data;
-using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.Utilities.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
@@ -27,9 +26,6 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="testObject">The test object to associate and log to</param>
         /// <param name="appendName">Appends a name to the end of a filename</param>
         /// <returns>Boolean if the save of the image was successful</returns>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="CaptureScreenshot" lang="C#" />
-        /// </example>
         public static bool CaptureScreenshot(this IWebDriver webDriver, SeleniumTestObject testObject, string appendName = "")
         {
             try
@@ -166,9 +162,6 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="testObject">The TestObject to associate the file with</param>
         /// <param name="appendName">Appends a name to the end of a filename</param>
         /// <returns>Boolean if the save of the page source was successful</returns>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="SavePageSource" lang="C#" />
-        /// </example>
         public static bool SavePageSource(this IWebDriver webDriver, SeleniumTestObject testObject, string appendName = "")
         {
             try
@@ -319,7 +312,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <returns>The javaScript executor</returns>
         public static IJavaScriptExecutor SearchContextToJavaScriptExecutor(ISearchContext searchContext)
         {
-            return (searchContext is IJavaScriptExecutor) ? (IJavaScriptExecutor)searchContext : (IJavaScriptExecutor)SeleniumUtilities.WebElementToWebDriver((IWebElement)searchContext);
+            return (searchContext is IJavaScriptExecutor) ? (IJavaScriptExecutor)searchContext : (IJavaScriptExecutor)WebElementToWebDriver((IWebElement)searchContext);
         }
 
         /// <summary>
@@ -329,7 +322,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <returns>The web driver</returns>
         public static IWebDriver SearchContextToWebDriver(ISearchContext searchContext)
         {
-            return (searchContext is IWebDriver) ? (IWebDriver)searchContext : SeleniumUtilities.WebElementToWebDriver((IWebElement)searchContext);
+            return (searchContext is IWebDriver) ? (IWebDriver)searchContext : WebElementToWebDriver((IWebElement)searchContext);
         }
 
         /// <summary>
@@ -401,12 +394,37 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             try
             {
+                if (driver != null)
+                {
+                    ///  TODO: GO byby 
+                    Console.WriteLine("Killing: " + driver.CurrentWindowHandle);
+                }
                 driver?.Close();
             }
             finally
             {
                 driver?.Quit();
             }
+        }
+
+        /// <summary>
+        /// Set the script and page timeouts using the default configuration timeout
+        /// </summary>
+        /// <param name="driver">Driver who's timeouts you want set</param>
+        public static void SetTimeouts(IWebDriver driver)
+        {
+            SetTimeouts(driver, SeleniumConfig.GetTimeoutTime());
+        }
+
+        /// <summary>
+        /// Set the script and page timeouts
+        /// </summary>
+        /// <param name="driver">Driver who's timeouts you want set</param>
+        /// <param name="timeoutTime">Page load and JavaScript timeouts</param>
+        public static void SetTimeouts(IWebDriver driver, TimeSpan timeoutTime)
+        {
+            driver.Manage().Timeouts().PageLoad = timeoutTime;
+            driver.Manage().Timeouts().AsynchronousJavaScript = timeoutTime;
         }
     }
 }

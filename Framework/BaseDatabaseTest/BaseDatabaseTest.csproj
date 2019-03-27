@@ -19,6 +19,7 @@
     <PackageReference Include="Dapper.Contrib" Version="1.60.1" />
     <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="2.2.2" />
     <PackageReference Include="Npgsql" Version="4.0.5" />
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.18.6" />
     <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="1.1.13" />
     <PackageReference Include="SQLitePCLRaw.core" Version="1.1.13" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />

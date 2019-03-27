@@ -46,7 +46,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <returns>The web driver</returns>
         protected virtual IWebDriver GetBrowser()
         {
-            return SeleniumConfig.Browser();
+            return WebDriverFactory.GetDefaultBrowser();
         }
 
         /// <summary>

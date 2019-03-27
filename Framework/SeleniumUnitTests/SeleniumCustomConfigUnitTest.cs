@@ -44,7 +44,7 @@ namespace SeleniumUnitTests
         /// <returns>The web driver we want to use - Web driver override</returns>
         protected override IWebDriver GetBrowser()
         {
-            IWebDriver driver = SeleniumConfig.Browser("Chrome");
+            IWebDriver driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Firefox);
             driver.Manage().Window.Size = new Size(701, 199);
 
             return driver;

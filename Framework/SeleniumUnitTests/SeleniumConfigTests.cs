@@ -33,7 +33,7 @@ namespace UnitTests
         {
             #region GetBrowser
 
-            IWebDriver driver = SeleniumConfig.Browser();
+            IWebDriver driver = WebDriverFactory.GetDefaultBrowser();
 
             #endregion GetBrowser
             try
@@ -76,8 +76,8 @@ namespace UnitTests
              * Verify new and old driver size values are the same
              */
 
-            // Using PhantomJS because headless Chrome does not respect Maximize as of 8/24/2018
-            var driverManualSize = SeleniumConfig.Browser("Chrome");
+            // Using FireFox because headless Chrome does not respect Maximize as of 8/24/2018
+            var driverManualSize = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Firefox);
 
             try
             {
@@ -94,7 +94,7 @@ namespace UnitTests
                    "SeleniumMaqs",
                    true);
 
-                var driverConfigSize = SeleniumConfig.Browser("Chrome");
+                var driverConfigSize = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Firefox);
 
                 try
                 {
@@ -133,7 +133,7 @@ namespace UnitTests
                    "SeleniumMaqs",
                     true);
 
-            var driverChangeSize = SeleniumConfig.Browser();
+            var driverChangeSize = WebDriverFactory.GetDefaultBrowser();
 
             try
             {
@@ -144,7 +144,7 @@ namespace UnitTests
 
                 driverChangeSize.Manage().Window.Size = new System.Drawing.Size(nonDefaultWidth, nonDefaultHidth);
 
-                var driverDefault = SeleniumConfig.Browser();
+                var driverDefault = WebDriverFactory.GetDefaultBrowser();
 
                 try
                 {
@@ -181,7 +181,7 @@ namespace UnitTests
                    "SeleniumMaqs",
                     true);
 
-            var driver = SeleniumConfig.Browser();
+            var driver = WebDriverFactory.GetDefaultBrowser();
 
             try
             {
@@ -270,7 +270,7 @@ namespace UnitTests
 
             try
             {
-                driver = SeleniumConfig.Browser("Remote");
+                driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Remote);
                 driver.Navigate().GoToUrl("https://magenic.com/");
             }
             catch (Exception e)
@@ -328,7 +328,7 @@ namespace UnitTests
         {
             #region GetBrowserWithString
 
-            IWebDriver driver = SeleniumConfig.Browser("HeadlessChrome");
+            IWebDriver driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.HeadlessChrome);
 
             #endregion GetBrowserWithString            
 
@@ -365,7 +365,7 @@ namespace UnitTests
                    "SeleniumMaqs",
                     true);
 
-                SeleniumConfig.Browser("remote");
+                WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Remote);
             }
             finally
             {
@@ -388,7 +388,7 @@ namespace UnitTests
         [TestCategory(TestCategories.Selenium)]
         public void GetWaitDriver()
         {
-            IWebDriver driver = SeleniumConfig.Browser();
+            IWebDriver driver = WebDriverFactory.GetDefaultBrowser();
 
             try
             {
@@ -411,11 +411,11 @@ namespace UnitTests
         [TestCategory(TestCategories.Selenium)]
         public void SetTimeoutsGetWaitDriver()
         {
-            var driver = SeleniumConfig.Browser();
-            var newDriver = SeleniumConfig.Browser();
+            var driver = WebDriverFactory.GetDefaultBrowser();
+            var newDriver = WebDriverFactory.GetDefaultBrowser();
             try
             {
-                SeleniumConfig.SetTimeouts(driver);
+                SeleniumUtilities.SetTimeouts(driver);
                 WebDriverWait wait = SeleniumConfig.GetWaitDriver(newDriver);
                 Assert.AreEqual(wait.Timeout.TotalMilliseconds.ToString(), Config.GetValueForSection("SeleniumMaqs", "BrowserTimeout", "0"));
             }

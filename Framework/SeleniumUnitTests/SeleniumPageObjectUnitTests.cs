@@ -107,7 +107,7 @@ namespace SeleniumUnitTests
         public void OverridePageObjectWebdriver()
         {
             var oldWebDriver = this.basePageModel.GetWebDriver();
-            this.basePageModel.OverrideWebDriver(SeleniumConfig.Browser());
+            this.basePageModel.OverrideWebDriver(WebDriverFactory.GetDefaultBrowser());
 
             Assert.AreNotEqual(oldWebDriver, this.basePageModel.GetWebDriver(), "The webdriver was not updated");
         }

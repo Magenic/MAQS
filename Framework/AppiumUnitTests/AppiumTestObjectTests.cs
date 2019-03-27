@@ -35,7 +35,7 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void GetAndCloseDriverTest()
         {
-            AppiumDriver<IWebElement> driver = AppiumConfig.MobileDevice();
+            AppiumDriver<IWebElement> driver = AppiumDriverFactory.GetDefaultMobileDriver();
             try
             {
                 Assert.IsNotNull(driver);

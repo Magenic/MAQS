@@ -42,11 +42,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="baseAddress">The base web service uri</param>
         public WebServiceDriver(Uri baseAddress)
         {
-            this.HttpClient = new HttpClient
-            {
-                BaseAddress = baseAddress,
-                Timeout = WebServiceConfig.GetWebServiceTimeout()
-            };
+            this.HttpClient = HttpClientFactory.GetClient(baseAddress, WebServiceConfig.GetWebServiceTimeout());
         }
 
         /// <summary>
@@ -55,11 +51,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="baseAddress">The base web service uri</param>
         public WebServiceDriver(string baseAddress)
         {
-            this.HttpClient = new HttpClient
-            {
-                BaseAddress = new Uri(baseAddress),
-                Timeout = WebServiceConfig.GetWebServiceTimeout()
-            };
+            this.HttpClient = HttpClientFactory.GetClient(new Uri(baseAddress), WebServiceConfig.GetWebServiceTimeout());
         }
 
         /// <summary>

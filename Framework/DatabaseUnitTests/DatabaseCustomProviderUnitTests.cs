@@ -5,17 +5,13 @@
 // <summary>Database base test unit tests</summary>
 //--------------------------------------------------
 
-using System;
+using Magenic.Maqs.BaseDatabaseTest;
+using Magenic.Maqs.Utilities.Helper;
+using NUnit.Framework;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Linq;
-using System.Reflection;
-using Magenic.Maqs.BaseDatabaseTest;
-using Magenic.Maqs.Utilities.Helper;
-using Microsoft.Data.Sqlite;
-using NUnit.Framework;
 
 namespace DatabaseUnitTests
 {
@@ -24,6 +20,7 @@ namespace DatabaseUnitTests
     /// </summary>
     [TestFixture]
     [ExcludeFromCodeCoverage]
+    [NonParallelizable]
     public class DatabaseCustomProviderUnitTests : BaseDatabaseTest
     {
         /// <summary>
@@ -33,8 +30,9 @@ namespace DatabaseUnitTests
         [Category(TestCategories.Database)]
         public void CustomIProviderTest()
         {
-            var orders = this.DatabaseDriver.Query("select * from orders").ToList();
-            Assert.AreEqual(11, orders.Count);
+            var states = this.DatabaseDriver.Query("SELECT * FROM States").ToList();
+            // Our database only has 49 states
+            Assert.AreEqual(49, states.Count, "Expected 49 states.");
         }
 
         /// <summary>
@@ -49,7 +47,7 @@ namespace DatabaseUnitTests
                 { "DataBaseProviderType", "DatabaseUnitTests.TestProvider" },
             };
 
-            Config.AddTestSettingValues(overrides, "DatabaseMaqs");
+            Config.AddTestSettingValues(overrides, "DatabaseMaqs", true);
 
             return DatabaseConfig.GetOpenConnection();
         }

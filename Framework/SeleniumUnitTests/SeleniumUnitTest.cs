@@ -1428,7 +1428,7 @@ namespace SeleniumUnitTests
             this.WebDriver?.KillDriver();
 
             // This driver must manually be taken down
-            var differentDriver = SeleniumConfig.Browser();
+            var differentDriver = WebDriverFactory.GetDefaultBrowser();
 
             try
             {

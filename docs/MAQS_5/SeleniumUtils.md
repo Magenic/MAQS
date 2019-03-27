@@ -38,7 +38,7 @@ SeleniumUtilities.SavePageSource(this.WebDriver, this.TestObject);
 ##  KillDriver
 Make sure a web driver gets closed
 ```csharp
-IWebDriver tempDriver = SeleniumConfig.Browser("HeadlessChrome");
+IWebDriver tempDriver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.HeadlessChrome);
 
 try
 {
