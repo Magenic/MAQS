@@ -77,13 +77,6 @@ namespace Magenic.Maqs.BaseSeleniumTest
                         throw new ArgumentException(StringProcessor.SafeFormatter("Browser type '{0}' is not supported", browser));
                 }
 
-                if (webDriver != null)
-                {
-                    ///  TODO: GO byby 
-                    Console.WriteLine("Killing: " + webDriver.CurrentWindowHandle);
-                    Console.WriteLine("StackTrace: '{0}'", Environment.StackTrace);
-                }
-
                 return webDriver;
             }
             catch (Exception e)

@@ -10,6 +10,8 @@ The SeleniumUtilities class is a utility class for working with Selenium
 [SearchContextToJavaScriptExecutor](#SearchContextToJavaScriptExecutor)  
 [SearchContextToWebDriver](#SearchContextToWebDriver)  
 [WebElementToWebDriver](#WebElementToWebDriver)  
+[CheckAccessibility](#CheckAccessibility)  
+[GetReadableAxeResults](#GetReadableAxeResults) 
 
 
 ##  CaptureScreenshot
@@ -43,7 +45,7 @@ IWebDriver tempDriver = WebDriverFactory.GetBrowserWithDefaultConfiguration(Brow
 try
 {
     //Do something
-tempDriver.GetWebDriver().Navigate().GoToUrl("http://magenicautomation.azurewebsites.net/");
+    tempDriver.GetWebDriver().Navigate().GoToUrl("http://magenicautomation.azurewebsites.net/");
 }
 finally
 {
@@ -102,5 +104,28 @@ page.OpenLoginPage();
 IWebElement element = this.WebDriver.FindElement(By.CssSelector("#SELECTOR"));
 
 IWebDriver driver = SeleniumUtilities.WebElementToWebDriver(element);
+
+```
+
+##  CheckAccessibility
+Run an accessibility check and log results to the logger
+```csharp
+SeleniumUtilities.CheckAccessibility(this.TestObject);
+```
+
+Run an accessibility check, log results to the logger and throw an exception if there are any accessibility violations
+```csharp
+SeleniumUtilities.CheckAccessibility(this.TestObject, true);
+```
+Run an accessibility check for a given web driver/logger combination, log results to the logger and throw an exception if there are any accessibility violations
+```csharp
+SeleniumUtilities.CheckAccessibility(webDriver, fileLogger, true);
+```
+
+##  GetReadableAxeResults
+Get a readable accessibility analysis as a string
+```csharp
+SeleniumUtilities.GetReadableAxeResults("Violations", WebDriver, WebDriver.Analyze().Violations, out string messages);
+Console.WriteLine(messages);
 
 ```

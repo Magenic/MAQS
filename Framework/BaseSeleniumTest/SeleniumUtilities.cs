@@ -8,9 +8,11 @@ using Magenic.Maqs.Utilities.Data;
 using Magenic.Maqs.Utilities.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
+using Selenium.Axe;
 using System;
 using System.IO;
 using System.Reflection;
+using System.Text;
 
 namespace Magenic.Maqs.BaseSeleniumTest
 {
@@ -229,6 +231,109 @@ namespace Magenic.Maqs.BaseSeleniumTest
             return path;
         }
 
+        /// <summary>
+        /// Run axe accessibility and log the results
+        /// </summary>
+        /// <param name="testObject">The test object which contains the web driver and logger you wish to use</param>
+        /// <param name="throwOnViolation">Should violations cause and exception to be thrown</param>
+        public static void CheckAccessibility(this SeleniumTestObject testObject, bool throwOnViolation = false)
+        {
+            CheckAccessibility(testObject.WebDriver, testObject.Log, throwOnViolation);
+        }
+
+        /// <summary>
+        /// Run axe accessibility and log the results 
+        /// </summary>
+        /// <param name="webDriver">The web driver that is on the page you want to run the accessibility check on</param>
+        /// <param name="logger">Where you want the check logged to</param>
+        /// <param name="throwOnViolation">Should violations cause and exception to be thrown</param>
+        public static void CheckAccessibility(this IWebDriver webDriver, Logger logger, bool throwOnViolation = false)
+        {
+            MessageType type = logger.GetLoggingLevel();
+
+            // Look at passed
+            if (type == MessageType.VERBOSE && GetReadableAxeResults("Passes", webDriver, webDriver.Analyze().Passes, out string axeText))
+            {
+                logger.LogMessage(MessageType.VERBOSE, axeText);
+            }
+
+            // Look at inapplicable
+            if (type == MessageType.VERBOSE && GetReadableAxeResults("Inapplicable", webDriver, webDriver.Analyze().Inapplicable, out axeText))
+            {
+                logger.LogMessage(MessageType.VERBOSE, axeText);
+            }
+
+            // Look at incomplete
+            if (type > MessageType.SUCCESS && GetReadableAxeResults("Incomplete", webDriver, webDriver.Analyze().Incomplete, out axeText))
+            {
+                logger.LogMessage(MessageType.INFORMATION, axeText);
+            }
+
+            // Look at violations
+            if (GetReadableAxeResults("Violations", webDriver, webDriver.Analyze().Violations, out axeText))
+            {
+                if (throwOnViolation)
+                {
+                    throw new ApplicationException(axeText);
+                }
+                else
+                {
+                    logger.LogMessage(MessageType.WARNING, axeText);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Parses scanned accessibility results
+        /// </summary>
+        /// <param name="typeOfScan">Type of scan</param>
+        /// <param name="webDriver">Web driver the scan was run on</param>
+        /// <param name="scannedResults">The scan results</param>
+        /// <param name="messageString">Pretty scan results</param>
+        /// <returns>True if the scan found anything</returns>
+        public static bool GetReadableAxeResults(string typeOfScan, IWebDriver webDriver, AxeResultItem[] scannedResults, out string messageString)
+        {
+            StringBuilder message = new StringBuilder();
+            int axeRules = scannedResults.Length;
+
+            if (axeRules == 0)
+            {
+                messageString = string.Empty;
+                return false;
+            }
+            message.AppendLine($"ACCESSIBILITY CHECK");
+            message.AppendLine($"{typeOfScan} check for '{webDriver.Url}'");
+            message.AppendLine($"Found {axeRules} items");
+            message.AppendLine(string.Empty);
+
+            int loops = 1;
+
+            foreach (var element in scannedResults)
+            {
+                message.AppendLine($@"{loops++}: {element.Help}");
+                message.AppendLine($@"{"\t"}Description: {element.Description}");
+                message.AppendLine($@"{"\t"}Help URL: {element.HelpUrl}");
+                message.AppendLine($@"{"\t"}Impact: {element.Impact}");
+                message.AppendLine($@"{"\t"}Tags: {string.Join(", ", element.Tags)}");
+
+                foreach (var item in element.Nodes)
+                {
+                    message.AppendLine($@"{"\t"}{"\t"}HTML element: {item.Html}");
+
+                    foreach (string target in item.Target)
+                    {
+                        message.AppendLine($@"{"\t"}{"\t"}Selector: {target}");
+                    }
+                }
+
+                message.AppendLine(string.Empty);
+                message.AppendLine(string.Empty);
+            }
+
+            messageString = message.ToString().Trim();
+            return true;
+        }
+
         #region Obsolete SavePageSource
         /// <summary>
         /// To capture a page source during execution
@@ -394,11 +499,6 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             try
             {
-                if (driver != null)
-                {
-                    ///  TODO: GO byby 
-                    Console.WriteLine("Killing: " + driver.CurrentWindowHandle);
-                }
                 driver?.Close();
             }
             finally
