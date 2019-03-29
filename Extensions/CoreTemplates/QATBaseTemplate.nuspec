@@ -7,7 +7,7 @@
     <authors>Magenic</authors>
     <owners>Magenic</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <licenseUrl>https://raw.githubusercontent.com/Magenic/MAQS/master/LICENSE</licenseUrl>
+    <license type="expression">MIT</license>
     <iconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</iconUrl>
     <projectUrl>https://github.com/Magenic/MAQS</projectUrl>
     <description>Magenic's automation quick start .Net Core enterprise templates</description>
@@ -16,6 +16,14 @@
 This package includes templates for browser, mobile, web service, database, email, generic and composite test solutions.
 *The enterprise version of MAQS is currently only available to Magenic clients and is required to leverage these templates.</summary>
     <releaseNotes>
+	5.4.0 - 2019/3/28
+	Bug fixes and minor enhancements
+      - Add support for Oracle SQL support
+      - Add accessibility testing support
+      - Fix Appium driver dispose
+      - Move driver initializations to factories
+      - Change to lighter icon
+	
 	5.3.2 - 2019/3/25
       Bug fixes and minor enhancements
       - Update MAQS icons
