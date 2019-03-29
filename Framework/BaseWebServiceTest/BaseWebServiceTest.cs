@@ -46,13 +46,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>A new http client</returns>
         protected virtual HttpClient GetHttpClient()
         {
-            HttpClient client = new HttpClient
-            {
-                BaseAddress = this.GetBaseWebServiceUri()
-            };
-            client.DefaultRequestHeaders.Accept.Clear();
-
-            return client;
+            return HttpClientFactory.GetDefaultClient();
         }
 
         /// <summary>

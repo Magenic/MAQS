@@ -48,6 +48,15 @@ namespace Magenic.Maqs.Utilities.Logging
         }
 
         /// <summary>
+        /// Get the logging level
+        /// </summary>
+        /// <returns>The logging level</returns>
+        public MessageType GetLoggingLevel()
+        {
+            return this.logLevel;
+        }
+
+        /// <summary>
         /// Suspends logging
         /// </summary>
         public void SuspendLogging()

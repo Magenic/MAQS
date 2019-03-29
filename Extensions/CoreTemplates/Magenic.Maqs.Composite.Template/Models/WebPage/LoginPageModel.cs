@@ -61,7 +61,7 @@ namespace Models
         /// </summary>
         public void OpenLoginPage()
         {
-            this.testObject.WebDriver.Navigate().GoToUrl(PageUrl);
+            this.TestObject.WebDriver.Navigate().GoToUrl(PageUrl);
             this.AssertPageLoaded();
         }
 
@@ -87,7 +87,7 @@ namespace Models
             this.EnterCredentials(userName, password);
             this.LoginButton.Click();
 
-            return new HomePageModel(this.testObject);
+            return new HomePageModel(this.TestObject);
         }
 
         /// <summary>

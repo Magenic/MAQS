@@ -6,7 +6,7 @@
 * ***SQL Server***
 * ***PostgreSql***
 * ***SQLite***
-
+* ***Oracle***
 
 ## The IProvider Interface
 An IProvider interface defines a ***connection*** type and database connection setup method. DatabaseConfig provides a convenient GetOpenConnection that takes an IProvider.
@@ -39,7 +39,7 @@ An IProvider interface defines a ***connection*** type and database connection s
 After implementing the IProvider interface, use the connection as you normally would with Dapper:
 
 ```csharp
-    var connection = DatabaseConfig.GetOpenConnection(new TestProvider());
+    var connection = ConnectionFactory.GetOpenConnection(new TestProvider());
     var table = connection.Query("SELECT * FROM SOMETABLE");
 ```
 

@@ -15,32 +15,21 @@ namespace Magenic.Maqs.BaseWebServiceTest
     public static class WebServiceConfig
     {
         /// <summary>
-        ///  Static name for the web service configuration section
-        /// </summary>
-        private const string WEBSERVICESECTION = "WebServiceMaqs";
-
-        /// <summary>
         /// Get the web service URI string
         /// </summary>
         /// <returns>The URI string</returns>
-        /// <example>
-        /// <code source = "../WebServiceTesterUnitTesting/WebServiceConfigTests.cs" region="WebServiceConfig" lang="C#" />
-        /// </example>
         public static string GetWebServiceUri()
         {
-            return Config.GetValueForSection(WEBSERVICESECTION, "WebServiceUri");
+            return Config.GetValueForSection(ConfigSection.WebServiceMaqs, "WebServiceUri");
         }
 
         /// <summary>
         /// Get the web service timeout
         /// </summary>
         /// <returns>The web service timeout span</returns>
-        /// <example>
-        /// <code source = "../WebServiceTesterUnitTesting/WebServiceConfigTests.cs" region="GetWebServiceTimeout" lang="C#" />
-        /// </example>
         public static TimeSpan GetWebServiceTimeout()
         {
-            return TimeSpan.FromMilliseconds(int.Parse(Config.GetValueForSection(WEBSERVICESECTION, "WebServiceTimeout", "-1")));
+            return TimeSpan.FromMilliseconds(int.Parse(Config.GetValueForSection(ConfigSection.WebServiceMaqs, "WebServiceTimeout", "-1")));
         }
     }
 }

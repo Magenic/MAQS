@@ -1,4 +1,12 @@
 MAQS SpecFlow ExtensionRelease Notes:
+5.4.0 - 2019/3/28
+	Bug fixes and minor enhancements
+	- Add support for Oracle SQL support
+	- Add accessibility testing support
+	- Fix Appium driver dispose
+	- Move driver initializations to factories
+	- Change to lighter icon
+	
 5.3.1 - 2019/2/20
 	Bug fixes and minor enhancements
 	- Appium fix for soft assert

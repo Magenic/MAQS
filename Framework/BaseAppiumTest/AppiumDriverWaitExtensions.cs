@@ -45,7 +45,7 @@ namespace Magenic.Maqs.BaseAppiumTest
             }
             else
             {
-                WebDriverWait waiter = AppiumConfig.GetWaitDriver(driver);
+                WebDriverWait waiter = AppiumUtilities.GetDefaultWaitDriver(driver);
                 waitCollection.AddOrUpdate(driver, waiter, (oldkey, oldvalue) => waiter);
                 return waiter;
             }

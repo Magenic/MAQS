@@ -52,10 +52,7 @@ namespace Magenic.Maqs.BaseEmailTest
 
             string host = EmailConfig.GetHost();
             string username = EmailConfig.GetUserName();
-            string password = EmailConfig.GetPassword();
             int port = EmailConfig.GetPort();
-            bool isSSL = EmailConfig.GetEmailViaSSL();
-            bool skipSslCheck = EmailConfig.GetEmailSkipSslValidation();
 
             if (loggingEnabled)
             {
@@ -64,14 +61,7 @@ namespace Magenic.Maqs.BaseEmailTest
                     StringProcessor.SafeFormatter("Connect to email with user '{0}' on host '{1}', port '{2}'", username, host, port));
             }
 
-            ImapClient emailConnection = new ImapClient
-            {
-                ServerCertificateValidationCallback = (s, c, h, e) => skipSslCheck
-            };
-            emailConnection.Connect(host, port, isSSL);
-            emailConnection.Authenticate(username, password);
-            emailConnection.Timeout = EmailConfig.GetTimeout();
-
+            ImapClient emailConnection = ClientFactory.GetDefaultEmailClient();
             emailConnection.NoOp();
 
             if (loggingEnabled)

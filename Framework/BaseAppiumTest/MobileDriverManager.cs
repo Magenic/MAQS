@@ -41,12 +41,7 @@ namespace Magenic.Maqs.BaseAppiumTest
             try
             {
                 AppiumDriver<IWebElement> driver = this.GetMobileDriver();
-
-                if (driver != null)
-                {
-                    driver?.Quit();
-                    driver?.Dispose();
-                }
+                driver?.KillDriver();
             }
             catch (Exception e)
             {

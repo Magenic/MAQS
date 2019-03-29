@@ -10,7 +10,7 @@
       <Scope>MethodLevel</Scope>
     </Parallelize>
   </MSTest>
-  <TestRunParameters>  
+  <TestRunParameters>
     <Parameter name="SeleniumMaqs:Adding" value="SAMPLE" />
     <Parameter name="MagenicMaqs:SectionOverrideCore" value="ANOTHERSAMPLE" />
     <Parameter name="Grog" value="YetAnother" />
@@ -30,5 +30,5 @@
     <Parameter name="SeleniumMaqs:SectionAdd" value="SAMPLESelz" />
     <Parameter name="RemoteseleniumCapsMaqs:SectionAdd" value="SAMPLESelCapz" />
     <Parameter name="webServiceMaqs:SectionAdd" value="SAMPLEWebz" />
-  </TestRunParameters>  
+  </TestRunParameters>
 </RunSettings>

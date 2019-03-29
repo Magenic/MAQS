@@ -1,0 +1,34 @@
+﻿//--------------------------------------------------
+// <copyright file="SQLServerProvider.cs" company="Magenic">
+//  Copyright 2019 Magenic, All rights Reserved
+// </copyright>
+// <summary>SQLServerProvider class</summary>
+//--------------------------------------------------
+
+using Oracle.ManagedDataAccess.Client;
+using System.Data.SqlClient;
+
+namespace Magenic.Maqs.BaseDatabaseTest.Providers
+{
+    /// <summary>
+    /// The SQL server provider.
+    /// </summary>
+    public class OracleProvider : IProvider<OracleConnection>
+    {
+        /// <summary>
+        /// Method used to create a new connection for Oracle databases
+        /// </summary>
+        /// <param name="connectionString"> The connection string. </param>
+        /// <returns> The <see cref="OracleConnection"/> connection client. </returns>
+        OracleConnection IProvider<OracleConnection>.SetupDataBaseConnection(string connectionString)
+        {
+
+            OracleConnection connection = new OracleConnection
+            {
+                ConnectionString = connectionString
+            };
+
+            return connection;
+        }
+    }
+}

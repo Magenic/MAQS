@@ -49,7 +49,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <returns>The appium driver</returns>
         protected virtual AppiumDriver<IWebElement> GetMobileDevice()
         {
-            return AppiumConfig.MobileDevice();
+            return AppiumDriverFactory.GetDefaultMobileDriver();
         }
 
         /// <summary>

@@ -1,3 +1,6 @@
+CI Build Status: [![CI Build Status](https://magenic.visualstudio.com/MAQS/_apis/build/status/Framework,%20nuget%20and%20extension%20CI?branchName=develop)](https://magenic.visualstudio.com/MAQS/_build/latest?definitionId=87&branchName=develop)  
+Release Candidate Build Status: [![Release Candidate Build Status](https://magenic.visualstudio.com/MAQS/_apis/build/status/Framework,%20nuget%20and%20extension%20RC?branchName=develop)](https://magenic.visualstudio.com/MAQS/_build/latest?definitionId=89&branchName=develop)
+
 # MAQS
 ## Introduction 
 MAQS stands for Magenic's automation quick start.

@@ -1,4 +1,10 @@
 MAQS Framework Release Notes:
+5.4.0 - 2019/3/28
+	Bug fixes and minor enhancements
+	- Add accessibility testing support
+	- Move driver initializations to factories
+	- Change to lighter icon
+	  
 5.3.1 - 2019/2/20
 	Bug fixes and minor enhancements
 	- Selenium template fix

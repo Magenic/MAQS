@@ -17,6 +17,7 @@ MAQS with Dapper supports the following providers:
 * ***SQL Server***
 * ***PostgreSql***
 * ***SQLite***
+* ***Oracle***
 
 ## Available methods
 Get the database connection string:
@@ -31,12 +32,12 @@ string provider = DatabaseConfig.GetProviderTypeString();
 
 Get a database connection using the provide and connection string from the configuration:
 ```csharp
-IDbConnection connection = DatabaseConfig.GetOpenConnection();
+IDbConnection connection = ConnectionFactory.GetOpenConnection();
 ```
 
 Get a database connection using a passed in provide and connection string:
 ```csharp
-IDbConnection connection = DatabaseConfig.GetOpenConnection("SQLITE", $"Data Source={GetDByPath()}");
+IDbConnection connection = ConnectionFactory.GetOpenConnection("SQLITE", $"Data Source={GetDByPath()}");
 ```
 
 # Sample config files
@@ -54,7 +55,9 @@ IDbConnection connection = DatabaseConfig.GetOpenConnection("SQLITE", $"Data Sou
     <add key="DataBaseProviderType" value="POSTGRE" />
     <add key="DataBaseConnectionString" value="Server=127.0.0.1;Port=1234;Database=maqs;User Id=UserID;Password=PW;" />    
     <add key="DataBaseProviderType" value="SQLITE" />
-    <add key="DataBaseConnectionString" value="Data Source=PATH\TO\MyDatabase.sqlite;" />-->
+    <add key="DataBaseConnectionString" value="Data Source=PATH\TO\MyDatabase.sqlite;" />
+    <add key="DataBaseProviderType" value="ORACLE" />
+    <add key="DataBaseConnectionString" value="DATA SOURCE=server;PERSIST SECURITY INFO=True;USER ID=User;password=pw;Pooling=False;" />-->
     <add key="DataBaseProviderType" value="SQLSERVER" />
     <add key="DataBaseConnectionString" value="CONNECTION" />
   </DatabaseMaqs>

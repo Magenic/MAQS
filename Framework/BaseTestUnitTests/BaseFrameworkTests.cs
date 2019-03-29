@@ -18,6 +18,7 @@ namespace BaseTestUnitTests
     /// Framework unit test class
     /// </summary>
     [TestClass]
+    [TestFixture]
     [ExcludeFromCodeCoverage]
     public class BaseFrameworkTests
     {
@@ -47,7 +48,6 @@ namespace BaseTestUnitTests
         [TestMethod]
         [TestCategory(TestCategories.Framework)]
         [ExpectedException(typeof(AssertFailedException))]
-        [NonParallelizable]
         public void SoftAssertWithFailure()
         {
             BaseTest tester = this.GetBaseTest();

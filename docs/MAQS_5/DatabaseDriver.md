@@ -31,5 +31,5 @@ To use the DatabaseDriver without the BaseDatabaseTest, simply create the driver
 #### Using a DBConnection
 
 ```csharp
-    DatabaseDriver tempDriver = new DatabaseDriver(DatabaseConfig.GetOpenConnection());
+    DatabaseDriver tempDriver = new DatabaseDriver(ConnectionFactory.GetOpenConnection());
 ```

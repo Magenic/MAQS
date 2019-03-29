@@ -75,7 +75,7 @@ namespace AppiumUnitTests
         public void MobileDeviceTest()
         {
                 #region MobileDevice
-                AppiumDriver<IWebElement> driver = AppiumConfig.MobileDevice();
+                AppiumDriver<IWebElement> driver = AppiumDriverFactory.GetDefaultMobileDriver();
             #endregion
 
             try
@@ -106,8 +106,8 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void GetWaitDriverTest()
         {
-            AppiumDriver<IWebElement> driver = AppiumConfig.MobileDevice();
-            WebDriverWait wait = AppiumConfig.GetWaitDriver(driver);
+            AppiumDriver<IWebElement> driver = AppiumDriverFactory.GetDefaultMobileDriver();
+            WebDriverWait wait = AppiumUtilities.GetDefaultWaitDriver(driver);
             try
             {
                 Assert.IsNotNull(wait);
