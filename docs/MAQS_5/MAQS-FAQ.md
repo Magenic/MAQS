@@ -50,6 +50,10 @@ Success mode will output a message anytime a soft assert is successful, or as a 
 Warning mode will output a message anytime a soft assert fails, the test is met with unexpected results, or the test configuration fails to update.
 Error mode will only display messages that would fail a test. This includes a test failed, a test resulted in being inconclusive, a setup failed, or the final soft assert data contains any failed soft asserts.
 Suspended mode will result in no information written to the log. 
+
+## Configuration
+- Configuration overrides from MSTest (properties) or NUnit (parameters) are only executed within the context of a test run. If you are using the configuration outside a test, such as part of an assembly initialize, you will need to trigger the update your self by calling [UpdateWithVSTestContext](MAQS_5/Config.md#UpdateWithVSTestContext) or  [UpdateWithNUnitTestContext](MAQS_5/Config.md#UpdateWithNUnitTestContext) depending on which test runner you are using.
+
 ## Soft Asserts
 - Specific to a test (inside) These get logged to the Log and become Hard Asserts after use. AreEqual or FailTestIfAssertFailed or Assert.AreEqual  helps your testing approach be more efficient instead of having to fix individual failures.
 ## Performance Measures

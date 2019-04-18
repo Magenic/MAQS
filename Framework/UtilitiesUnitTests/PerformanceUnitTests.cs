@@ -59,7 +59,7 @@ namespace UtilitiesUnitTesting
 
             // Write the log and validate the resulting file contents
             p.Write(this.Log);
-            string filepath = LoggingConfig.GetLogDirectory() + p.FileName;
+            string filepath = Path.Combine(LoggingConfig.GetLogDirectory(), p.FileName);
 
             // If the file doesnt exist, just bail
             Assert.IsTrue(File.Exists(filepath), "File Check : Expected File does not exist:" + filepath);
@@ -129,7 +129,7 @@ namespace UtilitiesUnitTesting
 
             // Write the log and validate the resulting file contents
             p.Write(this.Log);
-            filepath = LoggingConfig.GetLogDirectory() + p.FileName;
+            filepath = Path.Combine(LoggingConfig.GetLogDirectory(), p.FileName);
 
             // If the file doesnt exist, just bail
             Assert.IsTrue(File.Exists(filepath), "File Check : Expected File does not exist:" + filepath);

@@ -42,6 +42,20 @@ namespace Magenic.Maqs.BaseTest
         {
             this.LoggedExceptions = new ConcurrentDictionary<string, List<string>>();
             this.BaseTestObjects = new ConcurrentDictionary<string, BaseTestObject>();
+
+            // Update your config parameters 
+            if (NUnitTestContext.Parameters != null)
+            {
+                try
+                {
+                    Config.UpdateWithNUnitTestContext(NUnitTestContext.Parameters);
+                }
+                catch (Exception e)
+                {
+                    // Test logger is not created yet so write to the console
+                    Console.WriteLine("Failed to override NUnit configuration settings because: " + e.Message);
+                }
+            }
         }
 
         /// <summary>
@@ -127,6 +141,16 @@ namespace Magenic.Maqs.BaseTest
             set
             {
                 this.testContextInstance = value;
+
+                try
+                {
+                    // The test context has been set so update your config parameters
+                    Config.UpdateWithVSTestContext(this.testContextInstance);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Failed to override VSTest configuration settings because: " + e.Message);
+                }
             }
         }
 
@@ -184,9 +208,6 @@ namespace Magenic.Maqs.BaseTest
         [SetUp]
         public void Setup()
         {
-            // Update configuration with propeties passes in by the test context
-            this.UpdateConfigParameters();
-
             // Create the test object
             this.CreateNewTestObject();
         }
@@ -536,57 +557,6 @@ namespace Magenic.Maqs.BaseTest
         private string GetResultTextNunit()
         {
             return NUnitTestContext.CurrentContext.Result.Outcome.Status.ToString();
-        }
-
-        /// <summary>
-        /// Update config settings with override parameters
-        /// </summary>
-        private void UpdateConfigParameters()
-        {
-            Dictionary<string, string> passedInParameters = new Dictionary<string, string>();
-
-            try
-            {
-                if (this.testContextInstance != null)
-                {
-                    // Update configuration settings for Visual Studio unit test
-                    List<string> propeties = new List<string>();
-                    IDictionary<string, object> contextProperties = (IDictionary<string, object>)this.testContextInstance.GetType().InvokeMember("Properties", BindingFlags.GetProperty, null, this.testContextInstance, null);
-
-                    // Get a list of framework reserved properties so we can exclude them
-                    foreach (var property in this.testContextInstance.GetType().GetProperties())
-                    {
-                        propeties.Add(property.Name);
-                    }
-
-                    foreach (KeyValuePair<string, object> property in contextProperties)
-                    {
-                        if (!propeties.Contains(property.Key) && property.Value is string)
-                        {
-                            // Add the override properties
-                            passedInParameters.Add(property.Key, property.Value as string);
-                        }
-                    }
-                }
-                else
-                {
-                    // Update parameters for an NUnit unit test
-                    TestParameters parameters = NUnitTestContext.Parameters;
-
-                    foreach (string propertyName in parameters.Names)
-                    {
-                        // Add the override properties
-                        passedInParameters.Add(propertyName, parameters[propertyName]);
-                    }
-                }
-
-                // Update configuration values
-                Config.AddTestSettingValues(passedInParameters);
-            }
-            catch (Exception e)
-            {
-                this.TryToLog(MessageType.WARNING, "Failed override configuration settings because: " + e.Message);
-            }
         }
 
         /// <summary>

@@ -37,10 +37,8 @@ namespace WebServiceTesterUnitTesting
         {
             try
             {
-                var tesst = Config.GetSection(ConfigSection.MagenicMaqs);
-
                 WebServiceDriver client = new WebServiceDriver(new Uri("http://magenicautomation.azurewebsites.net"));
-                string result = client.Get("/api/String/1", "text/plain", false);
+                client.Get("/api/String/1", "text/plain", false);
             }
             catch
             {
