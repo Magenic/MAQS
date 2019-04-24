@@ -23,7 +23,7 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Google URL
         /// </summary>
-        private readonly string googleUrl = "https://www.magenic.com";
+        private readonly string urlToNavigate = "https://github.com/Magenic/MAQS";
 
         /// <summary>
         /// Verify WaitForAbsentElement wait works
@@ -32,7 +32,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void VerifyCustomBrowserUsed()
         {
-            this.WebDriver.Navigate().GoToUrl(this.googleUrl);
+            this.WebDriver.Navigate().GoToUrl(this.urlToNavigate);
 
             Assert.AreEqual(701, this.WebDriver.Manage().Window.Size.Width, "Override sets the with to 701");
             Assert.AreEqual(199, this.WebDriver.Manage().Window.Size.Height, "Override sets the height to 199");
