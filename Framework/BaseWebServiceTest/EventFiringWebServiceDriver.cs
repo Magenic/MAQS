@@ -131,7 +131,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         {
             try
             {
-                this.RaiseEvent("Put", requestUri, responseMediaType);
+                this.RaiseEvent(content, "Put", requestUri, responseMediaType);
                 HttpResponseMessage response = base.PutContent(requestUri, responseMediaType, content, expectSuccess).Result;
                 this.RaiseEvent("Put", response);
                 return await Task.FromResult(response);
