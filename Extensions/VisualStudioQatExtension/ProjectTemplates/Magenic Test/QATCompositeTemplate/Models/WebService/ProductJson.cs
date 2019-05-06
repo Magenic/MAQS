@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
 
-namespace $safeprojectname$.WebService
+namespace Models.WebService
 {
     /// <summary>
     /// Definition of a product in json
     /// </summary>
-    public class $safeitemname$
+    public class ProductJson
     {
         /// <summary>
         /// Gets or sets the product ID

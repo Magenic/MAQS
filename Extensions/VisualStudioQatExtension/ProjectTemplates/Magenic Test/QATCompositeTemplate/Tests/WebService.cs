@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Models.WebService;
 
-namespace $safeprojectname$
+namespace Tests
 {
     /// <summary>
     /// Sample test class

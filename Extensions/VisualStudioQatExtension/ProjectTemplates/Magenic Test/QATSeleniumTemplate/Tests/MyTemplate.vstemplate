@@ -12,15 +12,13 @@
     <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
     <Icon>__TemplateIcon.ico</Icon>
 	<Hidden>true</Hidden> 
+	<CreateInPlace>true</CreateInPlace>
   </TemplateData>
   <TemplateContent>
     <Project TargetFileName="Tests.csproj" File="Tests.csproj" ReplaceParameters="true">
-      <ProjectItem ReplaceParameters="true" TargetFileName="packages.config">packages.config</ProjectItem>
-      <ProjectItem ReplaceParameters="true" TargetFileName="App.config">App.config</ProjectItem>
-      <Folder Name="Properties" TargetFolderName="Properties">
-        <ProjectItem ReplaceParameters="true" TargetFileName="AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
-      </Folder>
-      <ProjectItem ReplaceParameters="true" TargetFileName="SeleniumTest.cs">SeleniumTest.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="appsettings.json">appsettings.json</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="SeleniumTestsNUnit.cs">SeleniumTestsNUnit.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="SeleniumTestsVSUnit.cs">SeleniumTestsVSUnit.cs</ProjectItem>
     </Project>
   </TemplateContent>
 </VSTemplate>

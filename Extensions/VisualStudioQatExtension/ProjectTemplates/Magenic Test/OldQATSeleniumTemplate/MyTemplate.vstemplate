@@ -1,0 +1,21 @@
+<VSTemplate Version="3.0.0" Type="ProjectGroup"
+    xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+    <TemplateData>
+        <Name>MAQS - Selenium (.Net Framework)</Name>
+		<DefaultName>SeleniumTests</DefaultName>
+        <Description>Magenic's automation quick start framework for selenium testing</Description>
+        <Icon>QATTest.ico</Icon>
+        <ProjectType>CSharp</ProjectType>
+		<ProjectSubType>Magenic Test</ProjectSubType>
+    </TemplateData>
+    <TemplateContent>
+        <ProjectCollection>
+                <ProjectTemplateLink ProjectName="PageModel">
+                    PageModel\MyTemplate.vstemplate
+                </ProjectTemplateLink>
+                <ProjectTemplateLink ProjectName="Tests">
+                    Tests\MyTemplate.vstemplate
+                </ProjectTemplateLink>
+        </ProjectCollection>
+    </TemplateContent>
+</VSTemplate>

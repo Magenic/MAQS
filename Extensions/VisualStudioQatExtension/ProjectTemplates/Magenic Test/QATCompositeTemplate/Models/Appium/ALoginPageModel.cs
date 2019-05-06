@@ -1,7 +1,7 @@
 ﻿using Magenic.Maqs.BaseAppiumTest;
 using Magenic.Maqs.BaseSeleniumTest.Extensions;
 using OpenQA.Selenium;
-namespace $safeprojectname$
+namespace Models.Appium
 {
     /// <summary>
     /// Page object for the ALoginPageModel

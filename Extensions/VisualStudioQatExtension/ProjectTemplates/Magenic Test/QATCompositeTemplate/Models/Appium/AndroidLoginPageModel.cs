@@ -1,7 +1,7 @@
 ﻿using System;
 using Magenic.Maqs.BaseAppiumTest;
 using OpenQA.Selenium;
-namespace $safeprojectname$
+namespace Models.Appium
 {
      /// <summary>
     /// Page object for the AndroidLoginPageModel inheriting from the ALoginPageModel

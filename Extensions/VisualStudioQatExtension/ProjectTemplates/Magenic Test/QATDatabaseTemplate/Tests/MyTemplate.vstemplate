@@ -3,7 +3,7 @@
     <Name>Tests</Name>
     <Description>Database test template</Description>
     <ProjectType>CSharp</ProjectType>
-    <ProjectSubType>Magenic Test</ProjectSubType>
+	<ProjectSubType>Magenic Test</ProjectSubType>
     <SortOrder>1000</SortOrder>
     <CreateNewFolder>true</CreateNewFolder>
     <DefaultName>Tests</DefaultName>
@@ -11,17 +11,15 @@
     <LocationField>Enabled</LocationField>
     <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
     <Icon>__TemplateIcon.ico</Icon>
-	<Hidden>true</Hidden> 
+	<Hidden>true</Hidden>
+	<CreateInPlace>true</CreateInPlace>
   </TemplateData>
   <TemplateContent>
     <Project TargetFileName="Tests.csproj" File="Tests.csproj" ReplaceParameters="true">
-      <ProjectItem ReplaceParameters="true" TargetFileName="packages.config">packages.config</ProjectItem>
-	  <ProjectItem ReplaceParameters="true" TargetFileName="App.config">App.config</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="appsettings.json">appsettings.json</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="DatabaseTestNUnit.cs">DatabaseTestNUnit.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="DatabaseTestVSUnit.cs">DatabaseTestVSUnit.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="nuget.config">nuget.config</ProjectItem>
-      <Folder Name="Properties" TargetFolderName="Properties">
-        <ProjectItem ReplaceParameters="true" TargetFileName="AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
-      </Folder>
-      <ProjectItem ReplaceParameters="true" TargetFileName="DatabaseTest.cs">DatabaseTest.cs</ProjectItem>
     </Project>
   </TemplateContent>
 </VSTemplate>

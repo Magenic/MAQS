@@ -5,7 +5,7 @@ namespace $safeprojectname$
     /// <summary>
     /// Definition of a product in Json
     /// </summary>
-    public class $safeitemname$
+    public class ProductJson
     {
         /// <summary>
         /// Gets or sets the product ID

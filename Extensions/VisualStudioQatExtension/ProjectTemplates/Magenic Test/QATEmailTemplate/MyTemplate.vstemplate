@@ -1,7 +1,8 @@
 <VSTemplate Version="3.0.0" Type="ProjectGroup"
     xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
     <TemplateData>
-        <Name>Maqs Framework - Email</Name>
+        <Name>MAQS - Email (.Net Framework, SDK Style)</Name>
+		<DefaultName>EmailTests</DefaultName>
         <Description>Magenic's automation quick start framework for email testing</Description>
         <Icon>QATTest.ico</Icon>
         <ProjectType>CSharp</ProjectType>
