@@ -332,6 +332,296 @@ namespace UtilitiesUnitTesting
         }
 
         /// <summary>
+        /// Sets up a list of actions that are assumed to pass after a few initial loops
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void WaitForListOfActions()
+        {
+            DateTime dateToTest = DateTime.Now.AddSeconds(1);
+            bool result = GenericWait.WaitForAnyAction<bool>(
+                "WaitForListOfActions",
+                TimeSpan.FromSeconds(2),
+                TimeSpan.FromSeconds(0.5),
+                () => 
+                {
+                    Assert.IsTrue(dateToTest < DateTime.Now);
+                    return true;
+                },
+                () => 
+                {
+                    Assert.IsTrue(dateToTest < DateTime.Now);
+                    return true;
+                });
+            Assert.IsTrue(result, "WaitForListOfActions waiting was successful");
+        }
+
+        /// <summary>
+        /// Sets up a list of actions that the first item will never return true, but the second one will
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void WaitForListOfActionsMultiple()
+        {
+            DateTime dateToTest = DateTime.Now.AddSeconds(120);
+            DateTime otherDateToTest = DateTime.Now.AddSeconds(1);
+            bool result = GenericWait.WaitForAnyAction<bool>(
+                "WaitForListOfActions",
+                TimeSpan.FromSeconds(2),
+                TimeSpan.FromSeconds(0.5),
+                () =>
+                {
+                    Assert.IsTrue(dateToTest < DateTime.Now);
+                    return true;
+                },
+                () =>
+                {
+                    Assert.IsTrue(otherDateToTest < DateTime.Now);
+                    return true;
+                });
+            Assert.IsTrue(result, "Condition was met");
+        }
+
+        /// <summary>
+        /// Sets up a test that will wait for a Timeout Exception to occur because the list of actions never evaluates to true
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        [ExpectedException(typeof(TimeoutException))]
+        public void WaitForListOfActionsException()
+        {
+            DateTime dateToTest = DateTime.Now.AddSeconds(120);
+            GenericWait.WaitForAnyAction<bool>(
+                "WaitForListOfActionsException",
+                () =>
+                {
+                    Assert.IsTrue(dateToTest < DateTime.Now);
+                    return true;
+                },
+                () =>
+                {
+                    Assert.IsTrue(dateToTest < DateTime.Now);
+                    return true;
+                });
+        }
+
+        /// <summary>
+        /// Sets up a list of actions that are assumed to pass after a few initial loops
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void WaitUntilListOfActions()
+        {
+            DateTime dateToTest = DateTime.Now.AddSeconds(1);
+            bool result = GenericWait.WaitUntilAnyAction<bool>(
+                "WaitUntilListOfActions",
+                TimeSpan.FromSeconds(2),
+                TimeSpan.FromSeconds(0.5),
+                () => 
+                {
+                    Assert.IsTrue(dateToTest < DateTime.Now);
+                    return true;
+                },
+                () => 
+                {
+                    Assert.IsTrue(dateToTest < DateTime.Now);
+                    return true;
+                });
+            Assert.IsTrue(result, "WaitUntilListOfActions waiting was unsuccessful");
+        }
+
+        /// <summary>
+        /// Sets up a list of actions that the first item will never return true, but the second one will
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void WaitUntilListOfActionsMultiple()
+        {
+            DateTime dateToTest = DateTime.Now.AddSeconds(120);
+            DateTime otherDateToTest = DateTime.Now.AddSeconds(1);
+            bool result = GenericWait.WaitUntilAnyAction<bool>(
+                "WaitUntilListOfActionsMultiple",
+                TimeSpan.FromSeconds(2),
+                TimeSpan.FromSeconds(0.5),
+                () => 
+                {
+                    Assert.IsTrue(dateToTest < DateTime.Now);
+                    return true;
+                },
+                () => 
+                {
+                    Assert.IsTrue(otherDateToTest < DateTime.Now);
+                    return true;
+                });
+            Assert.IsTrue(result, "WaitUntilListOfActionsMultiple resulted in a false statement");
+        }
+
+        /// <summary>
+        /// Sets up a list of actions that the first item will never return true, but the second one will
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void WaitUntilListOfActionsMultipleFalseTest()
+        {
+            DateTime dateToTest = DateTime.Now.AddSeconds(120);
+            DateTime otherDateToTest = DateTime.Now.AddSeconds(120);
+            bool result = GenericWait.WaitUntilAnyAction<bool>(
+                "WaitUntilListOfActionsMultiple",
+                TimeSpan.FromSeconds(2),
+                TimeSpan.FromSeconds(0.5),
+                () => 
+                {
+                    Assert.IsTrue(dateToTest < DateTime.Now);
+                    return true;
+                },
+                () => 
+                {
+                    Assert.IsTrue(otherDateToTest < DateTime.Now);
+                    return true;
+                });
+            Assert.IsFalse(result, "WaitUntilListOfActionsMultiple resulted in a true statement");
+        }
+
+        /// <summary>
+        /// Tests to validate the wait until list of actions returns false.  Expected value is false
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void WaitUntilListOfActionsFalse()
+        {
+            DateTime dateToTest = DateTime.Now.AddSeconds(120);
+            var result = GenericWait.WaitUntilAnyAction(
+                "WaitUntilListOfActionsFalse",
+                () => 
+                {
+                    Assert.IsTrue(dateToTest < DateTime.Now);
+                    return true;
+                });
+            Assert.IsFalse(result, "Result for WaitUntilListOfActionsFalse was not false.");
+        }
+
+        /// <summary>
+        /// Sets up a list of actions that the first item will never return true, but the second one will
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void WaitUntilListOfActionsMultipleTimeTest()
+        {
+            DateTime start = DateTime.Now;
+            TimeSpan max = TimeSpan.FromSeconds(2);
+
+            DateTime dateToTest = DateTime.Now.AddSeconds(120);
+            DateTime otherDateToTest = DateTime.Now.AddSeconds(1);
+            GenericWait.WaitUntilAnyAction<bool>(
+                "WaitUntilListOfActionsMultiple",
+                TimeSpan.FromSeconds(2),
+                TimeSpan.FromSeconds(0.5),
+                () => 
+                {
+                    Assert.IsTrue(dateToTest < DateTime.Now);
+                    return true;
+                },
+                () => 
+                {
+                    Assert.IsTrue(otherDateToTest < DateTime.Now);
+                    return true;
+                });
+
+            TimeSpan duration = DateTime.Now - start;
+            Assert.IsTrue(duration < max, "WaitUntilListOfActionsMultipleTestTook longer than " + duration);
+        }
+
+        /// <summary>
+        /// Sets up a list of actions that the first item will never return true, but the second one will
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void WaitForListOfActionsMultipleTimeTest()
+        {
+            DateTime start = DateTime.Now;
+            TimeSpan max = TimeSpan.FromSeconds(2);
+
+            DateTime dateToTest = DateTime.Now.AddSeconds(120);
+            DateTime otherDateToTest = DateTime.Now.AddSeconds(1);
+            GenericWait.WaitForAnyAction<bool>(
+                "WaitForListOfActions",
+                TimeSpan.FromSeconds(2),
+                TimeSpan.FromSeconds(0.5),
+                () => 
+                {
+                    Assert.IsTrue(dateToTest < DateTime.Now);
+                    return true;
+                },
+                () => 
+                {
+                    Assert.IsTrue(otherDateToTest < DateTime.Now);
+                    return true;
+                });
+            TimeSpan duration = DateTime.Now - start;
+            Assert.IsTrue(duration < max, "WaitUntilListOfActionsMultipleTestTook longer than " + duration);
+        }
+
+        /// <summary>
+        /// Sets up a list of actions that the first item will never return true, but the second one will.  Validating time test 
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void WaitTryForAnyActionMultipleTimeTest()
+        {
+            DateTime start = DateTime.Now;
+            TimeSpan max = TimeSpan.FromSeconds(2);
+
+            DateTime dateToTest = DateTime.Now.AddSeconds(120);
+            DateTime otherDateToTest = DateTime.Now.AddSeconds(1);
+            
+            GenericWait.WaitTryForAnyAction<bool>(
+                "WaitForListOfActions",
+                TimeSpan.FromSeconds(2),
+                TimeSpan.FromSeconds(0.5),
+                out bool result,
+                () => 
+                {
+                    Assert.IsTrue(dateToTest < DateTime.Now);
+                    return true;
+                },
+                () => 
+                {
+                    Assert.IsTrue(otherDateToTest < DateTime.Now);
+                    return true;
+                });
+            TimeSpan duration = DateTime.Now - start;
+            Assert.IsTrue(duration < max, "WaitTryForAnyActionMultipleTimeTest longer than " + duration);
+        }
+
+        /// <summary>
+        /// Sets up a list of actions that the first item will never return true, but the second one will
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void WaitTryForAnyActionMultipleTest()
+        {
+            DateTime dateToTest = DateTime.Now.AddSeconds(120);
+            DateTime otherDateToTest = DateTime.Now.AddSeconds(1);
+
+            GenericWait.WaitTryForAnyAction<bool>(
+                "WaitForListOfActions",
+                TimeSpan.FromSeconds(2),
+                TimeSpan.FromSeconds(0.5),
+                out bool result,
+                () => 
+                {
+                    Assert.IsTrue(dateToTest < DateTime.Now);
+                    return true;
+                },
+                () => 
+                {
+                    Assert.IsTrue(otherDateToTest < DateTime.Now);
+                    return true;
+                });
+            Assert.IsTrue(result, "Result did not return a true value");
+        }
+
+        /// <summary>
         /// Test function that always returns true
         /// </summary>
         /// <returns>Always returns true</returns>
@@ -340,7 +630,7 @@ namespace UtilitiesUnitTesting
             initialReturnValue = !initialReturnValue;
             return !initialReturnValue;
         }
-        
+
         /// <summary>
         /// Test function that always returns false
         /// </summary>

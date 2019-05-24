@@ -7,6 +7,7 @@
 using Magenic.Maqs.Utilities.Data;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading;
 
 namespace Magenic.Maqs.Utilities.Helper
@@ -425,6 +426,136 @@ namespace Magenic.Maqs.Utilities.Helper
             while ((DateTime.Now - start) < timeout);
 
             throw new TimeoutException("Timed out waiting for " + waitFor.Method.Name + " to return", exception);
+        }
+
+        /// <summary>
+        /// Waits for any action to return successfully
+        /// </summary>
+        /// <typeparam name="T">Return type</typeparam>
+        /// <param name="actionName">name of the action, for logging purposes</param>
+        /// <param name="actions">actions to take</param>
+        /// <returns>Returns function type</returns>
+        public static T WaitForAnyAction<T>(string actionName, params Func<T>[] actions)
+        {
+            return WaitForAnyAction(actionName, timeoutFromConfig, retryTimeFromConfig, actions);
+        }
+
+        /// <summary>
+        /// Waits for any action to return successfully
+        /// </summary>
+        /// <typeparam name="T">Return type</typeparam>
+        /// <param name="actionName">name of the action, for logging purposes</param>
+        /// <param name="waitTime">Time to continue to retry</param>
+        /// <param name="sleepTime">Amount of time to sleep between actions</param>
+        /// <param name="actions">actions to take</param>
+        /// <returns>Returns function type</returns>
+        public static T WaitForAnyAction<T>(string actionName, TimeSpan waitTime, TimeSpan sleepTime, params Func<T>[] actions)
+        {
+            var maxWait = DateTime.Now + waitTime;
+            StringBuilder sb;
+
+            do
+            {
+                sb = new StringBuilder();
+                foreach (var action in actions)
+                {
+                    try
+                    {
+                        return action();
+                    }
+                    catch (Exception e)
+                    {
+                        sb.AppendLine(e.Message);
+                    }
+                }
+
+                Thread.Sleep(sleepTime);
+            }
+            while (DateTime.Now < maxWait);
+
+            throw new TimeoutException("Timed out waiting for " + actionName + " to return.  Exception log: " + sb.ToString());
+        }
+
+        /// <summary>
+        /// Waits until any action to return successfully
+        /// </summary>
+        /// <typeparam name="T">Return type</typeparam>
+        /// <param name="actionName">name of the action, for logging purposes</param>
+        /// <param name="actions">actions to take</param>
+        /// <returns>Returns boolean if successful</returns>
+        public static bool WaitUntilAnyAction<T>(string actionName, params Func<T>[] actions)
+        {
+            return WaitUntilAnyAction(actionName, timeoutFromConfig, retryTimeFromConfig, actions);
+        }
+
+        /// <summary>
+        /// Waits until any action to return successfully
+        /// </summary>
+        /// <typeparam name="T">Return type</typeparam>
+        /// <param name="actionName">name of the action, for logging purposes</param>
+        /// <param name="waitTime">Time to continue to retry</param>
+        /// <param name="sleepTime">Amount of time to sleep between actions</param>
+        /// <param name="actions">actions to take</param>
+        /// <returns>Returns boolean if successful</returns>
+        public static bool WaitUntilAnyAction<T>(string actionName, TimeSpan waitTime, TimeSpan sleepTime, params Func<T>[] actions)
+        {
+            try
+            {
+                WaitForAnyAction<T>(actionName, waitTime, sleepTime, actions);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Tries and waits until any action to return successfully
+        /// </summary>
+        /// <typeparam name="T">Return type</typeparam>
+        /// <param name="actionName">Name of the action</param>
+        /// <param name="waitTime">Time to continue to retry</param>
+        /// <param name="sleepTime">Amount of time to sleep between actions</param>
+        /// <param name="result">Result to return</param>
+        /// <param name="actions">Actions to take</param>
+        /// <returns>Returns boolean if successful</returns>
+        public static bool WaitTryForAnyAction<T>(string actionName, TimeSpan waitTime, TimeSpan sleepTime, out T result, params Func<T>[] actions)
+        {
+            result = default(T);
+
+            try
+            {
+                result = WaitForAnyAction<T>(actionName, waitTime, sleepTime, actions);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Tries and waits until any action to return successfully
+        /// </summary>
+        /// <typeparam name="T">Return type</typeparam>
+        /// <param name="actionName">Name of the action</param>
+        /// <param name="result">Result to return</param>
+        /// <param name="actions">Actions to take</param>
+        /// <returns>Returns boolean if successful</returns>
+        public static bool WaitTryForAnyAction<T>(string actionName, out T result, params Func<T>[] actions)
+        {
+            result = default(T);
+
+            try
+            {
+                result = WaitForAnyAction<T>(actionName, timeoutFromConfig, retryTimeFromConfig, actions);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         /// <summary>
