@@ -6,6 +6,10 @@
         <Description>Magenic's automation quick start framework for database testing</Description>
         <Icon>QATTest.ico</Icon>
         <ProjectType>CSharp</ProjectType>
+    <LanguageTag>C#</LanguageTag>
+    <PlatformTag>windows</PlatformTag>
+    <ProjectTypeTag>test</ProjectTypeTag>
+    <ProjectTypeTag>Magenic Test</ProjectTypeTag>
 		<ProjectSubType>Magenic Test</ProjectSubType>
     </TemplateData>
     <TemplateContent>

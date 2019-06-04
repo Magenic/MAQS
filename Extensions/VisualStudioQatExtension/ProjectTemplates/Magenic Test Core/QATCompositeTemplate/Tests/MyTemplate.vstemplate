@@ -3,6 +3,10 @@
     <Name>Tests</Name>
     <Description>Composite test template</Description>
 	<ProjectType>CSharp</ProjectType>
+    <LanguageTag>C#</LanguageTag>
+    <PlatformTag>windows</PlatformTag>
+    <ProjectTypeTag>test</ProjectTypeTag>
+    <ProjectTypeTag>Magenic Test</ProjectTypeTag>
     <ProjectSubType>Magenic Test</ProjectSubType>
     <SortOrder>1000</SortOrder>
     <CreateNewFolder>true</CreateNewFolder>

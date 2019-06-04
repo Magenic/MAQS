@@ -3,10 +3,14 @@
     <Name>MAQS SpecFlow Web Service Tests</Name>
     <Description>Magenic's automation quick start framework for web service testing using SpecFlow</Description>
     <ProjectType>CSharp</ProjectType>
+    <LanguageTag>C#</LanguageTag>
+    <PlatformTag>windows</PlatformTag>
+    <ProjectTypeTag>test</ProjectTypeTag>
+    <ProjectTypeTag>Magenic SpecFlow Test</ProjectTypeTag>
     <ProjectSubType>Magenic SpecFlow Test</ProjectSubType>
     <SortOrder>1000</SortOrder>
     <CreateNewFolder>true</CreateNewFolder>
-    <DefaultName>Maqs SpecFlow Web Service Tests</DefaultName>
+    <DefaultName>MAQS SpecFlow Web Service Tests</DefaultName>
     <ProvideDefaultName>true</ProvideDefaultName>
     <LocationField>Enabled</LocationField>
     <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
