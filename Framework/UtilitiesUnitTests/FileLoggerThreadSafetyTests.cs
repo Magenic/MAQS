@@ -45,9 +45,16 @@ namespace UtilitiesUnitTests
         {
             var loggingTasks = new List<Task>();
 
-            for (int i = 0; i < 4; i++)
-            { 
-                loggingTasks.Add(Task.Run(() => logger.LogMessage($"parallel task running..")));
+            for (int i = 0; i < 5; i++)
+            {
+                loggingTasks.Add(Task.Run(() =>
+                {
+                    // have each task log a set of messages to make sure all messages are logged
+                    for (int j = 0; j < 5; j++)
+                    {
+                        logger.LogMessage($"parallel task running.. {j}");
+                    }
+                }));
             }
             
             Task.WaitAll(loggingTasks.ToArray());
