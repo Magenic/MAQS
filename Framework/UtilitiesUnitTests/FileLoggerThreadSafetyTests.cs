@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UtilityLogger = Magenic.Maqs.Utilities.Logging.Logger;
 
-namespace UtilitiesUnitTests
+namespace UtilitiesUnitTesting
 {
 
     [TestClass]
@@ -22,7 +22,7 @@ namespace UtilitiesUnitTests
         [TestCategory(TestCategories.Utilities)]
         public void FileLoggerMultipleTaskTest()
         {
-            var fileLogger = new FileLogger(logFolder: "Log", name: $"{this.TestContext.TestName}.txt");
+            var fileLogger = new FileLogger(logFolder: "Logs", name: $"{this.TestContext.TestName}.txt");
 
             this.ExecuteLoggingTasks(fileLogger);
         }
@@ -31,7 +31,7 @@ namespace UtilitiesUnitTests
         [TestCategory(TestCategories.Utilities)]
         public void HtmlFileLoggerMultipleTaskTest()
         {
-            var fileLogger = new HtmlFileLogger(logFolder: "Log", name: $"{this.TestContext.TestName}.html");
+            var fileLogger = new HtmlFileLogger(logFolder: "Logs", name: $"{this.TestContext.TestName}.html");
 
             this.ExecuteLoggingTasks(fileLogger);
         }
