@@ -45,20 +45,11 @@ namespace UtilitiesUnitTests
         {
             var loggingTasks = new List<Task>();
 
-            loggingTasks.Add(Task.Run(() =>
-            {
-                logger.LogMessage("parallel task 1");
-
-                // halting thread to ensure tasks enter wait state
-                Thread.Sleep(5000);
-
-            }));
-
-            loggingTasks.Add(Task.Run(() => { logger.LogMessage("parallel task 2"); }));
-            loggingTasks.Add(Task.Run(() => { logger.LogMessage("parallel task 3"); }));
-            loggingTasks.Add(Task.Run(() => { logger.LogMessage("parallel task 4"); }));
-            loggingTasks.Add(Task.Run(() => { logger.LogMessage("parallel task 5"); }));
-
+            for (int i = 0; i < 4; i++)
+            { 
+                loggingTasks.Add(Task.Run(() => logger.LogMessage($"parallel task running..")));
+            }
+            
             Task.WaitAll(loggingTasks.ToArray());
         }
     }
