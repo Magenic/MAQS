@@ -105,24 +105,25 @@ namespace Magenic.Maqs.Utilities.Logging
             {
                 // Log the message
                 lock (this.fileLock)
-                { 
-                    using (StreamWriter writer = new StreamWriter(this.FilePath, true))
+                {
+                    try
                     {
-                        try
+                        using (StreamWriter writer = new StreamWriter(this.FilePath, true))
                         {
+                       
                             string date = DateTime.UtcNow.ToString(Logger.DEFAULTDATEFORMAT, CultureInfo.InvariantCulture);
                             writer.WriteLine(StringProcessor.SafeFormatter("{0}{1}", Environment.NewLine, date));
                             writer.Write(StringProcessor.SafeFormatter("{0}:\t", messageType.ToString()));
 
                             writer.WriteLine(StringProcessor.SafeFormatter(message, args));
                         }
-                        catch (Exception e)
-                        {
-                            // Failed to write to the event log, write error to the console instead
-                            ConsoleLogger console = new ConsoleLogger();
-                            console.LogMessage(MessageType.ERROR, StringProcessor.SafeFormatter("Failed to write to event log because: {0}", e.Message));
-                            console.LogMessage(messageType, message, args);
-                        }
+                    }
+                    catch (Exception e)
+                    {
+                        // Failed to write to the event log, write error to the console instead
+                        ConsoleLogger console = new ConsoleLogger();
+                        console.LogMessage(MessageType.ERROR, StringProcessor.SafeFormatter("Failed to write to event log because: {0}", e.Message));
+                        console.LogMessage(messageType, message, args);
                     }
                 }
             }

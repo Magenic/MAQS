@@ -68,10 +68,11 @@ namespace Magenic.Maqs.Utilities.Logging
                 {
                     string date = DateTime.UtcNow.ToString(Logger.DEFAULTDATEFORMAT, CultureInfo.InvariantCulture);
 
-                    using (StreamWriter writer = new StreamWriter(this.FilePath, true))
+                    try
                     {
-                        try
+                        using (StreamWriter writer = new StreamWriter(this.FilePath, true))
                         {
+
                             // Set the style
                             writer.Write(this.GetTextWithColorFlag(messageType));
 
@@ -88,14 +89,14 @@ namespace Magenic.Maqs.Utilities.Logging
                             {
                                 writer.Write("</pre>");
                             }
-                        }
-                        catch (Exception e)
-                        {
-                            // Failed to write to the event log, write error to the console instead
-                            ConsoleLogger console = new ConsoleLogger();
-                            console.LogMessage(MessageType.ERROR, StringProcessor.SafeFormatter("Failed to write to event log because: {0}", e.Message));
-                            console.LogMessage(messageType, message, args);
-                        }
+                        }   
+                    }
+                    catch (Exception e)
+                    {
+                        // Failed to write to the event log, write error to the console instead
+                        ConsoleLogger console = new ConsoleLogger();
+                        console.LogMessage(MessageType.ERROR, StringProcessor.SafeFormatter("Failed to write to event log because: {0}", e.Message));
+                        console.LogMessage(messageType, message, args);
                     }
                 }
             }
