@@ -70,22 +70,31 @@ namespace Magenic.Maqs.Utilities.Logging
 
                     using (StreamWriter writer = new StreamWriter(this.FilePath, true))
                     {
-
-                        // Set the style
-                        writer.Write(this.GetTextWithColorFlag(messageType));
-
-                        // Add the content
-                        writer.WriteLine(HttpUtility.HtmlEncode(StringProcessor.SafeFormatter("{0}{1}", Environment.NewLine, date)));
-                        writer.Write(HttpUtility.HtmlEncode(StringProcessor.SafeFormatter("{0}:\t", messageType.ToString())));
-                        writer.WriteLine(HttpUtility.HtmlEncode(StringProcessor.SafeFormatter(message, args)));
-
-                        // Close off the style
-                        writer.Write("</p>");
-
-                        // Close the pre tag when logging Errors
-                        if (messageType.ToString() == "ERROR")
+                        try
                         {
-                            writer.Write("</pre>");
+                            // Set the style
+                            writer.Write(this.GetTextWithColorFlag(messageType));
+
+                            // Add the content
+                            writer.WriteLine(HttpUtility.HtmlEncode(StringProcessor.SafeFormatter("{0}{1}", Environment.NewLine, date)));
+                            writer.Write(HttpUtility.HtmlEncode(StringProcessor.SafeFormatter("{0}:\t", messageType.ToString())));
+                            writer.WriteLine(HttpUtility.HtmlEncode(StringProcessor.SafeFormatter(message, args)));
+
+                            // Close off the style
+                            writer.Write("</p>");
+
+                            // Close the pre tag when logging Errors
+                            if (messageType.ToString() == "ERROR")
+                            {
+                                writer.Write("</pre>");
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            // Failed to write to the event log, write error to the console instead
+                            ConsoleLogger console = new ConsoleLogger();
+                            console.LogMessage(MessageType.ERROR, StringProcessor.SafeFormatter("Failed to write to event log because: {0}", e.Message));
+                            console.LogMessage(messageType, message, args);
                         }
                     }
                 }
