@@ -1,10 +1,18 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> Config
 
-## Overview
+# Overview
 Config is class file granting access to properties in the App.config. 
 
-## Available methods
-### Get General Value
+# Available methods
+[GetGeneralValue](#GetGeneralValue)  
+[GetValueForSection](#GetValueForSection)  
+[DoesKeyExist](#DoesKeyExist)  
+[AddGeneralTestSettingValues](#AddGeneralTestSettingValues)  
+[UpdateWithVSTestContext](#UpdateWithVSTestContext)  
+[UpdateWithNUnitTestContext](#UpdateWithNUnitTestContext)  
+
+
+## GetGeneralValue
 This pulls configuration values from MagenicMaqs section of your app.config. It will return an emtpy string if the key is not found in the app.config.
 
 ```csharp
@@ -16,9 +24,8 @@ This pulls configuration values from MagenicMaqs section of your app.config. It 
 Config.GetGeneralValue("Key", "DefaultValueToBeReturned");  
 ```
 
-### Get Specific Section Value
-
-This pulls configuration values from the provided section of your app.config. It will return an emtpy string if the key is not found in the app.config.
+## GetValueForSection
+This pulls configuration values from the provided section of your app.config. It will return an empty string if the key is not found in the app.config.
 
 ```csharp
 Config.GetValueForSection("SeleniumMaqs", "Key"))
@@ -29,7 +36,7 @@ This pulls configuration values from the provided section of your app.config. It
 Config.GetValueForSection("SeleniumMaqs", "Key", "DefaultValueToBeReturned");
 ```
 
-### Checking if key exists
+## DoesKeyExist
 Does a key exist in the MagenicMaqs section of the config file.
 
 ```csharp
@@ -41,18 +48,32 @@ Does a key exist in the specified section of the config file.
 Config.DoesKeyExist("Key", "SeleniumMaqs");    
 ```
 
-### Add or Override configurations
+## AddGeneralTestSettingValues
 Ability to Add or Override settings for MagenicMaqs section of the config.
 
 ```csharp
-        Dictionary<string, string> overrides = new Dictionary<string, string>();
-            overrides.Add("Key", "Value");
-            Config.AddGeneralTestSettingValues(overrides); 
+Dictionary<string, string> overrides = new Dictionary<string, string>();
+overrides.Add("Key", "Value");
+Config.AddGeneralTestSettingValues(overrides); 
 ```
 Ability to Add or Override settings for the specified section of the config.
 
 ```csharp
-        Dictionary<string, string> overrides = new Dictionary<string, string>();
-            overrides.Add("Key", "Value");
-            Config.AddTestSettingValues(overrides,"SeleniumMaqs"); 
+Dictionary<string, string> overrides = new Dictionary<string, string>();
+overrides.Add("Key", "Value");
+Config.AddTestSettingValues(overrides,"SeleniumMaqs"); 
+```
+
+## UpdateWithVSTestContext
+Update your config settings with the Visual Studio (Microsoft.VisualStudio.TestTools.UnitTesting) test context properties.
+
+```csharp
+Config.UpdateWithVSTestContext(TestContext);
+```
+
+## UpdateWithNUnitTestContext
+Update your config settings with the NUnit test context parameters.
+
+```csharp
+Config.UpdateWithNUnitTestContext(TestContext.Parameters);
 ```

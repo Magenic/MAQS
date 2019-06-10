@@ -5,10 +5,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Models;
 using System;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 
-namespace $safeprojectname$
+namespace Tests
 {
     /// <summary>
     /// Composite Selenium test class
@@ -23,10 +22,8 @@ namespace $safeprojectname$
         public static void TestSetup(TestContext context)
         {
             // Do database setup
-            using (DatabaseDriver wrapper = new DatabaseDriver(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString()))
+            using (DatabaseDriver wrapper = new DatabaseDriver(DatabaseConfig.GetProviderTypeString() ,DatabaseConfig.GetConnectionString()))
             {
-                SqlParameter state = new SqlParameter("StateAbbreviation", "MN");
-
                 var result = wrapper.Query("getStateAbbrevMatch", new { StateAbbreviation = "MN" }, commandType: CommandType.StoredProcedure);
                 Assert.AreEqual(1, result.Count(), "Expected 1 state abbreviation to be returned.");
             }

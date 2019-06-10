@@ -43,8 +43,7 @@ namespace UtilitiesUnitTesting
         {
             // Set property overrides
             this.TestContext.Properties.Add("FileLoggerPath", customPath);
-            MethodInfo dynMethod = typeof(BaseTest).GetMethod("UpdateConfigParameters", BindingFlags.NonPublic | BindingFlags.Instance);
-            dynMethod.Invoke(this, null);
+            Config.UpdateWithVSTestContext(this.TestContext);
 
             // Create a new file
             this.TestObject.Log = this.CreateLogger();

@@ -4,6 +4,7 @@
 // </copyright>
 // <summary>Database utilities</summary>
 //--------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -23,12 +24,13 @@ namespace Magenic.Maqs.BaseDatabaseTest
         public static DataTable ToDataTable(List<dynamic> dynamicList)
         {
             DataTable dataTable = new DataTable();
-
+            
             // Return empty datatable if empty
             if (!dynamicList.Any()) return dataTable;
 
             // Add column to DataTable. DapperRows store column names as keys in a dictionary.
             var dynamicColumns = ((IDictionary<string, object>)dynamicList.First());
+            
 
             // Maintain datatype
             foreach (var column in dynamicColumns)
@@ -60,9 +62,9 @@ namespace Magenic.Maqs.BaseDatabaseTest
         public static DataColumn ToDataColumn(KeyValuePair<string, object> column)
         {
             DataColumn dataTableColumn = new DataColumn();
-            dataTableColumn.DataType = column.Value.GetType();
+            dataTableColumn.DataType = column.Value == null ? typeof(object) : column.Value.GetType();
             dataTableColumn.ColumnName = column.Key;
             return dataTableColumn;
-        }
+        }        
     }
 }

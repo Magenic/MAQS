@@ -2,6 +2,11 @@
   <TemplateData>
     <Name>Tests</Name>
     <Description>Composite test template</Description>
+	<ProjectType>CSharp</ProjectType>
+    <LanguageTag>C#</LanguageTag>
+    <PlatformTag>windows</PlatformTag>
+    <ProjectTypeTag>test</ProjectTypeTag>
+    <ProjectTypeTag>Magenic Test</ProjectTypeTag>
     <ProjectSubType>Magenic Test</ProjectSubType>
     <SortOrder>1000</SortOrder>
     <CreateNewFolder>true</CreateNewFolder>
@@ -11,17 +16,15 @@
     <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
     <Icon>__TemplateIcon.ico</Icon>
 	<Hidden>true</Hidden> 
+	<CreateInPlace>true</CreateInPlace>
   </TemplateData>
   <TemplateContent>
     <Project TargetFileName="Tests.csproj" File="Tests.csproj" ReplaceParameters="true">
-	  <ProjectItem ReplaceParameters="true" TargetFileName="App.config">App.config</ProjectItem>
-      <ProjectItem ReplaceParameters="true" TargetFileName="Appium.cs">Appium.cs</ProjectItem>
+	  <ProjectItem ReplaceParameters="true" TargetFileName="appsettings.json">appsettings.json</ProjectItem>
+	  <ProjectItem ReplaceParameters="true" TargetFileName="AppiumTests.cs">AppiumTests.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="BasicNUnitTest.cs">BasicNUnitTest.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="Database.cs">Database.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="Email.cs">Email.cs</ProjectItem>
-      <ProjectItem ReplaceParameters="true" TargetFileName="packages.config">packages.config</ProjectItem>
-      <Folder Name="Properties" TargetFolderName="Properties">
-        <ProjectItem ReplaceParameters="true" TargetFileName="AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
-      </Folder>
       <ProjectItem ReplaceParameters="true" TargetFileName="SeleniumTest.cs">SeleniumTest.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="WebService.cs">WebService.cs</ProjectItem>
     </Project>

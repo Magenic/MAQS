@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
-namespace $safeprojectname$
+namespace Tests
 {
     /// <summary>
     /// Sample test class
@@ -16,8 +16,8 @@ namespace $safeprojectname$
         // [TestMethod] - Disabled because this step will fail as the template does not include access to a test database
         public void SampleTest()
         {
-            var tables = this.DatabaseDriver.Query("SELECT * FROM information_schema.tables").ToList();
-            Assert.AreEqual(10, tables.Count, "Expected 10 tables");
+            var table = this.DatabaseDriver.Query("SELECT * FROM information_schema.tables");
+            Assert.AreEqual(10, table.Count(), "Expected 10 tables");
         }
     }
 }

@@ -40,36 +40,39 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BoDi">
+      <HintPath>..\packages\BoDi.1.4.1\lib\net45\BoDi.dll</HintPath>
+    </Reference>
     <Reference Include="Magenic.Maqs.BaseAppiumTest">
-      <HintPath>..\packages\Magenic.Maqs.5.4.0\lib\net471\Magenic.Maqs.BaseAppiumTest.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.5.5.0\lib\net471\Magenic.Maqs.BaseAppiumTest.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseDatabaseTest">
-      <HintPath>..\packages\Magenic.Maqs.5.4.0\lib\net471\Magenic.Maqs.BaseDatabaseTest.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.5.5.0\lib\net471\Magenic.Maqs.BaseDatabaseTest.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseEmailTest">
-      <HintPath>..\packages\Magenic.Maqs.5.4.0\lib\net471\Magenic.Maqs.BaseEmailTest.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.5.5.0\lib\net471\Magenic.Maqs.BaseEmailTest.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseSeleniumTest">
-      <HintPath>..\packages\Magenic.Maqs.5.4.0\lib\net471\Magenic.Maqs.BaseSeleniumTest.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.5.5.0\lib\net471\Magenic.Maqs.BaseSeleniumTest.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Magenic.Maqs.BaseTest">
-      <HintPath>..\packages\Magenic.Maqs.5.4.0\lib\net471\Magenic.Maqs.BaseTest.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.5.5.0\lib\net471\Magenic.Maqs.BaseTest.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Magenic.Maqs.SpecFlow">
-      <HintPath>..\packages\Magenic.Maqs.SpecFlow.5.4.0\lib\net471\Magenic.Maqs.SpecFlow.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.SpecFlow.5.5.0\lib\net471\Magenic.Maqs.SpecFlow.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Magenic.Maqs.Utilities">
-      <HintPath>..\packages\Magenic.Maqs.5.4.0\lib\net471\Magenic.Maqs.Utilities.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.5.5.0\lib\net471\Magenic.Maqs.Utilities.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Magenic.Maqs.WebServiceTester">
-      <HintPath>..\packages\Magenic.Maqs.5.4.0\lib\net471\Magenic.Maqs.WebServiceTester.dll</HintPath>
+      <HintPath>..\packages\Magenic.Maqs.5.5.0\lib\net471\Magenic.Maqs.WebServiceTester.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Extensions.Configuration">
@@ -105,10 +108,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.3.11.0\lib\net45\nunit.framework.dll</HintPath>
+      <HintPath>..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers">
@@ -135,7 +138,7 @@
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="TechTalk.SpecFlow">
-      <HintPath>..\packages\SpecFlow.2.4.0\lib\net45\TechTalk.SpecFlow.dll</HintPath>
+      <HintPath>..\packages\SpecFlow.3.0.213\lib\net45\TechTalk.SpecFlow.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>

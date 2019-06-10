@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
 <metadata minClientVersion="3.6">
     <id>Magenic.Maqs.Templates</id>
-    <version>5.4.0</version>
+    <version>5.5.0</version>
 	<title>Enterprise MAQS Core Templates</title>
     <authors>Magenic</authors>
     <owners>Magenic</owners>
@@ -16,6 +16,13 @@
 This package includes templates for browser, mobile, web service, database, email, generic and composite test solutions.
 *The enterprise version of MAQS is currently only available to Magenic clients and is required to leverage these templates.</summary>
     <releaseNotes>
+      5.5.0 - 2019/5/11
+      Bug fixes and minor enhancements
+      Update how and when test context info is added to config (GitHub Issue #14)
+      Deprecating FakerData
+      WaitFor and WaitUntil List of elements
+      Template updates
+      
 	5.4.0 - 2019/3/28
 	Bug fixes and minor enhancements
       - Add support for Oracle SQL support

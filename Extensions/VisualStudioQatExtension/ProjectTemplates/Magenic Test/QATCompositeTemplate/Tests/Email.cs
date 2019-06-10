@@ -1,7 +1,7 @@
 ﻿using Magenic.Maqs.BaseEmailTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace $safeprojectname$
+namespace Tests
 {
     /// <summary>
     /// Sample test class

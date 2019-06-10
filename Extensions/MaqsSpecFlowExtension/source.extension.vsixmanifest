@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="09167626-e62f-4a22-acca-f85402697131" Version="5.4.0" Language="en-US" Publisher="Magenic" />
+        <Identity Id="09167626-e62f-4a22-acca-f85402697131" Version="5.5.0" Language="en-US" Publisher="Magenic" />
         <DisplayName>Maqs SpecFlow Extension</DisplayName>
         <Description xml:space="preserve">Magenic's automation quick start framework extension for SpecFlow testing</Description>
         <MoreInfo>https://magenic.com/what-we-do/support-optimization/quality-assurance</MoreInfo>
@@ -46,9 +46,9 @@
         <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic SpecFlow Test\SeleniumSteps.zip" />
     </Assets>
     <Prerequisites>
-        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,16.0)" DisplayName="Visual Studio core editor" />
-        <Prerequisite Id="Microsoft.VisualStudio.Component.Roslyn.LanguageServices" Version="[15.0.26208.0,16.0)" DisplayName="C# and Visual Basic" />
-        <Prerequisite Id="Microsoft.VisualStudio.Component.ManagedDesktop.Prerequisites" Version="[15.0.26208.0,16.0)" DisplayName=".NET desktop development tools" />
-        <Prerequisite Id="Microsoft.Net.Component.4.7.1.SDK" Version="[15.6.27406.0,16.0)" DisplayName=".NET Framework 4.7.1 SDK" />
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,17.0)" DisplayName="Visual Studio core editor" />
+        <Prerequisite Id="Microsoft.VisualStudio.Component.Roslyn.LanguageServices" Version="[15.0.26208.0,17.0)" DisplayName="C# and Visual Basic" />
+        <Prerequisite Id="Microsoft.VisualStudio.Component.ManagedDesktop.Prerequisites" Version="[15.0.26208.0,17.0)" DisplayName=".NET desktop development tools" />
+        <Prerequisite Id="Microsoft.Net.Component.4.7.1.SDK" Version="[15.6.27406.0,17.0)" DisplayName=".NET Framework 4.7.1 SDK" />
     </Prerequisites>
 </PackageManifest>

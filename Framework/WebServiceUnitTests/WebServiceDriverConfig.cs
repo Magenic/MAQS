@@ -31,8 +31,7 @@ namespace WebServiceTesterUnitTesting
             this.TestContext.Properties.Add("SetupTest2", "Setup2");
             this.TestContext.Properties.Add("OverrideTest", "Overridden");
 
-            MethodInfo dynMethod = typeof(BaseWebServiceTest).BaseType.BaseType.GetMethod("UpdateConfigParameters", BindingFlags.NonPublic | BindingFlags.Instance);
-            dynMethod.Invoke(this, null);
+            Config.UpdateWithVSTestContext(this.TestContext);
         }
 
         /// <summary>

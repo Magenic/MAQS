@@ -1,4 +1,11 @@
 MAQS SpecFlow ExtensionRelease Notes:
+5.5.0 - 2019/5/11
+      Bug fixes and minor enhancements
+      Update how and when test context info is added to config (GitHub Issue #14)
+      Deprecating FakerData
+      WaitFor and WaitUntil List of elements
+      Template updates
+
 5.4.0 - 2019/3/28
 	Bug fixes and minor enhancements
 	- Add support for Oracle SQL support

@@ -71,6 +71,26 @@ private bool IsParamTestString(string testString)
 bool textResults = GenericWait.WaitFor<string>(this.IsParamTestString, "Bad");
 ```
 
+### Waits until any action to return successfully
+--------------
+This function will return a bool if one of the list of actions is successful
+
+#### Written As
+```csharp
+bool WaitUntilAnyAction<T>(string actionName, params Func<T>[] actions)
+bool WaitUntilAnyAction<T>(string actionName, TimeSpan waitTime, TimeSpan sleepTime, params Func<T>[] actions)
+```
+#### Examples
+```csharp
+DateTime dateToTest = DateTime.Now.AddSeconds(1);
+bool result = GenericWait.WaitUntilAnyAction<bool>(
+    "WaitUntilListOfActions",
+    TimeSpan.FromSeconds(2),
+    TimeSpan.FromSeconds(0.5),
+    () => { return dateToTest < DateTime.Now; },
+    () => { return dateToTest < DateTime.Now; });
+```
+
 ## Wait For
 
 ### Wait For a Func to Return True
@@ -199,4 +219,44 @@ public virtual List<MailMessage> SearchMessages(SearchCondition condition, bool 
     object[] args = { condition, headersOnly, markRead };
     return GenericWait.WaitFor<List<MailMessage>, object[]>(this.GetSearchResults, args);
 }
+```
+### Waits for any action to return successfully
+--------------
+This function will return a bool if successful or false if the method times out.
+
+#### Written As
+```csharp
+T WaitForAnyAction<T>(string actionName, params Func<T>[] actions)
+T WaitForAnyAction<T>(string actionName, TimeSpan waitTime, TimeSpan sleepTime, params Func<T>[] actions)
+```
+#### Examples
+```csharp
+DateTime dateToTest = DateTime.Now.AddSeconds(1);
+bool result = GenericWait.WaitForAnyAction<bool>(
+    "WaitForListOfActions",
+    TimeSpan.FromSeconds(2),
+    TimeSpan.FromSeconds(0.5),
+    () => { Assert.IsTrue(dateToTest < DateTime.Now); return false },
+    () => { Assert.IsTrue(dateToTest < DateTime.Now); return false });
+```
+### Waits and try for any action to return successfully
+--------------
+This function will return a bool if successful or false if the method times out.
+
+#### Written As
+```csharp
+T WaitTryForAnyAction<T>(string actionName, out T results, params Func<T>[] actions)
+T WaitTryForAnyAction<T>(string actionName, TimeSpan waitTime, TimeSpan sleepTime, out T results, params Func<T>[] actions)
+```
+#### Examples
+```csharp
+DateTime dateToTest = DateTime.Now.AddSeconds(120);
+DateTime otherDateToTest = DateTime.Now.AddSeconds(1
+GenericWait.WaitTryForAnyAction<bool>(
+    "WaitForListOfActions",
+    TimeSpan.FromSeconds(2),
+    TimeSpan.FromSeconds(0.5),
+    out bool result,
+    () => { Assert.IsTrue(dateToTest < DateTime.Now); return true; },
+    () => { Assert.IsTrue(otherDateToTest < DateTime.Now); return true; });
 ```

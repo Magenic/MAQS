@@ -24,6 +24,7 @@ namespace Magenic.Maqs.Utilities.Data
         /// Returns the current time in the MM/DD/YYYY HH:MM:SSSS format
         /// </summary>
         /// <returns>current time string</returns>
+        [Obsolete("FakerData is deprecated.  This will be removed in a later release.  There are other options for faker libraries like https://www.nuget.org/packages/Faker.Data/")]
         public static string GenerateInstantSpecificTime()
         {
             return DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
@@ -34,6 +35,7 @@ namespace Magenic.Maqs.Utilities.Data
         /// </summary>
         /// <param name="formatted">If formatted or not</param>
         /// <returns>ID string</returns>
+        [Obsolete("FakerData is deprecated.  This will be removed in a later release.  There are other options for faker libraries like https://www.nuget.org/packages/Faker.Data/")]
         public static string GenerateUniqueId(bool formatted = true)
         {
             if (formatted)
@@ -49,6 +51,7 @@ namespace Magenic.Maqs.Utilities.Data
         /// </summary>
         /// <param name="formatted">Unformatted by default</param>
         /// <returns>Phone number as string</returns>
+        [Obsolete("FakerData is deprecated.  This will be removed in a later release.  There are other options for faker libraries like https://www.nuget.org/packages/Faker.Data/")]
         public static string GenerateUSPhoneNumber(bool formatted = false)
         {
             string phoneNumber = "(" + random.Next(201, 999).ToString() + ")" +
@@ -68,6 +71,7 @@ namespace Magenic.Maqs.Utilities.Data
         /// </summary>
         /// <param name="withDashes">without dashes by default</param>
         /// <returns>Social Security string</returns>
+        [Obsolete("FakerData is deprecated.  This will be removed in a later release.  There are other options for faker libraries like https://www.nuget.org/packages/Faker.Data/")]
         public static string GenerateSocialSecurityNumber(bool withDashes = false)
         {
             string social = random.Next(100, 999).ToString() + "-"
@@ -88,6 +92,7 @@ namespace Magenic.Maqs.Utilities.Data
         /// <typeparam name="T">Any type of List</typeparam>
         /// <param name="stringList">Generic string list of any type</param>
         /// <returns>Random value from the list</returns>
+        [Obsolete("FakerData is deprecated.  This will be removed in a later release.  There are other options for faker libraries like https://www.nuget.org/packages/Faker.Data/")]
         public static T GeneralRandomizer<T>(List<T> stringList)
         {
             return stringList[random.Next(stringList.Count - 1)];

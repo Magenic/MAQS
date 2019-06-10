@@ -3,6 +3,10 @@
     <Name>PageModel</Name>
     <Description>Page model template</Description>
     <ProjectType>CSharp</ProjectType>
+    <LanguageTag>C#</LanguageTag>
+    <PlatformTag>windows</PlatformTag>
+    <ProjectTypeTag>test</ProjectTypeTag>
+    <ProjectTypeTag>Magenic Test</ProjectTypeTag>
     <ProjectSubType>Magenic Test</ProjectSubType>
     <SortOrder>1000</SortOrder>
     <CreateNewFolder>true</CreateNewFolder>
@@ -12,6 +16,7 @@
     <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
     <Icon>__TemplateIcon.ico</Icon>
 	<Hidden>true</Hidden>
+	<CreateInPlace>true</CreateInPlace>
   </TemplateData>
   <TemplateContent>
     <Project TargetFileName="PageModel.csproj" File="PageModel.csproj" ReplaceParameters="true">
@@ -21,11 +26,7 @@
       <ProjectItem ReplaceParameters="true" TargetFileName="IOSHomePageModel.cs">IOSHomePageModel.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="AndroidLoginPageModel.cs">AndroidLoginPageModel.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="AndroidHomePageModel.cs">AndroidHomePageModel.cs</ProjectItem>
-      <ProjectItem ReplaceParameters="true" TargetFileName="packages.config">packages.config</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="nuget.config">nuget.config</ProjectItem>
-      <Folder Name="Properties" TargetFolderName="Properties">
-        <ProjectItem ReplaceParameters="true" TargetFileName="AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
-      </Folder>
     </Project>
   </TemplateContent>
 </VSTemplate>

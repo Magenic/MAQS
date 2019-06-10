@@ -77,7 +77,7 @@ table.FindElement(By.HTMLSelector(".tr"));
 This method requires a parent lazy element, which returns an array of all elements under the parent that matches the given selector.
 #### Written as
 ```csharp
-this.ParentElementID.FindElements(By.MethodOfSelction("Selector"));
+this.ParentElementID.FindElements(By.MethodOfSelection("Selector"));
 ```
 
 #### Example

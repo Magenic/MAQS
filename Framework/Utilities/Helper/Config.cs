@@ -5,7 +5,7 @@
 // <summary>Helper class for getting application configuration values</summary>
 //--------------------------------------------------
 using Microsoft.Extensions.Configuration;
-using System;
+using NUnit.Framework;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
+using VSTestContext = Microsoft.VisualStudio.TestTools.UnitTesting.TestContext;
 
 namespace Magenic.Maqs.Utilities.Helper
 {
@@ -109,6 +110,53 @@ namespace Magenic.Maqs.Utilities.Helper
             }
 
             return sectionValues;
+        }
+
+        /// <summary>
+        /// Add VSTest property/parameter overrides
+        /// </summary>
+        /// <param name="context">The VSTest context</param>
+        public static void UpdateWithVSTestContext(VSTestContext context)
+        {
+            Dictionary<string, string> paramValues = new Dictionary<string, string>();
+
+            // Update configuration settings for Visual Studio unit test
+            List<string> propeties = new List<string>();
+            IDictionary<string, object> contextProperties = (IDictionary<string, object>)context.GetType().InvokeMember("Properties", BindingFlags.GetProperty, null, context, null);
+
+            // Get a list of framework reserved properties so we can exclude them
+            foreach (var property in context.GetType().GetProperties())
+            {
+                propeties.Add(property.Name);
+            }
+
+            foreach (KeyValuePair<string, object> property in contextProperties)
+            {
+                if (!propeties.Contains(property.Key) && property.Value is string)
+                {
+                    // Add the override properties
+                    paramValues.Add(property.Key, property.Value as string);
+                }
+            }
+
+            AddTestSettingValues(paramValues);
+        }
+
+        /// <summary>
+        /// Add NUnit property/parameter overrides
+        /// </summary>
+        /// <param name="testParameters">NUnit test parameters</param>
+        public static void UpdateWithNUnitTestContext(TestParameters testParameters)
+        {
+            Dictionary<string, string> paramValues = new Dictionary<string, string>();
+
+            foreach (string propertyName in testParameters.Names)
+            {
+                // Add the override properties
+                paramValues.Add(propertyName, testParameters[propertyName]);
+            }
+
+            AddTestSettingValues(paramValues);
         }
 
         /// <summary>
@@ -313,7 +361,7 @@ namespace Magenic.Maqs.Utilities.Helper
 
             if (dictionary != null)
             {
-                if (dictionary.Keys.Equals(key))
+                if (dictionary.ContainsKey(key))
                 {
                     // Case sensative match
                     value = dictionary[key];

@@ -1,14 +1,14 @@
 ﻿using System;
 
-namespace $safeprojectname$.WebService
+namespace Models.WebService
 {
     /// <summary>
     /// Class for product
     /// </summary>
     [Serializable]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.datacontract.org/2004/07/AutomationTestSite.$safeprojectname$")]
-    [System.Xml.Serialization.XmlRootAttribute(ElementName = "Product", Namespace = "http://schemas.datacontract.org/2004/07/AutomationTestSite.$safeprojectname$", IsNullable = false)]
-    public class $safeitemname$
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.datacontract.org/2004/07/AutomationTestSite.Models")]
+    [System.Xml.Serialization.XmlRootAttribute(ElementName = "Product", Namespace = "http://schemas.datacontract.org/2004/07/AutomationTestSite.Models", IsNullable = false)]
+    public class ProductXml
     {
         /// <summary>
         /// Gets or sets the id

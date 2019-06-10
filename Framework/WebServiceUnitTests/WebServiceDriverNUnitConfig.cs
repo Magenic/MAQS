@@ -30,6 +30,8 @@ namespace WebServiceTesterUnitTesting
             MethodInfo dynMethod = NUnit.Framework.TestContext.Parameters.GetType().GetMethod("Add", BindingFlags.NonPublic | BindingFlags.Instance);
             dynMethod.Invoke(NUnit.Framework.TestContext.Parameters, new object[] { "OverrideNUnitTest", "Value" });
             dynMethod.Invoke(NUnit.Framework.TestContext.Parameters, new object[] { "OverrideNUnitTestNew", "Value2" });
+
+            Config.UpdateWithNUnitTestContext(NUnit.Framework.TestContext.Parameters);
         }
 
         /// <summary>
