@@ -31,7 +31,7 @@ namespace Magenic.Maqs.Utilities.Logging
         /// Object for locking the log file so 
         /// pending tasks will wait for file to be freed
         /// </summary>
-        protected readonly object fileLock;
+        protected readonly object fileLock = new object();
 
         /// <summary>
         ///  Initializes a new instance of the FileLogger class
@@ -73,8 +73,6 @@ namespace Magenic.Maqs.Utilities.Logging
                 writer.Flush();
                 writer.Close();
             }
-
-            this.fileLock = new object();
         }
 
         /// <summary>

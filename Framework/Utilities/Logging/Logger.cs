@@ -29,8 +29,6 @@ namespace Magenic.Maqs.Utilities.Logging
         /// </summary>
         private MessageType logLevelSaved = MessageType.SUSPENDED;
 
-  
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Logger" /> class.
         /// </summary>
