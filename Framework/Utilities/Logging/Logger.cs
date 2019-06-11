@@ -29,11 +29,7 @@ namespace Magenic.Maqs.Utilities.Logging
         /// </summary>
         private MessageType logLevelSaved = MessageType.SUSPENDED;
 
-        /// <summary>
-        /// Object for locking the log file so 
-        /// pending tasks will wait for file to be freed
-        /// </summary>
-        protected readonly object fileLock;
+  
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Logger" /> class.
@@ -42,7 +38,6 @@ namespace Magenic.Maqs.Utilities.Logging
         protected Logger(MessageType level = MessageType.INFORMATION)
         {
             this.logLevel = level;
-            this.fileLock = new object();
         }
 
         /// <summary>
