@@ -406,7 +406,7 @@ namespace Magenic.Maqs.Utilities.Helper
             foreach (XElement node in rootElement.Elements())
             {
                 // set if keys under this node whould be saved and if they should overwrite previous keys
-                if (!node.Name.LocalName.ToLower().Contains("maqs"))
+                if (node.Name.LocalName.ToLower().Contains("runtime") || node.Name.LocalName.ToLower().Contains("configsections"))
                 {
                     continue;
                 }
