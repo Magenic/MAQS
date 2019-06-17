@@ -224,27 +224,21 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <None Include="Features\AppiumFeature.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AppiumFeature.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\DatabaseFeature.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DatabaseFeature.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\EmailFeature.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>EmailFeature.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\GeneralFeature.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>GeneralFeature.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\SeleniumFeature.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SeleniumFeature.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\WebServiceFeature.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>WebServiceFeature.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config">

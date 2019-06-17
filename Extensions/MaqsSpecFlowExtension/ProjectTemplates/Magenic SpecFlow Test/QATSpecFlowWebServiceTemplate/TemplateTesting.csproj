@@ -145,7 +145,6 @@
     </None>
 	<None Include="nuget.config" />
     <None Include="WebServiceFeature.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>WebServiceFeature.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>

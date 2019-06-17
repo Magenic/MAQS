@@ -150,7 +150,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <None Include="AppiumFeature.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AppiumFeature.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config">

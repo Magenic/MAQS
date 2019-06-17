@@ -158,7 +158,6 @@
     </None>
 	<None Include="nuget.config" />
     <None Include="SeleniumFeature.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SeleniumFeature.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>

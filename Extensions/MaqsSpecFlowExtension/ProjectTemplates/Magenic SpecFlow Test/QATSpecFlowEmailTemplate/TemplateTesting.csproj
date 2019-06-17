@@ -145,7 +145,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <None Include="EmailFeature.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>EmailFeature.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config">

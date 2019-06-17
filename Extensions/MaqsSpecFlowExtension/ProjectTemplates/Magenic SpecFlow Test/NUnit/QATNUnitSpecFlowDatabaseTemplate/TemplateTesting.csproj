@@ -160,7 +160,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <None Include="DatabaseFeature.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DatabaseFeature.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config">
