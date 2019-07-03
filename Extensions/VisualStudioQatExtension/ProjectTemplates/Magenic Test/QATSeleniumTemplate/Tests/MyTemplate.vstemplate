@@ -20,7 +20,7 @@
   </TemplateData>
   <TemplateContent>
     <Project TargetFileName="Tests.csproj" File="Tests.csproj" ReplaceParameters="true">
-      <ProjectItem ReplaceParameters="true" TargetFileName="appsettings.json">appsettings.json</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="App.config">App.config</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="SeleniumTestsNUnit.cs">SeleniumTestsNUnit.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="SeleniumTestsVSUnit.cs">SeleniumTestsVSUnit.cs</ProjectItem>
     </Project>

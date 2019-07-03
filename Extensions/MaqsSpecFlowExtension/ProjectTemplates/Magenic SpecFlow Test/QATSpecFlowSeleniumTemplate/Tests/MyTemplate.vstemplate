@@ -1,0 +1,28 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+  <TemplateData>
+    <Name>Tests</Name>
+    <Description>Selenium SpecFlow test template</Description>
+    <ProjectType>CSharp</ProjectType>
+    <ProjectSubType>
+    </ProjectSubType>
+    <SortOrder>1000</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>Tests</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <CreateInPlace>true</CreateInPlace>
+    <Icon>__TemplateIcon.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <Project TargetFileName="Tests.csproj" File="Tests.csproj" ReplaceParameters="true">
+      <Folder Name="Features" TargetFolderName="Features">
+        <ProjectItem ReplaceParameters="false" TargetFileName="SeleniumFeature.feature">SeleniumFeature.feature</ProjectItem>
+      </Folder>
+      <Folder Name="Steps" TargetFolderName="Steps">
+        <ProjectItem ReplaceParameters="true" TargetFileName="SeleniumFeatureSteps.cs">SeleniumFeatureSteps.cs</ProjectItem>
+      </Folder>
+      <ProjectItem ReplaceParameters="true" TargetFileName="app.config">app.config</ProjectItem>
+    </Project>
+  </TemplateContent>
+</VSTemplate>

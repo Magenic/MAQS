@@ -24,10 +24,10 @@
     <None Include="nuget.config" />
   </ItemGroup>
     <ItemGroup>
-    <None Remove="appsettings.json" />
+    <None Remove="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="appsettings.json">
+    <EmbeddedResource Include="App.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>  

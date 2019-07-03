@@ -1,0 +1,26 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+  <TemplateData>
+    <Name>Models</Name>
+    <Description>Selenium model template</Description>
+    <ProjectType>CSharp</ProjectType>
+    <ProjectSubType>
+    </ProjectSubType>
+    <SortOrder>1000</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>Models</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <CreateInPlace>true</CreateInPlace>
+    <Icon>__TemplateIcon.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <Project TargetFileName="Models.csproj" File="Models.csproj" ReplaceParameters="true">
+      <Folder Name="WebPage" TargetFolderName="WebPage">
+        <ProjectItem ReplaceParameters="true" TargetFileName="HomePageModel.cs">HomePageModel.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="LoginPageModel.cs">LoginPageModel.cs</ProjectItem>
+      </Folder>
+      <ProjectItem ReplaceParameters="true" TargetFileName="nuget.config">nuget.config</ProjectItem>
+    </Project>
+  </TemplateContent>
+</VSTemplate>

@@ -1,11 +1,16 @@
 MAQS SpecFlow ExtensionRelease Notes:
+5.5.1 - 2019/6/23
+	- Transition  all templates over to SDK style
+	- Update to SpecFlow 3
+	- Consolidate down to Composite (includes all supported testing types), Selenium and Appium templates
+	
 5.5.0 - 2019/5/11
-      Bug fixes and minor enhancements
-      Update how and when test context info is added to config (GitHub Issue #14)
-      Deprecating FakerData
-      WaitFor and WaitUntil List of elements
-      Template updates
-
+	- Bug fixes and minor enhancements
+	- Update how and when test context info is added to config (GitHub Issue #14)
+	- Deprecating FakerData
+	- WaitFor and WaitUntil List of elements
+	- Template updates
+	
 5.4.0 - 2019/3/28
 	Bug fixes and minor enhancements
 	- Add support for Oracle SQL support
@@ -44,12 +49,12 @@ MAQS SpecFlow ExtensionRelease Notes:
 		- Update to Appium 4
 		- Remove generic remote browser options
 		- Pull PhantomJS support as it has been deprecated and removed from Selenium
-
+	
 5.0.0 - 2018/07/11
 	- Extension built out
 		- Update to use MAQS V5
 		- Follow MAQS versioning
-
+	
 1.0.0 - 2018/01/12
 	- Extension built out
 		- Step files connect to all types of MAQS test classes
