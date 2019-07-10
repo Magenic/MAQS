@@ -69,7 +69,7 @@ namespace WebServiceTesterUnitTesting
         [ExpectedException(typeof(AggregateException))]
         public void EnsureSuccessStatusCodeThrownException()
         {
-            var result = this.WebServiceDriver.Post("notaurl", "image/GIF", null);
+            this.WebServiceDriver.Post("notaurl", "image/GIF", null);
         }
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace WebServiceTesterUnitTesting
         {
             StringContent content = WebServiceUtils.MakeStringContent<ProductJson>(Product, Encoding.UTF8, "application/json");
             HttpResponseMessage response = this.WebServiceDriver.PutWithResponse("/api/XML_JSON/GetAnErrorPLZ", "application/json", content, false);
-            ProductJson retObject = WebServiceUtils.DeserializeResponse<ProductJson>(response, new List<MediaTypeFormatter> { new CustomXmlMediaTypeFormatter("image/gif", typeof(ProductJson)) });
+            WebServiceUtils.DeserializeResponse<ProductJson>(response, new List<MediaTypeFormatter> { new CustomXmlMediaTypeFormatter("image/gif", typeof(ProductJson)) });
         }
 
         /// <summary>
@@ -148,7 +148,7 @@ namespace WebServiceTesterUnitTesting
         [ExpectedException(typeof(NotSupportedException))]
         public void MakeStreamContentThrowException()
         {
-            StreamContent streamContent = WebServiceUtils.MakeStreamContent<ProductJson>(Product, Encoding.UTF8, "notsupported");
+            WebServiceUtils.MakeStreamContent<ProductJson>(Product, Encoding.UTF8, "notsupported");
         }
 
         /// <summary>
@@ -159,7 +159,7 @@ namespace WebServiceTesterUnitTesting
         [ExpectedException(typeof(NotSupportedException))]
         public void MakeStringContentThrowException()
         {
-            StringContent streamContent = WebServiceUtils.MakeStringContent<ProductJson>(Product, Encoding.UTF8, "notsupported");
+            WebServiceUtils.MakeStringContent<ProductJson>(Product, Encoding.UTF8, "notsupported");
         }
     }
 }

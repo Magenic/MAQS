@@ -1,15 +1,13 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> FAQ
 
-# Templates: Out of the box templates
-## Open source
-These templates can be found in the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=vs-publisher-1465771.MAQSOpenFramework) or  Visual Studio Tools -> Extensions and Updates.
-- DotNet Framework project templates  
-   - Selenium (with tests and page object models) 
-- DotNet Framework item templates  
-   - Selenium tests (Visual Studio and NUnit versions)
-   - Selenium page object model
-## Enterprise
+# Open source VS enterprise version
+As of July 2019, MAQS 5 became fully open source.  
+There are no longer separate open source and enterprise versions.
 
+# Templates: Out of the box templates
+Templates can be found in the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=vs-publisher-1465771.MAQSOpenFramework) or  Visual Studio Tools -> Extensions and Updates.
+
+## Template types
 - DotNet Framework project templates - These templates are available to Magenic clients
    - Appium (with tests and page object models) 
    - Base

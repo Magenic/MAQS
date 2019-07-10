@@ -28,7 +28,7 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void GetPlatformNameTest()
         {
-            Assert.AreEqual(AppiumConfig.GetPlatformName(), "Android");
+            Assert.AreEqual("Android", AppiumConfig.GetPlatformName());
         }
         
         /// <summary>
@@ -38,7 +38,7 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void GetPlatformVersionTest()
         {
-            Assert.AreEqual(AppiumConfig.GetPlatformVersion(), "6.0");
+            Assert.AreEqual("6.0", AppiumConfig.GetPlatformVersion());
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void GetMobileHubUrlTest()
         {
-            Assert.AreEqual(AppiumConfig.GetMobileHubUrl(), "http://ondemand.saucelabs.com:80/wd/hub");
+            Assert.AreEqual("http://ondemand.saucelabs.com:80/wd/hub", AppiumConfig.GetMobileHubUrl());
         }
 
         /// <summary>

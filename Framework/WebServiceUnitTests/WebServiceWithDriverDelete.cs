@@ -73,7 +73,7 @@ namespace WebServiceTesterUnitTesting
         public void DeleteJSONWithType()
         {
             var result = this.WebServiceDriver.Delete<ProductJson>("/api/XML_JSON/Delete/1", "application/json", true);
-            Assert.AreEqual(result, null);
+            Assert.AreEqual(null, result);
         }
         #endregion
 
@@ -107,17 +107,6 @@ namespace WebServiceTesterUnitTesting
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void DeleteStringWithoutMakeContent()
-        {
-            var result = this.WebServiceDriver.Delete("/api/String/Delete/1", "text/plain", true);
-            Assert.AreEqual(string.Empty, result);
-        }
-
-        /// <summary>
-        /// Delete string request with content utility
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.WebService)]
-        public void DeleteStringWithMakeContent()
         {
             var result = this.WebServiceDriver.Delete("/api/String/Delete/1", "text/plain", true);
             Assert.AreEqual(string.Empty, result);

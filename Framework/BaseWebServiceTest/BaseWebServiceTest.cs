@@ -46,7 +46,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>A new http client</returns>
         protected virtual HttpClient GetHttpClient()
         {
-            return HttpClientFactory.GetDefaultClient();
+            return HttpClientFactory.GetClient(this.GetBaseWebServiceUri(), WebServiceConfig.GetWebServiceTimeout());
         }
 
         /// <summary>

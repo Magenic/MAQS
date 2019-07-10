@@ -114,6 +114,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebServiceBaseTests.cs" />
     <Compile Include="WebServiceConfigTests.cs" />
+    <Compile Include="WebServiceDriverOverrides.cs" />
     <Compile Include="WebServiceGets.cs" />
     <Compile Include="WebServiceMediaType.cs" />
     <Compile Include="WebServiceNonStandardHttpContentTests.cs" />

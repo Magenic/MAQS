@@ -26,7 +26,6 @@
       <ProjectItem ReplaceParameters="true" TargetFileName="IOSHomePageModel.cs">IOSHomePageModel.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="AndroidLoginPageModel.cs">AndroidLoginPageModel.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="AndroidHomePageModel.cs">AndroidHomePageModel.cs</ProjectItem>
-      <ProjectItem ReplaceParameters="true" TargetFileName="nuget.config">nuget.config</ProjectItem>
     </Project>
   </TemplateContent>
 </VSTemplate>

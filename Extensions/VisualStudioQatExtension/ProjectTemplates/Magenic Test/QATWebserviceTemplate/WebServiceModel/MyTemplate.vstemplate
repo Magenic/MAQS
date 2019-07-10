@@ -20,7 +20,6 @@
   </TemplateData>
   <TemplateContent>
     <Project TargetFileName="WebServiceModel.csproj" File="WebServiceModel.csproj" ReplaceParameters="true">
-      <ProjectItem ReplaceParameters="true" TargetFileName="nuget.config">nuget.config</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="ProductJson.cs">ProductJson.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="ProductXml.cs">ProductXml.cs</ProjectItem>
     </Project>

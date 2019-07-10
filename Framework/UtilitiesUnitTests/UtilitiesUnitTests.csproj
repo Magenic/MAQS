@@ -96,6 +96,7 @@
     <Compile Include="ConsoleCopy.cs" />
     <Compile Include="ConsoleLoggerUnitTests.cs" />
     <Compile Include="FakerDataUnitTests.cs" />
+    <Compile Include="FileLoggerThreadSafetyTests.cs" />
     <Compile Include="FileLoggerUnitTests.cs" />
     <Compile Include="GenericWaitTests.cs" />
     <Compile Include="ListProcessorUnitTests.cs" />

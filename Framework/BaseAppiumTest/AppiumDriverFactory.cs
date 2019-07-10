@@ -36,7 +36,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// Get the default Appium driver based on the test run configuration 
         /// </summary>
-        /// <param name="platformName">The platform type we want to use</param>
+        /// <param name="deviceType">The platform type we want to use</param>
         /// <returns>An AppiumDriver</returns>
         public static AppiumDriver<IWebElement> GetDefaultMobileDriver(PlatformType deviceType)
         {
@@ -168,6 +168,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// Set the script and page timeouts
         /// </summary>
         /// <param name="driver">Brings in an AppiumDriver</param>
+        /// <param name="timeout">The new timeout</param>
         public static void SetTimeouts(this AppiumDriver<IWebElement> driver, TimeSpan timeout)
         {
             driver.Manage().Timeouts().AsynchronousJavaScript = timeout;
@@ -177,6 +178,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// Get the mobile options
         /// </summary>
+        /// <param name="capabilities">The mobile driver capabilities</param>
         /// <returns>The mobile options</returns>
         public static AppiumOptions GetDefaultMobileOptions(Dictionary<string, object> capabilities)
         {
@@ -334,6 +336,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// Reads the AppiumCapsMaqs section and appends to the driver options
         /// </summary>
         /// <param name="appiumOptions">The driver options to make this an extension method</param>
+        /// <param name="capabilities">The mobile driver capabilities</param>
         /// <returns>The altered <see cref="DriverOptions"/> driver options</returns>
         private static AppiumOptions SetMobileOptions(this AppiumOptions appiumOptions, Dictionary<string, object> capabilities)
         {

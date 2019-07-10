@@ -64,8 +64,9 @@ function WorkflowFunction($closedSource, $openSource, $specSource){
         ZipFiles $PSScriptRoot"\Extensions\VisualStudioQatExtension\ItemTemplates\Magenic Test" $PSScriptRoot"\Extensions\VisualStudioQatExtension\ItemTemplates\Magenic Test"
     }
     if($openSource){
-        ZipFiles $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ProjectTemplates\Magenic's Open Test" $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ProjectTemplates\Magenic's Open Test"
-        ZipFiles $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ItemTemplates\Magenic's Open Test" $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ItemTemplates\Magenic's Open Test"
+        ZipFiles $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test" $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test"
+        ZipFiles $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test Core" $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test Core"
+        ZipFiles $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ItemTemplates\Magenic Test" $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ItemTemplates\Magenic Test"
     }
     if($specSource){
         ZipFiles $PSScriptRoot"\Extensions\MaqsSpecFlowExtension\ProjectTemplates\Magenic SpecFlow Test" $PSScriptRoot"\Extensions\MaqsSpecFlowExtension\ProjectTemplates\Magenic SpecFlow Test"

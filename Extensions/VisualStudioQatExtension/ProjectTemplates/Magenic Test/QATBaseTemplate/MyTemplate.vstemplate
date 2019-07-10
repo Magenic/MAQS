@@ -1,7 +1,7 @@
 <VSTemplate Version="3.0.0" Type="ProjectGroup"
     xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
     <TemplateData>
-        <Name>MAQS - Base (.Net Framework, SDK Style)</Name>
+        <Name>MAQS (deprecated) - Base (.Net Framework, SDK Style)</Name>
 		<DefaultName>BaseTests</DefaultName>
         <Description>Magenic's automation quick start framework for base testing</Description>
         <Icon>QATTest.ico</Icon>

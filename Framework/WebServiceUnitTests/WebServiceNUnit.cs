@@ -28,7 +28,7 @@ namespace WebServiceTesterUnitTesting
         public void GetXmlDeserialized()
         {
             WebServiceDriver client = new WebServiceDriver(new Uri(WebServiceConfig.GetWebServiceUri()));
-            ArrayOfProduct result = client.Get<ArrayOfProduct>("/api/XML_JSON/GetAllProducts", "application/xml", false);
+            client.Get<ArrayOfProduct>("/api/XML_JSON/GetAllProducts", "application/xml", false);
         }
     }
 }

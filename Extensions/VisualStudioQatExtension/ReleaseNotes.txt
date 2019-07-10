@@ -1,4 +1,6 @@
 Maqs Framework Release Notes:
+5.5.1 - 2019/6/23
+      Transition all templates over to SDK style
 5.5.0 - 2019/5/11
       Bug fixes and minor enhancements
       Update how and when test context info is added to config (GitHub Issue #14)

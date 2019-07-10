@@ -150,13 +150,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <None Include="AppiumFeature.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AppiumFeature.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-	<None Include="nuget.config" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -166,9 +164,5 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir).nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir).nuget\NuGet.targets'))" />
-  </Target>
-  <Target Name="CopyFiles" BeforeTargets="BeforeCompile" Condition="Exists('$(ProjectDir)nuget.config')">
-    <Copy SourceFiles="$(ProjectDir)nuget.config" DestinationFiles="$(SolutionDir).nuget\NuGet.Config" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true" >
-    </Copy>
   </Target>
 </Project>

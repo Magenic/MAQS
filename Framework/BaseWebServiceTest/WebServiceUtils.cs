@@ -21,7 +21,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
     /// <summary>
     /// Web service utilities
     /// </summary>
-    public class WebServiceUtils
+    public static class WebServiceUtils
     {
         /// <summary>
         /// Make http string content

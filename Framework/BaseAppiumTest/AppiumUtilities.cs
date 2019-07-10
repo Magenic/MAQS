@@ -298,7 +298,9 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// Get the wait default wait driver
         /// </summary>
         /// <param name="driver">Brings in an AppiumDriver</param>
-        /// <returns>An WebDriverWait</returns>
+        /// <param name="timeoutTime">How long is the timeout</param>
+        /// <param name="waitTime">How long to wait before rechecking</param>
+        /// <returns>A web driver wait</returns>
         public static WebDriverWait GetWaitDriver(AppiumDriver<IWebElement> driver, TimeSpan timeoutTime, TimeSpan waitTime)
         {
             return new WebDriverWait(new SystemClock(), driver, timeoutTime, waitTime);

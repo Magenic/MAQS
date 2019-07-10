@@ -1,0 +1,25 @@
+<VSTemplate Version="3.0.0" Type="ProjectGroup"
+    xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+    <TemplateData>
+        <Name>MAQS - Composite (.Net Framework, SDK Style)</Name>
+		<DefaultName>CompositeTests</DefaultName>
+        <Description>Magenic's automation quick start framework for compsite testing</Description>
+        <Icon>QATTest.ico</Icon>
+        <ProjectType>CSharp</ProjectType>
+    <LanguageTag>C#</LanguageTag>
+    <PlatformTag>windows</PlatformTag>
+    <ProjectTypeTag>test</ProjectTypeTag>
+    <ProjectTypeTag>Magenic Test</ProjectTypeTag>
+		<ProjectSubType>Magenic Test</ProjectSubType>
+    </TemplateData>
+    <TemplateContent>
+        <ProjectCollection>
+                <ProjectTemplateLink ProjectName="Models">
+                    Models\MyTemplate.vstemplate
+                </ProjectTemplateLink>
+                <ProjectTemplateLink ProjectName="Tests">
+                    Tests\MyTemplate.vstemplate
+                </ProjectTemplateLink>
+        </ProjectCollection>
+    </TemplateContent>
+</VSTemplate>

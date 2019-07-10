@@ -1,7 +1,7 @@
 <VSTemplate Version="3.0.0" Type="ProjectGroup"
     xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
     <TemplateData>
-        <Name>MAQS - Appium (.Net Framework, SDK Style)</Name>
+        <Name>MAQS (deprecated) - Appium (.Net Framework, SDK Style)</Name>
 		<DefaultName>AppiumTests</DefaultName>
         <Description>Magenic's automation quick start framework for mobile testing</Description>
         <Icon>QATTest.ico</Icon>

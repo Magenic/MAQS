@@ -31,7 +31,7 @@ namespace WebServiceTesterUnitTesting
         public void GetXmlDeserialized()
         {
             ArrayOfProduct result = this.WebServiceDriver.Get<ArrayOfProduct>("/api/XML_JSON/GetAllProducts", "application/xml");
-            Assert.AreEqual(result.Product.Length, 3, "Expected 3 products to be returned");
+            Assert.AreEqual(3, result.Product.Length, "Expected 3 products to be returned");
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace WebServiceTesterUnitTesting
         {
             HttpResponseMessage message = this.WebServiceDriver.GetWithResponse("/api/XML_JSON/GetAllProducts", MediaType.AppXml);
             ArrayOfProduct result = WebServiceUtils.DeserializeXmlDocument<ArrayOfProduct>(message);
-            Assert.AreEqual(result.Product.Length, 3, "Expected 3 products to be returned");
+            Assert.AreEqual(3, result.Product.Length, "Expected 3 products to be returned");
         }
         #endregion
 
@@ -57,7 +57,7 @@ namespace WebServiceTesterUnitTesting
         public void GetJsonDeserialized()
         {
             List<ProductJson> result = this.WebServiceDriver.Get<List<ProductJson>>("/api/XML_JSON/GetAllProducts", MediaType.AppJson);
-            Assert.AreEqual(result.Count, 3, "Expected 3 products to be returned");
+            Assert.AreEqual(3, result.Count, "Expected 3 products to be returned");
         }
         #endregion
 
@@ -71,7 +71,7 @@ namespace WebServiceTesterUnitTesting
         {
             HttpResponseMessage message = this.WebServiceDriver.GetWithResponse("/api/XML_JSON/GetAllProducts", MediaType.AppJson);
             List<ProductJson> result = WebServiceUtils.DeserializeJson<List<ProductJson>>(message);
-            Assert.AreEqual(result.Count, 3, "Expected 3 products to be returned");
+            Assert.AreEqual(3, result.Count, "Expected 3 products to be returned");
         }
         #endregion
 
@@ -100,8 +100,9 @@ namespace WebServiceTesterUnitTesting
 
             // Get the image
             Image image = Image.FromStream(result.Content.ReadAsStreamAsync().Result);
-            Assert.AreEqual(image.Width, 200, "Image width should be 200");
-            Assert.AreEqual(image.Height, 200, "Image hight should be 200");
+            Assert.AreEqual(200, image.Width, "Image width should be 200");
+            Assert.AreEqual(200, image.Height, "Image hight should be 200");
+            image.Dispose();
         }
         #endregion
     }

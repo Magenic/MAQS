@@ -1,9 +1,7 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> Installation
 
 ## Requirements
-Visual Studio Professional (or Enterprise) 2015 or above.
-
-*We highly recommend using Visual Studio 2017 or above*
+Visual Studio Professional (or Enterprise) 2017 or above.
 
 ## There are 2 ways to install MAQS Templates:
     Option 1. Install via Visual Studio 

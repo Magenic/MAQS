@@ -58,21 +58,14 @@
     <projectUrl>https://github.com/Magenic/MAQS</projectUrl>
     <tags>test selenium appium automation NUnit MSTest TestFramework</tags>
     <dependencies>
-      <dependency id="NUnit" version="3.10.1" />
-      <dependency id="MSTest.TestFramework" version="1.2.1" />
-      <dependency id="Microsoft.Extensions.Configuration" version="2.1.1" />
-      <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="2.1.1" />
-      <dependency id="Microsoft.Extensions.Configuration.Json" version="2.1.1" />
+      <dependency id="NUnit" version="3.12.0" />
+      <dependency id="MSTest.TestFramework" version="1.4.0" />
+      <dependency id="Microsoft.Extensions.Configuration" version="2.2.0" />
+      <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="2.2.0" />
+      <dependency id="Microsoft.Extensions.Configuration.Json" version="2.2.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="..\BaseAppiumTest\**\*.cs;..\BaseAppiumTest\**\*.csproj;..\BaseAppiumTest\**\packages.config" target="help\source\BaseAppiumTest" exclude="..\BaseAppiumTest\**\obj\**\*.*;..\BaseAppiumTest\**\bin\**\*.*;*.vspscc" />
-    <file src="..\BaseEmailTest\**\*.cs;..\BaseEmailTest\**\*.csproj;..\BaseEmailTest\**\packages.config" target="help\source\BaseEmailTest" exclude="..\BaseEmailTest\**\obj\**\*.*;..\BaseEmailTest\**\bin\**\*.*;*.vspscc" />
-    <file src="..\BaseSeleniumTest\**\*.cs;..\BaseSeleniumTest\**\*.csproj;..\BaseSeleniumTest\**\packages.config" target="help\source\BaseSeleniumTest" exclude="..\BaseSeleniumTest\**\obj\**\*.*;..\BaseSeleniumTest\**\bin\**\*.*;*.vspscc" />
-    <file src="..\BaseTest\**\*.cs;..\BaseTest\**\*.csproj;..\BaseTest\**\packages.config" target="help\source\BaseTest" exclude="..\BaseTest\**\obj\**\*.*;..\BaseTest\**\bin\**\*.*;*.vspscc" />
-    <file src="..\BaseWebServiceTest\**\*.cs;..\BaseWebServiceTest\**\*.csproj;..\BaseWebServiceTest\**\packages.config" target="help\source\BaseWebServiceTest" exclude="..\BaseWebServiceTest\**\obj\**\*.*;..\BaseWebServiceTest\**\bin\**\*.*;*.vspscc" />
-    <file src="..\BaseDatabaseTest\**\*.cs;..\BaseDatabaseTest\**\*.csproj;..\BaseDatabaseTest\**\packages.config" target="help\source\BaseDatabaseTest" exclude="..\BaseDatabaseTest\**\obj\**\*.*;..\BaseDatabaseTest\**\bin\**\*.*;*.vspscc" />
-    <file src="..\Utilities\**\*.cs;..\Utilities\*.csproj" target="help\source\Utilities" exclude="..\Utilities\**\obj\**\*.*;..\Utilities\**\bin\**\*.*;*.vspscc" />
     <file src="..\BaseAppiumTest\bin\Release\netstandard2.0\Magenic.Maqs.BaseAppiumTest.*" target="lib\netstandard2.0" />
     <file src="..\BaseDatabaseTest\bin\Release\netstandard2.0\Magenic.Maqs.BaseDatabaseTest.*" target="lib\netstandard2.0" />
     <file src="..\BaseEmailTest\bin\Release\netstandard2.0\Magenic.Maqs.BaseEmailTest.*" target="lib\netstandard2.0" />
@@ -87,7 +80,6 @@
     <file src="..\BaseTest\bin\Release\net471\Magenic.Maqs.BaseTest.*" target="lib\net471" />
     <file src="..\BaseWebServiceTest\bin\Release\net471\Magenic.Maqs.WebServiceTester.*" target="lib\net471" />
     <file src="..\BaseDatabaseTest\bin\Release\net471\Magenic.Maqs.Utilities.*" target="lib\net471" />  
-
     <file src="..\..\Extensions\VisualStudioQatExtension\License.txt" target=""/>
   </files>
 </package>
