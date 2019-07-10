@@ -20,13 +20,6 @@
     <PackageReference Include="Selenium.Support" Version="3.141.0" />
     <PackageReference Include="Magenic.Maqs" Version="5.5.0" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="nuget.config" />
-  </ItemGroup>
-  <Target Name="CopyFiles" BeforeTargets="BeforeCompile" Condition="Exists('$(ProjectDir)nuget.config')">
-    <Copy SourceFiles="$(ProjectDir)nuget.config" DestinationFiles="$(ProjectDir)\..\.nuget\NuGet.Config" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true">
-    </Copy>
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

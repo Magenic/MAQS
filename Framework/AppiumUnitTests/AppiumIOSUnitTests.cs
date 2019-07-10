@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------
-// <copyright file="AppiumIOSUnitTests.cs" company="Magenic">
+// <copyright file="AppiumIosUnitTests.cs" company="Magenic">
 //  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>Test class for ios related functions</summary>
@@ -19,7 +19,7 @@ namespace AppiumUnitTests
     /// iOS related Appium tests
     /// </summary>
     [TestClass]
-    public class AppiumIOSUnitTests : BaseAppiumTest
+    public class AppiumIosUnitTests : BaseAppiumTest
     {
         /// <summary>
         /// Tests the creation of the Appium iOS Driver

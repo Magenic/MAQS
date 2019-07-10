@@ -10,7 +10,7 @@
         <ReleaseNotes>ReleaseNotes.txt</ReleaseNotes>
         <Icon>QATTest.ico</Icon>
         <PreviewImage>QATTest.ico</PreviewImage>
-        <Tags>Test Automation SpecFlow</Tags>
+        <Tags>ATDD BDD SpecFlow Test Testing Automation Selenium Appium Database Service Email MAQS NUnit MSTest TestFramework</Tags>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0,]" />

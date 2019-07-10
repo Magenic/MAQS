@@ -7,7 +7,7 @@
     <PlatformTag>windows</PlatformTag>
     <ProjectTypeTag>test</ProjectTypeTag>
     <ProjectTypeTag>Magenic Test</ProjectTypeTag>
-    <ProjectSubType>Magenic Test</ProjectSubType>
+	<ProjectSubType>Magenic Test</ProjectSubType>
     <SortOrder>1000</SortOrder>
     <CreateNewFolder>true</CreateNewFolder>
     <DefaultName>WebServiceModel</DefaultName>
@@ -15,12 +15,11 @@
     <LocationField>Enabled</LocationField>
     <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
     <Icon>__TemplateIcon.ico</Icon>
-    <Hidden>true</Hidden>
-    <CreateInPlace>true</CreateInPlace>
+	<Hidden>true</Hidden>
+	<CreateInPlace>true</CreateInPlace>
   </TemplateData>
   <TemplateContent>
     <Project TargetFileName="WebServiceModel.csproj" File="WebServiceModel.csproj" ReplaceParameters="true">
-      <ProjectItem ReplaceParameters="true" TargetFileName="nuget.config">nuget.config</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="ProductJson.cs">ProductJson.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="ProductXml.cs">ProductXml.cs</ProjectItem>
     </Project>

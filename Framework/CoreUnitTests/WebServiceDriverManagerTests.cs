@@ -40,7 +40,6 @@ namespace CoreUnitTests
         public void CanUseMultipleWithFunction()
         {
             WebServiceDriverManager newDriver = new WebServiceDriverManager(() => new HttpClient(), this.TestObject);
-            WebServiceDriverManager oldDriver = new WebServiceDriverManager(new WebServiceDriver(new HttpClient()), this.TestObject);
             this.ManagerStore.Add("test", newDriver);
 
             Assert.AreNotEqual(this.TestObject.WebServiceDriver, (WebServiceDriverManager)this.ManagerStore["test"]);

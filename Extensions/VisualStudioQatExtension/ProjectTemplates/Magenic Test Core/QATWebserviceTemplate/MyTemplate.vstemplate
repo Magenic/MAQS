@@ -1,7 +1,7 @@
 <VSTemplate Version="3.0.0" Type="ProjectGroup"
     xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
     <TemplateData>
-        <Name>MAQS - Web Service (.Net Core)</Name>
+        <Name>MAQS (deprecated) - Web Service (.Net Core)</Name>
 		<DefaultName>WebServiceTests</DefaultName>
         <Description>Magenic's automation quick start framework for web service testing</Description>
         <Icon>QATTest.ico</Icon>

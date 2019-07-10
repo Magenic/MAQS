@@ -50,7 +50,7 @@ namespace DatabaseUnitTests
             var orders = this.DatabaseDriver.Query<Orders>("select * from orders").ToList();
 
             // Our database has 11 orders
-            Assert.AreEqual(11, orders.Count());
+            Assert.AreEqual(11, orders.Count);
         }
 
         /// <summary>

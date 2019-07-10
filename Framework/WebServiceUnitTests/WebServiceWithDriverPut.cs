@@ -59,7 +59,7 @@ namespace WebServiceTesterUnitTesting
             };
             var content = WebServiceUtils.MakeStringContent<ProductJson>(p, Encoding.UTF8, "application/json");
             var result = this.WebServiceDriver.Put<ProductJson>("/api/XML_JSON/Put/1", "application/json", content, true);
-            Assert.AreEqual(result, null);
+            Assert.AreEqual(null, result);
         }
         #endregion
 

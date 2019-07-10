@@ -73,7 +73,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 return null;
             }
 
-            for (int i = 0; i < elementList.Count(); i++)
+            for (int i = 0; i < elementList.Count; i++)
             {
                 if (elementList.ElementAt(i).Text.Equals(text))
                 {
@@ -105,7 +105,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 return -1;
             }
 
-            for (int i = 0; i < elementList.Count(); i++)
+            for (int i = 0; i < elementList.Count; i++)
             {
                 if (elementList.ElementAt(i).Text.Equals(text))
                 {
@@ -135,7 +135,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             }
 
             // if assert was true and list size > 0
-            for (int i = 0; i < list.Count(); i++)
+            for (int i = 0; i < list.Count; i++)
             {
                 if (list.ElementAt(i).Text.Equals(text))
                 {

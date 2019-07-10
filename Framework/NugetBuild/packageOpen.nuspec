@@ -54,13 +54,14 @@
     <projectUrl>https://github.com/Magenic/MAQS</projectUrl>
     <tags>test selenium automation NUnit MSTest TestFramework Open Source</tags>
     <dependencies>
-      <dependency id="NUnit" version="3.10.1" />
-      <dependency id="MSTest.TestFramework" version="1.2.1" />
-      <dependency id="Microsoft.Extensions.Configuration" version="2.1.1" />
-      <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="2.1.1" />
-      <dependency id="Microsoft.Extensions.Configuration.Json" version="2.1.1" />
-      <dependency id="Selenium.Support" version="3.14.0" />
-      <dependency id="Selenium.WebDriver" version="3.14.0" />
+      <dependency id="NUnit" version="3.12.0" />
+      <dependency id="MSTest.TestFramework" version="1.4.0" />
+      <dependency id="Microsoft.Extensions.Configuration" version="2.2.0" />
+      <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="2.2.0" />
+      <dependency id="Microsoft.Extensions.Configuration.Json" version="2.2.0" />
+      <dependency id="Selenium.Support" version="3.141.0" />
+      <dependency id="Selenium.WebDriver" version="3.141.0" />
+      <dependency id="System.Text.Encoding.CodePages" version="4.5.1" />
     </dependencies>
   </metadata>
   <files>
@@ -70,8 +71,6 @@
     <file src="..\BaseSeleniumTest\bin\Release\net471\Magenic.Maqs.BaseSeleniumTest.*" target="lib\net471" />
     <file src="..\BaseSeleniumTest\bin\Release\net471\Magenic.Maqs.BaseTest.*" target="lib\net471" />
     <file src="..\BaseSeleniumTest\bin\Release\net471\Magenic.Maqs.Utilities.*" target="lib\net471" />
-
-    <!--<file src="..\OpenDocumentation\Help\Maqs.chm" target="help"/>
-    <file src="..\..\Extensions\VisualStudioQatExtension\License.txt" target=""/>-->
+    <file src="..\..\Extensions\VisualStudioQatExtension\License.txt" target=""/>
   </files>
 </package>

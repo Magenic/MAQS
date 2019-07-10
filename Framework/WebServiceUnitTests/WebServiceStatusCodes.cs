@@ -101,7 +101,7 @@ namespace WebServiceTesterUnitTesting
             p.Id = 4;
             p.Name = "ff";
             p.Price = 3.25f;
-            var req = WebServiceUtils.MakeStringContent<ProductJson>(p, Encoding.UTF8, "application/json");
+
             var res = this.WebServiceDriver.Post("/api/XML_JSON/Post", "application/json", JsonConvert.SerializeObject(p), Encoding.UTF8, "application/json", HttpStatusCode.OK, true);
             Assert.IsNotNull(res);
         }
@@ -118,7 +118,7 @@ namespace WebServiceTesterUnitTesting
             p.Id = 4;
             p.Name = "ff";
             p.Price = 3.25f;
-            var req = WebServiceUtils.MakeStringContent<ProductJson>(p, Encoding.UTF8, "application/json");
+
             var res = this.WebServiceDriver.PostWithResponse("/api/XML_JSON/Post", "application/json", JsonConvert.SerializeObject(p), Encoding.UTF8, "application/json", HttpStatusCode.OK, true);
             Assert.IsNotNull(res);
         }
@@ -281,7 +281,7 @@ namespace WebServiceTesterUnitTesting
             p.Id = 4;
             p.Name = "ff";
             p.Price = 3.25f;
-            var req = WebServiceUtils.MakeStringContent<ProductJson>(p, Encoding.UTF8, "application/json");
+
             var res = this.WebServiceDriver.Patch("/api/XML_JSON/Patch/1", "application/json", JsonConvert.SerializeObject(p), Encoding.UTF8, "application/json", HttpStatusCode.OK, true);
             Assert.IsNotNull(res);
         }
@@ -298,7 +298,7 @@ namespace WebServiceTesterUnitTesting
             p.Id = 4;
             p.Name = "ff";
             p.Price = 3.25f;
-            var req = WebServiceUtils.MakeStringContent<ProductJson>(p, Encoding.UTF8, "application/json");
+
             var res = this.WebServiceDriver.PatchWithResponse("/api/XML_JSON/Patch/1", "application/json", JsonConvert.SerializeObject(p), Encoding.UTF8, "application/json", HttpStatusCode.OK, true);
             Assert.IsNotNull(res);
         }
@@ -328,7 +328,7 @@ namespace WebServiceTesterUnitTesting
         public void DeleteTypeParamWithExpectedStatus()
         {
             var result = this.WebServiceDriver.Delete<ProductJson>("/api/XML_JSON/Delete/1", "application/json", HttpStatusCode.OK);
-            Assert.AreEqual(result, null);
+            Assert.AreEqual(null, result);
         }
 
         /// <summary>
