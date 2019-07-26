@@ -53,6 +53,26 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             return element;
         }
 
+
+        /// <summary>
+        /// General Find All Elements
+        /// </summary>
+        /// <param name="by">Css Selector </param>
+        /// <param name="assert">optional assert parameter</param>
+        /// <returns>Returns a list of Web Elements</returns>
+        /// <example>
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="FindElement" lang="C#" />
+        /// </example>
+        public ICollection<IWebElement> Elements(By by, bool assert = true)
+        {
+            var elementList = this.searchItem.FindElements(by);
+            if (elementList.Count > 0)
+            {
+                return assert ? elementList : null;
+            }
+            throw new NotFoundException(StringProcessor.SafeFormatter("No result found for By {0}", by.ToString()));
+        }
+
         /// <summary>
         /// Find a specified Web Element by text
         /// </summary>
