@@ -530,7 +530,7 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify findElements works - validating that there are 3 found
+        /// Verify findElements works - validating that there none found
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
