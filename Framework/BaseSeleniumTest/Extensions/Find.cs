@@ -66,7 +66,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         public ICollection<IWebElement> Elements(By by, bool assert = true)
         {
             var elementList = this.searchItem.FindElements(by);
-            if (elementList.Count > 0)
+            if (elementList.Count < 1)
             {
                 return assert ? elementList : null;
             }
