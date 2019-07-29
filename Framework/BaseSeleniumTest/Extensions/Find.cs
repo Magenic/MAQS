@@ -63,9 +63,10 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <example>
         /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="FindElement" lang="C#" />
         /// </example>
-        public ICollection<IWebElement> Elements(By by, bool assert = false)
+        public ICollection<IWebElement> Elements(By by, bool assert = true)
         {
-            return this.ElemList(by,assert);
+            var elementList = this.ElemList(by, assert);
+            return elementList.Count > 0 ? elementList : null;
         }
 
         /// <summary>
