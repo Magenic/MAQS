@@ -114,19 +114,5 @@ namespace Magenic.Maqs.BaseSeleniumTest
 
             return this.lazyElementStore[lazyElementStoreKey];
         }
-
-        /// <summary>
-        /// Gets all the currently existing LazyElements from a page model's lazy element store if it exists, otherwise
-        /// </summary>
-        /// <returns>The LazyElement</returns>
-        protected List<LazyElement> GetLazyElementList()
-        {
-            List<LazyElement> list = new List<LazyElement>();
-            foreach(var items in lazyElementStore)
-            {
-                list.Add(items.Value);
-            }
-            return list;
-        }
     }
 }

@@ -63,14 +63,9 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <example>
         /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="FindElement" lang="C#" />
         /// </example>
-        public ICollection<IWebElement> Elements(By by, bool assert = true)
+        public ICollection<IWebElement> Elements(By by, bool assert = false)
         {
-            var elementList = this.searchItem.FindElements(by);
-            if (elementList.Count < 1)
-            {
-                return assert ? elementList : null;
-            }
-            throw new NotFoundException(StringProcessor.SafeFormatter("No result found for By {0}", by.ToString()));
+            return this.ElemList(by,assert);
         }
 
         /// <summary>
