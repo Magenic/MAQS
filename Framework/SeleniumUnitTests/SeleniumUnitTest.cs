@@ -542,6 +542,18 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Verify Find.Elements() throws an exception when there are no Elements existing on the page
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        [ExpectedException(typeof(NotFoundException))]
+        public void FindElementsNotFoundThrowException()
+        {
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            var element = this.WebDriver.Find().Elements(NotInPage);
+        }
+
+        /// <summary>
         /// Verify FindElementWithText = Validate null is returned if the element is not found
         /// </summary>
         [TestMethod]
