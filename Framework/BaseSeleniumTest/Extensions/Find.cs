@@ -52,6 +52,18 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             IWebElement element = elementList.ElementAt(0);
             return element;
         }
+        
+        /// <summary>
+        /// General Find All Elements
+        /// </summary>
+        /// <param name="by">Css Selector </param>
+        /// <param name="assert">optional assert parameter</param>
+        /// <returns>Returns a list of Web Elements</returns>
+        public ICollection<IWebElement> Elements(By by, bool assert = true)
+        {
+            var elementList = this.ElemList(by, assert);
+            return elementList.Count > 0 ? elementList : null;
+        }
 
         /// <summary>
         /// Find a specified Web Element by text

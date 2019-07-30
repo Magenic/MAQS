@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace SeleniumUnitTests
@@ -46,6 +47,11 @@ namespace SeleniumUnitTests
         /// Home button css selector
         /// </summary>
         private static readonly By HomeButtonCssSelector = By.CssSelector("#homeButton > a");
+
+        /// <summary>
+        /// Home button css selector
+        /// </summary>
+        private static readonly By DropdownToggleClassSelector = By.ClassName("dropdown-toggle");
 
         /// <summary>
         /// Dropdown selector
@@ -505,6 +511,48 @@ namespace SeleniumUnitTests
             this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
             IWebElement element = this.WebDriver.Find().Element(AutomationNamesLabel);
             Assert.AreEqual(element.Text, "Names");
+        }
+
+        /// <summary>
+        /// Verify findElements works - validating that there are 3 found
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void FindElementsFound()
+        {
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            var list = this.WebDriver.Find().Elements(DropdownToggleClassSelector);
+            Assert.AreEqual(list.Count, 3, "There are 3 elements with dropdown classes");
+
+            Assert.IsTrue(list.FirstOrDefault(x => x.Text == "Manage").Displayed);
+            Assert.IsTrue(list.FirstOrDefault(x => x.Text == "Automation").Displayed);
+            Assert.IsTrue(list.FirstOrDefault(x => x.Text == "Training").Displayed);
+        }
+
+        /// <summary>
+        /// Verify findElements works - validating that there none found
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void FindElementsNotFound()
+        {
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            this.WebDriver.SetWaitDriver(new WebDriverWait(new SystemClock(), this.WebDriver, TimeSpan.FromMilliseconds(100), TimeSpan.FromMilliseconds(10)));
+            var list = this.WebDriver.Find().Elements(NotInPage,false);
+            Assert.IsNull(list, "Element was not found");
+        }
+
+        /// <summary>
+        /// Verify Find.Elements() throws an exception when there are no Elements existing on the page
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        [ExpectedException(typeof(NotFoundException))]
+        public void FindElementsNotFoundThrowException()
+        {
+            this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            this.WebDriver.SetWaitDriver(new WebDriverWait(new SystemClock(), this.WebDriver, TimeSpan.FromMilliseconds(100), TimeSpan.FromMilliseconds(10)));
+            var element = this.WebDriver.Find().Elements(NotInPage);
         }
 
         /// <summary>
