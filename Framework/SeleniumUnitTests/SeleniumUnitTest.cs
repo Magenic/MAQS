@@ -537,6 +537,7 @@ namespace SeleniumUnitTests
         public void FindElementsNotFound()
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            this.WebDriver.SetWaitDriver(new WebDriverWait(new SystemClock(), this.WebDriver, TimeSpan.FromMilliseconds(100), TimeSpan.FromMilliseconds(10)));
             var list = this.WebDriver.Find().Elements(NotInPage,false);
             Assert.IsNull(list, "Element was not found");
         }
@@ -550,6 +551,7 @@ namespace SeleniumUnitTests
         public void FindElementsNotFoundThrowException()
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            this.WebDriver.SetWaitDriver(new WebDriverWait(new SystemClock(), this.WebDriver, TimeSpan.FromMilliseconds(100), TimeSpan.FromMilliseconds(10)));
             var element = this.WebDriver.Find().Elements(NotInPage);
         }
 
