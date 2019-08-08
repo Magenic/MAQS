@@ -1,8 +1,8 @@
 ﻿//--------------------------------------------------
-// <copyright file="SQLServerProvider.cs" company="Magenic">
+// <copyright file="OracleProvider.cs" company="Magenic">
 //  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
-// <summary>SQLServerProvider class</summary>
+// <summary>OracleProvider class</summary>
 //--------------------------------------------------
 
 using Oracle.ManagedDataAccess.Client;
@@ -11,7 +11,7 @@ using System.Data.SqlClient;
 namespace Magenic.Maqs.BaseDatabaseTest.Providers
 {
     /// <summary>
-    /// The SQL server provider.
+    /// The SQL Oracle server provider.
     /// </summary>
     public class OracleProvider : IProvider<OracleConnection>
     {
@@ -22,7 +22,6 @@ namespace Magenic.Maqs.BaseDatabaseTest.Providers
         /// <returns> The <see cref="OracleConnection"/> connection client. </returns>
         OracleConnection IProvider<OracleConnection>.SetupDataBaseConnection(string connectionString)
         {
-
             OracleConnection connection = new OracleConnection
             {
                 ConnectionString = connectionString

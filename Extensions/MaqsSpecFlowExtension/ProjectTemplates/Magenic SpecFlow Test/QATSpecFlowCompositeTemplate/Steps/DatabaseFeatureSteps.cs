@@ -53,8 +53,8 @@ namespace $safeprojectname$.Steps
         /// <returns>True if the state table is found</returns>
         private bool QueryDatabase()
         {
-            var table = this.TestObject.DatabaseDriver.Query("SELECT * FROM information_schema.tables").ToList();
-			return table.Any(n => n.TABLE_NAME.Equals("States"));
+            var table = this.DatabaseDriver.Query("SELECT * FROM information_schema.tables").ToList();
+            return table.Any(n => n.TABLE_NAME.Equals("States"));
         }
 
         //// Store objects

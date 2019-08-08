@@ -70,6 +70,18 @@ namespace WebServiceTesterUnitTesting
         }
 
         /// <summary>
+        /// Make sure the override of the url is respected
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.WebService)]
+        [TestCategory(TestCategories.Utilities)]
+        public void OverrideWorksForFactory()
+        {
+            HttpClient factoryClient = Magenic.Maqs.BaseWebServiceTest.HttpClientFactory.GetDefaultClient();
+            Assert.AreEqual(WebServiceConfig.GetWebServiceUri() + "/", factoryClient.BaseAddress.ToString());
+        }
+
+        /// <summary>
         /// Get a new http client
         /// </summary>
         /// <returns>A new http client</returns>

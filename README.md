@@ -1,5 +1,14 @@
-CI Build Status: [![CI Build Status](https://magenic.visualstudio.com/MAQS/_apis/build/status/Framework,%20nuget%20and%20extension%20CI?branchName=develop)](https://magenic.visualstudio.com/MAQS/_build/latest?definitionId=87&branchName=develop)  
-Release Candidate Build Status: [![Release Candidate Build Status](https://magenic.visualstudio.com/MAQS/_apis/build/status/Framework,%20nuget%20and%20extension%20RC?branchName=develop)](https://magenic.visualstudio.com/MAQS/_build/latest?definitionId=89&branchName=develop)
+Builds:  
+[![Azure DevOps builds](https://img.shields.io/azure-devops/build/magenic/maqs/87.svg?label=ci%20build)](https://magenic.visualstudio.com/MAQS/_build/latest?definitionId=87&branchName=develop)    
+[![Azure DevOps builds](https://img.shields.io/azure-devops/build/magenic/maqs/89.svg?label=rc%20build)](https://magenic.visualstudio.com/MAQS/_build/latest?definitionId=89&branchName=develop)  
+  
+Releases:  
+[![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/vs-publisher-1465771.MAQSOpenFramework.svg?label=extension)](https://marketplace.visualstudio.com/items?itemName=vs-publisher-1465771.MAQSOpenFramework)  
+[![Nuget](https://img.shields.io/nuget/v/Magenic.Maqs.svg)](https://www.nuget.org/packages/Magenic.Maqs/)
+
+License:  
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://raw.githubusercontent.com/Magenic/MAQS/develop/LICENSE)  
+
 
 # MAQS
 ## Introduction 

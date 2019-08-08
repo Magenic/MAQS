@@ -32,33 +32,6 @@ namespace Magenic.Maqs.BaseSeleniumTest
         }
 
         /// <summary>
-        /// Have the driver cleanup after itself
-        /// </summary>
-        public override void Dispose()
-        {
-            this.Log.LogMessage(MessageType.VERBOSE, "Start dispose driver");
-
-            // If we never created the driver we don't have any cleanup to do
-            if (!this.IsDriverIntialized())
-            {
-                return;
-            }
-
-            try
-            {
-                IWebDriver driver = this.GetWebDriver();
-                driver?.KillDriver();
-            }
-            catch (Exception e)
-            {
-                this.Log.LogMessage(MessageType.ERROR, StringProcessor.SafeFormatter("Failed to close web driver because: {0}", e.Message));
-            }
-
-            this.BaseDriver = null;
-            this.Log.LogMessage(MessageType.VERBOSE, "End dispose driver");
-        }
-
-        /// <summary>
         /// Get the web driver
         /// </summary>
         /// <returns>The web driver</returns>
@@ -68,7 +41,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
 
             if (!this.IsDriverIntialized() && LoggingConfig.GetLoggingEnabledSetting() != LoggingEnabled.NO)
             {
-                tempDriver = this.GetDriver() as IWebDriver;
+                tempDriver = GetDriver() as IWebDriver;
                 tempDriver = new EventFiringWebDriver(tempDriver);
                 this.MapEvents(tempDriver as EventFiringWebDriver);
                 this.BaseDriver = tempDriver;
@@ -77,7 +50,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 this.LoggingStartup(tempDriver);
             }
 
-            return this.GetBase() as IWebDriver;
+            return GetBase() as IWebDriver;
         }
 
         /// <summary>
@@ -111,7 +84,34 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 }
             }
 
-            this.Log.LogMessage(MessageType.VERBOSE, messages.ToString());
+            Log.LogMessage(MessageType.VERBOSE, messages.ToString());
+        }
+
+        /// <summary>
+        /// Have the driver cleanup after itself
+        /// </summary>
+        protected override void DriverDispose()
+        {
+            Log.LogMessage(MessageType.VERBOSE, "Start dispose driver");
+
+            // If we never created the driver we don't have any cleanup to do
+            if (!this.IsDriverIntialized())
+            {
+                return;
+            }
+
+            try
+            {
+                IWebDriver driver = this.GetWebDriver();
+                driver?.KillDriver();
+            }
+            catch (Exception e)
+            {
+                Log.LogMessage(MessageType.ERROR, StringProcessor.SafeFormatter("Failed to close web driver because: {0}", e.Message));
+            }
+
+            this.BaseDriver = null;
+            Log.LogMessage(MessageType.VERBOSE, "End dispose driver");
         }
 
         /// <summary>
@@ -126,9 +126,11 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 string browserType;
 
                 // Get info on what type of brower we are using
-                if (driver is RemoteWebDriver)
+                RemoteWebDriver asRemoteDrive = driver as RemoteWebDriver;
+
+                if (asRemoteDrive != null)
                 {
-                    browserType = ((RemoteWebDriver)driver).Capabilities.ToString();
+                    browserType = asRemoteDrive.Capabilities.ToString();
                 }
                 else
                 {
@@ -137,18 +139,18 @@ namespace Magenic.Maqs.BaseSeleniumTest
 
                 if (SeleniumConfig.GetBrowserName().Equals("Remote", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    this.Log.LogMessage(MessageType.INFORMATION, "Remote driver: " + browserType);
+                    Log.LogMessage(MessageType.INFORMATION, "Remote driver: " + browserType);
                 }
                 else
                 {
-                    this.Log.LogMessage(MessageType.INFORMATION, "Local driver: " + browserType);
+                    Log.LogMessage(MessageType.INFORMATION, "Local driver: " + browserType);
                 }
 
                 webDriver.SetWaitDriver(SeleniumConfig.GetWaitDriver(webDriver));
             }
             catch (Exception e)
             {
-                this.Log.LogMessage(MessageType.ERROR, "Failed to start driver because: {0}", e.Message);
+                Log.LogMessage(MessageType.ERROR, "Failed to start driver because: {0}", e.Message);
                 Console.WriteLine(StringProcessor.SafeFormatter("Failed to start driver because: {0}", e.Message));
             }
         }
@@ -208,7 +210,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_NavigatedForward(object sender, WebDriverNavigationEventArgs e)
         {
-            this.Log.LogMessage(MessageType.INFORMATION, "Navigated Forward: {0}", e.Url);
+            Log.LogMessage(MessageType.INFORMATION, "Navigated Forward: {0}", e.Url);
         }
 
         /// <summary>
@@ -218,7 +220,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_NavigatedBack(object sender, WebDriverNavigationEventArgs e)
         {
-            this.Log.LogMessage(MessageType.INFORMATION, "Navigated back: {0}", e.Url);
+            Log.LogMessage(MessageType.INFORMATION, "Navigated back: {0}", e.Url);
         }
 
         /// <summary>
@@ -268,7 +270,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_ElementClicking(object sender, WebElementEventArgs e)
         {
-            this.Log.LogMessage(MessageType.INFORMATION, "Element clicking: {0} Text:{1} Location: X:{2} Y:{3}", e.Element, e.Element.Text, e.Element.Location.X, e.Element.Location.Y);
+            Log.LogMessage(MessageType.INFORMATION, "Element clicking: {0} Text:{1} Location: X:{2} Y:{3}", e.Element, e.Element.Text, e.Element.Location.X, e.Element.Location.Y);
         }
 
         /// <summary>
@@ -279,7 +281,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         private void WebDriver_ExceptionThrown(object sender, WebDriverExceptionEventArgs e)
         {
             // First chance handler catches these when it is a real error - These are typically retry loops
-            this.Log.LogMessage(MessageType.VERBOSE, "Exception thrown: {0}", e.ThrownException);
+            Log.LogMessage(MessageType.VERBOSE, "Exception thrown: {0}", e.ThrownException);
         }
 
         /// <summary>
@@ -289,7 +291,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_Navigated(object sender, WebDriverNavigationEventArgs e)
         {
-            this.Log.LogMessage(MessageType.INFORMATION, "Navigated to: {0}", e.Url);
+            Log.LogMessage(MessageType.INFORMATION, "Navigated to: {0}", e.Url);
         }
 
         /// <summary>
@@ -299,7 +301,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_ScriptExecuted(object sender, WebDriverScriptEventArgs e)
         {
-            this.Log.LogMessage(MessageType.INFORMATION, "Script executed: {0}", e.Script);
+            Log.LogMessage(MessageType.INFORMATION, "Script executed: {0}", e.Script);
         }
 
         /// <summary>
@@ -309,7 +311,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_FindElementCompleted(object sender, FindElementEventArgs e)
         {
-            this.Log.LogMessage(MessageType.INFORMATION, "Found element: {0}", e.FindMethod);
+            Log.LogMessage(MessageType.INFORMATION, "Found element: {0}", e.FindMethod);
         }
 
         /// <summary>
@@ -320,7 +322,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         private void WebDriver_ElementValueChanged(object sender, WebElementEventArgs e)
         {
             string element = e.Element.GetAttribute("value");
-            this.Log.LogMessage(MessageType.INFORMATION, "Element value changed: {0}", element);
+            Log.LogMessage(MessageType.INFORMATION, "Element value changed: {0}", element);
         }
 
         /// <summary>

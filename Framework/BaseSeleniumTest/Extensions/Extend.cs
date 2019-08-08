@@ -21,13 +21,15 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </summary>
         private static ConcurrentDictionary<IWebDriver, WebDriverWait> waitCollection;
 
-        /// <summary>
-        /// Initializes static members of the <see cref="Extensions.Extend" /> class
-        /// </summary>
+#pragma warning disable S3963 // "static" fields should be initialized inline
+                             /// <summary>
+                             /// Initializes static members of the <see cref="Extensions.Extend" /> class
+                             /// </summary>
         static Extend()
         {
             waitCollection = new ConcurrentDictionary<IWebDriver, WebDriverWait>();
         }
+#pragma warning restore S3963 // "static" fields should be initialized inline
 
         /// <summary>
         /// Return the wait extension

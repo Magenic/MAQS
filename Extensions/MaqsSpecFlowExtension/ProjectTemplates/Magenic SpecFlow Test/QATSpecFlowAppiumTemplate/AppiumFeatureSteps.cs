@@ -1,5 +1,4 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Appium;
+﻿using OpenQA.Selenium.Appium;
 using Magenic.Maqs.SpecFlow.TestSteps;
 using TechTalk.SpecFlow;
 
@@ -26,6 +25,7 @@ namespace $safeprojectname$
         [Given(@"condition")]
         public void GivenCondition()
         {
+            // string content = this.AppiumDriver.PageSource;
             // ScenarioContext.Current.Pending();
         }
 
@@ -45,16 +45,6 @@ namespace $safeprojectname$
         public void ThenVerification()
         {
             // ScenarioContext.Current.Pending();
-        }
-
-        /// <summary>
-        /// Finds the element with the given by
-        /// </summary>
-        /// <param name="by">The by to search with</param>
-        /// <returns>The IWebElement found</returns>
-        private IWebElement FindElement(By by)
-        {
-            return this.TestObject.AppiumDriver.FindElement(by);
         }
 
         //// Store objects

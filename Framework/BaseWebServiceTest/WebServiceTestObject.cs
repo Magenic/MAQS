@@ -6,7 +6,6 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseTest;
 using Magenic.Maqs.Utilities.Logging;
-using Magenic.Maqs.WebServiceTester;
 using System;
 using System.Net.Http;
 

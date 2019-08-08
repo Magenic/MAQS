@@ -25,5 +25,13 @@ namespace Magenic.Maqs.SpecFlow.TestSteps
         public BaseAppiumTestSteps(ScenarioContext context) : base(context)
         {
         }
+
+        /// <summary>
+        /// Gets the Appium driver from the test object
+        /// </summary>
+        protected AppiumDriver<IWebElement> AppiumDriver
+        {
+            get { return this.TestObject.AppiumDriver; }
+        }
     }
 }

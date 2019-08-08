@@ -24,6 +24,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// </summary>
         private static ConcurrentDictionary<AppiumDriver<IWebElement>, WebDriverWait> waitCollection;
 
+#pragma warning disable S3963 // "static" fields should be initialized inline
         /// <summary>
         /// Initializes static members of the <see cref="AppiumDriverWaitExtensions" /> class
         /// </summary>
@@ -31,6 +32,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         {
             waitCollection = new ConcurrentDictionary<AppiumDriver<IWebElement>, WebDriverWait>();
         }
+#pragma warning restore S3963 // "static" fields should be initialized inline
 
         /// <summary>
         /// Get the WebDriverWait
@@ -174,80 +176,6 @@ namespace Magenic.Maqs.BaseAppiumTest
 
             // Page was still loading
             return false;
-        }
-
-        /// <summary>
-        /// Check if an element is clickable
-        /// </summary>
-        /// <param name="by">'by' selector for the element</param>
-        /// <returns>Success if the element is clickable</returns>
-        private static Func<AppiumDriver<IWebElement>, IWebElement> ElementIsClickable(By by)
-        {
-            return driver =>
-            {
-                var element = driver.FindElement(by);
-                return (element != null && element.Displayed && element.Enabled) ? element : null;
-            };
-        }
-
-        /// <summary>
-        /// Check if an element is visible
-        /// </summary>
-        /// <param name="by">'by' selector for the element</param>
-        /// <returns>Success if the element is visible</returns>
-        private static Func<AppiumDriver<IWebElement>, IWebElement> ElementIsVisible(By by)
-        {
-            return driver =>
-            {
-                var element = driver.FindElement(by);
-                return (element != null && element.Displayed) ? element : null;
-            };
-        }
-
-        /// <summary>
-        /// Check if an element is enabled
-        /// </summary>
-        /// <param name="by">'by' selector for the element</param>
-        /// <returns>Success if the element is enabled</returns>
-        private static Func<AppiumDriver<IWebElement>, IWebElement> ElementIsEnabled(By by)
-        {
-            return driver =>
-            {
-                var element = driver.FindElement(by);
-                return (element != null && element.Enabled) ? element : null;
-            };
-        }
-
-        /// <summary>
-        /// Check if an element has exactly the expected text - Case sensitive
-        /// </summary>
-        /// <param name="by">'by' selector for the element</param>
-        /// <param name="text">The expected text</param>
-        /// <returns>Success if the element has the expected text</returns>
-        private static Func<AppiumDriver<IWebElement>, IWebElement> ElementHasExpectedText(By by, string text)
-        {
-            return driver =>
-            {
-                var element = driver.FindElement(by);
-                ElementIsEnabled(by);
-                return (element != null && element.Displayed && element.Text.Equals(text)) ? element : null;
-            };
-        }
-
-        /// <summary>
-        /// Check if an element contains the expected text - Case insensitive
-        /// </summary>
-        /// <param name="by">'by' selector for the element</param>
-        /// <param name="text">The expected text</param>
-        /// <returns>Success if the element contains the expected text</returns>
-        private static Func<AppiumDriver<IWebElement>, IWebElement> ElementContainsExpectedText(By by, string text)
-        {
-            return driver =>
-            {
-                var element = driver.FindElement(by);
-                ElementIsEnabled(by);
-                return (element != null && element.Displayed && element.Text.ToUpper().Contains(text.ToUpper())) ? element : null;
-            };
         }
     }
 }

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata minClientVersion="3.6">
     <id>Magenic.Maqs.SpecFlow</id>
-    <version>5.5.0</version>
+    <version>5.5.1</version>
     <title>MAQS SpecFlow Add-on</title>
     <authors>Magenic</authors>
     <owners>Magenic</owners>
@@ -13,14 +13,23 @@
     <iconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</iconUrl>
     <summary>Magenic's automation quick start framework - SpecFlow extension. MAQS is a modular test automation framework that can be used as the base for your automation project or individual pieces can be used to enhance existing frameworks. Utilizing project templates, NuGet, and utility libraries we are able to have a functioning framework up and running in minutes, almost entirely removing on the initial time investment on implementating an automation solution.</summary>
     <releaseNotes>
-      5.5.0 - 2019/5/11
+    5.5.1 - 2019/8/1
+      Bug fixes and minor enhancements
+      - Less strict configuration rules
+      - Improve loggers multi-threading support
+      - Extend generic waits
+      - Extend Selenium find to support multiple element searches
+      Template updates
+      - Move over to SDK style
+      
+    5.5.0 - 2019/5/11
       Bug fixes and minor enhancements
       Update how and when test context info is added to config (GitHub Issue #14)
       Deprecating FakerData
       WaitFor and WaitUntil List of elements
       Template updates
       
-      5.4.0 - 2019/3/28
+    5.4.0 - 2019/3/28
       Bug fixes and minor enhancements
       - Add support for Oracle SQL support
       - Add accessibility testing support
@@ -28,24 +37,24 @@
       - Move driver initializations to factories
       - Change to lighter icon
 
-      5.3.1 - 2019/2/20
+    5.3.1 - 2019/2/20
       Bug fixes and minor enhancements
       - Appium fix for soft assert
 
-      5.3.0 - 2019/2/9
+    5.3.0 - 2019/2/9
       Bug fixes and minor enhancements
       - Template updates
       - Enhance how we add associated files to a test
       - Enhance Selenium page object model to support web driver overrides
 
-      5.2.0 - 2018/12/21
+    5.2.0 - 2018/12/21
       Bug fixes and minor enhancements
       - Check for long file paths before attaching them to a test run result
       - Streamline Selenium cleanup
       - Make it easier to override soft assert
       - Stop creating a second log file when a test fails because of a soft assert
 
-      5.1.1 - 2018/10/5
+    5.1.1 - 2018/10/5
       - Bug fixes and minor enhancements
       - Build and package both .Net Standard and .Net framework libraries
       - Reintroduce automatically adding log and screenshot files to test results
@@ -58,7 +67,7 @@
     <projectUrl>https://github.com/Magenic/MAQS</projectUrl>
     <tags>test selenium appium automation NUnit MSTest TestFramework SpecFlow</tags>
     <dependencies>
-      <dependency id="Magenic.Maqs" version="5.5.0" />
+      <dependency id="Magenic.Maqs" version="5.5.1" />
       <dependency id="NUnit" version="3.12.0" />
       <dependency id="MSTest.TestFramework" version="1.4.0" />
       <dependency id="Microsoft.Extensions.Configuration" version="2.2.0" />
@@ -67,8 +76,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\SpecFlowExtension\bin\Release\Magenic.Maqs.SpecFlow.*" target="lib\net471" />
-    <file src="..\SpecFlowExtension\**\*.cs;..\SpecFlowExtension\*.csproj" target="help\source\SpecFlowExtension" exclude="..\SpecFlowExtension\**\obj\**\*.*;..\SpecFlowExtension\**\bin\**\*.*;*.vspscc" />
+    <file src="..\SpecFlowExtension\bin\Release\net471\Magenic.Maqs.SpecFlow.*" target="lib\net471" />
+    <file src="..\SpecFlowExtension\bin\Release\netcoreapp2.0\Magenic.Maqs.SpecFlow*.dll" target="lib\netcoreapp2.0" />
     <file src="..\..\Extensions\VisualStudioQatExtension\License.txt" target=""/>
   </files>
 </package>

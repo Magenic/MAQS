@@ -4,9 +4,9 @@
     <TargetFrameworks>net471;netstandard2.0</TargetFrameworks>
     <AssemblyName>Magenic.Maqs.Utilities</AssemblyName>
     <RootNamespace>Magenic.Maqs.Utilities</RootNamespace>
-    <AssemblyVersion>5.5.0</AssemblyVersion>
-    <FileVersion>5.5.0</FileVersion>
-    <Version>5.5.0</Version>
+    <AssemblyVersion>5.5.1</AssemblyVersion>
+    <FileVersion>5.5.1</FileVersion>
+    <Version>5.5.1</Version>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>
     <ProjectGuid>{BABD3DB1-2F4B-4DAE-B950-4500DC7A3CF7}</ProjectGuid>
   </PropertyGroup>
@@ -14,6 +14,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
+    <SonarQubeTestProject>false</SonarQubeTestProject>
   </PropertyGroup>
 
   <ItemGroup>

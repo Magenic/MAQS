@@ -474,15 +474,13 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="size">Browser size in the following format: MAXIMIZE, DEFAULT, or #x# (such as 1920x1080)</param>
         public static void SetBrowserSize(IWebDriver webDriver, string size)
         {
+            size = size.ToUpper();
+
             if (size == "MAXIMIZE")
             {
                 webDriver.Manage().Window.Maximize();
             }
-            else if (size == "DEFAULT")
-            {
-                // do nothing to have the browser window come up unchanged.
-            }
-            else
+            else if (size != "DEFAULT")
             {
                 ExtractSizeFromString(size, out int width, out int height);
                 webDriver.Manage().Window.Size = new Size(width, height);

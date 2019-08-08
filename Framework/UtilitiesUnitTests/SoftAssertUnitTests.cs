@@ -37,6 +37,7 @@ namespace UtilitiesUnitTesting
             {
                 one = 0;
                 var result = 9 / one;
+                Assert.Fail($"Result should have thrown an error but is {result} instead");
             }, 
             typeof(DivideByZeroException), 
             "Assert  action throws divide by zero exception",
@@ -64,6 +65,7 @@ namespace UtilitiesUnitTesting
             {
                 one = 0;
                 var result = 9 / one;
+                Assert.Fail($"Result should have thrown an error but is {result} instead");
             },
             typeof(NullReferenceException), 
             "Assert  dividing by zero throws a null reference", 
@@ -143,7 +145,7 @@ namespace UtilitiesUnitTesting
         public void SoftAssertDidFailCheck()
         {
             SoftAssert softAssert = new SoftAssert(new FileLogger(LoggingConfig.GetLogDirectory(), "UnitTests.SoftAssertUnitTests.SoftAssertIsTrueTest", MessageType.GENERIC, true));
-            softAssert.IsTrue(1 == 1, "Test1");
+            softAssert.IsTrue(true, "Test1");
             Assert.IsFalse(softAssert.DidSoftAssertsFail());
 
             softAssert.IsTrue(1 == 2, "Test2");
@@ -160,7 +162,7 @@ namespace UtilitiesUnitTesting
         public void SoftAssertIsTrueTest()
         {
             SoftAssert softAssert = new SoftAssert(new FileLogger(LoggingConfig.GetLogDirectory(), "UnitTests.SoftAssertUnitTests.SoftAssertIsTrueTest", MessageType.GENERIC, true));
-            softAssert.IsTrue(1 == 1, "Test");
+            softAssert.IsTrue(true, "Test");
             softAssert.FailTestIfAssertFailed();
         }
         #endregion
@@ -176,7 +178,7 @@ namespace UtilitiesUnitTesting
             SoftAssert softAssert = new SoftAssert(new FileLogger(LoggingConfig.GetLogDirectory(), "UnitTests.SoftAssertUnitTests.SoftAssertFailTest", MessageType.GENERIC, true));
             softAssert.IsTrue(1 == 2, "Test");
             softAssert.IsTrue(1 == 2, "Test1");
-            softAssert.IsTrue(1 == 1, "Test2");
+            softAssert.IsTrue(true, "Test2");
             softAssert.FailTestIfAssertFailed();
         }
 
@@ -193,21 +195,6 @@ namespace UtilitiesUnitTesting
             softAssert.FailTestIfAssertFailed();
         }
         #endregion
-
-        /// <summary>
-        /// Test to verify that soft asserts will fail a test
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Utilities)]
-        [ExpectedException(typeof(AggregateException))]
-        public void SoftAssertIsFalseTestFailure()
-        {
-            SoftAssert softAssert = new SoftAssert(new FileLogger(LoggingConfig.GetLogDirectory(), "UnitTests.SoftAssertUnitTests.SoftAssertFailTest", MessageType.GENERIC, true));
-            softAssert.IsTrue(1 == 2, "Test");
-            softAssert.IsTrue(1 == 2, "Test1");
-            softAssert.IsTrue(1 == 1, "Test2");
-            softAssert.FailTestIfAssertFailed();
-        }
 
         #region VSAssert
         /// <summary>

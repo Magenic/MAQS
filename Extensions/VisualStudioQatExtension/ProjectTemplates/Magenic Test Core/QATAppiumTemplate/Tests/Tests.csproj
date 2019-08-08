@@ -11,16 +11,12 @@
     <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
     <PackageReference Include="Selenium.Support" Version="3.141.0" />
-    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="74.0.3729.6" />
-    <PackageReference Include="Selenium.WebDriver.GeckoDriver.Win64" Version="0.21.0" />
-    <PackageReference Include="Selenium.WebDriver.IEDriver" Version="3.141.59" />
-    <PackageReference Include="Selenium.WebDriver.MicrosoftDriver" Version="17.17134.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.4.0" />
     <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
-    <PackageReference Include="Magenic.Maqs" Version="5.5.0" />
+    <PackageReference Include="Magenic.Maqs" Version="5.5.1" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
@@ -37,14 +33,6 @@
   <ItemGroup>
     <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
   </ItemGroup>
-  <PropertyGroup>
-    <PostBuildEvent>
-      FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(SolutionDir)packages\chromedriver.exe"') do copy /Y "%25%25m" "$(TargetDir)"
-      FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(SolutionDir)packages\IEDriverServer.exe"') do copy /Y "%25%25m" "$(TargetDir)"
-      FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(SolutionDir)packages\geckodriver.exe"') do copy /Y "%25%25m" "$(TargetDir)"
-      FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(SolutionDir)packages\MicrosoftWebDriver.exe"') do copy /Y "%25%25m" "$(TargetDir)"
-    </PostBuildEvent>   
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>

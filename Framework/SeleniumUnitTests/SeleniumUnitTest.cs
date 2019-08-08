@@ -486,6 +486,8 @@ namespace SeleniumUnitTests
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
             IWebElement element = this.WebDriver.Find().Element(NotInPage);
+
+            Assert.Fail($"Test should have thrown an unfound error, but found element {element} instead");
         }
 
         /// <summary>
@@ -510,7 +512,7 @@ namespace SeleniumUnitTests
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
             IWebElement element = this.WebDriver.Find().Element(AutomationNamesLabel);
-            Assert.AreEqual(element.Text, "Names");
+            Assert.AreEqual("Names", element.Text);
         }
 
         /// <summary>
@@ -600,7 +602,7 @@ namespace SeleniumUnitTests
         public void FindIndexOfElementWithText()
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
-            Assert.AreEqual(this.WebDriver.Find().IndexOfElementWithText(FlowerTable, "Red"), 3);
+            Assert.AreEqual(3, this.WebDriver.Find().IndexOfElementWithText(FlowerTable, "Red"));
         }
         #endregion
 
@@ -635,7 +637,7 @@ namespace SeleniumUnitTests
         public void FindIndexofElementInCollection()
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
-            Assert.AreEqual(this.WebDriver.Find().IndexOfElementWithText(this.WebDriver.FindElements(FlowerTable), "10 in"), 0);
+            Assert.AreEqual(0, this.WebDriver.Find().IndexOfElementWithText(this.WebDriver.FindElements(FlowerTable), "10 in"));
         }
         #endregion
 
@@ -724,7 +726,7 @@ namespace SeleniumUnitTests
         public void SeleniumSoftAssertIsTrueFalseCondition()
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
-            this.Log = new FileLogger(string.Empty, "SeleniumSoftAssertIsTrueFalseConditionFileLog.txt", MessageType.GENERIC, true);
+            this.Log = new FileLogger(string.Empty, "SeleniumSoftAssertIsTrueFalseCondition.txt", MessageType.GENERIC, true);
             SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(this.TestObject);
             string logLocation = ((FileLogger)this.Log).FilePath;
             string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " testSoftAssert" + " (1).Jpeg";
@@ -746,7 +748,7 @@ namespace SeleniumUnitTests
         public void SeleniumSoftAssertIsTrueFalseConditionPageSource()
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
-            this.Log = new FileLogger(string.Empty, "SeleniumSoftAssertIsTrueFalseConditionFileLog.txt", MessageType.GENERIC, true);
+            this.Log = new FileLogger(string.Empty, "SeleniumSoftAssertIsTrueFalseConditionPageSource.txt", MessageType.GENERIC, true);
             SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(this.TestObject);
             string logLocation = ((FileLogger)this.Log).FilePath;
             string pageSourceLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + "_PS (1).txt";
@@ -783,7 +785,7 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify that a screenshot is not taken if no browswer is initalized and the SeleniumSoftAssert.IsFalse gets a true condition and the logger is set to log screenshots
+        /// Verify that a screenshot is not taken if no browser is initialized and the SeleniumSoftAssert.IsFalse gets a true condition and the logger is set to log screenshots
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
@@ -822,7 +824,7 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify that page source is not saved if no browswer is initalized and the SeleniumSoftAssert.IsFalse gets a true condition and the logger is set to save Page Source
+        /// Verify that page source is not saved if no browser is initialized and the SeleniumSoftAssert.IsFalse gets a true condition and the logger is set to save Page Source
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
@@ -1066,7 +1068,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void GetWaitDriverNotInWaitCollection()
         {
-            bool removeDriver = this.WebDriver.RemoveWaitDriver();
+            this.WebDriver.RemoveWaitDriver();
             WebDriverWait driver = this.WebDriver.GetWaitDriver();
 
             Assert.AreEqual(20, driver.Timeout.Seconds);
@@ -1099,7 +1101,7 @@ namespace SeleniumUnitTests
             this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
             bool removed = this.WebDriver.RemoveWaitDriver();
-            Assert.IsTrue(removed == true);
+            Assert.IsTrue(removed);
         }
         #endregion
 
@@ -1127,7 +1129,7 @@ namespace SeleniumUnitTests
         {
             this.TestObject.SetValue("1", "one");
 
-            Assert.AreEqual(this.TestObject.Values["1"], "one");
+            Assert.AreEqual("one", this.TestObject.Values["1"]);
             string outValue;
             Assert.IsFalse(this.TestObject.Values.TryGetValue("2", out outValue), "Didn't expect to get value for key '2', but got " + outValue);
         }

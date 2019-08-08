@@ -44,7 +44,7 @@ namespace $safeprojectname$.Steps
         public void ThenVerification()
         {
             // ScenarioContext.Current.Pending();
-			Assert.IsTrue(this.TestObject.EmailDriver.CanAccessEmailAccount(), "Email account was not accessible");
+            Assert.IsTrue(this.EmailDriver.CanAccessEmailAccount(), "Email account was not accessible");
         }
 
         //// Store objects

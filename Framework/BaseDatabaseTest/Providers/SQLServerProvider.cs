@@ -12,7 +12,7 @@ namespace Magenic.Maqs.BaseDatabaseTest.Providers
     /// <summary>
     /// The SQL server provider.
     /// </summary>
-    public class SQLServerProvider : IProvider<SqlConnection>
+    public class SqlServerProvider : IProvider<SqlConnection>
     {
         /// <summary>
         /// Method used to create a new connection for SQL server databases

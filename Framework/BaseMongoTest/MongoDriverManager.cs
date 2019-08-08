@@ -34,14 +34,6 @@ namespace Magenic.Maqs.BaseMongoTest
         }
 
         /// <summary>
-        /// Dispose of the driver
-        /// </summary>
-        public override void Dispose()
-        {
-            this.BaseDriver = null;
-        }
-
-        /// <summary>
         /// Override the Mongo driver
         /// </summary>
         /// <param name="overrideDriver">The new Mongo driver</param>
@@ -83,6 +75,14 @@ namespace Magenic.Maqs.BaseMongoTest
         public override object Get()
         {
             return this.GetMongoDriver();
+        }
+
+        /// <summary>
+        /// Dispose of the driver
+        /// </summary>
+        protected override void DriverDispose()
+        {
+            this.BaseDriver = null;
         }
 
         /// <summary>

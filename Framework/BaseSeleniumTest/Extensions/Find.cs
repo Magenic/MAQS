@@ -141,7 +141,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         public int IndexOfElementWithText(ICollection<IWebElement> list, string text, bool assert = true)
         {
             // if list size was null or empty and assert was true
-            if (!list.Any() && assert == true)
+            if (!list.Any() && assert)
             {
                 throw new NotFoundException(StringProcessor.SafeFormatter("Empty or null Element Collection passed in {0}", list?.ToString() ?? "NULL list"));
             }
@@ -156,7 +156,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             }
 
             // if assert is  == false and no match was found
-            if (assert == false)
+            if (!assert)
             {
                 return -1;
             }
@@ -175,7 +175,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         {
             ICollection<IWebElement> elems = this.searchItem.FindElements(by);
 
-            if (elems.Count > 0 || assert == false)
+            if (elems.Count > 0 || !assert)
             {
                 return elems;
             }

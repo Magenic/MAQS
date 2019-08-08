@@ -23,5 +23,13 @@ namespace Magenic.Maqs.SpecFlow.TestSteps
         public BaseWebServiceTestSteps(ScenarioContext context) : base(context)
         {
         }
+
+        /// <summary>
+        /// Gets the web service driver from the test object
+        /// </summary>
+        protected WebServiceDriver WebServiceDriver
+        {
+            get { return this.TestObject.WebServiceDriver; }
+        }
     }
 }

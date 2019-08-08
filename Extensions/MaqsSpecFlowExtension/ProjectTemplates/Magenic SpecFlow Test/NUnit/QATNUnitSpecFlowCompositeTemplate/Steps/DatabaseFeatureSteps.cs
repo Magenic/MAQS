@@ -38,14 +38,13 @@ namespace $safeprojectname$.Steps
             // ScenarioContext.Current.Pending();
         }
 
-                /// <summary>
+        /// <summary>
         /// Sample then method
         /// </summary>
         [Then(@"verification")]
         public void ThenVerification()
         {
             // ScenarioContext.Current.Pending();
-			Assert.IsTrue(QueryDatabase());
         }
 
         /// <summary>
@@ -54,8 +53,8 @@ namespace $safeprojectname$.Steps
         /// <returns>True if the state table is found</returns>
         private bool QueryDatabase()
         {
-            var table = this.TestObject.DatabaseDriver.Query("SELECT * FROM information_schema.tables").ToList();
-			return table.Any(n => n.TABLE_NAME.Equals("States"));
+            var table = this.DatabaseDriver.Query("SELECT * FROM information_schema.tables").ToList();
+            return table.Any(n => n.TABLE_NAME.Equals("States"));
         }
 
         //// Store objects

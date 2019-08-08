@@ -10,7 +10,7 @@ using Magenic.Maqs.Utilities.Logging;
 using System;
 using System.Net.Http;
 
-namespace Magenic.Maqs.WebServiceTester
+namespace Magenic.Maqs.BaseWebServiceTest
 {
     /// <summary>
     /// Web service driver
@@ -39,14 +39,6 @@ namespace Magenic.Maqs.WebServiceTester
         public WebServiceDriverManager(WebServiceDriver getDriver, BaseTestObject testObject) : base(() => getDriver, testObject)
         {
             this.driver = getDriver;
-        }
-
-        /// <summary>
-        /// Dispose of the driver
-        /// </summary>
-        public override void Dispose()
-        {
-            this.BaseDriver = null;
         }
 
         /// <summary>
@@ -99,6 +91,14 @@ namespace Magenic.Maqs.WebServiceTester
         {
             eventFiringDriver.WebServiceEvent += this.WebService_Event;
             eventFiringDriver.WebServiceErrorEvent += this.WebService_Error;
+        }
+
+        /// <summary>
+        /// Dispose of the driver
+        /// </summary>
+        protected override void DriverDispose()
+        {
+            this.BaseDriver = null;
         }
 
         /// <summary>

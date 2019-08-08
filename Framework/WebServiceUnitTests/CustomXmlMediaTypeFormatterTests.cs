@@ -44,8 +44,8 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void GetSerializerTest()
         {
-            var retVal = this.GetSerializer(typeof(string), string.Empty, new StringContent(string.Empty));
-            Assert.AreEqual(retVal.ToString(), "System.Xml.Serialization.XmlSerializer");
+            var retVal = GetSerializer(typeof(string), string.Empty, new StringContent(string.Empty));
+            Assert.AreEqual("System.Xml.Serialization.XmlSerializer", retVal.ToString());
         }
 
         /// <summary>
@@ -55,8 +55,8 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void GetDeserializerTest()
         {
-            var retVal = this.GetDeserializer(typeof(string), new StringContent(string.Empty));
-            Assert.AreEqual(retVal.ToString(), "System.Xml.Serialization.XmlSerializer");
+            var retVal = GetDeserializer(typeof(string), new StringContent(string.Empty));
+            Assert.AreEqual("System.Xml.Serialization.XmlSerializer", retVal.ToString());
         }
     }
 }

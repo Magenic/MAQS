@@ -15,6 +15,7 @@ namespace SpecFlowExtUnitTests.Steps
     /// BaseEmail unit test steps
     /// </summary>
     [Binding]
+    [DoNotParallelize]
     public class EmailUnitTestSteps : BaseEmailTestSteps
     {
         /// <summary>

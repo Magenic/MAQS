@@ -77,7 +77,7 @@ namespace SpecFlowExtensionNUnitTests.Steps
         [Then(@"AppiumDriver is not null")]
         public void ThenAppiumDriverIsNotNull()
         {
-            Assert.IsNotNull(this.TestObject.AppiumDriver, "AppiumDriver for BaseAppiumTestSteps class is null.");
+            Assert.IsNotNull(this.AppiumDriver, "AppiumDriver for BaseAppiumTestSteps class is null.");
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace SpecFlowExtensionNUnitTests.Steps
         [Then(@"AppiumDriver is type AppiumDriver")]
         public void AndAppiumDriverIsTypeEventFiringAppiumDriver()
         {
-            Assert.IsTrue(this.TestObject.AppiumDriver.GetType().Equals(typeof(AppiumDriver<AppiumWebElement>)), $"AppiumDriver for BaseAppiumTestSteps class is the wrong type : {this.TestObject.AppiumDriver.GetType()}.");
+            Assert.IsTrue(this.AppiumDriver.GetType().Equals(typeof(AppiumDriver<AppiumWebElement>)), $"AppiumDriver for BaseAppiumTestSteps class is the wrong type : {this.TestObject.AppiumDriver.GetType()}.");
         }
     }
 }

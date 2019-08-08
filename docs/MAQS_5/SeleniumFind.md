@@ -5,12 +5,13 @@ Library for extending find capabilities
 
 # Available methods
 [Element](#Element)  
+[Elements](#Elements)  
 [ElementWithText](#ElementWithText)  
 [IndexOfElementWithText](#IndexOfElementWithText)  
 
 
 ##  Element
-Find an element 
+Find an element  
 *Waits timeout period if no element is found. Optional parameter decides if a missing element will throw an exception or just return null.*
 ```csharp
 this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
@@ -18,6 +19,16 @@ IWebElement element = this.WebDriver.Find().Element(AutomationNamesLabel);
 
 Assert.AreEqual(element.Text, "Names");
 ```
+##  Elements
+Find an elements  
+*Waits timeout period if no element is found. Optional parameter decides if a missing element will throw an exception or just return null.*
+```csharp
+this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+ICollection<IWebElement> list = this.WebDriver.Find().Elements(DropdownToggleClassSelector);
+
+Assert.AreEqual(list.Count, 3, "There are 3 elements with dropdown classes");
+```
+
 ##  ElementWithText
 Find an element that has a specific text value. 
 *Ideally used with selectors that can match more than one element.  Will only find the first instance if there are multiples.* 

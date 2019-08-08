@@ -7,9 +7,9 @@
   <ItemGroup>
     <PackageReference Include="NUnit" Version="3.12.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
-    <PackageReference Include="Magenic.Maqs" Version="5.5.0" />
-    <PackageReference Include="MailKit" Version="2.1.5.1" />
-    <PackageReference Include="MimeKit" Version="2.1.5.1" />
+    <PackageReference Include="Magenic.Maqs" Version="5.5.1" />
+    <PackageReference Include="MailKit" Version="2.2.0" />
+    <PackageReference Include="MimeKit" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.2" />

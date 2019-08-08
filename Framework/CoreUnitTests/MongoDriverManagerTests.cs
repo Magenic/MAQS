@@ -5,10 +5,11 @@
 // <summary>Mongo database driver store tests</summary>
 //-------------------------------------------------- 
 using Magenic.Maqs.BaseMongoTest;
+using Magenic.Maqs.BaseWebServiceTest;
 using Magenic.Maqs.Utilities.Helper;
-using Magenic.Maqs.WebServiceTester;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Bson;
+using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 
 namespace CoreUnitTests
@@ -19,6 +20,7 @@ namespace CoreUnitTests
     [TestClass]
     [TestCategory(TestCategories.MongoDB)]
     [DoNotParallelize]
+    [ExcludeFromCodeCoverage]
     public class MongoDriverManagerTests : BaseMongoTest<BsonDocument>
     {
         /// <summary>

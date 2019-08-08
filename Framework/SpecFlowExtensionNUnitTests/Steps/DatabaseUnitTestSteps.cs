@@ -76,7 +76,7 @@ namespace SpecFlowExtensionNUnitTests.Steps
         [Then(@"DatabaseDriver is not null")]
         public void ThenDatabaseDriverIsNotNull()
         {
-            Assert.IsNotNull(this.TestObject.DatabaseDriver, "DatabaseDriver for BaseDatabaseTestSteps class is null.");
+            Assert.IsNotNull(this.DatabaseDriver, "DatabaseDriver for BaseDatabaseTestSteps class is null.");
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace SpecFlowExtensionNUnitTests.Steps
         [Then(@"DatabaseDriver is type DatabaseConnectionDriver")]
         public void AndDatabaseDriverIsTypeIWebDriver()
         {
-            Assert.IsTrue(this.TestObject.DatabaseDriver.GetType().Equals(typeof(EventFiringDatabaseDriver)), $"DatabaseDriver for BaseDatabaseTestSteps class is the wrong type : {this.TestObject.DatabaseDriver.GetType()}.");
+            Assert.IsTrue(this.DatabaseDriver.GetType().Equals(typeof(EventFiringDatabaseDriver)), $"DatabaseDriver for BaseDatabaseTestSteps class is the wrong type : {this.TestObject.DatabaseDriver.GetType()}.");
         }
     }
 }

@@ -31,19 +31,6 @@ namespace Magenic.Maqs.BaseDatabaseTest
         }
 
         /// <summary>
-        /// Have the driver cleanup after itself
-        /// </summary>
-        public override void Dispose()
-        {
-            if (this.driver != null)
-            {
-                this.driver.Dispose();
-            }
-
-            this.driver = null;
-        }
-
-        /// <summary>
         /// Get the database driver
         /// </summary>
         /// <returns>The database driver</returns>
@@ -83,6 +70,19 @@ namespace Magenic.Maqs.BaseDatabaseTest
         public void OverwriteDriver(DatabaseDriver newDriver)
         {
             this.driver = newDriver;
+        }
+
+        /// <summary>
+        /// Have the driver cleanup after itself
+        /// </summary>
+        protected override void DriverDispose()
+        {
+            if (this.driver != null)
+            {
+                this.driver.Dispose();
+            }
+
+            this.driver = null;
         }
 
         /// <summary>

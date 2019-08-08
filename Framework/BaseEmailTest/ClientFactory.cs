@@ -8,6 +8,9 @@ using MailKit.Net.Imap;
 
 namespace Magenic.Maqs.BaseEmailTest
 {
+    /// <summary>
+    /// Email client factory
+    /// </summary>
     public static class ClientFactory
     {
         /// <summary>

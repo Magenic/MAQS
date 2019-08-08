@@ -24,7 +24,7 @@ namespace Magenic.Maqs.BaseTest
         /// </summary>
         /// <param name="funcToRun">How to get the underlying driver</param>
         /// <param name="testObject">The associate test object</param>
-        public DriverManager(Func<object> funcToRun, BaseTestObject testObject)
+        protected DriverManager(Func<object> funcToRun, BaseTestObject testObject)
         {
             this.GetDriver = funcToRun;
             this.testObject = testObject;
@@ -64,9 +64,31 @@ namespace Magenic.Maqs.BaseTest
         public abstract object Get();
 
         /// <summary>
-        /// Cleanup the underlying driver
+        /// Cleanup the driver
         /// </summary>
-        public abstract void Dispose();
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Cleanup the driver
+        /// </summary>
+        /// <param name="disposing">Dispose managed objects</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            // Only dealing with managed objects
+            if (disposing)
+            {
+                this.DriverDispose();
+            }
+        }
+
+        /// <summary>
+        /// Dispose driver specific objects
+        /// </summary>
+        protected abstract void DriverDispose();
 
         /// <summary>
         /// Get the underlying driver

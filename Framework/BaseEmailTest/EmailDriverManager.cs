@@ -32,21 +32,6 @@ namespace Magenic.Maqs.BaseEmailTest
         }
 
         /// <summary>
-        /// Cleanup after the email connection
-        /// </summary>
-        public override void Dispose()
-        {
-            if (this.driver != null)
-            {
-                (this.BaseDriver as ImapClient).Dispose();
-                this.driver.Dispose(); 
-            }
-
-            this.driver = null;
-            this.BaseDriver = null;
-        }
-
-        /// <summary>
         /// Override the email driver
         /// </summary>
         /// <param name="newDriver">The new driver</param>
@@ -87,6 +72,21 @@ namespace Magenic.Maqs.BaseEmailTest
         public override object Get()
         {
             return this.GetEmailDriver();
+        }
+
+        /// <summary>
+        /// Cleanup after the email connection
+        /// </summary>
+        protected override void DriverDispose()
+        {
+            if (this.driver != null)
+            {
+                (this.BaseDriver as ImapClient).Dispose();
+                this.driver.Dispose();
+            }
+
+            this.driver = null;
+            this.BaseDriver = null;
         }
 
         /// <summary>

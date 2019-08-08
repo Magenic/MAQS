@@ -10,6 +10,7 @@
 using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CoreUnitTests
 {
@@ -24,6 +25,7 @@ namespace CoreUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.UtilitiesCore)]
+        [ExcludeFromCodeCoverage]
         public void Testconfig()
         {
             Config.DoesKeyExist("Log");

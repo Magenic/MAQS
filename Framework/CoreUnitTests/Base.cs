@@ -8,7 +8,7 @@ using Magenic.Maqs.BaseTest;
 using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace CoreUnitTests
@@ -18,6 +18,7 @@ namespace CoreUnitTests
     /// </summary>
     [TestClass]
     [TestCategory(TestCategories.Framework)]
+    [ExcludeFromCodeCoverage]
     public class Base : BaseTest
     {
         /// <summary>
@@ -71,7 +72,9 @@ namespace CoreUnitTests
             // create test files
             Directory.CreateDirectory("TeardownTest");
             File.Create(@"TeardownTest/AssocFileToAttach1.txt").Dispose();
+#pragma warning disable S3966 // Objects should not be disposed more than once
             File.Create(@"TeardownTest/AssocFileToAttach2.txt").Dispose();
+#pragma warning restore S3966 // Objects should not be disposed more than once
 
             // add associated files
             this.TestObject.AddAssociatedFile(@"TeardownTest/AssocFileToAttach1.txt");

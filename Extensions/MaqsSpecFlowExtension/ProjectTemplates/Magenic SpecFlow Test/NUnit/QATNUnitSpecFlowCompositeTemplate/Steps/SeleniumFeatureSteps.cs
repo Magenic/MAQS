@@ -43,7 +43,7 @@ namespace $safeprojectname$.Steps
         public void ThenVerification()
         {
             // ScenarioContext.Current.Pending();
-			OpenPage();
+            OpenPage();
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace $safeprojectname$.Steps
         private void OpenPage()
         {
             // sample open login page
-            this.TestObject.WebDriver.Navigate().GoToUrl("https://SOMETHING");
+            this.WebDriver.Navigate().GoToUrl("https://SOMETHING");
         }
 
         //// Store objects

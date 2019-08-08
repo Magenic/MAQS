@@ -54,7 +54,7 @@ namespace $safeprojectname$.Steps
         /// <returns>The IWebElement found</returns>
         private IWebElement FindElement(By by)
         {
-            return this.TestObject.AppiumDriver.FindElement(by);
+            return this.AppiumDriver.FindElement(by);
         }
 
         //// Store objects

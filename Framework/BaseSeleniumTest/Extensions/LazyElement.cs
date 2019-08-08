@@ -223,16 +223,16 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <summary>
         /// Send keys to the lazy element
         /// </summary>
-        /// <param name="keys">The keys to send to the lazy element</param>
+        /// <param name="text">The text to send to the lazy element</param>
         /// <example>
         /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementSendKeys" lang="C#" />
         /// </example>
-        public void SendKeys(string keys)
+        public void SendKeys(string text)
         {
             GenericWait.WaitFor(() =>
             {
                 IWebElement element = this.GetElement(this.GetTheVisibleElement);
-                this.ExecuteEvent(() => element.SendKeys(keys), "SendKeys");
+                this.ExecuteEvent(() => element.SendKeys(text), "SendKeys");
                 return true;
             });
         }
@@ -327,16 +327,16 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <summary>
         /// Gets the CSS value for the given attribute
         /// </summary>
-        /// <param name="attributeName">The given attribute name</param>
+        /// <param name="propertyName">The given attribute/property name</param>
         /// <returns>The CSS value</returns>
         /// <example>
         /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementGetCssValue" lang="C#" />
         /// </example>
-        public string GetCssValue(string attributeName)
+        public string GetCssValue(string propertyName)
         {
             return GenericWait.WaitFor<string>(() =>
             {
-                return this.GetElement(this.GetTheExistingElement).GetCssValue(attributeName);
+                return this.GetElement(this.GetTheExistingElement).GetCssValue(propertyName);
             });
         }
 

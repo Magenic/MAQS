@@ -64,7 +64,7 @@ namespace Magenic.Maqs.Utilities.Logging
             if (this.ShouldMessageBeLogged(messageType))
             {
                 // Log the message
-                lock (this.fileLock)
+                lock (this.FileLock)
                 {
                     string date = DateTime.UtcNow.ToString(Logger.DEFAULTDATEFORMAT, CultureInfo.InvariantCulture);
 
@@ -72,7 +72,6 @@ namespace Magenic.Maqs.Utilities.Logging
                     {
                         using (StreamWriter writer = new StreamWriter(this.FilePath, true))
                         {
-
                             // Set the style
                             writer.Write(this.GetTextWithColorFlag(messageType));
 

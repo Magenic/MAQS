@@ -24,5 +24,14 @@ namespace Magenic.Maqs.SpecFlow.TestSteps
         public BaseSeleniumTestSteps(ScenarioContext context) : base(context)
         {
         }
+
+        /// <summary>
+        /// Gets the webdriver from the test object
+        /// </summary>
+        protected IWebDriver WebDriver
+        {
+            get { return this.TestObject.WebDriver; }
+        }
     }
 }
+

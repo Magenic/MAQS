@@ -24,7 +24,7 @@ namespace $safeprojectname$
         [Given(@"condition")]
         public void GivenCondition()
         {
-            // Add code...
+            // ScenarioContext.Current.Pending();
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace $safeprojectname$
         [When(@"action")]
         public void WhenAction()
         {
-            // Add code...
+            // ScenarioContext.Current.Pending();
         }
 
         /// <summary>
@@ -42,7 +42,8 @@ namespace $safeprojectname$
         [Then(@"verification")]
         public void ThenVerification()
         {
-            // Add code...
+            // ScenarioContext.Current.Pending();
+            OpenPage();
         }
 
         /// <summary>
@@ -51,7 +52,7 @@ namespace $safeprojectname$
         private void OpenPage()
         {
             // sample open login page
-            this.TestObject.WebDriver.Navigate().GoToUrl("https://SOMETHING");
+            this.WebDriver.Navigate().GoToUrl("https://SOMETHING");
         }
 
         //// Store objects
