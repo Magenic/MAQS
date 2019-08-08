@@ -311,7 +311,10 @@ namespace Magenic.Maqs.BaseTest
 
             // Setup the exception listener
             AppDomain currentDomain = AppDomain.CurrentDomain;
-            currentDomain.FirstChanceException += this.FirstChanceHandler;
+            if (LoggingConfig.GetFirstChanceHandler())
+            {
+                currentDomain.FirstChanceException += this.FirstChanceHandler;
+            }
 
             if (this.LoggingEnabledSetting != LoggingEnabled.NO)
             {
