@@ -86,6 +86,17 @@ _*By default, logs end up in the "log" folder. This is located in the same folde
 <add key="FileLoggerPath" value="C:\Frameworks\"/>-->
 ```
 
+#### First Chance Exception Handler - Optional
+The first chance exception handler will capture any exceptions thrown that are unexpected.  Use this configuration to disable this feature.  Values are "YES" and "NO".
+
+*By default this is enabled
+
+```xml
+<!-- Use First Chance Handler - Defaults to enabled
+<add key="UseFirstChanceHandler" value="NO"/>
+<add key="UseFirstChanceHandler" value="YES"/>-->
+```
+
 # Full Configuration
 ## App.Config
 Primarily uses with the .Net Framework implementation of MAQS.

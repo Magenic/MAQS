@@ -101,5 +101,14 @@ namespace Magenic.Maqs.Utilities.Logging
             string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Logs");
             return Config.GetGeneralValue("FileLoggerPath", path);
         }
+
+        /// <summary>
+        /// Gets the configuration value to utilize the First Chance Handler
+        /// </summary>
+        /// <returns>Boolean if First Chance Handler should be used</returns>
+        public static bool GetFirstChanceHandler()
+        {
+            return Config.GetGeneralValue("UseFirstChanceHandler", "Yes").Equals("Yes", StringComparison.CurrentCultureIgnoreCase);
+        }
     }
 }
