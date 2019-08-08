@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------
-// <copyright file="DatabaseSQLiteUnitTests.cs" company="Magenic">
+// <copyright file="DatabaseCustomProviderUnitTests.cs" company="Magenic">
 //  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>Database base test unit tests</summary>
@@ -31,6 +31,7 @@ namespace DatabaseUnitTests
         public void CustomIProviderTest()
         {
             var states = this.DatabaseDriver.Query("SELECT * FROM States").ToList();
+
             // Our database only has 49 states
             Assert.AreEqual(49, states.Count, "Expected 49 states.");
         }

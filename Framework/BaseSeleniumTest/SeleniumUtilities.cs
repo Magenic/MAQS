@@ -301,6 +301,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 messageString = string.Empty;
                 return false;
             }
+
             message.AppendLine($"ACCESSIBILITY CHECK");
             message.AppendLine($"{typeOfScan} check for '{webDriver.Url}'");
             message.AppendLine($"Found {axeRules} items");

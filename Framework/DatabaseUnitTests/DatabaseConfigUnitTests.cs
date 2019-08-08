@@ -28,7 +28,7 @@ namespace DatabaseUnitTests
         public void GetDatabaseConnectionStringTest()
         {
             string connection = DatabaseConfig.GetConnectionString();
-            Assert.AreEqual(connection, "Data Source=qasqlserver.database.windows.net;Initial Catalog=MagenicAutomation;Persist Security Info=True;User ID=MagenicQA;Password=1magenicMARQ;Connection Timeout=30");
+            Assert.AreEqual("Data Source=qasqlserver.database.windows.net;Initial Catalog=MagenicAutomation;Persist Security Info=True;User ID=MagenicQA;Password=1magenicMARQ;Connection Timeout=30", connection);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace DatabaseUnitTests
         public void GetDatabaseProviderTypeStringTest()
         {
             string provider = DatabaseConfig.GetProviderTypeString();
-            Assert.AreEqual(provider, "SQLSERVER");
+            Assert.AreEqual("SQLSERVER", provider);
         }
 
         /// <summary>

@@ -156,10 +156,12 @@ namespace DatabaseUnitTests
         [TestCategory(TestCategories.Utilities)]
         public void DatabaseTestObjectValuesCanBeUsed()
         {
-            this.TestObject.SetValue("1", "one");
-            Assert.AreEqual(this.TestObject.Values["1"], "one");
             string outValue;
-            Assert.IsFalse(this.TestObject.Values.TryGetValue("2", out outValue), "Didn't expect to get value for key '2', but got " + outValue);
+
+            this.TestObject.SetValue("1", "one");
+            Assert.AreEqual("one", this.TestObject.Values["1"]);
+
+            Assert.IsFalse(TestObject.Values.TryGetValue("2", out outValue), "Didn't expect to get value for key '2', but got " + outValue);
         }
 
         /// <summary>
@@ -175,8 +177,7 @@ namespace DatabaseUnitTests
 
             Assert.AreEqual(this.TestObject.Objects["1"], builder);
 
-            object outObject;
-            Assert.IsFalse(this.TestObject.Objects.TryGetValue("2", out outObject), "Didn't expect to get value for key '2'");
+            Assert.IsFalse(this.TestObject.Objects.TryGetValue("2", out object outObject), "Didn't expect to get value for key '2'");
 
             builder.Append("123");
 

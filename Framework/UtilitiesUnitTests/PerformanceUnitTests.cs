@@ -211,7 +211,7 @@ namespace UtilitiesUnitTesting
         public void PerfTimerConstructorTest()
         {
             PerfTimerCollection p = new PerfTimerCollection("testTimer");
-            Assert.AreEqual(p.TestName, "testTimer");
+            Assert.AreEqual("testTimer", p.TestName);
         }
 
         /// <summary>

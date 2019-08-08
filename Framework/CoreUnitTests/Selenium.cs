@@ -7,6 +7,7 @@
 using Magenic.Maqs.BaseSeleniumTest;
 using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CoreUnitTests
 {
@@ -15,6 +16,7 @@ namespace CoreUnitTests
     /// </summary>
     [TestClass]
     [TestCategory(TestCategories.Selenium)]
+    [ExcludeFromCodeCoverage]
     public class Selenium : BaseSeleniumTest
     {
         /// <summary>

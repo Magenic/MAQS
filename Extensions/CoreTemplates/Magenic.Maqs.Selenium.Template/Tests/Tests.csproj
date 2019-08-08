@@ -9,7 +9,7 @@
     <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
     <PackageReference Include="Selenium.Support" Version="3.141.0" />
-    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="74.0.3729.6" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="76.0.3809.68" />
     <PackageReference Include="Selenium.WebDriver.GeckoDriver.Win64" Version="0.21.0" />
     <PackageReference Include="Selenium.WebDriver.IEDriver" Version="3.141.59" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.2" />
@@ -17,7 +17,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.4.0" />
     <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
-    <PackageReference Include="Magenic.Maqs" Version="5.5.0" />
+    <PackageReference Include="Magenic.Maqs" Version="5.5.1" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>

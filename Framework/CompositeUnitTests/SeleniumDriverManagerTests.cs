@@ -6,8 +6,8 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseSeleniumTest;
 using Magenic.Maqs.BaseSeleniumTest.Extensions;
+using Magenic.Maqs.BaseWebServiceTest;
 using Magenic.Maqs.Utilities.Helper;
-using Magenic.Maqs.WebServiceTester;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using System.Net.Http;

@@ -23,12 +23,12 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// A user friendly name, for logging purposes
         /// </summary>
-        private string userFriendlyName;
+        private readonly string userFriendlyName;
 
         /// <summary>
         /// The parent lazy element
         /// </summary>
-        private LazyMobileElement parent;
+        private readonly LazyMobileElement parent;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LazyMobileElement" /> class
@@ -197,30 +197,27 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// Send keys to the lazy element
         /// </summary>
-        /// <param name="keys">The keys to send to the lazy element</param>
+        /// <param name="text">The text to send to the lazy element</param>
         /// <example>
         /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementSendKeys" lang="C#" />
         /// </example>
-        public void SendKeys(string keys)
+        public void SendKeys(string text)
         {
             IWebElement element = this.GetElement(this.GetTheVisibleElement);
-            this.ExecuteEvent(() => element.SendKeys(keys), "SendKeys");
+            this.ExecuteEvent(() => element.SendKeys(text), "SendKeys");
         }
 
         /// <summary>
         /// Send Secret keys with no logging
         /// </summary>
-        /// <param name="keys">The keys to send</param>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementSendSecretKeys" lang="C#" />
-        /// </example>
-        public void SendSecretKeys(string keys)
+        /// <param name="text">The text to send</param>
+        public void SendSecretKeys(string text)
         {
             IWebElement element = this.GetElement(this.GetTheVisibleElement);
             try
             {
                 this.TestObject.Log.SuspendLogging();
-                this.ExecuteEvent(() => element.SendKeys(keys), "SendKeys");
+                this.ExecuteEvent(() => element.SendKeys(text), "SendSecretKeys");
                 this.TestObject.Log.ContinueLogging();
             }
             catch (Exception e)
@@ -283,14 +280,14 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// Gets the CSS value for the given attribute
         /// </summary>
-        /// <param name="attributeName">The given attribute name</param>
+        /// <param name="propertyName">The given attribute/property name</param>
         /// <returns>The CSS value</returns>
         /// <example>
         /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementGetCssValue" lang="C#" />
         /// </example>
-        public string GetCssValue(string attributeName)
+        public string GetCssValue(string propertyName)
         {
-            return this.GetElement(this.GetTheExistingElement).GetCssValue(attributeName);
+            return this.GetElement(this.GetTheExistingElement).GetCssValue(propertyName);
         }
 
         /// <summary>
@@ -384,7 +381,9 @@ namespace Magenic.Maqs.BaseAppiumTest
             {
                 try
                 {
+#pragma warning disable S1481 // Unused local variables should be removed
                     bool visible = this.CachedElement.Displayed;
+#pragma warning restore S1481 // Unused local variables should be removed
                     return this.CachedElement;
                 }
                 catch (Exception e)

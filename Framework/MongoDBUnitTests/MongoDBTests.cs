@@ -69,7 +69,7 @@ namespace MongoDBUnitTests
         {
             var filter = Builders<BsonDocument>.Filter.Eq("lid", "test3");
             BsonDocument document = this.MongoDBDriver.Collection.Find(filter).ToList().First();
-            Assert.AreEqual(document["lid"].ToString(), "test3");
+            Assert.AreEqual("test3", document["lid"].ToString());
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace MongoDBUnitTests
                 Assert.AreNotEqual(documents["lid"].ToString(), string.Empty);
             }
 
-            Assert.AreEqual(documentList.Count, 4);
+            Assert.AreEqual(4, documentList.Count);
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace MongoDBUnitTests
             List<BsonDocument> retList = query.ToList<BsonDocument>();
             foreach (var value in retList)
             {
-                Assert.AreEqual(value["lid"], "test1");
+                Assert.AreEqual("test1", value["lid"]);
             }
         }
 
@@ -119,31 +119,6 @@ namespace MongoDBUnitTests
             Assert.AreEqual(this.TestObject.SoftAssert, this.SoftAssert, "Soft asserts don't match");
             Assert.AreEqual(this.TestObject.PerfTimerCollection, this.PerfTimerCollection, "Soft asserts don't match");
             Assert.AreEqual(this.TestObject.MongoDBDriver, this.MongoDBDriver, "Web service driver don't match");
-        }
-
-        /// <summary>
-        /// Test the event firing collection driver
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.MongoDB)]
-        [DoNotParallelize]
-        [Ignore]
-        public void MongoSetupEventFiringTestObject()
-        {
-            string logging = Config.GetGeneralValue("Log");
-
-            try
-            {
-                // Turn on logging
-                Config.AddGeneralTestSettingValues(new Dictionary<string, string> { { "Log", "Yes" } }, true);
-
-                // Make sure this is an event firing driver
-                Assert.IsInstanceOfType(this.TestObject.MongoDBDriver, typeof(EventFiringMongoDBDriver<BsonDocument>));
-            }
-            finally
-            {
-                Config.AddGeneralTestSettingValues(new Dictionary<string, string> { { "Log", logging } }, true);
-            }
         }
     }
 }

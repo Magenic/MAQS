@@ -28,9 +28,27 @@ namespace Magenic.Maqs.BaseAppiumTest
         }
 
         /// <summary>
+        /// Get the Appium driver
+        /// </summary>
+        /// <returns>The Appium driver</returns>
+        public AppiumDriver<IWebElement> GetMobileDriver()
+        {
+            return GetBase() as AppiumDriver<IWebElement>;
+        }
+
+        /// <summary>
+        /// Get the Appium driver
+        /// </summary>
+        /// <returns>The Appium driver</returns>
+        public override object Get()
+        {
+            return this.GetMobileDriver();
+        }
+
+        /// <summary>
         /// Cleanup the Appium driver
         /// </summary>
-        public override void Dispose()
+        protected override void DriverDispose()
         {
             // If we never created the driver we don't have any cleanup to do
             if (!this.IsDriverIntialized())
@@ -49,24 +67,6 @@ namespace Magenic.Maqs.BaseAppiumTest
             }
 
             this.BaseDriver = null;
-        }
-
-        /// <summary>
-        /// Get the Appium driver
-        /// </summary>
-        /// <returns>The Appium driver</returns>
-        public AppiumDriver<IWebElement> GetMobileDriver()
-        {
-            return GetBase() as AppiumDriver<IWebElement>;
-        }
-
-        /// <summary>
-        /// Get the Appium driver
-        /// </summary>
-        /// <returns>The Appium driver</returns>
-        public override object Get()
-        {
-            return this.GetMobileDriver();
         }
     }
 }

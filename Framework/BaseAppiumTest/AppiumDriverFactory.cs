@@ -64,7 +64,11 @@ namespace Magenic.Maqs.BaseAppiumTest
                     throw new ArgumentException(StringProcessor.SafeFormatter("Mobile OS type '{0}' is not supported", deviceType));
             }
 
-            appiumDriver.SetDefaultTimeouts();
+            // Windows automation does not support setting the associated timeouts
+            if (deviceType != PlatformType.Windows)
+            {
+                appiumDriver.SetDefaultTimeouts();
+            }
 
             return appiumDriver;
         }
@@ -310,7 +314,9 @@ namespace Magenic.Maqs.BaseAppiumTest
             }
             catch (Exception exception)
             {
-                log.LogMessage(MessageType.ERROR, "Screenshot error: {0}", exception.InnerException.ToString());
+                exception = exception.InnerException ?? exception;
+
+                log.LogMessage(MessageType.ERROR, "Screenshot error: {0}", exception.ToString());
                 return false;
             }
         }

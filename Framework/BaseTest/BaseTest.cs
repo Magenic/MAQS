@@ -28,7 +28,9 @@ namespace Magenic.Maqs.BaseTest
     /// Base for tests without a defined system under test
     /// </summary>
     [TestClass]
+#pragma warning disable S2187 // TestCases should contain tests
     public class BaseTest
+#pragma warning restore S2187 // TestCases should contain tests
     {
         /// <summary>
         /// The Visual Studio TestContext

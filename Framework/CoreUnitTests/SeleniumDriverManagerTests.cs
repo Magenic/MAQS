@@ -6,10 +6,11 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseSeleniumTest;
 using Magenic.Maqs.BaseSeleniumTest.Extensions;
+using Magenic.Maqs.BaseWebServiceTest;
 using Magenic.Maqs.Utilities.Helper;
-using Magenic.Maqs.WebServiceTester;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
+using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 
 namespace CoreUnitTests
@@ -19,6 +20,7 @@ namespace CoreUnitTests
     /// </summary>
     [TestClass]
     [TestCategory(TestCategories.Selenium)]
+    [ExcludeFromCodeCoverage]
     public class SeleniumDriverManagerTests : BaseSeleniumTest
     {
         /// <summary>

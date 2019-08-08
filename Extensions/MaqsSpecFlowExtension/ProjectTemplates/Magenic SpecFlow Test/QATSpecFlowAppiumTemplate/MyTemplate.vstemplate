@@ -5,28 +5,20 @@
     <ProjectType>CSharp</ProjectType>
     <LanguageTag>C#</LanguageTag>
     <PlatformTag>windows</PlatformTag>
-    <ProjectTypeTag>test</ProjectTypeTag>
-    <ProjectTypeTag>Magenic SpecFlow Test</ProjectTypeTag>
-    <ProjectSubType>Magenic SpecFlow Test</ProjectSubType>
-    <SortOrder>1000</SortOrder>
-    <CreateNewFolder>true</CreateNewFolder>
-    <DefaultName>Appium Tests Tests</DefaultName>
+    <ProjectTypeTag>Magenic Test</ProjectTypeTag>
+    <ProjectSubType>Magenic Test</ProjectSubType>
+    <DefaultName>AppiumTests</DefaultName>
     <ProvideDefaultName>true</ProvideDefaultName>
     <LocationField>Enabled</LocationField>
     <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <CreateInPlace>true</CreateInPlace>
     <Icon>__TemplateIcon.ico</Icon>
   </TemplateData>
   <TemplateContent>
     <Project TargetFileName="Tests.csproj" File="TemplateTesting.csproj" ReplaceParameters="true">
       <ProjectItem ReplaceParameters="true" TargetFileName="App.config">App.config</ProjectItem>
       <ProjectItem ReplaceParameters="false" TargetFileName="AppiumFeature.feature">AppiumFeature.feature</ProjectItem>
-      <ProjectItem ReplaceParameters="true" TargetFileName="AppiumFeature.feature.cs">AppiumFeature.feature.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="AppiumFeatureSteps.cs">AppiumFeatureSteps.cs</ProjectItem>
-      <ProjectItem ReplaceParameters="true" TargetFileName="packages.config">packages.config</ProjectItem>
-      <ProjectItem ReplaceParameters="true" TargetFileName="nuget.config">nuget.config</ProjectItem>
-      <Folder Name="Properties" TargetFolderName="Properties">
-        <ProjectItem ReplaceParameters="true" TargetFileName="AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
-      </Folder>
     </Project>
   </TemplateContent>
 </VSTemplate>

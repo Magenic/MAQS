@@ -1,62 +1,69 @@
 MAQS SpecFlow ExtensionRelease Notes:
+5.5.1 - 2019/8/9
+    Bug fixes and minor enhancements
+    - Add find elements wrapper
+    - Fix WinAppDriver factory error
+    - Transition remaining templates over to SDK style
+
 5.5.1 - 2019/6/23
-	- Transition  all templates over to SDK style
-	- Update to SpecFlow 3
-	- Consolidate down to Composite (includes all supported testing types), Selenium and Appium templates
-	
+    Bug fixes and minor enhancements
+    - Transition all templates over to SDK style
+    - Update to SpecFlow 3
+    - Consolidate down to Composite (includes all supported testing types), Selenium and Appium templates
+    
 5.5.0 - 2019/5/11
-	- Bug fixes and minor enhancements
-	- Update how and when test context info is added to config (GitHub Issue #14)
-	- Deprecating FakerData
-	- WaitFor and WaitUntil List of elements
-	- Template updates
-	
+    Bug fixes and minor enhancements
+    - Update how and when test context info is added to config (GitHub Issue #14)
+    - Deprecating FakerData
+    - WaitFor and WaitUntil List of elements
+    - Template updates
+    
 5.4.0 - 2019/3/28
-	Bug fixes and minor enhancements
-	- Add support for Oracle SQL support
-	- Add accessibility testing support
-	- Fix Appium driver dispose
-	- Move driver initializations to factories
-	- Change to lighter icon
-	
+    Bug fixes and minor enhancements
+    - Add support for Oracle SQL support
+    - Add accessibility testing support
+    - Fix Appium driver dispose
+    - Move driver initializations to factories
+    - Change to lighter icon
+    
 5.3.1 - 2019/2/20
-	Bug fixes and minor enhancements
-	- Appium fix for soft assert
-	
+    Bug fixes and minor enhancements
+    - Appium fix for soft assert
+    
 5.3.0 - 2019/2/9
-	Bug fixes and minor enhancements
-	- Template updates
-	- Enhance how we add associated files to a test
-	- Enhance Selenium page object model to support web driver overrides
-	- Don't take screenshots and get page source if the driver was never initialized
-	- Make sure the .Net 4.7.1 SDK is installed 
-	
+    Bug fixes and minor enhancements
+    - Template updates
+    - Enhance how we add associated files to a test
+    - Enhance Selenium page object model to support web driver overrides
+    - Don't take screenshots and get page source if the driver was never initialized
+    - Make sure the .Net 4.7.1 SDK is installed 
+    
 5.2.0 - 2018/12/21
-	Bug fixes and minor enhancements
-	- Check for long file paths before attaching them to a test run result
-	- Streamline Selenium cleanup
-	- Make it easier to override soft assert
-	- Stop creating a second log file when a test fails because of a soft assert
-	- Update Appium templates to support the latest version of Appium
-	- Add a base Selenium page object model
-	
+    Bug fixes and minor enhancements
+    - Check for long file paths before attaching them to a test run result
+    - Streamline Selenium cleanup
+    - Make it easier to override soft assert
+    - Stop creating a second log file when a test fails because of a soft assert
+    - Update Appium templates to support the latest version of Appium
+    - Add a base Selenium page object model
+    
 5.1.1 - 2018/10/5
-	- Bug fixes and minor enhancements
-		- Build and package both .Net Standard and .Net framework libraries
-		- Reintroduce automatically adding log and screenshot files to test results
-			- For Microsoft.VisualStudio.TestTools.UnitTesting tests only 
-			- Only works for .Net framework, this feature is not available for .Net core
-		- Update to Appium 4
-		- Remove generic remote browser options
-		- Pull PhantomJS support as it has been deprecated and removed from Selenium
-	
+    - Bug fixes and minor enhancements
+        - Build and package both .Net Standard and .Net framework libraries
+        - Reintroduce automatically adding log and screenshot files to test results
+            - For Microsoft.VisualStudio.TestTools.UnitTesting tests only 
+            - Only works for .Net framework, this feature is not available for .Net core
+        - Update to Appium 4
+        - Remove generic remote browser options
+        - Pull PhantomJS support as it has been deprecated and removed from Selenium
+    
 5.0.0 - 2018/07/11
-	- Extension built out
-		- Update to use MAQS V5
-		- Follow MAQS versioning
-	
+    - Extension built out
+        - Update to use MAQS V5
+        - Follow MAQS versioning
+    
 1.0.0 - 2018/01/12
-	- Extension built out
-		- Step files connect to all types of MAQS test classes
-		- Project and Item templates created
-		- VSIX project created
+    - Extension built out
+        - Step files connect to all types of MAQS test classes
+        - Project and Item templates created
+        - VSIX project created

@@ -96,7 +96,7 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void GetMobileHubUrlTest()
         {
-            Assert.AreEqual("http://ondemand.saucelabs.com:80/wd/hub", AppiumConfig.GetMobileHubUrl());
+            Assert.AreEqual("http://ondemand.saucelabs.com/wd/hub", AppiumConfig.GetMobileHubUrl().AbsoluteUri);
         }
 
         /// <summary>

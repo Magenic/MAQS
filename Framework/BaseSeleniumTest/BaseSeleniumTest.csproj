@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <TargetFrameworks>net471;netstandard2.0</TargetFrameworks>
-    <AssemblyVersion>5.5.0</AssemblyVersion>
-    <FileVersion>5.5.0</FileVersion>
-    <Version>5.5.0</Version>
+    <AssemblyVersion>5.5.1</AssemblyVersion>
+    <FileVersion>5.5.1</FileVersion>
+    <Version>5.5.1</Version>
     <AssemblyName>Magenic.Maqs.BaseSeleniumTest</AssemblyName>
     <RootNamespace>Magenic.Maqs.BaseSeleniumTest</RootNamespace>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>
@@ -14,11 +14,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
+    <SonarQubeTestProject>false</SonarQubeTestProject>
   </PropertyGroup>
   
   <ItemGroup>
     <PackageReference Include="Appium.WebDriver" Version="4.0.0.5-beta" />
-    <PackageReference Include="Selenium.Axe" Version="1.0.0" />
+    <PackageReference Include="Selenium.Axe" Version="1.1.0" />
     <PackageReference Include="Selenium.Support" Version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.5.1" />

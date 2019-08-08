@@ -38,7 +38,9 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void CaptureScreenshotTestDeprecated()
         {
+#pragma warning disable CS0618 // Type or member is obsolete
             AppiumUtilities.CaptureScreenshot(this.TestObject.AppiumDriver, this.Log);
+#pragma warning restore CS0618 // Type or member is obsolete
             string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, ".png");
             Assert.IsTrue(File.Exists(filePath), "Fail to find screenshot");
             File.Delete(filePath);
@@ -73,7 +75,9 @@ namespace AppiumUnitTests
             ConsoleLogger consoleLogger = new ConsoleLogger();
 
             // Take a screenshot
-            bool success = AppiumUtilities.CaptureScreenshot(this.TestObject.AppiumDriver, consoleLogger, "Delete");
+#pragma warning disable CS0618 // Type or member is obsolete
+            bool success = AppiumUtilities.CaptureScreenshot(TestObject.AppiumDriver, consoleLogger, "Delete");
+#pragma warning restore CS0618 // Type or member is obsolete
 
             // Make sure we didn't take the screenshot
             Assert.IsFalse(success, "Screenshot taken with console logger");
@@ -108,7 +112,9 @@ namespace AppiumUnitTests
                 FilePath = "<>" // illegal file path
             };
 
-            bool successfullyCaptured = AppiumUtilities.CaptureScreenshot(this.TestObject.AppiumDriver, tempLogger);
+#pragma warning disable CS0618 // Type or member is obsolete
+            bool successfullyCaptured = AppiumUtilities.CaptureScreenshot(TestObject.AppiumDriver, tempLogger);
+#pragma warning restore CS0618 // Type or member is obsolete
             Assert.IsFalse(successfullyCaptured);
         }
 
@@ -149,7 +155,9 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void SavePageSourceTestDeprecated()
         {
+#pragma warning disable CS0618 // Type or member is obsolete
             AppiumUtilities.SavePageSource(this.TestObject.AppiumDriver, this.Log);
+#pragma warning restore CS0618 // Type or member is obsolete
             string logLocation = ((FileLogger)this.Log).FilePath;
             string pageSourceFilelocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + "_PS.txt";
 
@@ -181,7 +189,9 @@ namespace AppiumUnitTests
         {
             FileLogger tempLogger = new FileLogger();
             tempLogger.FilePath = "<>"; // illegal file path
+#pragma warning disable CS0618 // Type or member is obsolete
             bool successfullyCaptured = AppiumUtilities.SavePageSource(this.AppiumDriver, tempLogger);
+#pragma warning restore CS0618 // Type or member is obsolete
 
             Assert.IsFalse(successfullyCaptured);
         }
@@ -205,7 +215,9 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void SavePageSourceNoExistingDirectoryDeprecated()
         {
+#pragma warning disable CS0618 // Type or member is obsolete
             string pageSourcePath = AppiumUtilities.SavePageSource(this.AppiumDriver, "TempTestDirectory", "OldSavePSNoDir");
+#pragma warning restore CS0618 // Type or member is obsolete
             Assert.IsTrue(File.Exists(pageSourcePath), "Fail to find Page Source");
             File.Delete(pageSourcePath);
         }

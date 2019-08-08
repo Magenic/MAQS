@@ -23,5 +23,13 @@ namespace Magenic.Maqs.SpecFlow.TestSteps
         public BaseEmailTestSteps(ScenarioContext context) : base(context)
         {
         }
+
+        /// <summary>
+        /// Gets the email driver from the test object
+        /// </summary>
+        protected EmailDriver EmailDriver
+        {
+            get { return this.TestObject.EmailDriver; }
+        }
     }
 }

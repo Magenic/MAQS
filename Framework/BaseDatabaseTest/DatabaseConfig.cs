@@ -46,12 +46,6 @@ namespace Magenic.Maqs.BaseDatabaseTest
             return Config.GetValueForSection(DATABASESECTIION, "DataBaseProviderType");
         }
 
-
-
-
-
-
-
         /// <summary>
         /// Gets the database connection based on configuration values
         /// </summary>

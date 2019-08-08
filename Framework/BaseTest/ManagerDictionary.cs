@@ -111,11 +111,25 @@ namespace Magenic.Maqs.BaseTest
         }
 
         /// <summary>
-        /// Dispose the class
+        /// Cleanup the driver
         /// </summary>
         public void Dispose()
         {
-            this.Clear();
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Cleanup the driver
+        /// </summary>
+        /// <param name="disposing">Dispose managed objects</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            // Only dealing with managed objects
+            if (disposing)
+            {
+                this.Clear();
+            }
         }
     }
 }

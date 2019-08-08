@@ -7,6 +7,7 @@
 using Magenic.Maqs.BaseAppiumTest;
 using Magenic.Maqs.BaseTest;
 using Magenic.Maqs.Utilities.Helper;
+using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using System.Diagnostics.CodeAnalysis;
@@ -36,10 +37,15 @@ namespace AppiumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Framework)]
-        [ExpectedException(typeof(System.Exception))]
+        [ExpectedException(typeof(AssertFailedException))]
         public new void SoftAssertWithFailure()
         {
-            base.SoftAssertWithFailure();
+            BaseTest tester = this.GetBaseTest();
+            tester.TestContext = this.TestContext;
+            tester.Setup();
+            tester.Log = new ConsoleLogger();
+            tester.SoftAssert.AreEqual(string.Empty, "d");
+            tester.Teardown();
         }
 
         /// <summary>

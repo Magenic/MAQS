@@ -44,7 +44,8 @@ namespace Magenic.Maqs.BaseAppiumTest
             }
             catch (Exception exception)
             {
-                testObject.Log.LogMessage(MessageType.ERROR, "Screenshot error: {0}", exception.InnerException.ToString());
+                exception = exception.InnerException ?? exception;
+                testObject.Log.LogMessage(MessageType.ERROR, "Screenshot error: {0}", exception.ToString());
                 return false;
             }
         }
@@ -61,9 +62,9 @@ namespace Magenic.Maqs.BaseAppiumTest
             Screenshot screenshot = ((ITakesScreenshot)appiumDriver).GetScreenshot();
 
             string path = Path.Combine(directory, fileNameWithoutExtension + ".png");
+            screenshot.SaveAsFile(path, ScreenshotImageFormat.Png);
 
             testObject.AddAssociatedFile(path);
-            screenshot.SaveAsFile(path, ScreenshotImageFormat.Png);
         }
 
         /// <summary>
@@ -246,7 +247,8 @@ namespace Magenic.Maqs.BaseAppiumTest
             }
             catch (Exception exception)
             {
-                log.LogMessage(MessageType.ERROR, "Screenshot error: {0}", exception.InnerException.ToString());
+                exception = exception.InnerException ?? exception;
+                log.LogMessage(MessageType.ERROR, "Screenshot error: {0}", exception.ToString());
                 return false;
             }
         }

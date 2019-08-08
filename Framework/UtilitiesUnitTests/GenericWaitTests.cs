@@ -17,6 +17,7 @@ namespace UtilitiesUnitTesting
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
+    [DoNotParallelize]
     public class GenericWaitTests
     {
         /// <summary>
@@ -121,8 +122,8 @@ namespace UtilitiesUnitTesting
         [DoNotParallelize]
         public void PassStringWaitFor()
         {
-            int number = 0;
-            GenericWait.WaitForMatch<string>(() => TESTSTRING + ++number, TESTSTRING + "3");
+            int internalNumber = 0;
+            GenericWait.WaitForMatch<string>(() => TESTSTRING + ++internalNumber, TESTSTRING + "3");
         }
 
         /// <summary>
@@ -147,8 +148,8 @@ namespace UtilitiesUnitTesting
         [DoNotParallelize]
         public void PassStringForTest()
         {
-            int number = 0;
-            GenericWait.WaitFor<string>((p) => p.Equals(TESTSTRING + number++), TESTSTRING + "3");
+            int internalNumber = 0;
+            GenericWait.WaitFor<string>((p) => p.Equals(TESTSTRING + internalNumber++), TESTSTRING + "3");
         }
         #endregion
 

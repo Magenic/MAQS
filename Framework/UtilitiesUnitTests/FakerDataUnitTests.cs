@@ -28,7 +28,9 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void InstantSpecificTime()
         {
+#pragma warning disable CS0618 // Type or member is obsolete
             string time = FakerData.GenerateInstantSpecificTime();
+#pragma warning restore CS0618 // Type or member is obsolete
             Assert.IsTrue(Regex.IsMatch(time, @"\d{2}[/]\d{2}[/]\d{4}[ ]\d{2}[:]\d{2}[:]\d{2}"));
         }
 
@@ -40,7 +42,9 @@ namespace UtilitiesUnitTesting
         public void UniqueIdFormatted()
         {
             Guid result;
+#pragma warning disable CS0618 // Type or member is obsolete
             Assert.IsTrue(Guid.TryParse(FakerData.GenerateUniqueId(), out result));
+#pragma warning restore CS0618 // Type or member is obsolete
         }
 
         /// <summary>
@@ -50,7 +54,9 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void GuiduniqueIdNonFormatted()
         {
+#pragma warning disable CS0618 // Type or member is obsolete
             Assert.IsFalse(Regex.IsMatch(FakerData.GenerateUniqueId(false), @"[-]+"));
+#pragma warning restore CS0618 // Type or member is obsolete
         }
 
         /// <summary>
@@ -61,7 +67,9 @@ namespace UtilitiesUnitTesting
         public void PhoneNumberFormatted()
         {
             string regexFormat = @"\(?\d{3}\)?-? *\d{3}-? *-?\d{4}";
+#pragma warning disable CS0618 // Type or member is obsolete
             Assert.IsTrue(Regex.IsMatch(FakerData.GenerateUSPhoneNumber(true), regexFormat));
+#pragma warning restore CS0618 // Type or member is obsolete
         }
 
         /// <summary>
@@ -72,7 +80,9 @@ namespace UtilitiesUnitTesting
         public void PhoneNumberUnformated()
         {
             string regexFormat = @"\d{10}";
+#pragma warning disable CS0618 // Type or member is obsolete
             Assert.IsTrue(Regex.IsMatch(FakerData.GenerateUSPhoneNumber(), regexFormat));
+#pragma warning restore CS0618 // Type or member is obsolete
         }
 
         /// <summary>
@@ -83,7 +93,9 @@ namespace UtilitiesUnitTesting
         public void SocialSecurityNumberFormatted()
         {
             string regexFormat = @"\d{3}-{0,1}\d{2}-{0,1}\d{4}";
+#pragma warning disable CS0618 // Type or member is obsolete
             Assert.IsTrue(Regex.IsMatch(FakerData.GenerateSocialSecurityNumber(true), regexFormat));
+#pragma warning restore CS0618 // Type or member is obsolete
         }
 
         /// <summary>
@@ -94,8 +106,9 @@ namespace UtilitiesUnitTesting
         public void SocialSecurityNumberUnformatted()
         {
             string regexFormat = @"\d{9}";
-            string a = FakerData.GenerateSocialSecurityNumber();
+#pragma warning disable CS0618 // Type or member is obsolete
             Assert.IsTrue(Regex.IsMatch(FakerData.GenerateSocialSecurityNumber(), regexFormat));
+#pragma warning restore CS0618 // Type or member is obsolete
         }
 
         /// <summary>
@@ -106,7 +119,9 @@ namespace UtilitiesUnitTesting
         public void GeneralRandomizerString()
         {
             List<string> stringList = new List<string>() { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j" };
+#pragma warning disable CS0618 // Type or member is obsolete
             string randomString = FakerData.GeneralRandomizer(stringList);
+#pragma warning restore CS0618 // Type or member is obsolete
             Assert.IsTrue(stringList.Contains(randomString));
         }
 
@@ -118,7 +133,9 @@ namespace UtilitiesUnitTesting
         public void GeneralRandomizerInt()
         {
             List<int> intList = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+#pragma warning disable CS0618 // Type or member is obsolete
             int randomInt = FakerData.GeneralRandomizer(intList);
+#pragma warning restore CS0618 // Type or member is obsolete
             Assert.IsTrue(intList.Contains(randomInt));
         }
     }

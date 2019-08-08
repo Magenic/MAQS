@@ -15,7 +15,8 @@
       <Value>UDID</Value>
       <Value>Appium</Value>
       <Value>isSSL</Value>
-      <Value>Sqlite</Value>	  
+      <Value>Sqlite</Value>
+      <Value>Postgre</Value>
     </CollectionProperty>
     <StringProperty Name="MergeSettingsFiles">NoMerge</StringProperty>
   </GlobalSettings>

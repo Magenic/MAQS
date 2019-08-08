@@ -59,7 +59,7 @@ namespace SpecFlowExtensionNUnitTests.Steps
         [Then(@"BaseSeleniumTestSteps WebDriver is not null")]
         public void ThenWebDriverIsNotNull()
         {
-            Assert.IsNotNull(this.TestObject.WebDriver, "WebDriver for BaseSeleniumTestSteps class is null.");
+            Assert.IsNotNull(this.WebDriver, "WebDriver for BaseSeleniumTestSteps class is null.");
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace SpecFlowExtensionNUnitTests.Steps
         [Then(@"WebDriver is type EventFiringWebDriver")]
         public void AndWebDriverIsTypeIWebDriver()
         {
-            Assert.IsTrue(this.TestObject.WebDriver.GetType().Equals(typeof(EventFiringWebDriver)), $"WebDriver for BaseSeleniumTestSteps class is the wrong type : {this.TestObject.WebDriver.GetType()}.");
+            Assert.IsTrue(this.WebDriver.GetType().Equals(typeof(EventFiringWebDriver)), $"WebDriver for BaseSeleniumTestSteps class is the wrong type : {this.TestObject.WebDriver.GetType()}.");
         }
 
         /// <summary>

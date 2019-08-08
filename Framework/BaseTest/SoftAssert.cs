@@ -138,7 +138,7 @@ namespace Magenic.Maqs.BaseTest
         /// <code source="../UtilitiesUnitTests/SoftAssertUnitTests.cs" region="SoftAssertAreEqualPasses" lang="C#" />
         /// <code source="../UtilitiesUnitTests/SoftAssertUnitTests.cs" region="SoftAssertAreEqualFails" lang="C#" />
         /// </example>
-        public virtual bool AreEqual(string expectedText, string actualText, string softAssertName, string message)
+        public virtual bool AreEqual(string expectedText, string actualText, string softAssertName, string message = "")
         {
             void test()
             {

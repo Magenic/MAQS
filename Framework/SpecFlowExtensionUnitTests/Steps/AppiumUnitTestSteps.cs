@@ -10,6 +10,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using TechTalk.SpecFlow;
+[assembly: DoNotParallelize]
 
 namespace SpecFlowExtUnitTests.Steps
 {
@@ -17,6 +18,7 @@ namespace SpecFlowExtUnitTests.Steps
     /// BaseAppium unit test steps
     /// </summary>
     [Binding]
+    [DoNotParallelize]
     public class AppiumUnitTestSteps : BaseAppiumTestSteps
     {
         /// <summary>

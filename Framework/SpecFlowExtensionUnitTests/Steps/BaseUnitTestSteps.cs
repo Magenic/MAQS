@@ -15,6 +15,7 @@ namespace SpecFlowExtUnitTests.Steps
     /// Base unit test steps
     /// </summary>
     [Binding]
+    [DoNotParallelize]
     public class BaseUnitTestSteps : BaseTestSteps
     {
         /// <summary>

@@ -116,7 +116,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// <returns>Connection provider</returns>
         private static IProvider<IDbConnection> GetSQLServerProvider()
         {
-            return new SQLServerProvider();
+            return new SqlServerProvider();
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
         }
 
         /// <summary>
-        /// Get a Postgre SQL provider
+        /// Get a PostgreSQL provider
         /// </summary>
         /// <returns>Connection provider</returns>
         private static IProvider<IDbConnection> GetPostgreSqlProvider()
@@ -147,13 +147,13 @@ namespace Magenic.Maqs.BaseDatabaseTest
         }
 
         /// <summary>
-        /// Checks if the provider type key value is supported and trys to create the type.
+        /// Checks if the provider type key value is supported and try to create the type.
         /// </summary>
         /// <param name="providerType"> The fully qualified provider type name. Namespace.TypeName</param>
         /// <returns> The provider</returns>
         private static IProvider<IDbConnection> GetCustomProviderType(string providerType)
         {
-            if (String.IsNullOrWhiteSpace(providerType))
+            if (string.IsNullOrWhiteSpace(providerType))
             {
                 throw new ArgumentException(StringProcessor.SafeFormatter($"Provider type is Empty"));
             }

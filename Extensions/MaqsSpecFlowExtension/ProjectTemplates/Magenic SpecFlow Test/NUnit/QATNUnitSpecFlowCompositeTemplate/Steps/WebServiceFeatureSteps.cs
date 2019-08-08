@@ -25,7 +25,7 @@ namespace $safeprojectname$.Steps
         [Given(@"condition")]
         public void GivenCondition()
         {
-			CallEndpoint();
+            CallEndpoint();
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace $safeprojectname$.Steps
         private void CallEndpoint()
         {
             // Calls an endpoint
-			string result = this.TestObject.WebServiceDriver.Get("/api/String/1", "text/plain", false);
+            string result = this.WebServiceDriver.Get("/api/String/1", "text/plain", false);
             Assert.IsTrue(result.Contains("Tomato Soup"), "Was expeting a result with Tomato Soup but instead got - " + result);
         }
 

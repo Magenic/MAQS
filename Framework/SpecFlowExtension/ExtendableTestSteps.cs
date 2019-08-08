@@ -5,6 +5,8 @@
 // <summary>Extendable class for defining a test steps class</summary>
 //--------------------------------------------------
 using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.Utilities.Logging;
+using Magenic.Maqs.Utilities.Performance;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using TechTalk.SpecFlow;
@@ -36,6 +38,25 @@ namespace Magenic.Maqs.SpecFlow
             {
                 return this.LocalScenarioContext.Get<O>($"MAQSTESTOBJECT");
             }
+        }
+
+        /// <summary>
+        /// Gets the logger
+        /// </summary>
+        public Logger Log
+        {
+            get
+            {
+                return this.TestObject.Log;
+            }
+        }
+
+        /// <summary>
+        /// Gets the performance timer collection from the test object
+        /// </summary>
+        protected PerfTimerCollection PerfTimerCollection
+        {
+            get { return this.TestObject.PerfTimerCollection; }
         }
 
         /// <summary>

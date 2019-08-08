@@ -5,10 +5,11 @@
 // <summary>Email driver store tests</summary>
 //-------------------------------------------------- 
 using Magenic.Maqs.BaseEmailTest;
+using Magenic.Maqs.BaseWebServiceTest;
 using Magenic.Maqs.Utilities.Helper;
-using Magenic.Maqs.WebServiceTester;
 using MailKit.Net.Imap;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 
 namespace CoreUnitTests
@@ -19,6 +20,7 @@ namespace CoreUnitTests
     [TestClass]
     [DoNotParallelize]
     [TestCategory(TestCategories.Email)]
+    [ExcludeFromCodeCoverage]
     public class EmailDriverManagerTests : BaseEmailTest
     {
         /// <summary>

@@ -255,7 +255,7 @@ namespace Magenic.Maqs.BaseTest
         /// Dispose the of the driver store
         /// </summary>
         /// <param name="disposing">True if you want to release managed resources</param>
-        public void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (!disposing || this.ManagerStore is null)
             {

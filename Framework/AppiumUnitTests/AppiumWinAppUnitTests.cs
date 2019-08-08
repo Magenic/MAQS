@@ -25,8 +25,9 @@ namespace AppiumUnitTests
         /// Tests the creation of the Appium Windows application driver
         /// </summary>
         [TestMethod]
+        [Ignore]
         [TestCategory(TestCategories.Appium)]
-        public void AppiumIOSDriverTest()
+        public void AppiumWinAppDriverTest()
         {
             Assert.IsNotNull(this.TestObject.AppiumDriver);
         }

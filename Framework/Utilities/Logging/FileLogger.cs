@@ -23,15 +23,15 @@ namespace Magenic.Maqs.Utilities.Logging
         protected readonly string DEFAULTLOGFOLDER = Path.GetTempPath();
 
         /// <summary>
-        ///  Initializes a new instance of the FileLogger class
-        /// </summary>
-        private const string DEFAULTLOGNAME = "FileLog.txt";
-
-        /// <summary>
         /// Object for locking the log file so 
         /// pending tasks will wait for file to be freed
         /// </summary>
-        protected readonly object fileLock = new object();
+        protected readonly object FileLock = new object();
+
+        /// <summary>
+        ///  Initializes a new instance of the FileLogger class
+        /// </summary>
+        private const string DEFAULTLOGNAME = "FileLog.txt";
 
         /// <summary>
         ///  Initializes a new instance of the FileLogger class
@@ -110,13 +110,12 @@ namespace Magenic.Maqs.Utilities.Logging
             if (this.ShouldMessageBeLogged(messageType))
             {
                 // Log the message
-                lock (this.fileLock)
+                lock (this.FileLock)
                 {
                     try
                     {
                         using (StreamWriter writer = new StreamWriter(this.FilePath, true))
                         {
-                       
                             string date = DateTime.UtcNow.ToString(Logger.DEFAULTDATEFORMAT, CultureInfo.InvariantCulture);
                             writer.WriteLine(StringProcessor.SafeFormatter("{0}{1}", Environment.NewLine, date));
                             writer.Write(StringProcessor.SafeFormatter("{0}:\t", messageType.ToString()));

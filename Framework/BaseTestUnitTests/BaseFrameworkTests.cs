@@ -11,6 +11,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.Serialization;
+using MicroAssert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace BaseTestUnitTests
 {
@@ -20,6 +22,7 @@ namespace BaseTestUnitTests
     [TestClass]
     [TestFixture]
     [ExcludeFromCodeCoverage]
+    [DoNotParallelize]
     public class BaseFrameworkTests
     {
         /// <summary>
@@ -37,7 +40,7 @@ namespace BaseTestUnitTests
             BaseTest tester = this.GetBaseTest();
             tester.TestContext = this.TestContext;
             tester.Setup();
-            tester.Log = new ConsoleLogger();
+            tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
             tester.SoftAssert.AreEqual(string.Empty, string.Empty);
             tester.Teardown();
         }
@@ -48,14 +51,41 @@ namespace BaseTestUnitTests
         [TestMethod]
         [TestCategory(TestCategories.Framework)]
         [ExpectedException(typeof(AssertFailedException))]
-        public void SoftAssertWithFailure()
+        public void SoftAssertWithFailureBase()
         {
-            BaseTest tester = this.GetBaseTest();
-            tester.TestContext = this.TestContext;
-            tester.Setup();
-            tester.Log = new ConsoleLogger();
-            tester.SoftAssert.AreEqual(string.Empty, "d");
-            tester.Teardown();
+            this.SoftAssertWithFailure();
+        }
+
+        /// <summary>
+        ///  Soft assert throw without message
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Framework)]
+        public void SoftAssertExceptionWithNoMessage()
+        {
+            MicroAssert.ThrowsException<SoftAssertException>(()=>throw new SoftAssertException(), string.Empty);
+        }
+
+        /// <summary>
+        /// Soft assert throw with message
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Framework)]
+        public void SoftAssertExceptionWithMessage()
+        {
+            string error = "ERROR";
+            MicroAssert.ThrowsException<SoftAssertException>(() => throw new SoftAssertException(error), error);
+        }
+
+        /// <summary>
+        /// Soft assert throw with message and inner exception
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Framework)]
+        public void SoftAssertExceptionWithInnerException()
+        {
+            string error = "ERROR";
+            MicroAssert.ThrowsException<SoftAssertException>(() => throw new SoftAssertException(error, new Exception()), error);
         }
 
         /// <summary>
@@ -69,7 +99,7 @@ namespace BaseTestUnitTests
             BaseTest tester = this.GetBaseTest();
 
             tester.Setup();
-            tester.Log = new ConsoleLogger();
+            tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
             tester.SoftAssert.AreEqual(string.Empty, string.Empty);
             tester.Teardown();
         }
@@ -86,7 +116,7 @@ namespace BaseTestUnitTests
             {
                 BaseTest tester = this.GetBaseTest();
                 tester.Setup();
-                tester.Log = new ConsoleLogger();
+                tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
                 tester.SoftAssert.AreEqual(string.Empty, "d");
                 tester.Teardown();
                 NUnit.Framework.Assert.Fail("Teardown should have thrown exception");
@@ -105,6 +135,19 @@ namespace BaseTestUnitTests
         protected virtual BaseTest GetBaseTest()
         {
             return new BaseTest();
+        }
+
+        /// <summary>
+        /// Soft assert with failure functionality 
+        /// </summary>
+        protected void SoftAssertWithFailure()
+        {
+            BaseTest tester = this.GetBaseTest();
+            tester.TestContext = this.TestContext;
+            tester.Setup();
+            tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
+            tester.SoftAssert.AreEqual(string.Empty, "d");
+            tester.Teardown();
         }
     }
 }

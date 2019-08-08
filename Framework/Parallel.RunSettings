@@ -6,7 +6,7 @@
   </RunConfiguration>
   <MSTest>
     <Parallelize>
-      <Workers>5</Workers>
+      <Workers>8</Workers>
       <Scope>MethodLevel</Scope>
     </Parallelize>
   </MSTest>
@@ -31,4 +31,19 @@
     <Parameter name="RemoteseleniumCapsMaqs:SectionAdd" value="SAMPLESelCapz" />
     <Parameter name="webServiceMaqs:SectionAdd" value="SAMPLEWebz" />
   </TestRunParameters>
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <DataCollector friendlyName="Code Coverage" uri="datacollector://Microsoft/CodeCoverage/2.0" assemblyQualifiedName="Microsoft.VisualStudio.Coverage.DynamicCoverageDataCollector, Microsoft.VisualStudio.TraceCollector, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+        <Configuration>
+          <CodeCoverage>
+            <ModulePaths>
+              <Exclude>
+                <ModulePath>.*UnitTests.*</ModulePath>
+              </Exclude>
+            </ModulePaths>
+          </CodeCoverage>
+        </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
 </RunSettings>

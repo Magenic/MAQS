@@ -50,7 +50,7 @@ namespace SeleniumUnitTests
         {
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
             WebDriver.Wait().ForPageLoad();
-            SeleniumUtilities.CaptureScreenshot(WebDriver, TestObject);
+            SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject);
             string filePath = Path.ChangeExtension(((FileLogger)TestObject.Log).FilePath, ".Jpeg");
             Assert.IsTrue(File.Exists(filePath), "Fail to find screenshot");
             File.Delete(filePath);
@@ -66,8 +66,10 @@ namespace SeleniumUnitTests
         {
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
             WebDriver.Wait().ForPageLoad();
-            SeleniumUtilities.CaptureScreenshot(WebDriver, Log);
-            string filePath = Path.ChangeExtension(((FileLogger)Log).FilePath, ".Jpeg");
+#pragma warning disable CS0618 // Type or member is obsolete
+            SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.Log);
+#pragma warning restore CS0618 // Type or member is obsolete
+            string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, ".Jpeg");
             Assert.IsTrue(File.Exists(filePath), "Fail to find screenshot");
             File.Delete(filePath);
         }
@@ -88,7 +90,7 @@ namespace SeleniumUnitTests
             string expectedPath = Path.Combine(LoggingConfig.GetLogDirectory(), "ScreenCapDelete.Jpeg");
 
             // Take a screenshot
-            SeleniumUtilities.CaptureScreenshot(WebDriver, TestObject, "Delete");
+            SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject, "Delete");
 
             // Make sure we got the screenshot and than cleanup
             Assert.IsTrue(File.Exists(expectedPath), "Fail to find screenshot");
@@ -110,7 +112,9 @@ namespace SeleniumUnitTests
             string expectedPath = Path.Combine(LoggingConfig.GetLogDirectory(), "ScreenCapDelete.Jpeg");
 
             // Take a screenshot
-            SeleniumUtilities.CaptureScreenshot(WebDriver, consoleLogger, "Delete");
+#pragma warning disable CS0618 // Type or member is obsolete
+            SeleniumUtilities.CaptureScreenshot(this.WebDriver, consoleLogger, "Delete");
+#pragma warning restore CS0618 // Type or member is obsolete
 
             // Make sure we got the screenshot and than cleanup
             Assert.IsTrue(File.Exists(expectedPath), "Fail to find screenshot");
@@ -150,7 +154,9 @@ namespace SeleniumUnitTests
 
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
             WebDriver.Wait().ForPageLoad();
+#pragma warning disable CS0618 // Type or member is obsolete
             bool successfullyCaptured = SeleniumUtilities.CaptureScreenshot(WebDriver, tempLogger);
+#pragma warning restore CS0618 // Type or member is obsolete
             Assert.IsFalse(successfullyCaptured);
         }
 
@@ -177,7 +183,9 @@ namespace SeleniumUnitTests
         {
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
             WebDriver.Wait().ForPageLoad();
+#pragma warning disable CS0618 // Type or member is obsolete
             string screenShotPath = SeleniumUtilities.CaptureScreenshot(WebDriver, "TempTestDirectory", "OldCapScreenShotNoDir", SeleniumUtilities.GetScreenShotFormat());
+#pragma warning restore CS0618 // Type or member is obsolete
             Assert.IsTrue(File.Exists(screenShotPath), "Fail to find screenshot");
             File.Delete(screenShotPath);
         }
@@ -223,7 +231,9 @@ namespace SeleniumUnitTests
         {
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
             WebDriver.Wait().ForPageLoad();
+#pragma warning disable CS0618 // Type or member is obsolete
             string pageSourcePath = SeleniumUtilities.SavePageSource(WebDriver, "TempTestDirectory", "OldSeleniumPSFile");
+#pragma warning restore CS0618 // Type or member is obsolete
             Assert.IsTrue(File.Exists(pageSourcePath), "Failed to find Page Source");
             File.Delete(pageSourcePath);
         }
@@ -244,7 +254,7 @@ namespace SeleniumUnitTests
             TestObject.Log = consoleLogger;
 
             // Take a screenshot
-            SeleniumUtilities.SavePageSource(WebDriver, TestObject, "Console");
+            SeleniumUtilities.SavePageSource(this.WebDriver, this.TestObject, "Console");
 
             // Make sure we got the screenshot and than cleanup
             Assert.IsTrue(File.Exists(expectedPath), "Fail to find screenshot");
@@ -266,7 +276,9 @@ namespace SeleniumUnitTests
             string expectedPath = Path.Combine(LoggingConfig.GetLogDirectory(), "PageSourceOldConsole.txt");
 
             // Take a screenshot
-            SeleniumUtilities.SavePageSource(WebDriver, consoleLogger, "OldConsole");
+#pragma warning disable CS0618 // Type or member is obsolete
+            SeleniumUtilities.SavePageSource(this.WebDriver, consoleLogger, "OldConsole");
+#pragma warning restore CS0618 // Type or member is obsolete
 
             // Make sure we got the screenshot and than cleanup
             Assert.IsTrue(File.Exists(expectedPath), "Fail to find screenshot");
@@ -306,7 +318,9 @@ namespace SeleniumUnitTests
 
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
             WebDriver.Wait().ForPageLoad();
+#pragma warning disable CS0618 // Type or member is obsolete
             bool successfullySaved = SeleniumUtilities.SavePageSource(WebDriver, tempLogger);
+#pragma warning restore CS0618 // Type or member is obsolete
             Assert.IsFalse(successfullySaved);
         }
 
@@ -341,7 +355,6 @@ namespace SeleniumUnitTests
             Assert.AreEqual("OpenQA.Selenium.Chrome.ChromeDriver", basedriver.GetType().ToString());
         }
 
-
         /// <summary>
         /// Verify that CaptureScreenshot captured is in the bitmap image format
         /// </summary>
@@ -353,7 +366,7 @@ namespace SeleniumUnitTests
             WebDriver.Wait().ForPageLoad();
             string screenShotPath = SeleniumUtilities.CaptureScreenshot(WebDriver, TestObject, "TempTestDirectory", "TempTestFilePath", ScreenshotImageFormat.Bmp);
             Assert.IsTrue(File.Exists(screenShotPath), "Fail to find screenshot");
-            Assert.AreEqual(Path.GetExtension(screenShotPath), ".Bmp", "The screenshot format was not in '.Bmp' format");
+            Assert.AreEqual(".Bmp", Path.GetExtension(screenShotPath), "The screenshot format was not in '.Bmp' format");
             File.Delete(screenShotPath);
         }
 
@@ -368,7 +381,7 @@ namespace SeleniumUnitTests
             WebDriver.Wait().ForPageLoad();
             string screenShotPath = SeleniumUtilities.CaptureScreenshot(WebDriver, TestObject, "TempTestDirectory", "TempTestFilePath", ScreenshotImageFormat.Gif);
             Assert.IsTrue(File.Exists(screenShotPath), "Fail to find screenshot");
-            Assert.AreEqual(Path.GetExtension(screenShotPath), ".Gif", "The screenshot format was not in '.Gif' format");
+            Assert.AreEqual(".Gif", Path.GetExtension(screenShotPath), "The screenshot format was not in '.Gif' format");
             File.Delete(screenShotPath);
         }
 
@@ -383,7 +396,7 @@ namespace SeleniumUnitTests
             WebDriver.Wait().ForPageLoad();
             string screenShotPath = SeleniumUtilities.CaptureScreenshot(WebDriver, TestObject, "TempTestDirectory", "TempTestFilePath", imageFormat: ScreenshotImageFormat.Jpeg);
             Assert.IsTrue(File.Exists(screenShotPath), "Fail to find screenshot");
-            Assert.AreEqual(Path.GetExtension(screenShotPath), ".Jpeg", "The screenshot format was not in '.Jpeg' format");
+            Assert.AreEqual(".Jpeg", Path.GetExtension(screenShotPath), "The screenshot format was not in '.Jpeg' format");
             File.Delete(screenShotPath);
         }
 
@@ -398,7 +411,7 @@ namespace SeleniumUnitTests
             WebDriver.Wait().ForPageLoad();
             string screenShotPath = SeleniumUtilities.CaptureScreenshot(WebDriver, TestObject, "TempTestDirectory", "TempTestFilePath", imageFormat: ScreenshotImageFormat.Png);
             Assert.IsTrue(File.Exists(screenShotPath), "Fail to find screenshot");
-            Assert.AreEqual(Path.GetExtension(screenShotPath), ".Png", "The screenshot format was not in '.Png' format");
+            Assert.AreEqual(".Png", Path.GetExtension(screenShotPath), "The screenshot format was not in '.Png' format");
             File.Delete(screenShotPath);
         }
 
@@ -413,7 +426,7 @@ namespace SeleniumUnitTests
             WebDriver.Wait().ForPageLoad();
             string screenShotPath = SeleniumUtilities.CaptureScreenshot(WebDriver, TestObject, "TempTestDirectory", "TempTestFilePath", ScreenshotImageFormat.Tiff);
             Assert.IsTrue(File.Exists(screenShotPath), "Fail to find screenshot");
-            Assert.AreEqual(Path.GetExtension(screenShotPath), ".Tiff", "The screenshot format was not in '.Tiff' format");
+            Assert.AreEqual(".Tiff", Path.GetExtension(screenShotPath), "The screenshot format was not in '.Tiff' format");
             File.Delete(screenShotPath);
         }
 
@@ -426,8 +439,8 @@ namespace SeleniumUnitTests
         {
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
             WebDriver.Wait().ForPageLoad();
-            SeleniumUtilities.CaptureScreenshot(WebDriver, TestObject);
-            string filePath = Path.ChangeExtension(((FileLogger)Log).FilePath, SeleniumConfig.GetImageFormat());
+            SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject);
+            string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, SeleniumConfig.GetImageFormat());
             Assert.IsTrue(File.Exists(filePath), "Fail to find screenshot");
             Assert.AreEqual(Path.GetExtension(filePath), "." + SeleniumConfig.GetImageFormat(), "The screenshot format was not in correct Format format");
             File.Delete(filePath);
@@ -455,7 +468,7 @@ namespace SeleniumUnitTests
 
             string filePath = ((FileLogger)Log).FilePath;
 
-            SeleniumUtilities.CheckAccessibility(TestObject);
+            SeleniumUtilities.CheckAccessibility(this.TestObject);
 
             string logContent = File.ReadAllText(filePath);
 
@@ -506,7 +519,7 @@ namespace SeleniumUnitTests
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
             WebDriver.Wait().ForPageLoad();
 
-            SeleniumUtilities.CheckAccessibility(TestObject, true);
+            SeleniumUtilities.CheckAccessibility(this.TestObject, true);
         }
 
         /// <summary>
@@ -519,7 +532,7 @@ namespace SeleniumUnitTests
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
             WebDriver.Wait().ForPageLoad();
 
-            SeleniumUtilities.GetReadableAxeResults("TEST", WebDriver, WebDriver.Analyze().Violations, out string messages);
+            SeleniumUtilities.GetReadableAxeResults("TEST", this.WebDriver, this.WebDriver.Analyze().Violations, out string messages);
 
             Assert.IsTrue(messages.Contains("TEST check for"), "Expected header.");
             Assert.IsTrue(messages.Contains("Found 6 items"), "Expected to find 6 violations matches.");

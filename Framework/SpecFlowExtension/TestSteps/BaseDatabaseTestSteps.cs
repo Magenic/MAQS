@@ -23,5 +23,13 @@ namespace Magenic.Maqs.SpecFlow.TestSteps
         public BaseDatabaseTestSteps(ScenarioContext context) : base(context)
         {
         }
+
+        /// <summary>
+        /// Gets the database driver from the test object
+        /// </summary>
+        protected DatabaseDriver DatabaseDriver
+        {
+            get { return this.TestObject.DatabaseDriver; }
+        }
     }
 }

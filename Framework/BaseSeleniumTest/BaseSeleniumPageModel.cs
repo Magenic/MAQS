@@ -75,7 +75,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// </summary>
         /// <returns>True if the page was loaded</returns>
         public abstract bool IsPageLoaded();
-        
+
         /// <summary>
         /// Gets LazyElement from page model's lazy element store if it exists, otherwise
         /// initializes a new instance of the LazyElement and adds it to the lazy element store
