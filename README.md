@@ -1,6 +1,6 @@
 Builds:  
-[![Azure DevOps builds](https://img.shields.io/azure-devops/build/magenic/maqs/87.svg?label=ci%20build)](https://magenic.visualstudio.com/MAQS/_build/latest?definitionId=87&branchName=develop)    
-[![Azure DevOps builds](https://img.shields.io/azure-devops/build/magenic/maqs/89.svg?label=rc%20build)](https://magenic.visualstudio.com/MAQS/_build/latest?definitionId=89&branchName=develop)  
+[![Build Status](https://dev.azure.com/MagenicOpen/MAQS/_apis/build/status/C%23%20MAQS%20Build?branchName=master)](https://dev.azure.com/MagenicOpen/MAQS/_build/latest?definitionId=4&branchName=master)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=MAQS&metric=alert_status)](https://sonarcloud.io/dashboard?id=MAQS)
   
 Releases:  
 [![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/vs-publisher-1465771.MAQSOpenFramework.svg?label=extension)](https://marketplace.visualstudio.com/items?itemName=vs-publisher-1465771.MAQSOpenFramework)  
