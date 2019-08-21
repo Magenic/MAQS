@@ -524,7 +524,7 @@ namespace SeleniumUnitTests
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
             var list = this.WebDriver.Find().Elements(DropdownToggleClassSelector);
-            Assert.AreEqual(list.Count, 3, "There are 3 elements with dropdown classes");
+            Assert.AreEqual(3, list.Count, "There are 3 elements with dropdown classes");
 
             Assert.IsTrue(list.FirstOrDefault(x => x.Text == "Manage").Displayed);
             Assert.IsTrue(list.FirstOrDefault(x => x.Text == "Automation").Displayed);
@@ -554,7 +554,7 @@ namespace SeleniumUnitTests
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
             this.WebDriver.SetWaitDriver(new WebDriverWait(new SystemClock(), this.WebDriver, TimeSpan.FromMilliseconds(100), TimeSpan.FromMilliseconds(10)));
-            var element = this.WebDriver.Find().Elements(NotInPage);
+            this.WebDriver.Find().Elements(NotInPage);
         }
 
         /// <summary>
