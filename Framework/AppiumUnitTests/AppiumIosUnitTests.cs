@@ -43,7 +43,7 @@ namespace AppiumUnitTests
             options.AddAdditionalCapability("platformName", "iOS");
             options.AddAdditionalCapability("browserName", "Safari");
             options.AddAdditionalCapability("username", "Partner_Magenic");
-            options.AddAdditionalCapability("accessKey", Config.GetSection(ConfigSection.AppiumCapsMaqs)["accessKey"]);
+            options.AddAdditionalCapability("accessKey", Config.GetValueForSection(ConfigSection.AppiumCapsMaqs, "accessKey"));
 
             return new IOSDriver<IWebElement>(AppiumConfig.GetMobileHubUrl(), options, AppiumConfig.GetCommandTimeout());
         }
