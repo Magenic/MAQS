@@ -9,6 +9,7 @@ using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using WebServiceTesterUnitTesting.Model;
 
@@ -221,6 +222,17 @@ namespace WebServiceTesterUnitTesting
         {
             var result = this.WebServiceDriver.Post("/api/String", "text/plain", null, false);
             Assert.AreEqual("{\"Message\":\"value is required\"}", result);
+        }
+
+        /// <summary>
+        /// Testing string returned
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.WebService)]
+        public void PostExpectStringErrorEmptyHttpContent()
+        {
+            var result = this.WebServiceDriver.Post("/api/String", "text/plain", new StringContent("", Encoding.UTF8), false);
+            Assert.AreEqual("{\"Message\":\"No data\"}", result);
         }
     }
 }

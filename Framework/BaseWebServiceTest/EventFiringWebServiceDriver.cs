@@ -219,7 +219,10 @@ namespace Magenic.Maqs.BaseWebServiceTest
                 if (mediaType.Contains("TEXT") || mediaType.Contains("XML") || mediaType.Contains("JSON"))
                 {
                     message.AppendLine("Content:");
-                    message.AppendLine(content.ReadAsStringAsync().Result);
+                    if(content != null)
+                    {
+                        message.AppendLine(content.ReadAsStringAsync().Result);
+                    }
                 }
 
                 this.OnEvent(message.ToString());
@@ -253,7 +256,10 @@ namespace Magenic.Maqs.BaseWebServiceTest
                     if (mediaType.Contains("TEXT") || mediaType.Contains("XML") || mediaType.Contains("JSON"))
                     {
                         message.AppendLine("Content:");
-                        message.AppendLine(response.Content.ReadAsStringAsync().Result);
+                        if (response.Content != null)
+                        {
+                            message.AppendLine(response.Content.ReadAsStringAsync().Result);
+                        }
                     }
                 }
 
