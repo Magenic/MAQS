@@ -9,10 +9,7 @@ using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Appium.Enums;
 using OpenQA.Selenium.Appium.iOS;
-using OpenQA.Selenium.Remote;
-using System.Collections.Generic;
 
 namespace AppiumUnitTests
 {
@@ -46,7 +43,7 @@ namespace AppiumUnitTests
             options.AddAdditionalCapability("platformName", "iOS");
             options.AddAdditionalCapability("browserName", "Safari");
             options.AddAdditionalCapability("username", "Partner_Magenic");
-            options.AddAdditionalCapability("accessKey", Config.GetSection("AppiumCapsMaqs")["accessKey"]);
+            options.AddAdditionalCapability("accessKey", Config.GetSection(ConfigSection.AppiumCapsMaqs)["accessKey"]);
 
             return new IOSDriver<IWebElement>(AppiumConfig.GetMobileHubUrl(), options, AppiumConfig.GetCommandTimeout());
         }
