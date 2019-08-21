@@ -12,6 +12,7 @@ using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Enums;
 using OpenQA.Selenium.Appium.iOS;
 using OpenQA.Selenium.Remote;
+using System.Collections.Generic;
 
 namespace AppiumUnitTests
 {
@@ -45,7 +46,7 @@ namespace AppiumUnitTests
             options.AddAdditionalCapability("platformName", "iOS");
             options.AddAdditionalCapability("browserName", "Safari");
             options.AddAdditionalCapability("username", "Partner_Magenic");
-            options.AddAdditionalCapability("accessKey", "7e0592a4-16de-4c6b-9b87-ee61aa43ceac");
+            options.AddAdditionalCapability("accessKey", Config.GetSection("AppiumCapsMaqs")["accessKey"]);
 
             return new IOSDriver<IWebElement>(AppiumConfig.GetMobileHubUrl(), options, AppiumConfig.GetCommandTimeout());
         }
