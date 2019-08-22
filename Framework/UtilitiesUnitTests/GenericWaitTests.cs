@@ -28,12 +28,12 @@ namespace UtilitiesUnitTesting
         /// <summary>
         /// Test override retry time
         /// </summary>
-        private static readonly TimeSpan TESTRETRY = TimeSpan.FromMilliseconds(100);
+        private static readonly TimeSpan TESTRETRY = TimeSpan.FromMilliseconds(300);
 
         /// <summary>
         /// Test override time out time
         /// </summary>
-        private static readonly TimeSpan TESTTIMEOUT = TimeSpan.FromMilliseconds(500);
+        private static readonly TimeSpan TESTTIMEOUT = TimeSpan.FromMilliseconds(700);
 
         /// <summary>
         /// Counter for unit tests

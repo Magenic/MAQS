@@ -127,8 +127,6 @@ namespace CoreUnitTests
         {
             Dictionary<string, string> remoteCapabilitySection = Config.GetSection("RemoteSeleniumCapsMaqs");
 
-            Assert.AreEqual("SAUCELABSNAME", remoteCapabilitySection["username"]);
-            Assert.AreEqual("SAUCELABSKEY", remoteCapabilitySection["accessKey"]);
             Assert.AreEqual("someName", remoteCapabilitySection["userName2"]);
             Assert.AreEqual("Some_Accesskey", remoteCapabilitySection["accessKey2"]);
         }
