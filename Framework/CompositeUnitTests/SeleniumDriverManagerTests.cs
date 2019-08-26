@@ -88,11 +88,11 @@ namespace CompositeUnitTests
         [TestMethod]
         public void Intialized()
         {
-            // Do something so we intialize the web driver
+            // Do something so we initialize the web driver
             this.WebDriver.Manage().Window.Maximize();
 
             SeleniumDriverManager driverDriver = this.ManagerStore[typeof(SeleniumDriverManager).FullName] as SeleniumDriverManager;
-            Assert.IsTrue(driverDriver.IsDriverIntialized(), "The driver should have been intialized");
+            Assert.IsTrue(driverDriver.IsDriverIntialized(), "The driver should have been initialized");
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace CompositeUnitTests
         public void NotIntialized()
         {
             SeleniumDriverManager driverDriver = this.ManagerStore[typeof(SeleniumDriverManager).FullName] as SeleniumDriverManager;
-            Assert.IsFalse(driverDriver.IsDriverIntialized(), "The driver should not be intialized until it gets used");
+            Assert.IsFalse(driverDriver.IsDriverIntialized(), "The driver should not be initialized until it gets used");
         }
     }
 }

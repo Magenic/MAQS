@@ -154,7 +154,7 @@ namespace CoreUnitTests
             overrides.Add(key, overrideValue);
             Config.AddTestSettingValues(overrides);
 
-            // Try to override something that has already been overriden
+            // Try to override something that has already been overridden
             overrides = new Dictionary<string, string>();
             overrides.Add(key, "ValueThatShouldNotOverride");
             Config.AddTestSettingValues(overrides);

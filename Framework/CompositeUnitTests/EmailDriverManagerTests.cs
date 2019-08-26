@@ -74,11 +74,11 @@ namespace CompositeUnitTests
         [TestMethod]
         public void Intialized()
         {
-            // Do something so we initalize the driver
+            // Do something so we initialize the driver
             this.EmailDriver.CanAccessEmailAccount();
 
             EmailDriverManager driverDriver = this.ManagerStore[typeof(EmailDriverManager).FullName] as EmailDriverManager;
-            Assert.IsTrue(driverDriver.IsDriverIntialized(), "The driver should have been intialized");
+            Assert.IsTrue(driverDriver.IsDriverIntialized(), "The driver should have been initialized");
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace CompositeUnitTests
         public void NotIntialized()
         {
             EmailDriverManager driverDriver = this.ManagerStore[typeof(EmailDriverManager).FullName] as EmailDriverManager;
-            Assert.IsFalse(driverDriver.IsDriverIntialized(), "The driver should not be intialized until it gets used");
+            Assert.IsFalse(driverDriver.IsDriverIntialized(), "The driver should not be initialized until it gets used");
         }
 
         /// <summary>

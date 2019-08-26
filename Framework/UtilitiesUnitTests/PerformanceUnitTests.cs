@@ -61,7 +61,7 @@ namespace UtilitiesUnitTesting
             p.Write(this.Log);
             string filepath = Path.Combine(LoggingConfig.GetLogDirectory(), p.FileName);
 
-            // If the file doesnt exist, just bail
+            // If the file doesn't exist, just bail
             Assert.IsTrue(File.Exists(filepath), "File Check : Expected File does not exist:" + filepath);
 
             // Otherwise record the assertion as true and continue...
@@ -86,7 +86,7 @@ namespace UtilitiesUnitTesting
                         SoftAssert.AreEqual("Outer", pt.TimerContext, "test1", "Test1 Context");
                         break;
 
-                    // Timer = test2 should have an empty contex
+                    // Timer = test2 should have an empty context
                     case "test2":
                         SoftAssert.AreEqual("Inner", pt.TimerContext, "test2", "Test2 Context");
                         break;
@@ -131,7 +131,7 @@ namespace UtilitiesUnitTesting
             p.Write(this.Log);
             filepath = Path.Combine(LoggingConfig.GetLogDirectory(), p.FileName);
 
-            // If the file doesnt exist, just bail
+            // If the file doesn't exist, just bail
             Assert.IsTrue(File.Exists(filepath), "File Check : Expected File does not exist:" + filepath);
 
             // Otherwise record the assertion as true and continue...
@@ -156,7 +156,7 @@ namespace UtilitiesUnitTesting
                         SoftAssert.AreEqual("StoppedOuter", pt.TimerContext, "test1", "Test1 Context");
                         break;
 
-                    // Timer = test2 should have an empty contex
+                    // Timer = test2 should have an empty context
                     case "test2":
                         SoftAssert.IsTrue(string.IsNullOrEmpty(pt.TimerContext), "Timer2Context", "Context for " + pt.TimerName + " was not Empty! Contained: " + pt.TimerContext);
                         break;

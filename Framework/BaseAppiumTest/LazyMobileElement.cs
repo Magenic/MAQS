@@ -223,7 +223,7 @@ namespace Magenic.Maqs.BaseAppiumTest
             catch (Exception e)
             {
                 this.TestObject.Log.ContinueLogging();
-                this.TestObject.Log.LogMessage(MessageType.ERROR, "Exception durring sending secret keys: " + e.Message + Environment.NewLine + e.StackTrace);
+                this.TestObject.Log.LogMessage(MessageType.ERROR, "Exception during sending secret keys: " + e.Message + Environment.NewLine + e.StackTrace);
                 throw e;
             }
         }
@@ -325,7 +325,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// Wait for and get the web element
         /// </summary>
-        /// <returns>The web web element</returns>
+        /// <returns>The web element</returns>
         /// <example>
         /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementExistingElement" lang="C#" />
         /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyGetExistTriggerFind" lang="C#" />
@@ -388,7 +388,7 @@ namespace Magenic.Maqs.BaseAppiumTest
                 }
                 catch (Exception e)
                 {
-                    this.TestObject.Log.LogMessage(MessageType.VERBOSE, "Refinding element because: " + e.Message);
+                    this.TestObject.Log.LogMessage(MessageType.VERBOSE, "Re-finding element because: " + e.Message);
                 }
             }
 

@@ -72,11 +72,11 @@ namespace CompositeUnitTests
         [TestMethod]
         public void Intialized()
         {
-            // Do something so we intialize the web driver
+            // Do something so we initialize the web driver
             this.WebServiceDriver.ToString();
 
             WebServiceDriverManager driverDriver = this.ManagerStore[typeof(WebServiceDriverManager).FullName] as WebServiceDriverManager;
-            Assert.IsTrue(driverDriver.IsDriverIntialized(), "The driver should have been intialized");
+            Assert.IsTrue(driverDriver.IsDriverIntialized(), "The driver should have been initialized");
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace CompositeUnitTests
         public void NotIntialized()
         {
             WebServiceDriverManager driverDriver = this.ManagerStore[typeof(WebServiceDriverManager).FullName] as WebServiceDriverManager;
-            Assert.IsFalse(driverDriver.IsDriverIntialized(), "The driver should not be intialized until it gets used");
+            Assert.IsFalse(driverDriver.IsDriverIntialized(), "The driver should not be initialized until it gets used");
         }
     }
 }

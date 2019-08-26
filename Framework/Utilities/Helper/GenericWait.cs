@@ -73,7 +73,7 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <summary>
         /// Wait until the wait for true function returns true, an exception will be thrown if the wait times out
         /// </summary>
-        /// <typeparam name="T">The type of parameter to pass in the the wait for true function</typeparam>
+        /// <typeparam name="T">The type of parameter to pass in the wait for true function</typeparam>
         /// <param name="waitForTrue">The function we are waiting to return true</param>
         /// <param name="arg">Parameter to pass to the wait for true function</param>
         /// <example>
@@ -107,7 +107,7 @@ namespace Magenic.Maqs.Utilities.Helper
             // Checks if the two values are equal
             bool paramsAreEqual = ParamsEqual(value, comparativeValue);
 
-            // While the params are not equal & the timout hasn't met, keep checking
+            // While the params are not equal & the timeout hasn't met, keep checking
             while (!paramsAreEqual && (DateTime.Now - start) < timeoutFromConfig)
             {
                 // If they aren't, wait
@@ -148,7 +148,7 @@ namespace Magenic.Maqs.Utilities.Helper
             // Checks if the two values are equal
             bool paramsAreEqual = ParamsEqual(value, comparativeValue);
 
-            // While the params are not equal & the timout hasn't met, keep checking
+            // While the params are not equal & the timeout hasn't met, keep checking
             while (!paramsAreEqual && (DateTime.Now - start) < timeout)
             {                
                 // If they aren't, wait
@@ -181,7 +181,7 @@ namespace Magenic.Maqs.Utilities.Helper
             // Checks if the two values are equal
             bool paramsAreEqual = ParamsEqual(waitForTrue(), comparativeValue);
 
-            // While the params are not equal & the timout hasn't met, keep checking
+            // While the params are not equal & the timeout hasn't met, keep checking
             while (!paramsAreEqual && (DateTime.Now - start) < timeoutFromConfig)
             {
                 // If they aren't, wait
@@ -216,7 +216,7 @@ namespace Magenic.Maqs.Utilities.Helper
             // Checks if the two values are equal
             bool paramsAreEqual = ParamsEqual(waitForTrue(), comparativeValue);
 
-            // While the params are not equal & the timout hasn't met, keep checking
+            // While the params are not equal & the timeout hasn't met, keep checking
             while (!paramsAreEqual && (DateTime.Now - start) < timeout)
             {
                 // Check if they are equal (running them through another function because we can't use an operator with T
@@ -299,7 +299,7 @@ namespace Magenic.Maqs.Utilities.Helper
             }
             while ((DateTime.Now - start) < timeout);
 
-            // Check if we had an excetions 
+            // Check if we had an exceptions 
             if (throwException && exception != null)
             {
                 throw exception;
@@ -350,7 +350,7 @@ namespace Magenic.Maqs.Utilities.Helper
             }
             while ((DateTime.Now - start) < timeout);
 
-            // Check if we had an excetions 
+            // Check if we had an exceptions 
             if (throwException && exception != null)
             {
                 throw exception;

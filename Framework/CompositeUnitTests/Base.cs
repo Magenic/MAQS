@@ -26,9 +26,9 @@ namespace CompositeUnitTests
         {
             var keysAndValues = Config.GetSection("MagenicMaqS");
             SoftAssert.Assert(() => Assert.AreEqual(9, keysAndValues.Count, "Expect 9 values, 6 from app.config plus 3 from run settings file"));
-            SoftAssert.Assert(() => Assert.AreEqual("TXT", keysAndValues["LogType"], "Base configuration not repected"));
+            SoftAssert.Assert(() => Assert.AreEqual("TXT", keysAndValues["LogType"], "Base configuration not respected"));
             SoftAssert.Assert(() => Assert.AreEqual("SAMPLEGen", keysAndValues["SectionOverride"], "Override not respected"));
-            SoftAssert.Assert(() => Assert.AreEqual("SAMPLEGenz", keysAndValues["SectionAdd"], "Run settings addition not repected"));
+            SoftAssert.Assert(() => Assert.AreEqual("SAMPLEGenz", keysAndValues["SectionAdd"], "Run settings addition not respected"));
         }
 
         /// <summary>

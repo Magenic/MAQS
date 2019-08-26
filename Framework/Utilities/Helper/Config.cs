@@ -363,12 +363,12 @@ namespace Magenic.Maqs.Utilities.Helper
             {
                 if (dictionary.ContainsKey(key))
                 {
-                    // Case sensative match
+                    // Case sensitive match
                     value = dictionary[key];
                 }
                 else if (dictionary.Any(i => i.Key.Equals(key, System.StringComparison.CurrentCultureIgnoreCase)))
                 {
-                    // Case insensative match
+                    // Case insensitive match
                     value = dictionary.First(i => i.Key.Equals(key, System.StringComparison.CurrentCultureIgnoreCase)).Value;
                 }
             }
@@ -405,7 +405,7 @@ namespace Magenic.Maqs.Utilities.Helper
             // find the values MAQS is looking for
             foreach (XElement node in rootElement.Elements())
             {
-                // set if keys under this node whould be saved and if they should overwrite previous keys
+                // set if keys under this node would be saved and if they should overwrite previous keys
                 if (node.Name.LocalName.ToLower().Contains("runtime") || node.Name.LocalName.ToLower().Contains("configsections"))
                 {
                     continue;

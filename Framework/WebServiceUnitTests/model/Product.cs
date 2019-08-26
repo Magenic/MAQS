@@ -2,7 +2,7 @@
 // <copyright file="Product.cs" company="Magenic">
 //  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
-// <summary>Obejct for string products</summary>
+// <summary>Object for string products</summary>
 //--------------------------------------------------
 using System;
 using System.Diagnostics.CodeAnalysis;

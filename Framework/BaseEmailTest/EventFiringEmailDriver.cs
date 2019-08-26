@@ -224,7 +224,7 @@ namespace Magenic.Maqs.BaseEmailTest
         {
             try
             {
-                this.OnEvent(StringProcessor.SafeFormatter("Delete message '{0}' from '{1}' recived '{2}'", message.Subject, message.From, message.Date));
+                this.OnEvent(StringProcessor.SafeFormatter("Delete message '{0}' from '{1}' received '{2}'", message.Subject, message.From, message.Date));
                 base.DeleteMessage(message);
             }
             catch (Exception ex)
@@ -267,7 +267,7 @@ namespace Magenic.Maqs.BaseEmailTest
         {
             try
             {
-                this.OnEvent(StringProcessor.SafeFormatter("Move message '{0}' from '{1}' recived '{2}' to mailbox '{3}'", message.Subject, message.From.ToString(), message.Date.ToString(), destinationMailbox));
+                this.OnEvent(StringProcessor.SafeFormatter("Move message '{0}' from '{1}' received '{2}' to mailbox '{3}'", message.Subject, message.From.ToString(), message.Date.ToString(), destinationMailbox));
                 base.MoveMailMessage(message, destinationMailbox);
             }
             catch (Exception ex)
@@ -337,7 +337,7 @@ namespace Magenic.Maqs.BaseEmailTest
             try
             {
                 this.OnEvent(
-                    StringProcessor.SafeFormatter("Get list of attachments for message '{0}' from '{1}' recived '{2}' in mailbox '{3}'", message.Subject, message.From, message.Date, this.CurrentMailBox));
+                    StringProcessor.SafeFormatter("Get list of attachments for message '{0}' from '{1}' received '{2}' in mailbox '{3}'", message.Subject, message.From, message.Date, this.CurrentMailBox));
                 return base.GetAttachments(message);
             }
             catch (Exception ex)
@@ -361,7 +361,7 @@ namespace Magenic.Maqs.BaseEmailTest
             try
             {
                 this.OnEvent(
-                    StringProcessor.SafeFormatter("Download attachments for message '{0}' from '{1}' recived '{2}' in mailbox '{3}' to '{4}'", message.Subject, message.From, message.Date, this.CurrentMailBox, downloadFolder));
+                    StringProcessor.SafeFormatter("Download attachments for message '{0}' from '{1}' revived '{2}' in mailbox '{3}' to '{4}'", message.Subject, message.From, message.Date, this.CurrentMailBox, downloadFolder));
                 return base.DownloadAttachments(message, downloadFolder);
             }
             catch (Exception ex)
@@ -414,7 +414,7 @@ namespace Magenic.Maqs.BaseEmailTest
         {
             try
             {
-                this.OnEvent(StringProcessor.SafeFormatter("Get list of content types for message '{0}' from '{1}' recived '{2}'", message.Subject, message.From, message.Date));
+                this.OnEvent(StringProcessor.SafeFormatter("Get list of content types for message '{0}' from '{1}' received '{2}'", message.Subject, message.From, message.Date));
                 return base.GetContentTypes(message);
             }
             catch (Exception ex)
@@ -437,7 +437,7 @@ namespace Magenic.Maqs.BaseEmailTest
         {
             try
             {
-                this.OnEvent(StringProcessor.SafeFormatter("Get '{0}' content for message '{1}' from '{2}' recived '{3}'", contentType, message.Subject, message.From, message.Date));
+                this.OnEvent(StringProcessor.SafeFormatter("Get '{0}' content for message '{1}' from '{2}' received '{3}'", contentType, message.Subject, message.From, message.Date));
                 string body = base.GetBodyByContentTypes(message, contentType);
                 this.OnEvent(StringProcessor.SafeFormatter("Got message body:\r\n{0}", body));
                 return body;

@@ -2,7 +2,7 @@
 // <copyright file="WebServiceUtils.cs" company="Magenic">
 //  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
-// <summary>Web service utilies</summary>
+// <summary>Web service utilities</summary>
 //--------------------------------------------------
 using Magenic.Maqs.Utilities.Data;
 using Newtonsoft.Json;
@@ -223,7 +223,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
                 // Save off a new list of formats
                 List<MediaTypeFormatter> tempList = new List<MediaTypeFormatter>(supportedFormatters);
 
-                // Check to see if formatters are provided, if not try to provide onw
+                // Check to see if formatters are provided, if not try to provide now
                 if (tempList.Count == 0 && response.Content.Headers.ContentType != null)
                 {
                     string mediaType = response.Content.Headers.ContentType.MediaType.ToLower();

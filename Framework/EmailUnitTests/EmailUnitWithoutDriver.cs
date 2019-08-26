@@ -59,7 +59,7 @@ namespace EmailUnitTests
         [DoNotParallelize]
         public void GetUserNameTest()
         {
-            // Replace the password so it doesn't need to be hardcoded in our test
+            // Replace the password so it doesn't need to be hard-coded in our test
             string saveName = EmailConfig.GetUserName();
             string tempName = "TEMP";
 
@@ -86,7 +86,7 @@ namespace EmailUnitTests
         [DoNotParallelize]
         public void GetPasswordTest()
         {
-            // Replace the password so it doesn't need to be hardcoded in our test
+            // Replace the password so it doesn't need to be hard-coded in our test
             string savePass = EmailConfig.GetPassword();
             string tempPass = "TEMP";
 

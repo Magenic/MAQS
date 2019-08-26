@@ -188,7 +188,7 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void FailStringUntilTest()
         {
-            Assert.IsFalse(GenericWait.WaitUntil<string>(this.IsParamTestString, "Bad"), "Failed sigle parameter test");
+            Assert.IsFalse(GenericWait.WaitUntil<string>(this.IsParamTestString, "Bad"), "Failed single parameter test");
         }
 
         /// <summary>
