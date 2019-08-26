@@ -293,7 +293,7 @@ namespace SeleniumUnitTests
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
             IWebElement element;
-            bool found = this.WebDriver.Wait().TryForAttributeTextContains(FoodTable, "Flower Table", "Summmary", out element);
+            bool found = this.WebDriver.Wait().TryForAttributeTextContains(FoodTable, "Flower Table", "Summary", out element);
             Assert.IsFalse(found, "True was unexpectedly returned");
             Assert.IsNull(element, "Element was not null");
         }
@@ -323,7 +323,7 @@ namespace SeleniumUnitTests
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
             IWebElement element;
-            bool found = this.WebDriver.Wait().TryForAttributeTextEquals(FoodTable, "Flower Table", "Summmary", out element);
+            bool found = this.WebDriver.Wait().TryForAttributeTextEquals(FoodTable, "Flower Table", "Summary", out element);
             Assert.IsFalse(found, "True was unexpectedly returned");
             Assert.IsNull(element, "Element was not null");
         }
@@ -874,7 +874,7 @@ namespace SeleniumUnitTests
         public void WaitForAttributeContainsDontFind()
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
-            this.WebDriver.Wait().ForAttributeTextContains(FoodTable, "Flower Table", "Summmary");
+            this.WebDriver.Wait().ForAttributeTextContains(FoodTable, "Flower Table", "Summary");
         }
 
         /// <summary>
@@ -886,7 +886,7 @@ namespace SeleniumUnitTests
         public void WaitForAttributeEqualsDontFind()
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
-            this.WebDriver.Wait().ForAttributeTextEquals(FoodTable, "Flower Table", "Summmary");
+            this.WebDriver.Wait().ForAttributeTextEquals(FoodTable, "Flower Table", "Summary");
         }
 
         /// <summary>

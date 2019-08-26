@@ -21,7 +21,7 @@ namespace Magenic.Maqs.BaseMongoTest
         /// <summary>
         /// Get the client connection string
         /// </summary>
-        /// <returns>The the connection type</returns>
+        /// <returns>The connection type</returns>
         /// <example>
         /// <code source="../MongoDBUnitTests/MongoDBConfigUnitTests.cs" region="GetConnection" lang="C#" />
         /// </example>

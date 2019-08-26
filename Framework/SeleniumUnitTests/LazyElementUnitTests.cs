@@ -144,7 +144,7 @@ namespace SeleniumUnitTests
             // Make sure we got the table caption we are looking for
             Assert.AreEqual("Flower Table", this.FlowerTableCaptionWithParent.Text);
 
-            // Make sure the the first found was not the the flower table
+            // Make sure the first found was not the flower table
             Assert.AreNotEqual(this.FlowerTableCaptionWithParent.Text, this.FirstTableCaption.Text);
         }
 

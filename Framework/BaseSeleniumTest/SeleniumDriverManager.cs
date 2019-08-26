@@ -125,7 +125,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 IWebDriver driver = Extend.GetLowLevelDriver(webDriver);
                 string browserType;
 
-                // Get info on what type of brower we are using
+                // Get info on what type of browser we are using
                 RemoteWebDriver asRemoteDrive = driver as RemoteWebDriver;
 
                 if (asRemoteDrive != null)

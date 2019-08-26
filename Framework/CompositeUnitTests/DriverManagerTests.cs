@@ -35,7 +35,7 @@ namespace CompositeUnitTests
         }
 
         /// <summary>
-        /// Does adding item incerement count
+        /// Does adding item increment count
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Framework)]

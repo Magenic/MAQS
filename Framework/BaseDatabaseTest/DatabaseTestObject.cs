@@ -51,7 +51,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
         }
 
         /// <summary>
-        /// Override the function for for getting a database connection
+        /// Override the function for getting a database connection
         /// </summary>
         /// <param name="databaseConnection">Function for creating a database connection</param>
         public void OverrideDatabaseConnection(Func<IDbConnection> databaseConnection)

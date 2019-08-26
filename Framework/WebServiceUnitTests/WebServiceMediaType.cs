@@ -84,7 +84,7 @@ namespace WebServiceTesterUnitTesting
         public void GetString()
         {
             string result = this.WebServiceDriver.Get("/api/String/1", MediaType.PlainText);
-            Assert.IsTrue(result.Contains("Tomato Soup"), "Was expeting a result with Tomato Soup but instead got - " + result);
+            Assert.IsTrue(result.Contains("Tomato Soup"), "Was expecting a result with Tomato Soup but instead got - " + result);
         }
         #endregion
 

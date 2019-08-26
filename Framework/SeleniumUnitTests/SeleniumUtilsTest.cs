@@ -371,7 +371,7 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify that CaptureScreenshot captured is in the Graphics Interchange Format format
+        /// Verify that CaptureScreenshot captured is in the Graphics Interchange Format
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
@@ -442,7 +442,7 @@ namespace SeleniumUnitTests
             SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject);
             string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, SeleniumConfig.GetImageFormat());
             Assert.IsTrue(File.Exists(filePath), "Fail to find screenshot");
-            Assert.AreEqual(Path.GetExtension(filePath), "." + SeleniumConfig.GetImageFormat(), "The screenshot format was not in correct Format format");
+            Assert.AreEqual(Path.GetExtension(filePath), "." + SeleniumConfig.GetImageFormat(), "The screenshot format was not in correct Format");
             File.Delete(filePath);
         }
 

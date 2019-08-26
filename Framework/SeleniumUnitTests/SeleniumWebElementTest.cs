@@ -367,7 +367,7 @@ namespace SeleniumUnitTests
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
             IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
-            element.Wait().ForAttributeTextContains(FoodTable, "Flower Table", "Summmary");
+            element.Wait().ForAttributeTextContains(FoodTable, "Flower Table", "Summary");
         }
 
         /// <summary>
@@ -380,7 +380,7 @@ namespace SeleniumUnitTests
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
             IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
-            element.Wait().ForAttributeTextEquals(FoodTable, "Flower Table", "Summmary");
+            element.Wait().ForAttributeTextEquals(FoodTable, "Flower Table", "Summary");
         }
 
         /// <summary>

@@ -10,7 +10,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace WebServiceTesterUnitTesting.Model
 {
     /// <summary>
-    /// Definition of a product in jason
+    /// Definition of a product in json
     /// </summary>
     [ExcludeFromCodeCoverage]
     public class ProductJson

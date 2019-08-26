@@ -363,7 +363,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                     throw new ArgumentException(StringProcessor.SafeFormatter("Remote browser type '{0}' is not supported", remoteBrowser));
             }
 
-            // Make sure the remote capabilities dictonary exists
+            // Make sure the remote capabilities dictionary exists
             if (remoteCapabilities == null)
             {
                 remoteCapabilities = new Dictionary<string, object>();
@@ -417,7 +417,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                             ieOptions.AddAdditionalCapability(keyValue.Key, keyValue.Value, true);
                             break;
                         default:
-                            // Edge and Safari do not support marking capabilites as global  - AKA the third prameter
+                            // Edge and Safari do not support marking capabilities as global  - AKA the third parameter
                             driverOptions.AddAdditionalCapability(keyValue.Key, keyValue.Value);
                             break;
                     }

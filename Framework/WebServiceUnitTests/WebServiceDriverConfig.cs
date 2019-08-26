@@ -70,7 +70,7 @@ namespace WebServiceTesterUnitTesting
             // Get base key values
             Assert.AreEqual(defaultValue, Config.GetGeneralValue(key));
 
-            // Try to override something that has already been overriden
+            // Try to override something that has already been overridden
             Dictionary<string, string> overrides = new Dictionary<string, string>();
             overrides.Add(key, "ValueThatShouldNotOverride");
             Config.AddTestSettingValues(overrides);

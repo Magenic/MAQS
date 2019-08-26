@@ -247,7 +247,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
                 message.AppendLine(StringProcessor.SafeFormatter("Received {0} response from {1}", actionType, responseMessage.RequestUri));
                 message.AppendLine(StringProcessor.SafeFormatter("Returned {0}({1})", response.ReasonPhrase, (int)response.StatusCode));
 
-                // Only pull contect if we are returned content
+                // Only pull content if we are returned content
                 if (response.Content.Headers.ContentType != null)
                 {
                     string mediaType = response.Content.Headers.ContentType.MediaType.ToUpper();

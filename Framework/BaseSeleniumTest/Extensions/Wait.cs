@@ -367,7 +367,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                     // Get the page source
                     string newSource = driver.PageSource;
 
-                    // Make sure the souce has not changed and it actully has content
+                    // Make sure the source has not changed and it actually has content
                     if (!string.IsNullOrEmpty(source) && source.Equals(newSource))
                     {
                         return true;

@@ -114,7 +114,7 @@ namespace CoreUnitTests
             // get log path 
             string logFilePath = ((FileLogger)this.Log).FilePath;
 
-            // add non existant associated files
+            // add non existent associated files
             this.TestObject.AddAssociatedFile(@"TeardownTest/FakeFileToAttach1.txt");
             this.TestObject.AddAssociatedFile(@"TeardownTest/FakeFileToAttach2.txt");
 

@@ -20,7 +20,7 @@ namespace CoreUnitTests
     public class Selenium : BaseSeleniumTest
     {
         /// <summary>
-        /// Run a very very simple selenium test
+        /// Run a very simple selenium test
         /// </summary>
         [TestMethod]
         public void CanRunSeleniumTest()
