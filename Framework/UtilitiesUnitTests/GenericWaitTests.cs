@@ -28,7 +28,7 @@ namespace UtilitiesUnitTesting
         /// <summary>
         /// Test override retry time
         /// </summary>
-        private static readonly TimeSpan TESTRETRY = TimeSpan.FromMilliseconds(300);
+        private static readonly TimeSpan TESTRETRY = TimeSpan.FromMilliseconds(200);
 
         /// <summary>
         /// Test override time out time
