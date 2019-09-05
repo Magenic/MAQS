@@ -58,7 +58,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="message">The event message</param>
         protected virtual void OnEvent(string message)
         {
-            this.WebServiceEvent?.Invoke(this, message);
+            WebServiceEvent?.Invoke(this, message);
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="message">The event error message</param>
         protected virtual void OnErrorEvent(string message)
         {
-            this.WebServiceErrorEvent?.Invoke(this, message);
+            WebServiceErrorEvent?.Invoke(this, message);
         }
 
         /// <summary>
@@ -82,14 +82,14 @@ namespace Magenic.Maqs.BaseWebServiceTest
         {
             try
             {
-                this.RaiseEvent(content, "Post", requestUri, responseMediaType);
+                RaiseEvent(content, "Post", requestUri, responseMediaType);
                 HttpResponseMessage response = base.PostContent(requestUri, responseMediaType, content, expectSuccess).Result;
-                this.RaiseEvent("Post", response);
+                RaiseEvent("Post", response);
                 return await Task.FromResult(response);
             }
             catch (Exception e)
             {
-                this.RaiseErrorMessage(e);
+                RaiseErrorMessage(e);
                 throw e;
             }
         }
@@ -107,14 +107,14 @@ namespace Magenic.Maqs.BaseWebServiceTest
         {
             try
             {
-                this.RaiseEvent(content, customVerb, requestUri, responseMediaType);
+                RaiseEvent(content, customVerb, requestUri, responseMediaType);
                 HttpResponseMessage response = base.CustomContent(requestUri, customVerb, responseMediaType, content, expectSuccess).Result;
-                this.RaiseEvent(customVerb, response);
+                RaiseEvent(customVerb, response);
                 return await Task.FromResult(response);
             }
             catch (Exception e)
             {
-                this.RaiseErrorMessage(e);
+                RaiseErrorMessage(e);
                 throw e;
             }
         }
@@ -131,14 +131,14 @@ namespace Magenic.Maqs.BaseWebServiceTest
         {
             try
             {
-                this.RaiseEvent(content, "Put", requestUri, responseMediaType);
+                RaiseEvent(content, "Put", requestUri, responseMediaType);
                 HttpResponseMessage response = base.PutContent(requestUri, responseMediaType, content, expectSuccess).Result;
-                this.RaiseEvent("Put", response);
+                RaiseEvent("Put", response);
                 return await Task.FromResult(response);
             }
             catch (Exception e)
             {
-                this.RaiseErrorMessage(e);
+                RaiseErrorMessage(e);
                 throw e;
             }
         }
@@ -154,14 +154,14 @@ namespace Magenic.Maqs.BaseWebServiceTest
         {
             try
             {
-                this.RaiseEvent("Delete", requestUri, returnMediaType);
+                RaiseEvent("Delete", requestUri, returnMediaType);
                 HttpResponseMessage response = base.DeleteContent(requestUri, returnMediaType, expectSuccess).Result;
-                this.RaiseEvent("Delete", response);
+                RaiseEvent("Delete", response);
                 return await Task.FromResult(response);
             }
             catch (Exception e)
             {
-                this.RaiseErrorMessage(e);
+                RaiseErrorMessage(e);
                 throw e;
             }
         }
@@ -177,14 +177,14 @@ namespace Magenic.Maqs.BaseWebServiceTest
         {
             try
             {
-                this.RaiseEvent("Get", requestUri, mediaType);
+                RaiseEvent("Get", requestUri, mediaType);
                 HttpResponseMessage response = base.GetContent(requestUri, mediaType, expectSuccess).Result;
-                this.RaiseEvent("Get", response);
+                RaiseEvent("Get", response);
                 return await Task.FromResult(response);
             }
             catch (Exception e)
             {
-                this.RaiseErrorMessage(e);
+                RaiseErrorMessage(e);
                 throw e;
             }
         }
@@ -197,7 +197,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="mediaType">The type of media being requested</param>
         private void RaiseEvent(string actionType, string requestUri, string mediaType)
         {
-            this.OnEvent(StringProcessor.SafeFormatter("Sending {0} request to base: '{1}' endpoint: '{2}' with the media type: '{3}'", actionType, this.HttpClient.BaseAddress, requestUri, mediaType));
+            OnEvent(StringProcessor.SafeFormatter("Sending {0} request to base: '{1}' endpoint: '{2}' with the media type: '{3}'", actionType, HttpClient.BaseAddress, requestUri, mediaType));
         }
 
         /// <summary>
@@ -212,24 +212,25 @@ namespace Magenic.Maqs.BaseWebServiceTest
             try
             {
                 StringBuilder message = new StringBuilder();
-                message.AppendLine(StringProcessor.SafeFormatter("Sending {0} request with content to base: '{1}' endpoint: '{2}' with the media type: '{3}'", actionType, this.HttpClient.BaseAddress, requestUri, mediaType));
+                message.AppendLine(StringProcessor.SafeFormatter("Sending {0} request with content to base: '{1}' endpoint: '{2}' with the media type: '{3}'", actionType, HttpClient.BaseAddress, requestUri, mediaType));
 
                 mediaType = mediaType.ToUpper();
 
                 if (mediaType.Contains("TEXT") || mediaType.Contains("XML") || mediaType.Contains("JSON"))
                 {
                     message.AppendLine("Content:");
-                    if(content != null)
+
+                    if (content != null)
                     {
                         message.AppendLine(content.ReadAsStringAsync().Result);
                     }
                 }
 
-                this.OnEvent(message.ToString());
+                OnEvent(message.ToString());
             }
             catch (Exception e)
             {
-                this.OnErrorEvent(StringProcessor.SafeFormatter("Failed to log event because: {0}", e.ToString()));
+                OnErrorEvent(StringProcessor.SafeFormatter("Failed to log event because: {0}", e.ToString()));
             }
         }
 
@@ -263,11 +264,11 @@ namespace Magenic.Maqs.BaseWebServiceTest
                     }
                 }
 
-                this.OnEvent(message.ToString());
+                OnEvent(message.ToString());
             }
             catch (Exception e)
             {
-                this.OnErrorEvent(StringProcessor.SafeFormatter("Failed to log event because: {0}", e.ToString()));
+                OnErrorEvent(StringProcessor.SafeFormatter("Failed to log event because: {0}", e.ToString()));
             }
         }
 
@@ -277,7 +278,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="e">The exception</param>
         private void RaiseErrorMessage(Exception e)
         {
-            this.OnErrorEvent(StringProcessor.SafeFormatter("Failed because: {0} {1} {2}", e.Message, Environment.NewLine, e.ToString()));
+            OnErrorEvent(StringProcessor.SafeFormatter("Failed because: {0} {1} {2}", e.Message, Environment.NewLine, e.ToString()));
         }
     }
 }

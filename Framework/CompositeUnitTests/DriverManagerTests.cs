@@ -214,7 +214,7 @@ namespace CompositeUnitTests
         /// <summary>
         /// Get a manager dictionary 
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The manager dictionary</returns>
         private static ManagerDictionary GetDictionary()
         {
             BaseTestObject baseTestObject = new BaseTestObject(new ConsoleLogger(), string.Empty);
@@ -224,7 +224,7 @@ namespace CompositeUnitTests
         /// <summary>
         /// Get a driver manager
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The driver manager</returns>
         private static DriverManager GetManager()
         {
             BaseTestObject baseTestObject = new BaseTestObject(new ConsoleLogger(), string.Empty);

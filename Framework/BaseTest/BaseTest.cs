@@ -570,6 +570,7 @@ namespace Magenic.Maqs.BaseTest
         private void AttachAssociatedFiles()
         {
             string logPath = string.Empty;
+
             if (this.Log is FileLogger && File.Exists(((FileLogger)this.Log).FilePath))
             {
                 logPath = ((FileLogger)this.Log).FilePath;
