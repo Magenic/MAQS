@@ -73,9 +73,9 @@
     <projectUrl>https://github.com/Magenic/MAQS</projectUrl>
     <tags>test selenium appium automation NUnit MSTest TestFramework SpecFlow</tags>
     <dependencies>
-      <dependency id="Magenic.Maqs" version="5.5.1" />
+      <dependency id="Magenic.Maqs" version="5.5.2" />
       <dependency id="NUnit" version="3.12.0" />
-      <dependency id="MSTest.TestFramework" version="1.4.0" />
+      <dependency id="MSTest.TestFramework" version="2.0.0" />
       <dependency id="Microsoft.Extensions.Configuration" version="2.2.0" />
       <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="2.2.0" />
       <dependency id="Microsoft.Extensions.Configuration.Json" version="2.2.0" />
