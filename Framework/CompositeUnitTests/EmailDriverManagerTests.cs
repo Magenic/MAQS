@@ -57,6 +57,27 @@ namespace CompositeUnitTests
         }
 
         /// <summary>
+        /// If the driver is null then get the driver from the manager
+        /// </summary>
+        [TestMethod]
+        public void NewDriverCreatedWhenDriverIsNull()
+        {
+            this.TestObject.OverrideDatabaseDriver(null);
+            Assert.IsNotNull(this.TestObject.EmailDriver);
+        }
+
+        /// <summary>
+        /// Make sure we can override the IMAP connection
+        /// </summary>
+        [TestMethod]
+        public void EmailDriverOverrideConnetionFunction()
+        {
+            var originalDriver = this.TestObject.EmailDriver;
+            this.TestObject.OverrideDatabaseConnection(() => ClientFactory.GetDefaultEmailClient());
+            Assert.AreNotEqual(originalDriver, this.TestObject.EmailDriver, "A new driver should have been created");
+        }
+
+        /// <summary>
         /// Make sure we can add different driver types
         /// </summary>
         [TestMethod]

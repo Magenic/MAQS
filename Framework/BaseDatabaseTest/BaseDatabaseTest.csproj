@@ -16,10 +16,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="1.60.6" />
-    <PackageReference Include="Dapper.Contrib" Version="1.60.1" />
+    <PackageReference Include="Dapper" Version="2.0.4" />
+    <PackageReference Include="Dapper.Contrib" Version="2.0.4" />
     <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="2.2.6" />
-    <PackageReference Include="Npgsql" Version="4.0.8" />
+    <PackageReference Include="Npgsql" Version="4.0.9" />
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.19.31" />
     <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="1.1.14" />
     <PackageReference Include="SQLitePCLRaw.core" Version="1.1.14" />

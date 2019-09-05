@@ -126,11 +126,11 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 string browserType;
 
                 // Get info on what type of browser we are using
-                RemoteWebDriver asRemoteDrive = driver as RemoteWebDriver;
+                RemoteWebDriver remoteDrive = driver as RemoteWebDriver;
 
-                if (asRemoteDrive != null)
+                if (remoteDrive != null)
                 {
-                    browserType = asRemoteDrive.Capabilities.ToString();
+                    browserType = remoteDrive.Capabilities.ToString();
                 }
                 else
                 {

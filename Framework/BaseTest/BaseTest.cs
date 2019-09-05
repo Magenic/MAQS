@@ -570,11 +570,12 @@ namespace Magenic.Maqs.BaseTest
         private void AttachAssociatedFiles()
         {
             string logPath = string.Empty;
+
             if (this.Log is FileLogger && File.Exists(((FileLogger)this.Log).FilePath))
             {
                 logPath = ((FileLogger)this.Log).FilePath;
             }
-#if NET471
+
             try
             {
                 // This only works for VS unit test so check that first
@@ -602,7 +603,7 @@ namespace Magenic.Maqs.BaseTest
             {
                 this.TryToLog(MessageType.WARNING, "Failed to attach test result file because: " + e.Message);
             }
-#endif
+
             // if attachment failed or project is core, write the list of files to the log
             if (!string.IsNullOrEmpty(logPath))
             {
