@@ -401,14 +401,14 @@ namespace UnitTests
         [TestCategory(TestCategories.Selenium)]
         public void BrowserTypeMatch()
         {
-            Assert.Equals(BrowserType.IE,  SeleniumConfig.GetBrowserType("INTERNET EXPLORER"));
-            Assert.Equals(BrowserType.IE, SeleniumConfig.GetBrowserType("INTERNETExPLOREr"));
-            Assert.Equals(BrowserType.IE, SeleniumConfig.GetBrowserType("ie"));
-            Assert.Equals(BrowserType.Firefox, SeleniumConfig.GetBrowserType("Firefox"));
-            Assert.Equals(BrowserType.Chrome, SeleniumConfig.GetBrowserType("chrome"));
-            Assert.Equals(BrowserType.HeadlessChrome, SeleniumConfig.GetBrowserType("HEADLESSCHROME"));
-            Assert.Equals(BrowserType.Edge, SeleniumConfig.GetBrowserType("eDGE"));
-            Assert.Equals(BrowserType.Remote, SeleniumConfig.GetBrowserType("remote"));
+            Assert.AreEqual(BrowserType.IE,  SeleniumConfig.GetBrowserType("INTERNET EXPLORER"));
+            Assert.AreEqual(BrowserType.IE, SeleniumConfig.GetBrowserType("INTERNETExPLOREr"));
+            Assert.AreEqual(BrowserType.IE, SeleniumConfig.GetBrowserType("ie"));
+            Assert.AreEqual(BrowserType.Firefox, SeleniumConfig.GetBrowserType("Firefox"));
+            Assert.AreEqual(BrowserType.Chrome, SeleniumConfig.GetBrowserType("chrome"));
+            Assert.AreEqual(BrowserType.HeadlessChrome, SeleniumConfig.GetBrowserType("HEADLESSCHROME"));
+            Assert.AreEqual(BrowserType.Edge, SeleniumConfig.GetBrowserType("eDGE"));
+            Assert.AreEqual(BrowserType.Remote, SeleniumConfig.GetBrowserType("remote"));
         }
 
         /// <summary>
@@ -431,13 +431,13 @@ namespace UnitTests
         [TestCategory(TestCategories.Selenium)]
         public void RemoteBrowserTypeMatch()
         {
-            Assert.Equals(RemoteBrowserType.IE, SeleniumConfig.GetRemoteBrowserType("INTERNET EXPLORER"));
-            Assert.Equals(RemoteBrowserType.IE, SeleniumConfig.GetRemoteBrowserType("INTERNETExPLOREr"));
-            Assert.Equals(RemoteBrowserType.IE, SeleniumConfig.GetRemoteBrowserType("ie"));
-            Assert.Equals(RemoteBrowserType.Firefox, SeleniumConfig.GetRemoteBrowserType("Firefox"));
-            Assert.Equals(RemoteBrowserType.Chrome, SeleniumConfig.GetRemoteBrowserType("chrome"));
-            Assert.Equals(RemoteBrowserType.Safari, SeleniumConfig.GetRemoteBrowserType("SAFARI"));
-            Assert.Equals(RemoteBrowserType.Edge, SeleniumConfig.GetRemoteBrowserType("edge"));
+            Assert.AreEqual(RemoteBrowserType.IE, SeleniumConfig.GetRemoteBrowserType("INTERNET EXPLORER"));
+            Assert.AreEqual(RemoteBrowserType.IE, SeleniumConfig.GetRemoteBrowserType("INTERNETExPLOREr"));
+            Assert.AreEqual(RemoteBrowserType.IE, SeleniumConfig.GetRemoteBrowserType("ie"));
+            Assert.AreEqual(RemoteBrowserType.Firefox, SeleniumConfig.GetRemoteBrowserType("Firefox"));
+            Assert.AreEqual(RemoteBrowserType.Chrome, SeleniumConfig.GetRemoteBrowserType("chrome"));
+            Assert.AreEqual(RemoteBrowserType.Safari, SeleniumConfig.GetRemoteBrowserType("SAFARI"));
+            Assert.AreEqual(RemoteBrowserType.Edge, SeleniumConfig.GetRemoteBrowserType("edge"));
         }
 
         /// <summary>
