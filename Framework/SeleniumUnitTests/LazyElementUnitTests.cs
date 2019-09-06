@@ -30,7 +30,7 @@ namespace SeleniumUnitTests
         #region LazyElementCreate
         private LazyElement DisabledItem
         {
-            get { return new LazyElement(this.TestObject, By.CssSelector("#disabledField INPUT"), "Disabled"); }
+            get { return new LazyElement(TestObject, By.CssSelector("#disabledField INPUT"), "Disabled"); }
         }
         #endregion
 
@@ -39,7 +39,7 @@ namespace SeleniumUnitTests
         /// </summary>
         private LazyElement InputBox
         {
-            get { return new LazyElement(this.TestObject, By.CssSelector("#TextFields [name='firstname']"), "Input box"); }
+            get { return new LazyElement(TestObject, By.CssSelector("#TextFields [name='firstname']"), "Input box"); }
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace SeleniumUnitTests
         /// </summary>
         private LazyElement DialogOne
         {
-            get { return new LazyElement(this.TestObject, By.CssSelector("#CloseButtonShowDialog"), "Dialog"); }
+            get { return new LazyElement(TestObject, By.CssSelector("#CloseButtonShowDialog"), "Dialog"); }
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace SeleniumUnitTests
         /// </summary>
         private LazyElement DialogOneButton
         {
-            get { return new LazyElement(this.TestObject, By.CssSelector("#showDialog1"), "Dialog"); }
+            get { return new LazyElement(TestObject, By.CssSelector("#showDialog1"), "Dialog"); }
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace SeleniumUnitTests
         /// </summary>
         private LazyElement SubmitButton
         {
-            get { return new LazyElement(this.TestObject, By.CssSelector("[class='btn btn-default'][type='submit']"), "Submit button"); }
+            get { return new LazyElement(TestObject, By.CssSelector("[class='btn btn-default'][type='submit']"), "Submit button"); }
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace SeleniumUnitTests
         /// </summary>
         private LazyElement NotSelected
         {
-            get { return new LazyElement(this.TestObject, By.CssSelector("#computerParts [value='one']"), "Not selected"); }
+            get { return new LazyElement(TestObject, By.CssSelector("#computerParts [value='one']"), "Not selected"); }
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace SeleniumUnitTests
         /// </summary>
         private LazyElement Selected
         {
-            get { return new LazyElement(this.TestObject, By.CssSelector("#computerParts [value='two']"), "Selected"); }
+            get { return new LazyElement(TestObject, By.CssSelector("#computerParts [value='two']"), "Selected"); }
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace SeleniumUnitTests
         /// </summary>
         private LazyElement FlowerTableLazyElement
         {
-            get { return new LazyElement(this.TestObject, By.CssSelector("#FlowerTable"), "Flower table"); }
+            get { return new LazyElement(TestObject, By.CssSelector("#FlowerTable"), "Flower table"); }
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace SeleniumUnitTests
         #region LazyElementCreateWithParent
         private LazyElement FlowerTableCaptionWithParent
         {
-            get { return new LazyElement(this.FlowerTableLazyElement, By.CssSelector("CAPTION > Strong"), "Flower table caption"); }
+            get { return new LazyElement(FlowerTableLazyElement, By.CssSelector("CAPTION > Strong"), "Flower table caption"); }
         }
         #endregion
 
@@ -105,7 +105,7 @@ namespace SeleniumUnitTests
         /// </summary>
         private LazyElement FirstTableCaption
         {
-            get { return new LazyElement(this.TestObject, By.CssSelector("CAPTION > Strong"), "Clothing table caption"); }
+            get { return new LazyElement(TestObject, By.CssSelector("CAPTION > Strong"), "Clothing table caption"); }
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace SeleniumUnitTests
         /// </summary>
         private LazyElement DisabledDiv
         {
-            get { return new LazyElement(this.TestObject, By.CssSelector("#disabledField"), "Parent disabled div"); }
+            get { return new LazyElement(TestObject, By.CssSelector("#disabledField"), "Parent disabled div"); }
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace SeleniumUnitTests
         /// </summary>
         private LazyElement DisabledInput
         {
-            get { return new LazyElement(this.DisabledDiv, By.CssSelector("INPUT"), "Flower table caption"); }
+            get { return new LazyElement(DisabledDiv, By.CssSelector("INPUT"), "Flower table caption"); }
         }
 
         /// <summary>
@@ -130,8 +130,8 @@ namespace SeleniumUnitTests
         [TestInitialize]
         public void NavigateToTestPage()
         {
-            this.WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Automation");
-            this.WebDriver.Wait().ForPageLoad();
+            WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Automation");
+            WebDriver.Wait().ForPageLoad();
         }
 
         /// <summary>
@@ -142,10 +142,10 @@ namespace SeleniumUnitTests
         public void LazyWithParentAndWithoutDontMatch()
         {
             // Make sure we got the table caption we are looking for
-            Assert.AreEqual("Flower Table", this.FlowerTableCaptionWithParent.Text);
+            Assert.AreEqual("Flower Table", FlowerTableCaptionWithParent.Text);
 
             // Make sure the first found was not the flower table
-            Assert.AreNotEqual(this.FlowerTableCaptionWithParent.Text, this.FirstTableCaption.Text);
+            Assert.AreNotEqual(FlowerTableCaptionWithParent.Text, FirstTableCaption.Text);
         }
 
         /// <summary>
@@ -156,13 +156,13 @@ namespace SeleniumUnitTests
         public void LazyWithParentAndWithoutMatch()
         {
             // Get the lazy element without a parent
-            LazyElement flowerTableCaptionWithoutParent = new LazyElement(this.TestObject, By.CssSelector("#FlowerTable CAPTION > Strong"), "Flower table");
+            LazyElement flowerTableCaptionWithoutParent = new LazyElement(TestObject, By.CssSelector("#FlowerTable CAPTION > Strong"), "Flower table");
 
             // Make sure we are finding the correct table
-            Assert.AreEqual("Flower Table", this.FlowerTableCaptionWithParent.Text);
+            Assert.AreEqual("Flower Table", FlowerTableCaptionWithParent.Text);
 
             // Make sure we got the table caption we are looking for
-            Assert.AreEqual(this.FlowerTableCaptionWithParent.Text, flowerTableCaptionWithoutParent.Text);
+            Assert.AreEqual(FlowerTableCaptionWithParent.Text, flowerTableCaptionWithoutParent.Text);
         }
 
         /// <summary>
@@ -174,7 +174,7 @@ namespace SeleniumUnitTests
         public void LazyPreCaching()
         {
             // Create the lazy element and use it
-            LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
+            LazyElement footer = new LazyElement(TestObject, By.CssSelector("FOOTER P"), "Footer");
 
             // Make sure we are getting back the same cached element
             Assert.IsNull(footer.CachedElement, "The cached element should be null as we never triggered a find");
@@ -188,7 +188,7 @@ namespace SeleniumUnitTests
         public void NewFindDifferentThanCached()
         {
             // Create the lazy element and use it
-            LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
+            LazyElement footer = new LazyElement(TestObject, By.CssSelector("FOOTER P"), "Footer");
 
             // Trigger a find and save off the element
             footer.GetValue();
@@ -198,7 +198,7 @@ namespace SeleniumUnitTests
             footer.GetValue();
 
             // Make sure doing a new find returns an element that is not the same as the cached element
-            Assert.AreNotEqual(this.WebDriver.FindElement(footer.By), footerElementBefore);
+            Assert.AreNotEqual(WebDriver.FindElement(footer.By), footerElementBefore);
         }
 
         /// <summary>
@@ -210,7 +210,7 @@ namespace SeleniumUnitTests
         public void LazyElementCached()
         {
             // Create the lazy element and use it
-            LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
+            LazyElement footer = new LazyElement(TestObject, By.CssSelector("FOOTER P"), "Footer");
 
             // Trigger a find and save off the element
             footer.GetValue();
@@ -234,7 +234,7 @@ namespace SeleniumUnitTests
         public void LazyCaching()
         {
             // Create the lazy element and use it
-            LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
+            LazyElement footer = new LazyElement(TestObject, By.CssSelector("FOOTER P"), "Footer");
 
             // Trigger a find and save off the element
             footer.GetValue();
@@ -244,7 +244,7 @@ namespace SeleniumUnitTests
             footer.GetValue();
 
             // Go to another page so the old element will be stale, this will force us to get a new one
-            this.WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Automation/AsyncPage");
+            WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Automation/AsyncPage");
 
             // Trigger a new find, this should be new because the cached element is stale
             footer.GetValue();
@@ -260,7 +260,7 @@ namespace SeleniumUnitTests
         public void LazyGetsTriggerFind()
         {
             // Create the lazy element and use it
-            LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
+            LazyElement footer = new LazyElement(TestObject, By.CssSelector("FOOTER P"), "Footer");
 
             IWebElement cacheFooter = footer.GetTheVisibleElement();
 
@@ -277,7 +277,7 @@ namespace SeleniumUnitTests
         public void LazyGetClickableTriggerFind()
         {
             // Create the lazy element and use it
-            LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
+            LazyElement footer = new LazyElement(TestObject, By.CssSelector("FOOTER P"), "Footer");
 
             footer.GetTheVisibleElement();
 
@@ -295,7 +295,7 @@ namespace SeleniumUnitTests
         public void LazyGetExistTriggerFind()
         {
             // Create the lazy element and use it
-            LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
+            LazyElement footer = new LazyElement(TestObject, By.CssSelector("FOOTER P"), "Footer");
 
             footer.GetTheVisibleElement();
 
@@ -313,7 +313,7 @@ namespace SeleniumUnitTests
         public void LazyGetVisibleTriggerFind()
         {
             // Create the lazy element and use it
-            LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
+            LazyElement footer = new LazyElement(TestObject, By.CssSelector("FOOTER P"), "Footer");
 
             footer.GetTheVisibleElement();
 
@@ -331,12 +331,12 @@ namespace SeleniumUnitTests
         public void LazyElementClear()
         {
             // Make sure we can set the value
-            this.InputBox.SendKeys("test");
-            Assert.AreEqual("test", this.InputBox.GetAttribute("value"));
+            InputBox.SendKeys("test");
+            Assert.AreEqual("test", InputBox.GetAttribute("value"));
 
             // Make sure the value is cleared
-            this.InputBox.Clear();
-            Assert.AreEqual(string.Empty, this.InputBox.GetAttribute("value"));
+            InputBox.Clear();
+            Assert.AreEqual(string.Empty, InputBox.GetAttribute("value"));
         }
         #endregion
 
@@ -348,8 +348,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementClick()
         {
-            this.DialogOneButton.Click();
-            Assert.AreEqual(true, this.DialogOne.Displayed);
+            DialogOneButton.Click();
+            Assert.AreEqual(true, DialogOne.Displayed);
         }
         #endregion
 
@@ -362,7 +362,7 @@ namespace SeleniumUnitTests
         public void LazyElementGetBy()
         {
             By testBy = By.CssSelector("#ItemsToAutomate");
-            LazyElement testLazyElement = new LazyElement(this.TestObject, testBy, "TEST");
+            LazyElement testLazyElement = new LazyElement(TestObject, testBy, "TEST");
 
             Assert.AreEqual(testBy, testLazyElement.By);
         }
@@ -376,8 +376,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementGetTestObject()
         {
-            LazyElement testLazyElement = new LazyElement(this.TestObject, By.CssSelector("#ItemsToAutomate"), "TEST");
-            Assert.AreEqual(this.TestObject, testLazyElement.TestObject);
+            LazyElement testLazyElement = new LazyElement(TestObject, By.CssSelector("#ItemsToAutomate"), "TEST");
+            Assert.AreEqual(TestObject, testLazyElement.TestObject);
         }
         #endregion
 
@@ -389,7 +389,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementGetAttribute()
         {
-            Assert.AreEqual("Disabled", this.DisabledItem.GetAttribute("value"));
+            Assert.AreEqual("Disabled", DisabledItem.GetAttribute("value"));
         }
         #endregion
 
@@ -400,7 +400,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementGetAttributeWithParent()
         {
-            Assert.AreEqual("Disabled", this.DisabledInput.GetAttribute("value"));
+            Assert.AreEqual("Disabled", DisabledInput.GetAttribute("value"));
         }
 
         /// <summary>
@@ -411,7 +411,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementGetCssValue()
         {
-            Assert.AreEqual("visible", this.DialogOneButton.GetCssValue("overflow"));
+            Assert.AreEqual("visible", DialogOneButton.GetCssValue("overflow"));
         }
         #endregion
 
@@ -422,7 +422,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementGetCssValueWithParent()
         {
-            Assert.AreEqual("280px", this.DisabledInput.GetCssValue("max-width"));
+            Assert.AreEqual("280px", DisabledInput.GetCssValue("max-width"));
         }
 
         /// <summary>
@@ -433,8 +433,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementSendKeys()
         {
-            this.InputBox.SendKeys("test");
-            Assert.AreEqual("test", this.InputBox.GetValue());
+            InputBox.SendKeys("test");
+            Assert.AreEqual("test", InputBox.GetValue());
         }
         #endregion
 
@@ -446,7 +446,7 @@ namespace SeleniumUnitTests
         [ExpectedException(typeof(Exception), "The input should be disabled so this will throw an exception.")]
         public void LazyElementSendKeysWithParent()
         {
-            this.DisabledInput.SendKeys("test");
+            DisabledInput.SendKeys("test");
         }
 
         /// <summary>
@@ -457,13 +457,13 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementSendSecretKeys()
         {
-            this.InputBox.SendKeys("beforeSuspendTest");
-            this.InputBox.Clear();
-            this.InputBox.SendSecretKeys("secretKeys");
-            this.InputBox.Clear();
-            this.InputBox.SendKeys("continueTest");
+            InputBox.SendKeys("beforeSuspendTest");
+            InputBox.Clear();
+            InputBox.SendSecretKeys("secretKeys");
+            InputBox.Clear();
+            InputBox.SendKeys("continueTest");
 
-            FileLogger logger = (FileLogger)this.TestObject.Log;
+            FileLogger logger = (FileLogger)TestObject.Log;
             string filepath = logger.FilePath;
 
             Assert.IsTrue(File.ReadAllText(filepath).Contains("beforeSuspendTest"));
@@ -481,11 +481,19 @@ namespace SeleniumUnitTests
         public void LazyElementSendSecretKeysEnableLoggingAfterError()
         {
             string checkLogged = "THISSHOULDBELOGGED";
-            Assert.ThrowsException<ArgumentNullException>(() => this.InputBox.SendSecretKeys(null));
-            this.InputBox.Clear();
-            this.InputBox.SendKeys(checkLogged);
 
-            FileLogger logger = (FileLogger)this.TestObject.Log;
+            try
+            {
+                InputBox.SendSecretKeys(null);
+            }
+            catch (Exception e)
+            {
+                Assert.AreEqual(typeof(ArgumentNullException), e.InnerException.GetType());
+            }
+
+            InputBox.SendKeys(checkLogged);
+
+            FileLogger logger = (FileLogger)TestObject.Log;
             string filepath = logger.FilePath;
 
             Assert.IsTrue(File.ReadAllText(filepath).Contains(checkLogged));
@@ -500,12 +508,12 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementSubmit()
         {
-            this.WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Employees");
-            this.WebDriver.Wait().ForClickableElement(By.CssSelector("A[href^='/Employees/Edit/']")).Click();
-            this.WebDriver.Wait().ForPageLoad();
+            WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Employees");
+            WebDriver.Wait().ForClickableElement(By.CssSelector("A[href^='/Employees/Edit/']")).Click();
+            WebDriver.Wait().ForPageLoad();
 
-            this.SubmitButton.Submit();
-            Assert.IsTrue(this.WebDriver.Wait().UntilAbsentElement(By.CssSelector("#[type='submit']")), "Submit did not go away");
+            SubmitButton.Submit();
+            Assert.IsTrue(WebDriver.Wait().UntilAbsentElement(By.CssSelector("#[type='submit']")), "Submit did not go away");
         }
         #endregion
 
@@ -517,7 +525,7 @@ namespace SeleniumUnitTests
         [ExpectedException(typeof(Exception), "The input should be disabled so this will throw an exception.")]
         public void LazyElementSubmitWithParent()
         {
-            this.DisabledInput.Submit();
+            DisabledInput.Submit();
         }
 
         /// <summary>
@@ -528,8 +536,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementDisplayed()
         {
-            Assert.AreEqual(true, this.DialogOneButton.Displayed);
-            Assert.AreEqual(false, this.DialogOne.Displayed);
+            Assert.AreEqual(true, DialogOneButton.Displayed);
+            Assert.AreEqual(false, DialogOne.Displayed);
         }
         #endregion
 
@@ -540,7 +548,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementDisplayedWithParent()
         {
-            Assert.AreEqual(true, this.DisabledInput.Displayed);
+            Assert.AreEqual(true, DisabledInput.Displayed);
         }
 
         /// <summary>
@@ -551,8 +559,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementEnabled()
         {
-            Assert.AreEqual(false, this.DisabledItem.Enabled);
-            Assert.AreEqual(true, this.InputBox.Enabled);
+            Assert.AreEqual(false, DisabledItem.Enabled);
+            Assert.AreEqual(true, InputBox.Enabled);
         }
         #endregion
 
@@ -563,8 +571,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementEnabledWithParent()
         {
-            Assert.AreEqual(false, this.DisabledInput.Enabled);
-            Assert.AreEqual(true, this.FlowerTableCaptionWithParent.Enabled);
+            Assert.AreEqual(false, DisabledInput.Enabled);
+            Assert.AreEqual(true, FlowerTableCaptionWithParent.Enabled);
         }
 
         /// <summary>
@@ -575,10 +583,10 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementSelected()
         {
-            ElementHandler.SelectDropDownOptionByValue(this.WebDriver, By.CssSelector("#computerParts"), "two");
+            ElementHandler.SelectDropDownOptionByValue(WebDriver, By.CssSelector("#computerParts"), "two");
 
-            Assert.AreEqual(true, this.Selected.Selected);
-            Assert.AreEqual(false, this.NotSelected.Selected);
+            Assert.AreEqual(true, Selected.Selected);
+            Assert.AreEqual(false, NotSelected.Selected);
         }
         #endregion
 
@@ -590,7 +598,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementText()
         {
-            Assert.AreEqual("Show dialog", this.DialogOneButton.Text);
+            Assert.AreEqual("Show dialog", DialogOneButton.Text);
         }
         #endregion
 
@@ -601,7 +609,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementTextWithParent()
         {
-            Assert.AreEqual("Flower Table", this.FlowerTableCaptionWithParent.Text);
+            Assert.AreEqual("Flower Table", FlowerTableCaptionWithParent.Text);
         }
 
         /// <summary>
@@ -612,7 +620,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementLocation()
         {
-            Point point = this.InputBox.Location;
+            Point point = InputBox.Location;
             Assert.IsTrue(point.X > 0 && point.Y > 0, "Unexpected point: " + point);
         }
         #endregion
@@ -624,8 +632,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementLocationWithParent()
         {
-            Point earlierPoint = this.InputBox.Location;
-            Point laterPoint = this.DisabledInput.Location;
+            Point earlierPoint = InputBox.Location;
+            Point laterPoint = DisabledInput.Location;
 
             Assert.IsTrue(laterPoint.X > 0, "Unexpected point: " + laterPoint);
             Assert.IsTrue(earlierPoint.Y < laterPoint.Y, "Unexpected point: " + laterPoint);
@@ -639,7 +647,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementSize()
         {
-            Size size = this.InputBox.Size;
+            Size size = InputBox.Size;
             Assert.IsTrue(size.Width > 0 && size.Height > 0, "Height and/or width are less than 1");
         }
         #endregion
@@ -651,7 +659,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementSizeWithParent()
         {
-            Size size = this.DisabledInput.Size;
+            Size size = DisabledInput.Size;
             Assert.IsTrue(size.Width > 152 && size.Height > 21, "Height of greater than 22 and width of greater than 152, but got " + size);
         }
 
@@ -663,7 +671,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementTagName()
         {
-            Assert.AreEqual("input", this.InputBox.TagName);
+            Assert.AreEqual("input", InputBox.TagName);
         }
         #endregion
 
@@ -674,7 +682,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementTagNameWithParent()
         {
-            Assert.AreEqual("strong", this.FlowerTableCaptionWithParent.TagName);
+            Assert.AreEqual("strong", FlowerTableCaptionWithParent.TagName);
         }
 
         /// <summary>
@@ -685,7 +693,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementGetVisibleElement()
         {
-            Assert.AreNotEqual(null, this.InputBox.GetTheVisibleElement());
+            Assert.AreNotEqual(null, InputBox.GetTheVisibleElement());
         }
         #endregion
 
@@ -697,7 +705,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementGetClickableElement()
         {
-            Assert.AreNotEqual(null, this.InputBox.GetTheClickableElement());
+            Assert.AreNotEqual(null, InputBox.GetTheClickableElement());
         }
         #endregion
 
@@ -709,7 +717,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementGetExistingElement()
         {
-            Assert.AreNotEqual(null, this.InputBox.GetTheExistingElement());
+            Assert.AreNotEqual(null, InputBox.GetTheExistingElement());
         }
         #endregion
 
@@ -722,9 +730,9 @@ namespace SeleniumUnitTests
         public void LazyElementToString()
         {
             // Hard-coded userFriendlyName due to private access on LazyElement
-            var stringValue = 
-                this.FlowerTableLazyElement.By.ToString() + "Flower table";
-            Assert.AreEqual(stringValue, this.FlowerTableLazyElement.ToString());
+            var stringValue =
+                FlowerTableLazyElement.By.ToString() + "Flower table";
+            Assert.AreEqual(stringValue, FlowerTableLazyElement.ToString());
         }
         #endregion
 
@@ -738,9 +746,9 @@ namespace SeleniumUnitTests
         {
             // Hard-coded userFriendlyName due to private access on LazyElement
             var stringValue =
-                this.FlowerTableLazyElement.By.ToString() + "Flower table" +
-                this.FlowerTableCaptionWithParent.By.ToString() + "Flower table caption";
-            Assert.AreEqual(stringValue, this.FlowerTableCaptionWithParent.ToString());
+                FlowerTableLazyElement.By.ToString() + "Flower table" +
+                FlowerTableCaptionWithParent.By.ToString() + "Flower table caption";
+            Assert.AreEqual(stringValue, FlowerTableCaptionWithParent.ToString());
         }
         #endregion
     }
