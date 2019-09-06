@@ -474,6 +474,25 @@ namespace SeleniumUnitTests
         #endregion
 
         /// <summary>
+        /// Make sure logging is renabled after an error is thrown
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementSendSecretKeysEnableLoggingAfterError()
+        {
+            string checkLogged = "THISSHOULDBELOGGED";
+            Assert.ThrowsException<ArgumentNullException>(() => this.InputBox.SendSecretKeys(null));
+            this.InputBox.Clear();
+            this.InputBox.SendKeys(checkLogged);
+
+            FileLogger logger = (FileLogger)this.TestObject.Log;
+            string filepath = logger.FilePath;
+
+            Assert.IsTrue(File.ReadAllText(filepath).Contains(checkLogged));
+            File.Delete(filepath);
+        }
+
+        /// <summary>
         /// Verify Lazy Element Submit test
         /// </summary>
         #region LazyElementSubmit

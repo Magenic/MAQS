@@ -105,8 +105,8 @@ namespace SeleniumUnitTests
         public void CreateSortedCommaDelimitedStringFromWebElementsTest()
         {
             string expectedText = "Hard Drive, Keyboard, Monitor, Motherboard, Mouse, Power Supply";
-            this.NavigateToUrl();
-            Assert.AreEqual(expectedText, this.WebDriver.CreateCommaDelimitedString(computerPartsListOptions, true), "Expected string does not match actual");
+            NavigateToUrl();
+            Assert.AreEqual(expectedText, WebDriver.CreateCommaDelimitedString(computerPartsListOptions, true), "Expected string does not match actual");
         }
         #endregion
 
@@ -118,8 +118,8 @@ namespace SeleniumUnitTests
         public void CreateCommaDelimitedStringFromWebElementsTest()
         {
             string expectedText = "Motherboard, Power Supply, Hard Drive, Monitor, Mouse, Keyboard";
-            this.NavigateToUrl();
-            Assert.AreEqual(expectedText, this.WebDriver.CreateCommaDelimitedString(computerPartsListOptions), "Expected string does not match actual");
+            NavigateToUrl();
+            Assert.AreEqual(expectedText, WebDriver.CreateCommaDelimitedString(computerPartsListOptions), "Expected string does not match actual");
         }
 
         /// <summary>
@@ -131,9 +131,9 @@ namespace SeleniumUnitTests
         public void SetTextBoxAndVerifyValueTest()
         {
             string expectedValue = "Tester";
-            this.NavigateToUrl();
-            this.WebDriver.SetTextBox(firstNameTextBox, expectedValue);
-            string actualValue = this.WebDriver.GetElementAttribute(firstNameTextBox);
+            NavigateToUrl();
+            WebDriver.SetTextBox(firstNameTextBox, expectedValue);
+            string actualValue = WebDriver.GetElementAttribute(firstNameTextBox);
             VerifyText(actualValue, expectedValue);
         }
         #endregion
@@ -146,8 +146,8 @@ namespace SeleniumUnitTests
         [ExpectedException(typeof(ArgumentException))]
         public void SetTextBoxThrowException()
         {
-            this.NavigateToUrl();
-            this.WebDriver.SetTextBox(firstNameTextBox, string.Empty);
+            NavigateToUrl();
+            WebDriver.SetTextBox(firstNameTextBox, string.Empty);
         }
 
         /// <summary>
@@ -158,9 +158,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void CheckRadioButtonTest()
         {
-            this.NavigateToUrl();
-            this.WebDriver.ClickButton(femaleRadioButton, false);
-            Assert.IsTrue(this.WebDriver.Wait().ForClickableElement(femaleRadioButton).Selected, "Radio button was not selected");
+            NavigateToUrl();
+            WebDriver.ClickButton(femaleRadioButton, false);
+            Assert.IsTrue(WebDriver.Wait().ForClickableElement(femaleRadioButton).Selected, "Radio button was not selected");
         }
         #endregion
 
@@ -171,12 +171,12 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void ClickButtonWaitForButtonToDisappear()
         {
-            this.NavigateToUrl();
-            this.WebDriver.ClickButton(showDialog, false);
-            Assert.IsTrue(this.WebDriver.Wait().ForClickableElement(closeShowDialog).Displayed, "Show Dialog box was not displayed");
+            NavigateToUrl();
+            WebDriver.ClickButton(showDialog, false);
+            Assert.IsTrue(WebDriver.Wait().ForClickableElement(closeShowDialog).Displayed, "Show Dialog box was not displayed");
 
-            this.WebDriver.ClickButton(closeShowDialog, true);
-            Assert.IsFalse(this.WebDriver.FindElement(closeShowDialog).Displayed, "Show Dialog box was not closed");
+            WebDriver.ClickButton(closeShowDialog, true);
+            Assert.IsFalse(WebDriver.FindElement(closeShowDialog).Displayed, "Show Dialog box was not closed");
         }
 
         /// <summary>
@@ -187,12 +187,12 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void CheckCheckBoxTest()
         {
-            this.NavigateToUrl();
-            this.WebDriver.CheckCheckBox(checkbox, true);
-            Assert.IsTrue(this.WebDriver.Wait().ForClickableElement(checkbox).Selected, "Checkbox was not enabled");
+            NavigateToUrl();
+            WebDriver.CheckCheckBox(checkbox, true);
+            Assert.IsTrue(WebDriver.Wait().ForClickableElement(checkbox).Selected, "Checkbox was not enabled");
 
-            this.WebDriver.CheckCheckBox(checkbox, false);
-            Assert.IsFalse(this.WebDriver.Wait().ForClickableElement(checkbox).Selected, "Checkbox was enabled");
+            WebDriver.CheckCheckBox(checkbox, false);
+            Assert.IsFalse(WebDriver.Wait().ForClickableElement(checkbox).Selected, "Checkbox was enabled");
         }
         #endregion
 
@@ -204,8 +204,8 @@ namespace SeleniumUnitTests
         public void GetElementAttributeTest()
         {
             string expectedText = "http://magenicautomation.azurewebsites.net/Swagger";
-            this.NavigateToUrl();
-            string actualText = this.WebDriver.GetElementAttribute(swaggerLinkBy, "href");
+            NavigateToUrl();
+            string actualText = WebDriver.GetElementAttribute(swaggerLinkBy, "href");
             VerifyText(actualText, expectedText);
         }
 
@@ -218,9 +218,9 @@ namespace SeleniumUnitTests
         public void SelectItemFromDropDownTest()
         {
             string expectedSelection = "Emily";
-            this.NavigateToUrl();
-            this.WebDriver.SelectDropDownOption(nameDropdown, expectedSelection);
-            string actualSelection = this.WebDriver.GetSelectedOptionFromDropdown(nameDropdown);
+            NavigateToUrl();
+            WebDriver.SelectDropDownOption(nameDropdown, expectedSelection);
+            string actualSelection = WebDriver.GetSelectedOptionFromDropdown(nameDropdown);
             VerifyText(actualSelection, expectedSelection);
         }
         #endregion
@@ -234,9 +234,9 @@ namespace SeleniumUnitTests
         public void SelectItemFromDropDownByValueTest()
         {
             string expectedSelection = "Jack";
-            this.NavigateToUrl();
-            this.WebDriver.SelectDropDownOptionByValue(nameDropdown, "two");
-            string actualSelection = this.WebDriver.GetSelectedOptionFromDropdown(nameDropdown);
+            NavigateToUrl();
+            WebDriver.SelectDropDownOptionByValue(nameDropdown, "two");
+            string actualSelection = WebDriver.GetSelectedOptionFromDropdown(nameDropdown);
             VerifyText(actualSelection, expectedSelection);
         }
         #endregion
@@ -258,9 +258,9 @@ namespace SeleniumUnitTests
                 "Keyboard"
             };
 
-            this.NavigateToUrl();
-            this.WebDriver.SelectMultipleElementsFromListBox(computerPartsList, itemsToSelect);
-            List<string> selectedItems = this.WebDriver.GetSelectedOptionsFromDropdown(computerPartsList);
+            NavigateToUrl();
+            WebDriver.SelectMultipleElementsFromListBox(computerPartsList, itemsToSelect);
+            List<string> selectedItems = WebDriver.GetSelectedOptionsFromDropdown(computerPartsList);
             ListProcessor.ListOfStringsComparer(itemsToSelect, selectedItems, results);
             if (results.Length > 0)
             {
@@ -284,9 +284,9 @@ namespace SeleniumUnitTests
                 "five"
             };
 
-            this.NavigateToUrl();
-            this.WebDriver.SelectMultipleElementsFromListBoxByValue(computerPartsList, itemsToSelect);
-            List<string> selectedItems = this.WebDriver.GetSelectedOptionsFromDropdown(computerPartsList);
+            NavigateToUrl();
+            WebDriver.SelectMultipleElementsFromListBoxByValue(computerPartsList, itemsToSelect);
+            List<string> selectedItems = WebDriver.GetSelectedOptionsFromDropdown(computerPartsList);
 
             if (selectedItems.Count != 3)
             {
@@ -303,10 +303,10 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void ClickElementByJavascriptFromHoverDropdown()
         {
-            this.NavigateToUrl();
-            this.WebDriver.ClickElementByJavaScript(employeeButton);
-            this.WebDriver.Wait().ForPageLoad();
-            this.WebDriver.Wait().ForExactText(employeePageTitle, "Index");
+            NavigateToUrl();
+            WebDriver.ClickElementByJavaScript(employeeButton);
+            WebDriver.Wait().ForPageLoad();
+            WebDriver.Wait().ForExactText(employeePageTitle, "Index");
         }
         #endregion
 
@@ -318,8 +318,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void ScrollIntoView()
         {
-            this.NavigateToUrl();
-            this.WebDriver.ScrollIntoView(checkbox);
+            NavigateToUrl();
+            WebDriver.ScrollIntoView(checkbox);
         }
         #endregion
 
@@ -331,8 +331,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void ScrollIntoViewWithCoords()
         {
-            this.NavigateToUrl();
-            this.WebDriver.ScrollIntoView(checkbox, 50, 0);
+            NavigateToUrl();
+            WebDriver.ScrollIntoView(checkbox, 50, 0);
         }
         #endregion
 
@@ -344,8 +344,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void ExecutingScrolling()
         {
-            this.NavigateToUrl();
-            this.WebDriver.ExecuteScrolling(50, 0);
+            NavigateToUrl();
+            WebDriver.ExecuteScrolling(50, 0);
         }
         #endregion
 
@@ -357,8 +357,8 @@ namespace SeleniumUnitTests
         [ExpectedException(typeof(NoSuchElementException), "A JavaScript click that should have failed inappropriately passed.")]
         public void ClickElementByJavascriptFromHoverDropdownNotFound()
         {
-            this.NavigateToUrl();
-            this.WebDriver.ClickElementByJavaScript(By.CssSelector(".NotPresent"));
+            NavigateToUrl();
+            WebDriver.ClickElementByJavaScript(By.CssSelector(".NotPresent"));
         }
 
         /// <summary>
@@ -369,9 +369,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void SlowTypeTest()
         {
-            this.NavigateToUrl();
-            this.WebDriver.SlowType(firstNameTextBox, "Test input slowtype");
-            Assert.AreEqual("Test input slowtype", this.WebDriver.Wait().ForClickableElement(firstNameTextBox).GetAttribute("value"));
+            NavigateToUrl();
+            WebDriver.SlowType(firstNameTextBox, "Test input slowtype");
+            Assert.AreEqual("Test input slowtype", WebDriver.Wait().ForClickableElement(firstNameTextBox).GetAttribute("value"));
         }
         #endregion
 
@@ -383,16 +383,34 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void SendSecretTextSuspendLoggingTest()
         {
-            this.NavigateToUrl();
-            this.WebDriver.FindElement(firstNameTextBox).SendKeys("somethingTest");
-            this.WebDriver.FindElement(firstNameTextBox).Clear();
-            this.WebDriver.SendSecretKeys(firstNameTextBox, "secretKeys", this.Log);
+            NavigateToUrl();
+            WebDriver.FindElement(firstNameTextBox).SendKeys("somethingTest");
+            WebDriver.FindElement(firstNameTextBox).Clear();
+            WebDriver.SendSecretKeys(firstNameTextBox, "secretKeys", Log);
 
-            FileLogger logger = (FileLogger)this.TestObject.Log;
+            FileLogger logger = (FileLogger)TestObject.Log;
             string filepath = logger.FilePath;
 
-            Assert.IsTrue(File.ReadAllText(filepath).Contains("somethingTest"));
             Assert.IsFalse(File.ReadAllText(filepath).Contains("secretKeys"));
+            File.Delete(filepath);
+        }
+
+        /// <summary>
+        /// Verify that logging gets turned back on after secret key throws an error
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void SendSecretTextEnablesLoggingAfterError()
+        {
+            string checkLogged = "THISSHOULDBELOGGED";
+            NavigateToUrl();
+            Assert.ThrowsException<ArgumentNullException>(() => this.WebDriver.SendSecretKeys(firstNameTextBox, null, this.Log));
+            this.Log.LogMessage(checkLogged);
+
+            FileLogger logger = (FileLogger)TestObject.Log;
+            string filepath = logger.FilePath;
+
+            Assert.IsTrue(File.ReadAllText(filepath).Contains(checkLogged));
             File.Delete(filepath);
         }
 
@@ -403,15 +421,14 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void SendSecretTextContinueLoggingTest()
         {
-            this.NavigateToUrl();
-            this.WebDriver.SendSecretKeys(firstNameTextBox, "secretKeys", this.Log);
-            this.WebDriver.FindElement(firstNameTextBox).Clear();
-            this.WebDriver.FindElement(firstNameTextBox).SendKeys("somethingTest");
+            NavigateToUrl();
+            WebDriver.SendSecretKeys(firstNameTextBox, "secretKeys", Log);
+            WebDriver.FindElement(firstNameTextBox).Clear();
+            WebDriver.FindElement(firstNameTextBox).SendKeys("somethingTest");
 
-            FileLogger logger = (FileLogger)this.TestObject.Log;
+            FileLogger logger = (FileLogger)TestObject.Log;
             string filepath = logger.FilePath;
 
-            Assert.IsFalse(File.ReadAllText(filepath).Contains("secretKeys"));
             Assert.IsTrue(File.ReadAllText(filepath).Contains("somethingTest"));
             File.Delete(filepath);
         }
@@ -432,8 +449,8 @@ namespace SeleniumUnitTests
         /// </summary>
         private void NavigateToUrl()
         {
-            this.WebDriver.Navigate().GoToUrl(siteAutomationUrl);
-            this.WebDriver.Wait().ForPageLoad();
+            WebDriver.Navigate().GoToUrl(siteAutomationUrl);
+            WebDriver.Wait().ForPageLoad();
         }
     }
 }
