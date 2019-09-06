@@ -198,7 +198,7 @@ namespace SeleniumUnitTests
             footer.GetValue();
 
             // Make sure doing a new find returns an element that is not the same as the cached element
-            Assert.AreNotEqual(this.WebDriver.FindElement(footer.By), footerElementBefore);
+            Assert.AreNotEqual(WebDriver.FindElement(footer.By), footerElementBefore);
         }
 
         /// <summary>
@@ -244,7 +244,7 @@ namespace SeleniumUnitTests
             footer.GetValue();
 
             // Go to another page so the old element will be stale, this will force us to get a new one
-            this.WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Automation/AsyncPage");
+            WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Automation/AsyncPage");
 
             // Trigger a new find, this should be new because the cached element is stale
             footer.GetValue();
@@ -463,7 +463,7 @@ namespace SeleniumUnitTests
             this.InputBox.Clear();
             this.InputBox.SendKeys("continueTest");
 
-            FileLogger logger = (FileLogger)this.TestObject.Log;
+            FileLogger logger = (FileLogger)TestObject.Log;
             string filepath = logger.FilePath;
 
             Assert.IsTrue(File.ReadAllText(filepath).Contains("beforeSuspendTest"));
@@ -474,6 +474,33 @@ namespace SeleniumUnitTests
         #endregion
 
         /// <summary>
+        /// Make sure logging is enabled after an error is thrown
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementSendSecretKeysEnableLoggingAfterError()
+        {
+            string checkLogged = "THISSHOULDBELOGGED";
+
+            try
+            {
+                this.InputBox.SendSecretKeys(null);
+            }
+            catch (Exception e)
+            {
+                Assert.AreEqual(typeof(ArgumentNullException), e.InnerException.GetType());
+            }
+
+            this.InputBox.SendKeys(checkLogged);
+
+            FileLogger logger = (FileLogger)TestObject.Log;
+            string filepath = logger.FilePath;
+
+            Assert.IsTrue(File.ReadAllText(filepath).Contains(checkLogged));
+            File.Delete(filepath);
+        }
+
+        /// <summary>
         /// Verify Lazy Element Submit test
         /// </summary>
         #region LazyElementSubmit
@@ -481,12 +508,12 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementSubmit()
         {
-            this.WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Employees");
-            this.WebDriver.Wait().ForClickableElement(By.CssSelector("A[href^='/Employees/Edit/']")).Click();
-            this.WebDriver.Wait().ForPageLoad();
+            WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Employees");
+            WebDriver.Wait().ForClickableElement(By.CssSelector("A[href^='/Employees/Edit/']")).Click();
+            WebDriver.Wait().ForPageLoad();
 
             this.SubmitButton.Submit();
-            Assert.IsTrue(this.WebDriver.Wait().UntilAbsentElement(By.CssSelector("#[type='submit']")), "Submit did not go away");
+            Assert.IsTrue(WebDriver.Wait().UntilAbsentElement(By.CssSelector("#[type='submit']")), "Submit did not go away");
         }
         #endregion
 
@@ -703,7 +730,7 @@ namespace SeleniumUnitTests
         public void LazyElementToString()
         {
             // Hard-coded userFriendlyName due to private access on LazyElement
-            var stringValue = 
+            var stringValue =
                 this.FlowerTableLazyElement.By.ToString() + "Flower table";
             Assert.AreEqual(stringValue, this.FlowerTableLazyElement.ToString());
         }

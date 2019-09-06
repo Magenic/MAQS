@@ -401,7 +401,7 @@ namespace UnitTests
         [TestCategory(TestCategories.Selenium)]
         public void BrowserTypeMatch()
         {
-            Assert.AreEqual(BrowserType.IE,  SeleniumConfig.GetBrowserType("INTERNET EXPLORER"));
+            Assert.AreEqual(BrowserType.IE, SeleniumConfig.GetBrowserType("INTERNET EXPLORER"));
             Assert.AreEqual(BrowserType.IE, SeleniumConfig.GetBrowserType("INTERNETExPLOREr"));
             Assert.AreEqual(BrowserType.IE, SeleniumConfig.GetBrowserType("ie"));
             Assert.AreEqual(BrowserType.Firefox, SeleniumConfig.GetBrowserType("Firefox"));
@@ -418,7 +418,7 @@ namespace UnitTests
         [TestCategory(TestCategories.Selenium)]
         public void BrowserTypeError()
         {
-            Assert.ThrowsException<ArgumentException>(()=>SeleniumConfig.GetBrowserType("PHANTOMJS"));
+            Assert.ThrowsException<ArgumentException>(() => SeleniumConfig.GetBrowserType("PHANTOMJS"));
             Assert.ThrowsException<ArgumentException>(() => SeleniumConfig.GetBrowserType("PHANTOM JS"));
             Assert.ThrowsException<ArgumentException>(() => SeleniumConfig.GetBrowserType("PHANTOM"));
             Assert.ThrowsException<ArgumentException>(() => SeleniumConfig.GetBrowserType("OTHER"));
