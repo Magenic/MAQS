@@ -10,7 +10,7 @@
         <ReleaseNotes>ReleaseNotes.txt</ReleaseNotes>
         <Icon>QATTest.ico</Icon>
         <PreviewImage>QATTest.ico</PreviewImage>
-        <Tags>ATDD  BDD  MAQS  SpecFlow  Test  Selenium  Appium</Tags>
+        <Tags>ATDD BDD MAQS SpecFlow Test Selenium Appium</Tags>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0,]" />
