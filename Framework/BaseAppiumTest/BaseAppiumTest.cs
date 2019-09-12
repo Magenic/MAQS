@@ -64,7 +64,7 @@ namespace Magenic.Maqs.BaseAppiumTest
                 if (this.TestObject.GetDriverManager<MobileDriverManager>().IsDriverIntialized() && this.Log is FileLogger && resultType != TestResultType.PASS &&
                     this.LoggingEnabledSetting != LoggingEnabled.NO)
                 {
-                    AppiumUtilities.CaptureScreenshot(this.AppiumDriver, this.TestObject);
+                    AppiumUtilities.CaptureScreenshot(this.AppiumDriver, this.TestObject, " - Final");
 
                     if (AppiumConfig.GetSavePagesourceOnFail())
                     {

@@ -60,7 +60,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             {
                 if (this.TestObject.GetDriverManager<SeleniumDriverManager>().IsDriverIntialized() && this.Log is FileLogger && resultType != TestResultType.PASS && this.LoggingEnabledSetting != LoggingEnabled.NO)
                 {
-                    SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject);
+                    SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject, " - Final");
 
                     if (SeleniumConfig.GetSavePagesourceOnFail())
                     {
