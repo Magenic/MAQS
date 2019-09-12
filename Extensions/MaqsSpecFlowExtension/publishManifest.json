@@ -1,18 +1,18 @@
 {
-    "$schema": "http://json.schemastore.org/vsix-publish",
-    "categories": [ "Other" ],
-    "identity": {
-        "description": "Magenic's automation quick start framework extension for SpecFlow testing",
-        "displayName": "MAQS SpecFlow Extension",
-        "icon": "QATTest.ico",
-        "internalName": "MAQSSpecFlow",
-        "tags": [ "ATDD ", "BDD ", "SpecFlow ", "Test ", "Testing ", "Automation ", "Selenium ", "Appium ", "Database ", "Service ", "Email ", "MAQS ", "NUnit ", "MSTest ", "TestFramework" ]
-    },
-    "overview": "overview.md",
-    "priceCategory": "free",
-    "publisher": "magenictechnologies",
-    "private": false,
-    "qna": true,
-    "repo": "https://github.com/Magenic/MAQS"
+  "$schema": "http://json.schemastore.org/vsix-publish",
+  "categories": [ "Other" ],
+  "identity": {
+    "description": "Magenic's automation quick start framework extension for SpecFlow testing",
+    "displayName": "MAQS SpecFlow Extension",
+    "icon": "QATTest.ico",
+    "internalName": "MAQSSpecFlow",
+    "tags": [ "ATDD", "BDD", "MAQS", "SpecFlow", "Test", "Selenium", "Appium" ]
+  },
+  "overview": "overview.md",
+  "priceCategory": "free",
+  "publisher": "magenictechnologies",
+  "private": false,
+  "qna": true,
+  "repo": "https://github.com/Magenic/MAQS"
 }
 
