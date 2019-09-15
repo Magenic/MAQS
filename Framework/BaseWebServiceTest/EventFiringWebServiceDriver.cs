@@ -83,7 +83,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
             try
             {
                 RaiseEvent(content, "Post", requestUri, responseMediaType);
-                HttpResponseMessage response = base.PostContent(requestUri, responseMediaType, content, expectSuccess).Result;
+                HttpResponseMessage response = base.PostContent(requestUri, responseMediaType, content, expectSuccess).GetAwaiter().GetResult();
                 RaiseEvent("Post", response);
                 return await Task.FromResult(response);
             }
@@ -108,7 +108,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
             try
             {
                 RaiseEvent(content, customVerb, requestUri, responseMediaType);
-                HttpResponseMessage response = base.CustomContent(requestUri, customVerb, responseMediaType, content, expectSuccess).Result;
+                HttpResponseMessage response = base.CustomContent(requestUri, customVerb, responseMediaType, content, expectSuccess).GetAwaiter().GetResult();
                 RaiseEvent(customVerb, response);
                 return await Task.FromResult(response);
             }
@@ -132,7 +132,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
             try
             {
                 RaiseEvent(content, "Put", requestUri, responseMediaType);
-                HttpResponseMessage response = base.PutContent(requestUri, responseMediaType, content, expectSuccess).Result;
+                HttpResponseMessage response = base.PutContent(requestUri, responseMediaType, content, expectSuccess).GetAwaiter().GetResult();
                 RaiseEvent("Put", response);
                 return await Task.FromResult(response);
             }
@@ -155,7 +155,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
             try
             {
                 RaiseEvent("Delete", requestUri, returnMediaType);
-                HttpResponseMessage response = base.DeleteContent(requestUri, returnMediaType, expectSuccess).Result;
+                HttpResponseMessage response = base.DeleteContent(requestUri, returnMediaType, expectSuccess).GetAwaiter().GetResult();
                 RaiseEvent("Delete", response);
                 return await Task.FromResult(response);
             }
@@ -178,7 +178,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
             try
             {
                 RaiseEvent("Get", requestUri, mediaType);
-                HttpResponseMessage response = base.GetContent(requestUri, mediaType, expectSuccess).Result;
+                HttpResponseMessage response = base.GetContent(requestUri, mediaType, expectSuccess).GetAwaiter().GetResult();
                 RaiseEvent("Get", response);
                 return await Task.FromResult(response);
             }
