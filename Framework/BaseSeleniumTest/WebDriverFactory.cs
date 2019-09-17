@@ -431,6 +431,29 @@ namespace Magenic.Maqs.BaseSeleniumTest
         }
 
         /// <summary>
+        /// Sets the proxy settings for the driver options (if configured)
+        /// </summary>
+        /// <param name="options">The driver options</param>
+        public static void SetProxySettings(this DriverOptions options)
+        {
+            if (SeleniumConfig.GetUseProxy())
+            {
+                string proxyAddress = SeleniumConfig.GetProxyAddress();
+
+                if (!string.IsNullOrEmpty(proxyAddress))
+                {
+                    Proxy proxy = new Proxy
+                    {
+                        HttpProxy = proxyAddress,
+                        SslProxy = proxyAddress
+                    };
+
+                    options.Proxy = proxy;
+                }
+            }
+        }
+
+        /// <summary>
         /// Creates a web driver, but if the creation fails it tries to cleanup after itself
         /// </summary>
         /// <param name="createFunction">Function for creating a web driver</param>
@@ -608,29 +631,6 @@ namespace Magenic.Maqs.BaseSeleniumTest
             }
 
             return string.Empty;
-        }
-
-        /// <summary>
-        /// Sets the proxy settings for the driver options (if configured)
-        /// </summary>
-        /// <param name="options">The driver options</param>
-        public static void SetProxySettings(this DriverOptions options)
-        {
-            if (SeleniumConfig.GetUseProxy())
-            {
-                string proxyAddress = SeleniumConfig.GetProxyAddress();
-
-                if (!string.IsNullOrEmpty(proxyAddress))
-                {
-                    Proxy proxy = new Proxy
-                    {
-                        HttpProxy = proxyAddress,
-                        SslProxy = proxyAddress
-                    };
-
-                    options.Proxy = proxy;
-                }
-            }
         }
     }
 }
