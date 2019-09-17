@@ -6,6 +6,7 @@
 //--------------------------------------------------
 
 using System;
+using System.Net;
 using System.Net.Http;
 
 namespace Magenic.Maqs.BaseWebServiceTest
@@ -32,7 +33,15 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>A HTTP client</returns>
         public static HttpClient GetClient(Uri baseAddress, TimeSpan timeout)
         {
-            return new HttpClient
+            HttpClientHandler handler = new HttpClientHandler();
+
+            if (WebServiceConfig.GetUseProxy())
+            {
+                handler.Proxy = new WebProxy(WebServiceConfig.GetProxyAddress(), false);
+                handler.UseProxy = true;
+            }
+
+            return new HttpClient(handler)
             {
                 BaseAddress = baseAddress,
                 Timeout = timeout

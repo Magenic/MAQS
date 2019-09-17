@@ -288,5 +288,23 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             return Config.GetValueForSection(SELENIUMSECTION, "BrowserSize", "MAXIMIZE").ToUpper();
         }
+
+        /// <summary>
+        /// Get if we want to use a proxy for the web driver traffic
+        /// </summary>
+        /// <returns>True if we want to use the proxy</returns>
+        public static bool GetUseProxy()
+        {
+            return Config.GetValueForSection(SELENIUMSECTION, "UseProxy", "NO").Equals("Yes", StringComparison.CurrentCultureIgnoreCase);
+        }
+
+        /// <summary>
+        /// Get the proxy address to use
+        /// </summary>
+        /// <returns>The proxy address</returns>
+        public static string GetProxyAddress()
+        {
+            return Config.GetValueForSection(SELENIUMSECTION, "ProxyAddress");
+        }
     }
 }
