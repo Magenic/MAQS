@@ -47,7 +47,6 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The proxy address</returns>
         public static string GetProxyAddress()
         {
-            var whatisthis = Config.GetValueForSection(ConfigSection.WebServiceMaqs, "ProxyAddress");
             return Config.GetValueForSection(ConfigSection.WebServiceMaqs, "ProxyAddress");
         }
     }
