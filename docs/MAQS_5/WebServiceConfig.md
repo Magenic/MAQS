@@ -15,6 +15,16 @@ Get the web service timeout:
 TimeSpan timeout = WebServiceConfig.GetWebServiceTimeout();
 ```
 
+Get the if HTTP client should use proxy
+```csharp
+bool useProxy = WebServiceConfig.GetUseProxy();
+```
+
+Get the proxy address to use
+```csharp
+string proxyAddress = WebServiceConfig.GetProxyAddress();
+```
+
 # Sample config files
 ## App.config
 ```xml
@@ -30,6 +40,10 @@ TimeSpan timeout = WebServiceConfig.GetWebServiceTimeout();
 
     <!-- Time-out in milliseconds -->
     <add key="WebServiceTimeout" value="10000" />
+
+    <!-- Proxy settings -->
+    <add key="UseProxy" value="No" />
+    <add key="ProxyAddress" value="127.0.0.1:8080" />
   </WebServiceMaqs>
   <MagenicMaqs>
     <!-- Wait time in milliseconds - AKA how long do you wait for rechecking something -->
@@ -71,7 +85,9 @@ TimeSpan timeout = WebServiceConfig.GetWebServiceTimeout();
 {
   "WebServiceMaqs": {
     "WebServiceUri": "http://magenicautomation.azurewebsites.net",
-    "WebServiceTimeout": "1000"
+    "WebServiceTimeout": "1000",
+    "UseProxy": "NO",
+    "ProxyAddress": "127.0.0.1:8080"
   },
   "MagenicMaqs": {
     "WaitTime": "100",

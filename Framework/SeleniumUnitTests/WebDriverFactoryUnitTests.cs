@@ -1,13 +1,15 @@
-﻿using Magenic.Maqs.BaseSeleniumTest;
+﻿//-----------------------------------------------------
+// <copyright file="WebDriverFactoryUnitTests.cs" company="Magenic">
+//  Copyright 2019 Magenic, All rights Reserved
+// </copyright>
+// <summary>Test the WebDriverFactory</summary>
+//-----------------------------------------------------
+using Magenic.Maqs.BaseSeleniumTest;
 using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium.Chrome;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SeleniumUnitTests
 {
