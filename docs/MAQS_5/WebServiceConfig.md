@@ -4,6 +4,13 @@
 The WebServiceConfig class is used to get values from the WebServiceMaqs section of your test run properties.
 <br>These values come from your App.config, appsettings.json and/or test run parameters.
 
+## WebServiceMaqs
+The WebServiceMaqs configuation section contains the following Keys:
+* ***WebServiceUri*** : The base webservice uri
+* ***WebServiceTimeout*** : How long to wait for something before timing out - Used heavily with the MAQS waits
+* ***UseProxy*** : If the HTTP client should use a proxy address
+* ***ProxyAddress*** : The proxy address and port the HTTP client will use
+
 ## Available methods
 Get the base web service URL:
 ```csharp

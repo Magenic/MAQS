@@ -26,6 +26,8 @@ The SeleniumMaqs configuration section contains the following Keys:
 * ***SoftAssertScreenshot*** : If a screenshot should be taken when a soft assert fails
 * ***ImageFormat*** :  What format screenshot should be saved as
 * ***SavePagesourceOnFail*** : If page source is saved when a test fails
+* ***UseProxy*** : If the browser should use a proxy address
+* ***ProxyAddress*** : The proxy address and port the browser will use
 
 
 ## RemoteSeleniumCapsMaqs
