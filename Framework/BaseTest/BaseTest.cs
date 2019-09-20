@@ -45,7 +45,7 @@ namespace Magenic.Maqs.BaseTest
             this.LoggedExceptions = new ConcurrentDictionary<string, List<string>>();
             this.BaseTestObjects = new ConcurrentDictionary<string, BaseTestObject>();
 
-            // Update your config parameters 
+            // Update your config parameters
             if (NUnitTestContext.Parameters != null)
             {
                 try
@@ -61,7 +61,7 @@ namespace Magenic.Maqs.BaseTest
         }
 
         /// <summary>
-        /// Gets or sets the performance timer collection for a test 
+        /// Gets or sets the performance timer collection for a test
         /// </summary>
         public PerfTimerCollection PerfTimerCollection
         {
@@ -157,7 +157,7 @@ namespace Magenic.Maqs.BaseTest
         }
 
         /// <summary>
-        /// Gets or sets the test object 
+        /// Gets or sets the test object
         /// </summary>
         public BaseTestObject TestObject
         {
@@ -310,10 +310,9 @@ namespace Magenic.Maqs.BaseTest
             this.LoggingEnabledSetting = LoggingConfig.GetLoggingEnabledSetting();
 
             // Setup the exception listener
-            AppDomain currentDomain = AppDomain.CurrentDomain;
             if (LoggingConfig.GetFirstChanceHandler())
             {
-                currentDomain.FirstChanceException += this.FirstChanceHandler;
+                AppDomain.CurrentDomain.FirstChanceException += this.FirstChanceHandler;
             }
 
             if (this.LoggingEnabledSetting != LoggingEnabled.NO)
@@ -480,7 +479,8 @@ namespace Magenic.Maqs.BaseTest
                 Exception inner = ex.InnerException;
                 string innerStack = inner.StackTrace ?? string.Empty;
 
-                string message = inner.Message + Environment.NewLine + innerStack;
+                var message = StringProcessor.SafeExceptionFormatter(inner);
+
                 List<string> messages = this.LoggedExceptionList;
 
                 // Make sure this error is associated with the current test and that we have not logged it yet

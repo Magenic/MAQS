@@ -36,7 +36,7 @@ namespace WebServiceTesterUnitTesting
         };
 
         /// <summary>
-        /// Verify that the webService driver can be properly set 
+        /// Verify that the webService driver can be properly set
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
@@ -66,7 +66,7 @@ namespace WebServiceTesterUnitTesting
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
-        [ExpectedException(typeof(AggregateException))]
+        [ExpectedException(typeof(HttpRequestException))]
         public void EnsureSuccessStatusCodeThrownException()
         {
             this.WebServiceDriver.Post("notaurl", "image/GIF", null);
