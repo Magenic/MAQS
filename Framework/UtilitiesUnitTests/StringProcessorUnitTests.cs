@@ -23,6 +23,7 @@ namespace UtilitiesUnitTesting
         /// Test method for checking JSON strings
         /// </summary>
         #region StringFormattor
+
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
         public void StringFormatterCheckForJson()
@@ -30,7 +31,8 @@ namespace UtilitiesUnitTesting
             string message = StringProcessor.SafeFormatter("{This is a test for JSON}");
             Assert.AreEqual("{This is a test for JSON}\r\n", message);
         }
-        #endregion
+
+        #endregion StringFormattor
 
         /// <summary>
         /// Test method for checking string format
@@ -97,6 +99,53 @@ namespace UtilitiesUnitTesting
             FormatException fe = new FormatException("Format Exception");
             string formattedException = StringProcessor.SafeExceptionFormatter(fe);
             Assert.IsTrue(formattedException.Contains("Format Exception"));
+        }
+
+        /// <summary>
+        /// Tests the stack trace is formatted and included in the string
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void ThrowSingleExceptionSafeFormatter()
+        {
+            FormatException fe = new FormatException("Format Exception");
+            try
+            {
+                throw fe;
+            }
+            catch (Exception e)
+            {
+                string formattedException = StringProcessor.SafeExceptionFormatter(e);
+                Assert.IsTrue(formattedException.Contains("Format Exception"));
+                Assert.IsTrue(formattedException.Contains("at UtilitiesUnitTesting.StringProcessorUnitTests.ThrowSingleExceptionSafeFormatter()"));
+            }
+        }
+
+        /// <summary>
+        /// Nested aggregation exceptions to validate stack trace is included
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void ThrowDoubleNestedExceptionSafeFormatter()
+        {
+            FormatException fe = new FormatException("Format Exception");
+            InvalidOperationException ioe = new InvalidOperationException("Invalid Operation Exception");
+            AggregateException ae = new AggregateException(fe, ioe);
+            AggregateException ae1;
+            try
+            {
+                throw ae;
+            }
+            catch (Exception e)
+            {
+                ae1 = new AggregateException(e);
+            }
+
+            string formattedException = StringProcessor.SafeExceptionFormatter(ae1);
+            Assert.IsTrue(formattedException.Contains("at UtilitiesUnitTesting.StringProcessorUnitTests.ThrowDoubleNestedExceptionSafeFormatter()"));
+            Assert.IsTrue(formattedException.Contains("Format Exception"));
+            Assert.IsTrue(formattedException.Contains("Invalid Operation Exception"));
+            Assert.IsTrue(formattedException.Contains("One or more errors occurred"));
         }
     }
 }
