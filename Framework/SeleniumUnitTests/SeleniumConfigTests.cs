@@ -470,7 +470,7 @@ namespace UnitTests
         [TestCategory(TestCategories.Selenium)]
         public void GetProxyAddress()
         {
-            Assert.AreEqual("127.0.0.1:8080", SeleniumConfig.GetProxyAddress());
+            Assert.AreEqual("http://localhost:8002", SeleniumConfig.GetProxyAddress());
         }
     }
 }
