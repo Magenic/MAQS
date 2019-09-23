@@ -28,7 +28,6 @@ namespace WebServiceTesterUnitTesting
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    [DoNotParallelize]
     public class WebServiceProxyTests : BaseWebServiceTest
     {
         /// <summary>
@@ -53,7 +52,6 @@ namespace WebServiceTesterUnitTesting
         [ClassInitialize]
         public static void ClassInit(TestContext context)
         {
-            OverrideConfigUseProxy(true);
             StartProxy();
         }
 
@@ -64,7 +62,6 @@ namespace WebServiceTesterUnitTesting
         public static void ClassCleanup()
         {
             proxyServer.Stop();
-            OverrideConfigUseProxy(false);
         }
 
         /// <summary>
@@ -80,6 +77,15 @@ namespace WebServiceTesterUnitTesting
         }
 
         /// <summary>
+        /// Get if proxy should be used
+        /// </summary>
+        /// <returns>True if should use proxy</returns>
+        protected override bool GetUseProxy()
+        {
+            return true;
+        }
+
+        /// <summary>
         /// Starts a local proxy
         /// </summary>
         private static void StartProxy()
@@ -91,17 +97,6 @@ namespace WebServiceTesterUnitTesting
             proxyServer.Start();
             proxyServer.BeforeRequest += OnRequestCaptureTrafficEventHandler;
             proxyServer.BeforeResponse += OnResponseCaptureTrafficEventHandler;
-        }
-
-        /// <summary>
-        /// Override the Use Proxy key of the config
-        /// </summary>
-        /// <param name="useProxy">Yes if true</param>
-        private static void OverrideConfigUseProxy(bool useProxy)
-        {
-            string value = useProxy ? "Yes" : "No";
-            Dictionary<string, string> overrides = new Dictionary<string, string> { { "UseProxy", value } };
-            Config.AddTestSettingValues(overrides, ConfigSection.WebServiceMaqs, true);
         }
 
         /// <summary>
