@@ -62,7 +62,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void GetProxyAddress()
         {
-            Assert.AreEqual("127.0.0.1:8080", WebServiceConfig.GetProxyAddress());
+            Assert.AreEqual("127.0.0.1:8001", WebServiceConfig.GetProxyAddress());
         }
     }
 }

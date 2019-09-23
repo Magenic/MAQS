@@ -37,8 +37,8 @@ namespace SeleniumUnitTests
                 options.SetProxySettings();
 
                 Assert.IsNotNull(options.Proxy);
-                Assert.AreEqual(options.Proxy.HttpProxy, "127.0.0.1:8080");
-                Assert.AreEqual(options.Proxy.SslProxy, "127.0.0.1:8080");
+                Assert.AreEqual("http://localhost:8002", options.Proxy.HttpProxy);
+                Assert.AreEqual("http://localhost:8002", options.Proxy.SslProxy);
             }
             finally
             {

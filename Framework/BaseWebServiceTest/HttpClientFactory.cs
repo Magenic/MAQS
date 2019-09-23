@@ -33,11 +33,24 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>A HTTP client</returns>
         public static HttpClient GetClient(Uri baseAddress, TimeSpan timeout)
         {
+            return GetClient(baseAddress, timeout, WebServiceConfig.GetUseProxy(), WebServiceConfig.GetProxyAddress());
+        }
+
+        /// <summary>
+        /// Gets a HTTP client based on configuration values
+        /// </summary>
+        /// <param name="baseAddress">Base service uri</param>
+        /// <param name="timeout">Web service timeout</param>
+        /// <param name="useProxy">Use a proxy</param>
+        /// <param name="proxyAddress">The proxy address to use</param>
+        /// <returns></returns>
+        public static HttpClient GetClient(Uri baseAddress, TimeSpan timeout, bool useProxy, string proxyAddress)
+        {
             HttpClientHandler handler = new HttpClientHandler();
 
-            if (WebServiceConfig.GetUseProxy())
+            if (useProxy)
             {
-                handler.Proxy = new WebProxy(WebServiceConfig.GetProxyAddress(), false);
+                handler.Proxy = new WebProxy(proxyAddress, false);
                 handler.UseProxy = true;
             }
 
