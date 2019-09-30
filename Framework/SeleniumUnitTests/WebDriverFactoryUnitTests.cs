@@ -25,27 +25,14 @@ namespace SeleniumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        [DoNotParallelize]
         public void SetProxySettings()
         {
-            try
-            {
-                Dictionary<string, string> overrides = new Dictionary<string, string> { { "UseProxy", "Yes" } };
-                Config.AddTestSettingValues(overrides, ConfigSection.SeleniumMaqs, true);
+            ChromeOptions options = new ChromeOptions();
+            options.SetProxySettings(Config.GetValueForSection(ConfigSection.SeleniumMaqs, "ProxyAddress"));
 
-                ChromeOptions options = new ChromeOptions();
-                options.SetProxySettings();
-
-                Assert.IsNotNull(options.Proxy);
-                Assert.AreEqual("http://localhost:8002", options.Proxy.HttpProxy);
-                Assert.AreEqual("http://localhost:8002", options.Proxy.SslProxy);
-            }
-            finally
-            {
-                // Revert the config
-                Dictionary<string, string> overrides = new Dictionary<string, string> { { "UseProxy", "No" } };
-                Config.AddTestSettingValues(overrides, ConfigSection.SeleniumMaqs, true);
-            }
+            Assert.IsNotNull(options.Proxy);
+            Assert.AreEqual("http://localhost:8002", options.Proxy.HttpProxy);
+            Assert.AreEqual("http://localhost:8002", options.Proxy.SslProxy);
         }
     }
 }
