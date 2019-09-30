@@ -8,13 +8,13 @@ using Magenic.Maqs.BaseSeleniumTest;
 using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using Titanium.Web.Proxy;
 using Titanium.Web.Proxy.EventArguments;
@@ -27,7 +27,6 @@ namespace SeleniumUnitTests
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    [DoNotParallelize]
     public class SeleniumProxyTests : BaseSeleniumTest
     {
         /// <summary>
@@ -52,7 +51,6 @@ namespace SeleniumUnitTests
         [ClassInitialize]
         public static void ClassInit(TestContext context)
         {
-            OverrideConfigUseProxy(true);
             StartProxy();
         }
 
@@ -63,7 +61,6 @@ namespace SeleniumUnitTests
         public static void ClassCleanup()
         {
             proxyServer.Stop();
-            OverrideConfigUseProxy(false);
         }
         
         /// <summary>
@@ -73,7 +70,11 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void WebDriverUsesProxy()
         {
-            this.TestObject.WebDriver.Navigate().GoToUrl("http://magenicautomation.azurewebsites.net/Employees");
+            DriverOptions options = WebDriverFactory.GetDefaultHeadlessChromeOptions();
+            options.SetProxySettings(Config.GetValueForSection(ConfigSection.SeleniumMaqs, "ProxyAddress"));
+            this.WebDriver = WebDriverFactory.GetChromeDriver(TimeSpan.FromMilliseconds(61000), (ChromeOptions)options);
+
+            this.WebDriver.Navigate().GoToUrl("http://magenicautomation.azurewebsites.net/Employees");
 
             bool proxyUsed = RequestsHistory.Values.Any(r => r.RequestUri.ToString().Contains("magenicautomation.azurewebsites.net/Employees"));
             Assert.IsTrue(proxyUsed, "Failed to assert the proxy was used by the web driver.");
@@ -91,17 +92,6 @@ namespace SeleniumUnitTests
             proxyServer.Start();
             proxyServer.BeforeRequest += OnRequestCaptureTrafficEventHandler;
             proxyServer.BeforeResponse += OnResponseCaptureTrafficEventHandler;
-        }
-
-        /// <summary>
-        /// Override the Use Proxy key of the config
-        /// </summary>
-        /// <param name="useProxy">Yes if true</param>
-        private static void OverrideConfigUseProxy(bool useProxy)
-        {
-            string value = useProxy ? "Yes" : "No";
-            Dictionary<string, string> overrides = new Dictionary<string, string> { { "UseProxy", value } };
-            Config.AddTestSettingValues(overrides, ConfigSection.SeleniumMaqs, true);
         }
 
         /// <summary>

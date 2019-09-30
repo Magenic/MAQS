@@ -438,18 +438,25 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             if (SeleniumConfig.GetUseProxy())
             {
-                string proxyAddress = SeleniumConfig.GetProxyAddress();
+                SetProxySettings(options, SeleniumConfig.GetProxyAddress());
+            }
+        }
 
-                if (!string.IsNullOrEmpty(proxyAddress))
+        /// <summary>
+        /// Sets the proxy settings for the driver options
+        /// </summary>
+        /// <param name="options">The driver options</param>
+        /// <param name="proxyAddress">The proxy address</param>
+        public static void SetProxySettings(this DriverOptions options, string proxyAddress)
+        {
+            if (!string.IsNullOrEmpty(proxyAddress))
+            {
+                Proxy proxy = new Proxy
                 {
-                    Proxy proxy = new Proxy
-                    {
-                        HttpProxy = proxyAddress,
-                        SslProxy = proxyAddress
-                    };
-
-                    options.Proxy = proxy;
-                }
+                    HttpProxy = proxyAddress,
+                    SslProxy = proxyAddress
+                };
+                options.Proxy = proxy;
             }
         }
 
