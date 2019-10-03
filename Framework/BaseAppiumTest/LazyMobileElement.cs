@@ -36,9 +36,6 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <param name="testObject">The base Selenium test object</param>
         /// <param name="locator">The 'by' selector for the element</param>
         /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementCreate" lang="C#" />
-        /// </example>
         public LazyMobileElement(AppiumTestObject testObject, By locator, string userFriendlyName = "LazyMobileElement")
         {
             this.TestObject = testObject;
@@ -52,9 +49,6 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <param name="parent">The parent lazy element</param>
         /// <param name="locator">The 'by' selector for the element</param>
         /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementCreateWithParent" lang="C#" />
-        /// </example>
         public LazyMobileElement(LazyMobileElement parent, By locator, string userFriendlyName = "LazyMobileElement") : this(parent.TestObject, locator, userFriendlyName)
         {
             this.parent = parent;

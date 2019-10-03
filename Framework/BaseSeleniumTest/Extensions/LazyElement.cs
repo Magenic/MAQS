@@ -37,12 +37,10 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="testObject">The base Selenium test object</param>
         /// <param name="locator">The 'by' selector for the element</param>
         /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementCreate" lang="C#" />
-        /// </example>
         public LazyElement(SeleniumTestObject testObject, By locator, [CallerMemberName] string userFriendlyName = null)
         {
             this.TestObject = testObject;
+            this.WebDriver = testObject.WebDriver;
             this.By = locator;
             this.userFriendlyName = userFriendlyName;
         }
@@ -53,9 +51,6 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="parent">The parent lazy element</param>
         /// <param name="locator">The 'by' selector for the element</param>
         /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementCreateWithParent" lang="C#" />
-        /// </example>
         public LazyElement(LazyElement parent, By locator, [CallerMemberName] string userFriendlyName = null) : this(parent.TestObject, locator, userFriendlyName)
         {
             this.parent = parent;
@@ -64,186 +59,179 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <summary>
         /// Gets a the 'by' selector for the element
         /// </summary>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementGetBy" lang="C#" />
-        /// </example>
         public By By { get; private set; }
 
         /// <summary>
         /// Gets the test object for the element
         /// </summary>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementGetTestObject" lang="C#" />
-        /// </example>
         public SeleniumTestObject TestObject { get; private set; }
+
+        /// <summary>
+        /// Gets the web driver
+        /// </summary>
+        public IWebDriver WebDriver { get; private set; }
 
         /// <summary>
         /// Gets a cached copy of the element or null if we haven't already found the element
         /// </summary>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyCaching" lang="C#" />
-        /// </example>
         public IWebElement CachedElement { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether the lazy element is enabled
         /// </summary>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementEnabled" lang="C#" />
-        /// </example>
         public bool Enabled
         {
             get
             {
-                return GenericWait.WaitFor<bool>(() =>
+                return GenericWait.Wait<bool>(
+                    () =>
                 {
                     return this.GetElement(this.GetTheExistingElement).Enabled;
-                });
+                },
+                Extend.GetWaitDriver(this.WebDriver).PollingInterval,
+                Extend.GetWaitDriver(this.WebDriver).Timeout);
             }
         }
 
         /// <summary>
         /// Gets a value indicating whether the lazy element is selected
         /// </summary>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementSelected" lang="C#" />
-        /// </example>
         public bool Selected
         {
             get
             {
-                return GenericWait.WaitFor<bool>(() =>
+                return GenericWait.Wait<bool>(
+                    () =>
                 {
                     return this.GetElement(this.GetTheExistingElement).Selected;
-                });
+                },
+                Extend.GetWaitDriver(this.WebDriver).PollingInterval,
+                Extend.GetWaitDriver(this.WebDriver).Timeout);
             }
         }
 
         /// <summary>
         /// Gets a value indicating whether the lazy element is displayed
         /// </summary>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementDisplayed" lang="C#" />
-        /// </example>
         public bool Displayed
         {
             get
             {
-                return GenericWait.WaitFor<bool>(() =>
+                return GenericWait.Wait<bool>(
+                    () =>
                 {
                     return this.GetElement(this.GetTheExistingElement).Displayed;
-                });
+                }, 
+                Extend.GetWaitDriver(this.WebDriver).PollingInterval, 
+                Extend.GetWaitDriver(this.WebDriver).Timeout);
             }
         }
 
         /// <summary>
         /// Gets the lazy element's tag name
         /// </summary>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementTagName" lang="C#" />
-        /// </example>
         public string TagName
         {
             get
             {
-                return GenericWait.WaitFor<string>(() =>
+                return GenericWait.Wait<string>(
+                    () =>
                 {
                     return this.GetElement(this.GetTheExistingElement).TagName;
-                });
+                },
+                Extend.GetWaitDriver(this.WebDriver).PollingInterval,
+                Extend.GetWaitDriver(this.WebDriver).Timeout);
             }
         }
 
         /// <summary>
         /// Gets the lazy element's text
         /// </summary>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementText" lang="C#" />
-        /// </example>
         public string Text
         {
             get
             {
-                return GenericWait.WaitFor<string>(() =>
+                return GenericWait.Wait(
+                    () =>
                 {
                     return this.GetElement(this.GetTheExistingElement).Text;
-                });
+                }, 
+                Extend.GetWaitDriver(this.WebDriver).PollingInterval, 
+                Extend.GetWaitDriver(this.WebDriver).Timeout);
             }
         }
 
         /// <summary>
         /// Gets the lazy element's location
         /// </summary>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementLocation" lang="C#" />
-        /// </example>
         public Point Location
         {
             get
             {
-                return GenericWait.WaitFor<Point>(() =>
+                return GenericWait.Wait(
+                    () =>
                 {
                     return this.GetElement(this.GetTheVisibleElement).Location;
-                });
+                }, 
+                Extend.GetWaitDriver(this.WebDriver).PollingInterval, 
+                Extend.GetWaitDriver(this.WebDriver).Timeout);
             }
         }
 
         /// <summary>
         /// Gets the lazy element's size
         /// </summary>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementSize" lang="C#" />
-        /// </example>
         public Size Size
         {
             get
             {
-                return GenericWait.WaitFor<Size>(() =>
+                return GenericWait.Wait(
+                    () =>
                 {
                     return this.GetElement(this.GetTheVisibleElement).Size;
-                });
+                }, 
+                Extend.GetWaitDriver(this.WebDriver).PollingInterval, 
+                Extend.GetWaitDriver(this.WebDriver).Timeout);
             }
         }
 
         /// <summary>
         /// Click the lazy element 
         /// </summary>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementClick" lang="C#" />
-        /// </example>
         public void Click()
         {
-            GenericWait.WaitFor(() =>
-            {
-                IWebElement element = this.GetElement(this.GetTheClickableElement);
-                this.ExecuteEvent(() => element.Click(), "Click");
-                return true;
-            });
+            GenericWait.Wait(
+                () =>
+                {
+                    IWebElement element = this.GetElement(this.GetTheClickableElement);
+                    this.ExecuteEvent(() => element.Click(), "Click");
+                    return true;
+                }, 
+                Extend.GetWaitDriver(this.WebDriver).PollingInterval, 
+                Extend.GetWaitDriver(this.WebDriver).Timeout);
         }
 
         /// <summary>
         /// Send keys to the lazy element
         /// </summary>
         /// <param name="text">The text to send to the lazy element</param>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementSendKeys" lang="C#" />
-        /// </example>
         public void SendKeys(string text)
         {
-            GenericWait.WaitFor(() =>
+            GenericWait.Wait(
+                () =>
             {
                 IWebElement element = this.GetElement(this.GetTheVisibleElement);
                 this.ExecuteEvent(() => element.SendKeys(text), "SendKeys");
                 return true;
-            });
+            }, 
+            Extend.GetWaitDriver(this.WebDriver).PollingInterval, 
+            Extend.GetWaitDriver(this.WebDriver).Timeout);
         }
 
         /// <summary>
         /// Send Secret keys with no logging
         /// </summary>
         /// <param name="keys">The keys to send</param>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementSendSecretKeys" lang="C#" />
-        /// </example>
         public void SendSecretKeys(string keys)
         {
             IWebElement element = this.GetElement(this.GetTheVisibleElement);
@@ -264,33 +252,33 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <summary>
         /// Clear the lazy element 
         /// </summary>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementClear" lang="C#" />
-        /// </example>
         public void Clear()
         {
-            GenericWait.WaitFor(() =>
+            GenericWait.Wait(
+                () =>
             {
                 IWebElement element = this.GetElement(this.GetTheVisibleElement);
                 this.ExecuteEvent(() => element.Clear(), "Clear");
                 return true;
-            });
+            }, 
+            Extend.GetWaitDriver(this.WebDriver).PollingInterval, 
+            Extend.GetWaitDriver(this.WebDriver).Timeout);
         }
 
         /// <summary>
         /// Submit the lazy element 
         /// </summary>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementSubmit" lang="C#" />
-        /// </example>
         public void Submit()
         {
-            GenericWait.WaitFor(() =>
+            GenericWait.Wait(
+                () =>
             {
                 IWebElement element = this.GetElement(this.GetTheExistingElement);
                 this.ExecuteEvent(() => element.Submit(), "Submit");
                 return true;
-            });
+            }, 
+            Extend.GetWaitDriver(this.WebDriver).PollingInterval, 
+            Extend.GetWaitDriver(this.WebDriver).Timeout);
         }
 
         /// <summary>
@@ -298,30 +286,30 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </summary>
         /// <param name="attributeName">The given attribute name</param>
         /// <returns>The attribute value</returns>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementGetAttribute" lang="C#" />
-        /// </example>
         public string GetAttribute(string attributeName)
         {
-            return GenericWait.WaitFor<string>(() =>
+            return GenericWait.Wait<string>(
+                () =>
             {
                 return this.GetElement(this.GetTheExistingElement).GetAttribute(attributeName);
-            });
+            }, 
+            Extend.GetWaitDriver(this.WebDriver).PollingInterval, 
+            Extend.GetWaitDriver(this.WebDriver).Timeout);
         }
 
         /// <summary>
         /// Gets the current value of an element - Useful for get input box text
         /// </summary>
         /// <returns>The element's current value</returns>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementSendKeys" lang="C#" />
-        /// </example>
         public string GetValue()
         {
-            return GenericWait.WaitFor<string>(() =>
+            return GenericWait.Wait<string>(
+                () =>
             {
                 return this.GetElement(this.GetTheVisibleElement).GetAttribute("value");
-            });
+            },
+            Extend.GetWaitDriver(this.WebDriver).PollingInterval, 
+            Extend.GetWaitDriver(this.WebDriver).Timeout);
         }
 
         /// <summary>
@@ -329,28 +317,24 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </summary>
         /// <param name="propertyName">The given attribute/property name</param>
         /// <returns>The CSS value</returns>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementGetCssValue" lang="C#" />
-        /// </example>
         public string GetCssValue(string propertyName)
         {
-            return GenericWait.WaitFor<string>(() =>
+            return GenericWait.Wait<string>(
+                () =>
             {
                 return this.GetElement(this.GetTheExistingElement).GetCssValue(propertyName);
-            });
+            }, 
+            Extend.GetWaitDriver(this.WebDriver).PollingInterval, 
+            Extend.GetWaitDriver(this.WebDriver).Timeout);
         }
 
         /// <summary>
         /// Wait for and get the visible web element
         /// </summary>
         /// <returns>The web visible web element</returns>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementVisibleElement" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyGetVisibleTriggerFind" lang="C#" />
-        /// </example>
         public IWebElement GetTheVisibleElement()
         {
-            this.CachedElement = (this.parent == null) ? this.TestObject.WebDriver.Wait().ForVisibleElement(this.By) :
+            this.CachedElement = (this.parent == null) ? this.WebDriver.Wait().ForVisibleElement(this.By) :
                 this.parent.GetTheExistingElement().Wait().ForVisibleElement(this.By);
 
             return this.CachedElement;
@@ -360,13 +344,9 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// Wait for and get the clickable web element
         /// </summary>
         /// <returns>The web clickable web element</returns>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementClickableElement" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyGetClickableTriggerFind" lang="C#" />
-        /// </example>
         public IWebElement GetTheClickableElement()
         {
-            this.CachedElement = (this.parent == null) ? this.TestObject.WebDriver.Wait().ForClickableElement(this.By) :
+            this.CachedElement = (this.parent == null) ? this.WebDriver.Wait().ForClickableElement(this.By) :
                 this.parent.GetTheExistingElement().Wait().ForClickableElement(this.By);
 
             return this.CachedElement;
@@ -376,13 +356,9 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// Wait for and get the web element
         /// </summary>
         /// <returns>The web element</returns>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementExistingElement" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyGetExistTriggerFind" lang="C#" />
-        /// </example>
         public IWebElement GetTheExistingElement()
         {
-            this.CachedElement = (this.parent == null) ? this.TestObject.WebDriver.Wait().ForElementExist(this.By) :
+            this.CachedElement = (this.parent == null) ? this.WebDriver.Wait().ForElementExist(this.By) :
                 this.parent.GetTheExistingElement().Wait().ForElementExist(this.By);
 
             return this.CachedElement;
