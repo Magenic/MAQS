@@ -485,9 +485,10 @@ namespace SeleniumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        [ExpectedException(typeof(Exception), "The input should be disabled so this will throw an exception.")]
+        [ExpectedException(typeof(TimeoutException), "The input should be disabled so this will throw an exception.")]
         public void LazyElementSendKeysWithParent()
         {
+            this.WebDriver.SetWaitDriver(new OpenQA.Selenium.Support.UI.WebDriverWait(this.WebDriver, TimeSpan.FromSeconds(1)));
             this.DisabledInput.SendKeys("test");
         }
 
@@ -560,9 +561,10 @@ namespace SeleniumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        [ExpectedException(typeof(Exception), "The input should be disabled so this will throw an exception.")]
+        [ExpectedException(typeof(TimeoutException), "The input should be disabled so this will throw an exception.")]
         public void LazyElementSubmitWithParent()
         {
+            this.WebDriver.SetWaitDriver(new OpenQA.Selenium.Support.UI.WebDriverWait(this.WebDriver, TimeSpan.FromSeconds(1)));
             this.DisabledInput.Submit();
         }
 
