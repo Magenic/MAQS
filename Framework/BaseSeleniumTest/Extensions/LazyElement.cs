@@ -41,6 +41,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         {
             this.TestObject = testObject;
             this.WebDriver = testObject.WebDriver;
+            this.Log = testObject.Log;
             this.By = locator;
             this.userFriendlyName = userFriendlyName;
         }
@@ -72,6 +73,11 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         public IWebDriver WebDriver { get; private set; }
 
         /// <summary>
+        /// Gets the logger
+        /// </summary>
+        public Logger Log { get; private set; }
+
+        /// <summary>
         /// Gets a cached copy of the element or null if we haven't already found the element
         /// </summary>
         public IWebElement CachedElement { get; private set; }
@@ -83,6 +89,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         {
             get
             {
+                this.Log.LogMessage(MessageType.INFORMATION, $"Checking to see if the lazy element '{this.userFriendlyName}' is enabled");
+
                 return GenericWait.Wait<bool>(
                     () =>
                 {
@@ -100,6 +108,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         {
             get
             {
+                this.Log.LogMessage(MessageType.INFORMATION, $"Checking to see if the lazy element '{this.userFriendlyName}' is selected");
+
                 return GenericWait.Wait<bool>(
                     () =>
                 {
@@ -117,6 +127,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         {
             get
             {
+                this.Log.LogMessage(MessageType.INFORMATION, $"Checking to see if the lazy element '{this.userFriendlyName}' is displayed");
+
                 return GenericWait.Wait<bool>(
                     () =>
                 {
@@ -134,6 +146,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         {
             get
             {
+                this.Log.LogMessage(MessageType.INFORMATION, $"Getting the tag name for lazy element '{this.userFriendlyName}'");
+
                 return GenericWait.Wait<string>(
                     () =>
                 {
@@ -151,6 +165,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         {
             get
             {
+                this.Log.LogMessage(MessageType.INFORMATION, $"Getting the text for lazy element '{this.userFriendlyName}'");
+
                 return GenericWait.Wait(
                     () =>
                 {
@@ -168,6 +184,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         {
             get
             {
+                this.Log.LogMessage(MessageType.INFORMATION, $"Getting the location for lazy element '{this.userFriendlyName}'");
+
                 return GenericWait.Wait(
                     () =>
                 {
@@ -185,6 +203,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         {
             get
             {
+                this.Log.LogMessage(MessageType.INFORMATION, $"Getting the size of lazy element '{this.userFriendlyName}'");
+
                 return GenericWait.Wait(
                     () =>
                 {
@@ -200,6 +220,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </summary>
         public void Click()
         {
+            this.Log.LogMessage(MessageType.INFORMATION, $"Clicking lazy element '{this.userFriendlyName}'");
+
             GenericWait.Wait(
                 () =>
                 {
@@ -217,6 +239,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="text">The text to send to the lazy element</param>
         public void SendKeys(string text)
         {
+            this.Log.LogMessage(MessageType.INFORMATION, $"Sending keys '{text}' to lazy element '{this.userFriendlyName}'");
+
             GenericWait.Wait(
                 () =>
             {
@@ -234,6 +258,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="keys">The keys to send</param>
         public void SendSecretKeys(string keys)
         {
+            this.Log.LogMessage(MessageType.INFORMATION, $"Sending secrect keys to lazy element '{this.userFriendlyName}'");
+
             IWebElement element = this.GetElement(this.GetTheVisibleElement);
             try
             {
@@ -254,6 +280,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </summary>
         public void Clear()
         {
+            this.Log.LogMessage(MessageType.INFORMATION, $"Clearing lazy element '{this.userFriendlyName}'");
+
             GenericWait.Wait(
                 () =>
             {
@@ -270,6 +298,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </summary>
         public void Submit()
         {
+            this.Log.LogMessage(MessageType.INFORMATION, $"Submitting lazy element '{this.userFriendlyName}'");
+
             GenericWait.Wait(
                 () =>
             {
@@ -288,6 +318,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <returns>The attribute value</returns>
         public string GetAttribute(string attributeName)
         {
+            this.Log.LogMessage(MessageType.INFORMATION, $"Getting attribute '{attributeName}' for lazy element '{this.userFriendlyName}'");
+            
             return GenericWait.Wait<string>(
                 () =>
             {
@@ -303,9 +335,11 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <returns>The element's current value</returns>
         public string GetValue()
         {
+            this.Log.LogMessage(MessageType.INFORMATION, $"Getting value for lazy element '{this.userFriendlyName}'");
+
             return GenericWait.Wait<string>(
                 () =>
-            {
+            {    
                 return this.GetElement(this.GetTheVisibleElement).GetAttribute("value");
             },
             Extend.GetWaitDriver(this.WebDriver).PollingInterval, 
@@ -319,6 +353,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <returns>The CSS value</returns>
         public string GetCssValue(string propertyName)
         {
+            this.Log.LogMessage(MessageType.INFORMATION, $"Getting '{propertyName}' css value for lazy element '{this.userFriendlyName}'");
+
             return GenericWait.Wait<string>(
                 () =>
             {
