@@ -1,4 +1,4 @@
-- Working with MAQS
+- Working with MAQS (Version 4)
 	- [Introduction to MAQS](MAQS_4/Introduction.md)
 	- [Installation](MAQS_4/Installation.md)
 	- [Getting Started](MAQS_4/Getting-Started.md)
