@@ -49,6 +49,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </example>
         public IWebElement ForClickableElement(By by)
         {
+            this.webDriverWait.Message = "Waiting for clickable element";
             return this.webDriverWait.Until(ElementIsClickable(by, this.searchItem));
         }
 
@@ -63,6 +64,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </example>
         public IWebElement ForVisibleElement(By by)
         {
+            this.webDriverWait.Message = "Waiting for visible element";
             return this.webDriverWait.Until(ElementIsVisible(by, this.searchItem));
         }
 
@@ -77,6 +79,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </example>
         public IWebElement ForElementExist(By by)
         {
+            this.webDriverWait.Message = "Waiting for existing element";
             return this.webDriverWait.Until(ElementDoesExist(by, this.searchItem));
         }
 
@@ -92,6 +95,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </example>
         public IWebElement ForExactText(By by, string text)
         {
+            this.webDriverWait.Message = $"Waiting for element with text '{text}'";
             return this.webDriverWait.Until(ElementHasExpectedText(by, text, this.searchItem));
         }
 
@@ -107,6 +111,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </example>
         public IWebElement ForContainsText(By by, string text)
         {
+            this.webDriverWait.Message = $"Waiting for element that contains text '{text}'";
             return this.webDriverWait.Until(ElementContainsExpectedText(by, text, this.searchItem));
         }
 
@@ -153,6 +158,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </example>
         public IWebElement ForAttributeTextContains(By by, string textValue, string attribute)
         {
+            this.webDriverWait.Message = $"Waiting for element that has attribute '{attribute}' which contains the value '{textValue}'";
+
             try
             {
                 return this.webDriverWait.Until(AttributeContainsExpectedText(by, textValue, attribute, this.searchItem));
@@ -176,6 +183,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </example>
         public IWebElement ForAttributeTextEquals(By by, string textValue, string attribute)
         {
+            this.webDriverWait.Message = $"Waiting for element that has attribute '{attribute}' with the value of '{textValue}'";
+
             try
             {
                 return this.webDriverWait.Until(AttributeEqualsExpectedText(by, textValue, attribute, this.searchItem));

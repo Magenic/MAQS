@@ -67,6 +67,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
             if (waitCollection.ContainsKey(unwrappedDriver))
             {
+                // Make sure we don't have any cached messages
+                waitCollection[unwrappedDriver].Message = string.Empty;
                 return waitCollection[unwrappedDriver];
             }
             else
