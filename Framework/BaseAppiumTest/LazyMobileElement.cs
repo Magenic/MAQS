@@ -36,9 +36,6 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <param name="testObject">The base Selenium test object</param>
         /// <param name="locator">The 'by' selector for the element</param>
         /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementCreate" lang="C#" />
-        /// </example>
         public LazyMobileElement(AppiumTestObject testObject, By locator, string userFriendlyName = "LazyMobileElement")
         {
             this.TestObject = testObject;
@@ -52,9 +49,6 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <param name="parent">The parent lazy element</param>
         /// <param name="locator">The 'by' selector for the element</param>
         /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementCreateWithParent" lang="C#" />
-        /// </example>
         public LazyMobileElement(LazyMobileElement parent, By locator, string userFriendlyName = "LazyMobileElement") : this(parent.TestObject, locator, userFriendlyName)
         {
             this.parent = parent;
@@ -63,33 +57,21 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// Gets a the 'by' selector for the element
         /// </summary>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementGetBy" lang="C#" />
-        /// </example>
         public By By { get; private set; }
 
         /// <summary>
         /// Gets the test object for the element
         /// </summary>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementGetTestObject" lang="C#" />
-        /// </example>
         public AppiumTestObject TestObject { get; private set; }
 
         /// <summary>
         /// Gets a cached copy of the element or null if we haven't already found the element
         /// </summary>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyCaching" lang="C#" />
-        /// </example>
         public IWebElement CachedElement { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether the lazy element is enabled
         /// </summary>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementEnabled" lang="C#" />
-        /// </example>
         public bool Enabled
         {
             get
@@ -101,9 +83,6 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// Gets a value indicating whether the lazy element is selected
         /// </summary>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementSelected" lang="C#" />
-        /// </example>
         public bool Selected
         {
             get
@@ -115,9 +94,6 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// Gets a value indicating whether the lazy element is displayed
         /// </summary>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementDisplayed" lang="C#" />
-        /// </example>
         public bool Displayed
         {
             get
@@ -129,9 +105,6 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// Gets the lazy element's tag name
         /// </summary>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementTagName" lang="C#" />
-        /// </example>
         public string TagName
         {
             get
@@ -143,9 +116,6 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// Gets the lazy element's text
         /// </summary>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementText" lang="C#" />
-        /// </example>
         public string Text
         {
             get
@@ -157,9 +127,6 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// Gets the lazy element's location
         /// </summary>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementLocation" lang="C#" />
-        /// </example>
         public Point Location
         {
             get
@@ -171,9 +138,6 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// Gets the lazy element's size
         /// </summary>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementSize" lang="C#" />
-        /// </example>
         public Size Size
         {
             get
@@ -185,9 +149,6 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// Click the lazy element 
         /// </summary>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementClick" lang="C#" />
-        /// </example>
         public void Click()
         {
             IWebElement element = this.GetElement(this.GetTheClickableElement);
@@ -198,9 +159,6 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// Send keys to the lazy element
         /// </summary>
         /// <param name="text">The text to send to the lazy element</param>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementSendKeys" lang="C#" />
-        /// </example>
         public void SendKeys(string text)
         {
             IWebElement element = this.GetElement(this.GetTheVisibleElement);
@@ -231,9 +189,6 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// Clear the lazy element 
         /// </summary>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementClear" lang="C#" />
-        /// </example>
         public void Clear()
         {
             IWebElement element = this.GetElement(this.GetTheVisibleElement);
@@ -243,9 +198,6 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// Submit the lazy element 
         /// </summary>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementSubmit" lang="C#" />
-        /// </example>
         public void Submit()
         {
             IWebElement element = this.GetElement(this.GetTheExistingElement);
@@ -257,9 +209,6 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// </summary>
         /// <param name="attributeName">The given attribute name</param>
         /// <returns>The attribute value</returns>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementGetAttribute" lang="C#" />
-        /// </example>
         public string GetAttribute(string attributeName)
         {
             return this.GetElement(this.GetTheExistingElement).GetAttribute(attributeName);
@@ -269,9 +218,6 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// Gets the current value of an element - Useful for get input box text
         /// </summary>
         /// <returns>The element's current value</returns>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementSendKeys" lang="C#" />
-        /// </example>
         public string GetValue()
         {
             return this.GetElement(this.GetTheVisibleElement).GetAttribute("value");
@@ -282,9 +228,6 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// </summary>
         /// <param name="propertyName">The given attribute/property name</param>
         /// <returns>The CSS value</returns>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementGetCssValue" lang="C#" />
-        /// </example>
         public string GetCssValue(string propertyName)
         {
             return this.GetElement(this.GetTheExistingElement).GetCssValue(propertyName);
@@ -294,10 +237,6 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// Wait for and get the visible web element
         /// </summary>
         /// <returns>The web visible web element</returns>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementVisibleElement" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyGetVisibleTriggerFind" lang="C#" />
-        /// </example>
         public IWebElement GetTheVisibleElement()
         {
             this.CachedElement = (this.parent == null) ? this.TestObject.AppiumDriver.Wait().ForVisibleElement(this.By) :
@@ -310,10 +249,6 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// Wait for and get the clickable web element
         /// </summary>
         /// <returns>The web clickable web element</returns>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementClickableElement" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyGetClickableTriggerFind" lang="C#" />
-        /// </example>
         public IWebElement GetTheClickableElement()
         {
             this.CachedElement = (this.parent == null) ? this.TestObject.AppiumDriver.Wait().ForClickableElement(this.By) :
@@ -326,10 +261,6 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// Wait for and get the web element
         /// </summary>
         /// <returns>The web element</returns>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyElementExistingElement" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/LazyElementUnitTests.cs" region="LazyGetExistTriggerFind" lang="C#" />
-        /// </example>
         public IWebElement GetTheExistingElement()
         {
             this.CachedElement = (this.parent == null) ? this.TestObject.AppiumDriver.Wait().ForElementExist(this.By) :
