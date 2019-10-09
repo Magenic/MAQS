@@ -71,7 +71,6 @@ param (
 [string]$Dapper = "2.0.30"
 [string]$DapperContrib = "2.0.30"
 [string]$MailKit = "2.3.1.6"
-[string]$MailKit = "2.3.0"
 [string]$MicrosoftAspNetWebApiClient = "5.2.7"
 [string]$MicrosoftDataSqliteCore = "3.0.0"
 [string]$MicrosoftExtensionsConfiguration = "3.0.0"
@@ -98,7 +97,8 @@ param (
 [string]$SeleniumWebDriver = "3.141.0"
 [string]$SeleniumWebDriverChromeDriver = "77.0.3865.4000"
 [string]$SeleniumWebDriverGeckoDriver = "0.25.0"
-[string]$SeleniumWebDriverGeckoDriverWin32 = "0.24.0.1"
+[string]$SeleniumWebDriverGeckoDriverWin32 = "0.25.0"
+[string]$SeleniumWebDriverGeckoDriverWin64 = "0.25.0"
 [string]$SeleniumWebDriverIEDriver = "3.150.0"
 [string]$SeleniumWebDriverMicrosoftDriver = "17.17134.0"
 [string]$SpecFlow = "3.0.225"
@@ -115,8 +115,8 @@ param (
 # to avoid updating a value, set its value to ""
 
 # Which package references need to be updated and the corresponding versions
-$packageList = "Appium.WebDriver", "BouncyCastle", "Castle.Core", "Dapper", "Dapper.Contrib", "Magenic.Maqs", "Magenic.Maqs.NunitOnly", "Magenic.Maqs.SpecFlow", "Magenic.Open.Maqs", "Magenic.Open.Maqs.NunitOnly", "MailKit", "MailKit", "Microsoft.AspNet.WebApi.Client", "Microsoft.Data.Sqlite.Core", "Microsoft.Extensions.Configuration", "Microsoft.Extensions.Configuration.Abstractions", "Microsoft.Extensions.Configuration.FileExtensions", "Microsoft.Extensions.Configuration.Json", "Microsoft.Extensions.FileProviders.Abstractions", "Microsoft.Extensions.FileProviders.Physical", "Microsoft.Extensions.FileSystemGlobbing", "Microsoft.Extensions.Primitives", "Microsoft.NET.Test.Sdk", "MimeKit", "MongoDB.Bson", "MongoDB.Driver", "MongoDB.Driver.Core", "MSTest.TestAdapter", "MSTest.TestFramework", "Newtonsoft.Json", "Npgsql", "NUnit", "NUnit3TestAdapter", "Selenium.Axe", "Selenium.Support", "Selenium.WebDriver", "Selenium.WebDriver.ChromeDriver", "Selenium.WebDriver.GeckoDriver", "Selenium.WebDriver.GeckoDriver.Win32", "Selenium.WebDriver.IEDriver", "Selenium.WebDriver.MicrosoftDriver", "SpecFlow", "SpecFlow.MsTest", "SpecFlow.NUnit", "SQLitePCLRaw.bundle_e_sqlite3", "SQLitePCLRaw.core", "System.Data.SqlClient", "System.Reflection.Emit", "System.Reflection.Emit.Lightweight", "System.Runtime.CompilerServices.Unsafe", "System.Text.Encoding.CodePages"
-$versionList =  $AppiumWebDriver,   $BouncyCastle,  $CastleCore,   $Dapper,  $DapperContrib,   $maqsVer,       $maqsVer,                 $maqsVer,                $maqsVer,            $maqsVer,                      $MailKit,  $MailKit,  $MicrosoftAspNetWebApiClient,     $MicrosoftDataSqliteCore,     $MicrosoftExtensionsConfiguration,    $MicrosoftExtensionsConfigurationAbstractions,     $MicrosoftExtensionsConfigurationFileExtensions,     $MicrosoftExtensionsConfigurationJson,     $MicrosoftExtensionsFileProvidersAbstractions,     $MicrosoftExtensionsFileProvidersPhysical,     $MicrosoftExtensionsFileSystemGlobbing,    $MicrosoftExtensionsPrimitives,    $MicrosoftNETTestSdk,     $MimeKit,  $MongoDBBson,   $MongoDBDriver,   $MongoDBDriverCore,    $MSTestTestAdapter,   $MSTestTestFramework,   $NewtonsoftJson,   $Npgsql,  $NUnit,  $NUnit3TestAdapter,  $SeleniumAxe,   $SeleniumSupport,   $SeleniumWebDriver,   $SeleniumWebDriverChromeDriver,    $SeleniumWebDriverGeckoDriver,    $SeleniumWebDriverGeckoDriverWin32,     $SeleniumWebDriverIEDriver,    $SeleniumWebDriverMicrosoftDriver,    $SpecFlow,  $SpecFlowMsTest,   $SpecFlowNUnit,   $SQLitePCLRawbundleesqlite3,     $SQLitePCLRawcore,   $SystemDataSqlClient,    $SystemReflectionEmit,    $SystemReflectionEmitLightweight,     $SystemRuntimeCompilerServicesUnsafe,     $SystemTextEncodingCodePages
+$packageList = "Appium.WebDriver", "BouncyCastle", "Castle.Core", "Dapper", "Dapper.Contrib", "Magenic.Maqs", "Magenic.Maqs.NunitOnly", "Magenic.Maqs.SpecFlow", "Magenic.Open.Maqs", "Magenic.Open.Maqs.NunitOnly", "MailKit", "Microsoft.AspNet.WebApi.Client", "Microsoft.Data.Sqlite.Core", "Microsoft.Extensions.Configuration", "Microsoft.Extensions.Configuration.Abstractions", "Microsoft.Extensions.Configuration.FileExtensions", "Microsoft.Extensions.Configuration.Json", "Microsoft.Extensions.FileProviders.Abstractions", "Microsoft.Extensions.FileProviders.Physical", "Microsoft.Extensions.FileSystemGlobbing", "Microsoft.Extensions.Primitives", "Microsoft.NET.Test.Sdk", "MimeKit", "MongoDB.Bson", "MongoDB.Driver", "MongoDB.Driver.Core", "MSTest.TestAdapter", "MSTest.TestFramework", "Newtonsoft.Json", "Npgsql", "NUnit", "NUnit3TestAdapter", "Selenium.Axe", "Selenium.Support", "Selenium.WebDriver", "Selenium.WebDriver.ChromeDriver", "Selenium.WebDriver.GeckoDriver", "Selenium.WebDriver.GeckoDriver.Win32", "Selenium.WebDriver.GeckoDriver.Win64", "Selenium.WebDriver.IEDriver", "Selenium.WebDriver.MicrosoftDriver", "SpecFlow", "SpecFlow.MsTest", "SpecFlow.NUnit", "SQLitePCLRaw.bundle_e_sqlite3", "SQLitePCLRaw.core", "System.Data.SqlClient", "System.Reflection.Emit", "System.Reflection.Emit.Lightweight", "System.Runtime.CompilerServices.Unsafe", "System.Text.Encoding.CodePages"
+$versionList =  $AppiumWebDriver,   $BouncyCastle,  $CastleCore,   $Dapper,  $DapperContrib,   $maqsVer,       $maqsVer,                 $maqsVer,                $maqsVer,            $maqsVer,                      $MailKit,  $MicrosoftAspNetWebApiClient,     $MicrosoftDataSqliteCore,     $MicrosoftExtensionsConfiguration,    $MicrosoftExtensionsConfigurationAbstractions,     $MicrosoftExtensionsConfigurationFileExtensions,     $MicrosoftExtensionsConfigurationJson,     $MicrosoftExtensionsFileProvidersAbstractions,     $MicrosoftExtensionsFileProvidersPhysical,     $MicrosoftExtensionsFileSystemGlobbing,    $MicrosoftExtensionsPrimitives,    $MicrosoftNETTestSdk,     $MimeKit,  $MongoDBBson,   $MongoDBDriver,   $MongoDBDriverCore,    $MSTestTestAdapter,   $MSTestTestFramework,   $NewtonsoftJson,   $Npgsql,  $NUnit,  $NUnit3TestAdapter,  $SeleniumAxe,   $SeleniumSupport,   $SeleniumWebDriver,   $SeleniumWebDriverChromeDriver,    $SeleniumWebDriverGeckoDriver,    $SeleniumWebDriverGeckoDriverWin32,     $SeleniumWebDriverGeckoDriverWin64,     $SeleniumWebDriverIEDriver,    $SeleniumWebDriverMicrosoftDriver,    $SpecFlow,  $SpecFlowMsTest,   $SpecFlowNUnit,   $SQLitePCLRawbundleesqlite3,     $SQLitePCLRawcore,   $SystemDataSqlClient,    $SystemReflectionEmit,    $SystemReflectionEmitLightweight,     $SystemRuntimeCompilerServicesUnsafe,     $SystemTextEncodingCodePages
 
 
 # Which assembly file values need to be updated and the corresponding versions (THIS UPDATES ALL ASSEMBLYINFO.CS FILES IN THE REPO, AND SOME SHOULD BE MANUALLY REVERTED)
@@ -144,6 +144,7 @@ function UpdateLine($fileText, $regexType, $searchValue, $replaceValue){
     if($regexType -eq "PackageReferences") { $regexPattern = "(<package id=""" + $searchValue + """ version="")([\d\.]*)("" targetFramework=""[\w]+"" />)" }
     if($regexType -eq "AssemblyReferences") { $regexPattern = "(\[assembly: " + $searchValue + "\("")([\d\.]*)(""\)\])" }
     if($regexType -eq "NuspecVersion"){ $regexPattern = "(<id>" + $searchValue + "</id>[\r\n\s]*<version>)([\d\.]*)(</version>)" }
+    if($regexType -eq "NuspecDep") { $regexPattern = "(<dependency id=""" + $searchValue + """ version="")([\d\.]*)("" />)" }
     if($regexType -eq "HelpDocument") { $regexPattern = "(<HelpFileVersion>)([\d\.]*)(</HelpFileVersion>)" }
     if($regexType -eq "VsixManifest") { $regexPattern = "(<Identity Id=""[A-Za-z0-9 -]*"" Version="")([\d\.]*)("" Language=""en-US"" Publisher=""Magenic"" />)" }
     if($regexType -eq "NugetRepository") { $regexPattern = "(<add key=""intranet repository"" value="")([A-Za-z0-9 \\\.:/_-]*)("" />)" }
@@ -218,6 +219,7 @@ function WorkFlowFunction($closedSource, $openSource, $specFlowSource){
     }
     UpdateFiles $PSScriptRoot"\Framework" "AssemblyInfo.cs" "AssemblyReferences" $assemblyList $assemblyVer
     UpdateFiles $PSScriptRoot"\Framework" "*.nuspec" "NuspecVersion" $nuspecIds $nuspecVer
+    UpdateFiles $PSScriptRoot"\Framework" "*.nuspec" "NuspecDep" $packageList $versionList
     UpdateFiles $PSScriptRoot"\Framework" "*.csproj" "ProjVersion_" "NotNeeded" $maqsVer
     UpdateFiles $PSScriptRoot"\Framework" "*.csproj" "ProjVersion_File" "NotNeeded" $maqsVer
     UpdateFiles $PSScriptRoot"\Framework" "*.csproj" "ProjVersion_Assembly" "NotNeeded" $maqsVer
