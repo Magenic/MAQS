@@ -1,7 +1,7 @@
 ﻿  <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net471;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net471;netstandard2.0;netstandard2.1</TargetFrameworks>
     <AssemblyName>Magenic.Maqs.BaseAppiumTest</AssemblyName>
     <RootNamespace>Magenic.Maqs.BaseAppiumTest</RootNamespace>
     <Version>5.6.0</Version>
@@ -19,7 +19,7 @@
     <PackageReference Include="Appium.WebDriver" Version="4.0.0.5-beta" />
     <PackageReference Include="Selenium.Support" Version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.5.1" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.6.0" />
   </ItemGroup>
   
   <ItemGroup>
