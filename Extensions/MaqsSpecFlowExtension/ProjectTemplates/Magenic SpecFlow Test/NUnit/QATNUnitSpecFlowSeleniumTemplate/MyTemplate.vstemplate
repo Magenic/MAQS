@@ -1,24 +1,25 @@
-<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
-  <TemplateData>
+<VSTemplate Version="3.0.0" Type="ProjectGroup"
+    xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+    <TemplateData>
     <Name>MAQS NUnit SpecFlow Selenium Tests</Name>
     <Description>Magenic's automation quick start framework for Selenium testing using SpecFlow</Description>
+    <DefaultName>SeleniumTests</DefaultName>
+    <Icon>QATTest.ico</Icon>
     <ProjectType>CSharp</ProjectType>
     <LanguageTag>C#</LanguageTag>
     <PlatformTag>windows</PlatformTag>
+    <ProjectTypeTag>test</ProjectTypeTag>
     <ProjectTypeTag>Magenic Test</ProjectTypeTag>
     <ProjectSubType>Magenic Test</ProjectSubType>
-    <DefaultName>SeleniumTests</DefaultName>
-    <ProvideDefaultName>true</ProvideDefaultName>
-    <LocationField>Enabled</LocationField>
-    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
-    <CreateInPlace>true</CreateInPlace>
-    <Icon>__TemplateIcon.ico</Icon>
-  </TemplateData>
-  <TemplateContent>
-    <Project TargetFileName="Tests.csproj" File="TemplateTesting.csproj" ReplaceParameters="true">
-      <ProjectItem ReplaceParameters="true" TargetFileName="App.config">App.config</ProjectItem>
-      <ProjectItem ReplaceParameters="false" TargetFileName="SeleniumFeature.feature">SeleniumFeature.feature</ProjectItem>
-      <ProjectItem ReplaceParameters="true" TargetFileName="SeleniumFeatureSteps.cs">SeleniumFeatureSteps.cs</ProjectItem>
-    </Project>
-  </TemplateContent>
+    </TemplateData>
+    <TemplateContent>
+        <ProjectCollection>
+                <ProjectTemplateLink ProjectName="PageModel">
+                    PageModel\MyTemplate.vstemplate
+                </ProjectTemplateLink>
+                <ProjectTemplateLink ProjectName="Tests">
+                    Tests\MyTemplate.vstemplate
+                </ProjectTemplateLink>
+        </ProjectCollection>
+    </TemplateContent>
 </VSTemplate>
