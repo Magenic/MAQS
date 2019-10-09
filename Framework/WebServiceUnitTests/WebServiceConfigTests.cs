@@ -44,5 +44,25 @@ namespace WebServiceTesterUnitTesting
             #endregion
             Assert.AreEqual(10, timeout.Seconds);
         }
+
+        /// <summary>
+        /// Get expected UseProxy configuration
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.WebService)]
+        public void GetUseProxy()
+        {
+            Assert.IsFalse(WebServiceConfig.GetUseProxy());
+        }
+
+        /// <summary>
+        /// Get expected proxy address configuration
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.WebService)]
+        public void GetProxyAddress()
+        {
+            Assert.AreEqual("127.0.0.1:8001", WebServiceConfig.GetProxyAddress());
+        }
     }
 }

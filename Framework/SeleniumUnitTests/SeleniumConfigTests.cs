@@ -452,5 +452,25 @@ namespace UnitTests
             Assert.ThrowsException<ArgumentException>(() => SeleniumConfig.GetRemoteBrowserType("PHANTOM"));
             Assert.ThrowsException<ArgumentException>(() => SeleniumConfig.GetRemoteBrowserType("OTHER"));
         }
+
+        /// <summary>
+        /// Get expected UseProxy configuration
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void GetUseProxy()
+        {
+            Assert.IsFalse(SeleniumConfig.GetUseProxy());
+        }
+
+        /// <summary>
+        /// Get expected proxy address configuration
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void GetProxyAddress()
+        {
+            Assert.AreEqual("http://localhost:8002", SeleniumConfig.GetProxyAddress());
+        }
     }
 }

@@ -46,7 +46,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>A new http client</returns>
         protected virtual HttpClient GetHttpClient()
         {
-            return HttpClientFactory.GetClient(this.GetBaseWebServiceUri(), WebServiceConfig.GetWebServiceTimeout());
+            return HttpClientFactory.GetClient(this.GetBaseWebServiceUri(), WebServiceConfig.GetWebServiceTimeout(), this.GetUseProxy(), this.GetProxyAddress());
         }
 
         /// <summary>
@@ -65,6 +65,24 @@ namespace Magenic.Maqs.BaseWebServiceTest
         protected virtual string GetBaseWebServiceUrl()
         {
             return WebServiceConfig.GetWebServiceUri();
+        }
+
+        /// <summary>
+        /// Get if proxy should be used
+        /// </summary>
+        /// <returns>True if should use proxy</returns>
+        protected virtual bool GetUseProxy()
+        {
+            return WebServiceConfig.GetUseProxy();
+        }
+
+        /// <summary>
+        /// Get proxy address
+        /// </summary>
+        /// <returns>The proxy address and port</returns>
+        protected virtual string GetProxyAddress()
+        {
+            return WebServiceConfig.GetProxyAddress();
         }
 
         /// <summary>
