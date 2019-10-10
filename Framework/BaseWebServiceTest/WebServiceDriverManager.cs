@@ -5,7 +5,6 @@
 // <summary>Web service driver</summary>
 //--------------------------------------------------
 using Magenic.Maqs.BaseTest;
-using Magenic.Maqs.BaseWebServiceTest;
 using Magenic.Maqs.Utilities.Logging;
 using System;
 using System.Net.Http;

@@ -1,14 +1,13 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> Faker Data
 
 # IMPORTANT NOTE
+####################################################################################  
 **_This functionality is being deprecated.  
-We strongly encourage our uses to leverage the [Faker.Data](https://www.nuget.org/packages/Faker.Data/) NuGet package in it's place._**
-# 
+We strongly encourage you to leverage the [Faker.Data](https://www.nuget.org/packages/Faker.Data/) NuGet package in it's place._**
+####################################################################################  
 
 ## Overview
 Faker Data provides the ability to generate random and valid (wherever applicable) data during runtime.
-
-
 
 ### Time Utilities
 For getting current system time, you can use:  

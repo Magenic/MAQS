@@ -6,7 +6,6 @@
 //--------------------------------------------------
 using Magenic.Maqs.Utilities.Data;
 using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 
@@ -34,9 +33,6 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <param name="waitForTrue">The function we are waiting to return true</param>
         /// <param name="arg">Parameter to pass to the wait for true function</param>
         /// <returns>True if the waitForTrue function returned true before the timeout</returns>
-        /// <example>
-        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" region="WaitUntilWithType" lang="C#" />
-        /// </example>
         public static bool WaitUntil<T>(Func<T, bool> waitForTrue, T arg)
         {
             return Wait(waitForTrue, retryTimeFromConfig, timeoutFromConfig, false, arg);
@@ -47,9 +43,6 @@ namespace Magenic.Maqs.Utilities.Helper
         /// </summary>
         /// <param name="waitForTrue">The function we are waiting to return true</param>
         /// <returns>True if the wait for true function returned true before timing out</returns>
-        /// <example>
-        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" region="WaitUntil" lang="C#" />
-        /// </example>
         public static bool WaitUntil(Func<bool> waitForTrue)
         {
             return Wait(waitForTrue, retryTimeFromConfig, timeoutFromConfig, false);
@@ -59,9 +52,6 @@ namespace Magenic.Maqs.Utilities.Helper
         /// Wait until the wait for true function returns true, an exception will be thrown if the wait times out
         /// </summary>
         /// <param name="waitForTrue">The function we are waiting to return true</param>
-        /// <example>
-        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" region="WaitFor" lang="C#" />
-        /// </example>
         public static void WaitFor(Func<bool> waitForTrue)
         {
             if (!Wait(waitForTrue, retryTimeFromConfig, timeoutFromConfig, true))
@@ -76,9 +66,6 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <typeparam name="T">The type of parameter to pass in the wait for true function</typeparam>
         /// <param name="waitForTrue">The function we are waiting to return true</param>
         /// <param name="arg">Parameter to pass to the wait for true function</param>
-        /// <example>
-        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" region="WaitForWithType" lang="C#" />
-        /// </example>
         public static void WaitFor<T>(Func<T, bool> waitForTrue, T arg)
         {
             if (!Wait(waitForTrue, retryTimeFromConfig, timeoutFromConfig, true, arg))
@@ -88,14 +75,35 @@ namespace Magenic.Maqs.Utilities.Helper
         }
 
         /// <summary>
+        /// Wait until the wait for function returns the expected type, an exception will be thrown if the wait times out
+        /// </summary>
+        /// <typeparam name="T">The expected return type</typeparam>
+        /// <param name="waitFor">The wait for function</param>
+        /// <returns>The wait for function return value</returns>
+        public static T WaitFor<T>(Func<T> waitFor)
+        {
+            return Wait(waitFor, retryTimeFromConfig, timeoutFromConfig);
+        }
+
+        /// <summary>
+        /// Wait until the wait for function returns the expected type, an exception will be thrown if the wait times out
+        /// </summary>
+        /// <typeparam name="T">The expected return type</typeparam>
+        /// <typeparam name="U">Wait for argument type</typeparam>
+        /// <param name="waitFor">The wait for function</param>
+        /// <param name="arg">The wait for function argument</param>
+        /// <returns>The wait for function return value</returns>
+        public static T WaitFor<T, U>(Func<U, T> waitFor, U arg)
+        {
+            return Wait(waitFor, retryTimeFromConfig, timeoutFromConfig, arg);
+        }
+
+        /// <summary>
         /// Waits for a function with a return type T to return a value that is to an argument of the same type.  If it times out it returns the value of the function.
         /// </summary>
         /// <typeparam name="T">Type returned</typeparam>
         /// <param name="waitForTrue">Function that returns type T</param>
         /// <param name="comparativeValue">value of the same type as T</param>
-        /// <example>
-        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" region="WaitUntilFunctionEqualsExpected" lang="C#" />
-        /// </example>
         /// <returns>if it returned before the timeout occurred</returns>
         public static T WaitUntilMatch<T>(Func<T> waitForTrue, T comparativeValue)
         {
@@ -134,9 +142,6 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <param name="retryTime">time to wait between retries</param>
         /// <param name="timeout">how long before timing out</param>
         /// <param name="comparativeValue">value of the same type as T</param>
-        /// <example>
-        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" region="WaitUntilFunctionEqualsExpected" lang="C#" />
-        /// </example>
         /// <returns>if it returned before the timeout occurred</returns>
         public static T WaitUntilMatch<T>(Func<T> waitForTrue, TimeSpan retryTime, TimeSpan timeout, T comparativeValue)
         {
@@ -170,9 +175,6 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <typeparam name="T">The type the method returns</typeparam>
         /// <param name="waitForTrue">Method to wait for</param>
         /// <param name="comparativeValue">The value to compare to what comes out of waitForTrue</param>
-        /// <example>
-        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" region="WaitForFunctionEqualsExpected" lang="C#" />
-        /// </example>
         public static void WaitForMatch<T>(Func<T> waitForTrue, T comparativeValue)
         {
             // Set start time and exception holder
@@ -205,9 +207,6 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <param name="retryTime">time to wait between retries</param>
         /// <param name="timeout">how long before timing out</param>
         /// <param name="comparativeValue">The value to compare to what comes out of waitForTrue</param>
-        /// <example>
-        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" region="WaitForFunctionEqualsExpected" lang="C#" />
-        /// </example>
         public static void WaitForMatch<T>(Func<T> waitForTrue, TimeSpan retryTime, TimeSpan timeout, T comparativeValue)
         {
             // Set start time and exception holder
@@ -230,30 +229,6 @@ namespace Magenic.Maqs.Utilities.Helper
             {
                 throw new TimeoutException("Timed out waiting for " + waitForTrue.Method.Name + " to return expected value of " + typeof(T) + ": " + comparativeValue);
             }
-        }
-
-        /// <summary>
-        /// Wait until the wait for function returns the expected type, an exception will be thrown if the wait times out
-        /// </summary>
-        /// <typeparam name="T">The expected return type</typeparam>
-        /// <param name="waitFor">The wait for function</param>
-        /// <returns>The wait for function return value</returns>
-        public static T WaitFor<T>(Func<T> waitFor)
-        {
-            return Wait(waitFor, retryTimeFromConfig, timeoutFromConfig);
-        }
-
-        /// <summary>
-        /// Wait until the wait for function returns the expected type, an exception will be thrown if the wait times out
-        /// </summary>
-        /// <typeparam name="T">The expected return type</typeparam>
-        /// <typeparam name="U">Wait for argument type</typeparam>
-        /// <param name="waitFor">The wait for function</param>
-        /// <param name="arg">The wait for function argument</param>
-        /// <returns>The wait for function return value</returns>
-        public static T WaitFor<T, U>(Func<U, T> waitFor, U arg)
-        {
-            return Wait(waitFor, retryTimeFromConfig, timeoutFromConfig, arg);
         }
 
         /// <summary>

@@ -1,4 +1,15 @@
 MAQS Framework Release Notes:
+5.6.0 - 2019/10/10
+    Bug fixes and minor enhancements
+    - Logging improvements
+    - Add proxy configuration for Selenium and web service tests
+    Package update
+    - Add support for .Net Core 3
+    - Mass dependency updates
+    Template updates
+    - Mass dependency updates
+    - Add models to SpecFlow templates
+
 5.5.2 - 2019/9/5
     Bug fixes and minor enhancements
     - Add associated files to Core MSTest test results
@@ -43,7 +54,7 @@ MAQS Framework Release Notes:
     - Make it easier to override soft assert
     - Stop creating a second log file when a test fails because of a soft assert
     - Add a base Selenium page object model
-    
+
 5.1.1 - 2018/10/5
     Bug fixes and minor enhancements
     - Build and package both .Net Standard and .Net framework libraries

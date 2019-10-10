@@ -143,6 +143,10 @@ Primarily uses with the .Net Framework implementation of MAQS.
 
     <!-- Log file path - Defaults to build location if no value is defined
     <add key="FileLoggerPath" value="C:\Frameworks\"/>-->
+
+    <!-- Use First Chance Handler - Defaults to enabled
+    <add key="UseFirstChanceHandler" value="NO"/>
+    <add key="UseFirstChanceHandler" value="YES"/>-->
   </MagenicMaqs>
   <AppiumMaqs>
     <!--Device platform
@@ -317,7 +321,8 @@ Primarily uses with the .Net Core implementation of MAQS.
     "Timeout": "10000",
     "Log": "OnFail",
     "LogLevel": "INFORMATION",
-    "LogType": "TXT"
+    "LogType": "TXT",
+    "UseFirstChanceHandler": "YES"
   },
   "AppiumMaqs": {
     "PlatformName": "Android",

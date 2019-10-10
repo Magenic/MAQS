@@ -67,6 +67,57 @@ namespace Magenic.Maqs.BaseAppiumTest
             testObject.AddAssociatedFile(path);
         }
 
+        #region Obsolete CaptureScreenshot
+        /// <summary>
+        /// To capture a screenshot during execution
+        /// </summary>
+        /// <param name="appiumDriver">The AppiumDriver</param>
+        /// <param name="log">The logger being used</param>
+        /// <param name="appendName">Appends a name to the end of a filename</param>
+        /// <returns>Boolean if the save of the image was successful</returns>
+        [Obsolete("CaptureScreenshot that does not take a AppiumTestObject parameter is deprecated")]
+        public static bool CaptureScreenshot(this AppiumDriver<IWebElement> appiumDriver, Logger log, string appendName = "")
+        {
+            try
+            {
+                if (!(log is FileLogger))
+                {
+                    return false;
+                }
+
+                string fullpath = ((FileLogger)log).FilePath;
+                string directory = Path.GetDirectoryName(fullpath);
+                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fullpath) + appendName;
+                CaptureScreenshot(appiumDriver, directory, fileNameWithoutExtension);
+
+                log.LogMessage(MessageType.INFORMATION, "Screenshot saved");
+                return true;
+            }
+            catch (Exception exception)
+            {
+                exception = exception.InnerException ?? exception;
+                log.LogMessage(MessageType.ERROR, "Screenshot error: {0}", exception.ToString());
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// To capture a screenshot during execution
+        /// </summary>
+        /// <param name="appiumDriver">The AppiumDriver</param>
+        /// <param name="directory">The directory file path</param>
+        /// <param name="fileNameWithoutExtension">Filename without extension</param>
+        [Obsolete("CaptureScreenshot that does not take a AppiumTestObject parameter is deprecated")]
+        public static void CaptureScreenshot(this AppiumDriver<IWebElement> appiumDriver, string directory, string fileNameWithoutExtension)
+        {
+            Screenshot screenshot = ((ITakesScreenshot)appiumDriver).GetScreenshot();
+
+            string path = Path.Combine(directory, fileNameWithoutExtension + ".png");
+
+            screenshot.SaveAsFile(path, ScreenshotImageFormat.Png);
+        }
+        #endregion
+
         /// <summary>
         /// To capture a page source during execution
         /// </summary>
@@ -216,57 +267,6 @@ namespace Magenic.Maqs.BaseAppiumTest
             writer.Close();
 
             return path;
-        }
-        #endregion
-
-        #region Obsolete CaptureScreenshot
-        /// <summary>
-        /// To capture a screenshot during execution
-        /// </summary>
-        /// <param name="appiumDriver">The AppiumDriver</param>
-        /// <param name="log">The logger being used</param>
-        /// <param name="appendName">Appends a name to the end of a filename</param>
-        /// <returns>Boolean if the save of the image was successful</returns>
-        [Obsolete("CaptureScreenshot that does not take a AppiumTestObject parameter is deprecated")]
-        public static bool CaptureScreenshot(this AppiumDriver<IWebElement> appiumDriver, Logger log, string appendName = "")
-        {
-            try
-            {
-                if (!(log is FileLogger))
-                {
-                    return false;
-                }
-
-                string fullpath = ((FileLogger)log).FilePath;
-                string directory = Path.GetDirectoryName(fullpath);
-                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fullpath) + appendName;
-                CaptureScreenshot(appiumDriver, directory, fileNameWithoutExtension);
-
-                log.LogMessage(MessageType.INFORMATION, "Screenshot saved");
-                return true;
-            }
-            catch (Exception exception)
-            {
-                exception = exception.InnerException ?? exception;
-                log.LogMessage(MessageType.ERROR, "Screenshot error: {0}", exception.ToString());
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// To capture a screenshot during execution
-        /// </summary>
-        /// <param name="appiumDriver">The AppiumDriver</param>
-        /// <param name="directory">The directory file path</param>
-        /// <param name="fileNameWithoutExtension">Filename without extension</param>
-        [Obsolete("CaptureScreenshot that does not take a AppiumTestObject parameter is deprecated")]
-        public static void CaptureScreenshot(this AppiumDriver<IWebElement> appiumDriver, string directory, string fileNameWithoutExtension)
-        {
-            Screenshot screenshot = ((ITakesScreenshot)appiumDriver).GetScreenshot();
-
-            string path = Path.Combine(directory, fileNameWithoutExtension + ".png");
-
-            screenshot.SaveAsFile(path, ScreenshotImageFormat.Png);
         }
         #endregion
 

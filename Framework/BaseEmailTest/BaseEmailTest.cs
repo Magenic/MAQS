@@ -6,10 +6,8 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseTest;
 using Magenic.Maqs.Utilities.Data;
-using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.Utilities.Logging;
 using MailKit.Net.Imap;
-using System;
 
 namespace Magenic.Maqs.BaseEmailTest
 {
