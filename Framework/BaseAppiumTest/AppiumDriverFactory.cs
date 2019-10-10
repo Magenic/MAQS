@@ -5,7 +5,6 @@
 // <summary>Factory for creating mobile drivers</summary>
 //--------------------------------------------------
 using Magenic.Maqs.Utilities.Data;
-using Magenic.Maqs.Utilities.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
@@ -14,7 +13,6 @@ using OpenQA.Selenium.Appium.iOS;
 using OpenQA.Selenium.Appium.Windows;
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace Magenic.Maqs.BaseAppiumTest
 {
