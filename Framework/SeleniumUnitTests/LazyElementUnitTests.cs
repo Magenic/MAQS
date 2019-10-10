@@ -178,7 +178,7 @@ namespace SeleniumUnitTests
             catch (TimeoutException)
             {
                 TimeSpan duration = DateTime.Now - start;
-                Assert.IsTrue(duration < TimeSpan.FromSeconds(2), "The max wait time should be no more than " + 2 + " seconds but was " + duration);
+                Assert.IsTrue(duration < TimeSpan.FromMilliseconds(2500), "The max wait time should be no more than 2.5 seconds but was " + duration);
             }
         }
 
@@ -260,7 +260,7 @@ namespace SeleniumUnitTests
             footer.GetValue();
             IWebElement footerElementBefore = footer.CachedElement;
 
-            // Do the event again and save off the changed element 
+            // Do the event again and save off the changed element
             footer.GetValue();
 
             // Make sure doing a new find returns an element that is not the same as the cached element
@@ -281,7 +281,7 @@ namespace SeleniumUnitTests
             footer.GetValue();
             IWebElement footerElementBefore = footer.CachedElement;
 
-            // Do the event again and save off the changed element 
+            // Do the event again and save off the changed element
             footer.GetValue();
             IWebElement footerElementAfter = footer.CachedElement;
 
@@ -303,7 +303,7 @@ namespace SeleniumUnitTests
             footer.GetValue();
             IWebElement footerElementBefore = footer.CachedElement;
 
-            // Do the event again and save off the changed element 
+            // Do the event again and save off the changed element
             footer.GetValue();
 
             // Go to another page so the old element will be stale, this will force us to get a new one
