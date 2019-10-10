@@ -8,7 +8,6 @@ using Magenic.Maqs.BaseTest;
 using Magenic.Maqs.Utilities.Logging;
 using MailKit.Net.Imap;
 using System;
-using System.Data;
 
 namespace Magenic.Maqs.BaseEmailTest
 {

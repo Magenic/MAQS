@@ -5,7 +5,6 @@
 // <summary>Help utilities for string processing</summary>
 //--------------------------------------------------
 using System;
-using System.Linq;
 using System.Text;
 
 namespace Magenic.Maqs.Utilities.Data

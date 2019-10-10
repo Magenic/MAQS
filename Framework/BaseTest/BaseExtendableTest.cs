@@ -4,7 +4,6 @@
 // </copyright>
 // <summary>Base code for test classes that setup test objects like web drivers or database connections</summary>
 //--------------------------------------------------
-using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 

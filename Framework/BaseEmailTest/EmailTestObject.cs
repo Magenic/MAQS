@@ -6,12 +6,11 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseTest;
 using Magenic.Maqs.Utilities.Logging;
-using Magenic.Maqs.Utilities.Performance;
 using MailKit.Net.Imap;
 using System;
 
 namespace Magenic.Maqs.BaseEmailTest
-{        
+{
     /// <summary>
     /// Email test context data
     /// </summary>

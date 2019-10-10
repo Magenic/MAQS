@@ -55,16 +55,6 @@ namespace Magenic.Maqs.Utilities.Logging
         }
 
         /// <summary>
-        /// Write the formatted message followed by a line break to the console as a generic message
-        /// </summary>
-        /// <param name="message">The message text</param>
-        /// <param name="args">String format arguments</param>
-        public void WriteLine(string message, params object[] args)
-        {
-            this.SetColorWriteAndRestore(MessageType.INFORMATION, true, message, args);
-        }
-
-        /// <summary>
         /// Write the formatted message to the console as the given message type
         /// </summary>
         /// <param name="type">The type of message</param>
@@ -73,6 +63,16 @@ namespace Magenic.Maqs.Utilities.Logging
         public void Write(MessageType type, string message, params object[] args)
         {
             this.SetColorWriteAndRestore(type, false, message, args);
+        }
+
+        /// <summary>
+        /// Write the formatted message followed by a line break to the console as a generic message
+        /// </summary>
+        /// <param name="message">The message text</param>
+        /// <param name="args">String format arguments</param>
+        public void WriteLine(string message, params object[] args)
+        {
+            this.SetColorWriteAndRestore(MessageType.INFORMATION, true, message, args);
         }
 
         /// <summary>
@@ -95,6 +95,43 @@ namespace Magenic.Maqs.Utilities.Logging
         {
             Console.ForegroundColor = fore;
             Console.BackgroundColor = back;
+        }
+
+        /// <summary>
+        /// Set the console color based on the message type
+        /// </summary>
+        /// <param name="type">The type of message that will be written</param>
+        private void SetConsoleColor(MessageType type)
+        {
+            switch (type)
+            {
+                case MessageType.SUSPENDED:
+                    // Suspended so we do nothing
+                    break;
+                case MessageType.VERBOSE:
+                    SetConsoleColor(ConsoleColor.Black, ConsoleColor.White);
+                    break;
+                case MessageType.INFORMATION:
+                    SetConsoleColor(ConsoleColor.Blue, ConsoleColor.White);
+                    break;
+                case MessageType.GENERIC:
+                    SetConsoleColor(ConsoleColor.White);
+                    break;
+                case MessageType.SUCCESS:
+                    SetConsoleColor(ConsoleColor.Green);
+                    break;
+                case MessageType.WARNING:
+                    SetConsoleColor(ConsoleColor.Yellow);
+                    break;
+                case MessageType.ERROR:
+                    SetConsoleColor(ConsoleColor.Red);
+                    break;
+                default:
+                    SetConsoleColor(ConsoleColor.Yellow);
+                    Console.WriteLine(this.UnknownMessageTypeMessage(type));
+                    SetConsoleColor(ConsoleColor.White);
+                    break;
+            }
         }
 
         /// <summary>
@@ -138,43 +175,6 @@ namespace Magenic.Maqs.Utilities.Logging
 
             // Cleanup after yourself
             SetConsoleColor(originalFore, originalBack);
-        }
-
-        /// <summary>
-        /// Set the console color based on the message type
-        /// </summary>
-        /// <param name="type">The type of message that will be written</param>
-        private void SetConsoleColor(MessageType type)
-        {
-            switch (type)
-            {
-                case MessageType.SUSPENDED:
-                    // Suspended so we do nothing
-                    break;
-                case MessageType.VERBOSE:
-                    SetConsoleColor(ConsoleColor.Black, ConsoleColor.White);
-                    break;
-                case MessageType.INFORMATION:
-                    SetConsoleColor(ConsoleColor.Blue, ConsoleColor.White);
-                    break;
-                case MessageType.GENERIC:
-                    SetConsoleColor(ConsoleColor.White);
-                    break;
-                case MessageType.SUCCESS:
-                    SetConsoleColor(ConsoleColor.Green);
-                    break;
-                case MessageType.WARNING:
-                    SetConsoleColor(ConsoleColor.Yellow);
-                    break;
-                case MessageType.ERROR:
-                    SetConsoleColor(ConsoleColor.Red);
-                    break;
-                default:
-                    SetConsoleColor(ConsoleColor.Yellow);
-                    Console.WriteLine(this.UnknownMessageTypeMessage(type));
-                    SetConsoleColor(ConsoleColor.White);
-                    break;
-            }
         }
     }
 }
