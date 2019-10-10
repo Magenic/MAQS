@@ -115,6 +115,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             chromeOptions.AddArguments("--allow-running-insecure-content");
             chromeOptions.AddArguments("--disable-extensions");
 
+            chromeOptions.SetProxySettings();
             return chromeOptions;
         }
 
@@ -134,6 +135,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             headlessChromeOptions.AddArguments("--headless");
             headlessChromeOptions.AddArguments(GetHeadlessWindowSizeString(size));
 
+            headlessChromeOptions.SetProxySettings();
             return headlessChromeOptions;
         }
 
@@ -148,6 +150,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 IgnoreZoomLevel = true
             };
 
+            options.SetProxySettings();
             return options;
         }
 
@@ -162,6 +165,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 Profile = new FirefoxProfile()
             };
 
+            firefoxOptions.SetProxySettings();
             return firefoxOptions;
         }
 
@@ -176,6 +180,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 PageLoadStrategy = PageLoadStrategy.Normal
             };
 
+            edgeOptions.SetProxySettings();
             return edgeOptions;
         }
 
@@ -383,7 +388,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
 
             // Add additional capabilities to the driver options
             options.SetDriverOptions(remoteCapabilities);
-
+            options.SetProxySettings();
             return options;
         }
 
@@ -422,6 +427,36 @@ namespace Magenic.Maqs.BaseSeleniumTest
                             break;
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Sets the proxy settings for the driver options (if configured)
+        /// </summary>
+        /// <param name="options">The driver options</param>
+        public static void SetProxySettings(this DriverOptions options)
+        {
+            if (SeleniumConfig.GetUseProxy())
+            {
+                SetProxySettings(options, SeleniumConfig.GetProxyAddress());
+            }
+        }
+
+        /// <summary>
+        /// Sets the proxy settings for the driver options
+        /// </summary>
+        /// <param name="options">The driver options</param>
+        /// <param name="proxyAddress">The proxy address</param>
+        public static void SetProxySettings(this DriverOptions options, string proxyAddress)
+        {
+            if (!string.IsNullOrEmpty(proxyAddress))
+            {
+                Proxy proxy = new Proxy
+                {
+                    HttpProxy = proxyAddress,
+                    SslProxy = proxyAddress
+                };
+                options.Proxy = proxy;
             }
         }
 
