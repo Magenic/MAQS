@@ -97,6 +97,30 @@ namespace Magenic.Maqs.BaseWebServiceTest
         }
 
         /// <summary>
+        /// Make http stream content
+        /// </summary>
+        /// <typeparam name="T">The body object type</typeparam>
+        /// <param name="body">The content as a string</param>
+        /// <param name="contentEncoding">How to encode the content</param>
+        /// <param name="mediaType">The type of media</param>
+        /// <returns>The stream content</returns>
+        public static StreamContent MakeStreamContent<T>(T body, Encoding contentEncoding, string mediaType)
+        {
+            if (mediaType.ToUpper().Contains("XML"))
+            {
+                return MakeStreamContent(GetXmlObjectAsString(body, contentEncoding), contentEncoding, mediaType);
+            }
+            else if (mediaType.ToUpper().Contains("JSON"))
+            {
+                return MakeStreamContent(JsonConvert.SerializeObject(body), contentEncoding, mediaType);
+            }
+            else
+            {
+                throw new NotSupportedException(StringProcessor.SafeFormatter("Only Xml and Json conversions are currently support, {0} does not appear to be either", mediaType));
+            }
+        }
+
+        /// <summary>
         /// Make non-standard http stream content with string body
         /// </summary>
         /// <param name="body">The content as a string</param>
@@ -157,30 +181,6 @@ namespace Magenic.Maqs.BaseWebServiceTest
         {
             string responseBody = message.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<T>(responseBody);
-        }
-
-        /// <summary>
-        /// Make http stream content
-        /// </summary>
-        /// <typeparam name="T">The body object type</typeparam>
-        /// <param name="body">The content as a string</param>
-        /// <param name="contentEncoding">How to encode the content</param>
-        /// <param name="mediaType">The type of media</param>
-        /// <returns>The stream content</returns>
-        public static StreamContent MakeStreamContent<T>(T body, Encoding contentEncoding, string mediaType)
-        {
-            if (mediaType.ToUpper().Contains("XML"))
-            {
-                return MakeStreamContent(GetXmlObjectAsString(body, contentEncoding), contentEncoding, mediaType);
-            }
-            else if (mediaType.ToUpper().Contains("JSON"))
-            {
-                return MakeStreamContent(JsonConvert.SerializeObject(body), contentEncoding, mediaType);
-            }
-            else
-            {
-                throw new NotSupportedException(StringProcessor.SafeFormatter("Only Xml and Json conversions are currently support, {0} does not appear to be either", mediaType));
-            }
         }
 
         /// <summary>
