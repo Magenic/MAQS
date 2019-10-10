@@ -30,5 +30,9 @@
   <ItemGroup>
     <ProjectReference Include="..\PageModel\PageModel.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
 
 </Project>
