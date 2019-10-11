@@ -81,7 +81,7 @@ param (
 [string]$MicrosoftExtensionsFileProvidersPhysical = "2.2.0"
 [string]$MicrosoftExtensionsFileSystemGlobbing = "2.2.0"
 [string]$MicrosoftExtensionsPrimitives = "2.2.0"
-[string]$MicrosoftNETTestSdk = "16.3.0"
+[string]$MicrosoftNETTestSdk = "16.2.0"
 [string]$MimeKit = "2.3.1"
 [string]$MongoDBBson = "2.9.2"
 [string]$MongoDBDriver = "2.9.2"

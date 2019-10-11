@@ -12,7 +12,7 @@
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="77.0.3865.4000" />
     <PackageReference Include="Selenium.WebDriver.GeckoDriver.Win64" Version="0.25.0" />
     <PackageReference Include="Selenium.WebDriver.IEDriver" Version="3.150.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.0.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.0.0" />
