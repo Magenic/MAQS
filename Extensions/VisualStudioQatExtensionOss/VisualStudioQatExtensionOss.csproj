@@ -141,6 +141,12 @@
     <Content Include="ProjectTemplates\Magenic Test Core\QATSeleniumTemplate.zip">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <None Include="Overview.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="publishManifest.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
