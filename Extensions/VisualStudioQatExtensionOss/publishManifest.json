@@ -6,7 +6,7 @@
     "displayName": "MAQS Framework",
     "icon": "QATTest.ico",
     "internalName": "MAQSOpenFramework",
-    "tags": [ "MAQS", "Test", "Selenium", "Appium", "Service", "Database" ]
+    "tags": [ "MAQS", "Test", "Selenium", "Appium" ]
   },
   "overview": "overview.md",
   "priceCategory": "free",
