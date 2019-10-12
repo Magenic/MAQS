@@ -10,7 +10,7 @@
 		<ReleaseNotes>ReleaseNotes.txt</ReleaseNotes>
 		<Icon>QATTest.ico</Icon>
 		<PreviewImage>QATTest.ico</PreviewImage>
-		<Tags>Test Automation Selenium Appium Database Service Email</Tags>
+		<Tags>Test Selenium Appium Database Service Email</Tags>
 	</Metadata>
 	<Installation>
 		<InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[15.0,]" />
