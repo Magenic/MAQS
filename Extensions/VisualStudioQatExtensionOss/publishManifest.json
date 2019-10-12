@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json.schemastore.org/vsix-publish",
+  "categories": [ "Other" ],
+  "identity": {
+    "description": "Magenic's automation quick start framework",
+    "displayName": "MAQS Framework",
+    "icon": "QATTest.ico",
+    "internalName": "MAQSOpenFramework",
+    "tags": [ "MAQS", "Test", "Selenium", "Appium", "Service", "Database" ]
+  },
+  "overview": "overview.md",
+  "priceCategory": "free",
+  "publisher": "vs-publisher-1465771",
+  "private": false,
+  "qna": true,
+  "repo": "https://github.com/Magenic/MAQS"
+}
