@@ -44,11 +44,4 @@
     <ProjectReference Include="..\BaseTest\BaseTest.csproj" />
     <ProjectReference Include="..\BaseWebServiceTest\BaseWebServiceTest.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None Update="App.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>
