@@ -4,9 +4,7 @@
   "identity": {
     "description": "Magenic's automation quick start framework",
     "displayName": "MAQS Framework",
-    "icon": "QATTest.ico",
-    "internalName": "MAQSOpenFramework",
-    "tags": [ "MAQS", "Test", "Selenium", "Appium" ]
+    "internalName": "MAQSOpenFramework"
   },
   "overview": "overview.md",
   "priceCategory": "free",
