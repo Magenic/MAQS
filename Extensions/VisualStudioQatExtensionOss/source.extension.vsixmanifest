@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="7f8a17ec-cc72-413f-ae85-bbbbb77f2d1f" Version="5.6.0.1" Language="en-US" Publisher="Magenic" />
+        <Identity Id="7f8a17ec-cc72-413f-ae85-bbbbb77f2d1f" Version="5.6.0.2" Language="en-US" Publisher="Magenic" />
         <DisplayName>MAQS Framework</DisplayName>
         <Description xml:space="preserve">Magenic's automation quick start framework</Description>
         <MoreInfo>https://magenic.com/what-we-do/support-optimization/quality-assurance</MoreInfo>
@@ -10,7 +10,7 @@
         <ReleaseNotes>ReleaseNotes.txt</ReleaseNotes>
         <Icon>QATTest.ico</Icon>
         <PreviewImage>QATTest.ico</PreviewImage>
-        <Tags>Test Selenium Appium Database Service Email</Tags>
+        <Tags>Test;Selenium;Appium;Database;Web Service;Email</Tags>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[15.0,]" />
