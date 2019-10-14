@@ -1,6 +1,6 @@
 {
   "$schema": "http://json.schemastore.org/vsix-publish",
-  "categories": [ "Other" ],
+  "categories": [ "Template" ],
   "identity": {
     "description": "Magenic's automation quick start framework",
     "displayName": "MAQS Framework",
