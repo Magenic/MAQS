@@ -4,9 +4,7 @@
   "identity": {
     "description": "Magenic's automation quick start framework extension for SpecFlow testing",
     "displayName": "MAQS SpecFlow Extension",
-    "icon": "QATTest.ico",
-    "internalName": "MAQSSpecFlow",
-    "tags": [ "ATDD", "BDD", "MAQS", "SpecFlow", "Test", "Selenium", "Appium" ]
+    "internalName": "MAQSSpecFlow"
   },
   "overview": "overview.md",
   "priceCategory": "free",
