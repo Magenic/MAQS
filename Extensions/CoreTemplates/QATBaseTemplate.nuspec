@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
 <metadata minClientVersion="3.6">
     <id>Magenic.Maqs.Templates</id>
-    <version>5.6.0</version>
+    <version>5.6.0.1</version>
     <title>MAQS Core Templates</title>
     <authors>Magenic</authors>
     <owners>Magenic</owners>
