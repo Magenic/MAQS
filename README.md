@@ -7,7 +7,7 @@ Releases:
 [![Nuget](https://img.shields.io/nuget/v/Magenic.Maqs.svg)](https://www.nuget.org/packages/Magenic.Maqs/)
 
 License:  
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://raw.githubusercontent.com/Magenic/MAQS/develop/LICENSE)  
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://raw.githubusercontent.com/Magenic/MAQS/master/LICENSE)  
 
 
 # MAQS
