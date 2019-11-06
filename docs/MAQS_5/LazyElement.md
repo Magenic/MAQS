@@ -54,6 +54,90 @@ LazyElement userNameInputField =
 userNameInputField.Clear();
 ```
 
+### Displayed 
+This method checks if an element is displayed.
+
+#### Written as
+```csharp
+this.ElementID.Displayed;
+```
+
+#### Example
+```csharp
+// Initializing Lazy Element for a dialog button
+LazyElement dialogOneButton = 
+    new LazyElement(
+    this.TestObject,
+    By.CssSelector("#showDialog1"),
+    "Dialog button 1");
+
+// Check that the button is displayed 
+Assert.AreEqual(true, dialogOneButton.Displayed);
+```
+
+### Enabled 
+This method checks if an element is enabled.
+
+#### Written as
+```csharp
+this.ElementID.Enabled;
+```
+
+#### Example
+```csharp
+// Initializing Lazy Element for a dialog button
+LazyElement dialogOneButton = 
+    new LazyElement(
+    this.TestObject,
+    By.CssSelector("#showDialog1"),
+    "Dialog button 1");
+
+// Check that the button is enabled 
+Assert.AreEqual(true, dialogOneButton.Enabled);
+```
+
+### Exists 
+This method checks if an element exists.
+
+#### Written as
+```csharp
+this.ElementID.Exists;
+```
+
+#### Example
+```csharp
+// Initializing Lazy Element for a dialog button
+LazyElement dialogOneButton = 
+    new LazyElement(
+    this.TestObject,
+    By.CssSelector("#showDialog1"),
+    "Dialog button 1");
+
+// Check that the button is exists 
+Assert.AreEqual(true, dialogOneButton.Exists);
+```  
+
+### ExistsNow 
+This method checks if an element exists right now. - AKA We don't wait for the element
+
+#### Written as
+```csharp
+this.ElementID.ExistsNow;
+```
+
+#### Example
+```csharp
+// Initializing Lazy Element for a dialog button
+LazyElement dialogOneButton = 
+    new LazyElement(
+    this.TestObject,
+    By.CssSelector("#showDialog1"),
+    "Dialog button 1");
+
+// Check that the button is exists right now
+Assert.AreEqual(true, dialogOneButton.ExistsNow);
+```  
+
 ### FindElement 
 This method requires a parent lazy element, which returns the first element under the parent that matches the given selector.
 #### Written as
