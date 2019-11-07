@@ -896,5 +896,19 @@ namespace SeleniumUnitTests
             this.WebDriver.SetWaitDriver(new OpenQA.Selenium.Support.UI.WebDriverWait(this.WebDriver, TimeSpan.FromSeconds(1)));
             firstElement.Click();
         }
+
+        /// <summary>
+        /// Stacked get visible
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementFindElementsGetVisible()
+        {
+            LazyElement lazyRoot = new LazyElement(this.TestObject, By.CssSelector("#ItemsToAutomate"));
+            IWebElement secondTable = lazyRoot.FindElements(By.CssSelector("TABLE"))[1];
+            IWebElement getSecondTable = ((LazyElement)secondTable).GetTheVisibleElement();
+            Assert.AreEqual(secondTable.Text, getSecondTable.Text);
+
+        }
     }
 }
