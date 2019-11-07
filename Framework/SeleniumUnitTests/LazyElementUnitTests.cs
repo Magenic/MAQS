@@ -908,7 +908,6 @@ namespace SeleniumUnitTests
             IWebElement secondTable = lazyRoot.FindElements(By.CssSelector("TABLE"))[1];
             IWebElement getSecondTable = ((LazyElement)secondTable).GetTheVisibleElement();
             Assert.AreEqual(secondTable.Text, getSecondTable.Text);
-
         }
     }
 }
