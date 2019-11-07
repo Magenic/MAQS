@@ -599,6 +599,16 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Verify Lazy Element property
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementProperty()
+        {
+            Assert.AreEqual("showDialog1", this.DialogOneButton.GetProperty("id"), "Expected ID to be 'showDialog1'");
+        }
+
+        /// <summary>
         /// Verify Lazy Element Enabled test
         /// </summary>
         [TestMethod]

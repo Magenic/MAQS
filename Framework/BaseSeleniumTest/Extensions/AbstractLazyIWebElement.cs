@@ -440,7 +440,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <returns>The web visible web element</returns>
         public IWebElement GetTheVisibleElement()
         {
-            if (this.elementIndex != null)
+            if (this.elementIndex == null)
             {
                 this.CachedElement = (this.parent == null) ? this.WebDriver.Wait().ForVisibleElement(this.By) :
                 this.parent.GetTheExistingElement().Wait().ForVisibleElement(this.By);
@@ -459,7 +459,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <returns>The web clickable web element</returns>
         public IWebElement GetTheClickableElement()
         {
-            if (this.elementIndex != null)
+            if (this.elementIndex == null)
             {
                 this.CachedElement = (this.parent == null) ? this.WebDriver.Wait().ForClickableElement(this.By) :
                     this.parent.GetTheExistingElement().Wait().ForClickableElement(this.By);
