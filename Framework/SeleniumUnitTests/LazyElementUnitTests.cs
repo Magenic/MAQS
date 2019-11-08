@@ -176,18 +176,19 @@ namespace SeleniumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void LazyRespectsWaitDeriverTimesOut()
+        public void LazyRespectsWaitDriverTimesOut()
         {
             DateTime start = DateTime.Now;
             try
             {
-                this.WebDriver.SetWaitDriver(new OpenQA.Selenium.Support.UI.WebDriverWait(this.WebDriver, TimeSpan.FromSeconds(1)));
+                this.WebDriver.SetWaitDriver(new OpenQA.Selenium.Support.UI.WebDriverWait(this.WebDriver, TimeSpan.FromSeconds(2)));
+                start = DateTime.Now;
                 this.DisabledItem.Click();
             }
             catch (TimeoutException)
             {
                 TimeSpan duration = DateTime.Now - start;
-                Assert.IsTrue(duration < TimeSpan.FromMilliseconds(2500), "The max wait time should be no more than 2.5 seconds but was " + duration);
+                Assert.IsTrue(duration < TimeSpan.FromMilliseconds(4000), "The max wait time should be less than seconds but was " + duration);
             }
         }
 
