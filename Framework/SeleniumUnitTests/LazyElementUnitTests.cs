@@ -188,7 +188,7 @@ namespace SeleniumUnitTests
             catch (TimeoutException)
             {
                 TimeSpan duration = DateTime.Now - start;
-                Assert.IsTrue(duration < TimeSpan.FromMilliseconds(4000), "The max wait time should be less than seconds but was " + duration);
+                Assert.IsTrue(duration < TimeSpan.FromMilliseconds(4000), "The max wait time should be less than 4 seconds but was " + duration);
             }
         }
 
