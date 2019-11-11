@@ -262,15 +262,15 @@ namespace SeleniumUnitTests
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
-            this.WebDriver.SetWaitDriver(new WebDriverWait(new SystemClock(), this.WebDriver, TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(10)));
+            this.WebDriver.SetWaitDriver(new WebDriverWait(new SystemClock(), this.WebDriver, TimeSpan.FromMilliseconds(1000), TimeSpan.FromMilliseconds(100)));
             IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
 
             DateTime start = DateTime.Now;
             element.Wait().UntilAbsentElement(HomeButtonCssSelector);
             TimeSpan span = DateTime.Now - start;
 
-            Assert.IsTrue(span.TotalMilliseconds > 500, "Timed out too quickly");
-            Assert.IsTrue(span.TotalMilliseconds < 1000, "Didn't timeout quickly enough");
+            Assert.IsTrue(span.TotalMilliseconds > 1000, "Timed out too quickly, should have taken at least 1 second.");
+            Assert.IsTrue(span.TotalMilliseconds < 2000, "Didn't timeout quickly enough, should have occured in under 2 seconds.");
         }
 
         /// <summary>
