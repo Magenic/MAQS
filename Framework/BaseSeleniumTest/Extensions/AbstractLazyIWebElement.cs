@@ -173,10 +173,10 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
                 return GenericWait.Wait<bool>(
                     () =>
-                    {
-                        this.GetElement(this.GetTheExistingElement);
-                        return true;
-                    },
+                {
+                    this.GetElement(this.GetTheExistingElement);
+                    return true;
+                },
                 Extend.GetWaitDriver(this.WebDriver).PollingInterval,
                 Extend.GetWaitDriver(this.WebDriver).Timeout);
             }
@@ -294,13 +294,13 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
             GenericWait.Wait(
                 () =>
-                {
-                    IWebElement element = this.GetElement(this.GetTheClickableElement);
-                    this.ExecuteEvent(() => element.Click(), "Click");
-                    return true;
-                },
-                Extend.GetWaitDriver(this.WebDriver).PollingInterval,
-                Extend.GetWaitDriver(this.WebDriver).Timeout);
+            {
+                IWebElement element = this.GetElement(this.GetTheClickableElement);
+                this.ExecuteEvent(() => element.Click(), "Click");
+                return true;
+            },
+            Extend.GetWaitDriver(this.WebDriver).PollingInterval,
+            Extend.GetWaitDriver(this.WebDriver).Timeout);
         }
 
         /// <summary>
@@ -498,21 +498,21 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         private IWebElement GetIndexed(Func<IWebElement, bool> matchesState, string expectedState)
         {
             return GenericWait.Wait<IWebElement>(
-                    () =>
-                    {
-                        ReadOnlyCollection<IWebElement> elements = (this.parent == null) ? this.WebDriver.FindElements(this.By) : 
-                        this.parent.GetTheExistingElement().FindElements(this.By);
-                        IWebElement element = elements[this.elementIndex ?? 0];
+                () =>
+            {
+                ReadOnlyCollection<IWebElement> elements = (this.parent == null) ? this.WebDriver.FindElements(this.By) :
+                this.parent.GetTheExistingElement().FindElements(this.By);
+                IWebElement element = elements[this.elementIndex ?? 0];
 
-                        if(!matchesState(element))
-                        {
-                            throw new InvalidElementStateException($"Expected element to {expectedState}");
-                        }
+                if (!matchesState(element))
+                {
+                    throw new InvalidElementStateException($"Expected element to {expectedState}");
+                }
 
-                        return element;
-                    },
-                Extend.GetWaitDriver(this.WebDriver).PollingInterval,
-                Extend.GetWaitDriver(this.WebDriver).Timeout);
+                return element;
+            },
+            Extend.GetWaitDriver(this.WebDriver).PollingInterval,
+            Extend.GetWaitDriver(this.WebDriver).Timeout);
         }
 
         /// <summary>
