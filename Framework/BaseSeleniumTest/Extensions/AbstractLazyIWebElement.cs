@@ -10,6 +10,7 @@ using Magenic.Maqs.Utilities.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
@@ -377,6 +378,85 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 this.ExecuteEvent(() => element.Submit(), "Submit");
                 return true;
             },
+            Extend.GetWaitDriver(this.WebDriver).PollingInterval,
+            Extend.GetWaitDriver(this.WebDriver).Timeout);
+        }
+
+        /// <summary>
+        /// Select the dropdown option from the lazy element
+        /// </summary>
+        /// <param name="option">the option to select</param>
+        public void SelectDropDownOption(string option)
+        {
+            GenericWait.Wait(
+                () =>
+            {
+                IWebElement element = this.GetElement(this.GetTheVisibleElement);
+                this.ExecuteEvent(() => new SelectElement(element).SelectByText(option), "Select DropDown Option");
+                return true;
+            },
+            Extend.GetWaitDriver(this.WebDriver).PollingInterval,
+            Extend.GetWaitDriver(this.WebDriver).Timeout);
+        }
+
+        /// <summary>
+        /// Select the dropdown option by value from the Lazy element
+        /// </summary>
+        /// <param name="value">the value to select</param>
+        public void SelectDropDownOptionByValue(string value)
+        {
+            GenericWait.Wait(
+                () =>
+            {
+                IWebElement element = this.GetElement(this.GetTheVisibleElement);
+                this.ExecuteEvent(() => new SelectElement(element).SelectByValue(value), "Select DropDown Option By Value");
+                return true;
+            },
+            Extend.GetWaitDriver(this.WebDriver).PollingInterval,
+            Extend.GetWaitDriver(this.WebDriver).Timeout);
+        }
+
+        /// <summary>
+        /// Gets the Selected dropdown option from the Lazy element
+        /// </summary>
+        /// <returns>The selected option</returns>
+        public string GetSelectedOptionFromDropdown()
+        {
+            this.Log.LogMessage(MessageType.INFORMATION, $"Getting Selected Option for lazy element '{this.userFriendlyName}'");
+
+            return GenericWait.Wait<string>(
+                () =>
+            {
+                return new SelectElement(this.GetElement(this.GetTheExistingElement)).SelectedOption.Text;
+            },
+            Extend.GetWaitDriver(this.WebDriver).PollingInterval,
+            Extend.GetWaitDriver(this.WebDriver).Timeout);
+        }
+
+        /// <summary>
+        /// Gets the Selected dropdown option from the Lazy element
+        /// </summary>
+        /// <returns>The selected option</returns>
+        public List<string> GetSelectedOptionsFromDropdown()
+        {
+            this.Log.LogMessage(MessageType.INFORMATION, $"Getting Selected Options for lazy element '{this.userFriendlyName}'");
+
+            return GenericWait.Wait<List<string>>(
+                () =>
+                {
+                    List<string> selectedItems = new List<string>();
+                    var elements = new SelectElement(this.GetElement(this.GetTheExistingElement)).AllSelectedOptions;
+
+                    foreach (IWebElement element in elements)
+                    {
+                        if (element != null)
+                        {
+                            selectedItems.Add(element.Text);
+                        }
+                    }
+
+                    return selectedItems;
+                },
             Extend.GetWaitDriver(this.WebDriver).PollingInterval,
             Extend.GetWaitDriver(this.WebDriver).Timeout);
         }

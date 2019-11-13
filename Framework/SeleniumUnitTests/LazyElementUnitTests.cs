@@ -82,6 +82,14 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Gets the Multi Select for computer parts
+        /// </summary>
+        private LazyElement ComputerParts
+        {
+            get { return new LazyElement(this.TestObject, By.CssSelector("#computerParts"), "Computer Parts Multi Select");  }
+        }
+
+        /// <summary>
         /// Gets an item that is not going to be selected
         /// </summary>
         private LazyElement NotSelected
@@ -135,6 +143,14 @@ namespace SeleniumUnitTests
         private LazyElement DisabledInput
         {
             get { return new LazyElement(this.DisabledDiv, By.CssSelector("INPUT"), "Flower table caption"); }
+        }
+
+        /// <summary>
+        /// Gets the Names Dropdown
+        /// </summary>
+        private LazyElement NamesDropdown
+        { 
+            get { return new LazyElement(this.TestObject, By.CssSelector("#namesDropdown"), "Names Dropdown"); }
         }
 
         /// <summary>
@@ -576,6 +592,53 @@ namespace SeleniumUnitTests
         {
             this.WebDriver.SetWaitDriver(new OpenQA.Selenium.Support.UI.WebDriverWait(this.WebDriver, TimeSpan.FromSeconds(1)));
             this.DisabledInput.Submit();
+        }
+
+        /// <summary>
+        /// Verify Lazy Element Select Dropdown Option
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementSelectDropDownOption()
+        {
+            this.NamesDropdown.SelectDropDownOption("Ashley");
+            Assert.AreEqual("Ashley", this.NamesDropdown.GetSelectedOptionFromDropdown());
+        }
+
+        /// <summary>
+        /// Verify Lazy Element Select Dropdown Option By Value
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementSelectDropDownOptionByValue()
+        {
+            this.NamesDropdown.SelectDropDownOptionByValue("7");
+            Assert.AreEqual("Ashley", this.NamesDropdown.GetSelectedOptionFromDropdown());
+        }
+
+        /// <summary>
+        /// Verify Lazy Element Get Selected Option From Dropdown
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementGetSelectedOptionFromDropdown()
+        {
+            Assert.AreEqual("Joe", this.NamesDropdown.GetSelectedOptionFromDropdown());
+        }
+
+        /// <summary>
+        /// Verify Lazy Element Get Selected Options From dropdown
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementGetSelectedOptionsFromDropdown()
+        {
+            this.ComputerParts.SelectDropDownOption("Motherboard");
+            this.ComputerParts.SelectDropDownOption("Power Supply");
+
+            var selectedOptions = this.ComputerParts.GetSelectedOptionsFromDropdown();
+            Assert.AreEqual("Motherboard", selectedOptions[0]);
+            Assert.AreEqual("Power Supply", selectedOptions[1]);
         }
 
         /// <summary>
