@@ -31,7 +31,6 @@ namespace UtilitiesUnitTesting
         /// <summary>
         /// Test method to test Performance Timers
         /// </summary>
-        #region PerfTimers
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
         public void PerfStartStop2Timers()
@@ -107,7 +106,6 @@ namespace UtilitiesUnitTesting
 
             SoftAssert.FailTestIfAssertFailed();
         }
-        #endregion
 
         /// <summary>
         /// Performance timer test to validate error

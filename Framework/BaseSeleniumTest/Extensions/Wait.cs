@@ -44,8 +44,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="by">'by' selector for the element</param>
         /// <returns>The web element</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="WaitForClickable" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" region="WaitForClickable" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" lang="C#" />
         /// </example>
         public IWebElement ForClickableElement(By by)
         {
@@ -58,8 +58,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="by">'by' selector for the element</param>
         /// <returns>The web element</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="WaitForVisible" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" region="WaitForVisible" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" lang="C#" />
         /// </example>
         public IWebElement ForVisibleElement(By by)
         {
@@ -72,8 +72,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="by">Css Selector</param>
         /// <returns>The web element</returns>
         /// /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="WaitForExist" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" region="WaitForExist" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" lang="C#" />
         /// </example>
         public IWebElement ForElementExist(By by)
         {
@@ -87,8 +87,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="text">The exact text we expect the element have - Case sensitive</param>
         /// <returns>The web element</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="WaitForExactText" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" region="WaitForExactText" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" lang="C#" />
         /// </example>
         public IWebElement ForExactText(By by, string text)
         {
@@ -102,8 +102,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="text">The text we expect the element to contain - Case insensitive</param>
         /// <returns>The web element</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="WaitForContainsText" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" region="WaitForContainsText" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" lang="C#" />
         /// </example>
         public IWebElement ForContainsText(By by, string text)
         {
@@ -115,8 +115,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </summary>
         /// <param name="by">'by' selector for the element</param>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="WaitForAbsentElement" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" region="WaitForAbsentElement" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" lang="C#" />
         /// </example>
         public void ForAbsentElement(By by)
         {
@@ -130,7 +130,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// Wait for the page to load
         /// </summary>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="WaitForPageLoad" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
         /// </example>
         public void ForPageLoad()
         {
@@ -148,8 +148,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="attribute">Attribute name as a String</param>
         /// <returns>Element if the attribute contained given string</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="WaitForAttributeContains" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" region="WaitForAttributeContains" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" lang="C#" />
         /// </example>
         public IWebElement ForAttributeTextContains(By by, string textValue, string attribute)
         {
@@ -171,8 +171,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="attribute">Attribute name as a String</param>
         /// <returns>Element if the attribute equals given string</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="WaitForAttributeEquals" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" region="WaitForAttributeEquals" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" lang="C#" />
         /// </example>
         public IWebElement ForAttributeTextEquals(By by, string textValue, string attribute)
         {
@@ -192,8 +192,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="by">'by' selector for the element</param>
         /// <returns>The web element</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="WaitForAndScroll" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" region="WaitForAndScroll" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" lang="C#" />
         /// </example>
         public IWebElement ForClickableElementAndScrollIntoView(By by)
         {
@@ -210,8 +210,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="y">Vertical offset</param>
         /// <returns>The web element</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="WaitForClickableAndScroll" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" region="WaitForClickableAndScroll" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" lang="C#" />
         /// </example>
         public IWebElement ForClickableElementAndScrollIntoView(By by, int x, int y)
         {
@@ -226,8 +226,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="by">'by' selector for the element</param>
         /// <returns>True if the element is clickable</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="WaitUntilClickable" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" region="WaitUntilClickable" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" lang="C#" />
         /// </example>
         public bool UntilClickableElement(By by)
         {
@@ -240,8 +240,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="by">'by' selector for the element</param>
         /// <returns>True if the element is visible</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="WaitUntilVisible" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" region="WaitUntilVisible" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" lang="C#" />
         /// </example>
         public bool UntilVisibleElement(By by)
         {
@@ -254,8 +254,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="by">Css Selector</param>
         /// <returns>True if the element exists</returns>
         /// /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="WaitUntilExist" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" region="WaitUntilExist" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" lang="C#" />
         /// </example>
         public bool UntilElementExist(By by)
         {
@@ -269,8 +269,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="text">The exact text we expect the element have - Case sensitive</param>
         /// <returns>True if the element has the exact text</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="WaitUntilExact" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" region="WaitUntilExact" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" lang="C#" />
         /// </example>
         public bool UntilExactText(By by, string text)
         {
@@ -284,8 +284,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="text">The text we expect the element to contain - Case insensitive</param>
         /// <returns>True if the element contains the text</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="WaitUntilContains" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" region="WaitUntilContains" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" lang="C#" />
         /// </example>
         public bool UntilContainsText(By by, string text)
         {
@@ -298,8 +298,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="by">'by' selector for the element</param>
         /// <returns>True if the element is not visible on the page</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="WaitUntilAbsent" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" region="WaitUntilAbsent" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" lang="C#" />
         /// 
         /// SeleniumUnitTests
         /// 
@@ -346,7 +346,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </summary>
         /// <returns>True if the page finished loading</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="WaitUntilPageLoad" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
         /// </example>
         public bool UntilPageLoad()
         {
@@ -394,8 +394,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="attribute">Attribute name as a String</param>
         /// <returns>Boolean of whether attribute contained given string</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="WaitUntilAttributeContains" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" region="WaitUntilAttributeContains" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" lang="C#" />
         /// </example>
         public bool UntilAttributeTextContains(By by, string text, string attribute)
         {
@@ -410,8 +410,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="attribute">Attribute name as a String</param>
         /// <returns>Boolean of whether check passed</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="WaitUntilAttributeEquals" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" region="WaitUntilAttributeEquals" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" lang="C#" />
         /// </example>
         public bool UntilAttributeTextEquals(By by, string text, string attribute)
         {
@@ -424,8 +424,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="by">'by' selector for the element</param>
         /// <returns>True if the element is visible and scrolled into view</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="WaitUntilClickableAndScroll" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" region="WaitUntilClickableAndScroll" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" lang="C#" />
         /// </example>
         public bool UntilClickableElementAndScrollIntoView(By by)
         {
@@ -446,8 +446,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="y">Vertical offset</param>
         /// <returns>True if the element is visible and scrolled into view</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="WaitUntilClickableAndScrollWithOffset" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" region="WaitUntilClickableAndScrollWithOffset" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" lang="C#" />
         /// </example>
         public bool UntilClickableElementAndScrollIntoView(By by, int x, int y)
         {
@@ -466,8 +466,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="x">Horizontal offset</param>
         /// <param name="y">Vertical offset</param>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="ExecuteScrolling" lang="C#" />
-        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" region="ExecuteScrolling" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumWebElementTest.cs" lang="C#" />
         /// </example>
         public void PageLoadThanExecuteScrolling(int x, int y)
         {
@@ -484,7 +484,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="element">When this method returns, IWebElement containing the element if the attribute text contains the string, else null</param>
         /// <returns>Boolean of whether attribute contained given string</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="TryWaitForAttributeTextContains" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
         /// </example>
         public bool TryForAttributeTextContains(By by, string text, string attribute, out IWebElement element)
         {
@@ -501,7 +501,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="element">When this method returns, IWebElement containing the element if the attribute text matches, else null</param>
         /// <returns>Boolean of whether attribute contained given string</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="TryWaitForAttributeTextEquals" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
         /// </example>
         public bool TryForAttributeTextEquals(By by, string text, string attribute, out IWebElement element)
         {
@@ -516,7 +516,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="element">When this method returns, IWebElement containing the element if it is clickable, else null</param>
         /// <returns>True if the element is clickable</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="TryWaitForClickable" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
         /// </example>
         public bool TryForClickableElement(By by, out IWebElement element)
         {
@@ -531,7 +531,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="element">When this method returns, IWebElement containing the element if it is clickable, else null</param>
         /// <returns>True if the element is clickable</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="TryWaitForAndScroll" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
         /// </example>
         public bool TryForClickableElementAndScrollIntoView(By by, out IWebElement element)
         {
@@ -554,7 +554,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="element">When this method returns, IWebElement containing the element if it is clickable, else null</param>
         /// <returns>True if the element is clickable</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="TryWaitForAndScroll" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
         /// </example>
         public bool TryForClickableElementAndScrollIntoView(By by, int x, int y, out IWebElement element)
         {
@@ -576,7 +576,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="element">When this method returns, IWebElement containing the element if it is clickable, else null</param>
         /// <returns>True if the element is contains the text</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="TryWaitForContainsText" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
         /// </example>
         public bool TryForContainsText(By by, string text, out IWebElement element)
         {
@@ -591,7 +591,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="element">When this method returns, IWebElement containing the element if it exists, else null</param>
         /// <returns>True if the element exists</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="TryWaitForExist" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
         /// </example>
         public bool TryForElementExist(By by, out IWebElement element)
         {
@@ -607,7 +607,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="element">When this method returns, IWebElement containing the element if it has matching text, else null</param>
         /// <returns>True if the element exists</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="TryWaitForExact" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
         /// </example>
         public bool TryForExactText(By by, string text, out IWebElement element)
         {
@@ -622,7 +622,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="element">When this method returns, IWebElement containing the element if it is visible, else null</param>
         /// <returns>True if the element is clickable</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="TryWaitForVisible" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
         /// </example>
         public bool TryForVisibleElement(By by, out IWebElement element)
         {

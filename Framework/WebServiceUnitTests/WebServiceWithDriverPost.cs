@@ -42,7 +42,6 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// Post JSON stream request to verify status codes
         /// </summary>
-        #region PostWithResponseContent
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void PostJSONStreamSerializedVerifyStatusCode()
@@ -56,7 +55,6 @@ namespace WebServiceTesterUnitTesting
             var result = this.WebServiceDriver.PostWithResponse("/api/XML_JSON/Post", "application/json", content, true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
-        #endregion
 
         /// <summary>
         /// Post XML request to verify status codes
@@ -95,7 +93,6 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// Post with JSON
         /// </summary>
-        #region PostWithType
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void PostWithJson()
@@ -109,12 +106,10 @@ namespace WebServiceTesterUnitTesting
             var result = this.WebServiceDriver.Post<ProductJson>("/api/XML_JSON/Post", "application/json", content, true);
             Assert.IsTrue(result == null);
         }
-        #endregion
 
         /// <summary>
         /// Post XML to verify no string is returned
         /// </summary>
-        #region PostWithString
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void PostXMLSerializedVerifyEmptyString()
@@ -128,7 +123,6 @@ namespace WebServiceTesterUnitTesting
             var result = this.WebServiceDriver.Post("/api/XML_JSON/Post", "application/xml", content, true);
             Assert.AreEqual(string.Empty, result);
         }
-        #endregion
 
         /// <summary>
         /// Post string without utility
@@ -144,7 +138,6 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// Post stream without utility
         /// </summary>
-        #region PostWithoutCreatingContent
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void PostStreamWithoutMakeContent()
@@ -152,7 +145,6 @@ namespace WebServiceTesterUnitTesting
             var result = this.WebServiceDriver.Post("/api/String", "text/plain", "Test", Encoding.UTF8, "text/plain", false, true);
             Assert.AreEqual(string.Empty, result);
         }
-        #endregion
 
         /// <summary>
         /// Post string with utility
@@ -180,7 +172,6 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// Post stream without utility to verify status code
         /// </summary>
-        #region PostWithResponse
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void PostStreamWithoutContentStatusCode()
@@ -188,7 +179,6 @@ namespace WebServiceTesterUnitTesting
             var result = this.WebServiceDriver.PostWithResponse("/api/String", "text/plain", "Test", Encoding.UTF8, "text/plain", false, true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
-        #endregion
 
         /// <summary>
         /// Post string with utility to verify status code

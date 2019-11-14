@@ -48,7 +48,6 @@ namespace UtilitiesUnitTesting
         /// <summary>
         /// Test wait until with no parameters works when the wait function returns true
         /// </summary>
-        #region WaitUntil
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
         public void PassNoParamUntilTest()
@@ -57,12 +56,10 @@ namespace UtilitiesUnitTesting
 
             Assert.IsTrue(GenericWait.WaitUntil(() => loop++ > 3), "Failed no parameter test");
         }
-        #endregion
 
         /// <summary>
         /// Test wait for with no parameters works when the wait function returns true
         /// </summary>
-        #region WaitFor
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
         [DoNotParallelize]
@@ -71,12 +68,10 @@ namespace UtilitiesUnitTesting
             initialReturnValue = false;
             GenericWait.WaitFor(IsNotParamTest);
         }
-        #endregion
 
         /// <summary>
         /// Test wait until with one parameter works when the wait function returns true
         /// </summary>
-        #region WaitUntilWithType
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
         [DoNotParallelize]
@@ -85,9 +80,7 @@ namespace UtilitiesUnitTesting
             number = 0;
             Assert.IsTrue(GenericWait.WaitUntil<string>(this.IsParamTestString, TESTSTRING + "3"), "Failed single parameter test");
         }
-        #endregion
 
-        #region WaitUntilFunctionEqualsExpected
         /// <summary>
         /// Test wait until function returns expected value, then returns the value
         /// </summary>
@@ -111,9 +104,7 @@ namespace UtilitiesUnitTesting
             number = 0;
             Assert.IsTrue(GenericWait.WaitUntilMatch<string>(this.FunctionTestString, TESTRETRY, TESTTIMEOUT, "Test String3").Equals("Test String3"), "Failed expected parameter test.");
         }
-        #endregion
 
-        #region WaitForFunctionEqualsExpected
         /// <summary>
         /// Test wait until function returns expected value, throws an exception if a timeout occurs
         /// </summary>
@@ -137,12 +128,10 @@ namespace UtilitiesUnitTesting
             number = 0;
             GenericWait.WaitForMatch<string>(this.FunctionTestString, TESTRETRY, TESTTIMEOUT, TESTSTRING + "3");
         }
-        #endregion
 
         /// <summary>
         /// Test wait for with one parameter works when the wait function returns true
         /// </summary>
-        #region WaitForWithType
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
         [DoNotParallelize]
@@ -151,7 +140,6 @@ namespace UtilitiesUnitTesting
             int internalNumber = 0;
             GenericWait.WaitFor<string>((p) => p.Equals(TESTSTRING + internalNumber++), TESTSTRING + "3");
         }
-        #endregion
 
         /// <summary>
         /// Test wait until with an array of parameters works when the wait function returns true

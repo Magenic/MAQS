@@ -26,9 +26,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void GetWebServiceUrl()
         {
-            #region WebServiceConfig
             string url = WebServiceConfig.GetWebServiceUri();
-            #endregion
             Assert.AreEqual("http://magenicautomation.azurewebsites.net", url);
         }
 
@@ -39,9 +37,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void GetWebServiceTimeout()
         {
-            #region GetWebServiceTimeout
             TimeSpan timeout = WebServiceConfig.GetWebServiceTimeout();
-            #endregion
             Assert.AreEqual(10, timeout.Seconds);
         }
     }

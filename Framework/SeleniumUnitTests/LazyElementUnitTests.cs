@@ -27,12 +27,10 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Gets the disabled item
         /// </summary>
-        #region LazyElementCreate
         private LazyElement DisabledItem
         {
             get { return new LazyElement(this.TestObject, By.CssSelector("#disabledField INPUT"), "Disabled"); }
         }
-        #endregion
 
         /// <summary>
         /// Gets the input box
@@ -93,12 +91,10 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Gets a child element, the second table caption
         /// </summary>
-        #region LazyElementCreateWithParent
         private LazyElement FlowerTableCaptionWithParent
         {
             get { return new LazyElement(this.FlowerTableLazyElement, By.CssSelector("CAPTION > Strong"), "Flower table caption"); }
         }
-        #endregion
 
         /// <summary>
         /// Gets the first table caption
@@ -206,7 +202,6 @@ namespace SeleniumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        #region LazyCaching
         public void LazyElementCached()
         {
             // Create the lazy element and use it
@@ -223,14 +218,12 @@ namespace SeleniumUnitTests
             // Make sure the second event didn't trigger a new find
             Assert.AreEqual(footerElementBefore, footerElementAfter);
         }
-        #endregion
 
         /// <summary>
         /// Stale elements trigger a new find
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        #region LazyStaleCache
         public void LazyCaching()
         {
             // Create the lazy element and use it
@@ -250,7 +243,6 @@ namespace SeleniumUnitTests
             footer.GetValue();
             Assert.AreNotEqual(footerElementBefore, footer.CachedElement);
         }
-        #endregion
 
         /// <summary>
         /// Verify the get elements trigger new finds - We do this because we are looking for specific states
@@ -271,7 +263,6 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Verify the get clickable element triggers new finds - We do this because we are looking for specific states
         /// </summary>
-        #region LazyGetClickableTriggerFind
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void LazyGetClickableTriggerFind()
@@ -284,14 +275,12 @@ namespace SeleniumUnitTests
             // Make sure get clickable triggers a new find
             Assert.AreNotEqual(footer.CachedElement, footer.GetTheClickableElement());
         }
-        #endregion
 
         /// <summary>
         /// Verify the get existing element triggers new finds - We do this because we are looking for specific states
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        #region LazyGetExistTriggerFind
         public void LazyGetExistTriggerFind()
         {
             // Create the lazy element and use it
@@ -302,12 +291,10 @@ namespace SeleniumUnitTests
             // Make sure get exists triggers a new find
             Assert.AreNotEqual(footer.CachedElement, footer.GetTheExistingElement());
         }
-        #endregion
 
         /// <summary>
         /// Verify the get visible element triggers new finds - We do this because we are looking for specific states
         /// </summary>
-        #region LazyGetVisibleTriggerFind
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void LazyGetVisibleTriggerFind()
@@ -320,12 +307,10 @@ namespace SeleniumUnitTests
             // Make sure get visible triggers a new find
             Assert.AreNotEqual(footer.CachedElement, footer.GetTheVisibleElement());
         }
-        #endregion
 
         /// <summary>
         /// Verify Lazy Element Clear test
         /// </summary>
-        #region LazyElementClear
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementClear()
@@ -338,12 +323,10 @@ namespace SeleniumUnitTests
             this.InputBox.Clear();
             Assert.AreEqual(string.Empty, this.InputBox.GetAttribute("value"));
         }
-        #endregion
 
         /// <summary>
         /// Verify Lazy Element Click test
         /// </summary>
-        #region LazyElementClick
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementClick()
@@ -351,12 +334,10 @@ namespace SeleniumUnitTests
             this.DialogOneButton.Click();
             Assert.AreEqual(true, this.DialogOne.Displayed);
         }
-        #endregion
 
         /// <summary>
         /// Verify Lazy Element get By test
         /// </summary>
-        #region LazyElementGetBy
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementGetBy()
@@ -366,12 +347,10 @@ namespace SeleniumUnitTests
 
             Assert.AreEqual(testBy, testLazyElement.By);
         }
-        #endregion
 
         /// <summary>
         /// Verify Lazy Element get of the test object
         /// </summary>
-        #region LazyElementGetTestObject
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementGetTestObject()
@@ -379,19 +358,16 @@ namespace SeleniumUnitTests
             LazyElement testLazyElement = new LazyElement(this.TestObject, By.CssSelector("#ItemsToAutomate"), "TEST");
             Assert.AreEqual(this.TestObject, testLazyElement.TestObject);
         }
-        #endregion
 
         /// <summary>
         /// Verify Lazy Element GetAttribute test
         /// </summary>
-        #region LazyElementGetAttribute
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementGetAttribute()
         {
             Assert.AreEqual("Disabled", this.DisabledItem.GetAttribute("value"));
         }
-        #endregion
 
         /// <summary>
         /// Verify Lazy Element with a parent GetAttribute test
@@ -406,14 +382,12 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Verify Lazy Element GetCssValue test
         /// </summary>
-        #region LazyElementGetCssValue
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementGetCssValue()
         {
             Assert.AreEqual("visible", this.DialogOneButton.GetCssValue("overflow"));
         }
-        #endregion
 
         /// <summary>
         /// Verify Lazy Element with parent GetCssValue test
@@ -428,7 +402,6 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Verify Lazy Element SendKeys test
         /// </summary>
-        #region LazyElementSendKeys
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementSendKeys()
@@ -436,7 +409,6 @@ namespace SeleniumUnitTests
             this.InputBox.SendKeys("test");
             Assert.AreEqual("test", this.InputBox.GetValue());
         }
-        #endregion
 
         /// <summary>
         /// Verify Lazy Element with a parent SendKeys test
@@ -452,7 +424,6 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Verify Lazy Element SendKeys test
         /// </summary>
-        #region LazyElementSendSecretKeys
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementSendSecretKeys()
@@ -471,12 +442,10 @@ namespace SeleniumUnitTests
             Assert.IsTrue(File.ReadAllText(filepath).Contains("continueTest"));
             File.Delete(filepath);
         }
-        #endregion
 
         /// <summary>
         /// Verify Lazy Element Submit test
         /// </summary>
-        #region LazyElementSubmit
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementSubmit()
@@ -488,7 +457,6 @@ namespace SeleniumUnitTests
             this.SubmitButton.Submit();
             Assert.IsTrue(this.WebDriver.Wait().UntilAbsentElement(By.CssSelector("#[type='submit']")), "Submit did not go away");
         }
-        #endregion
 
         /// <summary>
         /// Verify Lazy Element with parent Submit test
@@ -504,7 +472,6 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Verify Lazy Element Displayed test
         /// </summary>
-        #region LazyElementDisplayed
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementDisplayed()
@@ -512,7 +479,6 @@ namespace SeleniumUnitTests
             Assert.AreEqual(true, this.DialogOneButton.Displayed);
             Assert.AreEqual(false, this.DialogOne.Displayed);
         }
-        #endregion
 
         /// <summary>
         /// Verify Lazy Element with parent Displayed test
@@ -527,7 +493,6 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Verify Lazy Element Enabled test
         /// </summary>
-        #region LazyElementEnabled
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementEnabled()
@@ -535,7 +500,6 @@ namespace SeleniumUnitTests
             Assert.AreEqual(false, this.DisabledItem.Enabled);
             Assert.AreEqual(true, this.InputBox.Enabled);
         }
-        #endregion
 
         /// <summary>
         /// Verify Lazy Element with parent Enabled test
@@ -551,7 +515,6 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Verify Lazy Element Selected test
         /// </summary>
-        #region LazyElementSelected
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementSelected()
@@ -561,19 +524,16 @@ namespace SeleniumUnitTests
             Assert.AreEqual(true, this.Selected.Selected);
             Assert.AreEqual(false, this.NotSelected.Selected);
         }
-        #endregion
 
         /// <summary>
         /// Verify Lazy Element Text test
         /// </summary>
-        #region LazyElementText
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementText()
         {
             Assert.AreEqual("Show dialog", this.DialogOneButton.Text);
         }
-        #endregion
 
         /// <summary>
         /// Verify Lazy Element with parent Text test
@@ -588,7 +548,6 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Verify Lazy Element Location test
         /// </summary>
-        #region LazyElementLocation
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementLocation()
@@ -596,7 +555,6 @@ namespace SeleniumUnitTests
             Point point = this.InputBox.Location;
             Assert.IsTrue(point.X > 0 && point.Y > 0, "Unexpected point: " + point);
         }
-        #endregion
 
         /// <summary>
         /// Verify Lazy Element with parent Location test
@@ -615,7 +573,6 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Verify Lazy Element Size test
         /// </summary>
-        #region LazyElementSize
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementSize()
@@ -623,7 +580,6 @@ namespace SeleniumUnitTests
             Size size = this.InputBox.Size;
             Assert.IsTrue(size.Width > 0 && size.Height > 0, "Height and/or width are less than 1");
         }
-        #endregion
 
         /// <summary>
         /// Verify Lazy Element with parent Size test
@@ -639,14 +595,12 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Verify lazy element tag name test
         /// </summary>
-        #region LazyElementTagName
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementTagName()
         {
             Assert.AreEqual("input", this.InputBox.TagName);
         }
-        #endregion
 
         /// <summary>
         /// Verify lazy element with parent tag name test
@@ -661,43 +615,36 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Verify lazy element get the visible element
         /// </summary>
-        #region LazyElementVisibleElement
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementGetVisibleElement()
         {
             Assert.AreNotEqual(null, this.InputBox.GetTheVisibleElement());
         }
-        #endregion
 
         /// <summary>
         /// Verify lazy element get the clickable element
         /// </summary>
-        #region LazyElementClickableElement
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementGetClickableElement()
         {
             Assert.AreNotEqual(null, this.InputBox.GetTheClickableElement());
         }
-        #endregion
 
         /// <summary>
         /// Verify lazy element get the existing element
         /// </summary>
-        #region LazyElementExistingElement
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementGetExistingElement()
         {
             Assert.AreNotEqual(null, this.InputBox.GetTheExistingElement());
         }
-        #endregion
 
         /// <summary>
         /// Verify lazy element to string
         /// </summary>
-        #region LazyElementToString
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementToString()
@@ -707,12 +654,10 @@ namespace SeleniumUnitTests
                 this.FlowerTableLazyElement.By.ToString() + "Flower table";
             Assert.AreEqual(stringValue, this.FlowerTableLazyElement.ToString());
         }
-        #endregion
 
         /// <summary>
         /// Verify lazy element with parent to string
         /// </summary>
-        #region LazyElementWithParentToString
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementWithParentToString()
@@ -723,6 +668,5 @@ namespace SeleniumUnitTests
                 this.FlowerTableCaptionWithParent.By.ToString() + "Flower table caption";
             Assert.AreEqual(stringValue, this.FlowerTableCaptionWithParent.ToString());
         }
-        #endregion
     }
 }

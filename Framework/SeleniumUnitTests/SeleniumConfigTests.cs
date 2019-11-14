@@ -31,11 +31,8 @@ namespace UnitTests
         [TestCategory(TestCategories.Selenium)]
         public void GetBrowser()
         {
-            #region GetBrowser
-
             IWebDriver driver = WebDriverFactory.GetDefaultBrowser();
 
-            #endregion GetBrowser
             try
             {
                 Assert.IsNotNull(driver);
@@ -53,11 +50,7 @@ namespace UnitTests
         [TestCategory(TestCategories.Selenium)]
         public void GetBrowserName()
         {
-            #region GetBrowserName
-
             string driverName = SeleniumConfig.GetBrowserName();
-
-            #endregion GetBrowserName
 
             Assert.IsTrue(driverName.Equals("HeadlessChrome", StringComparison.InvariantCultureIgnoreCase));
         }
@@ -201,11 +194,7 @@ namespace UnitTests
         [TestCategory(TestCategories.Selenium)]
         public void GetWebsiteBase()
         {
-            #region GetWebsiteBase
-
             string website = SeleniumConfig.GetWebSiteBase();
-
-            #endregion GetWebsiteBase
 
             Assert.IsTrue(website.Equals("http://magenicautomation.azurewebsites.net/", StringComparison.InvariantCultureIgnoreCase));
         }
@@ -217,11 +206,7 @@ namespace UnitTests
         [TestCategory(TestCategories.Selenium)]
         public void GetDriverHintPath()
         {
-            #region GetDriverHintPath
-
             string path = SeleniumConfig.GetDriverHintPath();
-
-            #endregion GetDriverHintPath
 
             Assert.AreEqual(path, Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
         }
@@ -233,11 +218,7 @@ namespace UnitTests
         [TestCategory(TestCategories.Selenium)]
         public void GetRemoteBrowserName()
         {
-            #region GetRemoteName
-
             string browser = SeleniumConfig.GetRemoteBrowserName();
-
-            #endregion GetRemoteName
 
             Assert.AreEqual("Chrome", browser);
         }
@@ -249,11 +230,7 @@ namespace UnitTests
         [TestCategory(TestCategories.Selenium)]
         public void GetCommandTimeout()
         {
-            #region GetCommandTimeout
-
             TimeSpan initTimeout = SeleniumConfig.GetCommandTimeout();
-
-            #endregion GetCommandTimeout
 
             Assert.AreEqual(TimeSpan.FromSeconds(61).Ticks, initTimeout.Ticks);
         }
@@ -294,11 +271,7 @@ namespace UnitTests
         [TestCategory(TestCategories.Selenium)]
         public void GetRemotePlatform()
         {
-            #region RemotePlatform
-
             string platform = SeleniumConfig.GetRemotePlatform();
-
-            #endregion RemotePlatform
 
             Assert.AreEqual(platform, string.Empty);
         }
@@ -310,11 +283,7 @@ namespace UnitTests
         [TestCategory(TestCategories.Selenium)]
         public void GetRemoteBrowserVersion()
         {
-            #region RemoteVersion
-
             string version = SeleniumConfig.GetRemoteBrowserVersion();
-
-            #endregion RemoteVersion
 
             Assert.AreEqual(version, string.Empty);
         }
@@ -326,11 +295,7 @@ namespace UnitTests
         [TestCategory(TestCategories.Selenium)]
         public void GetBrowserWithString()
         {
-            #region GetBrowserWithString
-
             IWebDriver driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.HeadlessChrome);
-
-            #endregion GetBrowserWithString            
 
             try
             {
@@ -380,7 +345,6 @@ namespace UnitTests
             }
         }
 
-        #region WaitDriver 
         /// <summary>
         /// Get wait driver test
         /// </summary>
@@ -401,12 +365,10 @@ namespace UnitTests
                 driver?.KillDriver();
             }
         }
-        #endregion WaitDriver
 
         /// <summary>
         /// Verifies that SetTimeouts sets driver timeouts to equal the default values in the Config
         /// </summary>
-        #region SetTimeouts
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void SetTimeoutsGetWaitDriver()
@@ -431,6 +393,5 @@ namespace UnitTests
                 }
             }
         }
-        #endregion
     }
 }

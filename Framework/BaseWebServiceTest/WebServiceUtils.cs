@@ -31,7 +31,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="mediaType">The type of media</param>
         /// <returns>The string content</returns>
         /// <example>
-        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverPut.cs" region="MakeStringContent" lang="C#" />
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverPut.cs" lang="C#" />
         /// </example>
         public static StringContent MakeStringContent(string body, Encoding contentEncoding, string mediaType)
         {
@@ -46,7 +46,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="mediaType">The type of media</param>
         /// <returns>The stream content</returns>
         /// <example>
-        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverPut.cs" region="MakeStreamContent" lang="C#" />
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverPut.cs" lang="C#" />
         /// </example>
         public static StreamContent MakeStreamContent(string body, Encoding contentEncoding, string mediaType)
         {
@@ -63,7 +63,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="mediaType">The type of media</param>
         /// <returns>The stream content</returns>
         /// <example>
-        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverPut.cs" region="MakeStreamContent" lang="C#" />
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverPut.cs" lang="C#" />
         /// </example>
         public static StreamContent MakeStreamContent(Stream body, string mediaType)
         {
@@ -80,7 +80,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="mediaType">The content type of media, will add Content-Type header</param>
         /// <returns>The stream content</returns>
         /// <example>
-        /// <code source = "../WebServiceTesterUnitTesting/WebServiceNonStandardHttpContentTests.cs" region="NonStandardStreamContentWithString" lang="C#" />
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceNonStandardHttpContentTests.cs" lang="C#" />
         /// </example>
         public static StreamContent MakeNonStandardStreamContent(string body, Encoding contentEncoding, string mediaType)
         {
@@ -95,7 +95,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="mediaType">The content type of media, will add Content-Type header</param>
         /// <returns>The stream content</returns>
         /// <example>
-        /// <code source = "../WebServiceTesterUnitTesting/WebServiceNonStandardHttpContentTests.cs" region="NonStandardStreamContentWithStream" lang="C#" />
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceNonStandardHttpContentTests.cs" lang="C#" />
         /// </example>
         public static StreamContent MakeNonStandardStreamContent(Stream body, string mediaType)
         {
@@ -111,7 +111,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="message">The HTTP response</param>
         /// <returns>The XML document body deserialized</returns>
         /// <example>
-        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverGets.cs" region="DeserializeXmlDocument" lang="C#" />
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverGets.cs" lang="C#" />
         /// </example>
         public static T DeserializeXmlDocument<T>(HttpResponseMessage message)
         {
@@ -127,7 +127,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="message">The HTTP response</param>
         /// <returns>The JSON body deserialized</returns>
         /// <example>
-        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverGets.cs" region="DeserializeJson" lang="C#" />
+        /// <code source = "../WebServiceTesterUnitTesting/WebServiceWithDriverGets.cs" lang="C#" />
         /// </example>
         public static T DeserializeJson<T>(HttpResponseMessage message)
         {

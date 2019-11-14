@@ -37,7 +37,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="assert">optional assert parameter - throws an assert exception if no element is found</param>
         /// <returns>Returns A Web Element</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="FindElement" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
         /// </example>
         public IWebElement Element(By by, bool assert = true)
         {
@@ -73,7 +73,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="assert">optional assert parameter</param>
         /// <returns>Returns a Web Element</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="FindElementWithText" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
         /// </example>
         public IWebElement ElementWithText(By by, string text, bool assert = true)
         {
@@ -105,7 +105,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="assert">optional assert parameter</param>
         /// <returns>Returns the index of a Web Element Collection</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="FindIndexFromText" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
         /// </example>
         public int IndexOfElementWithText(By by, string text, bool assert = true)
         {
@@ -136,7 +136,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="assert">optional assert parameter</param>
         /// <returns>Returns the index of the Web Element in the inputted Web Element Collection </returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="FindIndexWithText" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
         /// </example>
         public int IndexOfElementWithText(ICollection<IWebElement> list, string text, bool assert = true)
         {

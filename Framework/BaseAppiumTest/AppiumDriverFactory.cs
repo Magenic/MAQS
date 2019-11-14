@@ -209,7 +209,6 @@ namespace Magenic.Maqs.BaseAppiumTest
             return options;
         }
 
-        #region Obsolete SavePageSource
         /// <summary>
         /// To capture a page source during execution
         /// </summary>
@@ -284,9 +283,7 @@ namespace Magenic.Maqs.BaseAppiumTest
 
             return path;
         }
-        #endregion
 
-        #region Obsolete CaptureScreenshot
         /// <summary>
         /// To capture a screenshot during execution
         /// </summary>
@@ -336,7 +333,6 @@ namespace Magenic.Maqs.BaseAppiumTest
 
             screenshot.SaveAsFile(path, ScreenshotImageFormat.Png);
         }
-        #endregion
 
         /// <summary>
         /// Reads the AppiumCapsMaqs section and appends to the driver options

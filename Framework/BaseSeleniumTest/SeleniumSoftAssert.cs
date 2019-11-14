@@ -50,7 +50,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="message">Exception message if desired</param>
         /// <returns>Boolean if the assert is true</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="SoftAssertAreEqual" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
         /// </example>
         public override bool AreEqual(string expectedText, string actualText, string softAssertName, string message = "")
         {
@@ -86,7 +86,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="failureMessage">Failure message</param>
         /// <returns>Boolean of the assert</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="SoftAssertIsFalse" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
         /// </example>
         public override bool IsFalse(bool condition, string softAssertName, string failureMessage = "")
         {
@@ -122,7 +122,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="failureMessage">Failure message</param>
         /// <returns>Boolean of the assert</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="SoftAssertIsTrue" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
         /// </example>
         public override bool IsTrue(bool condition, string softAssertName, string failureMessage = "")
         {

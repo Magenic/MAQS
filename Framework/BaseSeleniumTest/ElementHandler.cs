@@ -26,7 +26,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="by">By selector for the element</param>
         /// <returns>Text of the selected option in drop down</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" region="SelectItemDropdown" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" lang="C#" />
         /// </example>
         public static string GetSelectedOptionFromDropdown(this ISearchContext searchContext, By by)
         {
@@ -41,7 +41,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="by">By selector</param>
         /// <returns>List<string> of selected items in dropdown</string></returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" region="SelectMultipleItems" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" lang="C#" />
         /// </example>
         public static List<string> GetSelectedOptionsFromDropdown(this ISearchContext searchContext, By by)
         {
@@ -72,7 +72,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="attribute">The attribute to get the value for</param>
         /// <returns>The text in the textbox</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" region="GetAttribute" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" lang="C#" />
         /// </example>
         public static string GetElementAttribute(this ISearchContext searchContext, By by, string attribute = "value")
         {
@@ -86,7 +86,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="by">By selector for the element</param>
         /// <param name="check">True to check the checkbox. False to uncheck the checkbox</param>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" region="CheckCheckbox" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" lang="C#" />
         /// </example>
         public static void CheckCheckBox(this ISearchContext searchContext, By by, bool check)
         {
@@ -110,7 +110,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="sort">True to create an alphabetically sorted comma delimited string</param>
         /// <returns>Returns a comma delimited string</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" region="SortFromWebElements" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" lang="C#" />
         /// </example>
         public static string CreateCommaDelimitedString(this ISearchContext searchContext, By by, bool sort = false)
         {
@@ -131,7 +131,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="by">By selector for the element</param>
         /// <param name="waitForButtonToDisappear">If True, wait for element to disappear. If False, Do not wait</param>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" region="ClickButton" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" lang="C#" />
         /// </example>
         public static void ClickButton(this ISearchContext searchContext, By by, bool waitForButtonToDisappear)
         {
@@ -150,7 +150,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="by">By selector for the element</param>
         /// <param name="elementsTextToSelect">List items as strings to select from list box</param>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" region="SelectMultipleItems" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" lang="C#" />
         /// </example>
         public static void SelectMultipleElementsFromListBox(this ISearchContext searchContext, By by, List<string> elementsTextToSelect)
         {
@@ -170,7 +170,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="by">By selector for the element</param>
         /// <param name="values">List items as strings to select from list box</param>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" region="SelectMultipleElementsByValue" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" lang="C#" />
         /// </example>
         public static void SelectMultipleElementsFromListBoxByValue(this ISearchContext searchContext, By by, List<string> values)
         {
@@ -190,7 +190,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="by">By selector for the element</param>
         /// <param name="option">The option to select in drop down</param>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" region="SelectItemDropdown" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" lang="C#" />
         /// </example>
         public static void SelectDropDownOption(this ISearchContext searchContext, By by, string option)
         {
@@ -205,7 +205,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="by">By selector for the element</param>
         /// <param name="value">The value attribute for the option to select</param>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" region="DropdownByValue" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" lang="C#" />
         /// </example>
         public static void SelectDropDownOptionByValue(this ISearchContext searchContext, By by, string value)
         {
@@ -221,7 +221,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="textToEnter">Text to enter into the textbox</param>
         /// <param name="tabOff">True to press the Tab key after entering text</param>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" region="GetAttribute" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" lang="C#" />
         /// </example>
         public static void SetTextBox(this ISearchContext searchContext, By by, string textToEnter, bool tabOff = true)
         {
@@ -249,7 +249,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="searchContext">Web driver or element</param>
         /// <param name="by">The By element to use</param>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" region="ClickByJavascript" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" lang="C#" />
         /// </example>
         public static void ClickElementByJavaScript(this ISearchContext searchContext, By by)
         {
@@ -265,7 +265,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="searchContext">Web driver or element</param>
         /// <param name="by">By selector</param>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" region="ScrollIntoView" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" lang="C#" />
         /// </example>
         public static void ScrollIntoView(this ISearchContext searchContext, By by)
         {
@@ -283,7 +283,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="x">Horizontal direction</param>
         /// <param name="y">Vertical direction</param>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" region="ScrollIntoViewWithCoords" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" lang="C#" />
         /// </example>
         public static void ScrollIntoView(this ISearchContext searchContext, By by, int x, int y)
         {
@@ -298,7 +298,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="x">Horizontal direction</param>
         /// <param name="y">Vertical direction</param>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" region="ExecuteScrolling" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" lang="C#" />
         /// </example>
         public static void ExecuteScrolling(this ISearchContext searchContext, int x, int y)
         {
@@ -316,7 +316,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="by">By selector</param>
         /// <param name="textToEnter">The string being entered into the text input field</param>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" region="SlowType" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" lang="C#" />
         /// </example>
         public static void SlowType(this ISearchContext searchContext, By by, string textToEnter)
         {
@@ -335,7 +335,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="textToEnter">The string being entered into the text input field</param>
         /// <param name="logger">The Logging object</param>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" region="SendSecretKeys" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/ElementHandlerUnitTests.cs" lang="C#" />
         /// </example>
         public static void SendSecretKeys(this ISearchContext searchContext, By by, string textToEnter, Logger logger)
         {

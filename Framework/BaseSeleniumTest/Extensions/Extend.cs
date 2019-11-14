@@ -58,7 +58,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="searchContext">Web driver or element</param>
         /// <returns>The WebDriverWait</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="GetWaitDriver" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
         /// </example>
         public static WebDriverWait GetWaitDriver(this ISearchContext searchContext)
         {
@@ -83,7 +83,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="searchContext">Web driver or element</param>
         /// <param name="waiter">The WebDriverWait</param>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="SetWaitDriver" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
         /// </example>
         public static void SetWaitDriver(this ISearchContext searchContext, WebDriverWait waiter)
         {
@@ -95,7 +95,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </summary>
         /// <param name="searchContext">Web driver or element</param>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="ResetWaitDriver" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
         /// </example>
         public static void ResetWaitDriver(this ISearchContext searchContext)
         {
@@ -112,7 +112,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="searchContext">Web driver or element</param>
         /// <returns>True if the wait driver was removed</returns>
         /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="RemoveWaitDriver" lang="C#" />
+        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" lang="C#" />
         /// </example>
         public static bool RemoveWaitDriver(this ISearchContext searchContext)
         {

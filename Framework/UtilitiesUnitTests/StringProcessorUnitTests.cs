@@ -21,7 +21,6 @@ namespace UtilitiesUnitTesting
         /// <summary>
         /// Test method for checking JSON strings
         /// </summary>
-        #region StringFormattor
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
         public void StringFormatterCheckForJson()
@@ -29,7 +28,6 @@ namespace UtilitiesUnitTesting
             string message = StringProcessor.SafeFormatter("{This is a test for JSON}");
             Assert.AreEqual("{This is a test for JSON}\r\n", message);
         }
-        #endregion
 
         /// <summary>
         /// Test method for checking string format

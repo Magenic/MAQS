@@ -35,7 +35,7 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <param name="arg">Parameter to pass to the wait for true function</param>
         /// <returns>True if the waitForTrue function returned true before the timeout</returns>
         /// <example>
-        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" region="WaitUntilWithType" lang="C#" />
+        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" lang="C#" />
         /// </example>
         public static bool WaitUntil<T>(Func<T, bool> waitForTrue, T arg)
         {
@@ -48,7 +48,7 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <param name="waitForTrue">The function we are waiting to return true</param>
         /// <returns>True if the wait for true function returned true before timing out</returns>
         /// <example>
-        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" region="WaitUntil" lang="C#" />
+        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" lang="C#" />
         /// </example>
         public static bool WaitUntil(Func<bool> waitForTrue)
         {
@@ -60,7 +60,7 @@ namespace Magenic.Maqs.Utilities.Helper
         /// </summary>
         /// <param name="waitForTrue">The function we are waiting to return true</param>
         /// <example>
-        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" region="WaitFor" lang="C#" />
+        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" lang="C#" />
         /// </example>
         public static void WaitFor(Func<bool> waitForTrue)
         {
@@ -77,7 +77,7 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <param name="waitForTrue">The function we are waiting to return true</param>
         /// <param name="arg">Parameter to pass to the wait for true function</param>
         /// <example>
-        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" region="WaitForWithType" lang="C#" />
+        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" lang="C#" />
         /// </example>
         public static void WaitFor<T>(Func<T, bool> waitForTrue, T arg)
         {
@@ -94,7 +94,7 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <param name="waitForTrue">Function that returns type T</param>
         /// <param name="comparativeValue">value of the same type as T</param>
         /// <example>
-        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" region="WaitUntilFunctionEqualsExpected" lang="C#" />
+        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" lang="C#" />
         /// </example>
         /// <returns>if it returned before the timeout occurred</returns>
         public static T WaitUntilMatch<T>(Func<T> waitForTrue, T comparativeValue)
@@ -135,7 +135,7 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <param name="timeout">how long before timing out</param>
         /// <param name="comparativeValue">value of the same type as T</param>
         /// <example>
-        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" region="WaitUntilFunctionEqualsExpected" lang="C#" />
+        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" lang="C#" />
         /// </example>
         /// <returns>if it returned before the timeout occurred</returns>
         public static T WaitUntilMatch<T>(Func<T> waitForTrue, TimeSpan retryTime, TimeSpan timeout, T comparativeValue)
@@ -171,7 +171,7 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <param name="waitForTrue">Method to wait for</param>
         /// <param name="comparativeValue">The value to compare to what comes out of waitForTrue</param>
         /// <example>
-        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" region="WaitForFunctionEqualsExpected" lang="C#" />
+        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" lang="C#" />
         /// </example>
         public static void WaitForMatch<T>(Func<T> waitForTrue, T comparativeValue)
         {
@@ -206,7 +206,7 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <param name="timeout">how long before timing out</param>
         /// <param name="comparativeValue">The value to compare to what comes out of waitForTrue</param>
         /// <example>
-        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" region="WaitForFunctionEqualsExpected" lang="C#" />
+        /// <code source = "../UtilitiesUnitTests/GenericWaitTests.cs" lang="C#" />
         /// </example>
         public static void WaitForMatch<T>(Func<T> waitForTrue, TimeSpan retryTime, TimeSpan timeout, T comparativeValue)
         {

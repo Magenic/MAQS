@@ -30,7 +30,6 @@ namespace WebServiceTesterUnitTesting
         /// </summary>
         private static readonly string Url = Config.GetGeneralValue("WebServiceUri");
 
-        #region NonStandardStreamContentWithStream
         /// <summary>
         /// Verify the string status code
         /// </summary>
@@ -76,9 +75,7 @@ namespace WebServiceTesterUnitTesting
             Assert.AreEqual("MyTaxReturns2017", file1.ContentName, $"File uploaded did not match 'MyTaxReturns2017'. Actual is '{file1.ContentName}'");
             Assert.AreEqual("MyTripPhoto", file2.ContentName, $"File uploaded did not match 'MyTripPhoto'. Actual is '{file2.ContentName}'");
         }
-        #endregion
 
-        #region NonStandardStreamContentWithString
         /// <summary>
         /// Verify the string status code
         /// </summary>
@@ -114,6 +111,5 @@ namespace WebServiceTesterUnitTesting
             Assert.AreEqual("MyResume", file1.ContentName, $"File uploaded did not match 'MyResume'. Actual is '{file1.ContentName}'");
             Assert.AreEqual("MyDefintion", file2.ContentName, $"File uploaded did not match 'MyDefintion'. Actual is '{file2.ContentName}'");
         }
-        #endregion
     }
 }

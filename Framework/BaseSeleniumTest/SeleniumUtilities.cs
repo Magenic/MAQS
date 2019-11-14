@@ -88,7 +88,6 @@ namespace Magenic.Maqs.BaseSeleniumTest
             return path;
         }
 
-        #region ObsoleteCaptureScreenshot
         /// <summary>
         /// To capture a screenshot during execution
         /// </summary>
@@ -155,7 +154,6 @@ namespace Magenic.Maqs.BaseSeleniumTest
 
             return path;
         }
-        #endregion
 
         /// <summary>
         /// To capture a page source during execution
@@ -335,7 +333,6 @@ namespace Magenic.Maqs.BaseSeleniumTest
             return true;
         }
 
-        #region Obsolete SavePageSource
         /// <summary>
         /// To capture a page source during execution
         /// </summary>
@@ -409,7 +406,6 @@ namespace Magenic.Maqs.BaseSeleniumTest
             writer.Close();
             return path;
         }
-        #endregion
 
         /// <summary>
         /// Get the javaScript executor from a web element or web driver

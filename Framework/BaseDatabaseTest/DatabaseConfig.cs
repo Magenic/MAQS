@@ -27,7 +27,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// </summary>
         /// <returns>The connection string</returns>
         /// <example>
-        /// <code source="../DatabaseUnitTests/DatabaseConfigUnitTests.cs" region="GetOpenConnection" lang="C#" />
+        /// <code source="../DatabaseUnitTests/DatabaseConfigUnitTests.cs" lang="C#" />
         /// </example>
         public static string GetConnectionString()
         {
@@ -39,7 +39,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// </summary>
         /// <returns>The provider type string</returns>
         /// <example>
-        /// <code source="../DatabaseUnitTests/DatabaseConfigUnitTests.cs" region="GetOpenConnection" lang="C#" />
+        /// <code source="../DatabaseUnitTests/DatabaseConfigUnitTests.cs" lang="C#" />
         /// </example>
         public static string GetProviderTypeString()
         {

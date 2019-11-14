@@ -147,7 +147,6 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Verify WaitForClickableElement wait works
         /// </summary>
-        #region WaitForClickable
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void WaitForClickableElement()
@@ -157,12 +156,10 @@ namespace SeleniumUnitTests
             element = element.Wait().ForClickableElement(AllLinks);
             Assert.AreEqual("Contact", element.Text);
         }
-        #endregion
 
         /// <summary>
         /// Verify WaitForElementExist wait works
         /// </summary>
-        #region WaitForExist
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void WaitForElementExist()
@@ -172,12 +169,10 @@ namespace SeleniumUnitTests
             element = element.Wait().ForElementExist(AllLinks);
             Assert.AreEqual("Contact", element.Text);
         }
-        #endregion
 
         /// <summary>
         /// Verify WaitForVisibleElement wait works
         /// </summary>
-        #region WaitForVisible
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void WaitForVisibleElement()
@@ -187,12 +182,10 @@ namespace SeleniumUnitTests
             element = element.Wait().ForVisibleElement(AllLinks);
             Assert.AreEqual("Contact", element.Text);
         }
-        #endregion
 
         /// <summary>
         /// Verify WaitForExactText wait works
         /// </summary>
-        #region WaitForExactText
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void WaitForExactText()
@@ -202,12 +195,10 @@ namespace SeleniumUnitTests
             element = element.Wait().ForExactText(AllLabels, "Options");
             Assert.AreEqual("Options", element.Text);
         }
-        #endregion
 
         /// <summary>
         /// Verify WaitForContainsText wait works
         /// </summary>
-        #region WaitForContainsText
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void WaitForContainsText()
@@ -217,12 +208,10 @@ namespace SeleniumUnitTests
             element = element.Wait().ForContainsText(AllLabels, "ption");
             Assert.AreEqual("Options", element.Text);
         }
-        #endregion
 
         /// <summary>
         /// Verify WaitForAbsentElement wait works
         /// </summary>
-        #region WaitForAbsentElement
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void WaitForAbsentElement()
@@ -236,7 +225,6 @@ namespace SeleniumUnitTests
             // Make sure the element went away
             element.Wait().ForAbsentElement(FirstChildOfDiv);
         }
-        #endregion
 
         /// <summary>
         /// Verify WaitForAbsentElement wait fails
@@ -276,7 +264,6 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Verify WaitUntilClickableElement wait works
         /// </summary>
-        #region WaitUntilClickable
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void WaitUntilClickableElement()
@@ -285,12 +272,10 @@ namespace SeleniumUnitTests
             IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
             Assert.IsTrue(element.Wait().UntilClickableElement(AutomationShowDialog1), "Failed to find element");
         }
-        #endregion
 
         /// <summary>
         /// Verify WaitUntilElementExist wait works
         /// </summary>
-        #region WaitUntilExist
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void WaitUntilElementExist()
@@ -299,12 +284,10 @@ namespace SeleniumUnitTests
             IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
             Assert.IsTrue(element.Wait().UntilElementExist(AutomationShowDialog1), "Failed to find element");
         }
-        #endregion
 
         /// <summary>
         /// Verify WaitUntilVisibleElement wait works
         /// </summary>
-        #region WaitUntilVisible
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void WaitUntilVisibleElement()
@@ -313,12 +296,10 @@ namespace SeleniumUnitTests
             IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
             Assert.IsTrue(element.Wait().UntilVisibleElement(AutomationShowDialog1), "Failed to find element");
         }
-        #endregion
 
         /// <summary>
         /// Verify WaitUntilExactText wait works
         /// </summary>
-        #region WaitUntilExact
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void WaitUntilExactText()
@@ -327,12 +308,10 @@ namespace SeleniumUnitTests
             IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
             Assert.IsTrue(element.Wait().UntilExactText(AutomationShowDialog1, "Show dialog"), "Failed to find element");
         }
-        #endregion
 
         /// <summary>
         /// Verify WaitUntilContainsText wait works
         /// </summary>
-        #region WaitUntilContains
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void WaitUntilContainsText()
@@ -341,12 +320,10 @@ namespace SeleniumUnitTests
             IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
             Assert.IsTrue(element.Wait().UntilContainsText(AutomationShowDialog1, "dialog"), "Failed to find element");
         }
-        #endregion
 
         /// <summary>
         /// Test for the wait until absent
         /// </summary>
-        #region WaitUntilAbsent
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void WaitUntilAbsentElement()
@@ -355,7 +332,6 @@ namespace SeleniumUnitTests
             IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
             Assert.IsTrue(element.Wait().UntilAbsentElement(NotInPage));
         }
-        #endregion
 
         /// <summary>
         /// Verify that WaitForAttributeTextContains throws an exception for instances where the attribute is not found to contain a value.
@@ -386,7 +362,6 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Verify that WaitForAttributeTextContains can find text within attribute after waiting.
         /// </summary>
-        #region WaitForAttributeContains
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void WaitForAttributeContainsFound()
@@ -395,12 +370,10 @@ namespace SeleniumUnitTests
             IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
             Assert.IsNotNull(element.Wait().ForAttributeTextContains(AsyncLoadingTextDiv, "block;", "style"));
         }
-        #endregion
 
         /// <summary>
         /// Verify that WaitForAttributeTextEquals can find an attribute value after waiting.
         /// </summary>
-        #region WaitForAttributeEquals
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void WaitForAttributeEqualsFound()
@@ -409,7 +382,6 @@ namespace SeleniumUnitTests
             IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
             Assert.IsNotNull(element.Wait().ForAttributeTextEquals(AsyncLoadingTextDiv, "display: block;", "style"));
         }
-        #endregion
 
         /// <summary>
         /// Verify that the WaitUntilAttributeTextContains works with async objects
@@ -438,7 +410,6 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Verify that the WaitUntilAttributeTextContains method returns false for objects that don't have this text inside attribute value within timeout.
         /// </summary>
-        #region WaitUntilAttributeContains
         [TestCategory(TestCategories.Selenium)]
         [TestMethod]
         public void WaitUntilAttributeContainsFalse()
@@ -447,12 +418,10 @@ namespace SeleniumUnitTests
             IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
             Assert.IsFalse(element.Wait().UntilAttributeTextContains(AsyncDropdownCssSelector, "nottherightid", "id"));
         }
-        #endregion
 
         /// <summary>
         /// Verify that the WaitUntilAttributeTextContains method returns false for objects that don't have this attribute value within timeout.
         /// </summary>
-        #region WaitUntilAttributeEquals
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void WaitUntilAttributeEqualsFalse()
@@ -461,12 +430,10 @@ namespace SeleniumUnitTests
             IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
             Assert.IsFalse(element.Wait().UntilAttributeTextEquals(AsyncLoadingLabel, "display:", "style"));
         }
-        #endregion
 
         /// <summary>
         /// Test method to check the element can scroll into the view element
         /// </summary>
-        #region WaitForAndScroll
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void ScrollIntoViewElement()
@@ -475,12 +442,10 @@ namespace SeleniumUnitTests
             IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
             Assert.IsTrue(element.Wait().ForClickableElementAndScrollIntoView(AutomationShowDialog1).Displayed, "Failed to find element");
         }
-        #endregion
 
         /// <summary>
         /// Test method to check the element can scroll into the view element
         /// </summary>
-        #region WaitForClickableAndScroll
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void ScrollIntoViewWithOffsetElement()
@@ -491,12 +456,10 @@ namespace SeleniumUnitTests
             Assert.IsTrue(element.Wait().ForClickableElementAndScrollIntoView(AutomationShowDialog1, 0, 100).Displayed, "Failed to find element or scroll");
             Assert.IsTrue(WebDriver.Wait().ForClickableElementAndScrollIntoView(AutomationShowDialog1, 0, 100).Displayed, "Failed to find element or scroll");  
         }
-        #endregion
 
         /// <summary>
         /// Test method to check the element can scroll into the view boolean
         /// </summary>
-        #region WaitUntilClickableAndScroll
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void ScrollIntoViewBoolean()
@@ -506,12 +469,10 @@ namespace SeleniumUnitTests
 
             Assert.IsTrue(element.Wait().UntilClickableElementAndScrollIntoView(AutomationShowDialog1), "Failed to find element");
         }
-        #endregion
 
         /// <summary>
         /// Test method to check the element can scroll into the view boolean
         /// </summary>
-        #region WaitUntilClickableAndScrollWithOffset
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void ScrollIntoViewBooleanOffset()
@@ -521,12 +482,10 @@ namespace SeleniumUnitTests
 
             Assert.IsTrue(element.Wait().UntilClickableElementAndScrollIntoView(AutomationShowDialog1, 0, 100), "Failed to find element");
         }
-        #endregion
 
         /// <summary>
         /// Test method to scroll to an offset
         /// </summary>
-        #region ExecuteScrolling
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void ScrollByOffset()
@@ -536,6 +495,5 @@ namespace SeleniumUnitTests
 
             element.Wait().PageLoadThanExecuteScrolling(0, 500);
         }
-        #endregion
     }
 }

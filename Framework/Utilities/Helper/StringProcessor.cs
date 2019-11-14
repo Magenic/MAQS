@@ -22,7 +22,7 @@ namespace Magenic.Maqs.Utilities.Data
         /// <param name="args">The arguments being used</param>
         /// <returns>A final string</returns>
         /// <example>
-        /// <code source = "../UtilitiesUnitTests/StringProcessorUnitTests.cs" region="StringFormattor" lang="C#" />
+        /// <code source = "../UtilitiesUnitTests/StringProcessorUnitTests.cs" lang="C#" />
         /// </example>
         public static string SafeFormatter(string message, params object[] args)
         {
