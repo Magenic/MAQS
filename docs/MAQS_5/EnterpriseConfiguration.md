@@ -143,6 +143,10 @@ Primarily uses with the .Net Framework implementation of MAQS.
 
     <!-- Log file path - Defaults to build location if no value is defined
     <add key="FileLoggerPath" value="C:\Frameworks\"/>-->
+
+    <!-- Use First Chance Handler - Defaults to enabled
+    <add key="UseFirstChanceHandler" value="NO"/>
+    <add key="UseFirstChanceHandler" value="YES"/>-->
   </MagenicMaqs>
   <AppiumMaqs>
     <!--Device platform
@@ -282,6 +286,10 @@ Primarily uses with the .Net Framework implementation of MAQS.
     <add key="SavePagesourceOnFail" value="YES"/>
     <add key="SavePagesourceOnFail" value="NO"/> -->
     <add key="SavePagesourceOnFail" value="NO"/>
+
+    <!-- Proxy options -->
+    <add key="UseProxy" value="NO" />
+    <add key="ProxyAddress" value="127.0.0.1:8080" />
   </SeleniumMaqs>
   <RemoteSeleniumCapsMaqs>
     <!-- Cloud based Grid settings
@@ -297,6 +305,10 @@ Primarily uses with the .Net Framework implementation of MAQS.
     
     <!-- Time-out in milliseconds -->
     <add key="WebServiceTimeout" value="10000" />
+
+    <!-- Proxy options -->
+    <add key="UseProxy" value="NO" />
+    <add key="ProxyAddress" value="127.0.0.1:8080" />
   </WebServiceMaqs>
 </configuration>
 ```
@@ -309,7 +321,8 @@ Primarily uses with the .Net Core implementation of MAQS.
     "Timeout": "10000",
     "Log": "OnFail",
     "LogLevel": "INFORMATION",
-    "LogType": "TXT"
+    "LogType": "TXT",
+    "UseFirstChanceHandler": "YES"
   },
   "AppiumMaqs": {
     "PlatformName": "Android",
@@ -353,7 +366,9 @@ Primarily uses with the .Net Core implementation of MAQS.
     "BrowserSize": "MAXIMIZE",
     "SoftAssertScreenshot": "NO",
     "ImageFormat": "Png",
-    "SavePagesourceOnFail": "NO"
+    "SavePagesourceOnFail": "NO",
+    "UseProxy": "No",
+    "ProxyAddress": "127.0.0.1:8080"
   },
   "RemoteSeleniumCapsMaqs": {
     "Username": "Sauce_Labs_Username",
@@ -364,7 +379,9 @@ Primarily uses with the .Net Core implementation of MAQS.
   },
   "WebServiceMaqs": {
     "WebServiceUri": "http://magenicautomation.azurewebsites.net",
-    "WebServiceTimeout": "1000"
+    "WebServiceTimeout": "1000",
+    "UseProxy": "No",
+    "ProxyAddress": "127.0.0.1:8080"
   }
 }
 ```

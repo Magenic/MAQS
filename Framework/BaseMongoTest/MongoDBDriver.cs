@@ -5,8 +5,6 @@
 //--------------------------------------------------
 using MongoDB.Driver;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 
 namespace Magenic.Maqs.BaseMongoTest
 {

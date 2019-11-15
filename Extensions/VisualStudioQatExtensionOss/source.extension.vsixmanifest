@@ -1,63 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
-	<Metadata>
-		<Identity Id="7f8a17ec-cc72-413f-ae85-bbbbb77f2d1f" Version="5.5.1" Language="en-US" Publisher="Magenic" />
-		<DisplayName>MAQS Framework</DisplayName>
-		<Description xml:space="preserve">Magenic's automation quick start framework</Description>
-		<MoreInfo>https://magenic.com/what-we-do/support-optimization/quality-assurance</MoreInfo>
-		<License>License.txt</License>
-		<GettingStartedGuide>https://magenic.github.io/MAQS/#/MAQS_5/Introduction</GettingStartedGuide>
-		<ReleaseNotes>ReleaseNotes.txt</ReleaseNotes>
-		<Icon>QATTest.ico</Icon>
-		<PreviewImage>QATTest.ico</PreviewImage>
-		<Tags>Test Testing Automation Selenium Appium Database Service Email MAQS NUnit MSTest TestFramework</Tags>
-	</Metadata>
-	<Installation>
-		<InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[15.0,]" />
-	</Installation>
-	<Dependencies>
-	</Dependencies>
-	<Assets>
-		<Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATVisualStudioSeleniumTest.zip" />
-		<Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATVisualStudioDatabaseTest.zip" />
-		<Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATVisualStudioEmailTest.zip" />
-		<Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATVisualStudioWebServiceTest.zip" />
-		<Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATVisualStudioAppiumTest.zip" />
-		<Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATAppiumModel.zip" />
-		<Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATSeleniumModel.zip" />
-		<Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATVisualStudioBaseTest.zip" />
-		<Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\QATSeleniumTemplate.zip" TargetVersion="[15.0,]" />
-		<Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\QATWebserviceTemplate.zip" TargetVersion="[15.0,]" />
-		<Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\QATDatabaseTemplate.zip" TargetVersion="[15.0,]" />
-		<Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\QATEmailTemplate.zip" TargetVersion="[15.0,]" />
-		<Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\QATAppiumTemplate.zip" TargetVersion="[15.0,]" />
-		<Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\QATCompositeTemplate.zip" TargetVersion="[15.0,]" />
-		<Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\QATBaseTemplate.zip" TargetVersion="[15.0,]" />
-		<Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\oldQATSeleniumTemplate.zip" TargetVersion="[10.0,15.0)" />
-		<Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\oldQATWebserviceTemplate.zip" TargetVersion="[10.0,15.0)" />
-		<Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\oldQATDatabaseTemplate.zip" TargetVersion="[10.0,15.0)" />
-		<Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\oldQATEmailTemplate.zip" TargetVersion="[10.0,15.0)" />
-		<Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\oldQATAppiumTemplate.zip" TargetVersion="[10.0,15.0)" />
-		<Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\oldQATCompositeTemplate.zip" TargetVersion="[10.0,15.0)" />
-		<Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\oldQATBaseTemplate.zip" TargetVersion="[10.0,15.0)" />
-		<Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test Core\QATSeleniumTemplate.zip" />
-		<Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test Core\QATWebserviceTemplate.zip" />
-		<Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test Core\QATDatabaseTemplate.zip" />
-		<Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test Core\QATEmailTemplate.zip" />
-		<Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test Core\QATAppiumTemplate.zip" />
-		<Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test Core\QATBaseTemplate.zip" />
-		<Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test Core\QATCompositeTemplate.zip" />
-		<Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATNUnitAppiumTest.zip" />
-		<Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATNUnitDatabaseTest.zip" />
-		<Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATNUnitEmailTest.zip" />
-		<Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATNUnitSeleniumTest.zip" />
-		<Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATNUnitWebServiceTest.zip" />
-		<Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATNUnitBaseTest.zip" />
-	</Assets>
-	<Prerequisites>
-		<Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,17.0)" DisplayName="Visual Studio core editor" />
-		<Prerequisite Id="Microsoft.VisualStudio.Component.Roslyn.LanguageServices" Version="[15.0.26208.0,17.0)" DisplayName="C# and Visual Basic" />
-		<Prerequisite Id="Microsoft.VisualStudio.Component.ManagedDesktop.Prerequisites" Version="[15.0.26208.0,17.0)" DisplayName=".NET desktop development tools" />
-		<Prerequisite Id="Microsoft.Net.Component.4.7.1.SDK" Version="[15.6.27406.0,17.0)" DisplayName=".NET Framework 4.7.1 SDK" />
-	</Prerequisites>
+    <Metadata>
+        <Identity Id="7f8a17ec-cc72-413f-ae85-bbbbb77f2d1f" Version="5.6.0.4" Language="en-US" Publisher="Magenic" />
+        <DisplayName>MAQS Framework</DisplayName>
+        <Description xml:space="preserve">Magenic's automation quick start framework</Description>
+        <MoreInfo>https://magenic.com/what-we-do/support-optimization/quality-assurance</MoreInfo>
+        <License>License.txt</License>
+        <GettingStartedGuide>https://magenic.github.io/MAQS/#/MAQS_5/Introduction</GettingStartedGuide>
+        <ReleaseNotes>ReleaseNotes.txt</ReleaseNotes>
+        <Icon>QATTest.ico</Icon>
+        <PreviewImage>QATTest.ico</PreviewImage>
+        <Tags>Test;Testing;Automation;Selenium;Appium;Database;Web Service;Email;MAQS;NUnit;MSTest;TestFramework</Tags>
+    </Metadata>
+    <Installation>
+        <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[15.0,]" />
+    </Installation>
+    <Dependencies>
+    </Dependencies>
+    <Assets>
+        <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATVisualStudioSeleniumTest.zip" />
+        <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATVisualStudioDatabaseTest.zip" />
+        <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATVisualStudioEmailTest.zip" />
+        <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATVisualStudioWebServiceTest.zip" />
+        <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATVisualStudioAppiumTest.zip" />
+        <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATAppiumModel.zip" />
+        <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATSeleniumModel.zip" />
+        <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATVisualStudioBaseTest.zip" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\QATSeleniumTemplate.zip" TargetVersion="[15.0,]" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\QATWebserviceTemplate.zip" TargetVersion="[15.0,]" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\QATDatabaseTemplate.zip" TargetVersion="[15.0,]" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\QATEmailTemplate.zip" TargetVersion="[15.0,]" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\QATAppiumTemplate.zip" TargetVersion="[15.0,]" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\QATCompositeTemplate.zip" TargetVersion="[15.0,]" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\QATBaseTemplate.zip" TargetVersion="[15.0,]" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\oldQATSeleniumTemplate.zip" TargetVersion="[10.0,15.0)" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\oldQATWebserviceTemplate.zip" TargetVersion="[10.0,15.0)" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\oldQATDatabaseTemplate.zip" TargetVersion="[10.0,15.0)" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\oldQATEmailTemplate.zip" TargetVersion="[10.0,15.0)" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\oldQATAppiumTemplate.zip" TargetVersion="[10.0,15.0)" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\oldQATCompositeTemplate.zip" TargetVersion="[10.0,15.0)" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\oldQATBaseTemplate.zip" TargetVersion="[10.0,15.0)" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test Core\QATSeleniumTemplate.zip" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test Core\QATWebserviceTemplate.zip" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test Core\QATDatabaseTemplate.zip" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test Core\QATEmailTemplate.zip" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test Core\QATAppiumTemplate.zip" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test Core\QATBaseTemplate.zip" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test Core\QATCompositeTemplate.zip" />
+        <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATNUnitAppiumTest.zip" />
+        <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATNUnitDatabaseTest.zip" />
+        <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATNUnitEmailTest.zip" />
+        <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATNUnitSeleniumTest.zip" />
+        <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATNUnitWebServiceTest.zip" />
+        <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATNUnitBaseTest.zip" />
+    </Assets>
+    <Prerequisites>
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,17.0)" DisplayName="Visual Studio core editor" />
+        <Prerequisite Id="Microsoft.VisualStudio.Component.Roslyn.LanguageServices" Version="[15.0.26208.0,17.0)" DisplayName="C# and Visual Basic" />
+        <Prerequisite Id="Microsoft.VisualStudio.Component.ManagedDesktop.Prerequisites" Version="[15.0.26208.0,17.0)" DisplayName=".NET desktop development tools" />
+        <Prerequisite Id="Microsoft.Net.Component.4.7.1.SDK" Version="[15.6.27406.0,17.0)" DisplayName=".NET Framework 4.7.1 SDK" />
+    </Prerequisites>
 </PackageManifest>

@@ -6,7 +6,6 @@
 //--------------------------------------------------
 
 using Oracle.ManagedDataAccess.Client;
-using System.Data.SqlClient;
 
 namespace Magenic.Maqs.BaseDatabaseTest.Providers
 {

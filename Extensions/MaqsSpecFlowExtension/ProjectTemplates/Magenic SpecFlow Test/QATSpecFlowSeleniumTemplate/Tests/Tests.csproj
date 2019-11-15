@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net471</TargetFramework>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <IsPackable>false</IsPackable>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Magenic.Maqs" version="5.6.0" />
+    <PackageReference Include="Magenic.Maqs.SpecFlow" Version="5.6.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.0.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.0.0" />
+    <PackageReference Include="Selenium.Support" Version="3.141.0" />
+    <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="77.0.3865.4000" />
+    <PackageReference Include="Selenium.WebDriver.GeckoDriver.Win64" Version="0.25.0" />
+    <PackageReference Include="Selenium.WebDriver.IEDriver" Version="3.150.0" />
+    <PackageReference Include="SpecFlow.MsTest" Version="3.0.225" />
+    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.0.225" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PageModel\PageModel.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <PostBuildEvent>
+      FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(ProjectDir)\..\packages\chromedriver.exe"') do copy /Y "%25%25m" "$(TargetDir)"
+      FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(ProjectDir)\..\packages\IEDriverServer.exe"') do copy /Y "%25%25m" "$(TargetDir)"
+      FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(ProjectDir)\..\packages\geckodriver.exe"') do copy /Y "%25%25m" "$(TargetDir)"
+    </PostBuildEvent>   
+  </PropertyGroup>
+
+</Project>

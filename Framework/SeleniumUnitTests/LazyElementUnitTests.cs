@@ -11,6 +11,7 @@ using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.IO;
@@ -25,11 +26,27 @@ namespace SeleniumUnitTests
     public class LazyElementUnitTests : BaseSeleniumTest
     {
         /// <summary>
+        /// Gets the div root
+        /// </summary>
+        private LazyElement DivRoot
+        {
+            get { return new LazyElement(this.TestObject, By.CssSelector("#ItemsToAutomate"), "Div Root"); }
+        }
+
+        /// <summary>
         /// Gets the disabled item
         /// </summary>
         private LazyElement DisabledItem
         {
             get { return new LazyElement(this.TestObject, By.CssSelector("#disabledField INPUT"), "Disabled"); }
+        }
+        
+        /// <summary>
+        /// Gets an item that does not exist
+        /// </summary>
+        private LazyElement MissingItem
+        {
+            get { return new LazyElement(this.TestObject, By.CssSelector("#DONOTFINDME"), "Missing element"); }
         }
 
         /// <summary>
@@ -131,6 +148,69 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Verify Lazy Element fails as expected if the element is missing
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        [ExpectedException(typeof(TimeoutException), "The input should not exist so this will throw an exception.")]
+        public void LazyTimeOutForMissingElement()
+        {
+            this.WebDriver.SetWaitDriver(new OpenQA.Selenium.Support.UI.WebDriverWait(this.WebDriver, TimeSpan.FromSeconds(1)));
+            Assert.AreEqual("THISCHECKSHOULDFAIL", this.MissingItem.Text);
+        }
+
+        /// <summary>
+        /// Verify Lazy Element fails as expected if the element does not match the expected state
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        [ExpectedException(typeof(TimeoutException), "The input should be disabled so this will throw an exception.")]
+        public void LazyTimeOutForElementInWrongState()
+        {
+            this.WebDriver.SetWaitDriver(new OpenQA.Selenium.Support.UI.WebDriverWait(this.WebDriver, TimeSpan.FromSeconds(1)));
+            this.DisabledItem.Click();
+        }
+
+        /// <summary>
+        /// Verify Lazy time out respects wait driver settings
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyRespectsWaitDriverTimesOut()
+        {
+            DateTime start = DateTime.Now;
+            try
+            {
+                this.WebDriver.SetWaitDriver(new OpenQA.Selenium.Support.UI.WebDriverWait(this.WebDriver, TimeSpan.FromSeconds(2)));
+                start = DateTime.Now;
+                this.DisabledItem.Click();
+            }
+            catch (TimeoutException)
+            {
+                TimeSpan duration = DateTime.Now - start;
+                Assert.IsTrue(duration < TimeSpan.FromMilliseconds(4000), "The max wait time should be less than 4 seconds but was " + duration);
+            }
+        }
+
+        /// <summary>
+        /// Verify the lazy waiting for message includes what it was waiting for
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyWaitingForElementMessage()
+        {
+            try
+            {
+                this.WebDriver.SetWaitDriver(new OpenQA.Selenium.Support.UI.WebDriverWait(this.WebDriver, TimeSpan.FromSeconds(1)));
+                this.DisabledItem.Click();
+            }
+            catch (TimeoutException ex)
+            {
+                Assert.IsTrue(ex.InnerException.Message.Contains("Waiting for clickable element"), "Message should tell us it timed out 'Waiting for clickable element', but is instead " + ex.InnerException.Message);
+            }
+        }
+
+        /// <summary>
         /// Verify Lazy Element search respects the parent find by finding mismatch
         /// </summary>
         [TestMethod]
@@ -190,11 +270,11 @@ namespace SeleniumUnitTests
             footer.GetValue();
             IWebElement footerElementBefore = footer.CachedElement;
 
-            // Do the event again and save off the changed element 
+            // Do the event again and save off the changed element
             footer.GetValue();
 
             // Make sure doing a new find returns an element that is not the same as the cached element
-            Assert.AreNotEqual(this.WebDriver.FindElement(footer.By), footerElementBefore);
+            Assert.AreNotEqual(WebDriver.FindElement(footer.By), footerElementBefore);
         }
 
         /// <summary>
@@ -211,7 +291,7 @@ namespace SeleniumUnitTests
             footer.GetValue();
             IWebElement footerElementBefore = footer.CachedElement;
 
-            // Do the event again and save off the changed element 
+            // Do the event again and save off the changed element
             footer.GetValue();
             IWebElement footerElementAfter = footer.CachedElement;
 
@@ -233,11 +313,11 @@ namespace SeleniumUnitTests
             footer.GetValue();
             IWebElement footerElementBefore = footer.CachedElement;
 
-            // Do the event again and save off the changed element 
+            // Do the event again and save off the changed element
             footer.GetValue();
 
             // Go to another page so the old element will be stale, this will force us to get a new one
-            this.WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Automation/AsyncPage");
+            WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Automation/AsyncPage");
 
             // Trigger a new find, this should be new because the cached element is stale
             footer.GetValue();
@@ -415,9 +495,10 @@ namespace SeleniumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        [ExpectedException(typeof(Exception), "The input should be disabled so this will throw an exception.")]
+        [ExpectedException(typeof(TimeoutException), "The input should be disabled so this will throw an exception.")]
         public void LazyElementSendKeysWithParent()
         {
+            this.WebDriver.SetWaitDriver(new OpenQA.Selenium.Support.UI.WebDriverWait(this.WebDriver, TimeSpan.FromSeconds(1)));
             this.DisabledInput.SendKeys("test");
         }
 
@@ -434,12 +515,39 @@ namespace SeleniumUnitTests
             this.InputBox.Clear();
             this.InputBox.SendKeys("continueTest");
 
-            FileLogger logger = (FileLogger)this.TestObject.Log;
+            FileLogger logger = (FileLogger)TestObject.Log;
             string filepath = logger.FilePath;
 
             Assert.IsTrue(File.ReadAllText(filepath).Contains("beforeSuspendTest"));
             Assert.IsFalse(File.ReadAllText(filepath).Contains("secretKeys"));
             Assert.IsTrue(File.ReadAllText(filepath).Contains("continueTest"));
+            File.Delete(filepath);
+        }
+        
+        /// <summary>
+        /// Make sure logging is enabled after an error is thrown
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementSendSecretKeysEnableLoggingAfterError()
+        {
+            string checkLogged = "THISSHOULDBELOGGED";
+
+            try
+            {
+                this.InputBox.SendSecretKeys(null);
+            }
+            catch (Exception e)
+            {
+                Assert.AreEqual(typeof(ArgumentNullException), e.InnerException.GetType());
+            }
+
+            this.InputBox.SendKeys(checkLogged);
+
+            FileLogger logger = (FileLogger)TestObject.Log;
+            string filepath = logger.FilePath;
+
+            Assert.IsTrue(File.ReadAllText(filepath).Contains(checkLogged));
             File.Delete(filepath);
         }
 
@@ -450,12 +558,12 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementSubmit()
         {
-            this.WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Employees");
-            this.WebDriver.Wait().ForClickableElement(By.CssSelector("A[href^='/Employees/Edit/']")).Click();
-            this.WebDriver.Wait().ForPageLoad();
+            WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Employees");
+            WebDriver.Wait().ForClickableElement(By.CssSelector("A[href^='/Employees/Edit/']")).Click();
+            WebDriver.Wait().ForPageLoad();
 
             this.SubmitButton.Submit();
-            Assert.IsTrue(this.WebDriver.Wait().UntilAbsentElement(By.CssSelector("#[type='submit']")), "Submit did not go away");
+            Assert.IsTrue(WebDriver.Wait().UntilAbsentElement(By.CssSelector("#[type='submit']")), "Submit did not go away");
         }
 
         /// <summary>
@@ -463,9 +571,10 @@ namespace SeleniumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        [ExpectedException(typeof(Exception), "The input should be disabled so this will throw an exception.")]
+        [ExpectedException(typeof(TimeoutException), "The input should be disabled so this will throw an exception.")]
         public void LazyElementSubmitWithParent()
         {
+            this.WebDriver.SetWaitDriver(new OpenQA.Selenium.Support.UI.WebDriverWait(this.WebDriver, TimeSpan.FromSeconds(1)));
             this.DisabledInput.Submit();
         }
 
@@ -488,6 +597,16 @@ namespace SeleniumUnitTests
         public void LazyElementDisplayedWithParent()
         {
             Assert.AreEqual(true, this.DisabledInput.Displayed);
+        }
+
+        /// <summary>
+        /// Verify Lazy Element property
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementProperty()
+        {
+            Assert.AreEqual("showDialog1", this.DialogOneButton.GetProperty("id"), "Expected ID to be 'showDialog1'");
         }
 
         /// <summary>
@@ -643,6 +762,32 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Verify lazy element exists
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementExists()
+        {
+            LazyElement slowLoad = new LazyElement(this.TestObject, By.CssSelector("#AsyncContent[style*='block']"));
+            WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Automation/AsyncPage");
+
+            Assert.IsTrue(slowLoad.Exists, "Element should exist");
+        }
+
+        /// <summary>
+        /// Verify lazy element exists
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementExistsNow()
+        {
+            LazyElement slowLoad = new LazyElement(this.TestObject, By.CssSelector("#AsyncContent[style*='block']"));
+            WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Automation/AsyncPage");
+
+            Assert.IsFalse(slowLoad.ExistsNow, "Element should not exist yet");
+        }
+
+        /// <summary>
         /// Verify lazy element to string
         /// </summary>
         [TestMethod]
@@ -650,7 +795,7 @@ namespace SeleniumUnitTests
         public void LazyElementToString()
         {
             // Hard-coded userFriendlyName due to private access on LazyElement
-            var stringValue = 
+            var stringValue =
                 this.FlowerTableLazyElement.By.ToString() + "Flower table";
             Assert.AreEqual(stringValue, this.FlowerTableLazyElement.ToString());
         }
@@ -667,6 +812,103 @@ namespace SeleniumUnitTests
                 this.FlowerTableLazyElement.By.ToString() + "Flower table" +
                 this.FlowerTableCaptionWithParent.By.ToString() + "Flower table caption";
             Assert.AreEqual(stringValue, this.FlowerTableCaptionWithParent.ToString());
+        }
+
+        /// <summary>
+        /// Verify find element
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementFindElement()
+        {
+            IWebElement firstElement = this.FlowerTableLazyElement.FindElement(By.CssSelector("THEAD TH"));
+            Assert.AreEqual("Flowers", firstElement.Text);
+        }
+
+        /// <summary>
+        /// Find element respects action waits
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        [ExpectedException(typeof(TimeoutException), "The input should be disabled so this will throw an exception.")]
+        public void LazyElementFindElementRespectAction()
+        {
+            IWebElement firstElement = this.DivRoot.FindElement(this.DisabledItem.By);
+            this.WebDriver.SetWaitDriver(new OpenQA.Selenium.Support.UI.WebDriverWait(this.WebDriver, TimeSpan.FromSeconds(1)));
+            firstElement.Click();
+        }
+
+        /// <summary>
+        /// Verify find elements
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementFindElements()
+        {
+            ReadOnlyCollection<IWebElement> elements = this.FlowerTableLazyElement.FindElements(By.CssSelector("THEAD TH"));
+            Assert.AreEqual("Color", elements[4].Text);
+        }
+
+        /// <summary>
+        /// Stacked lazy elements handle staleness
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementFindElementsStackedWithStale()
+        {
+            LazyElement lazyRoot = new LazyElement(this.TestObject, By.CssSelector("#ItemsToAutomate"));
+            IWebElement secondTable = lazyRoot.FindElements(By.CssSelector("TABLE"))[1];
+            IWebElement lastTableHeader = secondTable.FindElements(By.CssSelector("THEAD TH"))[4];
+ 
+            this.WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase());
+            this.WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Automation");
+
+            Assert.AreEqual("Color", lastTableHeader.Text);
+        }
+
+        /// <summary>
+        /// Find elements are all lazy
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementFindElementsAreLazy()
+        {
+            foreach (IWebElement element in this.FlowerTableLazyElement.FindElements(By.CssSelector("THEAD TH")))
+            {
+                this.SoftAssert.Assert(() => Assert.IsTrue(element is LazyElement));
+            }
+
+            this.SoftAssert.FailTestIfAssertFailed();
+        }
+
+        /// <summary>
+        /// Find elements respects action waits
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        [ExpectedException(typeof(TimeoutException), "The input should be disabled so this will throw an exception.")]
+        public void LazyElementFindElementsRespectAction()
+        {
+            IWebElement firstElement = this.DivRoot.FindElements(this.DisabledItem.By)[0];
+
+            this.WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase());
+            this.WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Automation");
+
+            this.WebDriver.SetWaitDriver(new OpenQA.Selenium.Support.UI.WebDriverWait(this.WebDriver, TimeSpan.FromSeconds(1)));
+            firstElement.Click();
+        }
+
+        /// <summary>
+        /// Stacked get visible
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementFindElementsGetVisible()
+        {
+            LazyElement lazyRoot = new LazyElement(this.TestObject, By.CssSelector("#ItemsToAutomate"));
+            IWebElement secondTable = lazyRoot.FindElements(By.CssSelector("TABLE"))[1];
+            IWebElement getSecondTable = ((LazyElement)secondTable).GetTheVisibleElement();
+            Assert.AreEqual(secondTable.Text, getSecondTable.Text);
         }
     }
 }

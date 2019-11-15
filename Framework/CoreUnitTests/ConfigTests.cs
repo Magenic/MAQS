@@ -18,6 +18,7 @@ namespace CoreUnitTests
     /// The config unit tests.
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class ConfigTests
     {
         /// <summary>
@@ -25,7 +26,6 @@ namespace CoreUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.UtilitiesCore)]
-        [ExcludeFromCodeCoverage]
         public void Testconfig()
         {
             Config.DoesKeyExist("Log");

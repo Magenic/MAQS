@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net471</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Appium.WebDriver" Version="4.0.0.5-beta" />
+    <PackageReference Include="Magenic.Maqs" version="5.6.0" />
+    <PackageReference Include="Magenic.Maqs.SpecFlow" Version="5.6.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.0.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.0.0" />
+    <PackageReference Include="Selenium.Support" Version="3.141.0" />
+    <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
+    <PackageReference Include="SpecFlow.NUnit" Version="3.0.225" />
+    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.0.225" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\PageModel\PageModel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+</Project>

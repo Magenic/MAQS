@@ -6,7 +6,6 @@
 //--------------------------------------------------
 using Magenic.Maqs.Utilities.Data;
 using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 
@@ -85,6 +84,30 @@ namespace Magenic.Maqs.Utilities.Helper
             {
                 throw new TimeoutException(StringProcessor.SafeFormatter("Timed out waiting for '{0}' to return true", waitForTrue.Method.Name));
             }
+        }
+
+        /// <summary>
+        /// Wait until the wait for function returns the expected type, an exception will be thrown if the wait times out
+        /// </summary>
+        /// <typeparam name="T">The expected return type</typeparam>
+        /// <param name="waitFor">The wait for function</param>
+        /// <returns>The wait for function return value</returns>
+        public static T WaitFor<T>(Func<T> waitFor)
+        {
+            return Wait(waitFor, retryTimeFromConfig, timeoutFromConfig);
+        }
+
+        /// <summary>
+        /// Wait until the wait for function returns the expected type, an exception will be thrown if the wait times out
+        /// </summary>
+        /// <typeparam name="T">The expected return type</typeparam>
+        /// <typeparam name="U">Wait for argument type</typeparam>
+        /// <param name="waitFor">The wait for function</param>
+        /// <param name="arg">The wait for function argument</param>
+        /// <returns>The wait for function return value</returns>
+        public static T WaitFor<T, U>(Func<U, T> waitFor, U arg)
+        {
+            return Wait(waitFor, retryTimeFromConfig, timeoutFromConfig, arg);
         }
 
         /// <summary>
@@ -230,30 +253,6 @@ namespace Magenic.Maqs.Utilities.Helper
             {
                 throw new TimeoutException("Timed out waiting for " + waitForTrue.Method.Name + " to return expected value of " + typeof(T) + ": " + comparativeValue);
             }
-        }
-
-        /// <summary>
-        /// Wait until the wait for function returns the expected type, an exception will be thrown if the wait times out
-        /// </summary>
-        /// <typeparam name="T">The expected return type</typeparam>
-        /// <param name="waitFor">The wait for function</param>
-        /// <returns>The wait for function return value</returns>
-        public static T WaitFor<T>(Func<T> waitFor)
-        {
-            return Wait(waitFor, retryTimeFromConfig, timeoutFromConfig);
-        }
-
-        /// <summary>
-        /// Wait until the wait for function returns the expected type, an exception will be thrown if the wait times out
-        /// </summary>
-        /// <typeparam name="T">The expected return type</typeparam>
-        /// <typeparam name="U">Wait for argument type</typeparam>
-        /// <param name="waitFor">The wait for function</param>
-        /// <param name="arg">The wait for function argument</param>
-        /// <returns>The wait for function return value</returns>
-        public static T WaitFor<T, U>(Func<U, T> waitFor, U arg)
-        {
-            return Wait(waitFor, retryTimeFromConfig, timeoutFromConfig, arg);
         }
 
         /// <summary>

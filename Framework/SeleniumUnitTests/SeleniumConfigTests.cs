@@ -393,5 +393,84 @@ namespace UnitTests
                 }
             }
         }
+
+        /// <summary>
+        /// Get expected browser types
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void BrowserTypeMatch()
+        {
+            Assert.AreEqual(BrowserType.IE, SeleniumConfig.GetBrowserType("INTERNET EXPLORER"));
+            Assert.AreEqual(BrowserType.IE, SeleniumConfig.GetBrowserType("INTERNETExPLOREr"));
+            Assert.AreEqual(BrowserType.IE, SeleniumConfig.GetBrowserType("ie"));
+            Assert.AreEqual(BrowserType.Firefox, SeleniumConfig.GetBrowserType("Firefox"));
+            Assert.AreEqual(BrowserType.Chrome, SeleniumConfig.GetBrowserType("chrome"));
+            Assert.AreEqual(BrowserType.HeadlessChrome, SeleniumConfig.GetBrowserType("HEADLESSCHROME"));
+            Assert.AreEqual(BrowserType.Edge, SeleniumConfig.GetBrowserType("eDGE"));
+            Assert.AreEqual(BrowserType.Remote, SeleniumConfig.GetBrowserType("remote"));
+        }
+
+        /// <summary>
+        /// Expected browser types error check
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void BrowserTypeError()
+        {
+            Assert.ThrowsException<ArgumentException>(() => SeleniumConfig.GetBrowserType("PHANTOMJS"));
+            Assert.ThrowsException<ArgumentException>(() => SeleniumConfig.GetBrowserType("PHANTOM JS"));
+            Assert.ThrowsException<ArgumentException>(() => SeleniumConfig.GetBrowserType("PHANTOM"));
+            Assert.ThrowsException<ArgumentException>(() => SeleniumConfig.GetBrowserType("OTHER"));
+        }
+
+        /// <summary>
+        /// Get expected remote browser types
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void RemoteBrowserTypeMatch()
+        {
+            Assert.AreEqual(RemoteBrowserType.IE, SeleniumConfig.GetRemoteBrowserType("INTERNET EXPLORER"));
+            Assert.AreEqual(RemoteBrowserType.IE, SeleniumConfig.GetRemoteBrowserType("INTERNETExPLOREr"));
+            Assert.AreEqual(RemoteBrowserType.IE, SeleniumConfig.GetRemoteBrowserType("ie"));
+            Assert.AreEqual(RemoteBrowserType.Firefox, SeleniumConfig.GetRemoteBrowserType("Firefox"));
+            Assert.AreEqual(RemoteBrowserType.Chrome, SeleniumConfig.GetRemoteBrowserType("chrome"));
+            Assert.AreEqual(RemoteBrowserType.Safari, SeleniumConfig.GetRemoteBrowserType("SAFARI"));
+            Assert.AreEqual(RemoteBrowserType.Edge, SeleniumConfig.GetRemoteBrowserType("edge"));
+        }
+
+        /// <summary>
+        /// Expected remote browser types error check
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void RemoteBrowserTypeError()
+        {
+            Assert.ThrowsException<ArgumentException>(() => SeleniumConfig.GetRemoteBrowserType("remote"));
+            Assert.ThrowsException<ArgumentException>(() => SeleniumConfig.GetRemoteBrowserType("HEADLESSCHROME"));
+            Assert.ThrowsException<ArgumentException>(() => SeleniumConfig.GetRemoteBrowserType("PHANTOM"));
+            Assert.ThrowsException<ArgumentException>(() => SeleniumConfig.GetRemoteBrowserType("OTHER"));
+        }
+
+        /// <summary>
+        /// Get expected UseProxy configuration
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void GetUseProxy()
+        {
+            Assert.IsFalse(SeleniumConfig.GetUseProxy());
+        }
+
+        /// <summary>
+        /// Get expected proxy address configuration
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void GetProxyAddress()
+        {
+            Assert.AreEqual("http://localhost:8002", SeleniumConfig.GetProxyAddress());
+        }
     }
 }

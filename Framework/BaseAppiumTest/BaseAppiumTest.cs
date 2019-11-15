@@ -5,8 +5,6 @@
 // <summary>This is the base Appium test class</summary>
 //--------------------------------------------------
 using Magenic.Maqs.BaseTest;
-using Magenic.Maqs.Utilities.Data;
-using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.Utilities.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
@@ -64,7 +62,7 @@ namespace Magenic.Maqs.BaseAppiumTest
                 if (this.TestObject.GetDriverManager<MobileDriverManager>().IsDriverIntialized() && this.Log is FileLogger && resultType != TestResultType.PASS &&
                     this.LoggingEnabledSetting != LoggingEnabled.NO)
                 {
-                    AppiumUtilities.CaptureScreenshot(this.AppiumDriver, this.TestObject);
+                    AppiumUtilities.CaptureScreenshot(this.AppiumDriver, this.TestObject, " Final");
 
                     if (AppiumConfig.GetSavePagesourceOnFail())
                     {

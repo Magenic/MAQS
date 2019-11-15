@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json.schemastore.org/vsix-publish",
+  "categories": [ "Visual Studio Extensions" ],
+  "identity": {
+    "description": "Magenic's automation quick start framework extension for SpecFlow testing",
+    "displayName": "MAQS SpecFlow Extension",
+    "internalName": "MAQSSpecFlow"
+  },
+  "overview": "overview.md",
+  "priceCategory": "free",
+  "publisher": "magenictechnologies",
+  "private": false,
+  "qna": true,
+  "repo": "https://github.com/Magenic/MAQS"
+}
+

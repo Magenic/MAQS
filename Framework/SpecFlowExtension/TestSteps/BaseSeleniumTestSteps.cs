@@ -34,4 +34,3 @@ namespace Magenic.Maqs.SpecFlow.TestSteps
         }
     }
 }
-

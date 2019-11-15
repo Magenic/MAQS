@@ -26,6 +26,8 @@ The SeleniumMaqs configuration section contains the following Keys:
 * ***SoftAssertScreenshot*** : If a screenshot should be taken when a soft assert fails
 * ***ImageFormat*** :  What format screenshot should be saved as
 * ***SavePagesourceOnFail*** : If page source is saved when a test fails
+* ***UseProxy*** : If the browser should use a proxy address
+* ***ProxyAddress*** : The proxy address and port the browser will use
 
 
 ## RemoteSeleniumCapsMaqs
@@ -110,6 +112,14 @@ Sets the time our for a provided web driver:
 ```csharp
 SeleniumConfig.SetTimeouts(driver);
 ```
+Get the if webdriver should use proxy
+```csharp
+bool useProxy = SeleniumConfig.GetUseProxy();
+```
+Get the proxy address to use
+```csharp
+string proxyAddress = SeleniumConfig.GetProxyAddress();
+```
 
 # Sample config files
 ## App.config
@@ -180,6 +190,10 @@ SeleniumConfig.SetTimeouts(driver);
     <add key="SavePagesourceOnFail" value="YES"/>
     <add key="SavePagesourceOnFail" value="NO"/> -->
     <add key="SavePagesourceOnFail" value="NO"/>
+
+    <!-- Proxy settings -->
+    <add key="UseProxy" value="No" />
+    <add key="ProxyAddress" value="127.0.0.1:8080" />
   </SeleniumMaqs>
   <RemoteSeleniumCapsMaqs>
     <!-- Cloud based Grid settings
@@ -236,7 +250,9 @@ SeleniumConfig.SetTimeouts(driver);
     "BrowserSize": "MAXIMIZE",
     "SoftAssertScreenshot": "NO",
     "ImageFormat": "Png",
-    "SavePagesourceOnFail": "NO"
+    "SavePagesourceOnFail": "NO",
+    "UseProxy": "NO",
+    "ProxyAddress": "127.0.0.1:8080"
   },
   "RemoteSeleniumCapsMaqs": {
     "Username": "Sauce_Labs_Username",

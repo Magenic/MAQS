@@ -1,31 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net471;netcoreapp2.0</TargetFrameworks>
-
-    <IsPackable>false</IsPackable>
-
+    <TargetFrameworks>net471;netcoreapp2.0;netcoreapp3.0</TargetFrameworks>
     <AssemblyName>Magenic.Maqs.SpecFlow</AssemblyName>
-
     <RootNamespace>Magenic.Maqs.SpecFlow</RootNamespace>
+    <Version>5.6.0</Version>
+    <ApplicationIcon>MAQS.ico</ApplicationIcon>
+    <ProjectGuid>{26D35A87-D2F4-4A04-931A-EF2DBEA9EBB5}</ProjectGuid>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <SonarQubeTestProject>false</SonarQubeTestProject>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Appium.WebDriver" version="4.0.0.5-beta" />
     <PackageReference Include="BoDi" version="1.4.1" />
     <PackageReference Include="Castle.Core" version="4.4.0" />
-    <PackageReference Include="Dapper" version="1.60.6" />
+    <PackageReference Include="Dapper" version="2.0.30" />
     <PackageReference Include="DotNetSeleniumExtras.PageObjects" version="3.11.0" />
     <PackageReference Include="Gherkin" version="6.0.0" />
-    <PackageReference Include="MSTest.TestFramework" version="1.4.0" />
+    <PackageReference Include="MSTest.TestFramework" version="2.0.0" />
     <PackageReference Include="Newtonsoft.Json" version="12.0.2" />
     <PackageReference Include="NUnit" version="3.12.0" />
     <PackageReference Include="Selenium.Support" version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver" version="3.141.0" />
     <PackageReference Include="SpecFlow" version="3.0.225" />
-    <PackageReference Include="System.Reflection.Emit" version="4.3.0" />
-    <PackageReference Include="System.Reflection.Emit.Lightweight" version="4.3.0" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" version="4.5.2" />
+    <PackageReference Include="System.Reflection.Emit" version="4.6.0" />
+    <PackageReference Include="System.Reflection.Emit.Lightweight" version="4.6.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" version="4.6.0" />
     <PackageReference Include="System.Threading.Tasks.Extensions" version="4.5.3" />
     <PackageReference Include="System.ValueTuple" version="4.5.0" />
     <PackageReference Include="Utf8Json" version="1.3.7" />
@@ -39,11 +44,4 @@
     <ProjectReference Include="..\BaseTest\BaseTest.csproj" />
     <ProjectReference Include="..\BaseWebServiceTest\BaseWebServiceTest.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None Update="App.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

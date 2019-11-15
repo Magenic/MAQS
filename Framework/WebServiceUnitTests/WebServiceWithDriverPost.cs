@@ -221,7 +221,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PostExpectStringErrorEmptyHttpContent()
         {
-            var result = this.WebServiceDriver.Post("/api/String", "text/plain", new StringContent("", Encoding.UTF8), false);
+            var result = this.WebServiceDriver.Post("/api/String", "text/plain", new StringContent(string.Empty, Encoding.UTF8), false);
             Assert.AreEqual("{\"Message\":\"No data\"}", result);
         }
     }

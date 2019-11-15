@@ -3,8 +3,6 @@
     Zips the MAQS project templates.
 .DESCRIPTION
     This powershell script is used to zip the MAQS project templates. Editing of parameters in the powershell file may be necessary.
-.PARAMETER closedSource
-    Set false if the closeSource version of MAQS shouldn't be updated
 .PARAMETER openSource
     Set true if the openSource version of MAQS should be updated
 .PARAMETER specSource
@@ -19,6 +17,11 @@
   Author:         Magenic
   Creation Date:  07/9/2018
   Purpose/Change: Add SpecFlow build support. Add item template support.
+
+  Version:        3.0
+  Author:         Magenic
+  Creation Date:  10/11/2019
+  Purpose/Change: Remove depracated template.
   
 .EXAMPLE
   ./TemplateUpdates
@@ -31,7 +34,6 @@
 #>
 
 param (
-    [bool]$closedSource = $true,
     [bool]$openSource = $true,
     [bool]$specSource = $true
 )
@@ -57,12 +59,7 @@ function ZipFiles($inputDirectory, $outputDirectory){
     }
 }
 
-function WorkflowFunction($closedSource, $openSource, $specSource){
-    if($closedSource){
-        ZipFiles $PSScriptRoot"\Extensions\VisualStudioQatExtension\ProjectTemplates\Magenic Test" $PSScriptRoot"\Extensions\VisualStudioQatExtension\ProjectTemplates\Magenic Test"
-        ZipFiles $PSScriptRoot"\Extensions\VisualStudioQatExtension\ProjectTemplates\Magenic Test Core" $PSScriptRoot"\Extensions\VisualStudioQatExtension\ProjectTemplates\Magenic Test Core"
-        ZipFiles $PSScriptRoot"\Extensions\VisualStudioQatExtension\ItemTemplates\Magenic Test" $PSScriptRoot"\Extensions\VisualStudioQatExtension\ItemTemplates\Magenic Test"
-    }
+function WorkflowFunction($openSource, $specSource){
     if($openSource){
         ZipFiles $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test" $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test"
         ZipFiles $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test Core" $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test Core"
@@ -75,4 +72,4 @@ function WorkflowFunction($closedSource, $openSource, $specSource){
     }
 }
 
-WorkflowFunction $closedSource $openSource $specSource
+WorkflowFunction $openSource $specSource

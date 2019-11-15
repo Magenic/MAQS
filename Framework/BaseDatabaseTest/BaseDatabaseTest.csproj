@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net471;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net471;netstandard2.0;netstandard2.1</TargetFrameworks>
     <AssemblyName>Magenic.Maqs.BaseDatabaseTest</AssemblyName>
     <RootNamespace>Magenic.Maqs.BaseDatabaseTest</RootNamespace>
-    <Version>5.5.1</Version>
+    <Version>5.6.0</Version>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>
     <ProjectGuid>{40C69F26-3B81-43D3-AC2E-2F9B5104AE38}</ProjectGuid>
   </PropertyGroup>
@@ -16,15 +16,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="1.60.6" />
-    <PackageReference Include="Dapper.Contrib" Version="1.60.1" />
-    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="2.2.6" />
-    <PackageReference Include="Npgsql" Version="4.0.8" />
+    <PackageReference Include="Dapper" Version="2.0.30" />
+    <PackageReference Include="Dapper.Contrib" Version="2.0.30" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="3.0.0" />
+    <PackageReference Include="Npgsql" Version="4.1.1" />
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.19.31" />
-    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="1.1.14" />
-    <PackageReference Include="SQLitePCLRaw.core" Version="1.1.14" />
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="2.0.1" />
+    <PackageReference Include="SQLitePCLRaw.core" Version="2.0.1" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.6.1" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.7.0" />
   </ItemGroup>
   
   <ItemGroup>

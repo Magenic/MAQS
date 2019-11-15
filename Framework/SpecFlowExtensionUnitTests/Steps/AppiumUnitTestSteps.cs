@@ -10,8 +10,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using TechTalk.SpecFlow;
-[assembly: DoNotParallelize]
 
+[assembly: DoNotParallelize]
 namespace SpecFlowExtUnitTests.Steps
 {
     /// <summary>

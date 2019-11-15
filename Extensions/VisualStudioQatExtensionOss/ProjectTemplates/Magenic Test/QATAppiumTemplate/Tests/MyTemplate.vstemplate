@@ -15,8 +15,8 @@
     <LocationField>Enabled</LocationField>
     <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
     <Icon>__TemplateIcon.ico</Icon>
-	<Hidden>true</Hidden> 
-	<CreateInPlace>true</CreateInPlace>
+    <Hidden>true</Hidden> 
+    <CreateInPlace>true</CreateInPlace>
   </TemplateData>
   <TemplateContent>
     <Project TargetFileName="Tests.csproj" File="Tests.csproj" ReplaceParameters="true">

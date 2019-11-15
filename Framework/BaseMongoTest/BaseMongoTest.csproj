@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net471;netstandard2.0</TargetFrameworks>
-    <Version>5.5.1</Version>
+    <TargetFrameworks>net471;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <Version>5.6.0</Version>
     <AssemblyName>Magenic.Maqs.BaseMongoTest</AssemblyName>
     <RootNamespace>Magenic.Maqs.BaseMongoTest</RootNamespace>
     <PackageId>Magenic.Maqs.BaseMongoTest</PackageId>
@@ -20,9 +20,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MongoDB.Bson" Version="2.8.1" />
-    <PackageReference Include="MongoDB.Driver" Version="2.8.1" />
-    <PackageReference Include="MongoDB.Driver.Core" Version="2.8.1" />
+    <PackageReference Include="MongoDB.Bson" Version="2.9.2" />
+    <PackageReference Include="MongoDB.Driver" Version="2.9.2" />
+    <PackageReference Include="MongoDB.Driver.Core" Version="2.9.2" />
     <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />
   </ItemGroup>
 

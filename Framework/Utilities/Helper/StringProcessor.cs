@@ -42,5 +42,42 @@ namespace Magenic.Maqs.Utilities.Data
                 return builder.ToString();
             }
         }
+
+        /// <summary>
+        /// Gets a string of a nested exception list
+        /// </summary>
+        /// <param name="e">Exception to print as string</param>
+        /// <returns>A string of the Exceptions with stack trace</returns>
+        public static string SafeExceptionFormatter(Exception e)
+        {
+            StringBuilder sb = new StringBuilder();
+            return GetException(e, sb);
+        }
+
+        /// <summary>
+        /// Recursive function to grab the inner exceptions
+        /// </summary>
+        /// <param name="ex">Exception to look into</param>
+        /// <param name="sb">String builder to build the string</param>
+        /// <param name="level">Recursive level for spacing of logs</param>
+        /// <returns>A string with the exceptions</returns>
+        private static string GetException(Exception ex, StringBuilder sb, int level = 0)
+        {
+            string spaces = new string(' ', level);
+            sb.Append($"{Environment.NewLine}{spaces}{ex.Message}{(ex.StackTrace == null ? "" : $"{Environment.NewLine}{spaces}{ex.StackTrace}")}");
+            if (ex is AggregateException && (ex as AggregateException).InnerExceptions.Count > 0)
+            {
+                foreach (var exception in (ex as AggregateException).InnerExceptions)
+                {
+                    GetException(exception, sb, level + 1);
+                }
+            }
+            else if (ex.InnerException != null)
+            {
+                GetException(ex.InnerException, sb, level + 2);
+            }
+
+            return sb.ToString();
+        }
     }
 }
