@@ -99,16 +99,6 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Unit Test for creating a sorted comma delimited string
         /// </summary>
-        #region SortFromWebElements
-        [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
-        public void CreateSortedCommaDelimitedStringFromWebElementsTest()
-        {
-            string expectedText = "Hard Drive, Keyboard, Monitor, Motherboard, Mouse, Power Supply";
-            NavigateToUrl();
-            Assert.AreEqual(expectedText, WebDriver.CreateCommaDelimitedString(computerPartsListOptions, true), "Expected string does not match actual");
-        }
-        #endregion
 
         /// <summary>
         /// Unit Test for creating a comma delimited string
@@ -125,7 +115,6 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Unit test for entering text into a textbox and getting text from a textbox
         /// </summary>
-        #region GetAttribute
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void SetTextBoxAndVerifyValueTest()
@@ -136,7 +125,6 @@ namespace SeleniumUnitTests
             string actualValue = WebDriver.GetElementAttribute(firstNameTextBox);
             VerifyText(actualValue, expectedValue);
         }
-        #endregion
 
         /// <summary>
         /// Check that SetTextBox throws correct exception with an empty input string
@@ -153,7 +141,6 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Unit Test for checking a radio button
         /// </summary>
-        #region ClickButton
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void CheckRadioButtonTest()
@@ -162,7 +149,6 @@ namespace SeleniumUnitTests
             WebDriver.ClickButton(femaleRadioButton, false);
             Assert.IsTrue(WebDriver.Wait().ForClickableElement(femaleRadioButton).Selected, "Radio button was not selected");
         }
-        #endregion
 
         /// <summary>
         /// Test ClickButton called with WaitForButtonToDisappear as true
@@ -182,7 +168,6 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Unit Test for checking a checkbox
         /// </summary>
-        #region CheckCheckbox
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void CheckCheckBoxTest()
@@ -194,7 +179,6 @@ namespace SeleniumUnitTests
             WebDriver.CheckCheckBox(checkbox, false);
             Assert.IsFalse(WebDriver.Wait().ForClickableElement(checkbox).Selected, "Checkbox was enabled");
         }
-        #endregion
 
         /// <summary>
         /// Unit Test for get element attribute function
@@ -212,7 +196,6 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Unit Test for selecting an item from a dropdown and getting the selected item from a dropdown (By actual value)
         /// </summary>
-        #region SelectItemDropdown
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void SelectItemFromDropDownTest()
@@ -223,12 +206,10 @@ namespace SeleniumUnitTests
             string actualSelection = WebDriver.GetSelectedOptionFromDropdown(nameDropdown);
             VerifyText(actualSelection, expectedSelection);
         }
-        #endregion
 
         /// <summary>
         /// Unit Test for selecting an item from a dropdown and getting the selected item from a dropdown (By list value)
         /// </summary>
-        #region DropdownByValue
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void SelectItemFromDropDownByValueTest()
@@ -239,12 +220,10 @@ namespace SeleniumUnitTests
             string actualSelection = WebDriver.GetSelectedOptionFromDropdown(nameDropdown);
             VerifyText(actualSelection, expectedSelection);
         }
-        #endregion
 
         /// <summary>
         /// Unit Test for selecting multiple items from a list box and getting all selected items in a list box(By actual value)
         /// </summary>
-        #region SelectMultipleItems
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void SelectMultipleItemsFromListBoxTest()
@@ -267,12 +246,10 @@ namespace SeleniumUnitTests
                 Assert.Fail(results.ToString());
             }
         }
-        #endregion
 
         /// <summary>
         /// Unit Test for selecting multiple items from a list box and getting all selected items in a list box(By list value)
         /// </summary>
-        #region SelectMultipleElementsByValue
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void SelectMultipleItemsFromListBoxTestByValue()
@@ -293,12 +270,10 @@ namespace SeleniumUnitTests
                 Assert.Fail("Does not contain 3 elements: " + selectedItems.ToString());
             }
         }
-        #endregion
 
         /// <summary>
         /// Unit test for ClickElementByJavaScript using a hover dropdown, where dropdown is not visible
         /// </summary>
-        #region ClickByJavascript
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void ClickElementByJavascriptFromHoverDropdown()
@@ -308,12 +283,10 @@ namespace SeleniumUnitTests
             WebDriver.Wait().ForPageLoad();
             WebDriver.Wait().ForExactText(employeePageTitle, "Index");
         }
-        #endregion
 
         /// <summary>
         /// Test to verify scrolling into view
         /// </summary>
-        #region ScrollIntoView
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void ScrollIntoView()
@@ -321,12 +294,10 @@ namespace SeleniumUnitTests
             NavigateToUrl();
             WebDriver.ScrollIntoView(checkbox);
         }
-        #endregion
 
         /// <summary>
         /// Test to verify scrolling into view
         /// </summary>
-        #region ScrollIntoViewWithCoords
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void ScrollIntoViewWithCoords()
@@ -334,12 +305,10 @@ namespace SeleniumUnitTests
             NavigateToUrl();
             WebDriver.ScrollIntoView(checkbox, 50, 0);
         }
-        #endregion
 
         /// <summary>
         /// Test to verify scrolling into view
         /// </summary>
-        #region ExecuteScrolling
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void ExecutingScrolling()
@@ -347,7 +316,6 @@ namespace SeleniumUnitTests
             NavigateToUrl();
             WebDriver.ExecuteScrolling(50, 0);
         }
-        #endregion
 
         /// <summary>
         /// Unit test for ClickElementByJavaScript where the element is not present
@@ -364,7 +332,6 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Verify slow type text is correctly typed
         /// </summary>
-        #region SlowType
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void SlowTypeTest()
@@ -373,9 +340,7 @@ namespace SeleniumUnitTests
             WebDriver.SlowType(firstNameTextBox, "Test input slowtype");
             Assert.AreEqual("Test input slowtype", WebDriver.Wait().ForClickableElement(firstNameTextBox).GetAttribute("value"));
         }
-        #endregion
 
-        #region SendSecretKeys
         /// <summary>
         /// Verify Send Secret Keys suspends logging
         /// </summary>
@@ -432,7 +397,6 @@ namespace SeleniumUnitTests
             Assert.IsTrue(File.ReadAllText(filepath).Contains("somethingTest"));
             File.Delete(filepath);
         }
-        #endregion
 
         /// <summary>
         /// Verify two strings are equal. If not fail test

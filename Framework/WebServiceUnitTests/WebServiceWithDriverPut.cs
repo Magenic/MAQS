@@ -45,7 +45,6 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// Put With JSON Type
         /// </summary>
-        #region PutWithType
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void PutJSONWithType()
@@ -61,12 +60,10 @@ namespace WebServiceTesterUnitTesting
             var result = this.WebServiceDriver.Put<ProductJson>("/api/XML_JSON/Put/1", "application/json", content, true);
             Assert.AreEqual(null, result);
         }
-        #endregion
 
         /// <summary>
         /// Verify the stream status code
         /// </summary>
-        #region PutWithResponseJSON
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void PutJSONStreamSerializedVerifyStatusCode()
@@ -82,7 +79,6 @@ namespace WebServiceTesterUnitTesting
             var result = this.WebServiceDriver.PutWithResponse("/api/XML_JSON/Put/1", "application/json", content, true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
-        #endregion
 
         /// <summary>
         /// XML string verify status code
@@ -127,7 +123,6 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// Verify put returns an empty string
         /// </summary>
-        #region PutWithXML
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void PutXMLSerializedVerifyEmptyString()
@@ -143,12 +138,10 @@ namespace WebServiceTesterUnitTesting
             var result = this.WebServiceDriver.Put("/api/XML_JSON/Put/1", "application/xml", content, true);
             Assert.AreEqual(string.Empty, result);
         }
-        #endregion
 
         /// <summary>
         /// String without using the utility
         /// </summary>
-        #region PutWithString
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void PutStringWithoutMakeContent()
@@ -156,12 +149,10 @@ namespace WebServiceTesterUnitTesting
             var result = this.WebServiceDriver.Put("/api/String/Put/1", "text/plain", "Test", Encoding.UTF8, "text/plain");
             Assert.AreEqual(string.Empty, result);
         }
-        #endregion
 
         /// <summary>
         /// Stream without using the utility
         /// </summary>
-        #region PutWithStringContent
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void PutStreamWithoutMakeContent()
@@ -169,12 +160,10 @@ namespace WebServiceTesterUnitTesting
             var result = this.WebServiceDriver.Put("/api/String/Put/1", "text/plain", "Test", Encoding.UTF8, "text/plain", false, true);
             Assert.AreEqual(string.Empty, result);
         }
-        #endregion
 
         /// <summary>
         /// String using the utility
         /// </summary>        
-        #region MakeStringContent
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void PutStringWithMakeStringContent()
@@ -183,12 +172,10 @@ namespace WebServiceTesterUnitTesting
             var result = this.WebServiceDriver.Put("/api/String/Put/1", "text/plain", content, true);
             Assert.AreEqual(string.Empty, result);
         }
-        #endregion
 
         /// <summary>
         /// Stream using the utility
         /// </summary>        
-        #region MakeStreamContent
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void PutStringWithMakeStreamContent()
@@ -215,12 +202,10 @@ namespace WebServiceTesterUnitTesting
             var result = this.WebServiceDriver.Put("/api/String/Put/1", "text/plain", content, true);
             Assert.AreEqual(string.Empty, result);
         }
-        #endregion
 
         /// <summary>
         /// Put string without utility
         /// </summary>
-        #region PutWithResponse
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void PutStringWithoutContentStatusCode()
@@ -228,7 +213,6 @@ namespace WebServiceTesterUnitTesting
             var result = this.WebServiceDriver.PutWithResponse("/api/String/Put/1", "text/plain", "Test", Encoding.UTF8, "text/plain", true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
-        #endregion
 
         /// <summary>
         /// Put string with utility

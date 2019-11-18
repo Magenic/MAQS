@@ -58,14 +58,12 @@ namespace EmailUnitTests
         /// <summary>
         /// Verify the user can access account 
         /// </summary>
-        #region CanAccessEmail
         [TestMethod]
         [TestCategory(TestCategories.Email)]
         public void CanAccessEmail()
         {
             Assert.IsTrue(this.EmailDriver.CanAccessEmailAccount(), "Email account was not accessible");
         }
-        #endregion
 
         /// <summary>
         /// Switch between different mailboxes
@@ -109,7 +107,6 @@ namespace EmailUnitTests
         /// <summary>
         /// Test to get the mailboxes
         /// </summary>
-        #region GetMailboxes
         [TestMethod]
         [TestCategory(TestCategories.Email)]
         public void GetMailboxes()
@@ -117,12 +114,10 @@ namespace EmailUnitTests
             List<string> mailBoxes = this.EmailDriver.GetMailBoxNames();
             Assert.IsTrue(mailBoxes.Count > 0);
         }
-        #endregion
 
         /// <summary>
         /// Test to get a mailbox
         /// </summary>
-        #region GetMailbox
         [TestMethod]
         [TestCategory(TestCategories.Email)]
         public void GetMailbox()
@@ -132,12 +127,10 @@ namespace EmailUnitTests
             Assert.AreEqual(box.FullName, mailBox);
             Assert.AreEqual(mailBox, this.EmailDriver.CurrentMailBox);
         }
-        #endregion
 
         /// <summary>
         /// Test to select a specific mailbox
         /// </summary>
-        #region SelectMailbox
         [TestMethod]
         [TestCategory(TestCategories.Email)]
         public void SelectMailbox()
@@ -146,7 +139,6 @@ namespace EmailUnitTests
             this.EmailDriver.SelectMailbox(mailBox);
             Assert.AreEqual(mailBox, this.EmailDriver.CurrentMailBox);
         }
-        #endregion
 
         /// <summary>
         /// Create a mailbox
@@ -181,7 +173,6 @@ namespace EmailUnitTests
         /// <summary>
         /// Create a mailbox
         /// </summary>
-        #region CreateMailbox
         [TestMethod]
         [TestCategory(TestCategories.Email)]
         public void CreateMailBoxTest()
@@ -194,12 +185,10 @@ namespace EmailUnitTests
             Assert.AreEqual(newMailBox, this.EmailDriver.CurrentMailBox);
             this.EmailDriver.GetMailbox(newMailBox).Delete();
         }
-        #endregion
 
         /// <summary>
         /// Get a specific email
         /// </summary>
-        #region GetMessageUid
         [TestMethod]
         [TestCategory(TestCategories.Email)]
         public void GetSpecificMessage()
@@ -209,12 +198,10 @@ namespace EmailUnitTests
             Assert.AreEqual("Plain Text", singleMessage.Subject);
             Assert.IsFalse(string.IsNullOrEmpty(singleMessage.Body.ToString()), "Expected to go the message body");
         }
-        #endregion
 
         /// <summary>
         /// Get the header info for a specific email
         /// </summary>
-        #region GetMessageUid1
         [TestMethod]
         [TestCategory(TestCategories.Email)]
         public void GetSpecificMessageHeader()
@@ -224,12 +211,10 @@ namespace EmailUnitTests
             Assert.AreEqual("Plain Text", singleMessage.Subject);
             Assert.IsNull(singleMessage.Body, "Expected not to go the message body");
         }
-        #endregion
 
         /// <summary>
         /// Get a specific email in a specific mailbox
         /// </summary>
-        #region GetMessage
         [TestMethod]
         [TestCategory(TestCategories.Email)]
         public void GetSpecificMessagePassingInMailbox()
@@ -238,12 +223,10 @@ namespace EmailUnitTests
             Assert.AreEqual("RTF Text", singleMessage.Subject);
             Assert.IsFalse(string.IsNullOrEmpty(singleMessage.Body.ToString()), "Expected to go the message body");
         }
-        #endregion
 
         /// <summary>
         /// Get just the header for a specific email in a specific mailbox
         /// </summary>
-        #region GetMessage1
         [TestMethod]
         [TestCategory(TestCategories.Email)]
         public void GetSpecificMessageHeaderPassingInMailbox()
@@ -253,12 +236,10 @@ namespace EmailUnitTests
             Assert.AreEqual("RTF Text", singleMessage.Subject);
             Assert.IsNull(singleMessage.Body, "Expected not to go the message body");
         }
-        #endregion
 
         /// <summary>
         /// Get all email headers
         /// </summary>
-        #region EmailHeaders
         [TestMethod]
         [TestCategory(TestCategories.Email)]
         public void GetEmailHeaders()
@@ -271,12 +252,10 @@ namespace EmailUnitTests
                 Assert.IsNull(message.Body, "Got body data but only expected header data");
             }
         }
-        #endregion
 
         /// <summary>
         /// Test to get the mail headers for a selected mailbox
         /// </summary>
-        #region EmailHeadersMailbox
         [TestMethod]
         [TestCategory(TestCategories.Email)]
         public void GetEmailHeadersMailbox()
@@ -288,7 +267,6 @@ namespace EmailUnitTests
                 Assert.IsNull(message.Body, "Got body data but only expected header data");
             }
         }
-        #endregion
 
         /// <summary>
         /// Check the flags for a group of emails
@@ -404,7 +382,6 @@ namespace EmailUnitTests
         /// <summary>
         /// Delete a message with a specific unique identifier
         /// </summary>
-        #region DeleteMessageUid
         [TestMethod]
         [TestCategory(TestCategories.Email)]
         public void DeleteMessageUsingUid()
@@ -435,12 +412,10 @@ namespace EmailUnitTests
                 }
             }
         }
-        #endregion
 
         /// <summary>
         /// Verify we can move messages from one folder to another
         /// </summary>
-        #region MoveMessage
         [TestMethod]
         [TestCategory(TestCategories.Email)]
         public void MoveMessage()
@@ -505,12 +480,10 @@ namespace EmailUnitTests
 
             Assert.Fail("Message " + uniqueSubject + " was moved to new folder");
         }
-        #endregion
 
         /// <summary>
         /// Verify we can get all attachments for a given unique identifier
         /// </summary>
-        #region AttachmentsByUid
         [TestMethod]
         [TestCategory(TestCategories.Email)]
         public void GetAttachmentsByUid()
@@ -529,12 +502,10 @@ namespace EmailUnitTests
                 Assert.IsTrue(File.Exists(Path.Combine(testFilePath, attachment.FileName)), "Found extra file '" + attachment.FileName + "'");
             }
         }
-        #endregion
 
         /// <summary>
         /// Verify we can get all attachments for a given mailbox and unique identifier
         /// </summary>
-        #region AttachmentsByMailboxAndUid
         [TestMethod]
         [TestCategory(TestCategories.Email)]
         public void GetAttachmentsByMailBoxAndUid()
@@ -552,12 +523,10 @@ namespace EmailUnitTests
                 Assert.IsTrue(File.Exists(Path.Combine(testFilePath, attachment.FileName)), "Found extra file '" + attachment.FileName + "'");
             }
         }
-        #endregion
 
         /// <summary>
         /// Verify we can get the list of attachments
         /// </summary>
-        #region GetAttachmentsMessage
         [TestMethod]
         [TestCategory(TestCategories.Email)]
         public void GetAttachments()
@@ -576,12 +545,10 @@ namespace EmailUnitTests
                 Assert.IsTrue(File.Exists(Path.Combine(testFilePath, attachment.FileName)), "Found extra file '" + attachment.FileName + "'");
             }
         }
-        #endregion
 
         /// <summary>
         /// Download all attachments for a specific email - Verify it has the expected attachments and that they can be downloaded to the configured download location
         /// </summary>
-        #region DownloadAttachments
         [TestMethod]
         [TestCategory(TestCategories.Email)]
         public void DownloadAttachmentsToConfigLocation()
@@ -609,12 +576,10 @@ namespace EmailUnitTests
                 }
             }
         }
-        #endregion
 
         /// <summary>
         /// Download all attachments for a specific email - Verify it has the expected attachments and that they can be downloaded to a specified location
         /// </summary>
-        #region DownloadAttachmentsToLocation
         [TestMethod]
         [TestCategory(TestCategories.Email)]
         public void DownloadAttachmentsToTestDefinedLocation()
@@ -659,12 +624,10 @@ namespace EmailUnitTests
                 Directory.Delete(downloadLocation, true);
             }
         }
-        #endregion
 
         /// <summary>
         /// Do since search for headers only
         /// </summary>
-        #region MessageSince
         [TestMethod]
         [TestCategory(TestCategories.Email)]
         public void GetMessagesSince()
@@ -675,12 +638,10 @@ namespace EmailUnitTests
             Assert.AreEqual(1, messages.Count, "Expected 1 message in 'Test/SubTest' after the given date but found " + messages.Count);
             Assert.IsFalse(string.IsNullOrEmpty(messages[0].Body.ToString()), "Expected the full message, not just the header");
         }
-        #endregion
 
         /// <summary>
         /// Do since search for headers only in a specific mailbox
         /// </summary>
-        #region MessagesSinceByMailbox
         [TestMethod]
         [TestCategory(TestCategories.Email)]
         public void GetMessagesSinceForMailbox()
@@ -689,7 +650,6 @@ namespace EmailUnitTests
             Assert.AreEqual(1, messages.Count, "Expected 1 message in 'Test/SubTest' after the given date but found " + messages.Count);
             Assert.IsFalse(string.IsNullOrEmpty(messages[0].Body.ToString()), "Expected the full message, not just the header");
         }
-        #endregion
 
         /// <summary>
         /// Run a compound search that should find one result, but only the header
@@ -726,7 +686,6 @@ namespace EmailUnitTests
         /// <summary>
         /// Run a compound search that should find one result in a given mailbox
         /// </summary>
-        #region SearchMessages
         [TestMethod]
         [TestCategory(TestCategories.Email)]
         public void GetMessageWithMailboxAndCompoundCondition()
@@ -736,12 +695,10 @@ namespace EmailUnitTests
             Assert.AreEqual(3, messages.Count, "Expected 3 message in 'Test/SubTest' between the given dates but found " + messages.Count);
             Assert.IsFalse(string.IsNullOrEmpty(messages[0].Body.ToString()), "Expected the entire message, but only got the header");
         }
-        #endregion
 
         /// <summary>
         /// Run a compound search that should find no results
         /// </summary>
-        #region SearchMessages1
         [TestMethod]
         [TestCategory(TestCategories.Email)]
         public void GetNoMessagesWithCompoundCondition()
@@ -753,12 +710,10 @@ namespace EmailUnitTests
             List<MimeMessage> messages = this.EmailDriver.SearchMessages(condition);
             Assert.AreEqual(0, messages.Count, "Expected 0 message in 'Test/SubTest' between the given dates but found " + messages.Count);
         }
-        #endregion
 
         /// <summary>
         /// Search for the one expected email that matches the message since search
         /// </summary>
-        #region SearchMessages2
         [TestMethod]
         [TestCategory(TestCategories.Email)]
         public void GetMessagesHeadersSince()
@@ -769,12 +724,10 @@ namespace EmailUnitTests
             Assert.AreEqual(1, messages.Count, "Expected 1 message in 'Test/SubTest' after the given date but found " + messages.Count);
             Assert.IsNull(messages[0].Body, "Expected the message header only, not the entire message");
         }
-        #endregion
 
         /// <summary>
         /// Check that we get all the content types we expect for a specific email
         /// </summary>
-        #region GetContentTypes
         [TestMethod]
         [TestCategory(TestCategories.Email)]
         public void GetTypes()
@@ -789,12 +742,10 @@ namespace EmailUnitTests
             Assert.IsTrue(types.Contains("text/plain"), "Expected 'text/plain' content types");
             Assert.IsTrue(types.Contains("text/html"), "Expected 'text/html' content types");
         }
-        #endregion
 
         /// <summary>
         /// Get the body of an email and verify it is of the correct type 
         /// </summary>
-        #region GetBodyByContent
         [TestMethod]
         [TestCategory(TestCategories.Email)]
         public void GetBodyByContentType()
@@ -806,7 +757,6 @@ namespace EmailUnitTests
             // Make sure we got the html content back
             Assert.IsTrue(content.StartsWith("<html "), "Expected html content");
         }
-        #endregion
 
         /// <summary>
         /// Make sure the test objects map properly
