@@ -99,6 +99,14 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Unit Test for creating a sorted comma delimited string
         /// </summary>
+        [TestMethod]	
+        [TestCategory(TestCategories.Selenium)]
+        public void CreateSortedCommaDelimitedStringFromWebElementsTest()	
+        {	
+            string expectedText = "Hard Drive, Keyboard, Monitor, Motherboard, Mouse, Power Supply";	
+            NavigateToUrl();	
+            Assert.AreEqual(expectedText, WebDriver.CreateCommaDelimitedString(computerPartsListOptions, true), "Expected string does not match actual");	
+        }
 
         /// <summary>
         /// Unit Test for creating a comma delimited string

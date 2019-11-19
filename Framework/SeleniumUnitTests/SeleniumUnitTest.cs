@@ -206,7 +206,6 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Verify WaitUntilClickableElement wait works
         /// </summary>
-
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void WaitUntilClickableElement()
