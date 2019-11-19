@@ -25,9 +25,7 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void GetValueWithString()
         {
-            #region GetValueString
             string value = Config.GetGeneralValue("WaitTime");
-            #endregion
             Assert.AreEqual("100", value);
         }
 
@@ -38,9 +36,7 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void GetValueWithStringAndDefault()
         {
-            #region GetValueWithDefault
             string value = Config.GetGeneralValue("DoesNotExist", "Default");
-            #endregion
             Assert.AreEqual("Default", value);
         }
 
@@ -51,9 +47,7 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void DoesKeyExist()
         {
-            #region DoesKeyExist
             bool value = Config.DoesKeyExist("DoesNotExist");
-            #endregion
             Assert.AreEqual(false, value);
         }
 

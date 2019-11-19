@@ -36,9 +36,6 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="by">Css Selector </param>
         /// <param name="assert">optional assert parameter - throws an assert exception if no element is found</param>
         /// <returns>Returns A Web Element</returns>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="FindElement" lang="C#" />
-        /// </example>
         public IWebElement Element(By by, bool assert = true)
         {
             // returns the 1st element in the collection if it is not null or empty
@@ -72,9 +69,6 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="text">Text to search the Web Element Collection</param>
         /// <param name="assert">optional assert parameter</param>
         /// <returns>Returns a Web Element</returns>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="FindElementWithText" lang="C#" />
-        /// </example>
         public IWebElement ElementWithText(By by, string text, bool assert = true)
         {
             // loop through elementList collection to find text match -- returns if found, else null
@@ -104,9 +98,6 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="text">Text to search the Web Element Collection</param>
         /// <param name="assert">optional assert parameter</param>
         /// <returns>Returns the index of a Web Element Collection</returns>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="FindIndexFromText" lang="C#" />
-        /// </example>
         public int IndexOfElementWithText(By by, string text, bool assert = true)
         {
             // return -1 if index not found..  assert a fail if true
@@ -135,9 +126,6 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="text">Text to search the Web Element Collection</param>
         /// <param name="assert">optional assert parameter</param>
         /// <returns>Returns the index of the Web Element in the inputted Web Element Collection </returns>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="FindIndexWithText" lang="C#" />
-        /// </example>
         public int IndexOfElementWithText(ICollection<IWebElement> list, string text, bool assert = true)
         {
             // if list size was null or empty and assert was true

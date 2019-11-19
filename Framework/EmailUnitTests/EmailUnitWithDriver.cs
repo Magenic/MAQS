@@ -306,7 +306,6 @@ namespace EmailUnitTests
         /// <summary>
         /// Delete a email
         /// </summary>
-        #region DeleteMessage
         [TestMethod]
         [TestCategory(TestCategories.Email)]
         public void DeleteMessage()
@@ -341,7 +340,6 @@ namespace EmailUnitTests
                 }
             }
         }
-        #endregion
 
         /// <summary>
         /// Mark and email as seen

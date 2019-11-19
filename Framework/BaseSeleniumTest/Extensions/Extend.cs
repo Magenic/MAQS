@@ -57,9 +57,6 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </summary>
         /// <param name="searchContext">Web driver or element</param>
         /// <returns>The WebDriverWait</returns>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="GetWaitDriver" lang="C#" />
-        /// </example>
         public static WebDriverWait GetWaitDriver(this ISearchContext searchContext)
         {
             // Make sure we have the base driver and not the event firing driver
@@ -84,9 +81,6 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </summary>
         /// <param name="searchContext">Web driver or element</param>
         /// <param name="waiter">The WebDriverWait</param>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="SetWaitDriver" lang="C#" />
-        /// </example>
         public static void SetWaitDriver(this ISearchContext searchContext, WebDriverWait waiter)
         {
             waitCollection.AddOrUpdate(GetLowLevelDriver(searchContext), waiter, (oldkey, oldvalue) => waiter);
@@ -96,9 +90,6 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// Reset the WebDriverWait to the default
         /// </summary>
         /// <param name="searchContext">Web driver or element</param>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="ResetWaitDriver" lang="C#" />
-        /// </example>
         public static void ResetWaitDriver(this ISearchContext searchContext)
         {
             // Make sure we have the base driver and not the event firing driver
@@ -113,9 +104,6 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </summary>
         /// <param name="searchContext">Web driver or element</param>
         /// <returns>True if the wait driver was removed</returns>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/SeleniumUnitTest.cs" region="RemoveWaitDriver" lang="C#" />
-        /// </example>
         public static bool RemoveWaitDriver(this ISearchContext searchContext)
         {
             WebDriverWait temp;

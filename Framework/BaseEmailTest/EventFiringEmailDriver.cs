@@ -349,9 +349,6 @@ namespace Magenic.Maqs.BaseEmailTest
         /// </summary>
         /// <param name="message">The message</param>
         /// <returns>List of content types</returns>
-        /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithDriver.cs" region="GetContentTypes" lang="C#" />
-        /// </example>
         public override List<string> GetContentTypes(MimeMessage message)
         {
             try
@@ -372,9 +369,6 @@ namespace Magenic.Maqs.BaseEmailTest
         /// <param name="message">The message</param>
         /// <param name="contentType">The content type</param>
         /// <returns>The message body that matches the content type</returns>
-        /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithDriver.cs" region="GetBodyByContent" lang="C#" />
-        /// </example>
         public override string GetBodyByContentTypes(MimeMessage message, string contentType)
         {
             try

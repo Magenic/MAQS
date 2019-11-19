@@ -412,9 +412,6 @@ namespace Magenic.Maqs.BaseEmailTest
         /// </summary>
         /// <param name="message">The message</param>
         /// <returns>List of content types</returns>
-        /// <example>
-        /// <code source = "../EmailUnitTests/EmailUnitWithDriver.cs" region="GetContentTypes" lang="C#" />
-        /// </example>
         public virtual List<string> GetContentTypes(MimeMessage message)
         {
             List<string> types = new List<string>();
