@@ -1,5 +1,5 @@
 ﻿//--------------------------------------------------
-// <copyright file="MongoDBTests.cs" company="Magenic">
+// <copyright file="MongoDBManagerTests.cs" company="Magenic">
 //  Copyright 2019 Magenic, All rights Reserved
 // </copyright>
 // <summary>Unit test class for the MongoDB driver</summary>
@@ -19,7 +19,7 @@ namespace MongoDBUnitTests
     /// Test basic mongo base test functionality
     /// </summary>
     [TestClass]
-    public class MongoDBTests : BaseMongoTest<BsonDocument>
+    public class MongoDBManagerTests : BaseMongoTest<BsonDocument>
     {
         /// <summary>
         /// Test the list all collection items helper function
@@ -55,7 +55,6 @@ namespace MongoDBUnitTests
         public void TestMongoGetLoginID()
         {
             var filter = Builders<BsonDocument>.Filter.Eq("lid", "test3");
-
             var value = this.MongoDBDriver.Collection.Find(filter).ToList()[0]["lid"].ToString();
             Assert.AreEqual("test3", value);
         }
