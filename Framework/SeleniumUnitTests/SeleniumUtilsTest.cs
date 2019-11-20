@@ -43,7 +43,6 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Verify CaptureScreenshot works - Validating that the screenshot was created
         /// </summary>
-        #region CaptureScreenshot
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void TryScreenshot()
@@ -55,7 +54,6 @@ namespace SeleniumUnitTests
             Assert.IsTrue(File.Exists(filePath), "Fail to find screenshot");
             File.Delete(filePath);
         }
-        #endregion
 
         /// <summary>
         /// Verify deprecated version of CaptureScreenshot works - Validating that the screenshot was created
@@ -209,7 +207,6 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Verify that page source file is being created
         /// </summary>
-        #region SavePageSource
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void SeleniumPageSourceFileIsCreated()
@@ -220,7 +217,6 @@ namespace SeleniumUnitTests
             Assert.IsTrue(File.Exists(pageSourcePath), "Failed to find Page Source");
             File.Delete(pageSourcePath);
         }
-        #endregion
 
         /// <summary>
         /// Verify that page source file is being created using deprecated method

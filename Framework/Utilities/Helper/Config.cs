@@ -228,9 +228,6 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <param name="key">Config file key</param>
         /// <param name="defaultValue">The default value</param>
         /// <returns>The configuration value - Returns the empty string if the key is not found</returns>
-        /// <example>
-        /// <code source = "../UtilitiesUnitTests/ConfigUnitTests.cs" region="GetValueString" lang="C#" />
-        /// </example>
         public static string GetGeneralValue(string key, string defaultValue = "")
         {
             return GetValueForSection(DEFAULTMAQSSECTION, key, defaultValue);
@@ -277,9 +274,6 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <param name="key">Config file key</param>
         /// <param name="defaultValue">Default value - Returned the key cannot be found</param>
         /// <returns>The configuration value</returns>
-        /// <example>
-        /// <code source = "../UtilitiesUnitTests/ConfigUnitTests.cs" region="GetValueWithDefault" lang="C#" />
-        /// </example>
         public static string GetValueForSection(string section, string key, string defaultValue)
         {
             section = section.ToLower();
@@ -317,9 +311,6 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <param name="key">Config file key</param>
         /// <param name="section">The section name</param>
         /// <returns>True if the key exists</returns>
-        /// <example>
-        /// <code source = "../UtilitiesUnitTests/ConfigUnitTests.cs" region="DoesKeyExist" lang="C#" />
-        /// </example>
         [Browsable(false)]
         public static bool DoesKeyExist(string key, string section)
         {

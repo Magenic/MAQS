@@ -45,9 +45,7 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void GetHostTest()
         {
-            #region GetHost
             string host = EmailConfig.GetHost();
-            #endregion
             Assert.AreEqual("imap.gmail.com", host);
         }
         
@@ -67,9 +65,7 @@ namespace EmailUnitTests
 
             try
             {
-                #region GetUserName
                 string username = EmailConfig.GetUserName();
-                #endregion
                 Assert.AreEqual(username, tempName);
             }
             finally
@@ -94,9 +90,7 @@ namespace EmailUnitTests
 
             try
             {
-                #region GetPassword
                 string password = EmailConfig.GetPassword();
-                #endregion
                 Assert.AreEqual(password, tempPass);
             }
             finally
@@ -112,9 +106,7 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void GetPortTest()
         {
-            #region GetPort
             int port = EmailConfig.GetPort();
-            #endregion
             Assert.AreEqual(993, port);
         }
 
@@ -125,9 +117,7 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void GetEmailViaSSLTest()
         {
-            #region GetEmailViaSSL
             bool ssl = EmailConfig.GetEmailViaSSL();
-            #endregion
             Assert.AreEqual(true, ssl);
         }
 
@@ -138,9 +128,7 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void GetEmailSkipSSLValidationTest()
         {
-            #region SkipSSL
             bool skipSsl = EmailConfig.GetEmailSkipSslValidation();
-            #endregion
             Assert.AreEqual(true, skipSsl);
         }
 
@@ -151,9 +139,7 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void GetDownloadDirectoryTest()
         {
-            #region DownloadDirectory
             string downloadDirectory = EmailConfig.GetAttachmentDownloadDirectory();
-            #endregion
             Assert.AreEqual(@"C:\Frameworks\downloads", downloadDirectory);
         }
     }

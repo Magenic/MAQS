@@ -21,9 +21,6 @@ namespace Magenic.Maqs.Utilities.Data
         /// <param name="stringList">List of strings</param>
         /// <param name="sort">True to create an alphabetically sorted comma delimited string</param>
         /// <returns>Returns a comma delimited string</returns>
-        /// <example>
-        /// <code source = "../UtilitiesUnitTests/ListProcessorUnitTests.cs" region="CommaDelimited" lang="C#" />
-        /// </example>
         public static string CreateCommaDelimitedString(List<string> stringList, bool sort = false)
         {
             bool firstElement = true;
@@ -58,9 +55,6 @@ namespace Magenic.Maqs.Utilities.Data
         /// <param name="results">StringBuilder to hold failed results</param>
         /// <param name="verifyOrder">If True, verify the two lists have values in the same order</param>
         /// <returns>True if the lists are the same</returns>
-        /// <example>
-        /// <code source = "../UtilitiesUnitTests/ListProcessorUnitTests.cs" region="ListProcessorCompare" lang="C#" />
-        /// </example>
         public static bool ListOfStringsComparer(List<string> expectedList, List<string> actualList, StringBuilder results, bool verifyOrder = false)
         {
             if (expectedList.Count != actualList.Count)

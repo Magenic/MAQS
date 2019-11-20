@@ -67,7 +67,6 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// Delete with JSON type
         /// </summary>
-        #region DeleteWithType
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void DeleteJSONWithType()
@@ -75,7 +74,6 @@ namespace WebServiceTesterUnitTesting
             var result = this.WebServiceDriver.Delete<ProductJson>("/api/XML_JSON/Delete/1", "application/json", true);
             Assert.AreEqual(null, result);
         }
-        #endregion
 
         /// <summary>
         /// Delete XML request using status code
@@ -91,7 +89,6 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// Verify that the response does not return a message
         /// </summary>
-        #region DeleteWithXML
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void DeleteXMLSerializedVerifyEmptyString()
@@ -99,7 +96,6 @@ namespace WebServiceTesterUnitTesting
             var result = this.WebServiceDriver.Delete("/api/XML_JSON/Delete/1", "application/xml", true);
             Assert.AreEqual(string.Empty, result);
         }
-        #endregion
 
         /// <summary>
         /// Delete string request without content utility
@@ -115,7 +111,6 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// Delete string request to verify status code
         /// </summary>
-        #region DeleteWithStringResponse
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void DeleteStringMakeContentStatusCode()
@@ -123,7 +118,6 @@ namespace WebServiceTesterUnitTesting
             var result = this.WebServiceDriver.DeleteWithResponse("/api/String/Delete/1", "text/plain", true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
-        #endregion
 
         /// <summary>
         /// Delete request to vi

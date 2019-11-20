@@ -67,7 +67,6 @@ namespace Magenic.Maqs.BaseAppiumTest
             testObject.AddAssociatedFile(path);
         }
 
-        #region Obsolete CaptureScreenshot
         /// <summary>
         /// To capture a screenshot during execution
         /// </summary>
@@ -116,7 +115,6 @@ namespace Magenic.Maqs.BaseAppiumTest
 
             screenshot.SaveAsFile(path, ScreenshotImageFormat.Png);
         }
-        #endregion
 
         /// <summary>
         /// To capture a page source during execution
@@ -193,7 +191,6 @@ namespace Magenic.Maqs.BaseAppiumTest
             return path;
         }
 
-        #region Obsolete SavePageSource
         /// <summary>
         /// To capture a page source during execution
         /// </summary>
@@ -268,7 +265,6 @@ namespace Magenic.Maqs.BaseAppiumTest
 
             return path;
         }
-        #endregion
 
         /// <summary>
         /// Make sure the driver is shut down

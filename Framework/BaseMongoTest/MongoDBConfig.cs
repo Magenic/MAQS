@@ -22,9 +22,6 @@ namespace Magenic.Maqs.BaseMongoTest
         /// Get the client connection string
         /// </summary>
         /// <returns>The connection type</returns>
-        /// <example>
-        /// <code source="../MongoDBUnitTests/MongoDBConfigUnitTests.cs" region="GetConnection" lang="C#" />
-        /// </example>
         public static string GetConnectionString()
         {
             return Config.GetValueForSection(MONGOSECTION, "MongoConnectionString");
@@ -34,9 +31,6 @@ namespace Magenic.Maqs.BaseMongoTest
         /// Get the database connection string
         /// </summary>
         /// <returns>The database name</returns>
-        /// <example>
-        /// <code source="../MongoDBUnitTests/MongoDBConfigUnitTests.cs" region="GetDatabaseString" lang="C#" />
-        /// </example>
         public static string GetDatabaseString()
         {
             return Config.GetValueForSection(MONGOSECTION, "MongoDatabase");
@@ -55,9 +49,6 @@ namespace Magenic.Maqs.BaseMongoTest
         /// Get the database timeout in seconds
         /// </summary>
         /// <returns>The timeout in seconds from the config file or default of 30 seconds when no app.config key is found</returns>
-        /// <example>
-        /// <code source="../MongoDBUnitTests/MongoDBConfigUnitTests.cs" region="GetQueryTimeout" lang="C#" />
-        /// </example>
         public static int GetQueryTimeout()
         {
             return int.Parse(Config.GetValueForSection(MONGOSECTION, "MongoTimeout", "30"));
