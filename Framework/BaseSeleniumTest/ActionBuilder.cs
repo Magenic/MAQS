@@ -20,9 +20,6 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// </summary>
         /// <param name="webDriver">The IWebDriver</param>
         /// <param name="by">By selector for the element</param>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/ActionBuilderUnitTests.cs" region="HoverOver" lang="C#" />
-        /// </example>
         public static void HoverOver(this IWebDriver webDriver, By by)
         {
             Actions builder = new Actions(webDriver);
@@ -35,9 +32,6 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// </summary>
         /// <param name="webDriver">The IWebDriver</param>
         /// <param name="key">The key to press. NOTE: Use the Keys class</param>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/ActionBuilderUnitTests.cs" region="PressModifier" lang="C#" />
-        /// </example>
         public static void PressModifierKey(this IWebDriver webDriver, string key)
         {
             Actions builder = new Actions(webDriver);
@@ -50,9 +44,6 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="webDriver">The IWebDriver</param>
         /// <param name="element">Element to be used</param>
         /// <param name="pixelsOffset">Integer of pixels to be moved (Positive or negative)</param>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/ActionBuilderUnitTests.cs" region="SlideElement" lang="C#" />
-        /// </example>
         public static void SlideElement(this IWebDriver webDriver, By element, int pixelsOffset)
         {
             Actions builder = new Actions(webDriver);
@@ -64,9 +55,6 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// </summary>
         /// <param name="webDriver">The IWebDriver</param>
         /// <param name="by">By selector for the element</param>
-        /// <example>
-        /// <code source = "../SeleniumUnitTesting/ActionBuilderUnitTests.cs" region="RightClick" lang="C#" />
-        /// </example>
         public static void RightClick(this IWebDriver webDriver, By by)
         {
             Actions builder = new Actions(webDriver);

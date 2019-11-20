@@ -134,7 +134,6 @@ namespace AppiumUnitTests
         /// <summary>
         /// Verify SavePageSource works - Validating that the Page Source file was created
         /// </summary>
-        #region SavePageSource
         [TestMethod]
         [TestCategory(TestCategories.Appium)]
         public void SavePageSourceTest()
@@ -146,7 +145,6 @@ namespace AppiumUnitTests
             Assert.IsTrue(File.Exists(pageSourceFilelocation), "Failed to find page source");
             File.Delete(pageSourceFilelocation);
         }
-        #endregion
 
         /// <summary>
         /// Verify deprecated SavePageSource works - Validating that the Page Source file was created

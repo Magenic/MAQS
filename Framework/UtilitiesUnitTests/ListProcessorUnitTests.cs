@@ -24,7 +24,6 @@ namespace UtilitiesUnitTesting
         /// <summary>
         /// Unit Test for creating a comma delimited string
         /// </summary>
-        #region CommaDelimited
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
         public void CreateCommaDelimitedStringTest()
@@ -45,7 +44,6 @@ namespace UtilitiesUnitTesting
                 Assert.Fail(StringProcessor.SafeFormatter("Expected string [{0}] does not match Actual string [{1}]", expectedText, actualText));
             }
         }
-        #endregion
 
         /// <summary>
         /// Unit Test for creating a sorted comma delimited string
@@ -74,7 +72,6 @@ namespace UtilitiesUnitTesting
         /// <summary>
         /// Unit Test for comparing two lists of strings
         /// </summary>
-        #region ListProcessorCompare
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
         public void ListOfStringsComparerTest()
@@ -103,7 +100,6 @@ namespace UtilitiesUnitTesting
                 Assert.Fail("{0}{1}", results.ToString(), Environment.NewLine);
             }
         }
-        #endregion
 
         /// <summary>
         /// Unit Test for comparing two lists of strings by order
