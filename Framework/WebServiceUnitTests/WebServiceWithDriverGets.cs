@@ -37,7 +37,6 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// Test that we can use the web service utility to deserialize XML
         /// </summary>
-        #region DeserializeXmlDocument
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void GetResponseAndDeserializeXml()
@@ -46,12 +45,10 @@ namespace WebServiceTesterUnitTesting
             ArrayOfProduct result = WebServiceUtils.DeserializeXmlDocument<ArrayOfProduct>(message);
             Assert.AreEqual(3, result.Product.Length, "Expected 3 products to be returned");
         }
-        #endregion
 
         /// <summary>
         /// Test Json Get
         /// </summary>
-        #region GetWithType
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void GetJsonDeserialized()
@@ -59,12 +56,10 @@ namespace WebServiceTesterUnitTesting
             List<ProductJson> result = this.WebServiceDriver.Get<List<ProductJson>>("/api/XML_JSON/GetAllProducts", "application/json");
             Assert.AreEqual(3, result.Count, "Expected 3 products to be returned");
         }
-        #endregion
 
         /// <summary>
         /// Test that we can use the web service utility to deserialize JSON
         /// </summary>
-        #region DeserializeJson
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void GetResponseAndDeserializeJson()
@@ -73,12 +68,10 @@ namespace WebServiceTesterUnitTesting
             List<ProductJson> result = WebServiceUtils.DeserializeJson<List<ProductJson>>(message);
             Assert.AreEqual(3, result.Count, "Expected 3 products to be returned");
         }
-        #endregion
 
         /// <summary>
         /// Test string Get
         /// </summary>
-        #region GetWithString
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void GetString()
@@ -86,12 +79,10 @@ namespace WebServiceTesterUnitTesting
             string result = this.WebServiceDriver.Get("/api/String/1", "text/plain");
             Assert.IsTrue(result.Contains("Tomato Soup"), "Was expecting a result with Tomato Soup but instead got - " + result);
         }
-        #endregion
 
         /// <summary>
         /// Test getting an image
         /// </summary>
-        #region GetWithImage
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void GetImage()
@@ -104,6 +95,5 @@ namespace WebServiceTesterUnitTesting
             Assert.AreEqual(200, image.Height, "Image hight should be 200");
             image.Dispose();
         }
-        #endregion
     }
 }

@@ -25,7 +25,6 @@ namespace WebServiceTesterUnitTesting
        /// <summary>
         /// Verify the string status code
         /// </summary>
-        #region PatchWithResponseContent
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void PatchJSONSerializedVerifyStatusCode()
@@ -39,12 +38,10 @@ namespace WebServiceTesterUnitTesting
             var result = this.WebServiceDriver.PatchWithResponse("/api/XML_JSON/Patch/1", "application/json", content, true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
-        #endregion
 
         /// <summary>
         /// Patch With JSON Type
         /// </summary>
-        #region PatchWithType
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void PatchJSONWithType()
@@ -61,7 +58,6 @@ namespace WebServiceTesterUnitTesting
             Assert.AreEqual(p.Name, result.Name);
             Assert.AreEqual(p.Price, result.Price);
         }
-        #endregion
 
         /// <summary>
         /// Verify the stream status code
@@ -150,7 +146,6 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// Patch stream without utility
         /// </summary>
-        #region PatchWithoutCreatingContent
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void PatchStreamWithoutMakeContent()
@@ -158,12 +153,10 @@ namespace WebServiceTesterUnitTesting
             var result = this.WebServiceDriver.Patch("/api/String/Patch/1", "text/plain", "Test", Encoding.UTF8, "text/plain", false, true);
             Assert.AreEqual("\"Patched\"", result);
         }
-        #endregion
 
         /// <summary>
         /// Patch string with utility
         /// </summary>
-        #region PatchWithString
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void PatchStringWithMakeContent()
@@ -172,7 +165,6 @@ namespace WebServiceTesterUnitTesting
             var result = this.WebServiceDriver.Patch("/api/String/Patch/1", "text/plain", content, true);
             Assert.AreEqual("\"Patched\"", result);
         }
-        #endregion
 
         /// <summary>
         /// Patch string with utility
@@ -200,7 +192,6 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// Patch stream without utility to verify status code
         /// </summary>
-        #region PatchWithResponse
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void PatchStreamWithoutContentStatusCode()
@@ -208,7 +199,6 @@ namespace WebServiceTesterUnitTesting
             var result = this.WebServiceDriver.PatchWithResponse("/api/String/Patch/1", "text/plain", "Test", Encoding.UTF8, "text/plain", false, true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
-        #endregion
 
         /// <summary>
         /// Patch string with utility to verify status code

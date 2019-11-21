@@ -24,9 +24,6 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// Get the database connection string
         /// </summary>
         /// <returns>The connection string</returns>
-        /// <example>
-        /// <code source="../DatabaseUnitTests/DatabaseConfigUnitTests.cs" region="GetOpenConnection" lang="C#" />
-        /// </example>
         public static string GetConnectionString()
         {
             return Config.GetValueForSection(DATABASESECTIION, "DataBaseConnectionString");
@@ -36,9 +33,6 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// Get the database provider type string
         /// </summary>
         /// <returns>The provider type string</returns>
-        /// <example>
-        /// <code source="../DatabaseUnitTests/DatabaseConfigUnitTests.cs" region="GetOpenConnection" lang="C#" />
-        /// </example>
         public static string GetProviderTypeString()
         {
             return Config.GetValueForSection(DATABASESECTIION, "DataBaseProviderType");
