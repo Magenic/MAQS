@@ -78,7 +78,6 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Unit test for the Hover Over function
         /// </summary>
-        #region HoverOver
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void HoverOverTest()
@@ -88,12 +87,10 @@ namespace SeleniumUnitTests
             this.WebDriver.Wait().ForClickableElement(employeeButton).Click();
             this.WebDriver.Wait().ForExactText(employeePageTitle, "Index");
         }
-        #endregion
 
         /// <summary>
         /// Unit test for the Press Modifier Key function
         /// </summary>
-        #region PressModifier
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void PressModifierKeyTest()
@@ -104,12 +101,10 @@ namespace SeleniumUnitTests
             this.WebDriver.PressModifierKey(Keys.Home);
             Assert.AreEqual("Elements to be automated", this.WebDriver.Wait().ForVisibleElement(automationPageHeader).Text, "Elements are not the same");
         }
-        #endregion
 
         /// <summary>
         /// Unit test for the slider action
         /// </summary>
-        #region SlideElement
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void MoveSliderTest()
@@ -119,12 +114,10 @@ namespace SeleniumUnitTests
             this.WebDriver.SlideElement(slider, 50);
             Assert.AreEqual("4", this.WebDriver.FindElement(sliderLabelNumber).GetAttribute("value"));
         }
-        #endregion
 
         /// <summary>
         /// Check that a right-click context menu can be triggered successfully
         /// </summary>
-        #region RightClick
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void RightClickToTriggerContextMenu()
@@ -137,7 +130,6 @@ namespace SeleniumUnitTests
             // Check that context menu appeared
             Assert.IsTrue(this.WebDriver.FindElement(rightClickContextSaveText).Displayed);
         }
-        #endregion
 
         /// <summary>
         /// Check that a right-click fails on non-existent element

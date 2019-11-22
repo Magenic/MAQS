@@ -68,11 +68,7 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void GetCommandTimeout()
         {
-            #region GetCommandTimeout
-
             TimeSpan initTimeout = AppiumConfig.GetCommandTimeout();
-
-            #endregion GetCommandTimeout
 
             Assert.AreEqual(122, initTimeout.TotalSeconds);
         }
@@ -84,9 +80,7 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void MobileDeviceTest()
         {
-                #region MobileDevice
-                AppiumDriver<IWebElement> driver = AppiumDriverFactory.GetDefaultMobileDriver();
-            #endregion
+            AppiumDriver<IWebElement> driver = AppiumDriverFactory.GetDefaultMobileDriver();
 
             try
             {

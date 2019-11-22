@@ -31,7 +31,6 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// Verify 305 status code is returned
         /// </summary>
-        #region CustomVerbStatusCode
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void CustomVerbJSONSerializedVerifyStatusCode()
@@ -40,12 +39,10 @@ namespace WebServiceTesterUnitTesting
             var result = this.WebServiceDriver.CustomWithResponse("ZED", "/api/ZED", "application/json", content, false);
             Assert.AreEqual(HttpStatusCode.UseProxy, result.StatusCode);
         }
-        #endregion
 
         /// <summary>
         /// Verify the stream status code
         /// </summary>
-        #region CustomVerbStreamStatusCode
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void CustomVerbJSONStreamSerializedVerifyStatusCode()
@@ -54,12 +51,10 @@ namespace WebServiceTesterUnitTesting
             var result = this.WebServiceDriver.CustomWithResponse("ZED", "/api/ZED", "application/json", content, false);
             Assert.AreEqual(HttpStatusCode.UseProxy, result.StatusCode);
         }
-        #endregion 
 
         /// <summary>
         /// Custom Verb send a string without utility to verify status code
         /// </summary>
-        #region CustomWithoutContent
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void CustomStringWithoutContentStatusCode()
@@ -68,12 +63,10 @@ namespace WebServiceTesterUnitTesting
             var result = this.WebServiceDriver.CustomWithResponse("ZED", "/api/ZED", "application/json", content.ToString(), Encoding.UTF8, "application/json", true, false);
             Assert.AreEqual(HttpStatusCode.UseProxy, result.StatusCode);
         }
-        #endregion
 
         /// <summary>
         /// Using a custom verb with a generic type
         /// </summary>
-        #region CustomVerbGenericType
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void CustomVerbGenericType()
@@ -85,12 +78,10 @@ namespace WebServiceTesterUnitTesting
 
             Assert.AreEqual("ZEDTest", result.ToString());
         }
-        #endregion
 
         /// <summary>
         /// Testing that when making a call with the custom verb the string sent is echoed back
         /// </summary>
-        #region CustomVerbFiveArgumentCall
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void CustomVerbFiveArguments()
@@ -102,12 +93,10 @@ namespace WebServiceTesterUnitTesting
 
             Assert.AreEqual("\"ZEDTest\"", result.ToString());
         }
-        #endregion
 
         /// <summary>
         /// Testing that when making a call with the custom verb the string send is echoed back, with content encoding specified
         /// </summary>
-        #region CustomVerbSevenArugmentCall
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
         public void CustomVerbSevenArguments()
@@ -118,6 +107,5 @@ namespace WebServiceTesterUnitTesting
 
             Assert.AreEqual("\"ZEDTest\"", result.ToString());
         }
-        #endregion
     }
 }
