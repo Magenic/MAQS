@@ -18,6 +18,8 @@
       - Have lazy element FindElement and FindElements return lazy element
       - Add Exists and ExistsNow checks to lazy element
       - Consolidate core lazy element and core lazy mobile element functionality
+      - Exclude more duplicate log entries
+      - Stop create multiple log files for NUnit tests
 
       5.6.0 - 2019/10/10
       Bug fixes and minor enhancements
