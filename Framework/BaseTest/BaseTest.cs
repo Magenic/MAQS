@@ -16,6 +16,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.ExceptionServices;
 using System.Text;
@@ -210,8 +211,12 @@ namespace Magenic.Maqs.BaseTest
         [SetUp]
         public void Setup()
         {
-            // Create the test object
-            this.CreateNewTestObject();
+            // Only create a test object if one doesn't exist
+            if (!this.BaseTestObjects.ContainsKey(this.GetFullyQualifiedTestClassName()))
+            {
+                // Create the test object
+                this.CreateNewTestObject();
+            }
         }
 
         /// <summary>
@@ -480,13 +485,17 @@ namespace Magenic.Maqs.BaseTest
                 string innerStack = inner.StackTrace ?? string.Empty;
 
                 var message = StringProcessor.SafeExceptionFormatter(inner);
-
-                List<string> messages = this.LoggedExceptionList;
+                var messages = this.LoggedExceptionList;
 
                 // Make sure this error is associated with the current test and that we have not logged it yet
-                if (innerStack.ToLower().Contains("magenic.maqs") ||
-                    (innerStack.Contains("at " + this.GetFullyQualifiedTestClassName() + "(") && !messages.Contains(message)))
+                if (innerStack.ToLower().Contains("magenic.maqs") || innerStack.Contains("at " + this.GetFullyQualifiedTestClassName() + "("))
                 {
+                    // Check if this is a duplicate massage
+                    if (messages.Count > 0 && messages.Last().Equals(message))
+                    {
+                        return;
+                    }
+
                     this.TryToLog(MessageType.ERROR, message);
                     messages.Add(message);
                 }

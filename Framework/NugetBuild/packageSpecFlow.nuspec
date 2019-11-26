@@ -20,6 +20,8 @@
       - Consolidate core lazy element and core lazy mobile element functionality
       - Add SelectDropdownOption and SelectDropdownOption to lazy element
       - Add GetSelectedOptionFromDropdown and GetSelectedOptionsFromDropdown to lazy element
+      - Exclude more duplicate log entries
+      - Stop create multiple log files for NUnit tests
 
       5.6.0 - 2019/10/10
       Bug fixes and minor enhancements
