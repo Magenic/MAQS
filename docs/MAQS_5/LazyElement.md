@@ -227,6 +227,40 @@ LazyElement chatWindow =
 
 chatWindow.GetProperty("isTyping");
 ```
+### GetSelectedOptionFromDropdown
+This method returns the selection option of a dropdown.
+#### Written as
+```csharp
+this.ElementID.GetSelectedOptionFromDropdown();
+```
+
+#### Example
+```csharp
+LazyElement stateDropdown =
+    new LazyElement(
+    this.TestObject,
+    By.CssSelector("#state"),
+    "The State dropdown");
+
+chatWindow.GetSelectedOptionFromDropdown();
+```
+### GetSelectedOptionsFromDropdown
+This method returns the selection options of a dropdown.
+#### Written as
+```csharp
+this.ElementID.GetSelectedOptionsFromDropdown();
+```
+
+#### Example
+```csharp
+LazyElement stateMultiSelect =
+    new LazyElement(
+    this.TestObject,
+    By.CssSelector("#state"),
+    "The state multiselectDropdown");
+
+chatWindow.GetSelectedOptionsFromDropdown();
+```
 ### GetTheClickableElement
 This method waits for the element to be clickable and returns it. 
 #### Written as
@@ -294,6 +328,40 @@ LazyElement homeButton =
     "The button to return to home");
 
 passwordField.GetValue();
+```
+### SelectDropDownOption
+This method selects the provided option from the lazy element.
+#### Written as
+```csharp
+this.ElementID.SelectDropDownOption("DROPDOWN OPTION")
+```
+
+#### Example
+```csharp
+LazyElement stateDropdown =
+    new LazyElement(
+    this.TestObject,
+    By.CssSelector("#state"),
+    "The State dropdown");
+
+chatWindow.SendKeys("Minneapolis");
+```
+### SelectDropDownOptionByValue
+This method selects the provided option from the lazy element by value.
+#### Written as
+```csharp
+this.ElementID.SelectDropDownOption("DROPDOWN OPTION")
+```
+
+#### Example
+```csharp
+LazyElement stateDropdown =
+    new LazyElement(
+    this.TestObject,
+    By.CssSelector("#state"),
+    "The State dropdown");
+
+chatWindow.SendKeys("6");
 ```
 ### SendKeys
 This method enters the provided text into the lazy element.
