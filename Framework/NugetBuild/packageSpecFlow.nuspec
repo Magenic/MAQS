@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata minClientVersion="3.6">
     <id>Magenic.Maqs.SpecFlow</id>
-    <version>5.6.0</version>
+    <version>5.7.0</version>
     <title>MAQS SpecFlow Add-on</title>
     <authors>Magenic</authors>
     <owners>Magenic</owners>
@@ -94,7 +94,7 @@
     <projectUrl>https://github.com/Magenic/MAQS</projectUrl>
     <tags>test selenium appium automation NUnit MSTest TestFramework SpecFlow</tags>
     <dependencies>
-      <dependency id="Magenic.Maqs" version="5.6.0" />
+      <dependency id="Magenic.Maqs" version="5.7.0" />
       <dependency id="NUnit" version="3.12.0" />
       <dependency id="MSTest.TestFramework" version="2.0.0" />
       <dependency id="Microsoft.Extensions.Configuration" version="3.0.0" />
