@@ -25,6 +25,7 @@
     <ProjectReference Include="..\BaseTest\BaseTest.csproj" />
     <ProjectReference Include="..\BaseTestUnitTests\BaseTestUnitTests.csproj" />
     <ProjectReference Include="..\BaseMongoTest\BaseMongoTest.csproj" />
+    <ProjectReference Include="..\BaseWebServiceTest\BaseWebServiceTest.csproj" />
     <ProjectReference Include="..\Utilities\Utilities.csproj" />
   </ItemGroup>
 

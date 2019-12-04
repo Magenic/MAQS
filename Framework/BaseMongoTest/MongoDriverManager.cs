@@ -6,6 +6,7 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseTest;
 using Magenic.Maqs.Utilities.Logging;
+using MongoDB.Driver;
 using System;
 
 namespace Magenic.Maqs.BaseMongoTest
@@ -20,6 +21,14 @@ namespace Magenic.Maqs.BaseMongoTest
         /// Cached copy of the connection driver
         /// </summary>
         private MongoDBDriver<T> driver;
+
+        /// Initializes a new instance of the <see cref="MongoDriverManager{T}"/> class
+        /// </summary>
+        /// <param name="getConnection">Function for getting an database connection</param>
+        /// <param name="testObject">The associated test object</param>
+        public MongoDriverManager(Func<IMongoClient> getConnection, BaseTestObject testObject) : base(getConnection, testObject)
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MongoDriverManager{T}" /> class
