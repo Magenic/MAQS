@@ -8,7 +8,7 @@
     <owners>Magenic</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
-    <icon>MAQS.ico</icon>
+    <icon>MAQS.jpg</icon>
     <projectUrl>https://github.com/Magenic/MAQS</projectUrl>
     <description>Magenic's automation quick start .Net Core templates</description>
     <copyright>Copyright © Magenic 2019</copyright>
