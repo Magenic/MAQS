@@ -9,7 +9,15 @@ update_configs:
       - "dependabot"
     
   - package_manager: "dotnet:nuget"
-    directory: "/Extensions"
+    directory: "/Extensions/VisualStudioQatExtensionOss"
+    update_schedule: "live"
+    target_branch: "master"
+    default_labels:
+      - "dependencies"
+      - "dependabot"
+      
+  - package_manager: "dotnet:nuget"
+    directory: "/Extensions/MaqsSpecFlowExtension"
     update_schedule: "live"
     target_branch: "master"
     default_labels:
