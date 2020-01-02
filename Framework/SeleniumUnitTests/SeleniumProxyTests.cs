@@ -86,7 +86,7 @@ namespace SeleniumUnitTests
         private static void StartProxy()
         {
             proxyServer = new ProxyServer();
-            proxyServer.CertificateManager.TrustRootCertificate(true);
+            // proxyServer.CertificateManager.TrustRootCertificate(true);
             var explicitEndPoint = new ExplicitProxyEndPoint(IPAddress.Any, 8002, true);
             proxyServer.AddEndPoint(explicitEndPoint);
             proxyServer.Start();
