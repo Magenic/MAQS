@@ -23,3 +23,11 @@ update_configs:
     default_labels:
       - "dependencies"
       - "dependabot"
+      
+  - package_manager: "dotnet:nuget"
+    directory: "/Extensions/CoreTemplates/"
+    update_schedule: "live"
+    target_branch: "master"
+    default_labels:
+      - "dependencies"
+      - "dependabot"
