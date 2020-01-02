@@ -1,0 +1,17 @@
+version: 1
+update_configs:
+  - package_manager: "dotnet:nuget"
+    directory: "/Framework"
+    update_schedule: "live"
+    target_branch: "master"
+    default_labels:
+      - "dependencies"
+      - "dependabot"
+    
+  - package_manager: "dotnet:nuget"
+    directory: "/Extensions"
+    update_schedule: "live"
+    target_branch: "master"
+    default_labels:
+      - "dependencies"
+      - "dependabot"
