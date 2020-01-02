@@ -9,7 +9,63 @@ update_configs:
       - "dependabot"
     
   - package_manager: "dotnet:nuget"
-    directory: "/Extensions"
+    directory: "/Extensions/CoreTemplates/Magenic.Maqs.Appium.Template/"
+    update_schedule: "live"
+    target_branch: "master"
+    default_labels:
+      - "dependencies"
+      - "dependabot"
+      
+  - package_manager: "dotnet:nuget"
+    directory: "/Extensions/MaqsSpecFlowExtension"
+    update_schedule: "live"
+    target_branch: "master"
+    default_labels:
+      - "dependencies"
+      - "dependabot"
+      
+  - package_manager: "dotnet:nuget"
+    directory: "/Extensions/CoreTemplates/Magenic.Maqs.Base.Template/"
+    update_schedule: "live"
+    target_branch: "master"
+    default_labels:
+      - "dependencies"
+      - "dependabot"
+      
+  - package_manager: "dotnet:nuget"
+    directory: "/Extensions/CoreTemplates/Magenic.Maqs.Composite.Template/"
+    update_schedule: "live"
+    target_branch: "master"
+    default_labels:
+      - "dependencies"
+      - "dependabot"
+      
+  - package_manager: "dotnet:nuget"
+    directory: "/Extensions/CoreTemplates/Magenic.Maqs.Database.Template/"
+    update_schedule: "live"
+    target_branch: "master"
+    default_labels:
+      - "dependencies"
+      - "dependabot"
+      
+  - package_manager: "dotnet:nuget"
+    directory: "/Extensions/CoreTemplates/Magenic.Maqs.Email.Template/"
+    update_schedule: "live"
+    target_branch: "master"
+    default_labels:
+      - "dependencies"
+      - "dependabot"
+      
+  - package_manager: "dotnet:nuget"
+    directory: "/Extensions/CoreTemplates/Magenic.Maqs.Selenium.Template/"
+    update_schedule: "live"
+    target_branch: "master"
+    default_labels:
+      - "dependencies"
+      - "dependabot"
+      
+  - package_manager: "dotnet:nuget"
+    directory: "/Extensions/CoreTemplates/Magenic.Maqs.Webservice.Template/"
     update_schedule: "live"
     target_branch: "master"
     default_labels:
