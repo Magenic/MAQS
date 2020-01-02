@@ -16,7 +16,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Appium.WebDriver" version="4.0.0.5-beta" />
+    <PackageReference Include="Appium.WebDriver" version="4.1.1" />
     <PackageReference Include="BoDi" version="1.4.1" />
     <PackageReference Include="Castle.Core" version="4.4.0" />
     <PackageReference Include="Dapper" version="2.0.30" />
