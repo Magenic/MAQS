@@ -29,7 +29,7 @@
     <PackageReference Include="Selenium.WebDriver" version="3.141.0" />
     <PackageReference Include="SpecFlow" version="3.0.225" />
     <PackageReference Include="System.Reflection.Emit" version="4.6.0" />
-    <PackageReference Include="System.Reflection.Emit.Lightweight" version="4.6.0" />
+    <PackageReference Include="System.Reflection.Emit.Lightweight" version="4.7.0" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" version="4.6.0" />
     <PackageReference Include="System.Threading.Tasks.Extensions" version="4.5.3" />
     <PackageReference Include="System.ValueTuple" version="4.5.0" />
