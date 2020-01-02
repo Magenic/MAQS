@@ -469,7 +469,7 @@ namespace SeleniumUnitTests
             string logContent = File.ReadAllText(filePath);
 
             Assert.IsTrue(logContent.Contains("Found 18 items"), "Expected to find 18 pass matches.");
-            Assert.IsTrue(logContent.Contains("Found 52 items"), "Expected to find 52 inapplicable matches.");
+            Assert.IsTrue(logContent.Contains("Found 50 items"), "Expected to find 52 inapplicable matches.");
             Assert.IsTrue(logContent.Contains("Found 6 items"), "Expected to find 6 violations matches.");
             Assert.IsTrue(!logContent.Contains("Incomplete check for"), "Did not expected to find any incomplete matches.");
         }
