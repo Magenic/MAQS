@@ -91,7 +91,6 @@ namespace WebServiceTesterUnitTesting
         private static void StartProxy()
         {
             proxyServer = new ProxyServer();
-            // proxyServer.CertificateManager.TrustRootCertificate(true);
             var explicitEndPoint = new ExplicitProxyEndPoint(IPAddress.Any, 8001, true);
             proxyServer.AddEndPoint(explicitEndPoint);
             proxyServer.Start();
