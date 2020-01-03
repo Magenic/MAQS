@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Xml.Linq;
 using VSTestContext = Microsoft.VisualStudio.TestTools.UnitTesting.TestContext;
 
@@ -72,6 +73,30 @@ namespace Magenic.Maqs.Utilities.Helper
                         }
                     }
                 }
+            }
+        }
+
+        public static void Validate(ConfigSection configSection, ConfigValidation configValidation)
+        {
+            var configSectionPassed = GetSection(configSection);
+            var baseSection = GetSection(ConfigSection.MagenicMaqs);
+            List<string> exceptions = new List<string>();
+            foreach(var requiredField in configValidation.RequiredFields)
+            {
+                if (!configSectionPassed.ContainsKey(requiredField))
+                {
+                    exceptions.Add("Key missing " + requiredField);
+                } 
+            }
+
+            if(exceptions.Count > 0)
+            {
+                StringBuilder message = new StringBuilder();
+                foreach(var mess in exceptions)
+                {
+                    message.AppendLine(mess);
+                }
+                throw new MaqsConfigException(message.ToString());
             }
         }
 
