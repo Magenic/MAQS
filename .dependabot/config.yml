@@ -9,7 +9,7 @@ update_configs:
       - "dependabot"
 
   - package_manager: "dotnet:nuget"
-    directory: "/Framework"
+    directory: "/Extensions"
     update_schedule: "live"
     target_branch: "master"
     default_labels:
