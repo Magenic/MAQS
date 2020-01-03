@@ -38,9 +38,6 @@ namespace Magenic.Maqs.BaseSeleniumTest
             {
                 RequiredFields = new List<string>()
                 {
-                    "RemoteBrowserVersion",
-                    "RemotePlatform",
-                    "HubUrl",
                     "WebSiteBase"
                 }
             };

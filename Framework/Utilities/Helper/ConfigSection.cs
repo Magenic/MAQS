@@ -55,6 +55,6 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <summary>
         /// Mongo DB Section
         /// </summary>
-        MongoDBMaqs
+        MongoMaqs
     }
 }

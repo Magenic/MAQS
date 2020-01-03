@@ -79,7 +79,7 @@ namespace Magenic.Maqs.Utilities.Helper
         public static void Validate(ConfigSection configSection, ConfigValidation configValidation)
         {
             var configSectionPassed = GetSection(configSection);
-            var baseSection = GetSection(ConfigSection.MagenicMaqs);
+            
             List<string> exceptions = new List<string>();
             foreach(var requiredField in configValidation.RequiredFields)
             {

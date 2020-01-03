@@ -31,7 +31,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
             {
                 RequiredFields = new System.Collections.Generic.List<string>()
                 {
-                    "WebServiceTimeout1",
+                    "WebServiceTimeout",
                     "WebServiceUri"
                 }
             };

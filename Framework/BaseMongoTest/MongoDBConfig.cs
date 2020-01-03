@@ -36,7 +36,7 @@ namespace Magenic.Maqs.BaseMongoTest
                     "MongoCollection"
                 }
             };
-            Config.Validate(ConfigSection.MongoDBMaqs, validator);
+            Config.Validate(ConfigSection.MongoMaqs, validator);
         }
 
         /// <summary>
