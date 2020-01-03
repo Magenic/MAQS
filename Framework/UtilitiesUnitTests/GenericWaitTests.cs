@@ -280,7 +280,7 @@ namespace UtilitiesUnitTesting
         public void CustomTimeoutWithParamTest()
         {
             DateTime start = DateTime.Now;
-            TimeSpan max = TESTTIMEOUT + TESTRETRY;
+            TimeSpan max = TESTTIMEOUT + TESTRETRY + TESTRETRY;
 
             GenericWait.Wait<string>(this.IsParamTestString, TESTRETRY, TESTTIMEOUT, false, "bad");
             TimeSpan duration = DateTime.Now - start;

@@ -10,5 +10,9 @@
     "language": "C#",
     "type":"project"
   },
-  "sourceName": "Tests"
+  "sources": [
+    {
+      "copyOnly": "**/*"
+    }
+  ]
 }

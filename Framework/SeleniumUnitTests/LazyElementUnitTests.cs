@@ -10,6 +10,7 @@ using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
@@ -82,6 +83,14 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Gets the Multi Select for computer parts
+        /// </summary>
+        private LazyElement ComputerParts
+        {
+            get { return new LazyElement(this.TestObject, By.CssSelector("#computerParts"), "Computer Parts Multi Select");  }
+        }
+
+        /// <summary>
         /// Gets an item that is not going to be selected
         /// </summary>
         private LazyElement NotSelected
@@ -138,6 +147,14 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Gets the Names Dropdown
+        /// </summary>
+        private LazyElement NamesDropdown
+        { 
+            get { return new LazyElement(this.TestObject, By.CssSelector("#namesDropdown"), "Names Dropdown"); }
+        }
+
+        /// <summary>
         /// Setup before a test
         /// </summary>
         [TestInitialize]
@@ -181,14 +198,14 @@ namespace SeleniumUnitTests
             DateTime start = DateTime.Now;
             try
             {
-                this.WebDriver.SetWaitDriver(new OpenQA.Selenium.Support.UI.WebDriverWait(this.WebDriver, TimeSpan.FromSeconds(2)));
+                this.WebDriver.SetWaitDriver(new OpenQA.Selenium.Support.UI.WebDriverWait(new SystemClock(), this.WebDriver, TimeSpan.FromSeconds(3), TimeSpan.FromMilliseconds(500)));
                 start = DateTime.Now;
                 this.DisabledItem.Click();
             }
             catch (TimeoutException)
             {
                 TimeSpan duration = DateTime.Now - start;
-                Assert.IsTrue(duration < TimeSpan.FromMilliseconds(4000), "The max wait time should be less than 4 seconds but was " + duration);
+                Assert.IsTrue(duration < TimeSpan.FromMilliseconds(6000), "The max wait time should be less than 6 seconds but was " + duration);
             }
         }
 
@@ -576,6 +593,53 @@ namespace SeleniumUnitTests
         {
             this.WebDriver.SetWaitDriver(new OpenQA.Selenium.Support.UI.WebDriverWait(this.WebDriver, TimeSpan.FromSeconds(1)));
             this.DisabledInput.Submit();
+        }
+
+        /// <summary>
+        /// Verify Lazy Element Select Dropdown Option
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementSelectDropDownOption()
+        {
+            this.NamesDropdown.SelectDropDownOption("Ashley");
+            Assert.AreEqual("Ashley", this.NamesDropdown.GetSelectedOptionFromDropdown());
+        }
+
+        /// <summary>
+        /// Verify Lazy Element Select Dropdown Option By Value
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementSelectDropDownOptionByValue()
+        {
+            this.NamesDropdown.SelectDropDownOptionByValue("7");
+            Assert.AreEqual("Ashley", this.NamesDropdown.GetSelectedOptionFromDropdown());
+        }
+
+        /// <summary>
+        /// Verify Lazy Element Get Selected Option From Dropdown
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementGetSelectedOptionFromDropdown()
+        {
+            Assert.AreEqual("Joe", this.NamesDropdown.GetSelectedOptionFromDropdown());
+        }
+
+        /// <summary>
+        /// Verify Lazy Element Get Selected Options From dropdown
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementGetSelectedOptionsFromDropdown()
+        {
+            this.ComputerParts.SelectDropDownOption("Motherboard");
+            this.ComputerParts.SelectDropDownOption("Power Supply");
+
+            var selectedOptions = this.ComputerParts.GetSelectedOptionsFromDropdown();
+            Assert.AreEqual("Motherboard", selectedOptions[0]);
+            Assert.AreEqual("Power Supply", selectedOptions[1]);
         }
 
         /// <summary>

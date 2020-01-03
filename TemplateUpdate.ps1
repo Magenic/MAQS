@@ -58,7 +58,7 @@
 
 param (
     # MAQS CURRENT VERSION
-    [string]$maqsVer = "5.6.0",
+    [string]$maqsVer = "5.7.0",
     [bool]$closedSource = $true,
     [bool]$openSource = $true,
     [bool]$specFlowSource = $true
@@ -95,7 +95,7 @@ param (
 [string]$SeleniumAxe = "1.3.0"
 [string]$SeleniumSupport = "3.141.0"
 [string]$SeleniumWebDriver = "3.141.0"
-[string]$SeleniumWebDriverChromeDriver = "77.0.3865.4000"
+[string]$SeleniumWebDriverChromeDriver = "78.0.3904.10500"
 [string]$SeleniumWebDriverGeckoDriver = "0.25.0"
 [string]$SeleniumWebDriverGeckoDriverWin32 = "0.25.0"
 [string]$SeleniumWebDriverGeckoDriverWin64 = "0.25.0"

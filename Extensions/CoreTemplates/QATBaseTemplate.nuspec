@@ -1,20 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
-<metadata minClientVersion="3.6">
+  <metadata minClientVersion="3.6">
     <id>Magenic.Maqs.Templates</id>
-    <version>5.6.0.1</version>
+    <version>5.7.0</version>
     <title>MAQS Core Templates</title>
     <authors>Magenic</authors>
     <owners>Magenic</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
-    <iconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</iconUrl>
+    <icon>MAQS.jpg</icon>
     <projectUrl>https://github.com/Magenic/MAQS</projectUrl>
     <description>Magenic's automation quick start .Net Core templates</description>
     <copyright>Copyright © Magenic 2019</copyright>
     <summary>Templates for Magenic's automation framework. 
 This package includes templates for browser, mobile, web service, database, email, generic and composite test solutions.</summary>
     <releaseNotes>
+    5.7.0 - 2019/12/04
+      Template updates
+      - Stop renaming projects and files to match destination folder
+      - Updated icon reference in package
+      - Updated to 5.7 MAQS references
+      
     5.6.0.1 - 2019/10/16
       Template updates
       - Make web service template timeouts consistent at 10 seconds
