@@ -6,6 +6,7 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseDatabaseTest.Providers;
 using Magenic.Maqs.Utilities.Helper;
+using System.Collections.Generic;
 using System.Data;
 
 namespace Magenic.Maqs.BaseDatabaseTest
@@ -15,6 +16,30 @@ namespace Magenic.Maqs.BaseDatabaseTest
     /// </summary>
     public static class DatabaseConfig
     {
+        /// <summary>
+        /// Loads when class is loaded
+        /// </summary>
+        static DatabaseConfig()
+        {
+            CheckConfig();
+        }
+
+        /// <summary>
+        /// Ensure required fields are in the config
+        /// </summary>
+        private static void CheckConfig()
+        {
+            var validator = new ConfigValidation()
+            {
+                RequiredFields = new List<string>()
+                {
+                    "DataBaseConnectionString",
+                    "DataBaseProviderType"
+                }
+            };
+            Config.Validate(ConfigSection.DatabaseMaqs, validator);
+        }
+
         /// <summary>
         ///  Static name for the database configuration section
         /// </summary>

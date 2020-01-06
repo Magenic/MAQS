@@ -7,6 +7,7 @@
 using Magenic.Maqs.Utilities.Data;
 using Magenic.Maqs.Utilities.Helper;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
@@ -17,6 +18,30 @@ namespace Magenic.Maqs.BaseEmailTest
     /// </summary>
     public static class EmailConfig
     {
+        /// <summary>
+        /// Loads when class is loaded
+        /// </summary>
+        static EmailConfig()
+        {
+            CheckConfig();
+        }
+
+        /// <summary>
+        /// Ensure required fields are in the config
+        /// </summary>
+        private static void CheckConfig()
+        {
+            var validator = new ConfigValidation()
+            {
+                RequiredFields = new List<string>()
+                {
+                    "EmailHost",
+                    "EmailUserName",
+                    "EmailPassword"
+                }
+            };
+            Config.Validate(ConfigSection.EmailMaqs, validator);
+        }
         /// <summary>
         /// Get the host string
         /// </summary>

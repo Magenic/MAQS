@@ -20,6 +20,32 @@ namespace Magenic.Maqs.BaseAppiumTest
     public static class AppiumConfig
     {
         /// <summary>
+        /// Loads when class is loaded
+        /// </summary>
+        static AppiumConfig()
+        {
+            CheckConfig();
+        }
+
+        /// <summary>
+        /// Ensure required fields are in the config
+        /// </summary>
+        private static void CheckConfig()
+        {
+            var validator = new ConfigValidation()
+            {
+                RequiredFields = new List<string>()
+                {
+                    "PlatformName",
+                    "PlatformVersion",
+                    "DeviceName",
+                    "MobileHubUrl"
+                }
+            };
+            Config.Validate(ConfigSection.AppiumMaqs, validator);
+        }
+
+        /// <summary>
         /// Get the mobile OS type
         /// </summary>
         /// <returns>The Mobile OS type</returns>

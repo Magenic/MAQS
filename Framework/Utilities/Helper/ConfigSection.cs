@@ -50,6 +50,11 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <summary>
         /// Web service section
         /// </summary>
-        WebServiceMaqs
+        WebServiceMaqs,
+
+        /// <summary>
+        /// Mongo DB Section
+        /// </summary>
+        MongoMaqs
     }
 }

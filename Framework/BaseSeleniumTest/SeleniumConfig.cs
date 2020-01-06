@@ -22,6 +22,29 @@ namespace Magenic.Maqs.BaseSeleniumTest
     public static class SeleniumConfig
     {
         /// <summary>
+        /// Loads when class is loaded
+        /// </summary>
+        static SeleniumConfig()
+        {
+            CheckConfig();
+        }
+
+        /// <summary>
+        /// Ensure required fields are in the config
+        /// </summary>
+        private static void CheckConfig()
+        {
+            var validator = new ConfigValidation()
+            {
+                RequiredFields = new List<string>()
+                {
+                    "WebSiteBase"
+                }
+            };
+            Config.Validate(ConfigSection.SeleniumMaqs, validator);
+        }
+
+        /// <summary>
         ///  Static name for the Selenium configuration section
         /// </summary>
         private const string SELENIUMSECTION = "SeleniumMaqs";

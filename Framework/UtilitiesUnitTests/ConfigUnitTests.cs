@@ -137,5 +137,51 @@ namespace UtilitiesUnitTesting
             // Make sure the value we didn't override was not affected
             Assert.AreEqual(baseValue2, Config.GetGeneralValue(key2));
         }
+
+        /// <summary>
+        /// Tests that the config is validated when there are no required fields
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void ConfigNoRequiredFields()
+        {
+            ConfigValidation configValidation = new ConfigValidation()
+            {
+                RequiredFields = new List<string>()
+            };
+
+            Config.Validate(ConfigSection.MagenicMaqs, configValidation);
+        }
+
+        /// <summary>
+        /// Tests that an exception is thrown when a field is not present
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        [ExpectedException(typeof(MaqsConfigException))]
+        public void ConfigFieldsMissing()
+        {
+            ConfigValidation configValidation = new ConfigValidation()
+            {
+                RequiredFields = new List<string>
+                {
+                    "Invalid_Config_Field_For_Validation"
+                }
+            };
+
+            Config.Validate(ConfigSection.WebServiceMaqs, configValidation);
+        }
+
+        /// <summary>
+        /// Tests that an exception is thrown when the fields to validate is null
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        [ExpectedException(typeof(MaqsConfigException))]
+        public void ConfigFieldsNull()
+        {
+            Config.Validate(ConfigSection.WebServiceMaqs, null);
+        }
+
     }
 }
