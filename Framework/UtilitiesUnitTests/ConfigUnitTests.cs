@@ -159,7 +159,7 @@ namespace UtilitiesUnitTesting
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
         [ExpectedException(typeof(MaqsConfigException))]
-        public void ConfigSectionMissing()
+        public void ConfigFieldsMissing()
         {
             ConfigValidation configValidation = new ConfigValidation()
             {
@@ -171,5 +171,14 @@ namespace UtilitiesUnitTesting
 
             Config.Validate(ConfigSection.WebServiceMaqs, configValidation);
         }
+
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        [ExpectedException(typeof(MaqsConfigException))]
+        public void ConfigFieldsNull()
+        {
+            Config.Validate(ConfigSection.WebServiceMaqs, null);
+        }
+
     }
 }

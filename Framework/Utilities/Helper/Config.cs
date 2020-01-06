@@ -83,6 +83,10 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <param name="configValidation">A list of strings containing the requried field names</param>
         public static void Validate(ConfigSection configSection, ConfigValidation configValidation)
         {
+            if (configValidation == null)
+            {
+                throw new MaqsConfigException("configValidation is null");
+            }
             var configSectionPassed = GetSection(configSection);
             
             List<string> exceptions = new List<string>();
