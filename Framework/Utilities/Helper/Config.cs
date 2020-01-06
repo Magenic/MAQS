@@ -76,6 +76,11 @@ namespace Magenic.Maqs.Utilities.Helper
             }
         }
 
+        /// <summary>
+        /// Validates the app config section by ensuring required values are present
+        /// </summary>
+        /// <param name="configSection">The config section to be validated</param>
+        /// <param name="configValidation">A list of strings containing the requried field names</param>
         public static void Validate(ConfigSection configSection, ConfigValidation configValidation)
         {
             var configSectionPassed = GetSection(configSection);
