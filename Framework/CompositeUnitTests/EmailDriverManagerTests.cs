@@ -26,10 +26,24 @@ namespace CompositeUnitTests
         /// Make sure we can override the driver
         /// </summary>
         [TestMethod]
+        public void CanOverrideEmailDriverOld()
+        {
+            EmailDriver temp = new EmailDriver(() => GetClient());
+#pragma warning disable CS0618 // Type or member is obsolete
+            this.TestObject.EmailManager.OverwriteDriver(temp);
+#pragma warning restore CS0618 // Type or member is obsolete
+
+            Assert.AreEqual(this.TestObject.EmailManager.GetEmailDriver().EmailConnection, EmailDriver.EmailConnection);
+        }
+
+        /// <summary>
+        /// Make sure we can override the driver
+        /// </summary>
+        [TestMethod]
         public void CanOverrideEmailDriver()
         {
             EmailDriver temp = new EmailDriver(() => GetClient());
-            this.TestObject.EmailManager.OverwriteDriver(temp);
+            this.TestObject.EmailManager.OverrideDriver(temp);
 
             Assert.AreEqual(this.TestObject.EmailManager.GetEmailDriver().EmailConnection, EmailDriver.EmailConnection);
         }

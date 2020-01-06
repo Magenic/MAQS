@@ -55,7 +55,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="httpClient">The new http client</param>
         public void OverrideWebServiceDriver(HttpClient httpClient)
         {
-            this.OverrideDriverManager(typeof(WebServiceDriverManager).FullName, new WebServiceDriverManager(() => httpClient, this));
+            this.WebServiceManager.OverrideDriver(httpClient);
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="httpClient">Function for getting a new http client</param>
         public void OverrideWebServiceDriver(Func<HttpClient> httpClient)
         {
-            this.OverrideDriverManager(typeof(WebServiceDriverManager).FullName, new WebServiceDriverManager(httpClient, this));
+            this.WebServiceManager.OverrideDriver(httpClient);
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="webServiceDriver">An http client driver</param>
         public void OverrideWebServiceDriver(WebServiceDriver webServiceDriver)
         {
-            (this.ManagerStore[typeof(WebServiceDriverManager).FullName] as WebServiceDriverManager).OverrideDriver(webServiceDriver);
+            this.WebServiceManager.OverrideDriver(webServiceDriver);
         }
     }
 }

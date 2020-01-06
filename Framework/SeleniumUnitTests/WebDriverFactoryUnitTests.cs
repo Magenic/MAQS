@@ -8,7 +8,6 @@ using Magenic.Maqs.BaseSeleniumTest;
 using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium.Chrome;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace SeleniumUnitTests

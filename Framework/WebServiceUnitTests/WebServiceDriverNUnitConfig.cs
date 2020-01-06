@@ -7,7 +7,6 @@
 using Magenic.Maqs.BaseWebServiceTest;
 using Magenic.Maqs.Utilities.Helper;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 

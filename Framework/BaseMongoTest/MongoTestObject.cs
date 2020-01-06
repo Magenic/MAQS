@@ -59,8 +59,7 @@ namespace Magenic.Maqs.BaseMongoTest
         /// <param name="collectionString">Mongo collection string</param>
         public void OverrideMongoDBDriver(string connectionString, string databaseString, string collectionString)
         {
-            this.ManagerStore.Remove(typeof(MongoDriverManager<T>).FullName);
-            this.ManagerStore.Add(typeof(MongoDriverManager<T>).FullName, new MongoDriverManager<T>(connectionString, databaseString, collectionString, this));
+            this.MongoDBManager.OverrideDriver(connectionString, databaseString, collectionString);
         }
 
         /// <summary>
