@@ -85,7 +85,7 @@ namespace Magenic.Maqs.Utilities.Helper
         {
             if (configValidation == null)
             {
-                throw new MaqsConfigException("configValidation is null");
+                throw new MaqsConfigException("The value passed in for configValidation (required fields in a config) is null");
             }
             var configSectionPassed = GetSection(configSection);
             
