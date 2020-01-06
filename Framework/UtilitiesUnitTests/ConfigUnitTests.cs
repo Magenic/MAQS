@@ -172,6 +172,9 @@ namespace UtilitiesUnitTesting
             Config.Validate(ConfigSection.WebServiceMaqs, configValidation);
         }
 
+        /// <summary>
+        /// Tests that an exception is thrown when the fields to validate is null
+        /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
         [ExpectedException(typeof(MaqsConfigException))]
