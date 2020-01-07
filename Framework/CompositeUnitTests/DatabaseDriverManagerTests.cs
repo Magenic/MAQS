@@ -57,6 +57,21 @@ namespace CompositeUnitTests
         }
 
         /// <summary>
+        /// Can overwrite driver 
+        /// </summary>
+        [TestMethod]
+        public void CanOverwriteDatabaseDriverInTestObject()
+        {
+            var newConnection = DatabaseConfig.GetOpenConnection();
+
+#pragma warning disable CS0618 // Type or member is obsolete
+            this.TestObject.DatabaseManager.OverwriteDriver(new DatabaseDriver(newConnection));
+#pragma warning restore CS0618 // Type or member is obsolete
+
+            Assert.AreEqual(newConnection, this.DatabaseDriver.Connection);
+        }
+
+        /// <summary>
         /// Can override driver with connection
         /// </summary>
         [TestMethod]

@@ -239,5 +239,41 @@ namespace MongoDBUnitTests
 
             Assert.AreNotEqual(collection, this.MongoDBDriver.Collection);
         }
+
+        /// <summary>
+        /// Override in base with collection function
+        /// </summary>
+        [TestMethod]
+        public void RespectCollectionOverrideInBase()
+        {
+            var collection = MongoFactory.GetDefaultCollection<BsonDocument>();
+            this.OverrideConnectionDriver(() => collection);
+
+            Assert.AreEqual(collection, this.MongoDBDriver.Collection);
+        }
+
+        /// <summary>
+        /// Override in base with new driver
+        /// </summary>
+        [TestMethod]
+        public void RespectDriverOverrideInBase()
+        {
+            var collection = MongoFactory.GetDefaultCollection<BsonDocument>();
+            this.OverrideConnectionDriver(new MongoDBDriver<BsonDocument>(collection));
+
+            Assert.AreEqual(collection, this.MongoDBDriver.Collection);
+        }
+
+        /// <summary>
+        /// Override drive with strings in base
+        /// </summary>
+        [TestMethod]
+        public void RespectConnectionStingsOverrideInBase()
+        {
+            var collection = this.MongoDBDriver.Collection;
+            this.OverrideConnectionDriver(MongoDBConfig.GetConnectionString(), MongoDBConfig.GetDatabaseString(), MongoDBConfig.GetCollectionString());
+
+            Assert.AreNotEqual(collection, this.MongoDBDriver.Collection);
+        }
     }
 }

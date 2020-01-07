@@ -49,6 +49,18 @@ namespace CompositeUnitTests
         }
 
         /// <summary>
+        /// Make sure we can override the driver directly
+        /// </summary>
+        [TestMethod]
+        public void CanOverrideEmailDriverDirectly()
+        {
+            EmailDriver temp = new EmailDriver(() => GetClient());
+            this.EmailDriver = temp;
+
+            Assert.AreEqual(this.TestObject.EmailManager.GetEmailDriver().EmailConnection, EmailDriver.EmailConnection);
+        }
+
+        /// <summary>
         /// Check that we can add multiples of the same driver type, provided we use a key
         /// </summary>
         [TestMethod]
