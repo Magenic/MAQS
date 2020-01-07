@@ -6,6 +6,8 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseTest;
 using Magenic.Maqs.Utilities.Logging;
+using MongoDB.Driver;
+using System;
 
 namespace Magenic.Maqs.BaseMongoTest
 {
@@ -69,6 +71,15 @@ namespace Magenic.Maqs.BaseMongoTest
         public void OverrideMongoDBDriver(MongoDBDriver<T> driver)
         {
             this.MongoDBManager.OverrideDriver(driver);
+        }
+
+        /// <summary>
+        /// Override the Mongo driver a collection function
+        /// </summary>
+        /// <param name="overrideCollectionConnection">The collection function</param>
+        public void OverrideMongoDBDriver(Func<IMongoCollection<T>> overrideCollectionConnection)
+        {
+            this.MongoDBManager.OverrideDriver(overrideCollectionConnection);
         }
     }
 }

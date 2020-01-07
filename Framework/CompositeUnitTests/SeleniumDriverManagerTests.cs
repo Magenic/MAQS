@@ -34,6 +34,19 @@ namespace CompositeUnitTests
         }
 
         /// <summary>
+        /// Make sure we can override the driver with a func
+        /// </summary>
+        [TestMethod]
+        public void CanOverrideWithFunc()
+        {
+            int oldHash = this.WebDriver.GetLowLevelDriver().GetHashCode();
+
+            this.TestObject.OverrideWebDriver(() => WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.HeadlessChrome));
+
+            Assert.AreNotEqual(oldHash, this.WebDriver.GetLowLevelDriver().GetHashCode());
+        }
+
+        /// <summary>
         /// Check that we can add multiples of the same driver type, provided we use a key
         /// </summary>
         [TestMethod]

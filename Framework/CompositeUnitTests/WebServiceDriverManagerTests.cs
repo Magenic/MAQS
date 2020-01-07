@@ -88,5 +88,41 @@ namespace CompositeUnitTests
             WebServiceDriverManager driverDriver = this.ManagerStore[typeof(WebServiceDriverManager).FullName] as WebServiceDriverManager;
             Assert.IsFalse(driverDriver.IsDriverIntialized(), "The driver should not be initialized until it gets used");
         }
+
+        /// <summary>
+        /// Override with new client
+        /// </summary>
+        [TestMethod]
+        public void RespectClientOverride()
+        {
+            var httpClient = new HttpClient();
+            this.TestObject.AddDriverManager(new WebServiceDriverManager(httpClient, this.TestObject), true);
+            
+            Assert.AreEqual(httpClient, this.WebServiceDriver.HttpClient);
+        }
+
+        /// <summary>
+        /// Override with new client function
+        /// </summary>
+        [TestMethod]
+        public void RespectClientFunctionOverride()
+        {
+            var httpClient = new HttpClient();
+            this.TestObject.AddDriverManager(new WebServiceDriverManager(() => httpClient, this.TestObject), true);
+
+            Assert.AreEqual(httpClient, this.WebServiceDriver.HttpClient);
+        }
+
+        /// <summary>
+        /// Override with new driver
+        /// </summary>
+        [TestMethod]
+        public void RespectDriverOverride()
+        {
+            var httpClient = new HttpClient();
+            this.TestObject.AddDriverManager(new WebServiceDriverManager(new WebServiceDriver(httpClient), this.TestObject), true);
+
+            Assert.AreEqual(httpClient, this.WebServiceDriver.HttpClient);
+        }
     }
 }

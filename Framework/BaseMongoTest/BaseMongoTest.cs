@@ -6,6 +6,8 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseTest;
 using Magenic.Maqs.Utilities.Logging;
+using MongoDB.Driver;
+using System;
 
 namespace Magenic.Maqs.BaseMongoTest
 {
@@ -40,7 +42,7 @@ namespace Magenic.Maqs.BaseMongoTest
         }
 
         /// <summary>
-        /// Override the Mongo driver
+        /// Override the Mongo driver - does not lazy load
         /// </summary>
         /// <param name="driver">New Mongo driver</param>
         public void OverrideConnectionDriver(MongoDBDriver<T> driver)
@@ -49,7 +51,16 @@ namespace Magenic.Maqs.BaseMongoTest
         }
 
         /// <summary>
-        /// Override the Mongo driver
+        /// Override the Mongo driver - respects lazy loading
+        /// </summary>
+        /// <param name="overrideDriver">The new collection connection</param>
+        public void OverrideConnectionDriver(Func<IMongoCollection<T>> overrideCollectionConnection)
+        {
+            this.TestObject.OverrideMongoDBDriver(overrideCollectionConnection);
+        }
+
+        /// <summary>
+        /// Override the Mongo driver  - respects lazy loading
         /// </summary>
         /// <param name="connectionString">Client connection string</param>
         /// <param name="databaseString">Database connection string</param>

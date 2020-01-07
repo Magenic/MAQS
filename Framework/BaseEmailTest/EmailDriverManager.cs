@@ -47,7 +47,6 @@ namespace Magenic.Maqs.BaseEmailTest
         public void OverrideDriver(EmailDriver newDriver)
         {
             this.driver = newDriver;
-            this.BaseDriver = newDriver.EmailConnection;
         }
 
         /// <summary>

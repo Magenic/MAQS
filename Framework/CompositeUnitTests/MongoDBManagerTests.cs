@@ -152,5 +152,44 @@ namespace MongoDBUnitTests
             int databaseTimeout = MongoDBConfig.GetQueryTimeout();
             Assert.AreEqual(30, databaseTimeout);
         }
+
+        /// <summary>
+        /// Override with default driver
+        /// </summary>
+        [TestMethod]
+        public void RespectDefaultDriverOverride()
+        {
+            var mongoDriver = new MongoDBDriver<BsonDocument>();
+            this.TestObject.MongoDBManager.OverrideDriver(mongoDriver);
+
+            Assert.AreEqual(mongoDriver.Collection, this.MongoDBDriver.Collection);
+            Assert.AreEqual(mongoDriver.Collection.Database, this.MongoDBDriver.Database);
+            Assert.AreEqual(mongoDriver.Collection.Database.Client, this.MongoDBDriver.Client);
+        }
+
+        /// <summary>
+        /// Override driver with collection string
+        /// </summary>
+        [TestMethod]
+        public void RespectCollectionDriverOverride()
+        {
+            //MongoDBConfig.GetConnectionString(), MongoDBConfig.GetDatabaseString(), collectionString
+            var mongoDriver = new MongoDBDriver<BsonDocument>(MongoDBConfig.GetCollectionString());
+            this.TestObject.MongoDBManager.OverrideDriver(mongoDriver);
+
+            Assert.AreEqual(mongoDriver.Collection, this.MongoDBDriver.Collection);
+        }
+
+        /// <summary>
+        /// Override drive with all 3 connection strings
+        /// </summary>
+        [TestMethod]
+        public void RespectDriverConnectionsOverride()
+        {
+            var mongoDriver = new MongoDBDriver<BsonDocument>(MongoDBConfig.GetConnectionString(), MongoDBConfig.GetDatabaseString(), MongoDBConfig.GetCollectionString());
+            this.TestObject.MongoDBManager.OverrideDriver(mongoDriver);
+
+            Assert.AreEqual(mongoDriver.Collection, this.MongoDBDriver.Collection);
+        }
     }
 }
