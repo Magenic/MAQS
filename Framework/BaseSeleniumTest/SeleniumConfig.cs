@@ -39,6 +39,52 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 RequiredFields = new List<string>()
                 {
                     "WebSiteBase"
+                },
+                Funcs = new List<Func<ValidationPal>>()
+                {
+                    () => {
+                        var requriedKey = "HubUrl";
+                        var validation = new ValidationPal()
+                        {
+                            AreFieldsPresent = true
+                        };
+
+                        if (Config.DoesKeyExist("RemoteBrowser", ConfigSection.WebServiceMaqs))
+                        {
+                            if (!Config.DoesKeyExist(requriedKey, ConfigSection.WebServiceMaqs))
+                            {
+                                validation.AreFieldsPresent = false;
+                                validation.MissingField = requriedKey;
+
+                                return validation;
+                            }
+                            validation.AreFieldsPresent = true;
+                            return validation;
+                        }
+                        return validation;
+                    },
+                    () =>
+                    {
+                        var requiredKey = "ProxyAddress";
+                        var validation = new ValidationPal()
+                        {
+                            AreFieldsPresent = true
+                        };
+
+                        if (Config.DoesKeyExist("UseProxy", ConfigSection.WebServiceMaqs))
+                        {
+                            if (!Config.DoesKeyExist(requiredKey, ConfigSection.WebServiceMaqs))
+                            {
+                                validation.AreFieldsPresent = false;
+                                validation.MissingField = requiredKey;
+
+                                return validation;
+                            }
+                            validation.AreFieldsPresent = true;
+                            return validation;
+                        }
+                        return validation;
+                    }
                 }
             };
             Config.Validate(ConfigSection.SeleniumMaqs, validator);

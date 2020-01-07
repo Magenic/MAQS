@@ -6,6 +6,7 @@
 //--------------------------------------------------
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -97,6 +98,19 @@ namespace Magenic.Maqs.Utilities.Helper
                     exceptions.Add("Key missing " + requiredField);
                 } 
             }
+            if (configValidation.Funcs != null)
+            {
+                foreach (var function in configValidation.Funcs)
+                {
+                    var result = function();
+
+                    if (result.AreFieldsPresent == false)
+                    {
+                        exceptions.Add($"Could not find key {result.MissingField}");
+                    }
+                }
+            }
+
 
             if(exceptions.Count > 0)
             {

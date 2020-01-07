@@ -6,6 +6,7 @@
 //--------------------------------------------------
 using Magenic.Maqs.Utilities.Helper;
 using System;
+using System.Collections.Generic;
 
 namespace Magenic.Maqs.BaseWebServiceTest
 {
@@ -29,10 +30,34 @@ namespace Magenic.Maqs.BaseWebServiceTest
         {
             var validator = new ConfigValidation()
             {
-                RequiredFields = new System.Collections.Generic.List<string>()
+                RequiredFields = new List<string>()
                 {
                     "WebServiceTimeout",
                     "WebServiceUri"
+                },
+                Funcs = new List<Func<ValidationPal>>()
+                {
+                    () => {
+                        var requiredKey = "ProxyAddress";
+                        var validation = new ValidationPal()
+                        {
+                            AreFieldsPresent = true
+                        };
+
+                        if (Config.DoesKeyExist("UseProxy", ConfigSection.WebServiceMaqs))
+                        {
+                            if (!Config.DoesKeyExist(requiredKey, ConfigSection.WebServiceMaqs))
+                            {
+                                validation.AreFieldsPresent = false;
+                                validation.MissingField = requiredKey;
+
+                                return validation;
+                            }
+                            validation.AreFieldsPresent = true;
+                            return validation;
+                        }
+                        return validation;
+                    }
                 }
             };
             Config.Validate(ConfigSection.WebServiceMaqs, validator);

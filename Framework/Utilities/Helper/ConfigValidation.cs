@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Magenic.Maqs.Utilities.Helper
 {
@@ -11,5 +12,10 @@ namespace Magenic.Maqs.Utilities.Helper
         /// Gets or sets the list of required fields for a config
         /// </summary>
         public List<string> RequiredFields { get; set; }
+
+        /// <summary>
+        /// Gets or sets a list of functions
+        /// </summary>
+        public List<Func<ValidationPal>> Funcs { get; set; }
     }
 }
