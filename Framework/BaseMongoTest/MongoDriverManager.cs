@@ -92,6 +92,7 @@ namespace Magenic.Maqs.BaseMongoTest
         private void MapEvents(EventFiringMongoDBDriver<T> eventFiringConnectionDriver)
         {
             eventFiringConnectionDriver.DatabaseEvent += this.Database_Event;
+            eventFiringConnectionDriver.DatabaseActionEvent += this.Database_Action;
             eventFiringConnectionDriver.DatabaseErrorEvent += this.Database_Error;
         }
 
@@ -103,6 +104,16 @@ namespace Magenic.Maqs.BaseMongoTest
         private void Database_Event(object sender, string message)
         {
             this.Log.LogMessage(MessageType.INFORMATION, message);
+        }
+
+        /// <summary>
+        /// Database action event
+        /// </summary>
+        /// <param name="sender">Sender object</param>
+        /// <param name="message">The logging message</param>
+        private void Database_Action(object sender, string message)
+        {
+            this.Log.LogMessage(MessageType.ACTION, message);
         }
 
         /// <summary>
