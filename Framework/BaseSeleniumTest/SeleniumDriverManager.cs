@@ -210,7 +210,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_NavigatedForward(object sender, WebDriverNavigationEventArgs e)
         {
-            Log.LogMessage(MessageType.INFORMATION, "Navigated Forward: {0}", e.Url);
+            Log.LogMessage(MessageType.ACTION, "Navigate Forward: {0}", e.Url);
         }
 
         /// <summary>
@@ -220,7 +220,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_NavigatedBack(object sender, WebDriverNavigationEventArgs e)
         {
-            Log.LogMessage(MessageType.INFORMATION, "Navigated back: {0}", e.Url);
+            Log.LogMessage(MessageType.ACTION, "Navigate back: {0}", e.Url);
         }
 
         /// <summary>
