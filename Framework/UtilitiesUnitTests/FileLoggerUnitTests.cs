@@ -34,13 +34,15 @@ namespace UtilitiesUnitTesting
         {
             get
             {
-                yield return new TestCaseData("VERBOSE", new Dictionary<string, int> { { "VERBOSE", 1 }, { "INFORMATION", 1 }, { "GENERIC", 1 }, { "SUCCESS", 1 }, { "WARNING", 1 }, { "ERROR", 1 } });
-                yield return new TestCaseData("INFORMATION", new Dictionary<string, int> { { "VERBOSE", 0 }, { "INFORMATION", 1 }, { "GENERIC", 1 }, { "SUCCESS", 1 }, { "WARNING", 1 }, { "ERROR", 1 } });
-                yield return new TestCaseData("GENERIC", new Dictionary<string, int> { { "VERBOSE", 0 }, { "INFORMATION", 0 }, { "GENERIC", 1 }, { "SUCCESS", 1 }, { "WARNING", 1 }, { "ERROR", 1 } });
-                yield return new TestCaseData("SUCCESS", new Dictionary<string, int> { { "VERBOSE", 0 }, { "INFORMATION", 0 }, { "GENERIC", 0 }, { "SUCCESS", 1 }, { "WARNING", 1 }, { "ERROR", 1 } });
-                yield return new TestCaseData("WARNING", new Dictionary<string, int> { { "VERBOSE", 0 }, { "INFORMATION", 0 }, { "GENERIC", 0 }, { "SUCCESS", 0 }, { "WARNING", 1 }, { "ERROR", 1 } });
-                yield return new TestCaseData("ERROR", new Dictionary<string, int> { { "VERBOSE", 0 }, { "INFORMATION", 0 }, { "GENERIC", 0 }, { "SUCCESS", 0 }, { "WARNING", 0 }, { "ERROR", 1 } });
-                yield return new TestCaseData("SUSPENDED", new Dictionary<string, int> { { "VERBOSE", 0 }, { "INFORMATION", 0 }, { "GENERIC", 0 }, { "SUCCESS", 0 }, { "WARNING", 0 }, { "ERROR", 0 } });
+                yield return new TestCaseData("VERBOSE", new Dictionary<string, int> { { "VERBOSE", 1 }, { "INFORMATION", 1 }, { "ACTION", 1 }, { "STEP", 1 }, { "GENERIC", 1 }, { "SUCCESS", 1 }, { "WARNING", 1 }, { "ERROR", 1 } });
+                yield return new TestCaseData("INFORMATION", new Dictionary<string, int> { { "VERBOSE", 0 }, { "INFORMATION", 1 }, { "ACTION", 1 }, { "STEP", 1 }, { "GENERIC", 1 }, { "SUCCESS", 1 }, { "WARNING", 1 }, { "ERROR", 1 } });
+                yield return new TestCaseData("ACTION", new Dictionary<string, int> { { "VERBOSE", 0 }, { "INFORMATION", 0 }, { "ACTION", 1 }, { "STEP", 1 }, { "GENERIC", 1 }, { "SUCCESS", 1 }, { "WARNING", 1 }, { "ERROR", 1 } });
+                yield return new TestCaseData("STEP", new Dictionary<string, int> { { "VERBOSE", 0 }, { "INFORMATION", 0 }, { "ACTION", 0 }, { "STEP", 1 }, { "GENERIC", 1 }, { "SUCCESS", 1 }, { "WARNING", 1 }, { "ERROR", 1 } });
+                yield return new TestCaseData("GENERIC", new Dictionary<string, int> { { "VERBOSE", 0 }, { "INFORMATION", 0 }, { "ACTION", 0 }, { "STEP", 0 }, { "GENERIC", 1 }, { "SUCCESS", 1 }, { "WARNING", 1 }, { "ERROR", 1 } });
+                yield return new TestCaseData("SUCCESS", new Dictionary<string, int> { { "VERBOSE", 0 }, { "INFORMATION", 0 }, { "ACTION", 0 }, { "STEP", 0 }, { "GENERIC", 0 }, { "SUCCESS", 1 }, { "WARNING", 1 }, { "ERROR", 1 } });
+                yield return new TestCaseData("WARNING", new Dictionary<string, int> { { "VERBOSE", 0 }, { "INFORMATION", 0 }, { "ACTION", 0 }, { "STEP", 0 }, { "GENERIC", 0 }, { "SUCCESS", 0 }, { "WARNING", 1 }, { "ERROR", 1 } });
+                yield return new TestCaseData("ERROR", new Dictionary<string, int> { { "VERBOSE", 0 }, { "INFORMATION", 0 }, { "ACTION", 0 }, { "STEP", 0 }, { "GENERIC", 0 }, { "SUCCESS", 0 }, { "WARNING", 0 }, { "ERROR", 1 } });
+                yield return new TestCaseData("SUSPENDED", new Dictionary<string, int> { { "VERBOSE", 0 }, { "INFORMATION", 0 }, { "ACTION", 0 }, { "STEP", 0 }, { "GENERIC", 0 }, { "SUCCESS", 0 }, { "WARNING", 0 }, { "ERROR", 0 } });
             }
         }
 
