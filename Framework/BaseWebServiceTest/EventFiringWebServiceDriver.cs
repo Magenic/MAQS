@@ -48,6 +48,11 @@ namespace Magenic.Maqs.BaseWebServiceTest
         public event EventHandler<string> WebServiceEvent;
 
         /// <summary>
+        /// Web service action event
+        /// </summary>
+        public event EventHandler<string> WebServiceActionEvent;
+
+        /// <summary>
         /// Web service error event
         /// </summary>
         public event EventHandler<string> WebServiceErrorEvent;
@@ -59,6 +64,15 @@ namespace Magenic.Maqs.BaseWebServiceTest
         protected virtual void OnEvent(string message)
         {
             WebServiceEvent?.Invoke(this, message);
+        }
+
+        /// <summary>
+        /// Web service action event
+        /// </summary>
+        /// <param name="message">The event message</param>
+        protected virtual void OnActionEvent(string message)
+        {
+            WebServiceActionEvent?.Invoke(this, message);
         }
 
         /// <summary>
@@ -197,7 +211,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="mediaType">The type of media being requested</param>
         private void RaiseEvent(string actionType, string requestUri, string mediaType)
         {
-            OnEvent(StringProcessor.SafeFormatter("Sending {0} request to base: '{1}' endpoint: '{2}' with the media type: '{3}'", actionType, HttpClient.BaseAddress, requestUri, mediaType));
+            OnActionEvent(StringProcessor.SafeFormatter("Send {0} request to base: '{1}' endpoint: '{2}' with the media type: '{3}'", actionType, HttpClient.BaseAddress, requestUri, mediaType));
         }
 
         /// <summary>
@@ -212,7 +226,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
             try
             {
                 StringBuilder message = new StringBuilder();
-                message.AppendLine(StringProcessor.SafeFormatter("Sending {0} request with content to base: '{1}' endpoint: '{2}' with the media type: '{3}'", actionType, HttpClient.BaseAddress, requestUri, mediaType));
+                message.AppendLine(StringProcessor.SafeFormatter("Send {0} request with content to base: '{1}' endpoint: '{2}' with the media type: '{3}'", actionType, HttpClient.BaseAddress, requestUri, mediaType));
 
                 mediaType = mediaType.ToUpper();
 
@@ -226,7 +240,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
                     }
                 }
 
-                OnEvent(message.ToString());
+                OnActionEvent(message.ToString());
             }
             catch (Exception e)
             {
