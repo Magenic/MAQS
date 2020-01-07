@@ -183,5 +183,20 @@ namespace UtilitiesUnitTesting
             Config.Validate(ConfigSection.WebServiceMaqs, null);
         }
 
+        /// <summary>
+        /// Tests that a null function list can be passed into the validate method
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void ConfigRequiredFieldsNullFunctionList()
+        {
+            ConfigValidation configValidation = new ConfigValidation()
+            {
+                RequiredFields = new List<string>(),
+                Funcs = null
+            };
+
+            Config.Validate(ConfigSection.MagenicMaqs, configValidation);
+        }
     }
 }
