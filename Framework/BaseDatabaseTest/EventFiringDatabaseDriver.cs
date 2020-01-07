@@ -49,6 +49,11 @@ namespace Magenic.Maqs.BaseDatabaseTest
         public event EventHandler<string> DatabaseEvent;
 
         /// <summary>
+        /// Database action event
+        /// </summary>
+        public event EventHandler<string> DatabaseActionEvent;
+
+        /// <summary>
         /// database error event
         /// </summary>
         public event EventHandler<string> DatabaseErrorEvent;
@@ -234,7 +239,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
         {
             try
             {
-                this.OnEvent(StringProcessor.SafeFormatter("Releasing connection"));
+                this.OnActionEvent(StringProcessor.SafeFormatter("Release connection"));
                 base.Dispose(disposing);
                 this.OnEvent(StringProcessor.SafeFormatter("Released connection"));
             }
@@ -255,6 +260,15 @@ namespace Magenic.Maqs.BaseDatabaseTest
         }
 
         /// <summary>
+        /// Database action event
+        /// </summary>
+        /// <param name="message">event message</param>
+        protected virtual void OnActionEvent(string message)
+        {
+            this.DatabaseActionEvent?.Invoke(this, message);
+        }
+
+        /// <summary>
         /// Database error event
         /// </summary>
         /// <param name="message">The event error message</param>
@@ -272,7 +286,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
         {
             try
             {
-                this.OnEvent(StringProcessor.SafeFormatter("Performing {0} with:\r\n{1}", actionType, query));
+                this.OnActionEvent(StringProcessor.SafeFormatter("Perform {0} with:\r\n{1}", actionType, query));
             }
             catch (Exception e)
             {
@@ -296,7 +310,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
                     builder.AppendLine(item);
                 }
                 
-                this.OnEvent(StringProcessor.SafeFormatter("Performing {0} with:\r\n{1}", actionType, builder.ToString()));
+                this.OnActionEvent(StringProcessor.SafeFormatter("Perform {0} with:\r\n{1}", actionType, builder.ToString()));
             }
             catch (Exception e)
             {
