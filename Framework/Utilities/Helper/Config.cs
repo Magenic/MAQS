@@ -104,7 +104,7 @@ namespace Magenic.Maqs.Utilities.Helper
                 {
                     var result = function();
 
-                    if (result.AreFieldsPresent == false)
+                    if (!result.AreFieldsPresent)
                     {
                         exceptions.Add($"Could not find key {result.MissingField}");
                     }

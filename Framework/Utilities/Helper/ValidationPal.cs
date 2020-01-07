@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Magenic.Maqs.Utilities.Helper
+﻿namespace Magenic.Maqs.Utilities.Helper
 {
     /// <summary>
     /// Holds information about fields that are required to be in a config based on other fields
