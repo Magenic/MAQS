@@ -54,7 +54,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// Override the email driver
         /// </summary>
         /// <param name="emailConnection">Function for getting an email connection</param>
-        public void OverrideDatabaseConnection(Func<ImapClient> emailConnection)
+        public void OverrideEmailClient(Func<ImapClient> emailConnection)
         {
             this.EmailManager.OverrideDriver(emailConnection);
         }
@@ -63,7 +63,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// Override the email driver
         /// </summary>
         /// <param name="emailDriver">The new email driver</param>
-        public void OverrideDatabaseDriver(EmailDriver emailDriver)
+        public void OverrideEmailClient(EmailDriver emailDriver)
         {
             this.EmailManager.OverrideDriver(emailDriver);
         }

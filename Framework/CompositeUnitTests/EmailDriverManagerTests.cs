@@ -76,7 +76,7 @@ namespace CompositeUnitTests
         [TestMethod]
         public void NewDriverCreatedWhenDriverIsNull()
         {
-            this.TestObject.OverrideDatabaseDriver(null);
+            this.TestObject.OverrideEmailClient((EmailDriver)null);
             Assert.IsNotNull(this.TestObject.EmailDriver);
         }
 
@@ -87,7 +87,7 @@ namespace CompositeUnitTests
         public void EmailDriverOverrideConnetionFunction()
         {
             var originalDriver = this.TestObject.EmailDriver;
-            this.TestObject.OverrideDatabaseConnection(() => ClientFactory.GetDefaultEmailClient());
+            this.TestObject.OverrideEmailClient(() => ClientFactory.GetDefaultEmailClient());
             Assert.AreNotEqual(originalDriver, this.TestObject.EmailDriver, "A new driver should have been created");
         }
 

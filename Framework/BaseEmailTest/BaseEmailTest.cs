@@ -36,7 +36,7 @@ namespace Magenic.Maqs.BaseEmailTest
 
             set
             {
-                this.TestObject.OverrideDatabaseDriver(value);
+                this.TestObject.OverrideEmailClient(value);
             }
         }
 

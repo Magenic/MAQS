@@ -191,5 +191,53 @@ namespace MongoDBUnitTests
 
             Assert.AreEqual(mongoDriver.Collection, this.MongoDBDriver.Collection);
         }
+
+        /// <summary>
+        /// Override driver directly
+        /// </summary>
+        [TestMethod]
+        public void RespectDirectDriverOverride()
+        {
+            var mongoDriver = new MongoDBDriver<BsonDocument>(MongoDBConfig.GetCollectionString());
+            this.MongoDBDriver = mongoDriver;
+
+            Assert.AreEqual(mongoDriver.Collection, this.MongoDBDriver.Collection);
+        }
+
+        /// <summary>
+        /// Override driver with new driver
+        /// </summary>
+        [TestMethod]
+        public void RespectNewDriverOverride()
+        {
+            var mongoDriver = new MongoDBDriver<BsonDocument>(MongoDBConfig.GetCollectionString());
+            this.TestObject.OverrideMongoDBDriver(mongoDriver);
+
+            Assert.AreEqual(mongoDriver.Collection, this.MongoDBDriver.Collection);
+        }
+
+        /// <summary>
+        /// Override drive with collection function
+        /// </summary>
+        [TestMethod]
+        public void RespectCollectionOverride()
+        {
+            var collection = MongoFactory.GetDefaultCollection<BsonDocument>();
+            this.TestObject.OverrideMongoDBDriver(() => collection);
+
+            Assert.AreEqual(collection, this.MongoDBDriver.Collection);
+        }
+
+        /// <summary>
+        /// Override drive with all 3 connection strings
+        /// </summary>
+        [TestMethod]
+        public void RespectDriverConnectionStingsOverride()
+        {
+            var collection = this.MongoDBDriver.Collection;
+            this.TestObject.OverrideMongoDBDriver(MongoDBConfig.GetConnectionString(), MongoDBConfig.GetDatabaseString(), MongoDBConfig.GetCollectionString());
+
+            Assert.AreNotEqual(collection, this.MongoDBDriver.Collection);
+        }
     }
 }

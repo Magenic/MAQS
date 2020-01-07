@@ -27,7 +27,7 @@ namespace CompositeUnitTests
         {
             WebServiceDriver tempDriver = new WebServiceDriver(WebServiceConfig.GetWebServiceUri());
             this.WebServiceDriver = tempDriver;
-            
+
             Assert.AreEqual(this.TestObject.WebServiceManager.Get(), tempDriver);
         }
 
@@ -97,7 +97,7 @@ namespace CompositeUnitTests
         {
             var httpClient = new HttpClient();
             this.TestObject.AddDriverManager(new WebServiceDriverManager(httpClient, this.TestObject), true);
-            
+
             Assert.AreEqual(httpClient, this.WebServiceDriver.HttpClient);
         }
 
@@ -121,6 +121,42 @@ namespace CompositeUnitTests
         {
             var httpClient = new HttpClient();
             this.TestObject.AddDriverManager(new WebServiceDriverManager(new WebServiceDriver(httpClient), this.TestObject), true);
+
+            Assert.AreEqual(httpClient, this.WebServiceDriver.HttpClient);
+        }
+
+        /// <summary>
+        /// Override test object with new driver
+        /// </summary>
+        [TestMethod]
+        public void RespectTestObjectClientOverride()
+        {
+            var httpClient = new HttpClient();
+            this.TestObject.OverrideWebServiceDriver(new WebServiceDriver(httpClient));
+
+            Assert.AreEqual(httpClient, this.WebServiceDriver.HttpClient);
+        }
+
+        /// <summary>
+        /// Override test object with new client function
+        /// </summary>
+        [TestMethod]
+        public void RespectTestObjectClientFunctionOverride()
+        {
+            var httpClient = new HttpClient();
+            this.TestObject.OverrideWebServiceDriver(() => httpClient);
+
+            Assert.AreEqual(httpClient, this.WebServiceDriver.HttpClient);
+        }
+
+        /// <summary>
+        /// Override test object with new client
+        /// </summary>
+        [TestMethod]
+        public void RespectTestObjectDriverOverride()
+        {
+            var httpClient = new HttpClient();
+            this.TestObject.OverrideWebServiceDriver(httpClient);
 
             Assert.AreEqual(httpClient, this.WebServiceDriver.HttpClient);
         }
