@@ -99,7 +99,6 @@ namespace Magenic.Maqs.BaseEmailTest
         {
             if (this.driver != null)
             {
-                (this.BaseDriver as ImapClient).Dispose();
                 this.driver.Dispose();
             }
 
