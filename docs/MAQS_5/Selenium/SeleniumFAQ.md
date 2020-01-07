@@ -1,4 +1,4 @@
-# <img src="resources/maqslogo.ico" height="32" width="32"> FAQ
+# <img src="resources/maqslogo.ico" height="32" width="32"> Selenium FAQ
 
 ## What Browsers can I use?
 - Any browser that has a IWebDriver.  

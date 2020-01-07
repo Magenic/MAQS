@@ -1,4 +1,4 @@
-# <img src="resources/maqslogo.ico" height="32" width="32"> Appium Test Basics
+# <img src="resources/maqslogo.ico" height="32" width="32"> Appium Basics
 
 ## Overview
 MAQS provides support for testing mobile applictions.  
