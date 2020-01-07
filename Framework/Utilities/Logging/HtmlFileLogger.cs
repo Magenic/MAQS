@@ -137,6 +137,10 @@ namespace Magenic.Maqs.Utilities.Logging
             {
                 case MessageType.VERBOSE:
                     return "<p style =\"color:purple\">";
+                case MessageType.ACTION:
+                    return "<p style =\"color:gold\">";
+                case MessageType.STEP:
+                    return "<p style =\"color:orange\">";
                 case MessageType.ERROR:
                     return "<pre><p style=\"color:red\">";
                 case MessageType.GENERIC:
