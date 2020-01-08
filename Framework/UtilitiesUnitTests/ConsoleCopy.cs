@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="ConsoleCopy.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>Copy console output to a file for testing. Copied off the Internet.</summary>
 //--------------------------------------------------
