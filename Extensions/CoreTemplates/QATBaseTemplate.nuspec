@@ -11,7 +11,7 @@
     <icon>MAQS.jpg</icon>
     <projectUrl>https://github.com/Magenic/MAQS</projectUrl>
     <description>Magenic's automation quick start .Net Core templates</description>
-    <copyright>Copyright © Magenic 2019</copyright>
+    <copyright>Copyright © Magenic 2020</copyright>
     <summary>Templates for Magenic's automation framework. 
 This package includes templates for browser, mobile, web service, database, email, generic and composite test solutions.</summary>
     <releaseNotes>
