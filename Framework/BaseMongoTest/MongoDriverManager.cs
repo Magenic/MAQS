@@ -34,13 +34,22 @@ namespace Magenic.Maqs.BaseMongoTest
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="MongoDriverManager{T}" /> class
+        /// </summary>
+        /// <param name="getCollection">Function for getting a Mongo collection connection</param>
+        /// <param name="testObject">Test object this driver is getting added to</param>
+        public MongoDriverManager(Func<IMongoCollection<T>> getCollection, BaseTestObject testObject) : base(getCollection, testObject)
+        {
+        }
+
+        /// <summary>
         /// Override the Mongo driver
         /// </summary>
         /// <param name="overrideDriver">The new Mongo driver</param>
         public void OverrideDriver(MongoDBDriver<T> overrideDriver)
         {
             this.driver = overrideDriver;
-            this.BaseDriver =  overrideDriver.Collection;
+            this.BaseDriver = overrideDriver.Collection;
         }
 
         /// <summary>
