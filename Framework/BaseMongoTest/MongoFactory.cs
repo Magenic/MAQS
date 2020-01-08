@@ -1,10 +1,15 @@
-﻿
+﻿//--------------------------------------------------
+// <copyright file="MongoFactory.cs" company="Magenic">
+//  Copyright 2019 Magenic, All rights Reserved
+// </copyright>
+// <summary>Mongo database driver factory</summary>
+//--------------------------------------------------
 using MongoDB.Driver;
 
 namespace Magenic.Maqs.BaseMongoTest
 {
     /// <summary>
-    /// Email client factory
+    /// Mongo database factory
     /// </summary>
     public static class MongoFactory
     {
