@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="BaseTest.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>Base code for tests without a system under test object like web drivers or database connections</summary>
 //--------------------------------------------------
