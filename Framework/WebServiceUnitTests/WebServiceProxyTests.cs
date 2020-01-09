@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="WebServiceProxyTests.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>Web Service Proxy Tests</summary>
 //--------------------------------------------------
@@ -91,7 +91,6 @@ namespace WebServiceTesterUnitTesting
         private static void StartProxy()
         {
             proxyServer = new ProxyServer();
-            proxyServer.CertificateManager.TrustRootCertificate(true);
             var explicitEndPoint = new ExplicitProxyEndPoint(IPAddress.Any, 8001, true);
             proxyServer.AddEndPoint(explicitEndPoint);
             proxyServer.Start();

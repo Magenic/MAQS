@@ -1,6 +1,6 @@
 //--------------------------------------------------
 // <copyright file="ConfigSection.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>Configuration sections</summary>
 //--------------------------------------------------
@@ -50,6 +50,11 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <summary>
         /// Web service section
         /// </summary>
-        WebServiceMaqs
+        WebServiceMaqs,
+
+        /// <summary>
+        /// Mongo DB Section
+        /// </summary>
+        MongoMaqs
     }
 }

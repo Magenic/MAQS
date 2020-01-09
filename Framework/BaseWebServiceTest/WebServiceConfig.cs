@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="WebServiceConfig.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>Helper class for getting web service specific configuration values</summary>
 //--------------------------------------------------
@@ -12,8 +12,32 @@ namespace Magenic.Maqs.BaseWebServiceTest
     /// <summary>
     /// Config class
     /// </summary>
-    public static class WebServiceConfig
+    public static class WebServiceConfig 
     {
+        /// <summary>
+        /// Checks the config file for required values upon class load
+        /// </summary>
+        static WebServiceConfig()
+        {
+            CheckConfig();
+        }
+
+        /// <summary>
+        /// Logic to check for required values in app.config
+        /// </summary>
+        private static void CheckConfig()
+        {
+            var validator = new ConfigValidation()
+            {
+                RequiredFields = new System.Collections.Generic.List<string>()
+                {
+                    "WebServiceTimeout",
+                    "WebServiceUri"
+                }
+            };
+            Config.Validate(ConfigSection.WebServiceMaqs, validator);
+        }
+
         /// <summary>
         /// Get the web service URI string
         /// </summary>

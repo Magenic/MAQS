@@ -95,7 +95,7 @@ param (
 [string]$SeleniumAxe = "1.3.0"
 [string]$SeleniumSupport = "3.141.0"
 [string]$SeleniumWebDriver = "3.141.0"
-[string]$SeleniumWebDriverChromeDriver = "77.0.3865.4000"
+[string]$SeleniumWebDriverChromeDriver = "78.0.3904.10500"
 [string]$SeleniumWebDriverGeckoDriver = "0.25.0"
 [string]$SeleniumWebDriverGeckoDriverWin32 = "0.25.0"
 [string]$SeleniumWebDriverGeckoDriverWin64 = "0.25.0"

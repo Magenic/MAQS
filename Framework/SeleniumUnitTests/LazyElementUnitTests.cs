@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------
 // <copyright file="LazyElementUnitTests.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>Test the lazy element unit tests</summary>
 //-----------------------------------------------------
@@ -10,6 +10,7 @@ using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
@@ -197,14 +198,14 @@ namespace SeleniumUnitTests
             DateTime start = DateTime.Now;
             try
             {
-                this.WebDriver.SetWaitDriver(new OpenQA.Selenium.Support.UI.WebDriverWait(this.WebDriver, TimeSpan.FromSeconds(2)));
+                this.WebDriver.SetWaitDriver(new OpenQA.Selenium.Support.UI.WebDriverWait(new SystemClock(), this.WebDriver, TimeSpan.FromSeconds(3), TimeSpan.FromMilliseconds(500)));
                 start = DateTime.Now;
                 this.DisabledItem.Click();
             }
             catch (TimeoutException)
             {
                 TimeSpan duration = DateTime.Now - start;
-                Assert.IsTrue(duration < TimeSpan.FromMilliseconds(4000), "The max wait time should be less than 4 seconds but was " + duration);
+                Assert.IsTrue(duration < TimeSpan.FromMilliseconds(6000), "The max wait time should be less than 6 seconds but was " + duration);
             }
         }
 
