@@ -1,31 +1,32 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> Email Basics
 
 ## Overview
-MAQS provides support for testing mobile applictions.  
-
+MAQS provides support for testing Email applictions.  
 
 ## BaseEmailTest
 BaseAppiumTest is an abstract test class you can extend.  Extending the class allows you to automatically use MAQS's web service testing capabilities.
 ```csharp
 [TestClass]
-public class MyAppiumTests : BaseAppiumTest
+public class MyAppiumTests : BaseEmailTest
 ```
 
 ## EmailDriver
-The AppiumDriver is an object that allows you to interact with appium services.  
+The EmailDriver is an object that allows you to interact with appium services.  
 This driver wraps common web service interactions, making appium testing relatively easy.  
 The driver is also thread safe, which means you can run multiple appium tests in parallel.  
 *Information, such as the OS version is pulled from the MAQS configuration.
 ```csharp
 AppiumDriver<IWebElement> driver = AppiumDriverFactory.GetDefaultMobileDriver();
 ```
+
 ## Log
 There is also logger (also thread safe) the can be used to add log message to your log.
 ```csharp
 this.Log.LogMessage("I am testing with MAQS");
 ```
+
 ## EmailTestObject
-The TestObject can be thought of as your test context.  It holds all the MAQS test execution replated data.  This includes the web service driver, logger, soft asserts, performance timers, plus more.
+The TestObject can be thought of as your test context.  It holds all the MAQS test execution replated data.  This includes the Email driver, logger, soft asserts, performance timers, plus more.
 ```csharp
 this.TestObject.WebDriver.Navigate().GoToUrl("http://magenicautomation.azurewebsites.net/");
 this.TestObject.Log.LogMessage("I am testing with MAQS");

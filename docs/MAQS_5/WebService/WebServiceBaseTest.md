@@ -1,4 +1,6 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> Base Web Service Test
+
+## Overview
 The BaseEmailTest class provides access to the EmailTestObject and EmailDriver.
 
 # Available calls

@@ -1,4 +1,6 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> Base Selenium Test
+
+## Overview
 The BaseSeleniumTest class provides access to the SeleniumTestObject and SeleniumDriver.
 
 # Available calls

@@ -1,5 +1,8 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> Database Providers
 
+## Overview
+The Provider interface for connecting and accessing databases.
+
 ## Supported DataBase Providers
 ***Dapper*** does not provide a specific database provider implementation, instead using what is provided to it via extension methods. By default, MAQS provides implementation that supports the following providers:
 

@@ -1,4 +1,6 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> Action Builder
+
+## Overview
 The action builder class contains many advanced methods using interactions with selenium actions class.  This includes actions that need to be preformed synchronously.
 
 ## Hover Over an Element

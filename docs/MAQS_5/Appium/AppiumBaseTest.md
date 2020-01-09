@@ -1,5 +1,4 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> BaseAppiumTest
-The BaseAppiumTest class provides access to the AppiumTestObject and AppiumDriver.
 
 ## Overview
 The BaseAppiumTest has methods that sets up the webdriver, gets the mobile driver, tears down the appium driver, and creates a new test object. 

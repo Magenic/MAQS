@@ -1,7 +1,7 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> Manager Dictionary
 
 ## Overview
-
+The Manager Dictionary contains methods to interact with the Driver manager.
 
 [GetDriver](#GetDriver)
 [Add](#Add)  

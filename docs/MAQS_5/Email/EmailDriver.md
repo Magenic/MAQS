@@ -1,6 +1,6 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> Email Driver
 
-## The EmailDriver
+## Overview
 The EmailDriver object is included in the EmailTestObject. The driver sets and opens a connection to the email on instansitaiton.
 
 ### EventFiringEmailDriver
@@ -8,7 +8,6 @@ Similar to the EmailDriver, except raises an event before an Email interaction.
 
 ### BaseEmailTest and EmailDriver
 Using the EmailDriver within a BaseEmailTest is easy, simply call the driver: 
-
 ```csharp
  EmailDriver temp = new EmailDriver(() => GetClient());
 ```

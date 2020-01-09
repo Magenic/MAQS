@@ -1,15 +1,14 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> Generic Waits
+
+## Overview
 MAQS includes a class of generic wait methods that can assist with waiting until a condition has been met. This provides additional flexibility when special handling is required.
-
-## Overview of Wait Until and Wait For
-
-We use waits to test if a condition was met within a certain amount of time in milliseconds, to do this we use wait time which is how long you wait between retries. These retries are bound by the timeout in milliseconds. These are set in the configuration.
+We use waits to test if a condition was met within a certain amount of time in milliseconds, to do this we use wait time which is how long you wait between retries. 
+These retries are bound by the timeout in milliseconds and are set in the configuration.
 
 We use Wait for if we want to throw an exception if the desired state is not met.  
 We use Wait until if we want the boolean was met within the permitted timeout.
 
 ## Wait Until
-
 ### Wait Until a Func Returns True
 This function will return true if the method returns true, false if the method times out or times out waiting for the method to return true.
 ##### Written as

@@ -1,4 +1,6 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> BaseDatabaseTest
+
+## Overview
 The BaseDatabaseTest class provides access to the DatabaseTestObject and DatabaseDriver.
 
 # Available calls

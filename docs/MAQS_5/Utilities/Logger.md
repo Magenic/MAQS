@@ -1,6 +1,5 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> Logger
 
-
 ## Overview
 The Logger captures test execution information.   
 _*By default, log files end up in the "log" folder. This is located in the same folder as the test DLL._

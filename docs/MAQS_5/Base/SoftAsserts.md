@@ -10,7 +10,8 @@ If the success of a test is dependent on the results of the assertions, then the
 ```csharp
 SoftAssert.FailTestIfAssertFailed();
 ``` 
-will be called, and if any previous SoftAsserts have been determined to have failed, it will throw an exception with the failed assert names, and the failure messages associated with those names.  The test will also write to the log with the end results of the Soft Assert collection.
+will be called, and if any previous SoftAsserts have been determined to have failed, it will throw an exception with the failed assert names, and the failure messages associated with those names.  
+The test will also write to the log with the end results of the Soft Assert collection.
 
 ### Uses
 Soft Asserts are commonly used when collecting large amounts of data that needs to be evaluated without affecting the results of a test.  In unit testing, Asserts will throw an exception if their condition fails.  With Soft Asserts multiple assertions may be made, and stored, to be evaluated later.  They make aggregate that assertion data into one place to be evaluated.
@@ -86,7 +87,6 @@ ERROR:	SoftAssert.AreEqual failed for .  Expected '2' but got '1'.  False assert
 Total number of Asserts: 6. Passed Asserts = 3 Failed Asserts = 3
 ``` 
 
-
 ### Send All Soft Assert Data to the Log
 If the results of a test aren’t dependent on the results of the collection of SoftAsserts, the method LogFinalAssertData may be called.  The method will write to the log the results of the Soft Assert collection, giving a record of any failed or passed results.  Failed soft asserts will be written as warnings.
 
@@ -118,5 +118,3 @@ If any of the previous Soft Assert handler methods are called, it will set a pro
 // Will return true if LogFinalData, FailTestIfAssertFailed, or DidSoftAssertFail was called
 bool didUserCheck = SoftAssert.DidUserCheck();
 ``` 
-
-

@@ -1,4 +1,6 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> Element Handler Class
+
+## Overview
 This class provides additional helper methods on top of Selenium's base interaction methods for common operations done when interacting with HTML elements.
 
 ## Check a Checkbox

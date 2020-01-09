@@ -3,7 +3,6 @@
 ## Overview
 MAQS provides support for testing web services.  
 
-
 ## BaseWebServiceTest
 BaseWebServiceTest is an abstract test class you can extend.  Extending the class allows you to automatically use MAQS's web service testing capabilities.
 ```csharp

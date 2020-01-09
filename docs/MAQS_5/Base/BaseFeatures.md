@@ -1,4 +1,5 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> Base Basics
+
 ## Overview
 MAQS provides support for testing, base is the foundation for this support.  
 
@@ -8,10 +9,10 @@ MAQS provides support for testing, base is the foundation for this support.
   MaqsBase basetest = new MaqsBase();
  ```
 
-## BaseExtenableTest
-Base code that extends the base tests for Selenium, Appium, WebServices, Database, Email, and MongoDB BaseTests.
+## ExtenableTest
+Base code that extends the base test objects for Selenium, Appium, WebServices, Database, Email, and MongoDB drivers or connections.
 
-## BaseTestObject
+## TestObject
 Base test context data
 ```csharp
 BaseTestObject baseTestObject = new BaseTestObject(new ConsoleLogger(), string.Empty);

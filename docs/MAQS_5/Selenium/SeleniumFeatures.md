@@ -3,8 +3,7 @@
 ## Overview
 MAQS provides support for testing web application.  
 
-
-## BaseSeleniumTest
+## BaseTest
 BaseSeleniumTest is an abstract test class you can extend.  Extending the class allows you to automatically use MAQS's web application testing capabilities.
 ```csharp
 [TestClass]
@@ -18,11 +17,18 @@ The WebDriver is an object that allows you to interact with web pages. MAQS exte
 * When logging is enabled MAQS automatically creates EventFiringWebDrivers instead of a standard WebDrivers. So be warned that your WebDriver may actually be an EventFiringWebDrivers.
 * For more info on the Selenium driver you can visit the Selenium GitHub page: https://github.com/SeleniumHQ/selenium/tree/master/dotnet.  *
 
+## DriverManager
+Manages fuctions that interact with the webDriver
+
 ## Configuration 
 Information, such as the type of browser and website base url are pulled from the SeleniumMaqs section your configuration.
 ```csharp
  this.WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase());
 ```
+
+## Utilties
+Static class that contain methods that capture screenshots, Save page sources, checking accessibility, Searching Context, gets screenshots, killing the driver, and sets timeouts. 
+
 ## Log
 There is also logger (also thread safe) the can be used to add log message to your log.
 ```csharp
@@ -37,6 +43,24 @@ this.TestObject.Log.LogMessage("I am testing with MAQS");
 *Notes:*  
 * *Most of the test object objects are already accessible on the test lever. For example **this.Log** and **this.TestObject.Log** both access the same logger.*
 * *You seldom what you use the test object directly.  It is usually only used when you want to share your test MAQS context with another piece of code*
+
+## LazyElement
+Driver for dynamically finding and interacting with elements
+
+## Find
+General Element functions for finding and returning Web Elements
+
+## Waits
+Web driver wait extension methods
+
+## SoftAsserts
+Contains methods for failing certain scenarios in a test.
+
+## ActionBuilder
+Contains methods for interactions using selenium Actions class
+
+## ElementHandler
+Contains functions for interacting with IWebElement objects
 
 ## Sample code
 ```csharp

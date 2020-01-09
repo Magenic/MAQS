@@ -2,6 +2,7 @@
 
 ## Overview 
 A Lazy Element is a handler that enables lazy initialization(not creating an object in memory til its needed)with built in wait methods. 
+
 ## Lazy Element Methods
 
 ### Initialization 

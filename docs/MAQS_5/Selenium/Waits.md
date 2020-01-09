@@ -1,7 +1,9 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> Wait Methods
 
 ## Overview of WaitFor and WaitUntil
-There are two different kinds of wait methods provided, ones prefixed with "WaitFor" and ones prefixed with "WaitUntil." The "WaitFor" methods wait until the condition described in the method name is satisfied, and if it times out without the condition being satisfied, then it throws an exception. Whereas if a "WaitUntil" method times out without its condition being satisfied, it will simply just return false, and if its condition is satisfied, it will return true.
+There are two different kinds of wait methods provided, ones prefixed with "WaitFor" and ones prefixed with "WaitUntil." 
+The "WaitFor" methods wait until the condition described in the method name is satisfied, and if it times out without the condition being satisfied, then it throws an exception. 
+Whereas if a "WaitUntil" method times out without its condition being satisfied, it will simply just return false, and if its condition is satisfied, it will return true.
 
 ## WaitFor Methods
 

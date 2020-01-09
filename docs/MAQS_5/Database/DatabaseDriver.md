@@ -1,5 +1,8 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> DatabaseDriver
 
+## Overview
+Wraps the basic database interactions
+
 ## The DatabaseDriver
 The DatabaseDrive object is included in the DatabaseTestObject. The driver sets and opens a connection to the database on instansitaiton. The driver wraps Dapper functionality. 
 
@@ -11,7 +14,6 @@ Using the DatabaseDriver within a BaseDatabaseTest is easy, simply call the driv
 
 ```csharp
  var orders = this.DatabaseDriver.Query<Orders>("select * from orders").ToList();
-
 ```
 
 ### DatabaseDriver without BaseDatabaseTest
