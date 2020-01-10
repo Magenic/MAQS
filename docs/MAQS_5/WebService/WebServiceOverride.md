@@ -1,7 +1,7 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> Overriding The web service driver
 
 ## Overriding the web service driver 
-By default, BaseWebServiceTest will create a web service driver for you based on your [configuration](MAQS_5/WebServiceConfig.md). Authentication related requirements often require users to override the default web service client.  This is why we provide several different ways for you to provide your own web service driver implementation.
+By default, BaseWebServiceTest will create a web service driver for you based on your [configuration](MAQS_5/WebService/WebServiceConfig.md). Authentication related requirements often require users to override the default web service client.  This is why we provide several different ways for you to provide your own web service driver implementation.
 
 There are three primary ways to override the web service client.
 

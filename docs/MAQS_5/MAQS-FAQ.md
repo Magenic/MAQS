@@ -50,7 +50,7 @@ Error mode will only display messages that would fail a test. This includes a te
 Suspended mode will result in no information written to the log. 
 
 ## Configuration
-- Configuration overrides from MSTest (properties) or NUnit (parameters) are only executed within the context of a test run. If you are using the configuration outside a test, such as part of an assembly initialize, you will need to trigger the update your self by calling [UpdateWithVSTestContext](MAQS_5/Config.md#UpdateWithVSTestContext) or  [UpdateWithNUnitTestContext](MAQS_5/Config.md#UpdateWithNUnitTestContext) depending on which test runner you are using.
+- Configuration overrides from MSTest (properties) or NUnit (parameters) are only executed within the context of a test run. If you are using the configuration outside a test, such as part of an assembly initialize, you will need to trigger the update your self by calling [UpdateWithVSTestContext](MAQS_5/Utilities/Config.md#UpdateWithVSTestContext) or  [UpdateWithNUnitTestContext](MAQS_5/Utilities/Config.md#UpdateWithNUnitTestContext) depending on which test runner you are using.
 
 ## Soft Asserts
 - Specific to a test (inside) These get logged to the Log and become Hard Asserts after use. AreEqual or FailTestIfAssertFailed or Assert.AreEqual  helps your testing approach be more efficient instead of having to fix individual failures.

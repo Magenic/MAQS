@@ -1,7 +1,7 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> Overriding The Selenium WebDriver
 
 ## Overriding the WebDriver 
-By default, BaseSeleniumTest will create a WebDriver for you based on your [configuration](MAQS_5/SeleniumConfig.md). This typically works for most instances, but there are times when the default WebDriver implementation provide by MAQS does not suit your needs. This is why we provide several different ways for you to provide your own WebDriver implementation.
+By default, BaseSeleniumTest will create a WebDriver for you based on your [configuration](MAQS_5/Selenium/SeleniumConfig.md). This typically works for most instances, but there are times when the default WebDriver implementation provide by MAQS does not suit your needs. This is why we provide several different ways for you to provide your own WebDriver implementation.
 
 There are three primary ways to override the WebDriver.
 

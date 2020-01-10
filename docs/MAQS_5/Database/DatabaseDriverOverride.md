@@ -3,7 +3,7 @@ The BaseDatabaseTest class provides access to the TestObject and DatabaseDriver.
 
 
 ## Overriding the Database 
-By default, the BaseDatabaseTest will use one of the included [MAQS Providers](MAQS_5/DatabaseProviders.md) and configuration connection string. 
+By default, the BaseDatabaseTest will use one of the included [MAQS Providers](MAQS_5/Database/DatabaseProviders.md) and configuration connection string. 
 
 There are three primary ways to override the database connection.
 
