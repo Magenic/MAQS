@@ -7,9 +7,8 @@
 - Features
 
 	- i. General
-		- [i. Configurations](MAQS_5/EnterpriseConfiguration.md)
-		- [ii. Manager Store](MAQS_5/ManagerStore.md)
-		- [iii. FAQ](MAQS_5/ComingSoon.md)
+		- [i. Configurations](MAQS_5/General/EnterpriseConfiguration.md)
+		- [ii. Manager Store](MAQS_5/General/ManagerStore.md)
 
 	- ii. Utilities
 		- [i. Generic Wait](MAQS_5/Utilities/Generic-Waits.md)
@@ -25,8 +24,7 @@
 		- [v. Manager Dictionary](MAQS_5/Base/ManagerDictionary.md)
 		- [vi. Extendable Test](MAQS_5/Base/BaseExtendableTest.md)
 		- [vii. Soft Assert](MAQS_5/Base/SoftAsserts.md)
-		- [viii. Soft Assert Exception](MAQS_5/Base/SoftAssertException.md)
-		- [ix. FAQ](MAQS_5/Base/BaseFAQ.md)
+		- [viii. FAQ](MAQS_5/Base/BaseFAQ.md)
 
 	- iv. Selenium
 		- [i. Features](MAQS_5/Selenium/SeleniumFeatures.md)
@@ -66,7 +64,7 @@
 		- [vii. Driver Manager](MAQS_5/Appium/MobileDriverManager.md)
 		- [viii. Lazy Mobile Element](MAQS_5/Appium/LazyMobileElement.md)
 		- [ix. Soft Asserts](MAQS_5/Appium/AppiumSoftAssert.md)
-		- [x. FAQ](MAQS_5/Appium/AppiumFAQ.md)		
+		- [x. FAQ](MAQS_5/Appium/AppiumFAQ.md)
 	
 	- vii. Database
 		- [i. Features](MAQS_5/Database/DatabaseFeatures.md)

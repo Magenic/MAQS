@@ -2,9 +2,13 @@
 
 ## Overview
 Soft Asserts are a collection of assertions.  When a soft assert is called it will determine the results of a condition, along with a name for the soft assert, and a failure message, and save that to a collection of Soft Asserts.  It will also save the results of that Soft Assert to the log.
-To call a Soft Assert, for example the IsEqual that will which compare two inputs, in a test simply write 
+To call a Soft Assert using another assertion library in a test simply write 
 ```csharp
-SoftAssert.IsEqual(input 1, input 2, "Comparing input 1 and input 2");  
+// Simple
+SoftAssert.Assert(() => Assert.IsTrue(shouldBeTrue, "Expected true")); 
+
+// More complex
+SoftAssert.Assert(() => Assert.ThrowsException<StackOverflowException>(DoSomethingBadFunc));
 ```
 If the success of a test is dependent on the results of the assertions, then the method 
 ```csharp
@@ -13,11 +17,33 @@ SoftAssert.FailTestIfAssertFailed();
 will be called, and if any previous SoftAsserts have been determined to have failed, it will throw an exception with the failed assert names, and the failure messages associated with those names.  
 The test will also write to the log with the end results of the Soft Assert collection.
 
-### Uses
+## Uses
 Soft Asserts are commonly used when collecting large amounts of data that needs to be evaluated without affecting the results of a test.  In unit testing, Asserts will throw an exception if their condition fails.  With Soft Asserts multiple assertions may be made, and stored, to be evaluated later.  They make aggregate that assertion data into one place to be evaluated.
 ## Soft Assert Conditionals
+
+
+### Assert(Action)
+Assert will consume any standard assert. If the consumed assertion fails it will store that assert as a failure. If the the consumed assertion does not fail it will store that result as a success.
+
+#### Written as
+```csharp
+SoftAssert.Assert(() => Assert.IsTrue(shouldBeTrue, "Expected true")); 
+```
+#### Examples
+```csharp
+// Results in a true assertion
+SoftAssert.Assert(() => Assert.IsTrue(true, "True assertion")); 
+
+// Results in a false assertion
+SoftAssert.Assert(() => Assert.IsFalse(false, "False assertion")); 
+
+// Throws assertion
+SoftAssert.Assert(() => Assert.ThrowsException<StackOverflowException>(DoSomethingBadFunc));
+``` 
+Assert will check the provided assertion function. If the an assertion if thrown it will store that assert as a failure. If the no assertion is thrown it will store that result as a success.
+
 ### IsTrue(conditional)
-IsTrue will evaluate the condition. If the condition is true it will store that assert as a failure. If the condition is false it will store that result as a success.
+IsTrue will evaluate the condition. If the condition is true it will store that assert as a success. If the condition is false it will store that result as a failure.
 
 #### Written as
 ```csharp
@@ -31,7 +57,7 @@ SoftAssert.IsTrue(true, "True assertion");
 // Results in a false assertion
 SoftAssert.IsTrue(false, "False assertion");
 ``` 
-IsTrue will evaluate the condition.  If the condition is false it will store that assert as a failure.  If the condition is true it will store that result as a success.
+IsTrue will evaluate the condition.  If the condition is false it will store that assert as a success.  If the condition is true it will store that result as a failure.
 ### IsFalse(conditional)
 IsFalse will evaluate the condition.  If the condition is true it will store that assert as a failure.  If the condition is false it will store that result as a success.
 
