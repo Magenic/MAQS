@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="BaseEmailTest.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>This is the base email test class</summary>
 //--------------------------------------------------
