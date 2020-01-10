@@ -26,10 +26,36 @@ namespace CompositeUnitTests
         /// Make sure we can override the driver
         /// </summary>
         [TestMethod]
+        public void CanOverrideEmailDriverOld()
+        {
+            EmailDriver temp = new EmailDriver(() => GetClient());
+#pragma warning disable CS0618 // Type or member is obsolete
+            this.TestObject.EmailManager.OverwriteDriver(temp);
+#pragma warning restore CS0618 // Type or member is obsolete
+
+            Assert.AreEqual(this.TestObject.EmailManager.GetEmailDriver().EmailConnection, EmailDriver.EmailConnection);
+        }
+
+        /// <summary>
+        /// Make sure we can override the driver
+        /// </summary>
+        [TestMethod]
         public void CanOverrideEmailDriver()
         {
             EmailDriver temp = new EmailDriver(() => GetClient());
-            this.TestObject.EmailManager.OverwriteDriver(temp);
+            this.TestObject.EmailManager.OverrideDriver(temp);
+
+            Assert.AreEqual(this.TestObject.EmailManager.GetEmailDriver().EmailConnection, EmailDriver.EmailConnection);
+        }
+
+        /// <summary>
+        /// Make sure we can override the driver directly
+        /// </summary>
+        [TestMethod]
+        public void CanOverrideEmailDriverDirectly()
+        {
+            EmailDriver temp = new EmailDriver(() => GetClient());
+            this.EmailDriver = temp;
 
             Assert.AreEqual(this.TestObject.EmailManager.GetEmailDriver().EmailConnection, EmailDriver.EmailConnection);
         }
@@ -62,7 +88,7 @@ namespace CompositeUnitTests
         [TestMethod]
         public void NewDriverCreatedWhenDriverIsNull()
         {
-            this.TestObject.OverrideDatabaseDriver(null);
+            this.TestObject.OverrideEmailClient((EmailDriver)null);
             Assert.IsNotNull(this.TestObject.EmailDriver);
         }
 
@@ -73,7 +99,7 @@ namespace CompositeUnitTests
         public void EmailDriverOverrideConnetionFunction()
         {
             var originalDriver = this.TestObject.EmailDriver;
-            this.TestObject.OverrideDatabaseConnection(() => ClientFactory.GetDefaultEmailClient());
+            this.TestObject.OverrideEmailClient(() => ClientFactory.GetDefaultEmailClient());
             Assert.AreNotEqual(originalDriver, this.TestObject.EmailDriver, "A new driver should have been created");
         }
 

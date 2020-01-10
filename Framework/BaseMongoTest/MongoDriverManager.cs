@@ -6,6 +6,7 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseTest;
 using Magenic.Maqs.Utilities.Logging;
+using MongoDB.Driver;
 using System;
 
 namespace Magenic.Maqs.BaseMongoTest
@@ -28,9 +29,17 @@ namespace Magenic.Maqs.BaseMongoTest
         /// <param name="databaseString">Database connection string</param>
         /// <param name="collectionString">Mongo collection string</param>
         /// <param name="testObject">Test object this driver is getting added to</param>
-        public MongoDriverManager(string connectionString, string databaseString, string collectionString, BaseTestObject testObject) : base(() => null, testObject)
+        public MongoDriverManager(string connectionString, string databaseString, string collectionString, BaseTestObject testObject) : base(() => MongoFactory.GetCollection<T>(connectionString, databaseString, collectionString), testObject)
         {
-            this.GetDriver = () => (connectionString, databaseString, collectionString);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MongoDriverManager{T}" /> class
+        /// </summary>
+        /// <param name="getCollection">Function for getting a Mongo collection connection</param>
+        /// <param name="testObject">Test object this driver is getting added to</param>
+        public MongoDriverManager(Func<IMongoCollection<T>> getCollection, BaseTestObject testObject) : base(getCollection, testObject)
+        {
         }
 
         /// <summary>
@@ -40,7 +49,29 @@ namespace Magenic.Maqs.BaseMongoTest
         public void OverrideDriver(MongoDBDriver<T> overrideDriver)
         {
             this.driver = overrideDriver;
+            this.BaseDriver = overrideDriver.Collection;
         }
+
+        /// <summary>
+        /// Override the Mongo driver - respects lazy loading
+        /// </summary>
+        /// <param name="overrideDriver">The new collection connection</param>
+        public void OverrideDriver(string connectionString, string databaseString, string collectionString)
+        {
+            this.driver = null;
+            this.OverrideDriverGet(() => MongoFactory.GetCollection<T>(connectionString, databaseString, collectionString));
+        }
+
+        /// <summary>
+        /// Override the Mongo driver - respects lazy loading
+        /// </summary>
+        /// <param name="overrideDriver">The new collection connection</param>
+        public void OverrideDriver(Func<IMongoCollection<T>> overrideCollectionConnection)
+        {
+            this.driver = null;
+            this.OverrideDriverGet(overrideCollectionConnection);
+        }
+
 
         /// <summary>
         /// Get the Mongo driver
@@ -50,17 +81,17 @@ namespace Magenic.Maqs.BaseMongoTest
         {
             if (this.driver == null)
             {
-                ValueTuple<string, string, string> temp = (ValueTuple<string, string, string>)GetBase();
+                IMongoCollection<T> temp = (IMongoCollection<T>)GetBase();
 
                 if (LoggingConfig.GetLoggingEnabledSetting() == LoggingEnabled.NO)
                 {
                     this.Log.LogMessage(MessageType.INFORMATION, "Getting Mongo driver");
-                    this.driver = new MongoDBDriver<T>(temp.Item1, temp.Item2, temp.Item3);
+                    this.driver = new MongoDBDriver<T>(temp);
                 }
                 else
                 {
                     this.Log.LogMessage(MessageType.INFORMATION, "Getting event firing Mongo driver");
-                    this.driver = new EventFiringMongoDBDriver<T>(temp.Item1, temp.Item2, temp.Item3);
+                    this.driver = new EventFiringMongoDBDriver<T>(temp);
                     this.MapEvents((EventFiringMongoDBDriver<T>)this.driver);
                 }
             }

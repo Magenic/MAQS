@@ -1,52 +1,67 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> BaseDatabaseTest
 
 ## Overview
-The BaseDatabaseTest class provides access to the DatabaseTestObject and DatabaseDriver.
+MAQS provides support for testing databases.  
 
-# Available calls
-[GetDatabaseConnection](#GetDatabaseConnection)  
-[CreateNewTestObject](#CreateNewTestObject)  
-
-## DatabaseConnection
-This method gets the database connection. 
+## BaseDatabaseTest
+BaseDatabaseTest is an abstract test class you can extend.  Extending the class allows you to automatically use MAQS's database testing capabilities.
 ```csharp
-protected virtual IDbConnection GetDataBaseConnection()
-{
-    return DatabaseConfig.GetOpenConnection();
-}
+[TestClass]
+public class DatabaseTest : BaseDatabaseTest
 ```
 
-## CreateNewTestObject
-This method creates a database test object.
+## DatabaseDriver
+The DatabaseDriver is an object that allows you to interact with databases.  
+This driver wraps common database interactions, making database testing relatively easy.  
+The driver is also thread safe, which means you can run multiple database tests in parallel.  
+*Information, such as connection strings are pulled from the MAQS configuration.
 ```csharp
- protected override void CreateNewTestObject()
-{
-    Logger newLogger = this.CreateLogger();
-    this.TestObject = new DatabaseTestObject(() => this.GetDataBaseConnection(), newLogger, new SoftAssert(newLogger), this.GetFullyQualifiedTestClassName());
-}
+var table = this.DatabaseDriver.Query("SELECT * FROM information_schema.tables").ToList();
 ```
-
-## Overriding the GetDataBaseConnection method
-By default, the BaseDatabaseTest will use one of the included [MAQS Providers](MAQS_5/DatabaseProviders.md) and configuration connection string. 
-
-There are two primary ways to override the database connection.
-  
-The first way is to simply replace the DatebaseDriver.  
-*This is often done in a test initialize, but it can also be done inside your test.*
+## Log
+There is also logger (also thread safe) the can be used to add log message to your log.
 ```csharp
-IDbConnection connection = ConnectionFactory.GetOpenConnection("SQLITE", $"Data Source={GetDByPath()}");
-this.DatabaseDriver = new DatabaseDriver(connection);
+this.Log.LogMessage("I am testing with MAQS");
 ```
-
-The other way is to override the GetDataBaseConnection method in your test class.
-
+## TestObject
+The TestObject can be thought of as your test context.  It holds all the MAQS test execution replated data.  This includes the database driver, logger, soft asserts, performance timers, plus more.
 ```csharp
-/// <summary>
-/// Get the database connection
-/// </summary>
-/// <returns>The database connection</returns>
-protected override IDbConnection GetDataBaseConnection()
+var table = this.DatabaseDriver.Query("SELECT * FROM information_schema.tables").ToList();
+this.TestObject.Log.LogMessage("I am testing with MAQS");
+```
+*Notes:*  
+* *Most of the test object objects are already accessible on the test lever. For example **this.Log** and **this.TestObject.Log** both access the same logger.*
+* *You seldom what you use the test object directly.  It is usually only used when you want to share your test MAQS context with another piece of code*
+
+## Sample code
+```csharp
+using System.Linq;
+using Magenic.Maqs.BaseDatabaseTest;
+using Magenic.Maqs.Utilities.Helper;
+using Magenic.Maqs.Utilities.Logging;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace DatabaseUnitTests
 {
-   return new YourNewConnectionFunction();
+    /// <summary>
+    /// DatabaseTest test class
+    /// </summary>
+    [TestClass]
+    public class DatabaseTest : BaseDatabaseTest
+    {
+        /// <summary>
+        /// Check that we get back the state table
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Database)]
+        public void VerifyStateTableExists()
+        {
+            this.TestObject.Log.LogMessage(MessageType.INFORMATION, "Before query");
+            var table = this.DatabaseDriver.Query("SELECT * FROM information_schema.tables").ToList();
+            this.Log.LogMessage(MessageType.INFORMATION, "After query");
+
+            Assert.IsTrue(table.Any(n => n.TABLE_NAME.Equals("States")));
+        }
+    }
 }
 ```

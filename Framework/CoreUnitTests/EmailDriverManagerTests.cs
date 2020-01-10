@@ -30,7 +30,32 @@ namespace CoreUnitTests
         public void CanOverrideEmailDriver()
         {
             EmailDriver temp = new EmailDriver(() => GetClient());
+            this.TestObject.EmailManager.OverrideDriver(temp);
+
+            Assert.AreEqual(this.TestObject.EmailManager.GetEmailDriver().EmailConnection, EmailDriver.EmailConnection);
+        }
+
+        /// <summary>
+        /// Make sure we can override the driver in a lazy fashion
+        /// </summary>
+        [TestMethod]
+        public void CanLazyOverrideEmailDriver()
+        {
+            this.TestObject.EmailManager.OverrideDriver(() => GetClient());
+            Assert.AreEqual(false, this.TestObject.EmailManager.IsDriverIntialized(), "Did not expect the driver to be initialized");
+            Assert.AreEqual(this.TestObject.EmailManager.GetEmailDriver().EmailConnection, EmailDriver.EmailConnection);
+        }
+
+        /// <summary>
+        /// Make sure we can override the driver
+        /// </summary>
+        [TestMethod]
+        public void CanOverrideEmailDriverOld()
+        {
+            EmailDriver temp = new EmailDriver(() => GetClient());
+#pragma warning disable CS0618 // Type or member is obsolete
             this.TestObject.EmailManager.OverwriteDriver(temp);
+#pragma warning restore CS0618 // Type or member is obsolete
 
             Assert.AreEqual(this.TestObject.EmailManager.GetEmailDriver().EmailConnection, EmailDriver.EmailConnection);
         }
