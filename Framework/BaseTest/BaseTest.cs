@@ -578,22 +578,16 @@ namespace Magenic.Maqs.BaseTest
         /// </summary>
         private void AttachAssociatedFiles()
         {
-            string logPath = string.Empty;
-
-            if (this.Log is FileLogger && File.Exists(((FileLogger)this.Log).FilePath))
+            // You can only attach files to VS Unit tests so check that first 
+            if (this.testContextInstance != null)
             {
-                logPath = ((FileLogger)this.Log).FilePath;
-            }
-
-            try
-            {
-                // This only works for VS unit test so check that first
-                if (this.testContextInstance != null)
+                try
                 {
-                    // Only attach log if it is a file logger and we can find it
-                    if (!string.IsNullOrEmpty(logPath))
+                    // See if we can add the log file
+                    if (this.Log is FileLogger && File.Exists(((FileLogger)this.Log).FilePath))
                     {
-                        this.TestObject.AddAssociatedFile(logPath);
+                        // Add the log file
+                        this.TestContext.AddResultFile(((FileLogger)this.Log).FilePath);
                     }
 
                     // Attach all existing associated files
@@ -605,20 +599,16 @@ namespace Magenic.Maqs.BaseTest
                         }
                     }
 
+                    // All files were attached so nothing left to do
                     return;
                 }
-            }
-            catch (Exception e)
-            {
-                this.TryToLog(MessageType.WARNING, "Failed to attach test result file because: " + e.Message);
-            }
-
-            // if attachment failed or project is core, write the list of files to the log
-            if (!string.IsNullOrEmpty(logPath))
-            {
-                this.TestObject.RemoveAssociatedFile(logPath);
+                catch (Exception e)
+                {
+                    this.TryToLog(MessageType.WARNING, "Failed to attach test result file because: " + e.Message);
+                }
             }
 
+            // Not all the files were attached so write them to the log instead
             string[] assocFiles = this.TestObject.GetArrayOfAssociatedFiles();
 
             if (assocFiles.Length > 0)

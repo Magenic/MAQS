@@ -10,7 +10,6 @@ using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Reflection;
 
 namespace UtilitiesUnitTesting
 {

@@ -4,7 +4,7 @@
 ***Dapper*** is a simple, fast, open source object-relational mapping (ORM) framework. Dapper allows tests to map the database queries results into defeind or dynamic objects. See the Dapper github page for more information and usage guides: [Dapper GitHub](https://github.com/StackExchange/Dapper).
 
 ## MAQS with Dapper
-MAQS integrates seemlessly with Dapper by implementing some default [MAQS Providers](MAQS_5/DatabaseProviders.md) and [MAQS Database Configuration Keys](MAQS_5/DatabaseSettings.md). 
+MAQS integrates seemlessly with Dapper by implementing some default [MAQS Providers](MAQS_5/Database/DatabaseProviders.md) and [MAQS Database Configuration Keys](MAQS_5/Database/DatabaseConfig.md). 
 
 To execute a query and map the results into a list of Orders objects:
 ```

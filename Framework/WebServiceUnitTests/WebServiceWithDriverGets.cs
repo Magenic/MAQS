@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Net.Http;
-using System.Text;
 using WebServiceTesterUnitTesting.Model;
 
 namespace WebServiceTesterUnitTesting
