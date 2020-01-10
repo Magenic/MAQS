@@ -7,13 +7,11 @@
 using Magenic.Maqs.BaseSeleniumTest;
 using Magenic.Maqs.BaseSeleniumTest.Extensions;
 using Magenic.Maqs.Utilities.Helper;
-using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 
 namespace SeleniumUnitTests
 {
@@ -250,15 +248,15 @@ namespace SeleniumUnitTests
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteUrl);
             this.WebDriver.Wait().ForPageLoad();
-            this.WebDriver.SetWaitDriver(new WebDriverWait(new SystemClock(), this.WebDriver, TimeSpan.FromMilliseconds(1000), TimeSpan.FromMilliseconds(100)));
+            this.WebDriver.SetWaitDriver(new WebDriverWait(new SystemClock(), this.WebDriver, TimeSpan.FromMilliseconds(2000), TimeSpan.FromMilliseconds(500)));
             IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
 
             DateTime start = DateTime.Now;
             element.Wait().UntilAbsentElement(HomeButtonCssSelector);
             TimeSpan span = DateTime.Now - start;
 
-            Assert.IsTrue(span.TotalMilliseconds > 1000, "Timed out too quickly, should have taken at least 1 second.");
-            Assert.IsTrue(span.TotalMilliseconds < 2000, "Didn't timeout quickly enough, should have occured in under 2 seconds.");
+            Assert.IsTrue(span.TotalMilliseconds > 2000, "Timed out too quickly, should have taken at least 2 second.");
+            Assert.IsTrue(span.TotalMilliseconds < 4000, "Didn't timeout quickly enough, should have occured in under 4 seconds.");
         }
 
         /// <summary>

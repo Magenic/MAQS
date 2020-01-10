@@ -28,8 +28,59 @@ namespace CompositeUnitTests
         {
             DatabaseDriver tempDriver = new DatabaseDriver(DatabaseConfig.GetOpenConnection());
             this.DatabaseDriver = tempDriver;
-            
+
             Assert.AreEqual(this.TestObject.DatabaseManager.Get(), tempDriver);
+        }
+
+        /// <summary>
+        /// Can override connection function
+        /// </summary>
+        [TestMethod]
+        public void CanOverrideConnetionFunction()
+        {
+            var newConnection = DatabaseConfig.GetOpenConnection();
+            this.TestObject.OverrideDatabaseConnection(() => newConnection);
+
+            Assert.AreEqual(newConnection, this.DatabaseDriver.Connection);
+        }
+
+        /// <summary>
+        /// Can override driver 
+        /// </summary>
+        [TestMethod]
+        public void CanOverrideDatabaseDriverInTestObject()
+        {
+            var newConnection = DatabaseConfig.GetOpenConnection();
+            this.TestObject.OverrideDatabaseDriver(new DatabaseDriver(newConnection));
+
+            Assert.AreEqual(newConnection, this.DatabaseDriver.Connection);
+        }
+
+        /// <summary>
+        /// Can overwrite driver 
+        /// </summary>
+        [TestMethod]
+        public void CanOverwriteDatabaseDriverInTestObject()
+        {
+            var newConnection = DatabaseConfig.GetOpenConnection();
+
+#pragma warning disable CS0618 // Type or member is obsolete
+            this.TestObject.DatabaseManager.OverwriteDriver(new DatabaseDriver(newConnection));
+#pragma warning restore CS0618 // Type or member is obsolete
+
+            Assert.AreEqual(newConnection, this.DatabaseDriver.Connection);
+        }
+
+        /// <summary>
+        /// Can override driver with connection
+        /// </summary>
+        [TestMethod]
+        public void CanOverrideDatabaseDriverWithConnection()
+        {
+            var newConnection = DatabaseConfig.GetOpenConnection();
+            this.TestObject.OverrideDatabaseDriver(newConnection);
+
+            Assert.AreEqual(newConnection, this.DatabaseDriver.Connection);
         }
 
         /// <summary>

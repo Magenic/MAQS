@@ -69,7 +69,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <param name="appiumDriver">New Appium driver</param>
         public void OverrideWebDriver(AppiumDriver<IWebElement> appiumDriver)
         {
-            this.OverrideDriverManager(typeof(MobileDriverManager).FullName, new MobileDriverManager(() => appiumDriver, this));
+            this.AppiumManager.OverrideDriver(appiumDriver);
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <param name="appiumDriver">New function for initializing a Appium driver</param>
         public void OverrideWebDriver(Func<AppiumDriver<IWebElement>> appiumDriver)
         {
-            this.OverrideDriverManager(typeof(MobileDriverManager).FullName, new MobileDriverManager(appiumDriver, this));
+            this.AppiumManager.OverrideDriver(appiumDriver);
         }
     }
 }

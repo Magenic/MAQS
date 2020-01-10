@@ -28,6 +28,24 @@ namespace Magenic.Maqs.BaseAppiumTest
         }
 
         /// <summary>
+        /// Override the Appium driver
+        /// </summary>
+        /// <param name="overrideDriver">The new Appium driver</param>
+        public void OverrideDriver(AppiumDriver<IWebElement> overrideDriver)
+        {
+            this.OverrideDriverGet(() => overrideDriver);
+        }
+
+        /// <summary>
+        /// Override the Appium driver
+        /// </summary>
+        /// <param name="overrideDriver">The new Appium driver</param>
+        public void OverrideDriver(Func<AppiumDriver<IWebElement>> overrideDriver)
+        {
+            this.OverrideDriverGet(overrideDriver);
+        }
+
+        /// <summary>
         /// Get the Appium driver
         /// </summary>
         /// <returns>The Appium driver</returns>

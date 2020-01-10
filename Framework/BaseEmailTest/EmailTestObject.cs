@@ -17,11 +17,6 @@ namespace Magenic.Maqs.BaseEmailTest
     public class EmailTestObject : BaseTestObject
     {
         /// <summary>
-        /// Gets the email connection driver
-        /// </summary>
-        private EmailDriver driver;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="EmailTestObject" /> class
         /// </summary>
         /// <param name="emailConnection">The test's email connection</param>
@@ -51,11 +46,6 @@ namespace Magenic.Maqs.BaseEmailTest
         {
             get
             {
-                if (this.driver != null)
-                {
-                    return this.driver;
-                }
-
                 return this.EmailManager.GetEmailDriver();
             }
         }
@@ -64,29 +54,18 @@ namespace Magenic.Maqs.BaseEmailTest
         /// Override the email driver
         /// </summary>
         /// <param name="emailConnection">Function for getting an email connection</param>
-        public void OverrideDatabaseConnection(Func<ImapClient> emailConnection)
+        public void OverrideEmailClient(Func<ImapClient> emailConnection)
         {
-            if (this.driver != null)
-            {
-                this.driver.Dispose();
-                this.driver = null;
-            }
-
-            this.OverrideDriverManager(typeof(EmailDriverManager).FullName, new EmailDriverManager(emailConnection, this));
+            this.EmailManager.OverrideDriver(emailConnection);
         }
 
         /// <summary>
         /// Override the email driver
         /// </summary>
         /// <param name="emailDriver">The new email driver</param>
-        public void OverrideDatabaseDriver(EmailDriver emailDriver)
+        public void OverrideEmailClient(EmailDriver emailDriver)
         {
-            if (this.driver != null)
-            {
-                this.driver.Dispose();
-            }
-
-            this.driver = emailDriver;
+            this.EmailManager.OverrideDriver(emailDriver);
         }
     }
 }
