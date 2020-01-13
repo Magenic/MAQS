@@ -90,7 +90,7 @@
 		- [iv. Driver](MAQS_5/MongoDB/MongoDBDriver.md)
 		- [v. Config](MAQS_5/MongoDB/MongoDBConfig.md)
 		- [vi. Event Firing Driver](MAQS_5/MongoDB/EventFiringMongoDBDriver.md)
-		- [vii. Driver Manager](MAQS_5/MongoDB/MongoDrivermanager.md)
+		- [vii. Driver Manager](MAQS_5/MongoDB/MongoDriverManager.md)
 		- [viii. Overriding the Driver](MAQS_5/MongoDB/MongoDriverOverride.md)
 		- [ix. FAQ](MAQS_5/MongoDB/MongoFAQ.md)
 
