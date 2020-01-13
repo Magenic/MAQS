@@ -1,22 +1,28 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{988DFCFF-49AE-4677-9B50-D61C14008E49}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NugetBuild</RootNamespace>
+    <TargetFrameworks>net471;netstandard2.0;netstandard2.1</TargetFrameworks>
     <AssemblyName>NugetBuild</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <RootNamespace>NugetBuild</RootNamespace>
+    <ProjectGuid>{988DFCFF-49AE-4677-9B50-D61C14008E49}</ProjectGuid>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
-    <TargetFrameworkProfile />
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Authors>Magenic</Authors>
+    <Description>Magenic's automation quick start framework</Description>
+    <Copyright>Copyright © Magenic 2020</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</PackageIconUrl>
+    <PackageIcon>MAQS.jpg</PackageIcon>
+    <PackageProjectUrl>https://github.com/Magenic/MAQS</PackageProjectUrl>
+    <PackageTags>test selenium appium automation NUnit MSTest TestFramework</PackageTags>
+    <PackageReleaseNotes>6.0.0 - 2020-??-??</PackageReleaseNotes>
   </PropertyGroup>
+  
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -26,6 +32,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>0</WarningLevel>
   </PropertyGroup>
+  
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
@@ -34,65 +41,43 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <PackageReference Include="Magenic.Maqs.BaseAppiumTest" Version="5.7.0" />
+    <PackageReference Include="Magenic.Maqs.BaseDatabaseTest" Version="5.7.0" />
+    <PackageReference Include="Magenic.Maqs.BaseEmailTest" Version="5.7.0" />
+    <PackageReference Include="Magenic.Maqs.BaseMongoTest" Version="5.7.0" />
+    <PackageReference Include="Magenic.Maqs.BaseSeleniumTest" Version="5.7.0" />
+    <PackageReference Include="Magenic.Maqs.BaseTest" Version="5.7.0" />
+    <PackageReference Include="Magenic.Maqs.WebServiceTester" Version="5.7.0" />
+    <PackageReference Include="Magenic.Maqs.Utilities" Version="5.7.0" />
   </ItemGroup>
+  
   <ItemGroup>
-    <ProjectReference Include="..\BaseAppiumTest\BaseAppiumTest.csproj">
-      <Project>{b7d2643d-6848-4233-bd60-e52db10a6200}</Project>
-      <Name>BaseAppiumTest</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BaseDatabaseTest\BaseDatabaseTest.csproj">
-      <Project>{44c5417d-f2b6-4d8d-a2be-4f43f75febc7}</Project>
-      <Name>BaseDatabaseTest</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BaseEmailTest\BaseEmailTest.csproj">
-      <Project>{6e551c39-5307-4371-8315-8fd5b9381aed}</Project>
-      <Name>BaseEmailTest</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BaseMongoTest\BaseMongoTest.csproj">
-      <Project>{91ca9bc9-c036-442d-9032-4b2a184e2b17}</Project>
-      <Name>BaseMongoTest</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BaseSeleniumTest\BaseSeleniumTest.csproj">
-      <Project>{cf21dfef-3fce-4766-b261-f2225b5442ec}</Project>
-      <Name>BaseSeleniumTest</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BaseTest\BaseTest.csproj">
-      <Project>{60f10d47-3546-4b4b-b49b-5a361ddc1bcb}</Project>
-      <Name>BaseTest</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BaseWebServiceTest\BaseWebServiceTest.csproj">
-      <Project>{36c9b036-114e-4e85-be8f-5d7f5661c432}</Project>
-      <Name>BaseWebServiceTest</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SpecFlowExtension\SpecFlowExtension.csproj">
-      <Project>{73a3b99b-cdcb-430b-a03c-5a57869a4c33}</Project>
-      <Name>SpecFlowExtension</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Utilities\Utilities.csproj">
-      <Project>{949364a1-08d7-4e79-8ca2-228ea925438f}</Project>
-      <Name>Utilities</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\BaseAppiumTest\BaseAppiumTest.csproj" />
+    <ProjectReference Include="..\BaseDatabaseTest\BaseDatabaseTest.csproj" />
+    <ProjectReference Include="..\BaseEmailTest\BaseEmailTest.csproj" />
+    <ProjectReference Include="..\BaseMongoTest\BaseMongoTest.csproj" />
+    <ProjectReference Include="..\BaseSeleniumTest\BaseSeleniumTest.csproj" />
+    <ProjectReference Include="..\BaseTest\BaseTest.csproj" />
+    <ProjectReference Include="..\BaseWebServiceTest\BaseWebServiceTest.csproj" />
+    <ProjectReference Include="..\Utilities\Utilities.csproj" />
   </ItemGroup>
+  
   <ItemGroup>
     <None Include="package.nuspec">
       <SubType>Designer</SubType>
     </None>
     <None Include="packageSpecFlow.nuspec" />
     <None Include="Settings.StyleCop" />
+    <None Include="..\MAQS.jpg" Pack="true" PackagePath="" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  
   <PropertyGroup>
     <PostBuildEvent>"$(SolutionDir).nuget\NuGet.exe" pack "$(ProjectDir)package.nuspec" -IncludeReferencedProjects -BasePath "$(ProjectDir) " -NonInteractive -OutputDirectory "$(TargetDir) "  -Symbols -Prop Configuration=$(Configuration);OutputPath="$(OutDir) "
 "$(SolutionDir).nuget\NuGet.exe" pack "$(ProjectDir)packageSpecFlow.nuspec" -IncludeReferencedProjects -BasePath "$(ProjectDir) " -NonInteractive -OutputDirectory "$(TargetDir) "  -Symbols -Prop Configuration=$(Configuration);OutputPath="$(OutDir) "</PostBuildEvent>
   </PropertyGroup>
+  
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
