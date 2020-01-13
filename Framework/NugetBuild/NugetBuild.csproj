@@ -43,16 +43,6 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  
-  <ItemGroup>
     <ProjectReference Include="..\BaseAppiumTest\BaseAppiumTest.csproj" />
     <ProjectReference Include="..\BaseDatabaseTest\BaseDatabaseTest.csproj" />
     <ProjectReference Include="..\BaseEmailTest\BaseEmailTest.csproj" />
@@ -71,7 +61,7 @@
     <None Include="Settings.StyleCop" />
     <None Include="..\MAQS.jpg" Pack="true" PackagePath="" />
   </ItemGroup>
-  
+
   <PropertyGroup>
     <PostBuildEvent>"$(SolutionDir).nuget\NuGet.exe" pack "$(ProjectDir)package.nuspec" -IncludeReferencedProjects -BasePath "$(ProjectDir) " -NonInteractive -OutputDirectory "$(TargetDir) "  -Symbols -Prop Configuration=$(Configuration);OutputPath="$(OutDir) "
 "$(SolutionDir).nuget\NuGet.exe" pack "$(ProjectDir)packageSpecFlow.nuspec" -IncludeReferencedProjects -BasePath "$(ProjectDir) " -NonInteractive -OutputDirectory "$(TargetDir) "  -Symbols -Prop Configuration=$(Configuration);OutputPath="$(OutDir) "</PostBuildEvent>
