@@ -97,7 +97,7 @@
 	- ix. Email
 		- [i. Features](MAQS_5/Email/EmailFeatures.md)
 		- [ii. Base Test](MAQS_5/Email/EmailBaseTest.md)
-		- [iii. Test Object](MAQS_5/Email/EmailTestobject.md)
+		- [iii. Test Object](MAQS_5/Email/EmailTestObject.md)
 		- [iv. Driver](MAQS_5/Email/EmailDriver.md)
 		- [v. Config](MAQS_5/Email/EmailConfig.md)
 		- [vi. Driver Manager](MAQS_5/Email/EmailDriverManager.md)
