@@ -90,14 +90,14 @@
 		- [iv. Driver](MAQS_5/MongoDB/MongoDBDriver.md)
 		- [v. Config](MAQS_5/MongoDB/MongoDBConfig.md)
 		- [vi. Event Firing Driver](MAQS_5/MongoDB/EventFiringMongoDBDriver.md)
-		- [vii. Driver Manager](MAQS_5/MongoDB/MongoDrivermanager.md)
+		- [vii. Driver Manager](MAQS_5/MongoDB/MongoDriverManager.md)
 		- [viii. Overriding the Driver](MAQS_5/MongoDB/MongoDriverOverride.md)
 		- [ix. FAQ](MAQS_5/MongoDB/MongoFAQ.md)
 
 	- ix. Email
 		- [i. Features](MAQS_5/Email/EmailFeatures.md)
 		- [ii. Base Test](MAQS_5/Email/EmailBaseTest.md)
-		- [iii. Test Object](MAQS_5/Email/EmailTestobject.md)
+		- [iii. Test Object](MAQS_5/Email/EmailTestObject.md)
 		- [iv. Driver](MAQS_5/Email/EmailDriver.md)
 		- [v. Config](MAQS_5/Email/EmailConfig.md)
 		- [vi. Driver Manager](MAQS_5/Email/EmailDriverManager.md)
