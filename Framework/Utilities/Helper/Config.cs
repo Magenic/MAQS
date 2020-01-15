@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="Config.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>Helper class for getting application configuration values</summary>
 //--------------------------------------------------
@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Xml.Linq;
 using VSTestContext = Microsoft.VisualStudio.TestTools.UnitTesting.TestContext;
 
@@ -72,6 +73,39 @@ namespace Magenic.Maqs.Utilities.Helper
                         }
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Validates the app config section by ensuring required values are present
+        /// </summary>
+        /// <param name="configSection">The config section to be validated</param>
+        /// <param name="configValidation">A list of strings containing the requried field names</param>
+        public static void Validate(ConfigSection configSection, ConfigValidation configValidation)
+        {
+            if (configValidation == null)
+            {
+                throw new MaqsConfigException("The value passed in for configValidation (required fields in a config) is null");
+            }
+            var configSectionPassed = GetSection(configSection);
+            
+            List<string> exceptions = new List<string>();
+            foreach(var requiredField in configValidation.RequiredFields)
+            {
+                if (!configSectionPassed.ContainsKey(requiredField))
+                {
+                    exceptions.Add("Key missing " + requiredField);
+                } 
+            }
+
+            if(exceptions.Count > 0)
+            {
+                StringBuilder message = new StringBuilder();
+                foreach(var mess in exceptions)
+                {
+                    message.AppendLine(mess);
+                }
+                throw new MaqsConfigException(message.ToString());
             }
         }
 

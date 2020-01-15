@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="MongoDriverManagerTests.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>Mongo database driver store tests</summary>
 //-------------------------------------------------- 
@@ -31,7 +31,7 @@ namespace CoreUnitTests
         {
             MongoDBDriver<BsonDocument> tempDriver = new MongoDBDriver<BsonDocument>();
             this.MongoDBDriver = tempDriver;
-            
+
             Assert.AreEqual(this.TestObject.MongoDBManager.Get(), tempDriver);
         }
 
@@ -41,11 +41,28 @@ namespace CoreUnitTests
         [TestMethod]
         public void CanUseMultiple()
         {
-            MongoDriverManager<BsonDocument> newDriver = new MongoDriverManager<BsonDocument>(MongoDBConfig.GetConnectionString(), MongoDBConfig.GetDatabaseString(), MongoDBConfig.GetCollectionString(),  this.TestObject);
+            MongoDriverManager<BsonDocument> newManger = new MongoDriverManager<BsonDocument>(MongoDBConfig.GetConnectionString(), MongoDBConfig.GetDatabaseString(), MongoDBConfig.GetCollectionString(), this.TestObject);
+            this.ManagerStore.Add("test", newManger);
+
+            Assert.AreNotEqual(this.TestObject.MongoDBDriver, (MongoDriverManager<BsonDocument>)this.ManagerStore["test"]);
+            Assert.AreNotEqual(this.TestObject.MongoDBManager.Get(), ((MongoDriverManager<BsonDocument>)this.ManagerStore["test"]).Get());
+            Assert.AreEqual(newManger.GetMongoDriver(), ((MongoDriverManager<BsonDocument>)this.ManagerStore["test"]).GetMongoDriver());
+        }
+
+        /// <summary>
+        /// Check that we can add multiples of the same driver type, provided we use a key
+        /// </summary>
+        [TestMethod]
+        public void CanUseMultipleWithFunc()
+        {
+            var newCollection = MongoFactory.GetCollection<BsonDocument>(MongoDBConfig.GetConnectionString(), MongoDBConfig.GetDatabaseString(), MongoDBConfig.GetCollectionString());
+
+            MongoDriverManager<BsonDocument> newDriver = new MongoDriverManager<BsonDocument>(() => newCollection, this.TestObject);
             this.ManagerStore.Add("test", newDriver);
 
             Assert.AreNotEqual(this.TestObject.MongoDBDriver, (MongoDriverManager<BsonDocument>)this.ManagerStore["test"]);
             Assert.AreNotEqual(this.TestObject.MongoDBManager.Get(), ((MongoDriverManager<BsonDocument>)this.ManagerStore["test"]).Get());
+            Assert.AreEqual(newCollection, ((MongoDriverManager<BsonDocument>)this.ManagerStore["test"]).GetMongoDriver().Collection);
         }
 
         /// <summary>

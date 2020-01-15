@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="MongoDBManagerTests.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>Unit test class for the MongoDB driver</summary>
 //--------------------------------------------------
@@ -151,6 +151,129 @@ namespace MongoDBUnitTests
         {
             int databaseTimeout = MongoDBConfig.GetQueryTimeout();
             Assert.AreEqual(30, databaseTimeout);
+        }
+
+        /// <summary>
+        /// Override with default driver
+        /// </summary>
+        [TestMethod]
+        public void RespectDefaultDriverOverride()
+        {
+            var mongoDriver = new MongoDBDriver<BsonDocument>();
+            this.TestObject.MongoDBManager.OverrideDriver(mongoDriver);
+
+            Assert.AreEqual(mongoDriver.Collection, this.MongoDBDriver.Collection);
+            Assert.AreEqual(mongoDriver.Collection.Database, this.MongoDBDriver.Database);
+            Assert.AreEqual(mongoDriver.Collection.Database.Client, this.MongoDBDriver.Client);
+        }
+
+        /// <summary>
+        /// Override driver with collection string
+        /// </summary>
+        [TestMethod]
+        public void RespectCollectionDriverOverride()
+        {
+            //MongoDBConfig.GetConnectionString(), MongoDBConfig.GetDatabaseString(), collectionString
+            var mongoDriver = new MongoDBDriver<BsonDocument>(MongoDBConfig.GetCollectionString());
+            this.TestObject.MongoDBManager.OverrideDriver(mongoDriver);
+
+            Assert.AreEqual(mongoDriver.Collection, this.MongoDBDriver.Collection);
+        }
+
+        /// <summary>
+        /// Override drive with all 3 connection strings
+        /// </summary>
+        [TestMethod]
+        public void RespectDriverConnectionsOverride()
+        {
+            var mongoDriver = new MongoDBDriver<BsonDocument>(MongoDBConfig.GetConnectionString(), MongoDBConfig.GetDatabaseString(), MongoDBConfig.GetCollectionString());
+            this.TestObject.MongoDBManager.OverrideDriver(mongoDriver);
+
+            Assert.AreEqual(mongoDriver.Collection, this.MongoDBDriver.Collection);
+        }
+
+        /// <summary>
+        /// Override driver directly
+        /// </summary>
+        [TestMethod]
+        public void RespectDirectDriverOverride()
+        {
+            var mongoDriver = new MongoDBDriver<BsonDocument>(MongoDBConfig.GetCollectionString());
+            this.MongoDBDriver = mongoDriver;
+
+            Assert.AreEqual(mongoDriver.Collection, this.MongoDBDriver.Collection);
+        }
+
+        /// <summary>
+        /// Override driver with new driver
+        /// </summary>
+        [TestMethod]
+        public void RespectNewDriverOverride()
+        {
+            var mongoDriver = new MongoDBDriver<BsonDocument>(MongoDBConfig.GetCollectionString());
+            this.TestObject.OverrideMongoDBDriver(mongoDriver);
+
+            Assert.AreEqual(mongoDriver.Collection, this.MongoDBDriver.Collection);
+        }
+
+        /// <summary>
+        /// Override drive with collection function
+        /// </summary>
+        [TestMethod]
+        public void RespectCollectionOverride()
+        {
+            var collection = MongoFactory.GetDefaultCollection<BsonDocument>();
+            this.TestObject.OverrideMongoDBDriver(() => collection);
+
+            Assert.AreEqual(collection, this.MongoDBDriver.Collection);
+        }
+
+        /// <summary>
+        /// Override drive with all 3 connection strings
+        /// </summary>
+        [TestMethod]
+        public void RespectDriverConnectionStingsOverride()
+        {
+            var collection = this.MongoDBDriver.Collection;
+            this.TestObject.OverrideMongoDBDriver(MongoDBConfig.GetConnectionString(), MongoDBConfig.GetDatabaseString(), MongoDBConfig.GetCollectionString());
+
+            Assert.AreNotEqual(collection, this.MongoDBDriver.Collection);
+        }
+
+        /// <summary>
+        /// Override in base with collection function
+        /// </summary>
+        [TestMethod]
+        public void RespectCollectionOverrideInBase()
+        {
+            var collection = MongoFactory.GetDefaultCollection<BsonDocument>();
+            this.OverrideConnectionDriver(() => collection);
+
+            Assert.AreEqual(collection, this.MongoDBDriver.Collection);
+        }
+
+        /// <summary>
+        /// Override in base with new driver
+        /// </summary>
+        [TestMethod]
+        public void RespectDriverOverrideInBase()
+        {
+            var collection = MongoFactory.GetDefaultCollection<BsonDocument>();
+            this.OverrideConnectionDriver(new MongoDBDriver<BsonDocument>(collection));
+
+            Assert.AreEqual(collection, this.MongoDBDriver.Collection);
+        }
+
+        /// <summary>
+        /// Override drive with strings in base
+        /// </summary>
+        [TestMethod]
+        public void RespectConnectionStingsOverrideInBase()
+        {
+            var collection = this.MongoDBDriver.Collection;
+            this.OverrideConnectionDriver(MongoDBConfig.GetConnectionString(), MongoDBConfig.GetDatabaseString(), MongoDBConfig.GetCollectionString());
+
+            Assert.AreNotEqual(collection, this.MongoDBDriver.Collection);
         }
     }
 }

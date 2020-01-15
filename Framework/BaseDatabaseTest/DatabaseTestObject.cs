@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="DatabaseTestObject.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>Holds database context data</summary>
 //--------------------------------------------------
@@ -56,7 +56,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// <param name="databaseConnection">Function for creating a database connection</param>
         public void OverrideDatabaseConnection(Func<IDbConnection> databaseConnection)
         {
-            this.OverrideDriverManager(typeof(DatabaseDriverManager).FullName, new DatabaseDriverManager(databaseConnection, this));
+            this.DatabaseManager.OverrideDriver(databaseConnection);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// <param name="databaseConnection">New database connection</param>
         public void OverrideDatabaseDriver(IDbConnection databaseConnection)
         {
-            this.OverrideDriverManager(typeof(DatabaseDriverManager).FullName, new DatabaseDriverManager(() => databaseConnection, this));
+            this.DatabaseManager.OverrideDriver(() => databaseConnection);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// <param name="driver">New database connection driver</param>
         public void OverrideDatabaseDriver(DatabaseDriver driver)
         {
-            this.DatabaseManager.OverwriteDriver(driver);
+            this.DatabaseManager.OverrideDriver(driver);
         }
     }
 }

@@ -1,11 +1,13 @@
 ﻿//--------------------------------------------------
 // <copyright file="MongoTestObject.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>Holds MongoDB context data</summary>
 //--------------------------------------------------
 using Magenic.Maqs.BaseTest;
 using Magenic.Maqs.Utilities.Logging;
+using MongoDB.Driver;
+using System;
 
 namespace Magenic.Maqs.BaseMongoTest
 {
@@ -59,8 +61,7 @@ namespace Magenic.Maqs.BaseMongoTest
         /// <param name="collectionString">Mongo collection string</param>
         public void OverrideMongoDBDriver(string connectionString, string databaseString, string collectionString)
         {
-            this.ManagerStore.Remove(typeof(MongoDriverManager<T>).FullName);
-            this.ManagerStore.Add(typeof(MongoDriverManager<T>).FullName, new MongoDriverManager<T>(connectionString, databaseString, collectionString, this));
+            this.MongoDBManager.OverrideDriver(connectionString, databaseString, collectionString);
         }
 
         /// <summary>
@@ -70,6 +71,15 @@ namespace Magenic.Maqs.BaseMongoTest
         public void OverrideMongoDBDriver(MongoDBDriver<T> driver)
         {
             this.MongoDBManager.OverrideDriver(driver);
+        }
+
+        /// <summary>
+        /// Override the Mongo driver a collection function
+        /// </summary>
+        /// <param name="overrideCollectionConnection">The collection function</param>
+        public void OverrideMongoDBDriver(Func<IMongoCollection<T>> overrideCollectionConnection)
+        {
+            this.MongoDBManager.OverrideDriver(overrideCollectionConnection);
         }
     }
 }

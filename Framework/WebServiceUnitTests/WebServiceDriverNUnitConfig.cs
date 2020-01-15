@@ -1,13 +1,12 @@
 ﻿//--------------------------------------------------
 // <copyright file="WebServiceDriverNUnitConfig.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>Configuration override tests for NUnit</summary>
 //--------------------------------------------------
 using Magenic.Maqs.BaseWebServiceTest;
 using Magenic.Maqs.Utilities.Helper;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 

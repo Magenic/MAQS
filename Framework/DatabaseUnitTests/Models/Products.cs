@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="Products.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>Model representing Products table</summary>
 //--------------------------------------------------

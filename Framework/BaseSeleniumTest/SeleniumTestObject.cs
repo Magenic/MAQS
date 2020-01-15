@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="SeleniumTestObject.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>Holds Selenium context data</summary>
 //--------------------------------------------------
@@ -68,7 +68,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="webDriver">New web driver</param>
         public void OverrideWebDriver(IWebDriver webDriver)
         {
-            this.OverrideDriverManager(typeof(SeleniumDriverManager).FullName, new SeleniumDriverManager(() => webDriver, this));
+            this.WebManager.OverrideDriver(webDriver);
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="getDriver">Function for creating a web driver</param>
         public void OverrideWebDriver(Func<IWebDriver> getDriver)
         {
-            this.OverrideDriverManager(typeof(SeleniumDriverManager).FullName, new SeleniumDriverManager(getDriver, this));
+            this.WebManager.OverrideDriver(getDriver);
         }
     }
 }

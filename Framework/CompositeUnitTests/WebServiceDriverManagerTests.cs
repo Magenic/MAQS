@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="WebServiceDriverManagerTests.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>Web service driver store tests</summary>
 //-------------------------------------------------- 
@@ -27,7 +27,7 @@ namespace CompositeUnitTests
         {
             WebServiceDriver tempDriver = new WebServiceDriver(WebServiceConfig.GetWebServiceUri());
             this.WebServiceDriver = tempDriver;
-            
+
             Assert.AreEqual(this.TestObject.WebServiceManager.Get(), tempDriver);
         }
 
@@ -87,6 +87,78 @@ namespace CompositeUnitTests
         {
             WebServiceDriverManager driverDriver = this.ManagerStore[typeof(WebServiceDriverManager).FullName] as WebServiceDriverManager;
             Assert.IsFalse(driverDriver.IsDriverIntialized(), "The driver should not be initialized until it gets used");
+        }
+
+        /// <summary>
+        /// Override with new client
+        /// </summary>
+        [TestMethod]
+        public void RespectClientOverride()
+        {
+            var httpClient = new HttpClient();
+            this.TestObject.AddDriverManager(new WebServiceDriverManager(httpClient, this.TestObject), true);
+
+            Assert.AreEqual(httpClient, this.WebServiceDriver.HttpClient);
+        }
+
+        /// <summary>
+        /// Override with new client function
+        /// </summary>
+        [TestMethod]
+        public void RespectClientFunctionOverride()
+        {
+            var httpClient = new HttpClient();
+            this.TestObject.AddDriverManager(new WebServiceDriverManager(() => httpClient, this.TestObject), true);
+
+            Assert.AreEqual(httpClient, this.WebServiceDriver.HttpClient);
+        }
+
+        /// <summary>
+        /// Override with new driver
+        /// </summary>
+        [TestMethod]
+        public void RespectDriverOverride()
+        {
+            var httpClient = new HttpClient();
+            this.TestObject.AddDriverManager(new WebServiceDriverManager(new WebServiceDriver(httpClient), this.TestObject), true);
+
+            Assert.AreEqual(httpClient, this.WebServiceDriver.HttpClient);
+        }
+
+        /// <summary>
+        /// Override test object with new driver
+        /// </summary>
+        [TestMethod]
+        public void RespectTestObjectClientOverride()
+        {
+            var httpClient = new HttpClient();
+            this.TestObject.OverrideWebServiceDriver(new WebServiceDriver(httpClient));
+
+            Assert.AreEqual(httpClient, this.WebServiceDriver.HttpClient);
+        }
+
+        /// <summary>
+        /// Override test object with new client function
+        /// </summary>
+        [TestMethod]
+        public void RespectTestObjectClientFunctionOverride()
+        {
+            var httpClient = new HttpClient();
+            this.TestObject.OverrideWebServiceDriver(() => httpClient);
+
+            Assert.AreEqual(httpClient, this.WebServiceDriver.HttpClient);
+        }
+
+        /// <summary>
+        /// Override test object with new client
+        /// </summary>
+        [TestMethod]
+        public void RespectTestObjectDriverOverride()
+        {
+            var httpClient = new HttpClient();
+            this.TestObject.OverrideWebServiceDriver(httpClient);
+
+            Assert.AreEqual(httpClient, this.WebServiceDriver.HttpClient);
         }
     }
 }

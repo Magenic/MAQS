@@ -1,6 +1,6 @@
 //--------------------------------------------------
 // <copyright file="AppiumConfig.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>This is the Appium Configuration class</summary>
 //--------------------------------------------------
@@ -19,6 +19,32 @@ namespace Magenic.Maqs.BaseAppiumTest
     /// </summary>
     public static class AppiumConfig
     {
+        /// <summary>
+        /// Loads when class is loaded
+        /// </summary>
+        static AppiumConfig()
+        {
+            CheckConfig();
+        }
+
+        /// <summary>
+        /// Ensure required fields are in the config
+        /// </summary>
+        private static void CheckConfig()
+        {
+            var validator = new ConfigValidation()
+            {
+                RequiredFields = new List<string>()
+                {
+                    "PlatformName",
+                    "PlatformVersion",
+                    "DeviceName",
+                    "MobileHubUrl"
+                }
+            };
+            Config.Validate(ConfigSection.AppiumMaqs, validator);
+        }
+
         /// <summary>
         /// Get the mobile OS type
         /// </summary>

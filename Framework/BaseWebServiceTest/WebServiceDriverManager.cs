@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="WebServiceDriverManager.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>Web service driver</summary>
 //--------------------------------------------------
@@ -35,18 +35,48 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// </summary>
         /// <param name="getDriver">Function for creating an http client</param>
         /// <param name="testObject">The associated test object</param>
-        public WebServiceDriverManager(WebServiceDriver getDriver, BaseTestObject testObject) : base(() => getDriver, testObject)
+        public WebServiceDriverManager(HttpClient httpClient, BaseTestObject testObject) : base(() => httpClient, testObject)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WebServiceDriverManager" /> class
+        /// </summary>
+        /// <param name="getDriver">Function for creating an http client</param>
+        /// <param name="testObject">The associated test object</param>
+        public WebServiceDriverManager(WebServiceDriver getDriver, BaseTestObject testObject) : base(() => getDriver.HttpClient, testObject)
         {
             this.driver = getDriver;
         }
 
         /// <summary>
-        /// Override the http driver
+        /// Override the web service driver
         /// </summary>
         /// <param name="driver">A new http driver</param>
         public void OverrideDriver(WebServiceDriver driver)
         {
+            this.OverrideDriverGet (() => driver.HttpClient);
             this.driver = driver;
+        }
+
+        /// <summary>
+        /// Override the web service driver - respects lazy loading
+        /// </summary>
+        /// <param name="overrideDriver">Function for getting a new HTTP client</param>
+        public void OverrideDriver(Func<HttpClient> overrideDriver)
+        {
+            this.OverrideDriverGet(overrideDriver);
+            this.driver = null;
+        }
+
+        /// <summary>
+        /// Override the web service driver
+        /// </summary>
+        /// <param name="overrideDriver">The new Mongo driver</param>
+        public void OverrideDriver(HttpClient overrideHttpClient)
+        {
+            this.OverrideDriverGet(() => overrideHttpClient);
+            this.driver = null;
         }
 
         /// <summary>

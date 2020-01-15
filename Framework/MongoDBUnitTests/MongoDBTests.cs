@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="MongoDBTests.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>Unit test class for the MongoDB driver</summary>
 //--------------------------------------------------
@@ -21,6 +21,69 @@ namespace MongoDBUnitTests
     [TestClass]
     public class MongoDBTests : BaseMongoTest<BsonDocument>
     {
+
+        /// <summary>
+        /// Is the collection override respected
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.MongoDB)]
+        public void OverrideCollectionFunction()
+        {
+            var collection = this.MongoDBDriver.Collection;
+            var newCollection = MongoFactory.GetDefaultCollection<BsonDocument>();
+            this.TestObject.OverrideMongoDBDriver(() => newCollection);
+
+            Assert.AreNotEqual(collection, this.MongoDBDriver.Collection);
+            Assert.AreEqual(newCollection, this.MongoDBDriver.Collection);
+            Assert.IsFalse(this.MongoDBDriver.IsCollectionEmpty());
+        }
+
+        /// <summary>
+        /// Are the connection string overrides respected
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.MongoDB)]
+        public void OverrideConnectionStrings()
+        {
+            var collection = this.MongoDBDriver.Collection;
+            this.TestObject.OverrideMongoDBDriver(MongoDBConfig.GetConnectionString(), MongoDBConfig.GetDatabaseString(), MongoDBConfig.GetCollectionString());
+
+            Assert.AreNotEqual(collection, this.MongoDBDriver.Collection);
+            Assert.IsFalse(this.MongoDBDriver.IsCollectionEmpty());
+        }
+
+        /// <summary>
+        /// Is the driver override respected 
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.MongoDB)]
+        public void OverrideDriver()
+        {
+            var firstDriver = this.MongoDBDriver;
+            var newDriver = new MongoDBDriver<BsonDocument>(MongoFactory.GetDefaultCollection<BsonDocument>());
+            this.TestObject.OverrideMongoDBDriver(newDriver);
+
+            Assert.AreNotEqual(firstDriver, this.MongoDBDriver);
+            Assert.AreEqual(newDriver, this.MongoDBDriver);
+            Assert.IsFalse(this.MongoDBDriver.IsCollectionEmpty());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.MongoDB)]
+        public void OverrideWithCustomDriver()
+        {
+            var firstDriver = this.MongoDBDriver;
+            var newDriver = new MongoDBDriver<BsonDocument>(MongoFactory.GetCollection<BsonDocument>(MongoDBConfig.GetConnectionString(), MongoDBConfig.GetDatabaseString(), null, MongoDBConfig.GetCollectionString()));
+            this.TestObject.OverrideMongoDBDriver(newDriver);
+
+            Assert.AreNotEqual(firstDriver, this.MongoDBDriver);
+            Assert.AreEqual(newDriver, this.MongoDBDriver);
+            Assert.IsFalse(this.MongoDBDriver.IsCollectionEmpty());
+        }
+
         /// <summary>
         /// Test the list all collection items helper function
         /// </summary>

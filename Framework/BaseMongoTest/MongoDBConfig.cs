@@ -1,10 +1,11 @@
 ﻿//--------------------------------------------------
 // <copyright file="MongoDBConfig.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>Helper class for getting MongoDB specific configuration values</summary>
 //--------------------------------------------------
 using Magenic.Maqs.Utilities.Helper;
+using System.Collections.Generic;
 
 namespace Magenic.Maqs.BaseMongoTest
 {
@@ -13,6 +14,31 @@ namespace Magenic.Maqs.BaseMongoTest
     /// </summary>
     public static class MongoDBConfig
     {
+        /// <summary>
+        /// Loads when class is loaded
+        /// </summary>
+        static MongoDBConfig()
+        {
+            CheckConfig();
+        }
+
+        /// <summary>
+        /// Ensure required fields are in the config
+        /// </summary>
+        private static void CheckConfig()
+        {
+            var validator = new ConfigValidation()
+            {
+                RequiredFields = new List<string>()
+                {
+                    "MongoConnectionString",
+                    "MongoDatabase",
+                    "MongoCollection"
+                }
+            };
+            Config.Validate(ConfigSection.MongoMaqs, validator);
+        }
+
         /// <summary>
         ///  Static name for the mongo configuration section
         /// </summary>

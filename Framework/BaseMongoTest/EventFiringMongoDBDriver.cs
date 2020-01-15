@@ -1,10 +1,11 @@
 ﻿//--------------------------------------------------
 // <copyright file="EventFiringMongoDBDriver.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>The event firing mongoDB collection interactions</summary>
 //--------------------------------------------------
 using Magenic.Maqs.Utilities.Data;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 
@@ -16,6 +17,14 @@ namespace Magenic.Maqs.BaseMongoTest
     /// <typeparam name="T">The mongo collection type</typeparam>
     public class EventFiringMongoDBDriver<T> : MongoDBDriver<T>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventFiringMongoDBDriver{T}" /> class
+        /// </summary>
+        /// <param name="collection">The collection object</param>
+        public EventFiringMongoDBDriver(IMongoCollection<T> collection) : base(collection)
+        {
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="EventFiringMongoDBDriver{T}" /> class
         /// </summary>

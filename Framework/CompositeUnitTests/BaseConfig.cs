@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="BaseConfig.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>Base configuration unit tests</summary>
 //--------------------------------------------------

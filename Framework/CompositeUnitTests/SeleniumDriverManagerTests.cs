@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="SeleniumDriverManagerTests.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>Selenium driver store tests</summary>
 //--------------------------------------------------
@@ -31,6 +31,19 @@ namespace CompositeUnitTests
             this.WebDriver = tempDriver;
 
             Assert.AreEqual(this.TestObject.WebDriver.GetLowLevelDriver(), tempDriver.GetLowLevelDriver());
+        }
+
+        /// <summary>
+        /// Make sure we can override the driver with a func
+        /// </summary>
+        [TestMethod]
+        public void CanOverrideWithFunc()
+        {
+            int oldHash = this.WebDriver.GetLowLevelDriver().GetHashCode();
+
+            this.TestObject.OverrideWebDriver(() => WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.HeadlessChrome));
+
+            Assert.AreNotEqual(oldHash, this.WebDriver.GetLowLevelDriver().GetHashCode());
         }
 
         /// <summary>
