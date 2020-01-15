@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net471;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <AssemblyVersion>5.7.0</AssemblyVersion>
+    <FileVersion>5.7.0</FileVersion>
+    <Version>5.7.0</Version>
+    <AssemblyName>Magenic.Maqs.BaseCompositeTest</AssemblyName>
+    <RootNamespace>Magenic.Maqs.BaseCompositeTest</RootNamespace>
+    <ApplicationIcon>MAQS.ico</ApplicationIcon>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Authors>Magenic</Authors>
+    <Description>Magenic's automation quick start framework</Description>
+    <Copyright>Copyright © Magenic 2020</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</PackageIconUrl>
+    <PackageIcon>MAQS.jpg</PackageIcon>
+    <PackageProjectUrl>https://github.com/Magenic/MAQS</PackageProjectUrl>
+    <PackageTags>test selenium appium automation NUnit MSTest TestFramework</PackageTags>
+    <PackageReleaseNotes>6.0.0 - 2020-??-??</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <SonarQubeTestProject>false</SonarQubeTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\MAQS.jpg" Pack="true" PackagePath=""/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BaseAppiumTest\BaseAppiumTest.csproj" />
+    <ProjectReference Include="..\BaseDatabaseTest\BaseDatabaseTest.csproj" />
+    <ProjectReference Include="..\BaseEmailTest\BaseEmailTest.csproj" />
+    <ProjectReference Include="..\BaseMongoTest\BaseMongoTest.csproj" />
+    <ProjectReference Include="..\BaseSeleniumTest\BaseSeleniumTest.csproj" />
+    <ProjectReference Include="..\BaseTest\BaseTest.csproj" />
+    <ProjectReference Include="..\BaseWebServiceTest\BaseWebServiceTest.csproj" />
+    <ProjectReference Include="..\Utilities\Utilities.csproj" />
+  </ItemGroup>
+
+</Project>
