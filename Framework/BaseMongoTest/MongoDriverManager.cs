@@ -91,9 +91,9 @@ namespace Magenic.Maqs.BaseMongoTest
         /// <param name="eventFiringConnectionDriver">The event firing database driver that we want mapped</param>
         private void MapEvents(EventFiringMongoDBDriver<T> eventFiringConnectionDriver)
         {
-            eventFiringConnectionDriver.DatabaseEvent += this.Database_Event;
-            eventFiringConnectionDriver.DatabaseActionEvent += this.Database_Action;
-            eventFiringConnectionDriver.DatabaseErrorEvent += this.Database_Error;
+            eventFiringConnectionDriver.DatabaseEvent += this.MongoDatabase_Event;
+            eventFiringConnectionDriver.DatabaseActionEvent += this.MongoDatabase_Action;
+            eventFiringConnectionDriver.DatabaseErrorEvent += this.MongoDatabase_Error;
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Magenic.Maqs.BaseMongoTest
         /// </summary>
         /// <param name="sender">Sender object</param>
         /// <param name="message">The logging message</param>
-        private void Database_Event(object sender, string message)
+        private void MongoDatabase_Event(object sender, string message)
         {
             this.Log.LogMessage(MessageType.INFORMATION, message);
         }
@@ -111,7 +111,7 @@ namespace Magenic.Maqs.BaseMongoTest
         /// </summary>
         /// <param name="sender">Sender object</param>
         /// <param name="message">The logging message</param>
-        private void Database_Action(object sender, string message)
+        private void MongoDatabase_Action(object sender, string message)
         {
             this.Log.LogMessage(MessageType.ACTION, message);
         }
@@ -121,7 +121,7 @@ namespace Magenic.Maqs.BaseMongoTest
         /// </summary>
         /// <param name="sender">Sender object</param>
         /// <param name="message">The logging message</param>
-        private void Database_Error(object sender, string message)
+        private void MongoDatabase_Error(object sender, string message)
         {
             this.Log.LogMessage(MessageType.ERROR, message);
         }
