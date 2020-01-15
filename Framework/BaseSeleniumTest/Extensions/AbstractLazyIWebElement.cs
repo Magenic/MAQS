@@ -132,7 +132,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         {
             get
             {
-                this.Log.LogMessage(MessageType.ACTION, $"Check to see if the lazy element '{this.userFriendlyName}' is selected");
+                this.Log.LogMessage(MessageType.INFORMATION, $"Checking to see if the lazy element '{this.userFriendlyName}' is selected");
 
                 return GenericWait.Wait<bool>(
                     () =>
@@ -151,7 +151,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         {
             get
             {
-                this.Log.LogMessage(MessageType.ACTION, $"Check to see if the lazy element '{this.userFriendlyName}' is displayed");
+                this.Log.LogMessage(MessageType.INFORMATION, $"Checking to see if the lazy element '{this.userFriendlyName}' is displayed");
 
                 return GenericWait.Wait<bool>(
                     () =>
@@ -170,7 +170,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         {
             get
             {
-                this.Log.LogMessage(MessageType.ACTION, $"Check to see if the lazy element '{this.userFriendlyName}' exists");
+                this.Log.LogMessage(MessageType.INFORMATION, $"Checking to see if the lazy element '{this.userFriendlyName}' exists");
 
                 return GenericWait.Wait<bool>(
                     () =>
@@ -195,7 +195,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 try
                 {
                     this.WebDriver.SetWaitDriver(new WebDriverWait(this.WebDriver, TimeSpan.Zero));
-                    this.Log.LogMessage(MessageType.ACTION, $"Check to see if the lazy element '{this.userFriendlyName}' exists now");
+                    this.Log.LogMessage(MessageType.INFORMATION, $"Checking to see if the lazy element '{this.userFriendlyName}' exists now");
                     return this.GetElement(this.GetTheExistingElement) != null;
                 }
                 catch

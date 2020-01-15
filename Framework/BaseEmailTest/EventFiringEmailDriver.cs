@@ -405,7 +405,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// <param name="message">The event message</param>
         protected virtual void OnActionEvent(string message)
         {
-            this.EmailEvent?.Invoke(this, message);
+            this.EmailActionEvent?.Invoke(this, message);
         }
 
         /// <summary>
