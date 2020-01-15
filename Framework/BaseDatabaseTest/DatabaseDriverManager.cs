@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="DatabaseDriverManager.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>Database driver</summary>
 //--------------------------------------------------
@@ -28,6 +28,36 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// <param name="testObject">The associated test object</param>
         public DatabaseDriverManager(Func<IDbConnection> getConnection, BaseTestObject testObject) : base(getConnection, testObject)
         {
+        }
+
+        /// <summary>
+        /// Override the database driver
+        /// </summary>
+        /// <param name="newDriver">The new driver</param>
+        [Obsolete("Change to OverrideDriver for consistency")]
+        public void OverwriteDriver(DatabaseDriver newDriver)
+        {
+            this.OverrideDriver(newDriver);
+        }
+
+        /// <summary>
+        /// Override the database driver
+        /// </summary>
+        /// <param name="newDriver">The new driver</param>
+        public void OverrideDriver(DatabaseDriver newDriver)
+        {
+            this.driver = newDriver;
+            this.BaseDriver = newDriver.Connection;
+        }
+
+        /// <summary>
+        /// Override the email driver - respects lazy loading
+        /// </summary>
+        /// <param name="overrideDriver">Function for getting new database connection</param>
+        public void OverrideDriver(Func<IDbConnection> overrideDriver)
+        {
+            this.driver = null;
+            this.OverrideDriverGet(overrideDriver);
         }
 
         /// <summary>
@@ -61,15 +91,6 @@ namespace Magenic.Maqs.BaseDatabaseTest
         public override object Get()
         {
             return this.GetDatabaseDriver();
-        }
-
-        /// <summary>
-        /// Override the database driver
-        /// </summary>
-        /// <param name="newDriver">The new driver</param>
-        public void OverwriteDriver(DatabaseDriver newDriver)
-        {
-            this.driver = newDriver;
         }
 
         /// <summary>

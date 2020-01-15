@@ -7,10 +7,21 @@
     <RootNamespace>Magenic.Maqs.BaseMongoTest</RootNamespace>
     <PackageId>Magenic.Maqs.BaseMongoTest</PackageId>
     <Authors>Magenic.Maqs.BaseMongoTest</Authors>
-    <Company>Magenic.Maqs.BaseMongoTest</Company>
+    <Company>Magenic</Company>
     <Product>Magenic.Maqs.BaseMongoTest</Product>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>
     <ProjectGuid>{134221CF-DE9A-4075-A301-C7A89B1644D9}</ProjectGuid>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Authors>Magenic</Authors>
+    <Description>Magenic's automation quick start framework</Description>
+    <Copyright>Copyright © Magenic 2020</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</PackageIconUrl>
+    <PackageIcon>MAQS.jpg</PackageIcon>
+    <PackageProjectUrl>https://github.com/Magenic/MAQS</PackageProjectUrl>
+    <PackageTags>test selenium appium automation NUnit MSTest TestFramework</PackageTags>
+    <PackageReleaseNotes>6.0.0 - 2020-??-??</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -18,6 +29,10 @@
     <DebugSymbols>true</DebugSymbols>
     <SonarQubeTestProject>false</SonarQubeTestProject>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\MAQS.jpg" Pack="true" PackagePath="" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MongoDB.Bson" Version="2.10.0" />

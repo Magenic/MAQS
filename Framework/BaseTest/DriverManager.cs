@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="DriverManager.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>Base driver manager</summary>
 //--------------------------------------------------
@@ -49,7 +49,15 @@ namespace Magenic.Maqs.BaseTest
         /// <summary>
         /// Gets or sets the function for getting the underlying driver
         /// </summary>
-        protected Func<object> GetDriver { get; set; }
+        protected Func<object> GetDriver { get; private set; }
+
+        protected void OverrideDriverGet(Func<object> driverGet)
+        {
+
+                this.DriverDispose();
+                this.BaseDriver = null;
+                this.GetDriver = driverGet;
+        }
 
         /// <summary>
         /// Check if the underlying driver has been initialized

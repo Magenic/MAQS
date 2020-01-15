@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------
 // <copyright file="LazyElementUnitTests.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>Test the lazy element unit tests</summary>
 //-----------------------------------------------------
@@ -196,10 +196,10 @@ namespace SeleniumUnitTests
         public void LazyRespectsWaitDriverTimesOut()
         {
             DateTime start = DateTime.Now;
+
             try
             {
                 this.WebDriver.SetWaitDriver(new OpenQA.Selenium.Support.UI.WebDriverWait(new SystemClock(), this.WebDriver, TimeSpan.FromSeconds(3), TimeSpan.FromMilliseconds(500)));
-                start = DateTime.Now;
                 this.DisabledItem.Click();
             }
             catch (TimeoutException)

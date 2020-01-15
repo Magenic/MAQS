@@ -1,7 +1,7 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> Getting Started
 
 ## Installation
-The first step is to install MAQS.  Checkout the [MAQS Installation](MAQS_5/Installation) guide.  
+The first step is to install MAQS.  Checkout the [MAQS Installation](MAQS_5/EnterpriseInstallation) guide.  
 
 ## Building Your First Project
 After the MAQS Visual Studio Extension has been installed, you're ready to start testing.
@@ -119,4 +119,4 @@ Test methods with multiple Category attributes will add that test case to each a
 
 
 ## Configurations
-There are a number of configurations included with MAQS.  Checkout the [MAQS Configurations](MAQS_5/OpenSourceConfiguration.md) guide.
+There are a number of configurations included with MAQS.  Checkout the [MAQS Configurations](MAQS_5/General/EnterpriseConfiguration.md) guide.

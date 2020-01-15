@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="WebServiceMediaType.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>Web service get unit tests using MediaType strings</summary>
 //--------------------------------------------------
@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Net.Http;
-using System.Text;
 using WebServiceTesterUnitTesting.Model;
 
 namespace WebServiceTesterUnitTesting

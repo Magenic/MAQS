@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="SeleniumDriverManager.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>Selenium driver</summary>
 //--------------------------------------------------
@@ -32,6 +32,24 @@ namespace Magenic.Maqs.BaseSeleniumTest
         }
 
         /// <summary>
+        /// Override the web driver
+        /// </summary>
+        /// <param name="overrideDriver">The new web driver</param>
+        public void OverrideDriver(IWebDriver overrideDriver)
+        {
+            this.OverrideDriverGet(() => overrideDriver);
+        }
+
+        /// <summary>
+        /// Override the web driver
+        /// </summary>
+        /// <param name="overrideDriver">Function for getting a new web driver</param>
+        public void OverrideDriver(Func<IWebDriver> overrideDriver)
+        {
+            this.OverrideDriverGet(overrideDriver);
+        }
+
+        /// <summary>
         /// Get the web driver
         /// </summary>
         /// <returns>The web driver</returns>
@@ -42,8 +60,10 @@ namespace Magenic.Maqs.BaseSeleniumTest
             if (!this.IsDriverIntialized() && LoggingConfig.GetLoggingEnabledSetting() != LoggingEnabled.NO)
             {
                 tempDriver = GetDriver() as IWebDriver;
+                tempDriver = tempDriver.GetLowLevelDriver();
                 tempDriver = new EventFiringWebDriver(tempDriver);
                 this.MapEvents(tempDriver as EventFiringWebDriver);
+
                 this.BaseDriver = tempDriver;
 
                 // Log the setup

@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="GenericWait.cs" company="Magenic">
-//  Copyright 2019 Magenic, All rights Reserved
+//  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>Generic wait</summary>
 //--------------------------------------------------
@@ -497,7 +497,7 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <returns>Returns boolean if successful</returns>
         public static bool WaitTryForAnyAction<T>(string actionName, TimeSpan waitTime, TimeSpan sleepTime, out T result, params Func<T>[] actions)
         {
-            result = default(T);
+            result = default;
 
             try
             {
