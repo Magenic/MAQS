@@ -4,6 +4,9 @@
     <TargetFramework>net471</TargetFramework>
 
     <IsPackable>false</IsPackable>
+    
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
 
   </PropertyGroup>
 
