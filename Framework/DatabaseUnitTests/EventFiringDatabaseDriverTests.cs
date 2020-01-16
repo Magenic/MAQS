@@ -52,7 +52,7 @@ namespace DatabaseUnitTests
         public void EventFiringExecuteEventTest()
         {
             // Subscribe to the event
-            this.DatabaseEvent += this.DatabaseUnitTestEvent;
+            this.DatabaseActionEvent += this.DatabaseUnitTestEvent;
 
             this.Execute("setStateAbbrevToSelf", new { StateAbbreviation = "MN" }, commandType: CommandType.StoredProcedure);
             
@@ -112,7 +112,7 @@ namespace DatabaseUnitTests
         public void EventFiringQueryListEventTest()
         {
             // Subscribe to the event
-            this.DatabaseEvent += this.DatabaseUnitTestEvent;
+            this.DatabaseActionEvent += this.DatabaseUnitTestEvent;
 
             this.Query("SELECT * FROM States");
             
@@ -172,7 +172,7 @@ namespace DatabaseUnitTests
         public void EventFiringQueryEventTest()
         {
             // Subscribe to the event
-            this.DatabaseEvent += this.DatabaseUnitTestEvent;
+            this.DatabaseActionEvent += this.DatabaseUnitTestEvent;
 
             this.Query<States>("SELECT * FROM States");
             
