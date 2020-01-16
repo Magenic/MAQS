@@ -268,6 +268,8 @@ namespace UtilitiesUnitTesting
             // Log the test messages
             logger.LogMessage(MessageType.VERBOSE, logLine, MessageType.VERBOSE);
             logger.LogMessage(MessageType.INFORMATION, logLine, MessageType.INFORMATION);
+            logger.LogMessage(MessageType.ACTION, logLine, MessageType.ACTION);
+            logger.LogMessage(MessageType.STEP, logLine, MessageType.STEP);
             logger.LogMessage(MessageType.GENERIC, logLine, MessageType.GENERIC);
             logger.LogMessage(MessageType.SUCCESS, logLine, MessageType.SUCCESS);
             logger.LogMessage(MessageType.WARNING, logLine, MessageType.WARNING);

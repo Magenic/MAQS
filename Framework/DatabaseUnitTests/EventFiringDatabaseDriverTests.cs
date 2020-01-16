@@ -56,7 +56,7 @@ namespace DatabaseUnitTests
 
             this.Execute("setStateAbbrevToSelf", new { StateAbbreviation = "MN" }, commandType: CommandType.StoredProcedure);
             
-            Assert.AreEqual("Performing execute with:\r\nsetStateAbbrevToSelf", this.eventString);
+            Assert.AreEqual("Perform execute with:\r\nsetStateAbbrevToSelf", this.eventString);
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace DatabaseUnitTests
 
             this.Query("SELECT * FROM States");
             
-            Assert.AreEqual("Performing query with:\r\nSELECT * FROM States", this.eventString);
+            Assert.AreEqual("Perform query with:\r\nSELECT * FROM States", this.eventString);
         }
 
         /// <summary>
@@ -176,7 +176,7 @@ namespace DatabaseUnitTests
 
             this.Query<States>("SELECT * FROM States");
             
-            Assert.AreEqual("Performing query with:\r\nSELECT * FROM States", this.eventString);
+            Assert.AreEqual("Perform query with:\r\nSELECT * FROM States", this.eventString);
         }
 
         /// <summary>
