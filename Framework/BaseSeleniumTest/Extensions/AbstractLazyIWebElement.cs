@@ -291,7 +291,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </summary>
         public void Click()
         {
-            this.Log.LogMessage(MessageType.ACTION, $"Click lazy element '{this.userFriendlyName}'");
+            this.Log.LogMessage(MessageType.ACTION, $"Click '{this.userFriendlyName}'");
 
             GenericWait.Wait(
                 () =>
@@ -310,7 +310,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="text">The text to send to the lazy element</param>
         public void SendKeys(string text)
         {
-            this.Log.LogMessage(MessageType.ACTION, $"Send keys '{text}' to lazy element '{this.userFriendlyName}'");
+            this.Log.LogMessage(MessageType.ACTION, $"Send keys '{text}' to '{this.userFriendlyName}'");
 
             GenericWait.Wait(
                 () =>
@@ -329,7 +329,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="keys">The keys to send</param>
         public void SendSecretKeys(string keys)
         {
-            this.Log.LogMessage(MessageType.ACTION, $"Send secret keys to lazy element '{this.userFriendlyName}'");
+            this.Log.LogMessage(MessageType.ACTION, $"Send secret keys to '{this.userFriendlyName}'");
 
             IWebElement element = this.GetElement(this.GetTheVisibleElement);
             try
@@ -351,7 +351,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </summary>
         public void Clear()
         {
-            this.Log.LogMessage(MessageType.ACTION, $"Clear lazy element '{this.userFriendlyName}'");
+            this.Log.LogMessage(MessageType.ACTION, $"Clear '{this.userFriendlyName}'");
 
             GenericWait.Wait(
                 () =>
@@ -369,7 +369,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </summary>
         public void Submit()
         {
-            this.Log.LogMessage(MessageType.ACTION, $"Submit lazy element '{this.userFriendlyName}'");
+            this.Log.LogMessage(MessageType.ACTION, $"Submit '{this.userFriendlyName}'");
 
             GenericWait.Wait(
                 () =>
@@ -388,7 +388,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="option">the option to select</param>
         public void SelectDropDownOption(string option)
         {
-            this.Log.LogMessage(MessageType.ACTION, $"Select option: {option} from lazy element '{this.userFriendlyName}'");
+            this.Log.LogMessage(MessageType.ACTION, $"Select option: {option} from '{this.userFriendlyName}'");
 
             GenericWait.Wait(
                 () =>
@@ -407,7 +407,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="value">the value to select</param>
         public void SelectDropDownOptionByValue(string value)
         {
-            this.Log.LogMessage(MessageType.ACTION, $"Select value: {value} from lazy element '{this.userFriendlyName}'");
+            this.Log.LogMessage(MessageType.ACTION, $"Select value: {value} from '{this.userFriendlyName}'");
 
             GenericWait.Wait(
                 () =>
