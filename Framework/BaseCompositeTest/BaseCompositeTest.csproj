@@ -28,7 +28,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\MAQS.jpg" Pack="true" PackagePath=""/>
+    <None Include="..\MAQS.jpg" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,7 +39,6 @@
     <ProjectReference Include="..\BaseSeleniumTest\BaseSeleniumTest.csproj" />
     <ProjectReference Include="..\BaseTest\BaseTest.csproj" />
     <ProjectReference Include="..\BaseWebServiceTest\BaseWebServiceTest.csproj" />
-    <ProjectReference Include="..\Utilities\Utilities.csproj" />
   </ItemGroup>
 
 </Project>
