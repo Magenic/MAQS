@@ -8,6 +8,9 @@
     <AssemblyName>SpecFlowExtensionNUnitTests</AssemblyName>
 
     <RootNamespace>SpecFlowExtensionNUnitTests</RootNamespace>
+    
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
   </PropertyGroup>
 
   <ItemGroup>
