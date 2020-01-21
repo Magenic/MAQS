@@ -324,34 +324,99 @@ namespace Magenic.Maqs.BaseSeleniumTest
             MessageType type = logger.GetLoggingLevel();
 
             // Look at passed
-            if (type == MessageType.VERBOSE && GetReadableAxeResults("Passes", webDriver, webDriver.Analyze().Passes, out string axeText))
+            if (type >= MessageType.SUCCESS)
             {
-                logger.LogMessage(MessageType.VERBOSE, axeText);
-            }
-
-            // Look at inapplicable
-            if (type == MessageType.VERBOSE && GetReadableAxeResults("Inapplicable", webDriver, webDriver.Analyze().Inapplicable, out axeText))
-            {
-                logger.LogMessage(MessageType.VERBOSE, axeText);
+                CheckAccessibilityPasses(webDriver, logger, MessageType.SUCCESS);
             }
 
             // Look at incomplete
-            if (type > MessageType.SUCCESS && GetReadableAxeResults("Incomplete", webDriver, webDriver.Analyze().Incomplete, out axeText))
+            if (type >= MessageType.INFORMATION)
             {
-                logger.LogMessage(MessageType.INFORMATION, axeText);
+                CheckAccessibilityIncomplete(webDriver, logger, MessageType.INFORMATION);
+            }
+
+            // Look at inapplicable
+            if (type >= MessageType.VERBOSE)
+            {
+                CheckAccessibilityInapplicable(webDriver, logger, MessageType.VERBOSE);
             }
 
             // Look at violations
-            if (GetReadableAxeResults("Violations", webDriver, webDriver.Analyze().Violations, out axeText))
+            MessageType messageType = throwOnViolation ? MessageType.ERROR : MessageType.WARNING;
+            CheckAccessibilityViolations(webDriver, logger, messageType, throwOnViolation);
+        }
+
+        /// <summary>
+        /// Run axe accessibility and log the results 
+        /// </summary>
+        /// <param name="webDriver">The web driver that is on the page you want to run the accessibility check on</param>
+        /// <param name="logger">Where you want the check logged to</param>
+        /// <param name="loggingLevel">What level should logging the check take, this gets used if the check doesn't throw an exception</param>
+        /// <param name="throwOnViolation">Should violations cause and exception to be thrown</param>
+        public static void CheckAccessibilityPasses(this IWebDriver webDriver, Logger logger, MessageType loggingLevel)
+        {
+            // Look at passed
+            CheckAccessibility(webDriver, logger, AccessibilityCheckType.Passes.ToString(), () => webDriver.Analyze().Passes, loggingLevel);
+        }
+
+        ///AccessibilityCheckType
+        ///
+        /// <summary>
+        /// Run axe accessibility and log the results 
+        /// </summary>
+        /// <param name="webDriver">The web driver that is on the page you want to run the accessibility check on</param>
+        /// <param name="logger">Where you want the check logged to</param>
+        /// <param name="loggingLevel">What level should logging the check take, this gets used if the check doesn't throw an exception</param>
+        /// <param name="throwOnInapplicable">Should inapplicable cause and exception to be thrown</param>
+        public static void CheckAccessibilityInapplicable(this IWebDriver webDriver, Logger logger, MessageType loggingLevel, bool throwOnInapplicable = false)
+        {
+            CheckAccessibility(webDriver, logger, AccessibilityCheckType.Inapplicable.ToString(), () => webDriver.Analyze().Inapplicable, loggingLevel, throwOnInapplicable);
+        }
+
+        ///AccessibilityCheckType
+        ///
+        /// <summary>
+        /// Run axe accessibility and log the results 
+        /// </summary>
+        /// <param name="webDriver">The web driver that is on the page you want to run the accessibility check on</param>
+        /// <param name="logger">Where you want the check logged to</param>
+        /// <param name="loggingLevel">What level should logging the check take, this gets used if the check doesn't throw an exception</param>
+        /// <param name="throwOnIncomplete">Should incomplete cause and exception to be thrown</param>
+        public static void CheckAccessibilityIncomplete(this IWebDriver webDriver, Logger logger, MessageType loggingLevel, bool throwOnIncomplete = false)
+        {
+            CheckAccessibility(webDriver, logger, AccessibilityCheckType.Incomplete.ToString(), () => webDriver.Analyze().Incomplete, loggingLevel, throwOnIncomplete);
+        }
+
+        /// <summary>
+        /// Run axe accessibility and log the results 
+        /// </summary>
+        /// <param name="webDriver">The web driver that is on the page you want to run the accessibility check on</param>
+        /// <param name="logger">Where you want the check logged to</param>
+        /// <param name="loggingLevel">What level should logging the check take, this gets used if the check doesn't throw an exception</param>
+        /// <param name="throwOnViolation">Should violations cause and exception to be thrown</param>
+        public static void CheckAccessibilityViolations(this IWebDriver webDriver, Logger logger, MessageType loggingLevel, bool throwOnViolation = false)
+        {
+            CheckAccessibility(webDriver, logger, AccessibilityCheckType.Violations.ToString(), () => webDriver.Analyze().Violations, loggingLevel, throwOnViolation);
+        }
+
+        /// <summary>
+        /// Run axe accessibility and log the results 
+        /// </summary>
+        /// <param name="webDriver">The web driver that is on the page you want to run the accessibility check on</param>
+        /// <param name="logger">Where you want the check logged to</param>
+        /// <param name="checkType">What kind of check is being run</param>
+        /// <param name="getResults">Function for getting Axe results</param>
+        /// <param name="loggingLevel">What level should logging the check take, this gets used if the check doesn't throw an exception</param>
+        /// <param name="throwOnResults">Throw error if any results are found</param>
+        public static void CheckAccessibility(this IWebDriver webDriver, Logger logger, string checkType, Func<AxeResultItem[]> getResults, MessageType loggingLevel, bool throwOnResults = false)
+        {
+            if (GetReadableAxeResults(checkType, webDriver, getResults(), out string axeText) && throwOnResults)
             {
-                if (throwOnViolation)
-                {
-                    throw new ApplicationException(axeText);
-                }
-                else
-                {
-                    logger.LogMessage(MessageType.WARNING, axeText);
-                }
+                throw new ApplicationException(axeText);
+            }
+            else
+            {
+                logger.LogMessage(loggingLevel, axeText);
             }
         }
 
@@ -368,15 +433,16 @@ namespace Magenic.Maqs.BaseSeleniumTest
             StringBuilder message = new StringBuilder();
             int axeRules = scannedResults.Length;
 
-            if (axeRules == 0)
-            {
-                messageString = string.Empty;
-                return false;
-            }
-
             message.AppendLine($"ACCESSIBILITY CHECK");
             message.AppendLine($"{typeOfScan} check for '{webDriver.Url}'");
             message.AppendLine($"Found {axeRules} items");
+
+            if (axeRules == 0)
+            {
+                messageString = message.ToString().Trim();
+                return false;
+            }
+
             message.AppendLine(string.Empty);
 
             int loops = 1;
