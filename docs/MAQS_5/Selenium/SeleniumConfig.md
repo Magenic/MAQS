@@ -9,7 +9,7 @@ The SeleniumMaqs configuration section contains the following Keys:
 **Items are only respected when using the REMOTE browser*
 * ***WebSiteBase*** : The base website url
 * ***Browser*** : Which browser to use.   - *Deprecated, use WebDriverFactory.GetDefaultBrowser or WebDriverFactory.GetBrowserWithDefaultConfiguration instead*
-
+    * If Browser value is "REMOTE" then RemoteBrowser, HubUrl are required
 * ***GetBrowserType***
 * ***GetRemoteBrowserType***
 
@@ -17,6 +17,7 @@ The SeleniumMaqs configuration section contains the following Keys:
 * ***BrowserSize*** : The browser resolution
 * ***WebDriverHintPath*** : First place to look for the web drive EXE
 * ***RemoteBrowser**** : The type of browser to use when executing remotely which something like Grid or SauceLabs
+    * If Browser is REMOTE then HubUrl is required
 * ***HubUrl**** : The grid URL
 * ***RemotePlatform**** : The remote OS
 * ***RemoteBrowserVersion**** : The remote browser version
@@ -27,6 +28,7 @@ The SeleniumMaqs configuration section contains the following Keys:
 * ***ImageFormat*** :  What format screenshot should be saved as
 * ***SavePagesourceOnFail*** : If page source is saved when a test fails
 * ***UseProxy*** : If the browser should use a proxy address
+    * If this value is "YES" then ***ProxyAddress*** is required
 * ***ProxyAddress*** : The proxy address and port the browser will use
 
 
