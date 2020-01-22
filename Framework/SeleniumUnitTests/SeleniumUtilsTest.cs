@@ -471,7 +471,7 @@ namespace SeleniumUnitTests
             Assert.IsTrue(logContent.Contains("Found 18 items"), "Expected to find 18 pass matches.");
             Assert.IsTrue(logContent.Contains("Found 50 items"), "Expected to find 52 inapplicable matches.");
             Assert.IsTrue(logContent.Contains("Found 6 items"), "Expected to find 6 violations matches.");
-            Assert.IsTrue(!logContent.Contains("Incomplete check for"), "Did not expected to find any incomplete matches.");
+            Assert.IsTrue(logContent.Contains("Incomplete check for"), "Expected to find any incomplete matches.");
         }
 
         /// <summary>
@@ -505,6 +505,126 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Verify inapplicable only check respected
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void AccessibilityInapplicableCheckRespectsMessageLevel()
+        {
+            WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            WebDriver.Wait().ForPageLoad();
+
+            string filePath = Path.GetDirectoryName(((FileLogger)Log).FilePath);
+            FileLogger fileLogger = new FileLogger(filePath, this.TestContext.TestName + ".txt", MessageType.INFORMATION);
+
+            try
+            {
+                SeleniumUtilities.CheckAccessibilityInapplicable(TestObject.WebDriver, fileLogger, MessageType.WARNING, false);
+                string logContent = File.ReadAllText(fileLogger.FilePath);
+
+                SoftAssert.IsTrue(!logContent.Contains("Violations check"), "Did not expect violation check");
+                SoftAssert.IsTrue(!logContent.Contains("Passes check"), "Did not expect pass check");
+                SoftAssert.IsTrue(!logContent.Contains("Incomplete check"), "Did not expect incomplete check");
+                
+                SoftAssert.IsTrue(logContent.Contains("Inapplicable check"), "Did expect inapplicable check");
+            }
+            finally
+            {
+                File.Delete(fileLogger.FilePath);
+            }
+        }
+
+        /// <summary>
+        /// Verify incomplete only check respected
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void AccessibilityIncompleteCheckRespectsMessageLevel()
+        {
+            WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            WebDriver.Wait().ForPageLoad();
+
+            string filePath = Path.GetDirectoryName(((FileLogger)Log).FilePath);
+            FileLogger fileLogger = new FileLogger(filePath, this.TestContext.TestName + ".txt", MessageType.INFORMATION);
+
+            try
+            {
+                SeleniumUtilities.CheckAccessibilityIncomplete(TestObject.WebDriver, fileLogger, MessageType.WARNING, false);
+                string logContent = File.ReadAllText(fileLogger.FilePath);
+
+                SoftAssert.IsTrue(!logContent.Contains("Violations check"), "Did not expect violation check");
+                SoftAssert.IsTrue(!logContent.Contains("Passes check"), "Did not expect pass check");
+                SoftAssert.IsTrue(!logContent.Contains("Inapplicable check"), "Did not expect inapplicable check");
+
+                SoftAssert.IsTrue(logContent.Contains("Incomplete check"), "Did expect incomplete check");
+            }
+            finally
+            {
+                File.Delete(fileLogger.FilePath);
+            }
+        }
+
+        /// <summary>
+        /// Verify passes only check respected
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void AccessibilityPassesCheckRespectsMessageLevel()
+        {
+            WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            WebDriver.Wait().ForPageLoad();
+
+            string filePath = Path.GetDirectoryName(((FileLogger)Log).FilePath);
+            FileLogger fileLogger = new FileLogger(filePath, this.TestContext.TestName + ".txt", MessageType.INFORMATION);
+
+            try
+            {
+                SeleniumUtilities.CheckAccessibilityPasses(TestObject.WebDriver, fileLogger, MessageType.SUCCESS);
+                string logContent = File.ReadAllText(fileLogger.FilePath);
+
+                SoftAssert.IsTrue(!logContent.Contains("Violations check"), "Did not expect violation check");
+                SoftAssert.IsTrue(!logContent.Contains("Inapplicable check"), "Did not expect inapplicable check");
+                SoftAssert.IsTrue(!logContent.Contains("Incomplete check"), "Did not expect incomplete check");
+                
+                SoftAssert.IsTrue(logContent.Contains("Passes check"), "Did expect pass check");
+            }
+            finally
+            {
+                File.Delete(fileLogger.FilePath);
+            }
+        }
+
+        /// <summary>
+        /// Verify violation only check respected
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void AccessibilityViolationsCheckRespectsMessageLevel()
+        {
+            WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            WebDriver.Wait().ForPageLoad();
+
+            string filePath = Path.GetDirectoryName(((FileLogger)Log).FilePath);
+            FileLogger fileLogger = new FileLogger(filePath, this.TestContext.TestName + ".txt", MessageType.INFORMATION);
+
+            try
+            {
+                SeleniumUtilities.CheckAccessibilityViolations(TestObject.WebDriver, fileLogger, MessageType.ERROR, false);
+                string logContent = File.ReadAllText(fileLogger.FilePath);
+
+                SoftAssert.IsTrue(!logContent.Contains("Passes check"), "Did not expect pass check");
+                SoftAssert.IsTrue(!logContent.Contains("Inapplicable check"), "Did not expect inapplicable check");
+                SoftAssert.IsTrue(!logContent.Contains("Incomplete check"), "Did not expect incomplete check");
+
+                SoftAssert.IsTrue(logContent.Contains("Violations check"), "Did expect violation check");
+            }
+            finally
+            {
+                File.Delete(fileLogger.FilePath);
+            }
+        }
+
+        /// <summary>
         /// Verify accessibility exception will be thrown
         /// </summary>
         [TestMethod]
@@ -516,6 +636,20 @@ namespace SeleniumUnitTests
             WebDriver.Wait().ForPageLoad();
 
             SeleniumUtilities.CheckAccessibility(this.TestObject, true);
+        }
+
+        /// <summary>
+        /// Verify accessibility does not throw when no exception are found
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void AccessibilityCheckNoThrowOnNoResults()
+        {
+            WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            WebDriver.Wait().ForPageLoad();
+
+            // There should be 0 incomplete items found
+            SeleniumUtilities.CheckAccessibilityIncomplete(TestObject.WebDriver, TestObject.Log, MessageType.WARNING, true);
         }
 
         /// <summary>
