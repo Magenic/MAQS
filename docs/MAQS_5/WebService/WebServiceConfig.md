@@ -9,6 +9,7 @@ The WebServiceMaqs configuation section contains the following Keys:
 * ***WebServiceUri*** : The base webservice uri
 * ***WebServiceTimeout*** : How long to wait for something before timing out - Used heavily with the MAQS waits
 * ***UseProxy*** : If the HTTP client should use a proxy address
+    * If this value is "YES" then ProxyAddress is a required field
 * ***ProxyAddress*** : The proxy address and port the HTTP client will use
 
 ## Available methods
