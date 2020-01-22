@@ -58,6 +58,11 @@ namespace Magenic.Maqs.BaseMongoTest
         public event EventHandler<string> DatabaseEvent;
 
         /// <summary>
+        /// Database action event
+        /// </summary>
+        public event EventHandler<string> DatabaseActionEvent;
+
+        /// <summary>
         /// database error event
         /// </summary>
         public event EventHandler<string> DatabaseErrorEvent;
@@ -123,6 +128,15 @@ namespace Magenic.Maqs.BaseMongoTest
         protected virtual void OnEvent(string message)
         {
             this.DatabaseEvent?.Invoke(this, message);
+        }
+
+        /// <summary>
+        /// Database event
+        /// </summary>
+        /// <param name="message">event message</param>
+        protected virtual void OnActionEvent(string message)
+        {
+            this.DatabaseActionEvent?.Invoke(this, message);
         }
 
         /// <summary>

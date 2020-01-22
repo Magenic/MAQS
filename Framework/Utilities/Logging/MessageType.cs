@@ -38,13 +38,23 @@ namespace Magenic.Maqs.Utilities.Logging
         GENERIC = 3,
 
         /// <summary>
+        /// Step Message test engineer would insert
+        /// </summary>
+        STEP = 4,
+
+        /// <summary>
+        /// Action Message reflects actions a user would take
+        /// </summary>
+        ACTION = 5,
+
+        /// <summary>
         /// Informational message - Our default message type
         /// </summary>
-        INFORMATION = 4,
+        INFORMATION = 6,
 
         /// <summary>
         /// Verbose message
         /// </summary>
-        VERBOSE = 5
+        VERBOSE = 7
     }
 }

@@ -119,6 +119,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         public void MapEvents(EventFiringWebServiceDriver eventFiringDriver)
         {
             eventFiringDriver.WebServiceEvent += this.WebService_Event;
+            eventFiringDriver.WebServiceActionEvent += this.WebService_Action;
             eventFiringDriver.WebServiceErrorEvent += this.WebService_Error;
         }
 
@@ -138,6 +139,16 @@ namespace Magenic.Maqs.BaseWebServiceTest
         private void WebService_Event(object sender, string message)
         {
             this.Log.LogMessage(MessageType.INFORMATION, message);
+        }
+
+        /// <summary>
+        /// Web service action event
+        /// </summary>
+        /// <param name="sender">Sender object</param>
+        /// <param name="message">The logging message</param>
+        private void WebService_Action(object sender, string message)
+        {
+            this.Log.LogMessage(MessageType.ACTION, message);
         }
 
         /// <summary>

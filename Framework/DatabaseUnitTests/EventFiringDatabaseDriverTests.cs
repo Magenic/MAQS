@@ -52,11 +52,11 @@ namespace DatabaseUnitTests
         public void EventFiringExecuteEventTest()
         {
             // Subscribe to the event
-            this.DatabaseEvent += this.DatabaseUnitTestEvent;
+            this.DatabaseActionEvent += this.DatabaseUnitTestEvent;
 
             this.Execute("setStateAbbrevToSelf", new { StateAbbreviation = "MN" }, commandType: CommandType.StoredProcedure);
             
-            Assert.AreEqual("Performing execute with:\r\nsetStateAbbrevToSelf", this.eventString);
+            Assert.AreEqual("Perform execute with:\r\nsetStateAbbrevToSelf", this.eventString);
         }
 
         /// <summary>
@@ -112,11 +112,11 @@ namespace DatabaseUnitTests
         public void EventFiringQueryListEventTest()
         {
             // Subscribe to the event
-            this.DatabaseEvent += this.DatabaseUnitTestEvent;
+            this.DatabaseActionEvent += this.DatabaseUnitTestEvent;
 
             this.Query("SELECT * FROM States");
             
-            Assert.AreEqual("Performing query with:\r\nSELECT * FROM States", this.eventString);
+            Assert.AreEqual("Perform query with:\r\nSELECT * FROM States", this.eventString);
         }
 
         /// <summary>
@@ -172,11 +172,11 @@ namespace DatabaseUnitTests
         public void EventFiringQueryEventTest()
         {
             // Subscribe to the event
-            this.DatabaseEvent += this.DatabaseUnitTestEvent;
+            this.DatabaseActionEvent += this.DatabaseUnitTestEvent;
 
             this.Query<States>("SELECT * FROM States");
             
-            Assert.AreEqual("Performing query with:\r\nSELECT * FROM States", this.eventString);
+            Assert.AreEqual("Perform query with:\r\nSELECT * FROM States", this.eventString);
         }
 
         /// <summary>

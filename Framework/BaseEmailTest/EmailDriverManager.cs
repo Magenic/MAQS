@@ -113,6 +113,7 @@ namespace Magenic.Maqs.BaseEmailTest
         private void MapEvents(EventFiringEmailDriver eventFiringConnectionDriver)
         {
             eventFiringConnectionDriver.EmailEvent += this.Email_Event;
+            eventFiringConnectionDriver.EmailActionEvent += this.Email_Action;
             eventFiringConnectionDriver.EmailErrorEvent += this.Email_Error;
         }
 
@@ -124,6 +125,16 @@ namespace Magenic.Maqs.BaseEmailTest
         private void Email_Event(object sender, string message)
         {
             this.Log.LogMessage(MessageType.INFORMATION, message);
+        }
+
+        /// <summary>
+        /// Email event
+        /// </summary>
+        /// <param name="sender">Sender object</param>
+        /// <param name="message">The logging message</param>
+        private void Email_Action(object sender, string message)
+        {
+            this.Log.LogMessage(MessageType.ACTION, message);
         }
 
         /// <summary>
