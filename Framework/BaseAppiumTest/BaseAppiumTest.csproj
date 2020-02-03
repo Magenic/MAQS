@@ -10,7 +10,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Magenic</Authors>
-    <Description>Magenic's automation quick start framework</Description>
+    <Description>Appium extension for Magenic's automation quick start framework</Description>
     <Copyright>Copyright © Magenic 2020</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</PackageIconUrl>

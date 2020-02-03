@@ -14,13 +14,13 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Magenic</Authors>
-    <Description>Magenic's automation quick start framework</Description>
+    <Description>Mongo extension for Magenic's automation quick start framework</Description>
     <Copyright>Copyright © Magenic 2020</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</PackageIconUrl>
     <PackageIcon>MAQS.jpg</PackageIcon>
     <PackageProjectUrl>https://github.com/Magenic/MAQS</PackageProjectUrl>
-    <PackageTags>test selenium appium automation NUnit MSTest TestFramework</PackageTags>
+    <PackageTags>test mongo database automation NUnit MSTest TestFramework</PackageTags>
     <PackageReleaseNotes>6.0.0 - 2020-??-??</PackageReleaseNotes>
   </PropertyGroup>
 
