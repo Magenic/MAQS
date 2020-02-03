@@ -22,7 +22,7 @@
     <PackageReference Include="Dapper" version="2.0.30" />
     <PackageReference Include="DotNetSeleniumExtras.PageObjects" version="3.11.0" />
     <PackageReference Include="Gherkin" version="6.0.0" />
-    <PackageReference Include="MSTest.TestFramework" version="2.0.0" />
+    <PackageReference Include="MSTest.TestFramework" version="2.1.0" />
     <PackageReference Include="Newtonsoft.Json" version="12.0.3" />
     <PackageReference Include="NUnit" version="3.12.0" />
     <PackageReference Include="Selenium.Support" version="3.141.0" />
