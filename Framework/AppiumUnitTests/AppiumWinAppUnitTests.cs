@@ -25,7 +25,7 @@ namespace AppiumUnitTests
         /// Tests the creation of the Appium Windows application driver
         /// </summary>
         [TestMethod]
-        [Ignore]
+        [Ignore] // Can currently only run WinAppDriver locally with our current setup
         [TestCategory(TestCategories.Appium)]
         public void AppiumWinAppDriverTest()
         {
