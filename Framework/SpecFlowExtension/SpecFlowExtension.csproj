@@ -27,7 +27,7 @@
     <PackageReference Include="NUnit" version="3.12.0" />
     <PackageReference Include="Selenium.Support" version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver" version="3.141.0" />
-    <PackageReference Include="SpecFlow" version="3.1.80" />
+    <PackageReference Include="SpecFlow" version="3.1.82" />
     <PackageReference Include="System.Reflection.Emit" version="4.7.0" />
     <PackageReference Include="System.Reflection.Emit.Lightweight" version="4.7.0" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" version="4.7.0" />
