@@ -4,7 +4,7 @@
     <TargetFrameworks>net471;netcoreapp2.0;netcoreapp3.0</TargetFrameworks>
     <AssemblyName>Magenic.Maqs.SpecFlow</AssemblyName>
     <RootNamespace>Magenic.Maqs.SpecFlow</RootNamespace>
-    <Version>5.7.0</Version>
+    <Version>5.8.0</Version>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>
     <ProjectGuid>{26D35A87-D2F4-4A04-931A-EF2DBEA9EBB5}</ProjectGuid>
   </PropertyGroup>
