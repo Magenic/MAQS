@@ -1,5 +1,5 @@
 MAQS SpecFlow ExtensionRelease Notes:
-5.8.0 - 2019/02/04
+5.8.0 - 2020/02/12
     Bug fixes and minor enhancements
     - Preparation for MAQS 6.0
     - Ability to log A11y at different levels
