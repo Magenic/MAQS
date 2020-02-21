@@ -26,7 +26,7 @@
     <PackageReference Include="Magenic.Maqs" Version="5.8.0" />
     <PackageReference Include="Magenic.Maqs.SpecFlow" Version="5.8.0" />
     <PackageReference Include="SpecFlow.MsTest" Version="3.1.82" />
-    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.1.82" />
+    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.1.86" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.0" />
     <PackageReference Include="Dapper" Version="2.0.30" />
     <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="3.1.1" />
