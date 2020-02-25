@@ -1125,8 +1125,8 @@ namespace SeleniumUnitTests
             string log = this.GetAndRemoveCustomFileLog();
             Assert.IsTrue(log.Contains("Navigating to: "));
             Assert.IsTrue(log.Contains("Navigating back to: "));
-            Assert.IsTrue(log.Contains("Navigated Forward: "));
-            Assert.IsTrue(log.Contains("Navigated back: "));
+            Assert.IsTrue(log.Contains("Navigate Forward: "));
+            Assert.IsTrue(log.Contains("Navigate back: "));
         }
 
         /// <summary>

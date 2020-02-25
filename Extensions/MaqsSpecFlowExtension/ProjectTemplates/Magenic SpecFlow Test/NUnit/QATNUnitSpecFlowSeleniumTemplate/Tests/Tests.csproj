@@ -4,23 +4,25 @@
     <TargetFramework>net471</TargetFramework>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <IsPackable>false</IsPackable>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
 
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Magenic.Maqs" version="5.7.0" />
-    <PackageReference Include="Magenic.Maqs.SpecFlow" Version="5.7.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="2.0.0" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.0.0" />
+    <PackageReference Include="Magenic.Maqs" version="5.8.0" />
+    <PackageReference Include="Magenic.Maqs.SpecFlow" Version="5.8.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.1.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.1.0" />
     <PackageReference Include="Selenium.Support" Version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
-    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="79.0.3945.3600" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="80.0.3987.10600" />
     <PackageReference Include="Selenium.WebDriver.GeckoDriver.Win64" Version="0.26.0" />
     <PackageReference Include="Selenium.WebDriver.IEDriver" Version="3.150.1" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.16.0" />
-    <PackageReference Include="SpecFlow.NUnit" Version="3.1.76" />
-    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.1.76" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
+    <PackageReference Include="SpecFlow.NUnit" Version="3.1.82" />
+    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.1.82" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.0" />
   </ItemGroup>
 
@@ -43,7 +45,7 @@
       FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(ProjectDir)\..\packages\chromedriver.exe"') do copy /Y "%25%25m" "$(TargetDir)"
       FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(ProjectDir)\..\packages\IEDriverServer.exe"') do copy /Y "%25%25m" "$(TargetDir)"
       FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(ProjectDir)\..\packages\geckodriver.exe"') do copy /Y "%25%25m" "$(TargetDir)"
-    </PostBuildEvent>   
+    </PostBuildEvent>
   </PropertyGroup>
 
 </Project>

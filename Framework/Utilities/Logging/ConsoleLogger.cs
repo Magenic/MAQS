@@ -114,6 +114,12 @@ namespace Magenic.Maqs.Utilities.Logging
                 case MessageType.INFORMATION:
                     SetConsoleColor(ConsoleColor.Blue, ConsoleColor.White);
                     break;
+                case MessageType.ACTION:
+                    SetConsoleColor(ConsoleColor.Gray, ConsoleColor.White);
+                    break;
+                case MessageType.STEP:
+                    SetConsoleColor(ConsoleColor.Magenta, ConsoleColor.White);
+                    break;
                 case MessageType.GENERIC:
                     SetConsoleColor(ConsoleColor.White);
                     break;

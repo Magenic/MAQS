@@ -2,17 +2,16 @@
 
   <PropertyGroup>
     <TargetFrameworks>net471;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <AssemblyName>Magenic.Maqs.BaseTest</AssemblyName>
-    <RootNamespace>Magenic.Maqs.BaseTest</RootNamespace>
     <AssemblyVersion>5.8.0</AssemblyVersion>
     <FileVersion>5.8.0</FileVersion>
     <Version>5.8.0</Version>
+    <AssemblyName>Magenic.Maqs.BaseCompositeTest</AssemblyName>
+    <RootNamespace>Magenic.Maqs.BaseCompositeTest</RootNamespace>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>
-    <ProjectGuid>{B7763B2A-906B-4843-9C88-7189A98DF152}</ProjectGuid>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Magenic</Authors>
-    <Description>Magenic's automation quick start framework</Description>
+    <Description>Composite extension for Magenic's automation quick start framework. Includes all MAQS extensions.</Description>
     <Copyright>Copyright © Magenic 2020</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</PackageIconUrl>
@@ -29,16 +28,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MSTest.TestFramework" Version="2.1.0" />
-    <PackageReference Include="NUnit" Version="3.12.0" />
+    <None Include="..\MAQS.jpg" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Utilities\Utilities.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\MAQS.jpg" Pack="true" PackagePath=""/>
+    <ProjectReference Include="..\BaseAppiumTest\BaseAppiumTest.csproj" />
+    <ProjectReference Include="..\BaseDatabaseTest\BaseDatabaseTest.csproj" />
+    <ProjectReference Include="..\BaseEmailTest\BaseEmailTest.csproj" />
+    <ProjectReference Include="..\BaseMongoTest\BaseMongoTest.csproj" />
+    <ProjectReference Include="..\BaseSeleniumTest\BaseSeleniumTest.csproj" />
+    <ProjectReference Include="..\BaseTest\BaseTest.csproj" />
+    <ProjectReference Include="..\BaseWebServiceTest\BaseWebServiceTest.csproj" />
   </ItemGroup>
 
 </Project>

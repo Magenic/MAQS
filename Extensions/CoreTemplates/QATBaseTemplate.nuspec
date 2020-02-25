@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata minClientVersion="3.6">
     <id>Magenic.Maqs.Templates</id>
-    <version>5.7.0</version>
+    <version>5.8.0</version>
     <title>MAQS Core Templates</title>
     <authors>Magenic</authors>
     <owners>Magenic</owners>
@@ -15,6 +15,15 @@
     <summary>Templates for Magenic's automation framework. 
 This package includes templates for browser, mobile, web service, database, email, generic and composite test solutions.</summary>
     <releaseNotes>
+	5.8.0 - 2020/02/12
+    Bug fixes and minor enhancements
+    - Preparation for MAQS 6.0
+    - Ability to log A11y at different levels
+    - Copyright Update
+    - Step and Action Log Levels
+    - Configuration validation checks
+    - Documentation updates
+
     5.7.0 - 2019/12/04
       Template updates
       - Stop renaming projects and files to match destination folder

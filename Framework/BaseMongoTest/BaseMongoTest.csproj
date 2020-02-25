@@ -2,15 +2,26 @@
 
   <PropertyGroup>
     <TargetFrameworks>net471;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>5.7.0</Version>
+    <Version>5.8.0</Version>
     <AssemblyName>Magenic.Maqs.BaseMongoTest</AssemblyName>
     <RootNamespace>Magenic.Maqs.BaseMongoTest</RootNamespace>
     <PackageId>Magenic.Maqs.BaseMongoTest</PackageId>
     <Authors>Magenic.Maqs.BaseMongoTest</Authors>
-    <Company>Magenic.Maqs.BaseMongoTest</Company>
+    <Company>Magenic</Company>
     <Product>Magenic.Maqs.BaseMongoTest</Product>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>
     <ProjectGuid>{134221CF-DE9A-4075-A301-C7A89B1644D9}</ProjectGuid>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Authors>Magenic</Authors>
+    <Description>Mongo extension for Magenic's automation quick start framework</Description>
+    <Copyright>Copyright © Magenic 2020</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</PackageIconUrl>
+    <PackageIcon>MAQS.jpg</PackageIcon>
+    <PackageProjectUrl>https://github.com/Magenic/MAQS</PackageProjectUrl>
+    <PackageTags>test mongo database automation NUnit MSTest TestFramework</PackageTags>
+    <PackageReleaseNotes>6.0.0 - 2020-??-??</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -20,9 +31,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MongoDB.Bson" Version="2.10.0" />
-    <PackageReference Include="MongoDB.Driver" Version="2.10.0" />
-    <PackageReference Include="MongoDB.Driver.Core" Version="2.10.0" />
+    <None Include="..\MAQS.jpg" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MongoDB.Bson" Version="2.10.2" />
+    <PackageReference Include="MongoDB.Driver" Version="2.10.1" />
+    <PackageReference Include="MongoDB.Driver.Core" Version="2.10.2" />
     <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />
   </ItemGroup>
 

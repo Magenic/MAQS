@@ -5,12 +5,23 @@
     <AssemblyName>Magenic.Maqs.BaseEmailTest</AssemblyName>
     <RootNamespace>Magenic.Maqs.BaseEmailTest</RootNamespace>
     <PackageId>Magenic.Maqs.BaseEmailTest</PackageId>
-    <Authors>Magenic.Maqs.BaseEmailTest</Authors>
-    <Company>Magenic.Maqs.BaseEmailTest</Company>
+    <Company>Magenic</Company>
     <Product>Magenic.Maqs.BaseEmailTest</Product>
-    <Version>5.7.0</Version>
+    <Version>5.8.0</Version>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>
     <ProjectGuid>{A62253D3-87CE-44A0-88E6-05C26747D9CF}</ProjectGuid>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Authors>Magenic</Authors>
+    <Description>Email extension for Magenic's automation quick start framework</Description>
+    <Copyright>Copyright © Magenic 2020</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</PackageIconUrl>
+    <PackageIcon>MAQS.jpg</PackageIcon>
+    <PackageProjectUrl>https://github.com/Magenic/MAQS</PackageProjectUrl>
+    <PackageTags>test email automation NUnit MSTest TestFramework</PackageTags>
+    <PackageReleaseNotes>6.0.0 - 2020-??-??</PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/Magenic/MAQS</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -20,7 +31,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MailKit" Version="2.4.1" />
+    <None Include="..\MAQS.jpg" Pack="true" PackagePath=""/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MailKit" Version="2.5.1" />
   </ItemGroup>
 
   <ItemGroup>

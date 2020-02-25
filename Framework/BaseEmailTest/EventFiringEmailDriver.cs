@@ -32,7 +32,7 @@ namespace Magenic.Maqs.BaseEmailTest
         public EventFiringEmailDriver(string host, string username, string password, int port, int serverTimeout = 10000, bool isSSL = true, bool skipSslCheck = false)
             : base(host, username, password, port, serverTimeout, isSSL, skipSslCheck)
         {
-            this.OnEvent(StringProcessor.SafeFormatter("Connect to email with user '{0}' on host '{1}', port '{2}'", username, host, port));
+            this.OnActionEvent(StringProcessor.SafeFormatter("Connect to email with user '{0}' on host '{1}', port '{2}'", username, host, port));
         }
 
         /// <summary>
@@ -42,13 +42,18 @@ namespace Magenic.Maqs.BaseEmailTest
         public EventFiringEmailDriver(Func<ImapClient> setupEmailBaseConnectionOverride)
             : base(setupEmailBaseConnectionOverride)
         {
-            this.OnEvent(StringProcessor.SafeFormatter("Connect to email with function '{0}'", setupEmailBaseConnectionOverride.Method.Name));
+            this.OnActionEvent(StringProcessor.SafeFormatter("Connect to email with function '{0}'", setupEmailBaseConnectionOverride.Method.Name));
         }
 
         /// <summary>
         /// Email event
         /// </summary>
         public event EventHandler<string> EmailEvent;
+
+        /// <summary>
+        /// Email action event
+        /// </summary>
+        public event EventHandler<string> EmailActionEvent;
 
         /// <summary>
         /// Email error event
@@ -119,7 +124,7 @@ namespace Magenic.Maqs.BaseEmailTest
         {
             try
             {
-                this.OnEvent(StringProcessor.SafeFormatter("Select mailbox named '{0}'", mailbox));
+                this.OnActionEvent(StringProcessor.SafeFormatter("Select mailbox named '{0}'", mailbox));
                 base.SelectMailbox(mailbox);
             }
             catch (Exception ex)
@@ -137,7 +142,7 @@ namespace Magenic.Maqs.BaseEmailTest
         {
             try
             {
-                this.OnEvent(StringProcessor.SafeFormatter("Create mailbox named '{0}'", newMailBox));
+                this.OnActionEvent(StringProcessor.SafeFormatter("Create mailbox named '{0}'", newMailBox));
                 base.CreateMailbox(newMailBox);
             }
             catch (Exception ex)
@@ -196,7 +201,7 @@ namespace Magenic.Maqs.BaseEmailTest
         {
             try
             {
-                this.OnEvent(StringProcessor.SafeFormatter("Delete message '{0}' from '{1}' received '{2}'", message.Subject, message.From, message.Date));
+                this.OnActionEvent(StringProcessor.SafeFormatter("Delete message '{0}' from '{1}' received '{2}'", message.Subject, message.From, message.Date));
                 base.DeleteMessage(message);
             }
             catch (Exception ex)
@@ -214,7 +219,7 @@ namespace Magenic.Maqs.BaseEmailTest
         {
             try
             {
-                this.OnEvent(StringProcessor.SafeFormatter("Delete message with uid '{0}' from mailbox '{1}'", uid, this.CurrentMailBox));
+                this.OnActionEvent(StringProcessor.SafeFormatter("Delete message with uid '{0}' from mailbox '{1}'", uid, this.CurrentMailBox));
                 base.DeleteMessage(uid);
             }
             catch (Exception ex)
@@ -233,7 +238,7 @@ namespace Magenic.Maqs.BaseEmailTest
         {
             try
             {
-                this.OnEvent(StringProcessor.SafeFormatter("Move message '{0}' from '{1}' received '{2}' to mailbox '{3}'", message.Subject, message.From.ToString(), message.Date.ToString(), destinationMailbox));
+                this.OnActionEvent(StringProcessor.SafeFormatter("Move message '{0}' from '{1}' received '{2}' to mailbox '{3}'", message.Subject, message.From.ToString(), message.Date.ToString(), destinationMailbox));
                 base.MoveMailMessage(message, destinationMailbox);
             }
             catch (Exception ex)
@@ -252,7 +257,7 @@ namespace Magenic.Maqs.BaseEmailTest
         {
             try
             {
-                this.OnEvent(StringProcessor.SafeFormatter("Move message with uid '{0}' from mailbox '{1}' to mailbox '{2}'", uid, this.CurrentMailBox, destinationMailbox));
+                this.OnActionEvent(StringProcessor.SafeFormatter("Move message with uid '{0}' from mailbox '{1}' to mailbox '{2}'", uid, this.CurrentMailBox, destinationMailbox));
                 base.MoveMailMessage(uid, destinationMailbox);
             }
             catch (Exception ex)
@@ -311,7 +316,7 @@ namespace Magenic.Maqs.BaseEmailTest
         {
             try
             {
-                this.OnEvent(
+                this.OnActionEvent(
                     StringProcessor.SafeFormatter("Download attachments for message '{0}' from '{1}' revived '{2}' in mailbox '{3}' to '{4}'", message.Subject, message.From, message.Date, this.CurrentMailBox, downloadFolder));
                 return base.DownloadAttachments(message, downloadFolder);
             }
@@ -333,7 +338,7 @@ namespace Magenic.Maqs.BaseEmailTest
         {
             try
             {
-                this.OnEvent(
+                this.OnActionEvent(
                     StringProcessor.SafeFormatter("Search for messages in mailbox '{0}' with search condition '{1}', header only '{2}' and mark as read '{3}'", this.CurrentMailBox, condition, headersOnly, markRead));
                 return base.SearchMessages(condition, headersOnly, markRead);
             }
@@ -392,6 +397,15 @@ namespace Magenic.Maqs.BaseEmailTest
         protected virtual void OnEvent(string message)
         {
             this.EmailEvent?.Invoke(this, message);
+        }
+
+        /// <summary>
+        /// Email action event
+        /// </summary>
+        /// <param name="message">The event message</param>
+        protected virtual void OnActionEvent(string message)
+        {
+            this.EmailActionEvent?.Invoke(this, message);
         }
 
         /// <summary>

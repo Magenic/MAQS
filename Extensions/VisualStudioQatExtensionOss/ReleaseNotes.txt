@@ -1,4 +1,13 @@
 MAQS Framework Release Notes:
+5.8.0 - 2020/02/12
+    Bug fixes and minor enhancements
+    - Preparation for MAQS 6.0
+    - Ability to log A11y at different levels
+    - Copyright Update
+    - Step and Action Log Levels
+    - Configuration validation checks
+    - Documentation updates
+
 5.7.0 - 2019/12/04
     Template updates
     - updated to 5.7 MAQS references

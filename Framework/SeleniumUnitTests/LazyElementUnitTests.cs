@@ -199,7 +199,7 @@ namespace SeleniumUnitTests
 
             try
             {
-                this.WebDriver.SetWaitDriver(new OpenQA.Selenium.Support.UI.WebDriverWait(new SystemClock(), this.WebDriver, TimeSpan.FromSeconds(3), TimeSpan.FromMilliseconds(500)));
+                this.WebDriver.SetWaitDriver(new OpenQA.Selenium.Support.UI.WebDriverWait(new SystemClock(), this.WebDriver, TimeSpan.FromSeconds(3), TimeSpan.FromMilliseconds(100)));
                 this.DisabledItem.Click();
             }
             catch (TimeoutException)

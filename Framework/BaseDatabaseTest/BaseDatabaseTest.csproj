@@ -4,9 +4,20 @@
     <TargetFrameworks>net471;netstandard2.0;netstandard2.1</TargetFrameworks>
     <AssemblyName>Magenic.Maqs.BaseDatabaseTest</AssemblyName>
     <RootNamespace>Magenic.Maqs.BaseDatabaseTest</RootNamespace>
-    <Version>5.7.0</Version>
+    <Version>5.8.0</Version>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>
     <ProjectGuid>{40C69F26-3B81-43D3-AC2E-2F9B5104AE38}</ProjectGuid>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Authors>Magenic</Authors>
+    <Description>Database extension for Magenic's automation quick start framework</Description>
+    <Copyright>Copyright © Magenic 2020</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</PackageIconUrl>
+    <PackageIcon>MAQS.jpg</PackageIcon>
+    <PackageProjectUrl>https://github.com/Magenic/MAQS</PackageProjectUrl>
+    <PackageTags>test SQL database automation NUnit MSTest TestFramework</PackageTags>
+    <PackageReleaseNotes>6.0.0 - 2020-??-??</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -18,16 +29,20 @@
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.30" />
     <PackageReference Include="Dapper.Contrib" Version="2.0.30" />
-    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="3.1.0" />
-    <PackageReference Include="Npgsql" Version="4.1.2" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="3.1.1" />
+    <PackageReference Include="Npgsql" Version="4.1.3" />
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.19.60" />
     <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="2.0.2" />
     <PackageReference Include="SQLitePCLRaw.core" Version="2.0.2" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.0" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <ProjectReference Include="..\BaseTest\BaseTest.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\MAQS.jpg" Pack="true" PackagePath="" />
   </ItemGroup>
 </Project>
