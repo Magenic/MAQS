@@ -7,11 +7,3 @@ update_configs:
     default_labels:
       - "dependencies"
       - "dependabot"
-
-  - package_manager: "dotnet:nuget"
-    directory: "/Extensions"
-    update_schedule: "live"
-    target_branch: "master"
-    default_labels:
-      - "dependencies"
-      - "dependabot"
