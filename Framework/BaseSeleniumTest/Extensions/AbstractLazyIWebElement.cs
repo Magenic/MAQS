@@ -624,6 +624,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </summary>
         /// <param name="by">The locating mechanism to use</param>
         /// <returns>The first matching OpenQA.Selenium.IWebElement on the current context</returns>
+        [Obsolete("The FindLazyElement method will be removed in MAQS 6.0 and will be converted to FindElement")]
         public IWebElement FindLazyElement(By by)
         {
             return this.FindElement(by, "Child element");
@@ -651,6 +652,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </summary>
         /// <param name="by">The locating mechanism to use</param>
         /// <returns>All web elements matching the current criteria, or an empty list if nothing matches</returns>
+        [Obsolete("The FindLazyElements method will be removed in MAQS 6.0 and will be converted to FindElements")]
+
         public ReadOnlyCollection<IWebElement> FindLazyElements(By by)
         {
             return this.FindElements(by, "Child elements");
