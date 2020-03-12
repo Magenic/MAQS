@@ -10,6 +10,7 @@ using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.ObjectModel;
@@ -973,6 +974,42 @@ namespace SeleniumUnitTests
             IWebElement secondTable = lazyRoot.FindLazyElements(By.CssSelector("TABLE"))[1];
             IWebElement getSecondTable = ((LazyElement)secondTable).GetTheVisibleElement();
             Assert.AreEqual(secondTable.Text, getSecondTable.Text);
+        }
+
+        /// <summary>
+        /// Find Element the run Actions that cast to ILocatable
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementFindRawElementWorksWithActions()
+        {
+            IWebElement rawElement = this.DivRoot.FindElement(this.DisabledItem.By);
+
+            Actions a1 = new Actions(this.WebDriver);
+            a1.KeyDown(rawElement, Keys.Shift).Build().Perform();
+            a1.KeyUp(rawElement, Keys.Shift).Build().Perform();
+            a1.SendKeys(rawElement, "Hello").Build().Perform();
+            a1.MoveToElement(rawElement).Build().Perform();
+            a1.MoveToElement(rawElement, 0, 0).Build().Perform();
+            a1.MoveToElement(rawElement, 0, 0, MoveToElementOffsetOrigin.Center).Build().Perform();
+        }
+
+        /// <summary>
+        /// Find Elements the run Actions that cast to ILocatable
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementFindRawElementsWorksWithActions()
+        {
+            IWebElement rawElement = this.DivRoot.FindElements(this.DisabledItem.By)[0];
+
+            Actions a1 = new Actions(this.WebDriver);
+            a1.KeyDown(rawElement, Keys.Shift).Build().Perform();
+            a1.KeyUp(rawElement, Keys.Shift).Build().Perform();
+            a1.SendKeys(rawElement, "Hello").Build().Perform();
+            a1.MoveToElement(rawElement).Build().Perform();
+            a1.MoveToElement(rawElement, 0, 0).Build().Perform();
+            a1.MoveToElement(rawElement, 0, 0, MoveToElementOffsetOrigin.Center).Build().Perform();
         }
     }
 }
