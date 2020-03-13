@@ -1,5 +1,12 @@
 MAQS Framework Release Notes:
-5.8.0 - 2019/02/04
+5.8.1 - 2020/03/13
+    Bug fixes and minor enhancements
+    - Add FindLazyElement and FindLazyElements to LazyElement
+    - Have Lazy element return standard elements for FindElement and FindElements
+    - No longer set browser specific timeouts when running non-browser tests in Appium
+    - Default to Core 3.0 for templates
+
+5.8.0 - 2020/02/04
     Bug fixes and minor enhancements
     - Preparation for MAQS 6.0
     - Ability to log A11y at different levels
