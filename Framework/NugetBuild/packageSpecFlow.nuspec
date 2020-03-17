@@ -115,6 +115,5 @@
     <file src="..\SpecFlowExtension\bin\Release\net471\Magenic.Maqs.SpecFlow.*" target="lib\net471" />
     <file src="..\SpecFlowExtension\bin\Release\netcoreapp2.0\Magenic.Maqs.SpecFlow*.dll" target="lib\netcoreapp2.0" />
     <file src="..\SpecFlowExtension\bin\Release\netcoreapp3.0\Magenic.Maqs.SpecFlow*.dll" target="lib\netcoreapp3.0" />
-    <file src="..\..\Extensions\VisualStudioQatExtensionOss\License.txt" target=""/>
   </files>
 </package>

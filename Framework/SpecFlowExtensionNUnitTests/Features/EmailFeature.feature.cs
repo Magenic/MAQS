@@ -19,8 +19,8 @@ namespace SpecFlowExtensionNUnitTests.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.1.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("EmailFeature")]
+    [NUnit.Framework.TestFixtureAttribute(TestName="EmailFeature")]
+    [NUnit.Framework.DescriptionAttribute("\tEmail Tests")]
     public partial class EmailFeatureFeature
     {
         
@@ -73,7 +73,7 @@ namespace SpecFlowExtensionNUnitTests.Features
             testRunner.CollectScenarioErrors();
         }
         
-        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.TestCaseAttribute(TestName="EmailDriver Available BaseEmailTestSteps")]
         [NUnit.Framework.DescriptionAttribute("EmailDriver Available BaseEmailTestSteps")]
         [NUnit.Framework.CategoryAttribute("MAQS_Email")]
         public virtual void EmailDriverAvailableBaseEmailTestSteps()

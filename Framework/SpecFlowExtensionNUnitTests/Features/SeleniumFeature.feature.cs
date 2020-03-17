@@ -19,8 +19,8 @@ namespace SpecFlowExtensionNUnitTests.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.1.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("SeleniumFeature")]
+    [NUnit.Framework.TestFixtureAttribute(TestName="SeleniumFeature")]
+    [NUnit.Framework.DescriptionAttribute("\tSelenium Tests")]
     public partial class SeleniumFeatureFeature
     {
         
@@ -73,7 +73,7 @@ namespace SpecFlowExtensionNUnitTests.Features
             testRunner.CollectScenarioErrors();
         }
         
-        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.TestCaseAttribute(TestName="WebDriver Available BaseSeleniumTestSteps")]
         [NUnit.Framework.DescriptionAttribute("WebDriver Available BaseSeleniumTestSteps")]
         [NUnit.Framework.CategoryAttribute("MAQS_Selenium")]
         public virtual void WebDriverAvailableBaseSeleniumTestSteps()

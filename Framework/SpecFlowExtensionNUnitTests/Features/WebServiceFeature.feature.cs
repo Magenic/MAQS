@@ -19,8 +19,8 @@ namespace SpecFlowExtensionNUnitTests.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.1.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("WebServiceFeature")]
+    [NUnit.Framework.TestFixtureAttribute(TestName="WebServiceFeature")]
+    [NUnit.Framework.DescriptionAttribute("\tWeb Service Tests")]
     public partial class WebServiceFeatureFeature
     {
         
@@ -73,7 +73,7 @@ namespace SpecFlowExtensionNUnitTests.Features
             testRunner.CollectScenarioErrors();
         }
         
-        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.TestCaseAttribute(TestName="WebServiceDriver Available BaseWebServiceTestSteps")]
         [NUnit.Framework.DescriptionAttribute("WebServiceDriver Available BaseWebServiceTestSteps")]
         [NUnit.Framework.CategoryAttribute("MAQS_WebService")]
         public virtual void WebServiceDriverAvailableBaseWebServiceTestSteps()
