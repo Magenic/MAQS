@@ -19,8 +19,8 @@ namespace SpecFlowExtensionNUnitTests.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.1.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("TestObjectFeature")]
+    [NUnit.Framework.TestFixtureAttribute(TestName="TestObjectFeature")]
+    [NUnit.Framework.DescriptionAttribute("\tTestObject is available")]
     public partial class TestObjectFeatureFeature
     {
         
@@ -73,7 +73,7 @@ namespace SpecFlowExtensionNUnitTests.Features
             testRunner.CollectScenarioErrors();
         }
         
-        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.TestCaseAttribute(TestName="TestObject Available BaseTestSteps")]
         [NUnit.Framework.DescriptionAttribute("TestObject Available BaseTestSteps")]
         [NUnit.Framework.CategoryAttribute("MAQS_General")]
         public virtual void TestObjectAvailableBaseTestSteps()
@@ -115,7 +115,7 @@ this.ScenarioInitialize(scenarioInfo);
             this.ScenarioCleanup();
         }
         
-        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.TestCaseAttribute(TestName="TestObject Available BaseSeleniumTestSteps")]
         [NUnit.Framework.DescriptionAttribute("TestObject Available BaseSeleniumTestSteps")]
         [NUnit.Framework.CategoryAttribute("MAQS_Selenium")]
         public virtual void TestObjectAvailableBaseSeleniumTestSteps()
@@ -157,7 +157,7 @@ this.ScenarioInitialize(scenarioInfo);
             this.ScenarioCleanup();
         }
         
-        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.TestCaseAttribute(TestName="TestObject Available BaseWebServiceTestSteps")]
         [NUnit.Framework.DescriptionAttribute("TestObject Available BaseWebServiceTestSteps")]
         [NUnit.Framework.CategoryAttribute("MAQS_WebService")]
         public virtual void TestObjectAvailableBaseWebServiceTestSteps()
@@ -199,7 +199,7 @@ this.ScenarioInitialize(scenarioInfo);
             this.ScenarioCleanup();
         }
         
-        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.TestCaseAttribute(TestName="TestObject Available BaseEmailTestSteps")]
         [NUnit.Framework.DescriptionAttribute("TestObject Available BaseEmailTestSteps")]
         [NUnit.Framework.CategoryAttribute("MAQS_Email")]
         public virtual void TestObjectAvailableBaseEmailTestSteps()
@@ -241,7 +241,7 @@ this.ScenarioInitialize(scenarioInfo);
             this.ScenarioCleanup();
         }
         
-        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.TestCaseAttribute(TestName="TestObject Available BaseDatabaseTestSteps")]
         [NUnit.Framework.DescriptionAttribute("TestObject Available BaseDatabaseTestSteps")]
         [NUnit.Framework.CategoryAttribute("MAQS_Database")]
         public virtual void TestObjectAvailableBaseDatabaseTestSteps()

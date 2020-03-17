@@ -19,8 +19,8 @@ namespace SpecFlowExtensionNUnitTests.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.1.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("DatabaseFeature")]
+    [NUnit.Framework.TestFixtureAttribute(TestName="DatabaseFeature")]
+    [NUnit.Framework.DescriptionAttribute("\tDatabase Tests")]
     public partial class DatabaseFeatureFeature
     {
         
@@ -73,7 +73,7 @@ namespace SpecFlowExtensionNUnitTests.Features
             testRunner.CollectScenarioErrors();
         }
         
-        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.TestCaseAttribute(TestName="DatabaseDriver Available BaseDatabaseTestSteps")]
         [NUnit.Framework.DescriptionAttribute("DatabaseDriver Available BaseDatabaseTestSteps")]
         [NUnit.Framework.CategoryAttribute("MAQS_Database")]
         public virtual void DatabaseDriverAvailableBaseDatabaseTestSteps()
