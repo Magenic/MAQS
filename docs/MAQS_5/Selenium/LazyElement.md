@@ -140,7 +140,9 @@ Assert.AreEqual(true, dialogOneButton.ExistsNow);
 ```  
 
 ### FindElement 
-This method requires a parent lazy element, which returns the first element under the parent that matches the given selector.
+This method requires a parent lazy element, which returns the first element under the parent that matches the given selector as a WebElement.
+
+*Note: This will be changed to FindRawElement in MAQS 6.0*
 #### Written as
 ```csharp
 this.ParentElementID.FindElement(By.MethodOfSelction("Selector"));
@@ -158,8 +160,54 @@ LazyElement table =
 // Find the first row element in the table
 table.FindElement(By.HTMLSelector(".tr"));
 ```
+
+### FindLazyElement 
+This method requires a parent lazy element, which returns the first element under the parent that matches the given selector as a LazyElement.
+
+*Note: This will be changed to FindElement in MAQS 6.0*
+#### Written as
+```csharp
+this.ParentElementID.FindLazyElement(By.MethodOfSelction("Selector"));
+```
+
+#### Example
+```csharp
+// Initializing Lazy Element for a parent element, in this case a table
+LazyElement table = 
+    new LazyElement(
+    this.TestObject,
+    By.CssSelector("#entryTable"),
+    "The table element which contains all rows of user data");
+
+// Find the first row element in the table
+table.FindLazyElement(By.HTMLSelector(".tr"));
+```
 ### FindElements
-This method requires a parent lazy element, which returns an array of all elements under the parent that matches the given selector.
+This method requires a parent lazy element, which returns an array of all elements under the parent that matches the given selector from the lazy element as a List of WebElements.
+
+*Note: This will be changed to FindRawElements in MAQS 6.0*
+#### Written as
+```csharp
+this.ParentElementID.FindElements(By.MethodOfSelection("Selector"));
+```
+
+#### Example
+```csharp
+// Initializing Lazy Element for a parent element, in this case a table
+LazyElement table = 
+    new LazyElement(
+    this.TestObject,
+    By.CssSelector("#entryTable"),
+    "The table element which contains all rows of user data");
+
+// Finds all row elements in the table
+table.FindElements(By.HTMLSelector(".tr"));
+```
+
+### FindLazyElements
+This method requires a parent lazy element, which returns an array of all elements under the parent that matches the given selector from the lazy element as a List of LazyElements.
+
+*Note: This will be changed to FindElements in MAQS 6.0*
 #### Written as
 ```csharp
 this.ParentElementID.FindElements(By.MethodOfSelection("Selector"));

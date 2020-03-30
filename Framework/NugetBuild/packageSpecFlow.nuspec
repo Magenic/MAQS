@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata minClientVersion="3.6">
     <id>Magenic.Maqs.SpecFlow</id>
-    <version>5.8.0</version>
+    <version>5.8.1</version>
     <title>MAQS SpecFlow Add-on</title>
     <authors>Magenic</authors>
     <owners>Magenic</owners>
@@ -13,7 +13,13 @@
     <iconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</iconUrl>
     <summary>Magenic's automation quick start framework - SpecFlow extension. MAQS is a modular test automation framework that can be used as the base for your automation project or individual pieces can be used to enhance existing frameworks. Utilizing project templates, NuGet, and utility libraries we are able to have a functioning framework up and running in minutes, almost entirely removing on the initial time investment on implementing an automation solution.</summary>
     <releaseNotes>
-      5.8.0 - 2020/02/12
+      5.8.1 - 2020/03/13
+      Bug fixes and minor enhancements
+      - Add FindLazyElement and FindLazyElements to LazyElement
+      - Have Lazy element return standard elements for FindElement and FindElements
+      - No longer set browser specific timeouts when running non-browser tests in Appium
+
+      5.8.0 - 2020/02/04
       Bug fixes and minor enhancements
       - Preparation for MAQS 6.0
       - Ability to log A11y at different levels
@@ -103,7 +109,7 @@
     <projectUrl>https://github.com/Magenic/MAQS</projectUrl>
     <tags>test selenium appium automation NUnit MSTest TestFramework SpecFlow</tags>
     <dependencies>
-      <dependency id="Magenic.Maqs" version="5.8.0" />
+      <dependency id="Magenic.Maqs" version="5.8.1" />
       <dependency id="NUnit" version="3.12.0" />
       <dependency id="MSTest.TestFramework" version="2.0.0" />
       <dependency id="Microsoft.Extensions.Configuration" version="3.0.0" />
