@@ -4,7 +4,7 @@
     <TargetFrameworks>net471;netstandard2.0;netstandard2.1</TargetFrameworks>
     <AssemblyName>Magenic.Maqs.BaseAppiumTest</AssemblyName>
     <RootNamespace>Magenic.Maqs.BaseAppiumTest</RootNamespace>
-    <Version>5.8.0</Version>
+    <Version>5.8.1</Version>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>
     <ProjectGuid>{4CEE19ED-7646-45CF-BB47-1AED4494DDC2}</ProjectGuid>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

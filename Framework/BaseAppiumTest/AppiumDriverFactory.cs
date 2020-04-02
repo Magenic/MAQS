@@ -13,6 +13,7 @@ using OpenQA.Selenium.Appium.iOS;
 using OpenQA.Selenium.Appium.Windows;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Magenic.Maqs.BaseAppiumTest
 {
@@ -22,7 +23,7 @@ namespace Magenic.Maqs.BaseAppiumTest
     public static class AppiumDriverFactory
     {
         /// <summary>
-        /// Get the default Appium driver based on the test run configuration 
+        /// Get the default Appium driver based on the test run configuration
         /// </summary>
         /// <returns>An AppiumDriver</returns>
         public static AppiumDriver<IWebElement> GetDefaultMobileDriver()
@@ -31,7 +32,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         }
 
         /// <summary>
-        /// Get the default Appium driver based on the test run configuration 
+        /// Get the default Appium driver based on the test run configuration
         /// </summary>
         /// <param name="deviceType">The platform type we want to use</param>
         /// <returns>An AppiumDriver</returns>
@@ -61,8 +62,14 @@ namespace Magenic.Maqs.BaseAppiumTest
                     throw new ArgumentException(StringProcessor.SafeFormatter("Mobile OS type '{0}' is not supported", deviceType));
             }
 
-            // Windows automation does not support setting the associated timeouts
-            if (deviceType != PlatformType.Windows)
+            // Check options to see if we are doing browser or app tests
+            var allOption = options.ToDictionary();
+            bool hasBrowserName = allOption.Any(kvp => kvp.Key.ToLower().Contains("browsername"));
+            bool hasApp = allOption.Any(kvp => kvp.Key.ToLower().Contains("app"));
+            bool hasBundleId = allOption.Any(kvp => kvp.Key.ToLower().Contains("bundleid"));
+
+            // Only browser automation supports setting the associated timeouts
+            if (hasBrowserName && !(hasApp || hasBundleId))
             {
                 appiumDriver.SetDefaultTimeouts();
             }
