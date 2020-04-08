@@ -10,6 +10,7 @@ using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.ObjectModel;
@@ -87,7 +88,7 @@ namespace SeleniumUnitTests
         /// </summary>
         private LazyElement ComputerParts
         {
-            get { return new LazyElement(this.TestObject, By.CssSelector("#computerParts"), "Computer Parts Multi Select");  }
+            get { return new LazyElement(this.TestObject, By.CssSelector("#computerParts"), "Computer Parts Multi Select"); }
         }
 
         /// <summary>
@@ -150,7 +151,7 @@ namespace SeleniumUnitTests
         /// Gets the Names Dropdown
         /// </summary>
         private LazyElement NamesDropdown
-        { 
+        {
             get { return new LazyElement(this.TestObject, By.CssSelector("#namesDropdown"), "Names Dropdown"); }
         }
 
@@ -897,7 +898,7 @@ namespace SeleniumUnitTests
         [ExpectedException(typeof(TimeoutException), "The input should be disabled so this will throw an exception.")]
         public void LazyElementFindElementRespectAction()
         {
-            IWebElement firstElement = this.DivRoot.FindElement(this.DisabledItem.By);
+            IWebElement firstElement = this.DivRoot.FindLazyElement(this.DisabledItem.By);
             this.WebDriver.SetWaitDriver(new OpenQA.Selenium.Support.UI.WebDriverWait(this.WebDriver, TimeSpan.FromSeconds(1)));
             firstElement.Click();
         }
@@ -921,9 +922,9 @@ namespace SeleniumUnitTests
         public void LazyElementFindElementsStackedWithStale()
         {
             LazyElement lazyRoot = new LazyElement(this.TestObject, By.CssSelector("#ItemsToAutomate"));
-            IWebElement secondTable = lazyRoot.FindElements(By.CssSelector("TABLE"))[1];
-            IWebElement lastTableHeader = secondTable.FindElements(By.CssSelector("THEAD TH"))[4];
- 
+            IWebElement secondTable = lazyRoot.FindLazyElements(By.CssSelector("TABLE"))[1];
+            IWebElement lastTableHeader = ((LazyElement)secondTable).FindLazyElements(By.CssSelector("THEAD TH"))[4];
+
             this.WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase());
             this.WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Automation");
 
@@ -937,7 +938,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementFindElementsAreLazy()
         {
-            foreach (IWebElement element in this.FlowerTableLazyElement.FindElements(By.CssSelector("THEAD TH")))
+            foreach (IWebElement element in this.FlowerTableLazyElement.FindLazyElements(By.CssSelector("THEAD TH")))
             {
                 this.SoftAssert.Assert(() => Assert.IsTrue(element is LazyElement));
             }
@@ -953,7 +954,7 @@ namespace SeleniumUnitTests
         [ExpectedException(typeof(TimeoutException), "The input should be disabled so this will throw an exception.")]
         public void LazyElementFindElementsRespectAction()
         {
-            IWebElement firstElement = this.DivRoot.FindElements(this.DisabledItem.By)[0];
+            IWebElement firstElement = this.DivRoot.FindLazyElements(this.DisabledItem.By)[0];
 
             this.WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase());
             this.WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Automation");
@@ -970,9 +971,45 @@ namespace SeleniumUnitTests
         public void LazyElementFindElementsGetVisible()
         {
             LazyElement lazyRoot = new LazyElement(this.TestObject, By.CssSelector("#ItemsToAutomate"));
-            IWebElement secondTable = lazyRoot.FindElements(By.CssSelector("TABLE"))[1];
+            IWebElement secondTable = lazyRoot.FindLazyElements(By.CssSelector("TABLE"))[1];
             IWebElement getSecondTable = ((LazyElement)secondTable).GetTheVisibleElement();
             Assert.AreEqual(secondTable.Text, getSecondTable.Text);
+        }
+
+        /// <summary>
+        /// Find Element the run Actions that cast to ILocatable
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementFindRawElementWorksWithActions()
+        {
+            IWebElement rawElement = this.DivRoot.FindElement(this.DisabledItem.By);
+
+            Actions a1 = new Actions(this.WebDriver);
+            a1.KeyDown(rawElement, Keys.Shift).Build().Perform();
+            a1.KeyUp(rawElement, Keys.Shift).Build().Perform();
+            a1.SendKeys(rawElement, "Hello").Build().Perform();
+            a1.MoveToElement(rawElement).Build().Perform();
+            a1.MoveToElement(rawElement, 0, 0).Build().Perform();
+            a1.MoveToElement(rawElement, 0, 0, MoveToElementOffsetOrigin.Center).Build().Perform();
+        }
+
+        /// <summary>
+        /// Find Elements the run Actions that cast to ILocatable
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementFindRawElementsWorksWithActions()
+        {
+            IWebElement rawElement = this.DivRoot.FindElements(this.DisabledItem.By)[0];
+
+            Actions a1 = new Actions(this.WebDriver);
+            a1.KeyDown(rawElement, Keys.Shift).Build().Perform();
+            a1.KeyUp(rawElement, Keys.Shift).Build().Perform();
+            a1.SendKeys(rawElement, "Hello").Build().Perform();
+            a1.MoveToElement(rawElement).Build().Perform();
+            a1.MoveToElement(rawElement, 0, 0).Build().Perform();
+            a1.MoveToElement(rawElement, 0, 0, MoveToElementOffsetOrigin.Center).Build().Perform();
         }
     }
 }

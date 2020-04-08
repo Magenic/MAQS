@@ -4,9 +4,9 @@
     <TargetFrameworks>net471;netstandard2.0;netstandard2.1</TargetFrameworks>
     <AssemblyName>Magenic.Maqs.BaseTest</AssemblyName>
     <RootNamespace>Magenic.Maqs.BaseTest</RootNamespace>
-    <AssemblyVersion>5.8.0</AssemblyVersion>
-    <FileVersion>5.8.0</FileVersion>
-    <Version>5.8.0</Version>
+    <AssemblyVersion>5.8.1</AssemblyVersion>
+    <FileVersion>5.8.1</FileVersion>
+    <Version>5.8.1</Version>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>
     <ProjectGuid>{B7763B2A-906B-4843-9C88-7189A98DF152}</ProjectGuid>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -29,7 +29,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MSTest.TestFramework" Version="2.1.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.1.1" />
     <PackageReference Include="NUnit" Version="3.12.0" />
   </ItemGroup>
 
@@ -38,7 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\MAQS.jpg" Pack="true" PackagePath=""/>
+    <None Include="..\MAQS.jpg" Pack="true" PackagePath="" />
   </ItemGroup>
 
 </Project>
