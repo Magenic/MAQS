@@ -28,6 +28,13 @@ namespace Magenic.Maqs.Utilities.Logging
         private const string DEFAULTHTMLHEADER =
             "<!DOCTYPE html><html><header><title>Test Log</title></header><body>";
 
+        private const string DEFUALTCDNTAGS = "<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><title>{0}</title><link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css'> <script src='https://code.jquery.com/jquery-3.4.1.slim.min.js' integrity='sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n' crossorigin='anonymous'></script> <script src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js' integrity='sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo' crossorigin='anonymous'></script> <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js' integrity='sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6' crossorigin='anonymous'></script> <script src='https://use.fontawesome.com/releases/v5.0.8/js/all.js'></script> </head><body>";
+
+        private const string SCRIPTANDCSSTAGS = "<style>.modal-dialog{max-width: fit-content}</style><script>$(function (){$('.pop').on('click', function (e){$('.imagepreview').attr('src', $(this).find('img').attr('src'));$('#imagemodal').modal('show');});});</script><script>$(function (){$('.pop2').on('click', function (){$('.imagepreview').attr('src', $(this).attr('src'));$('#imagemodal').modal('show');});});</script><script>$(function (){$('.dropdown-item').on('click', function (e){$(this).attr('class', function (i, old){return old=='dropdown-item' ? 'dropdown-item bg-secondary' :'dropdown-item';});var temp=$(this).data('name');$('[data-logtype=\\\'' + temp + '\\\']').toggleClass('show');e.stopPropagation();});});</script><script>$(function (){$(document).ready(function(){$('#AssertsRan').text($('#AssertCount').data('assertsran'));$('#AssertsPassed').text($('#AssertCount').data('assertspassed'));$('#AssertsFailed').text($('#AssertCount').data('assertsfailed'));$('.progress-bar.bg-success').width(parseInt($('#AssertCount').data('assertspassed'))/parseInt($('#AssertCount').data('assertsran'))*100 + '%');$('.progress-bar.bg-danger').width(parseInt($('#AssertCount').data('assertsfailed'))/parseInt($('#AssertCount').data('assertsran'))*100 + '%');});});</script>";
+
+        private const string FILTERDROPDOWN = "<div class='dropdown'><button class='btn btn-secondary dropdown-toggle' type='button' id='FilterByDropdown' data-toggle='dropdown'aria-haspopup='true' aria-expanded='false'>Filter By</button><div class='dropdown-menu' aria-labelledby='FilterByDropdown'><button class='dropdown-item bg-secondary' data-name='ERROR'>Filter Error</button><button class='dropdown-item bg-secondary' data-name='WARNING'>Filter Warning</button><button class='dropdown-item bg-secondary' data-name='SUCCESS'>Filter Success</button><button class='dropdown-item' data-name='GENERIC'>Filter Generic</a><button class='dropdown-item' data-name='STEP'>Filter Step</button><button class='dropdown-item' data-name='ACTION'>Filter Action</button><button class='dropdown-item' data-name='INFORMATION'>Filter Information</button><button class='dropdown-item' data-name='VERBOSE'>Filter Verbose</button><button class='dropdown-item bg-secondary' data-name='IMAGE'>Filter Images</button></div></div></div>";
+
+        private const string CARDSTART = "<div class='containter-fluid'><div class='row'>";
         /// <summary>
         /// Initializes a new instance of the HtmlFileLogger class
         /// </summary>
@@ -39,7 +46,10 @@ namespace Magenic.Maqs.Utilities.Logging
             : base(logFolder, name, messageLevel, append)
         {
             StreamWriter writer = new StreamWriter(this.FilePath, true);
-            writer.Write(DEFAULTHTMLHEADER);
+            writer.Write(String.Format(DEFUALTCDNTAGS, Path.GetFileNameWithoutExtension(this.FilePath)));
+            writer.Write(SCRIPTANDCSSTAGS);
+            writer.Write(FILTERDROPDOWN);
+            writer.Write(CARDSTART);
             writer.Flush();
             writer.Close();
         }
@@ -72,22 +82,12 @@ namespace Magenic.Maqs.Utilities.Logging
                     {
                         using (StreamWriter writer = new StreamWriter(this.FilePath, true))
                         {
-                            // Set the style
-                            writer.Write(this.GetTextWithColorFlag(messageType));
-
-                            // Add the content
-                            writer.WriteLine(HttpUtility.HtmlEncode(StringProcessor.SafeFormatter("{0}{1}", Environment.NewLine, date)));
-                            writer.Write(HttpUtility.HtmlEncode(StringProcessor.SafeFormatter("{0}:\t", messageType.ToString())));
-                            writer.WriteLine(HttpUtility.HtmlEncode(StringProcessor.SafeFormatter(message, args)));
-
-                            // Close off the style
-                            writer.Write("</p>");
-
-                            // Close the pre tag when logging Errors
-                            if (messageType.ToString() == "ERROR")
-                            {
-                                writer.Write("</pre>");
-                            }
+                            writer.Write(StringProcessor.SafeFormatter(
+                                "<div class='collapse col-12' data-logtype='{0}'><div class='card'><div class='card-body {1}'><h5 class='card-title mb-1'>{0}</h5><h6 class='card-subtitle mb-1'>{2}</h6><p class='card-text'>{3}</p></div></div></div>", 
+                                messageType.ToString(),
+                                GetTextWithColorFlag(messageType),
+                                date,
+                                HttpUtility.HtmlEncode(StringProcessor.SafeFormatter(message, args))));
                         }   
                     }
                     catch (Exception e)
@@ -120,7 +120,7 @@ namespace Magenic.Maqs.Utilities.Logging
             {
                 var writer = new StreamWriter(this.FilePath, true);
 
-                writer.WriteLine("</body></html>");
+                writer.WriteLine("</div></body></html>");
                 writer.Flush();
                 writer.Close();
             }
@@ -136,24 +136,24 @@ namespace Magenic.Maqs.Utilities.Logging
             switch (type)
             {
                 case MessageType.VERBOSE:
-                    return "<p style =\"color:purple\">";
+                    return "text-secondary";
                 case MessageType.ACTION:
-                    return "<p style =\"color:gold\">";
+                    return "text-primary";
                 case MessageType.STEP:
-                    return "<p style =\"color:orange\">";
+                    return "bg-secondary";
                 case MessageType.ERROR:
-                    return "<pre><p style=\"color:red\">";
+                    return "text-danger";
                 case MessageType.GENERIC:
-                    return "<p style =\"color:black\">";
+                    return string.Empty;
                 case MessageType.INFORMATION:
-                    return "<p style =\"color:blue\">";
+                    return "text-info";
                 case MessageType.SUCCESS:
-                    return "<p style=\"color:green\">";
+                    return "text-success";
                 case MessageType.WARNING:
-                    return "<p style=\"color:orange\">";
+                    return "text-warning";
                 default:
                     Console.WriteLine(this.UnknownMessageTypeMessage(type));
-                    return "<p style=\"color:hotpink\">";
+                    return "text-white bg-dark";
             }
         }
     }
