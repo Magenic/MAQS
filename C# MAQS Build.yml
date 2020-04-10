@@ -15,23 +15,28 @@ variables:
 
 steps:
 - task: DownloadSecureFile@1
+  displayName: 'Download RunSettings File'
   inputs:
     secureFile: 'Parallel.RunSettings'
 - task: NuGetToolInstaller@1
+  displayName: 'Install NuGet'
   inputs:
     versionSpec: '5.4.0'
 - task: UseDotNet@2
+  displayName: 'Download .Net Core v$(NetCoreVersion)'
   inputs:
     packageType: 'sdk'
-    version: '3.x'
+    version: '$(NetCoreVersion)'
     includePreviewVersions: true
     performMultiLevelLookup: true
 - task: NuGetCommand@2
+  displayName: 'NuGet Restore'
   inputs:
     command: 'restore'
     restoreSolution: 'Framework/Base.sln'
     feedsToUse: 'select'
 - task: VSBuild@1
+  displayName: 'VS Build'
   inputs:
     solution: 'Framework/Base.sln'
     msbuildArgs: '/p:RunStyleCheck=1'
