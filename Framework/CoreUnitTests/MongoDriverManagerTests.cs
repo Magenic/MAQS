@@ -3,7 +3,7 @@
 //  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>Mongo database driver store tests</summary>
-//-------------------------------------------------- 
+//--------------------------------------------------
 using Magenic.Maqs.BaseMongoTest;
 using Magenic.Maqs.BaseWebServiceTest;
 using Magenic.Maqs.Utilities.Helper;
@@ -12,7 +12,7 @@ using MongoDB.Bson;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 
-namespace CoreUnitTests
+namespace FrameworkUnitTests
 {
     /// <summary>
     /// Test the Mongo driver store

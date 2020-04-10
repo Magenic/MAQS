@@ -42,7 +42,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailUnitTests", "EmailUnit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpecFlowExtension", "SpecFlowExtension\SpecFlowExtension.csproj", "{26D35A87-D2F4-4A04-931A-EF2DBEA9EBB5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreUnitTests", "CoreUnitTests\CoreUnitTests.csproj", "{D3E59B9F-445E-4484-9B2F-B3FE3ED82CE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FrameworkUnitTests", "CoreUnitTests\FrameworkUnitTests.csproj", "{D3E59B9F-445E-4484-9B2F-B3FE3ED82CE5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpecFlowExtensionUnitTests", "SpecFlowExtensionUnitTests\SpecFlowExtensionUnitTests.csproj", "{37F9B3AC-F61B-46E9-9DC6-B16860A2C272}"
 EndProject
@@ -52,7 +52,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDBUnitTests", "MongoDB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompositeUnitTests", "CompositeUnitTests\CompositeUnitTests.csproj", "{6F51C4EC-FBCD-476A-8DF6-CB4A05A1D47C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseCompositeTest", "BaseCompositeTest\BaseCompositeTest.csproj", "{D99B90EC-1065-41AD-891B-21649AB1EE2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaseCompositeTest", "BaseCompositeTest\BaseCompositeTest.csproj", "{D99B90EC-1065-41AD-891B-21649AB1EE2E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

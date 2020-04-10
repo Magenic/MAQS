@@ -12,7 +12,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace CoreUnitTests
+namespace FrameworkUnitTests
 {
     /// <summary>
     /// The config unit tests.
@@ -32,7 +32,7 @@ namespace CoreUnitTests
             Assert.AreEqual(true, Config.DoesKeyExist("Log"));
             Assert.AreEqual(false, Config.DoesKeyExist("Browser"));
             Assert.AreEqual(true, Config.DoesKeyExist("Browser", "SeleniumMaqs"));
-            Assert.AreEqual("OnFail", Config.GetGeneralValue("Log", "NO")); 
+            Assert.AreEqual("OnFail", Config.GetGeneralValue("Log", "NO"));
             Assert.AreEqual("HeadlessChrome", Config.GetValueForSection("SeleniumMaqs", "Browser", "NO"));
         }
 

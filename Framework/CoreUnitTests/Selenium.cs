@@ -9,7 +9,7 @@ using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
 
-namespace CoreUnitTests
+namespace FrameworkUnitTests
 {
     /// <summary>
     /// Simple Selenium test
@@ -26,6 +26,6 @@ namespace CoreUnitTests
         public void CanRunSeleniumTest()
         {
             Assert.IsNotNull(this.TestObject.WebDriver);
-        }       
+        }
     }
 }

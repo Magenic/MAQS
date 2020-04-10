@@ -11,7 +11,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 
-namespace CoreUnitTests
+namespace FrameworkUnitTests
 {
     /// <summary>
     /// Test the database driver store
@@ -29,7 +29,7 @@ namespace CoreUnitTests
         {
             DatabaseDriver tempDriver = new DatabaseDriver(DatabaseConfig.GetOpenConnection());
             this.DatabaseDriver = tempDriver;
-            
+
             Assert.AreEqual(this.TestObject.DatabaseManager.Get(), tempDriver);
         }
 

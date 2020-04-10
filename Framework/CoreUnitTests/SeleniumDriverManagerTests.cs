@@ -13,7 +13,7 @@ using OpenQA.Selenium;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 
-namespace CoreUnitTests
+namespace FrameworkUnitTests
 {
     /// <summary>
     /// Test the Selenium driver store
