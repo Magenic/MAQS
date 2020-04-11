@@ -15,7 +15,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
 
-namespace UnitTests
+namespace SeleniumUnitTests
 {
     /// <summary>
     /// Test class
@@ -62,7 +62,7 @@ namespace UnitTests
         [TestCategory(TestCategories.Selenium)]
         public void ResizeBrowserWindowMaximize()
         {
-            /* 
+            /*
              * Create driver at whatever size
              * Manually maximize the window
              * Override the Config BrowserSize value to MAXIMIZE
@@ -113,8 +113,8 @@ namespace UnitTests
         [DoNotParallelize]
         public void ResizeBrowserWindowDefault()
         {
-            /* 
-             * Create driver at default size, 
+            /*
+             * Create driver at default size,
              * Set the driver window so that it is not at a default size
              * Create a new browser at default size and verify it is created at the default size and not changed size
              */
