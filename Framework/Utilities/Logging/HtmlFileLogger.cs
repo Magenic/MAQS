@@ -23,18 +23,25 @@ namespace Magenic.Maqs.Utilities.Logging
         private const string DEFAULTLOGNAME = "FileLog.html";
 
         /// <summary>
-        /// Default header for the HTML file, this gives us our colored text
+        /// Document Start and contains the references to the CDN's
         /// </summary>
-        private const string DEFAULTHTMLHEADER =
-            "<!DOCTYPE html><html><header><title>Test Log</title></header><body>";
-
         private const string DEFUALTCDNTAGS = "<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><title>{0}</title><link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css'> <script src='https://code.jquery.com/jquery-3.4.1.slim.min.js' integrity='sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n' crossorigin='anonymous'></script> <script src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js' integrity='sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo' crossorigin='anonymous'></script> <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js' integrity='sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6' crossorigin='anonymous'></script> <script src='https://use.fontawesome.com/releases/v5.0.8/js/all.js'></script> </head><body>";
 
-        private const string SCRIPTANDCSSTAGS = "<style>.modal-dialog{max-width: fit-content}</style><script>$(function (){$('.pop').on('click', function (e){$('.imagepreview').attr('src', $(this).find('img').attr('src'));$('#imagemodal').modal('show');});});</script><script>$(function (){$('.pop2').on('click', function (){$('.imagepreview').attr('src', $(this).attr('src'));$('#imagemodal').modal('show');});});</script><script>$(function (){$('.dropdown-item').on('click', function (e){$(this).attr('class', function (i, old){return old=='dropdown-item' ? 'dropdown-item bg-secondary' :'dropdown-item';});var temp=$(this).data('name');$('[data-logtype=\\\'' + temp + '\\\']').toggleClass('show');e.stopPropagation();});});</script>";
+        /// <summary>
+        /// Contains the CSS tags, and the JQuery Scripts
+        /// </summary>
+        private const string SCRIPTANDCSSTAGS = "<style>.modal-dialog{max-width: fit-content} p{white-space: pre-wrap}</style><script>$(function (){$('.pop').on('click', function (e){$('.imagepreview').attr('src', $(this).find('img').attr('src'));$('#imagemodal').modal('show');});});</script><script>$(function (){$('.pop2').on('click', function (){$('.imagepreview').attr('src', $(this).attr('src'));$('#imagemodal').modal('show');});});</script><script>$(function (){$('.dropdown-item').on('click', function (e){$(this).attr('class', function (i, old){return old=='dropdown-item' ? 'dropdown-item bg-secondary' :'dropdown-item';});var temp=$(this).data('name');$('[data-logtype=\\\'' + temp + '\\\']').toggleClass('show');e.stopPropagation();});});</script><script>$(function (){$(document).ready(function(){$('#Header').append($('title').text())})});</script>";
 
-        private const string FILTERDROPDOWN = "<div class='dropdown'><button class='btn btn-secondary dropdown-toggle' type='button' id='FilterByDropdown' data-toggle='dropdown'aria-haspopup='true' aria-expanded='false'>Filter By</button><div class='dropdown-menu' aria-labelledby='FilterByDropdown'><button class='dropdown-item bg-secondary' data-name='ERROR'>Filter Error</button><button class='dropdown-item bg-secondary' data-name='WARNING'>Filter Warning</button><button class='dropdown-item bg-secondary' data-name='SUCCESS'>Filter Success</button><button class='dropdown-item' data-name='GENERIC'>Filter Generic</a><button class='dropdown-item' data-name='STEP'>Filter Step</button><button class='dropdown-item' data-name='ACTION'>Filter Action</button><button class='dropdown-item' data-name='INFORMATION'>Filter Information</button><button class='dropdown-item' data-name='VERBOSE'>Filter Verbose</button><button class='dropdown-item bg-secondary' data-name='IMAGE'>Filter Images</button></div></div></div>";
+        /// <summary>
+        /// Contains the FIlter By dropdown
+        /// </summary>
+        private const string FILTERDROPDOWN = "<div id='Header' class='dropdown'><button class='btn btn-secondary dropdown-toggle' type='button' id='FilterByDropdown' data-toggle='dropdown'aria-haspopup='true' aria-expanded='false'>Filter By</button><div class='dropdown-menu' aria-labelledby='FilterByDropdown'><button class='dropdown-item' data-name='ERROR'>Filter Error</button><button class='dropdown-item' data-name='WARNING'>Filter Warning</button><button class='dropdown-item' data-name='SUCCESS'>Filter Success</button><button class='dropdown-item' data-name='GENERIC'>Filter Generic</a><button class='dropdown-item' data-name='STEP'>Filter Step</button><button class='dropdown-item' data-name='ACTION'>Filter Action</button><button class='dropdown-item' data-name='INFORMATION'>Filter Information</button><button class='dropdown-item' data-name='VERBOSE'>Filter Verbose</button><button class='dropdown-item' data-name='IMAGE'>Filter Images</button></div></div>";
 
-        private const string CARDSTART = "<div class='containter-fluid'><div class='row'>";
+        /// <summary>
+        /// The begininning to the cards section
+        /// </summary>
+        private const string CARDSTART = "<div class='container-fluid'><div class='row'>";
+
         /// <summary>
         /// Initializes a new instance of the HtmlFileLogger class
         /// </summary>
@@ -83,7 +90,7 @@ namespace Magenic.Maqs.Utilities.Logging
                         using (StreamWriter writer = new StreamWriter(this.FilePath, true))
                         {
                             writer.Write(StringProcessor.SafeFormatter(
-                                "<div class='collapse col-12' data-logtype='{0}'><div class='card'><div class='card-body {1}'><h5 class='card-title mb-1'>{0}</h5><h6 class='card-subtitle mb-1'>{2}</h6><p class='card-text'>{3}</p></div></div></div>", 
+                                "<div class='collapse col-12 show' data-logtype='{0}'><div class='card'><div class='card-body {1}'><h5 class='card-title mb-1'>{0}</h5><h6 class='card-subtitle mb-1'>{2}</h6><p class='card-text'>{3}</p></div></div></div>", 
                                 messageType.ToString(),
                                 GetTextWithColorFlag(messageType),
                                 date,
