@@ -3,7 +3,7 @@
 //  Copyright 2020 Magenic, All rights Reserved
 // </copyright>
 // <summary>Web service driver store tests</summary>
-//-------------------------------------------------- 
+//--------------------------------------------------
 using Magenic.Maqs.BaseDatabaseTest;
 using Magenic.Maqs.BaseWebServiceTest;
 using Magenic.Maqs.Utilities.Helper;
@@ -11,7 +11,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 
-namespace CoreUnitTests
+namespace FrameworkUnitTests
 {
     /// <summary>
     /// Test the web driver store

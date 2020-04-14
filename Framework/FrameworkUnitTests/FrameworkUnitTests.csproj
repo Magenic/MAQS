@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>net471</TargetFramework>
     <ProjectGuid>{D3E59B9F-445E-4484-9B2F-B3FE3ED82CE5}</ProjectGuid>
     <IsPackable>false</IsPackable>
     <SonarQubeTestProject>false</SonarQubeTestProject>
@@ -13,7 +13,7 @@
     <PackageReference Include="MSTest.TestFramework" Version="2.1.1" />
     <PackageReference Include="NUnit.Extension.NUnitV2ResultWriter" Version="3.6.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
-    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="80.0.3987.10600" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="81.0.4044.6900" />
     <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.26.0.1" />
     <PackageReference Include="System.Runtime" Version="4.3.1" />
   </ItemGroup>

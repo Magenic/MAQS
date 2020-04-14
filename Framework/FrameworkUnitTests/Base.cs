@@ -11,7 +11,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
-namespace CoreUnitTests
+namespace FrameworkUnitTests
 {
     /// <summary>
     /// Simple base test
@@ -66,7 +66,7 @@ namespace CoreUnitTests
         [TestMethod]
         public void TeardownIgnoresNonExistantFiles()
         {
-            // get log path 
+            // get log path
             string logFilePath = ((FileLogger)this.Log).FilePath;
 
             // add non existent associated files
@@ -96,7 +96,7 @@ namespace CoreUnitTests
         [TestMethod]
         public void PerfTimerCollectionFilesAreAddedToAssociatedFiles()
         {
-            // get log path 
+            // get log path
             string logFilePath = ((FileLogger)this.Log).FilePath;
 
             this.PerfTimerCollection.StartTimer("testTimer");

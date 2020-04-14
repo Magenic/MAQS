@@ -50,7 +50,7 @@ namespace SeleniumUnitTests
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
             WebDriver.Wait().ForPageLoad();
             SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject);
-            string filePath = Path.ChangeExtension(((FileLogger)TestObject.Log).FilePath, ".Jpeg");
+            string filePath = Path.ChangeExtension(((FileLogger)TestObject.Log).FilePath, ".png");
             Assert.IsTrue(File.Exists(filePath), "Fail to find screenshot");
             File.Delete(filePath);
         }
@@ -67,7 +67,7 @@ namespace SeleniumUnitTests
 #pragma warning disable CS0618 // Type or member is obsolete
             SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.Log);
 #pragma warning restore CS0618 // Type or member is obsolete
-            string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, ".Jpeg");
+            string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, ".png");
             Assert.IsTrue(File.Exists(filePath), "Fail to find screenshot");
             File.Delete(filePath);
         }
@@ -85,7 +85,7 @@ namespace SeleniumUnitTests
             // Create a console logger and calculate the file location
             ConsoleLogger consoleLogger = new ConsoleLogger();
             TestObject.Log = consoleLogger;
-            string expectedPath = Path.Combine(LoggingConfig.GetLogDirectory(), "ScreenCapDelete.Jpeg");
+            string expectedPath = Path.Combine(LoggingConfig.GetLogDirectory(), "ScreenCapDelete.png");
 
             // Take a screenshot
             SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject, "Delete");
@@ -107,7 +107,7 @@ namespace SeleniumUnitTests
 
             // Create a console logger and calculate the file location
             ConsoleLogger consoleLogger = new ConsoleLogger();
-            string expectedPath = Path.Combine(LoggingConfig.GetLogDirectory(), "ScreenCapDelete.Jpeg");
+            string expectedPath = Path.Combine(LoggingConfig.GetLogDirectory(), "ScreenCapDelete.png");
 
             // Take a screenshot
 #pragma warning disable CS0618 // Type or member is obsolete
@@ -159,7 +159,7 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify that CaptureScreenshot creates Directory if it does not exist already 
+        /// Verify that CaptureScreenshot creates Directory if it does not exist already
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
@@ -173,7 +173,7 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify that deprecated CaptureScreenshot creates Directory if it does not exist already 
+        /// Verify that deprecated CaptureScreenshot creates Directory if it does not exist already
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
@@ -356,6 +356,7 @@ namespace SeleniumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
+        [ExpectedException(typeof(WebDriverException), ".Net Core only allows for PNG.  BMP is not allowed")]
         public void CaptureScreenshotBmpFormat()
         {
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
@@ -371,6 +372,7 @@ namespace SeleniumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
+        [ExpectedException(typeof(WebDriverException), ".Net Core only allows for PNG.  GIF is not allowed")]
         public void CaptureScreenshotGifFormat()
         {
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
@@ -386,6 +388,7 @@ namespace SeleniumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
+        [ExpectedException(typeof(WebDriverException), ".Net Core only allows for PNG.  JPEG is not allowed")]
         public void CaptureScreenshotJpegFormat()
         {
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
@@ -416,6 +419,7 @@ namespace SeleniumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
+        [ExpectedException(typeof(WebDriverException), ".Net Core only allows for PNG.  TIFF is not allowed")]
         public void CaptureScreenshotTiffFormat()
         {
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
@@ -449,7 +453,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void GetImageFormatFromConfig()
         {
-            Assert.AreEqual(SeleniumUtilities.GetScreenShotFormat(), ScreenshotImageFormat.Jpeg, "The Incorrect Image Format was returned, expected: " + Config.GetGeneralValue("ImageFormat"));
+            Assert.AreEqual(ScreenshotImageFormat.Png, SeleniumUtilities.GetScreenShotFormat(), "The Incorrect Image Format was returned, expected: " + Config.GetGeneralValue("ImageFormat"));
         }
 
         /// <summary>
@@ -525,7 +529,7 @@ namespace SeleniumUnitTests
                 SoftAssert.IsTrue(!logContent.Contains("Violations check"), "Did not expect violation check");
                 SoftAssert.IsTrue(!logContent.Contains("Passes check"), "Did not expect pass check");
                 SoftAssert.IsTrue(!logContent.Contains("Incomplete check"), "Did not expect incomplete check");
-                
+
                 SoftAssert.IsTrue(logContent.Contains("Inapplicable check"), "Did expect inapplicable check");
             }
             finally
@@ -585,7 +589,7 @@ namespace SeleniumUnitTests
                 SoftAssert.IsTrue(!logContent.Contains("Violations check"), "Did not expect violation check");
                 SoftAssert.IsTrue(!logContent.Contains("Inapplicable check"), "Did not expect inapplicable check");
                 SoftAssert.IsTrue(!logContent.Contains("Incomplete check"), "Did not expect incomplete check");
-                
+
                 SoftAssert.IsTrue(logContent.Contains("Passes check"), "Did expect pass check");
             }
             finally
