@@ -34,16 +34,6 @@ namespace Magenic.Maqs.BaseEmailTest
         /// Override the email driver
         /// </summary>
         /// <param name="newDriver">The new driver</param>
-        [Obsolete("Change to OverrideDriver for consistency")]
-        public void OverwriteDriver(EmailDriver newDriver)
-        {
-            this.OverrideDriver(newDriver);
-        }
-
-        /// <summary>
-        /// Override the email driver
-        /// </summary>
-        /// <param name="newDriver">The new driver</param>
         public void OverrideDriver(EmailDriver newDriver)
         {
             this.driver = newDriver;

@@ -50,30 +50,6 @@ namespace Magenic.Maqs.BaseSeleniumTest
         private const string SELENIUMSECTION = "SeleniumMaqs";
 
         /// <summary>
-        /// Get the browser
-        /// <para>If no browser is provide in the project configuration file we default to Chrome</para>
-        /// <para>Browser are maximized by default</para>
-        /// </summary>
-        /// <returns>The web driver</returns>
-        [Obsolete("This call is being deprecated, please use SeleniumUtilities.GetDefaultBrowser instead.")]
-        public static IWebDriver Browser()
-        {
-            return WebDriverFactory.GetDefaultBrowser();
-        }
-
-        /// <summary>
-        /// Get the webdriver based for the provided browser
-        /// <para>Browser are maximized by default</para>
-        /// </summary>
-        /// <param name="browser">The browser type we want to use</param>
-        /// <returns>A web driver</returns>
-        [Obsolete("This call is being deprecated, please use WebDriverFactory.GetBrowserWithDefaultConfiguration instead.")]
-        public static IWebDriver Browser(string browser)
-        {
-            return WebDriverFactory.GetBrowserWithDefaultConfiguration(GetBrowserType(browser));
-        }
-
-        /// <summary>
         /// Get the browser type
         /// </summary>
         /// <returns>The browser type</returns>
@@ -105,10 +81,6 @@ namespace Magenic.Maqs.BaseSeleniumTest
                     return BrowserType.Edge;
                 case "REMOTE":
                     return BrowserType.Remote;
-                case "PHANTOMJS":
-                case "PHANTOM JS":
-                case "PHANTOM":
-                    throw new ArgumentException(StringProcessor.SafeFormatter("Selenium no longer supports PhantomJS", browserName));
                 default:
                     throw new ArgumentException(StringProcessor.SafeFormatter("Browser type '{0}' is not supported", browserName));
             }

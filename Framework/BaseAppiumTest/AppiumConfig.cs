@@ -6,8 +6,6 @@
 //--------------------------------------------------
 using Magenic.Maqs.Utilities.Data;
 using Magenic.Maqs.Utilities.Helper;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Appium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -179,28 +177,6 @@ namespace Magenic.Maqs.BaseAppiumTest
                 default:
                     throw new ArgumentException(StringProcessor.SafeFormatter("Device type '{0}' is not supported", platform));
             }
-        }
-
-        /// <summary>
-        /// Get the mobile device
-        /// </summary>
-        /// <returns>The appium driver</returns>
-        [Obsolete("This call is being deprecated, please use AppiumUtilities.GetDefaultMobileDriver instead.")]
-        public static AppiumDriver<IWebElement> MobileDevice()
-        {
-            return MobileDevice(GetPlatformName());
-        }
-
-        /// <summary>
-        /// Get the appium driver based for the provided mobile OS
-        /// </summary>
-        /// <param name="platformName">The browser type we want to use</param>
-        /// <returns>An AppiumDriver</returns>
-        [Obsolete("This call is being deprecated, please use AppiumUtilities.GetDefaultMobileDriver instead.")]
-        public static AppiumDriver<IWebElement> MobileDevice(string platformName)
-        {
-            PlatformType type = GetDeviceType(platformName);
-            return AppiumDriverFactory.GetDefaultMobileDriver(type);
         }
     }
 }

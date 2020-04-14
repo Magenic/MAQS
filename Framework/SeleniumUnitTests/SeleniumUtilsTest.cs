@@ -56,23 +56,6 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify deprecated version of CaptureScreenshot works - Validating that the screenshot was created
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
-        public void TryScreenshotDeprecated()
-        {
-            WebDriver.Navigate().GoToUrl(TestSiteUrl);
-            WebDriver.Wait().ForPageLoad();
-#pragma warning disable CS0618 // Type or member is obsolete
-            SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.Log);
-#pragma warning restore CS0618 // Type or member is obsolete
-            string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, ".png");
-            Assert.IsTrue(File.Exists(filePath), "Fail to find screenshot");
-            File.Delete(filePath);
-        }
-
-        /// <summary>
         /// Verify CaptureScreenshot works with console logger - Validating that the screenshot was created
         /// </summary>
         [TestMethod]
@@ -89,30 +72,6 @@ namespace SeleniumUnitTests
 
             // Take a screenshot
             SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject, "Delete");
-
-            // Make sure we got the screenshot and than cleanup
-            Assert.IsTrue(File.Exists(expectedPath), "Fail to find screenshot");
-            File.Delete(expectedPath);
-        }
-
-        /// <summary>
-        /// Verify deprecated CaptureScreenshot works with console logger - Validating that the screenshot was created
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
-        public void TryScreenshotWithConsoleLoggerDeprecated()
-        {
-            WebDriver.Navigate().GoToUrl(TestSiteUrl);
-            WebDriver.Wait().ForPageLoad();
-
-            // Create a console logger and calculate the file location
-            ConsoleLogger consoleLogger = new ConsoleLogger();
-            string expectedPath = Path.Combine(LoggingConfig.GetLogDirectory(), "ScreenCapDelete.png");
-
-            // Take a screenshot
-#pragma warning disable CS0618 // Type or member is obsolete
-            SeleniumUtilities.CaptureScreenshot(this.WebDriver, consoleLogger, "Delete");
-#pragma warning restore CS0618 // Type or member is obsolete
 
             // Make sure we got the screenshot and than cleanup
             Assert.IsTrue(File.Exists(expectedPath), "Fail to find screenshot");
@@ -139,26 +98,6 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify that deprecated CaptureScreenshot properly handles exceptions and returns false
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
-        public void CaptureScreenshotThrownExceptionDeprecated()
-        {
-            FileLogger tempLogger = new FileLogger
-            {
-                FilePath = "<>" // illegal file path
-            };
-
-            WebDriver.Navigate().GoToUrl(TestSiteUrl);
-            WebDriver.Wait().ForPageLoad();
-#pragma warning disable CS0618 // Type or member is obsolete
-            bool successfullyCaptured = SeleniumUtilities.CaptureScreenshot(WebDriver, tempLogger);
-#pragma warning restore CS0618 // Type or member is obsolete
-            Assert.IsFalse(successfullyCaptured);
-        }
-
-        /// <summary>
         /// Verify that CaptureScreenshot creates Directory if it does not exist already
         /// </summary>
         [TestMethod]
@@ -168,22 +107,6 @@ namespace SeleniumUnitTests
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
             WebDriver.Wait().ForPageLoad();
             string screenShotPath = SeleniumUtilities.CaptureScreenshot(WebDriver, TestObject, "TempTestDirectory", "CapScreenShotNoDir", SeleniumUtilities.GetScreenShotFormat());
-            Assert.IsTrue(File.Exists(screenShotPath), "Fail to find screenshot");
-            File.Delete(screenShotPath);
-        }
-
-        /// <summary>
-        /// Verify that deprecated CaptureScreenshot creates Directory if it does not exist already
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
-        public void CaptureScreenshotNoExistingDirectoryDeprecated()
-        {
-            WebDriver.Navigate().GoToUrl(TestSiteUrl);
-            WebDriver.Wait().ForPageLoad();
-#pragma warning disable CS0618 // Type or member is obsolete
-            string screenShotPath = SeleniumUtilities.CaptureScreenshot(WebDriver, "TempTestDirectory", "OldCapScreenShotNoDir", SeleniumUtilities.GetScreenShotFormat());
-#pragma warning restore CS0618 // Type or member is obsolete
             Assert.IsTrue(File.Exists(screenShotPath), "Fail to find screenshot");
             File.Delete(screenShotPath);
         }
@@ -219,22 +142,6 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify that page source file is being created using deprecated method
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
-        public void SeleniumPageSourceFileIsCreatedDeprecated()
-        {
-            WebDriver.Navigate().GoToUrl(TestSiteUrl);
-            WebDriver.Wait().ForPageLoad();
-#pragma warning disable CS0618 // Type or member is obsolete
-            string pageSourcePath = SeleniumUtilities.SavePageSource(WebDriver, "TempTestDirectory", "OldSeleniumPSFile");
-#pragma warning restore CS0618 // Type or member is obsolete
-            Assert.IsTrue(File.Exists(pageSourcePath), "Failed to find Page Source");
-            File.Delete(pageSourcePath);
-        }
-
-        /// <summary>
         /// Verify SavePageSource works with console logger - Validating that page source was created
         /// </summary>
         [TestMethod]
@@ -258,30 +165,6 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify deprecated SavePageSource works with console logger - Validating that page source was created
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
-        public void SeleniumPageSourceWithConsoleLoggerDeprecated()
-        {
-            WebDriver.Navigate().GoToUrl(TestSiteUrl);
-            WebDriver.Wait().ForPageLoad();
-
-            // Create a console logger and calculate the file location
-            ConsoleLogger consoleLogger = new ConsoleLogger();
-            string expectedPath = Path.Combine(LoggingConfig.GetLogDirectory(), "PageSourceOldConsole.txt");
-
-            // Take a screenshot
-#pragma warning disable CS0618 // Type or member is obsolete
-            SeleniumUtilities.SavePageSource(this.WebDriver, consoleLogger, "OldConsole");
-#pragma warning restore CS0618 // Type or member is obsolete
-
-            // Make sure we got the screenshot and than cleanup
-            Assert.IsTrue(File.Exists(expectedPath), "Fail to find screenshot");
-            File.Delete(expectedPath);
-        }
-
-        /// <summary>
         /// Verify that SavePageSource properly handles exceptions and returns false
         /// </summary>
         [TestMethod]
@@ -297,26 +180,6 @@ namespace SeleniumUnitTests
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
             WebDriver.Wait().ForPageLoad();
             bool successfullySaved = SeleniumUtilities.SavePageSource(WebDriver, TestObject);
-            Assert.IsFalse(successfullySaved);
-        }
-
-        /// <summary>
-        /// Verify that deprecated SavePageSource properly handles exceptions and returns false
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
-        public void SavePageSourceThrownExceptionDeprecated()
-        {
-            FileLogger tempLogger = new FileLogger
-            {
-                FilePath = "<>" // illegal file path
-            };
-
-            WebDriver.Navigate().GoToUrl(TestSiteUrl);
-            WebDriver.Wait().ForPageLoad();
-#pragma warning disable CS0618 // Type or member is obsolete
-            bool successfullySaved = SeleniumUtilities.SavePageSource(WebDriver, tempLogger);
-#pragma warning restore CS0618 // Type or member is obsolete
             Assert.IsFalse(successfullySaved);
         }
 

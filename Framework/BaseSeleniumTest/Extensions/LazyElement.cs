@@ -70,7 +70,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         {
             int index = 0;
             List<IWebElement> elements = new List<IWebElement>();
-            foreach (IWebElement element in this.GetTheExistingElement().FindElements(by))
+            foreach (IWebElement element in this.GetRawExistingElement().FindElements(by))
             {
                 elements.Add(new LazyElement(this, by, element, index, $"{userFriendlyName} - {index++}"));
             }

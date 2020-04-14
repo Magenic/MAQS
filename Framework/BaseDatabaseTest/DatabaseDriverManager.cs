@@ -34,16 +34,6 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// Override the database driver
         /// </summary>
         /// <param name="newDriver">The new driver</param>
-        [Obsolete("Change to OverrideDriver for consistency")]
-        public void OverwriteDriver(DatabaseDriver newDriver)
-        {
-            this.OverrideDriver(newDriver);
-        }
-
-        /// <summary>
-        /// Override the database driver
-        /// </summary>
-        /// <param name="newDriver">The new driver</param>
         public void OverrideDriver(DatabaseDriver newDriver)
         {
             this.driver = newDriver;
