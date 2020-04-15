@@ -118,7 +118,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 return GenericWait.Wait<bool>(
                     () =>
                 {
-                    return this.GetElement(this.GetTheExistingElement).Enabled;
+                    return this.GetElement(this.GetRawExistingElement).Enabled;
                 },
                 Extend.GetWaitDriver(this.WebDriver).PollingInterval,
                 Extend.GetWaitDriver(this.WebDriver).Timeout);
@@ -137,7 +137,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 return GenericWait.Wait<bool>(
                     () =>
                 {
-                    return this.GetElement(this.GetTheExistingElement).Selected;
+                    return this.GetElement(this.GetRawExistingElement).Selected;
                 },
                 Extend.GetWaitDriver(this.WebDriver).PollingInterval,
                 Extend.GetWaitDriver(this.WebDriver).Timeout);
@@ -156,7 +156,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 return GenericWait.Wait<bool>(
                     () =>
                 {
-                    return this.GetElement(this.GetTheExistingElement).Displayed;
+                    return this.GetElement(this.GetRawExistingElement).Displayed;
                 },
                 Extend.GetWaitDriver(this.WebDriver).PollingInterval,
                 Extend.GetWaitDriver(this.WebDriver).Timeout);
@@ -175,7 +175,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 return GenericWait.Wait<bool>(
                     () =>
                 {
-                    this.GetElement(this.GetTheExistingElement);
+                    this.GetElement(this.GetRawExistingElement);
                     return true;
                 },
                 Extend.GetWaitDriver(this.WebDriver).PollingInterval,
@@ -196,7 +196,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 {
                     this.WebDriver.SetWaitDriver(new WebDriverWait(this.WebDriver, TimeSpan.Zero));
                     this.Log.LogMessage(MessageType.INFORMATION, $"Checking to see if the lazy element '{this.userFriendlyName}' exists now");
-                    return this.GetElement(this.GetTheExistingElement) != null;
+                    return this.GetElement(this.GetRawExistingElement) != null;
                 }
                 catch
                 {
@@ -222,7 +222,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 return GenericWait.Wait<string>(
                     () =>
                 {
-                    return this.GetElement(this.GetTheExistingElement).TagName;
+                    return this.GetElement(this.GetRawExistingElement).TagName;
                 },
                 Extend.GetWaitDriver(this.WebDriver).PollingInterval,
                 Extend.GetWaitDriver(this.WebDriver).Timeout);
@@ -241,7 +241,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 return GenericWait.Wait(
                     () =>
                 {
-                    return this.GetElement(this.GetTheExistingElement).Text;
+                    return this.GetElement(this.GetRawExistingElement).Text;
                 },
                 Extend.GetWaitDriver(this.WebDriver).PollingInterval,
                 Extend.GetWaitDriver(this.WebDriver).Timeout);
@@ -260,7 +260,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 return GenericWait.Wait(
                     () =>
                 {
-                    return this.GetElement(this.GetTheVisibleElement).Location;
+                    return this.GetElement(this.GetRawVisibleElement).Location;
                 },
                 Extend.GetWaitDriver(this.WebDriver).PollingInterval,
                 Extend.GetWaitDriver(this.WebDriver).Timeout);
@@ -279,7 +279,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 return GenericWait.Wait(
                     () =>
                 {
-                    return this.GetElement(this.GetTheVisibleElement).Size;
+                    return this.GetElement(this.GetRawVisibleElement).Size;
                 },
                 Extend.GetWaitDriver(this.WebDriver).PollingInterval,
                 Extend.GetWaitDriver(this.WebDriver).Timeout);
@@ -296,7 +296,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             GenericWait.Wait(
                 () =>
             {
-                IWebElement element = this.GetElement(this.GetTheClickableElement);
+                IWebElement element = this.GetElement(this.GetRawClickableElement);
                 this.ExecuteEvent(() => element.Click(), "Click");
                 return true;
             },
@@ -315,7 +315,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             GenericWait.Wait(
                 () =>
             {
-                IWebElement element = this.GetElement(this.GetTheVisibleElement);
+                IWebElement element = this.GetElement(this.GetRawVisibleElement);
                 this.ExecuteEvent(() => element.SendKeys(text), "SendKeys");
                 return true;
             },
@@ -331,7 +331,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         {
             this.Log.LogMessage(MessageType.ACTION, $"Send secret keys to '{this.userFriendlyName}'");
 
-            IWebElement element = this.GetElement(this.GetTheVisibleElement);
+            IWebElement element = this.GetElement(this.GetRawVisibleElement);
             try
             {
                 this.TestObject.Log.SuspendLogging();
@@ -356,7 +356,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             GenericWait.Wait(
                 () =>
             {
-                IWebElement element = this.GetElement(this.GetTheVisibleElement);
+                IWebElement element = this.GetElement(this.GetRawVisibleElement);
                 this.ExecuteEvent(() => element.Clear(), "Clear");
                 return true;
             },
@@ -374,7 +374,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             GenericWait.Wait(
                 () =>
             {
-                IWebElement element = this.GetElement(this.GetTheExistingElement);
+                IWebElement element = this.GetElement(this.GetRawExistingElement);
                 this.ExecuteEvent(() => element.Submit(), "Submit");
                 return true;
             },
@@ -393,7 +393,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             GenericWait.Wait(
                 () =>
             {
-                IWebElement element = this.GetElement(this.GetTheVisibleElement);
+                IWebElement element = this.GetElement(this.GetRawVisibleElement);
                 this.ExecuteEvent(() => new SelectElement(element).SelectByText(option), "Select DropDown Option");
                 return true;
             },
@@ -412,7 +412,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             GenericWait.Wait(
                 () =>
             {
-                IWebElement element = this.GetElement(this.GetTheVisibleElement);
+                IWebElement element = this.GetElement(this.GetRawVisibleElement);
                 this.ExecuteEvent(() => new SelectElement(element).SelectByValue(value), "Select DropDown Option By Value");
                 return true;
             },
@@ -431,7 +431,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             return GenericWait.Wait<string>(
                 () =>
             {
-                return new SelectElement(this.GetElement(this.GetTheExistingElement)).SelectedOption.Text;
+                return new SelectElement(this.GetElement(this.GetRawExistingElement)).SelectedOption.Text;
             },
             Extend.GetWaitDriver(this.WebDriver).PollingInterval,
             Extend.GetWaitDriver(this.WebDriver).Timeout);
@@ -449,7 +449,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 () =>
                 {
                     List<string> selectedItems = new List<string>();
-                    var elements = new SelectElement(this.GetElement(this.GetTheExistingElement)).AllSelectedOptions;
+                    var elements = new SelectElement(this.GetElement(this.GetRawExistingElement)).AllSelectedOptions;
 
                     foreach (IWebElement element in elements)
                     {
@@ -477,7 +477,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             return GenericWait.Wait<string>(
                 () =>
             {
-                return this.GetElement(this.GetTheExistingElement).GetAttribute(attributeName);
+                return this.GetElement(this.GetRawExistingElement).GetAttribute(attributeName);
             },
             Extend.GetWaitDriver(this.WebDriver).PollingInterval,
             Extend.GetWaitDriver(this.WebDriver).Timeout);
@@ -494,7 +494,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             return GenericWait.Wait<string>(
                 () =>
             {
-                return this.GetElement(this.GetTheVisibleElement).GetAttribute("value");
+                return this.GetElement(this.GetRawVisibleElement).GetAttribute("value");
             },
             Extend.GetWaitDriver(this.WebDriver).PollingInterval,
             Extend.GetWaitDriver(this.WebDriver).Timeout);
@@ -512,7 +512,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             return GenericWait.Wait<string>(
                 () =>
             {
-                return this.GetElement(this.GetTheExistingElement).GetCssValue(propertyName);
+                return this.GetElement(this.GetRawExistingElement).GetCssValue(propertyName);
             },
             Extend.GetWaitDriver(this.WebDriver).PollingInterval,
             Extend.GetWaitDriver(this.WebDriver).Timeout);
@@ -522,16 +522,16 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// Wait for and get the visible web element
         /// </summary>
         /// <returns>The web visible web element</returns>
-        public IWebElement GetTheVisibleElement()
+        public IWebElement GetRawVisibleElement()
         {
             if (this.elementIndex == null)
             {
                 this.CachedElement = (this.parent == null) ? this.WebDriver.Wait().ForVisibleElement(this.By) :
-                this.parent.GetTheExistingElement().Wait().ForVisibleElement(this.By);
+                this.parent.GetRawExistingElement().Wait().ForVisibleElement(this.By);
             }
             else
             {
-                this.CachedElement = this.GetIndexed((element => element.Displayed), "be visible");
+                this.CachedElement = this.GetRawIndexed((element => element.Displayed), "be visible");
             }
 
             return this.CachedElement;
@@ -541,16 +541,16 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// Wait for and get the clickable web element
         /// </summary>
         /// <returns>The web clickable web element</returns>
-        public IWebElement GetTheClickableElement()
+        public IWebElement GetRawClickableElement()
         {
             if (this.elementIndex == null)
             {
                 this.CachedElement = (this.parent == null) ? this.WebDriver.Wait().ForClickableElement(this.By) :
-                    this.parent.GetTheExistingElement().Wait().ForClickableElement(this.By);
+                    this.parent.GetRawExistingElement().Wait().ForClickableElement(this.By);
             }
             else
             {
-                this.CachedElement = this.GetIndexed((element => element.Displayed && element.Enabled), "be clickable");
+                this.CachedElement = this.GetRawIndexed((element => element.Displayed && element.Enabled), "be clickable");
             }
 
             return this.CachedElement;
@@ -560,16 +560,16 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// Wait for and get the web element
         /// </summary>
         /// <returns>The web element</returns>
-        public IWebElement GetTheExistingElement()
+        public IWebElement GetRawExistingElement()
         {
             if (this.elementIndex == null)
             {
                 this.CachedElement = (this.parent == null) ? this.WebDriver.Wait().ForElementExist(this.By) :
-                    this.parent.GetTheExistingElement().Wait().ForElementExist(this.By);
+                    this.parent.GetRawExistingElement().Wait().ForElementExist(this.By);
             }
             else
             {
-                this.CachedElement = this.GetIndexed((element => element != null), "exist");
+                this.CachedElement = this.GetRawIndexed((element => element != null), "exist");
             }
 
             return this.CachedElement;
@@ -579,13 +579,13 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// Get the element at the indexed value
         /// </summary>
         /// <returns>The element at the indexed value</returns>
-        private IWebElement GetIndexed(Func<IWebElement, bool> matchesState, string expectedState)
+        private IWebElement GetRawIndexed(Func<IWebElement, bool> matchesState, string expectedState)
         {
             return GenericWait.Wait<IWebElement>(
-                () =>
+(Func<IWebElement>)(() =>
             {
                 ReadOnlyCollection<IWebElement> elements = (this.parent == null) ? this.WebDriver.FindElements(this.By) :
-                this.parent.GetTheExistingElement().FindElements(this.By);
+                this.parent.GetRawExistingElement().FindElements(this.By);
                 IWebElement element = elements[this.elementIndex ?? 0];
 
                 if (!matchesState(element))
@@ -594,7 +594,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 }
 
                 return element;
-            },
+            }),
             Extend.GetWaitDriver(this.WebDriver).PollingInterval,
             Extend.GetWaitDriver(this.WebDriver).Timeout);
         }
@@ -606,7 +606,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <returns> The JavaScript property's current value. Returns a null if the value is not set or the property does not exist</returns>
         public string GetProperty(string propertyName)
         {
-            return this.GetTheExistingElement().GetProperty(propertyName);
+            return this.GetRawExistingElement().GetProperty(propertyName);
         }
 
         /// <summary>
@@ -614,18 +614,17 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </summary>
         /// <param name="by">The locating mechanism to use</param>
         /// <returns>The first matching OpenQA.Selenium.IWebElement on the current context</returns>
-        public IWebElement FindElement(By by)
+        public IWebElement FindRawElement(By by)
         {
-            return this.GetTheExistingElement().FindElement(by);
+            return this.GetRawExistingElement().FindElement(by);
         }
 
         /// <summary>
-        /// Finds the first OpenQA.Selenium.IWebElement using the given method.
+        /// Finds the first lazy element using the given method.
         /// </summary>
         /// <param name="by">The locating mechanism to use</param>
-        /// <returns>The first matching OpenQA.Selenium.IWebElement on the current context</returns>
-        [Obsolete("The FindLazyElement method will be removed in MAQS 6.0 and will be converted to FindElement")]
-        public IWebElement FindLazyElement(By by)
+        /// <returns>The first matching lazy element on the current context</returns>
+        public IWebElement FindElement(By by)
         {
             return this.FindElement(by, "Child element");
         }
@@ -642,19 +641,17 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </summary>
         /// <param name="by">The locating mechanism to use</param>
         /// <returns>All web elements matching the current criteria, or an empty list if nothing matches</returns>
-        public ReadOnlyCollection<IWebElement> FindElements(By by)
+        public ReadOnlyCollection<IWebElement> FindRawElements(By by)
         {
-            return this.GetTheExistingElement().FindElements(by);
+            return this.GetRawExistingElement().FindElements(by);
         }
 
         /// <summary>
-        /// Finds all OpenQA.Selenium.IWebElement within the current context using the given mechanism.
+        /// Finds all lazy elements within the current context using the given mechanism.
         /// </summary>
         /// <param name="by">The locating mechanism to use</param>
         /// <returns>All web elements matching the current criteria, or an empty list if nothing matches</returns>
-        [Obsolete("The FindLazyElements method will be removed in MAQS 6.0 and will be converted to FindElements")]
-
-        public ReadOnlyCollection<IWebElement> FindLazyElements(By by)
+        public ReadOnlyCollection<IWebElement> FindElements(By by)
         {
             return this.FindElements(by, "Child elements");
         }

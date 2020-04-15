@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net471</TargetFramework>
+    <ProjectGuid>{D3E59B9F-445E-4484-9B2F-B3FE3ED82CE5}</ProjectGuid>
+    <IsPackable>false</IsPackable>
+    <SonarQubeTestProject>false</SonarQubeTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.1.1" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.1.1" />
+    <PackageReference Include="NUnit.Extension.NUnitV2ResultWriter" Version="3.6.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="81.0.4044.6900" />
+    <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.26.0.1" />
+    <PackageReference Include="System.Runtime" Version="4.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BaseDatabaseTest\BaseDatabaseTest.csproj" />
+    <ProjectReference Include="..\BaseEmailTest\BaseEmailTest.csproj" />
+    <ProjectReference Include="..\BaseMongoTest\BaseMongoTest.csproj" />
+    <ProjectReference Include="..\BaseSeleniumTest\BaseSeleniumTest.csproj" />
+    <ProjectReference Include="..\BaseTest\BaseTest.csproj" />
+    <ProjectReference Include="..\BaseWebServiceTest\BaseWebServiceTest.csproj" />
+    <ProjectReference Include="..\Utilities\Utilities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

@@ -671,7 +671,7 @@ namespace SeleniumUnitTests
             this.Log = new FileLogger(string.Empty, "SeleniumSoftAssertIsTrueFalseCondition.txt", MessageType.GENERIC, true);
             SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(TestObject);
             string logLocation = ((FileLogger)Log).FilePath;
-            string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " testSoftAssert" + " (1).Jpeg";
+            string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " testSoftAssert" + " (1).png";
 
             bool isFalse = seleniumSoftAssert.IsTrue(false, "testSoftAssert", "message");
 
@@ -716,7 +716,7 @@ namespace SeleniumUnitTests
 
             SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(TestObject);
             string logLocation = ((FileLogger)Log).FilePath;
-            string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " testSoftAssert" + " (1).Jpeg";
+            string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " testSoftAssert" + " (1).png";
 
             bool isFalse = seleniumSoftAssert.IsFalse(true, "testSoftAssert", "message");
 
@@ -982,7 +982,7 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Test for GetWaitDriver - test for waitDriver not in the waitCollection 
+        /// Test for GetWaitDriver - test for waitDriver not in the waitCollection
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
@@ -1095,7 +1095,7 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify that CreateNewTestObject creates the correct Test Object 
+        /// Verify that CreateNewTestObject creates the correct Test Object
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]

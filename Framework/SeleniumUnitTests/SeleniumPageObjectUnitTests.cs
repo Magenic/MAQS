@@ -83,7 +83,7 @@ namespace SeleniumUnitTests
         public void GetLazyElementReturnsExistingElement()
         {
             var lazyElement = this.basePageModel.FlowerTableLazyElement;
-            lazyElement.GetTheExistingElement();
+            lazyElement.GetRawExistingElement();
             Assert.AreEqual(lazyElement.CachedElement, this.basePageModel.FlowerTableLazyElement.CachedElement);
         }
 
@@ -95,7 +95,7 @@ namespace SeleniumUnitTests
         public void GetLazyElementReturnsExistingElementWithParent()
         {
             var lazyElement = this.basePageModel.FlowerTableCaptionWithParent;
-            lazyElement.GetTheExistingElement();
+            lazyElement.GetRawExistingElement();
             Assert.AreEqual(lazyElement.CachedElement, this.basePageModel.FlowerTableCaptionWithParent.CachedElement);
         }
 

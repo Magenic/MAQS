@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net471</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
 
     <IsPackable>false</IsPackable>
 
@@ -16,7 +16,7 @@
     <PackageReference Include="MSTest.TestFramework" Version="2.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
-    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="80.0.3987.10600" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="81.0.4044.6900" />
     <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.26.0.1" />
     <PackageReference Include="System.Buffers" Version="4.5.1" />
     <PackageReference Include="System.Memory" Version="4.5.4" />
@@ -36,9 +36,5 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="FOR /F &quot;tokens=*&quot; %%m in ('dir /s /b /a &quot;$(SolutionDir)packages\chromedriver.exe&quot;') do copy /Y &quot;%%m&quot; &quot;$(TargetDir)&quot;&#xD;&#xA;FOR /F &quot;tokens=*&quot; %%m in ('dir /s /b /a &quot;$(SolutionDir)packages\phantomjs.exe&quot;') do copy /Y &quot;%%m&quot; &quot;$(TargetDir)&quot;&#xD;&#xA;FOR /F &quot;tokens=*&quot; %%m in ('dir /s /b /a &quot;$(SolutionDir)packages\IEDriverServer.exe&quot;') do copy /Y &quot;%%m&quot; &quot;$(TargetDir)&quot;&#xD;&#xA;FOR /F &quot;tokens=*&quot; %%m in ('dir /s /b /a &quot;$(SolutionDir)packages\geckodriver.exe&quot;') do copy /Y &quot;%%m&quot; &quot;$(TargetDir)&quot;&#xD;&#xA;FOR /F &quot;tokens=*&quot; %%m in ('dir /s /b /a &quot;$(SolutionDir)packages\MicrosoftWebDriver.exe&quot;') do copy /Y &quot;%%m&quot; &quot;$(TargetDir)&quot;" />
-  </Target>
 
 </Project>

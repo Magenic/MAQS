@@ -51,24 +51,7 @@ namespace SeleniumUnitTests
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
             WebDriver.Wait().ForPageLoad();
             SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject);
-            string filePath = Path.ChangeExtension(((FileLogger)TestObject.Log).FilePath, ".Jpeg");
-            Assert.IsTrue(File.Exists(filePath), "Fail to find screenshot");
-            File.Delete(filePath);
-        }
-
-        /// <summary>
-        /// Verify deprecated version of CaptureScreenshot works - Validating that the screenshot was created
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
-        public void TryScreenshotDeprecated()
-        {
-            WebDriver.Navigate().GoToUrl(TestSiteUrl);
-            WebDriver.Wait().ForPageLoad();
-#pragma warning disable CS0618 // Type or member is obsolete
-            SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.Log);
-#pragma warning restore CS0618 // Type or member is obsolete
-            string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, ".Jpeg");
+            string filePath = Path.ChangeExtension(((FileLogger)TestObject.Log).FilePath, ".png");
             Assert.IsTrue(File.Exists(filePath), "Fail to find screenshot");
             File.Delete(filePath);
         }
@@ -86,7 +69,7 @@ namespace SeleniumUnitTests
             // Create a console logger and calculate the file location
             ConsoleLogger consoleLogger = new ConsoleLogger();
             TestObject.Log = consoleLogger;
-            string expectedPath = Path.Combine(LoggingConfig.GetLogDirectory(), "ScreenCapDelete.Jpeg");
+            string expectedPath = Path.Combine(LoggingConfig.GetLogDirectory(), "ScreenCapDelete.png");
 
             // Take a screenshot
             SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject, "Delete");
@@ -155,30 +138,6 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify deprecated CaptureScreenshot works with console logger - Validating that the screenshot was created
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
-        public void TryScreenshotWithConsoleLoggerDeprecated()
-        {
-            WebDriver.Navigate().GoToUrl(TestSiteUrl);
-            WebDriver.Wait().ForPageLoad();
-
-            // Create a console logger and calculate the file location
-            ConsoleLogger consoleLogger = new ConsoleLogger();
-            string expectedPath = Path.Combine(LoggingConfig.GetLogDirectory(), "ScreenCapDelete.Jpeg");
-
-            // Take a screenshot
-#pragma warning disable CS0618 // Type or member is obsolete
-            SeleniumUtilities.CaptureScreenshot(this.WebDriver, consoleLogger, "Delete");
-#pragma warning restore CS0618 // Type or member is obsolete
-
-            // Make sure we got the screenshot and than cleanup
-            Assert.IsTrue(File.Exists(expectedPath), "Fail to find screenshot");
-            File.Delete(expectedPath);
-        }
-
-        /// <summary>
         /// Verify that CaptureScreenshot properly handles exceptions and returns false
         /// </summary>
         [TestMethod]
@@ -198,27 +157,7 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify that deprecated CaptureScreenshot properly handles exceptions and returns false
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
-        public void CaptureScreenshotThrownExceptionDeprecated()
-        {
-            FileLogger tempLogger = new FileLogger
-            {
-                FilePath = "<>" // illegal file path
-            };
-
-            WebDriver.Navigate().GoToUrl(TestSiteUrl);
-            WebDriver.Wait().ForPageLoad();
-#pragma warning disable CS0618 // Type or member is obsolete
-            bool successfullyCaptured = SeleniumUtilities.CaptureScreenshot(WebDriver, tempLogger);
-#pragma warning restore CS0618 // Type or member is obsolete
-            Assert.IsFalse(successfullyCaptured);
-        }
-
-        /// <summary>
-        /// Verify that CaptureScreenshot creates Directory if it does not exist already 
+        /// Verify that CaptureScreenshot creates Directory if it does not exist already
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
@@ -227,22 +166,6 @@ namespace SeleniumUnitTests
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
             WebDriver.Wait().ForPageLoad();
             string screenShotPath = SeleniumUtilities.CaptureScreenshot(WebDriver, TestObject, "TempTestDirectory", "CapScreenShotNoDir", SeleniumUtilities.GetScreenShotFormat());
-            Assert.IsTrue(File.Exists(screenShotPath), "Fail to find screenshot");
-            File.Delete(screenShotPath);
-        }
-
-        /// <summary>
-        /// Verify that deprecated CaptureScreenshot creates Directory if it does not exist already 
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
-        public void CaptureScreenshotNoExistingDirectoryDeprecated()
-        {
-            WebDriver.Navigate().GoToUrl(TestSiteUrl);
-            WebDriver.Wait().ForPageLoad();
-#pragma warning disable CS0618 // Type or member is obsolete
-            string screenShotPath = SeleniumUtilities.CaptureScreenshot(WebDriver, "TempTestDirectory", "OldCapScreenShotNoDir", SeleniumUtilities.GetScreenShotFormat());
-#pragma warning restore CS0618 // Type or member is obsolete
             Assert.IsTrue(File.Exists(screenShotPath), "Fail to find screenshot");
             File.Delete(screenShotPath);
         }
@@ -278,22 +201,6 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify that page source file is being created using deprecated method
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
-        public void SeleniumPageSourceFileIsCreatedDeprecated()
-        {
-            WebDriver.Navigate().GoToUrl(TestSiteUrl);
-            WebDriver.Wait().ForPageLoad();
-#pragma warning disable CS0618 // Type or member is obsolete
-            string pageSourcePath = SeleniumUtilities.SavePageSource(WebDriver, "TempTestDirectory", "OldSeleniumPSFile");
-#pragma warning restore CS0618 // Type or member is obsolete
-            Assert.IsTrue(File.Exists(pageSourcePath), "Failed to find Page Source");
-            File.Delete(pageSourcePath);
-        }
-
-        /// <summary>
         /// Verify SavePageSource works with console logger - Validating that page source was created
         /// </summary>
         [TestMethod]
@@ -317,30 +224,6 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify deprecated SavePageSource works with console logger - Validating that page source was created
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
-        public void SeleniumPageSourceWithConsoleLoggerDeprecated()
-        {
-            WebDriver.Navigate().GoToUrl(TestSiteUrl);
-            WebDriver.Wait().ForPageLoad();
-
-            // Create a console logger and calculate the file location
-            ConsoleLogger consoleLogger = new ConsoleLogger();
-            string expectedPath = Path.Combine(LoggingConfig.GetLogDirectory(), "PageSourceOldConsole.txt");
-
-            // Take a screenshot
-#pragma warning disable CS0618 // Type or member is obsolete
-            SeleniumUtilities.SavePageSource(this.WebDriver, consoleLogger, "OldConsole");
-#pragma warning restore CS0618 // Type or member is obsolete
-
-            // Make sure we got the screenshot and than cleanup
-            Assert.IsTrue(File.Exists(expectedPath), "Fail to find screenshot");
-            File.Delete(expectedPath);
-        }
-
-        /// <summary>
         /// Verify that SavePageSource properly handles exceptions and returns false
         /// </summary>
         [TestMethod]
@@ -356,26 +239,6 @@ namespace SeleniumUnitTests
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
             WebDriver.Wait().ForPageLoad();
             bool successfullySaved = SeleniumUtilities.SavePageSource(WebDriver, TestObject);
-            Assert.IsFalse(successfullySaved);
-        }
-
-        /// <summary>
-        /// Verify that deprecated SavePageSource properly handles exceptions and returns false
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
-        public void SavePageSourceThrownExceptionDeprecated()
-        {
-            FileLogger tempLogger = new FileLogger
-            {
-                FilePath = "<>" // illegal file path
-            };
-
-            WebDriver.Navigate().GoToUrl(TestSiteUrl);
-            WebDriver.Wait().ForPageLoad();
-#pragma warning disable CS0618 // Type or member is obsolete
-            bool successfullySaved = SeleniumUtilities.SavePageSource(WebDriver, tempLogger);
-#pragma warning restore CS0618 // Type or member is obsolete
             Assert.IsFalse(successfullySaved);
         }
 
@@ -415,6 +278,7 @@ namespace SeleniumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
+        [ExpectedException(typeof(WebDriverException), ".Net Core only allows for PNG.  BMP is not allowed")]
         public void CaptureScreenshotBmpFormat()
         {
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
@@ -430,6 +294,7 @@ namespace SeleniumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
+        [ExpectedException(typeof(WebDriverException), ".Net Core only allows for PNG.  GIF is not allowed")]
         public void CaptureScreenshotGifFormat()
         {
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
@@ -445,6 +310,7 @@ namespace SeleniumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
+        [ExpectedException(typeof(WebDriverException), ".Net Core only allows for PNG.  JPEG is not allowed")]
         public void CaptureScreenshotJpegFormat()
         {
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
@@ -475,6 +341,7 @@ namespace SeleniumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
+        [ExpectedException(typeof(WebDriverException), ".Net Core only allows for PNG.  TIFF is not allowed")]
         public void CaptureScreenshotTiffFormat()
         {
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
@@ -508,7 +375,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void GetImageFormatFromConfig()
         {
-            Assert.AreEqual(SeleniumUtilities.GetScreenShotFormat(), ScreenshotImageFormat.Jpeg, "The Incorrect Image Format was returned, expected: " + Config.GetGeneralValue("ImageFormat"));
+            Assert.AreEqual(ScreenshotImageFormat.Png, SeleniumUtilities.GetScreenShotFormat(), "The Incorrect Image Format was returned, expected: " + Config.GetGeneralValue("ImageFormat"));
         }
 
         /// <summary>
@@ -584,7 +451,7 @@ namespace SeleniumUnitTests
                 SoftAssert.IsTrue(!logContent.Contains("Violations check"), "Did not expect violation check");
                 SoftAssert.IsTrue(!logContent.Contains("Passes check"), "Did not expect pass check");
                 SoftAssert.IsTrue(!logContent.Contains("Incomplete check"), "Did not expect incomplete check");
-                
+
                 SoftAssert.IsTrue(logContent.Contains("Inapplicable check"), "Did expect inapplicable check");
             }
             finally
@@ -644,7 +511,7 @@ namespace SeleniumUnitTests
                 SoftAssert.IsTrue(!logContent.Contains("Violations check"), "Did not expect violation check");
                 SoftAssert.IsTrue(!logContent.Contains("Inapplicable check"), "Did not expect inapplicable check");
                 SoftAssert.IsTrue(!logContent.Contains("Incomplete check"), "Did not expect incomplete check");
-                
+
                 SoftAssert.IsTrue(logContent.Contains("Passes check"), "Did expect pass check");
             }
             finally

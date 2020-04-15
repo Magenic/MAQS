@@ -352,7 +352,7 @@ namespace SeleniumUnitTests
             // Create the lazy element and use it
             LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
 
-            IWebElement cacheFooter = footer.GetTheVisibleElement();
+            IWebElement cacheFooter = footer.GetRawVisibleElement();
 
             // Make sure the second event didn't trigger a new find
             Assert.AreEqual(cacheFooter, footer.CachedElement);
@@ -368,10 +368,10 @@ namespace SeleniumUnitTests
             // Create the lazy element and use it
             LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
 
-            footer.GetTheVisibleElement();
+            footer.GetRawVisibleElement();
 
             // Make sure get clickable triggers a new find
-            Assert.AreNotEqual(footer.CachedElement, footer.GetTheClickableElement());
+            Assert.AreNotEqual(footer.CachedElement, footer.GetRawClickableElement());
         }
 
         /// <summary>
@@ -384,10 +384,10 @@ namespace SeleniumUnitTests
             // Create the lazy element and use it
             LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
 
-            footer.GetTheVisibleElement();
+            footer.GetRawVisibleElement();
 
             // Make sure get exists triggers a new find
-            Assert.AreNotEqual(footer.CachedElement, footer.GetTheExistingElement());
+            Assert.AreNotEqual(footer.CachedElement, footer.GetRawExistingElement());
         }
 
         /// <summary>
@@ -400,10 +400,10 @@ namespace SeleniumUnitTests
             // Create the lazy element and use it
             LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
 
-            footer.GetTheVisibleElement();
+            footer.GetRawVisibleElement();
 
             // Make sure get visible triggers a new find
-            Assert.AreNotEqual(footer.CachedElement, footer.GetTheVisibleElement());
+            Assert.AreNotEqual(footer.CachedElement, footer.GetRawVisibleElement());
         }
 
         /// <summary>
@@ -803,7 +803,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementGetVisibleElement()
         {
-            Assert.AreNotEqual(null, this.InputBox.GetTheVisibleElement());
+            Assert.AreNotEqual(null, this.InputBox.GetRawVisibleElement());
         }
 
         /// <summary>
@@ -813,7 +813,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementGetClickableElement()
         {
-            Assert.AreNotEqual(null, this.InputBox.GetTheClickableElement());
+            Assert.AreNotEqual(null, this.InputBox.GetRawClickableElement());
         }
 
         /// <summary>
@@ -823,7 +823,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementGetExistingElement()
         {
-            Assert.AreNotEqual(null, this.InputBox.GetTheExistingElement());
+            Assert.AreNotEqual(null, this.InputBox.GetRawExistingElement());
         }
 
         /// <summary>
@@ -886,7 +886,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementFindElement()
         {
-            IWebElement firstElement = this.FlowerTableLazyElement.FindElement(By.CssSelector("THEAD TH"));
+            IWebElement firstElement = this.FlowerTableLazyElement.FindRawElement(By.CssSelector("THEAD TH"));
             Assert.AreEqual("Flowers", firstElement.Text);
         }
 
@@ -898,7 +898,7 @@ namespace SeleniumUnitTests
         [ExpectedException(typeof(TimeoutException), "The input should be disabled so this will throw an exception.")]
         public void LazyElementFindElementRespectAction()
         {
-            IWebElement firstElement = this.DivRoot.FindLazyElement(this.DisabledItem.By);
+            IWebElement firstElement = this.DivRoot.FindElement(this.DisabledItem.By);
             this.WebDriver.SetWaitDriver(new OpenQA.Selenium.Support.UI.WebDriverWait(this.WebDriver, TimeSpan.FromSeconds(1)));
             firstElement.Click();
         }
@@ -910,7 +910,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementFindElements()
         {
-            ReadOnlyCollection<IWebElement> elements = this.FlowerTableLazyElement.FindElements(By.CssSelector("THEAD TH"));
+            ReadOnlyCollection<IWebElement> elements = this.FlowerTableLazyElement.FindRawElements(By.CssSelector("THEAD TH"));
             Assert.AreEqual("Color", elements[4].Text);
         }
 
@@ -922,8 +922,8 @@ namespace SeleniumUnitTests
         public void LazyElementFindElementsStackedWithStale()
         {
             LazyElement lazyRoot = new LazyElement(this.TestObject, By.CssSelector("#ItemsToAutomate"));
-            IWebElement secondTable = lazyRoot.FindLazyElements(By.CssSelector("TABLE"))[1];
-            IWebElement lastTableHeader = ((LazyElement)secondTable).FindLazyElements(By.CssSelector("THEAD TH"))[4];
+            IWebElement secondTable = lazyRoot.FindElements(By.CssSelector("TABLE"))[1];
+            IWebElement lastTableHeader = ((LazyElement)secondTable).FindElements(By.CssSelector("THEAD TH"))[4];
 
             this.WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase());
             this.WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Automation");
@@ -938,7 +938,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementFindElementsAreLazy()
         {
-            foreach (IWebElement element in this.FlowerTableLazyElement.FindLazyElements(By.CssSelector("THEAD TH")))
+            foreach (IWebElement element in this.FlowerTableLazyElement.FindElements(By.CssSelector("THEAD TH")))
             {
                 this.SoftAssert.Assert(() => Assert.IsTrue(element is LazyElement));
             }
@@ -954,7 +954,7 @@ namespace SeleniumUnitTests
         [ExpectedException(typeof(TimeoutException), "The input should be disabled so this will throw an exception.")]
         public void LazyElementFindElementsRespectAction()
         {
-            IWebElement firstElement = this.DivRoot.FindLazyElements(this.DisabledItem.By)[0];
+            IWebElement firstElement = this.DivRoot.FindElements(this.DisabledItem.By)[0];
 
             this.WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase());
             this.WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Automation");
@@ -971,8 +971,8 @@ namespace SeleniumUnitTests
         public void LazyElementFindElementsGetVisible()
         {
             LazyElement lazyRoot = new LazyElement(this.TestObject, By.CssSelector("#ItemsToAutomate"));
-            IWebElement secondTable = lazyRoot.FindLazyElements(By.CssSelector("TABLE"))[1];
-            IWebElement getSecondTable = ((LazyElement)secondTable).GetTheVisibleElement();
+            IWebElement secondTable = lazyRoot.FindElements(By.CssSelector("TABLE"))[1];
+            IWebElement getSecondTable = ((LazyElement)secondTable).GetRawVisibleElement();
             Assert.AreEqual(secondTable.Text, getSecondTable.Text);
         }
 
@@ -983,7 +983,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementFindRawElementWorksWithActions()
         {
-            IWebElement rawElement = this.DivRoot.FindElement(this.DisabledItem.By);
+            IWebElement rawElement = this.DivRoot.FindRawElement(this.DisabledItem.By);
 
             Actions a1 = new Actions(this.WebDriver);
             a1.KeyDown(rawElement, Keys.Shift).Build().Perform();
@@ -1001,7 +1001,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void LazyElementFindRawElementsWorksWithActions()
         {
-            IWebElement rawElement = this.DivRoot.FindElements(this.DisabledItem.By)[0];
+            IWebElement rawElement = this.DivRoot.FindRawElements(this.DisabledItem.By)[0];
 
             Actions a1 = new Actions(this.WebDriver);
             a1.KeyDown(rawElement, Keys.Shift).Build().Perform();
