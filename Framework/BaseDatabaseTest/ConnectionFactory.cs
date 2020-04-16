@@ -57,7 +57,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
             {
                 if (e.GetType() == typeof(ArgumentException))
                 {
-                    throw e;
+                    throw;
                 }
 
                 try
@@ -79,7 +79,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// Gets the provider based on the provider type.
         /// </summary>
         /// <param name="providerType"> The provider type. </param>
-        /// <returns> The <see cref="IProvider"/> object </returns>
+        /// <returns> The <see cref="IDbConnection"/> object </returns>
         /// <exception cref="Exception"> Throws exception if the provider type is not supported </exception>
         private static IProvider<IDbConnection> GetProvider(string providerType)
         {

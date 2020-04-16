@@ -69,7 +69,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractLazyIWebElement" /> class
         /// </summary>
-        /// <param name="testObject">The base test object</param>
+        /// <param name="parent">The parent lazy element</param>
         /// <param name="locator">The 'by' selector for the element</param>
         /// <param name="cachedElement">The cached web element</param>
         /// <param name="index">The index of the element - Used if the by finds multiple elements</param>
@@ -342,7 +342,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             {
                 this.TestObject.Log.ContinueLogging();
                 this.TestObject.Log.LogMessage(MessageType.ERROR, "Exception during sending secret keys: " + e.Message + Environment.NewLine + e.StackTrace);
-                throw e;
+                throw;
             }
         }
 
@@ -633,6 +633,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// Finds the first OpenQA.Selenium.IWebElement using the given method.
         /// </summary>
         /// <param name="by">The locating mechanism to use</param>
+        /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
         /// <returns>The first matching OpenQA.Selenium.IWebElement on the current context</returns>
         public abstract IWebElement FindElement(By by, string userFriendlyName);
 
@@ -660,6 +661,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// Finds all OpenQA.Selenium.IWebElement within the current context using the given mechanism.
         /// </summary>
         /// <param name="by">The locating mechanism to use</param>
+        /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
         /// <returns>All web elements matching the current criteria, or an empty list if nothing matches</returns>
         public abstract ReadOnlyCollection<IWebElement> FindElements(By by, string userFriendlyName);
 

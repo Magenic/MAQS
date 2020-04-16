@@ -369,7 +369,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="x">Horizontal offset</param>
         /// <param name="y">Vertical offset</param>
         /// <returns>True if the element is visible and scrolled into view</returns>
- 
+
         public bool UntilClickableElementAndScrollIntoView(By by, int x, int y)
         {
             if (this.UntilClickableElement(by))
@@ -523,7 +523,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <summary>
         /// Wait until check where we are checking text is within the value of attribute given
         /// </summary>
-        /// <param name="by">'by' selector for the element</param>     
+        /// <param name="by">'by' selector for the element</param>
         /// <param name="textValue">String value that the elements attribute is expected to contain</param>
         /// <param name="attribute">Attribute name as a String</param>
         /// <param name="searchContext">Search context  - either web driver or web element</param>
@@ -541,7 +541,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <summary>
         /// Do a wait until check where we are checking text equals value of attribute given
         /// </summary>
-        /// <param name="by">'by' selector for the element</param>     
+        /// <param name="by">'by' selector for the element</param>
         /// <param name="textValue">String value that the element's attribute is expected to equal</param>
         /// <param name="attribute">Attribute name as a String</param>
         /// <param name="searchContext">Search context  - either web driver or web element</param>

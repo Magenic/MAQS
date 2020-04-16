@@ -173,7 +173,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         }
 
         /// <summary>
-        /// Run axe accessibility and log the results 
+        /// Run axe accessibility and log the results
         /// </summary>
         /// <param name="webDriver">The web driver that is on the page you want to run the accessibility check on</param>
         /// <param name="logger">Where you want the check logged to</param>
@@ -206,7 +206,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         }
 
         /// <summary>
-        /// Run axe accessibility and log the results 
+        /// Run axe accessibility and log the results
         /// </summary>
         /// <param name="webDriver">The web driver that is on the page you want to run the accessibility check on</param>
         /// <param name="logger">Where you want the check logged to</param>
@@ -227,12 +227,11 @@ namespace Magenic.Maqs.BaseSeleniumTest
         }
 
         /// <summary>
-        /// Run axe accessibility and log the results 
+        /// Run axe accessibility and log the results
         /// </summary>
         /// <param name="webDriver">The web driver that is on the page you want to run the accessibility check on</param>
         /// <param name="logger">Where you want the check logged to</param>
         /// <param name="loggingLevel">What level should logging the check take, this gets used if the check doesn't throw an exception</param>
-        /// <param name="throwOnViolation">Should violations cause and exception to be thrown</param>
         public static void CheckAccessibilityPasses(this IWebDriver webDriver, Logger logger, MessageType loggingLevel)
         {
             // Look at passed
@@ -242,7 +241,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         ///AccessibilityCheckType
         ///
         /// <summary>
-        /// Run axe accessibility and log the results 
+        /// Run axe accessibility and log the results
         /// </summary>
         /// <param name="webDriver">The web driver that is on the page you want to run the accessibility check on</param>
         /// <param name="logger">Where you want the check logged to</param>
@@ -256,7 +255,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         ///AccessibilityCheckType
         ///
         /// <summary>
-        /// Run axe accessibility and log the results 
+        /// Run axe accessibility and log the results
         /// </summary>
         /// <param name="webDriver">The web driver that is on the page you want to run the accessibility check on</param>
         /// <param name="logger">Where you want the check logged to</param>
@@ -268,7 +267,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         }
 
         /// <summary>
-        /// Run axe accessibility and log the results 
+        /// Run axe accessibility and log the results
         /// </summary>
         /// <param name="webDriver">The web driver that is on the page you want to run the accessibility check on</param>
         /// <param name="logger">Where you want the check logged to</param>
