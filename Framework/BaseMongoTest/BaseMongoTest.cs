@@ -53,7 +53,7 @@ namespace Magenic.Maqs.BaseMongoTest
         /// <summary>
         /// Override the Mongo driver - respects lazy loading
         /// </summary>
-        /// <param name="overrideDriver">The new collection connection</param>
+        /// <param name="overrideCollectionConnection">The new collection connection</param>
         public void OverrideConnectionDriver(Func<IMongoCollection<T>> overrideCollectionConnection)
         {
             this.TestObject.OverrideMongoDBDriver(overrideCollectionConnection);
