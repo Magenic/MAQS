@@ -28,7 +28,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
     public static class WebDriverFactory
     {
         /// <summary>
-        /// Get the default web driver based on the test run configuration 
+        /// Get the default web driver based on the test run configuration
         /// </summary>
         /// <returns>A web driver</returns>
         public static IWebDriver GetDefaultBrowser()
@@ -37,7 +37,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         }
 
         /// <summary>
-        /// Get the default web driver (for the specified browser type) based on the test run configuration 
+        /// Get the default web driver (for the specified browser type) based on the test run configuration
         /// </summary>
         /// <param name="browser">The type of browser</param>
         /// <returns>A web driver</returns>
@@ -195,7 +195,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             return CreateDriver(() =>
             {
-                var driver = new ChromeDriver(GetDriverLocation("chromedriver.exe"), chromeOptions, commandTimeout);
+                var driver = new ChromeDriver(ChromeDriverService.CreateDefaultService(), chromeOptions, commandTimeout);
                 SetBrowserSize(driver, size);
                 return driver;
             });
@@ -209,7 +209,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <returns>A new headless Chrome driver</returns>
         public static IWebDriver GetHeadlessChromeDriver(TimeSpan commandTimeout, ChromeOptions headlessChromeOptions)
         {
-            return CreateDriver(() => new ChromeDriver(GetDriverLocation("chromedriver.exe"), headlessChromeOptions, commandTimeout));
+            return CreateDriver(() => new ChromeDriver(ChromeDriverService.CreateDefaultService(), headlessChromeOptions, commandTimeout));
         }
 
         /// <summary>
