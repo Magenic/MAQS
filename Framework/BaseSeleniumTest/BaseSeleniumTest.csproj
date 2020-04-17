@@ -19,6 +19,7 @@
     <PackageIcon>MAQS.jpg</PackageIcon>
     <PackageProjectUrl>https://github.com/Magenic/MAQS</PackageProjectUrl>
     <PackageTags>test selenium appium automation NUnit MSTest TestFramework</PackageTags>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageReleaseNotes>6.0.0 - 2020-??-??</PackageReleaseNotes>
   </PropertyGroup>
 

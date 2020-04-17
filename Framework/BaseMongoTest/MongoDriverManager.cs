@@ -55,7 +55,9 @@ namespace Magenic.Maqs.BaseMongoTest
         /// <summary>
         /// Override the Mongo driver - respects lazy loading
         /// </summary>
-        /// <param name="overrideDriver">The new collection connection</param>
+        /// <param name="connectionString">Connection string of mongo DB</param>
+        /// <param name="databaseString">Database string to use</param>
+        /// <param name="collectionString">Collection string to use</param>
         public void OverrideDriver(string connectionString, string databaseString, string collectionString)
         {
             this.driver = null;
@@ -65,7 +67,7 @@ namespace Magenic.Maqs.BaseMongoTest
         /// <summary>
         /// Override the Mongo driver - respects lazy loading
         /// </summary>
-        /// <param name="overrideDriver">The new collection connection</param>
+        /// <param name="overrideCollectionConnection">The new collection connection</param>
         public void OverrideDriver(Func<IMongoCollection<T>> overrideCollectionConnection)
         {
             this.driver = null;

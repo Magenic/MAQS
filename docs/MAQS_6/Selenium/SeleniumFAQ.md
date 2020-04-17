@@ -14,7 +14,7 @@ Find the configuration of browsers within the app.config file and define one and
 ## Why doesn't PhantomJS work
 - Selenium 3.14.0 removed support for PhantomJS. Headless Chrome typically is a good substitute. 
 
-### How do I fix common user errors?
+## How do I fix common user errors?
 
 ### My code can't find the config class  
 - Make sure you've imported the Full namespace such as Magenic.Maqs.Utilities.Helper.Config
@@ -70,4 +70,22 @@ Find the configuration of browsers within the app.config file and define one and
     <add key="os" value="Windows" />
     <add key="os_version" value="10" />
   </RemoteSeleniumCapsMaqs>
+  ```
+    ```
+
+  ## Cannot find chromedriver
+  ```
+  The chromedriver.exe file does not exist in the current directory or in a directory on the PATH environment variable. The driver can be downloaded at http://chromedriver.storage.googleapis.com/index.html.
+  ```
+  In MAQS we are assuming the proper PATHs in the system are setup for selenium to find chromedriver.  You can override the GetBrowser method and provide a path
+
+  ``` csharp
+[TestClass]
+public class SeleniumTestsVSUnit : BaseSeleniumTest
+{
+    protected override IWebDriver GetBrowser()
+    {
+        IWebDriver driver = new ChromeDriver(GetDriverLocation("chromedriver.exe"), WebDriverFactory.GetDefaultChromeOptions(), SeleniumConfig.GetCommandTimeout());
+        return driver;
+    }
   ```
