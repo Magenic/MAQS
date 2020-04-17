@@ -85,14 +85,7 @@ public class SeleniumTestsVSUnit : BaseSeleniumTest
 {
     protected override IWebDriver GetBrowser()
     {
-        var chromeOptions = new ChromeOptions();
-        chromeOptions.AddArgument("test-type");
-        chromeOptions.AddArguments("--disable-web-security");
-        chromeOptions.AddArguments("--allow-running-insecure-content");
-        chromeOptions.AddArguments("--disable-extensions");
-        chromeOptions.AddArgument("--no-sandbox");
-        chromeOptions.AddArguments("--headless");
-        IWebDriver driver = new ChromeDriver(GetDriverLocation("chromedriver.exe"), chromeOptions, SeleniumConfig.GetCommandTimeout());
+        IWebDriver driver = new ChromeDriver(GetDriverLocation("chromedriver.exe"), WebDriverFactory.GetDefaultChromeOptions(), SeleniumConfig.GetCommandTimeout());
         return driver;
     }
   ```
