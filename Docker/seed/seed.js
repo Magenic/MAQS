@@ -1,6 +1,6 @@
 db = db.getSiblingDB('MongoDatabaseTest')
-db.MAQSTestCollection.drop();
-db.MAQSTestCollection.insertMany([
+db.MongoTestCollection.drop();
+db.MongoTestCollection.insertMany([
   {
     "lid": "test1",
     "isChanged": true,
