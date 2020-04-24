@@ -74,7 +74,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         {
             int index = 0;
             List<IWebElement> elements = new List<IWebElement>();
-            foreach (IWebElement element in this.GetRawExistingElement().FindElements(by))
+            foreach (IWebElement element in this.GetTheExistingElement().FindElements(by))
             {
                 elements.Add(new LazyMobileElement(this, by, element, index, $"{userFriendlyName} - {index++}"));
             }
