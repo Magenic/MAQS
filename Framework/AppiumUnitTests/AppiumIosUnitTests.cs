@@ -30,6 +30,23 @@ namespace AppiumUnitTests
         }
 
         /// <summary>
+        /// Tests lazy element with Appium iOS Driver
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Appium)]
+        public void AppiumIOSDriverLazyTest()
+        {
+            Assert.IsNotNull(this.TestObject.AppiumDriver);
+            this.AppiumDriver.Navigate().GoToUrl(Config.GetValueForSection(ConfigSection.AppiumMaqs, "WebSiteBase"));
+            LazyMobileElement lazy = new LazyMobileElement(this.TestObject, By.XPath("//button[@class=\"navbar-toggle\"]"), "Nav toggle");
+
+            Assert.IsTrue(lazy.Enabled, "Expect enabled");
+            Assert.IsTrue(lazy.Displayed, "Expect displayed");
+            Assert.IsTrue(lazy.ExistsNow, "Expect exists now");
+            lazy.Click();
+        }
+
+        /// <summary>
         /// Sets capabilities for testing the iOS Driver creation
         /// </summary>
         /// <returns>iOS instance of the Appium Driver</returns>

@@ -34,7 +34,8 @@ namespace AppiumUnitTests
             lazy.Click();
             Assert.IsTrue(lazy.Enabled, "Expect enabled");
             Assert.IsTrue(lazy.Displayed, "Expect displayed");
-            Assert.IsTrue(lazy.ExistsNow, "Expect exists");
+            Assert.IsTrue(lazy.ExistsNow, "Expect exists now");
+
             this.AppiumDriver.FindElementByName("Plus").Click();
             this.AppiumDriver.FindElement(By.Name("Three")).Click();
             this.AppiumDriver.FindElementByAccessibilityId("equalButton").Click();
