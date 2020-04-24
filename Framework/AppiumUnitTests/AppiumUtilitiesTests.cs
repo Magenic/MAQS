@@ -8,6 +8,7 @@ using Magenic.Maqs.BaseAppiumTest;
 using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OpenQA.Selenium;
 using System.IO;
 
 namespace AppiumUnitTests
@@ -230,6 +231,23 @@ namespace AppiumUnitTests
             string pageSourcePath = AppiumUtilities.SavePageSource(this.AppiumDriver, this.TestObject, "TempTestDirectory", "TestObjAssoc");
             Assert.IsTrue(this.TestObject.ContainsAssociatedFile(pageSourcePath), "Failed to find page source");
             File.Delete(pageSourcePath);
+        }
+
+        /// <summary>
+        /// Test lazy element
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Appium)]
+        public void AppiumLazyTest()
+        {
+            Assert.IsNotNull(this.TestObject.AppiumDriver);
+            this.AppiumDriver.Navigate().GoToUrl(Config.GetValueForSection(ConfigSection.AppiumMaqs, "WebSiteBase"));
+            LazyMobileElement lazy = new LazyMobileElement(this.TestObject, By.XPath("//button[@class=\"navbar-toggle\"]"), "Nav toggle");
+
+            Assert.IsTrue(lazy.Enabled, "Expect enabled");
+            Assert.IsTrue(lazy.Displayed, "Expect displayed");
+            Assert.IsTrue(lazy.ExistsNow, "Expect exists now");
+            lazy.Click();
         }
     }
 }

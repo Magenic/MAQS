@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <TargetFrameworks>net471;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <AssemblyVersion>5.8.1</AssemblyVersion>
-    <FileVersion>5.8.1</FileVersion>
-    <Version>5.8.1</Version>
+    <AssemblyVersion>5.8.2</AssemblyVersion>
+    <FileVersion>5.8.2</FileVersion>
+    <Version>5.8.2</Version>
     <AssemblyName>Magenic.Maqs.BaseSeleniumTest</AssemblyName>
     <RootNamespace>Magenic.Maqs.BaseSeleniumTest</RootNamespace>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>

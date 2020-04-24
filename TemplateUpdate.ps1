@@ -63,7 +63,7 @@
 
 param (
     # MAQS CURRENT VERSION
-    [string]$maqsVer = "5.8.1",
+    [string]$maqsVer = "5.8.2",
     [bool]$closedSource = $true,
     [bool]$openSource = $true,
     [bool]$specFlowSource = $true

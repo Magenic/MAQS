@@ -23,9 +23,9 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <param name="testObject">The base Appium test object</param>
         /// <param name="locator">The 'by' selector for the element</param>
         /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
-        public LazyMobileElement(AppiumTestObject testObject, By locator, [CallerMemberName] string userFriendlyName = null) : base(testObject, testObject.AppiumDriver, locator, userFriendlyName)
-        { 
-
+        public LazyMobileElement(AppiumTestObject testObject, By locator, [CallerMemberName] string userFriendlyName = null) : base(testObject, testObject.AppiumDriver, testObject.AppiumDriver.GetWaitDriver(), locator, userFriendlyName)
+        {
+            
         }
 
         /// <summary>
@@ -57,6 +57,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// Finds the first IWebElement using the given method.
         /// </summary>
         /// <param name="by">The locating mechanism to use</param>
+        /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
         /// <returns>The first matching OpenQA.Selenium.IWebElement on the current context</returns>
         public override IWebElement FindElement(By by, string userFriendlyName)
         {
@@ -67,12 +68,13 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// Finds all IWebElement within the current context using the given mechanism.
         /// </summary>
         /// <param name="by">The locating mechanism to use</param>
+        /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
         /// <returns>All web elements matching the current criteria, or an empty list if nothing matches</returns>
         public override ReadOnlyCollection<IWebElement> FindElements(By by, string userFriendlyName)
         {
             int index = 0;
             List<IWebElement> elements = new List<IWebElement>();
-            foreach (IWebElement element in this.GetTheExistingElement().FindElements(by))
+            foreach (IWebElement element in this.GetRawExistingElement().FindElements(by))
             {
                 elements.Add(new LazyMobileElement(this, by, element, index, $"{userFriendlyName} - {index++}"));
             }
