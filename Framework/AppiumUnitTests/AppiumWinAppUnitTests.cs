@@ -26,7 +26,7 @@ namespace AppiumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Appium)]
-        //[Ignore] // Can currently only run WinAppDriver locally with our current setup
+        [Ignore] // Can currently only run WinAppDriver locally with our current setup
         public void AppiumWinAppDriverTest()
         {
             LazyMobileElement lazy = new LazyMobileElement(this.TestObject, By.XPath("//Button[@AutomationId=\"num7Button\"]"), "Seven");
@@ -34,8 +34,7 @@ namespace AppiumUnitTests
             lazy.Click();
             Assert.IsTrue(lazy.Enabled, "Expect enabled");
             Assert.IsTrue(lazy.Displayed, "Expect displayed");
-            Assert.IsTrue(lazy.ExistsNow, "Expect exists now");
-
+            Assert.IsTrue(lazy.ExistsNow, "Expect exists");
             this.AppiumDriver.FindElementByName("Plus").Click();
             this.AppiumDriver.FindElement(By.Name("Three")).Click();
             this.AppiumDriver.FindElementByAccessibilityId("equalButton").Click();
