@@ -30,7 +30,7 @@ namespace Magenic.Maqs.Utilities.Logging
         /// <summary>
         /// Contains the CSS tags, and the JQuery Scripts
         /// </summary>
-        private const string SCRIPTANDCSSTAGS = "<style>.modal-dialog{max-width: fit-content} p{white-space: pre-wrap}</style><script>$(function (){$('.pop').on('click', function (e){$('.imagepreview').attr('src', $(this).find('img').attr('src'));$('#imagemodal').modal('show');});});</script><script>$(function (){$('.pop2').on('click', function (){$('.imagepreview').attr('src', $(this).attr('src'));$('#imagemodal').modal('show');});});</script><script>$(function (){$('.dropdown-item').on('click', function (e){$(this).attr('class', function (i, old){return old=='dropdown-item' ? 'dropdown-item bg-secondary' :'dropdown-item';});var temp=$(this).data('name');$('[data-logtype=\\\'' + temp + '\\\']').toggleClass('show');e.stopPropagation();});});</script><script>$(function (){$(document).ready(function(){$('#Header').append($('title').text())})});</script>";
+        private const string SCRIPTANDCSSTAGS = "<style>.modal-dialog{max-width: fit-content} p{white-space: pre-wrap}</style><script>$(function (){$('.pop').on('click', function (e){$('.imagepreview').attr('src', $(this).find('img').attr('src'));$('#imagemodal').modal('show');});});</script><script>$(function (){$('.pop2').on('click', function (){$('.imagepreview').attr('src', $(this).attr('src'));$('#imagemodal').modal('show');});});</script><script>$(function (){$('.dropdown-item').on('click', function (e){$(this).attr('class', function (i, old){return old=='dropdown-item' ? 'dropdown-item bg-secondary' :'dropdown-item';});var temp=$(this).data('name');$('[data-logtype=\\\'' + temp + '\\\']').toggleClass('show');e.stopPropagation();});});</script><script>$(function (){$(document).ready(function(){$('#Header').append(' ' + $('title').text())})});</script>";
 
         /// <summary>
         /// Contains the FIlter By dropdown
@@ -143,17 +143,17 @@ namespace Magenic.Maqs.Utilities.Logging
             switch (type)
             {
                 case MessageType.VERBOSE:
-                    return "text-secondary";
-                case MessageType.ACTION:
-                    return "text-primary";
-                case MessageType.STEP:
                     return "bg-secondary";
+                case MessageType.ACTION:
+                    return "text-info";
+                case MessageType.STEP:
+                    return "text-primary";
                 case MessageType.ERROR:
                     return "text-danger";
                 case MessageType.GENERIC:
                     return string.Empty;
                 case MessageType.INFORMATION:
-                    return "text-info";
+                    return "text-secondary";
                 case MessageType.SUCCESS:
                     return "text-success";
                 case MessageType.WARNING:
