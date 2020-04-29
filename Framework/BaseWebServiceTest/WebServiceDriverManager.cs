@@ -33,7 +33,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <summary>
         /// Initializes a new instance of the <see cref="WebServiceDriverManager" /> class
         /// </summary>
-        /// <param name="getDriver">Function for creating an http client</param>
+        /// <param name="httpClient">Http client to use with the driver</param>
         /// <param name="testObject">The associated test object</param>
         public WebServiceDriverManager(HttpClient httpClient, BaseTestObject testObject) : base(() => httpClient, testObject)
         {
@@ -72,7 +72,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <summary>
         /// Override the web service driver
         /// </summary>
-        /// <param name="overrideDriver">The new Mongo driver</param>
+        /// <param name="overrideHttpClient">The new http client driver</param>
         public void OverrideDriver(HttpClient overrideHttpClient)
         {
             this.OverrideDriverGet(() => overrideHttpClient);

@@ -19,6 +19,7 @@
     <PackageIcon>MAQS.jpg</PackageIcon>
     <PackageProjectUrl>https://github.com/Magenic/MAQS</PackageProjectUrl>
     <PackageTags>test selenium appium automation NUnit MSTest TestFramework</PackageTags>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageReleaseNotes>6.0.0 - 2020-??-??</PackageReleaseNotes>
   </PropertyGroup>
 
@@ -34,7 +35,7 @@
 
   <ItemGroup>
     <PackageReference Include="Appium.WebDriver" Version="4.1.1" />
-    <PackageReference Include="Selenium.Axe" Version="1.4.0" />
+    <PackageReference Include="Selenium.Axe" Version="1.5.0" />
     <PackageReference Include="Selenium.Support" Version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.0" />

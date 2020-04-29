@@ -40,19 +40,40 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         private readonly AbstractLazyIWebElement parent;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AbstractLazyIWebElement" /> class
+        /// Get the timeout
+        /// </summary>
+        /// <returns>The timeout</returns>
+        protected TimeSpan TimeoutTime()
+        {
+            return this.WaitDriver.Timeout;
+        }
+
+        /// <summary>
+        /// Get the wait time
+        /// </summary>
+        /// <returns>The wait time</returns>
+        protected TimeSpan WaitTime()
+        {
+            return this.WaitDriver.PollingInterval;
+        }
+
+        /// <summary>
+        ///  Initializes a new instance of the <see cref="AbstractLazyIWebElement" /> class
         /// </summary>
         /// <param name="testObject">The base test object</param>
         /// <param name="webDriver">The assoicated web driver</param>
+        /// <param name="waitDriver">The assoicated web driver wait</param>
         /// <param name="locator">The 'by' selector for the element</param>
         /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
-        protected AbstractLazyIWebElement(BaseTestObject testObject, IWebDriver webDriver, By locator, [CallerMemberName] string userFriendlyName = null)
+        protected AbstractLazyIWebElement(BaseTestObject testObject, IWebDriver webDriver, WebDriverWait waitDriver, By locator, [CallerMemberName] string userFriendlyName = null)
         {
             this.TestObject = testObject;
             this.WebDriver = webDriver;
+            this.WaitDriver = waitDriver;
             this.Log = testObject.Log;
             this.By = locator;
             this.userFriendlyName = userFriendlyName;
+            Extend.SetWaitDriver(this.WebDriver, this.WaitDriver);
         }
 
         /// <summary>
@@ -61,7 +82,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="parent">The parent lazy element</param>
         /// <param name="locator">The 'by' selector for the element</param>
         /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
-        protected AbstractLazyIWebElement(AbstractLazyIWebElement parent, By locator, [CallerMemberName] string userFriendlyName = null) : this(parent.TestObject, parent.WebDriver, locator, userFriendlyName)
+        protected AbstractLazyIWebElement(AbstractLazyIWebElement parent, By locator, [CallerMemberName] string userFriendlyName = null) : this(parent.TestObject, parent.WebDriver, parent.WaitDriver, locator, userFriendlyName)
         {
             this.parent = parent;
         }
@@ -69,12 +90,12 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractLazyIWebElement" /> class
         /// </summary>
-        /// <param name="testObject">The base test object</param>
+        /// <param name="parent">The parent lazy element</param>
         /// <param name="locator">The 'by' selector for the element</param>
         /// <param name="cachedElement">The cached web element</param>
         /// <param name="index">The index of the element - Used if the by finds multiple elements</param>
         /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
-        protected AbstractLazyIWebElement(AbstractLazyIWebElement parent, By locator, IWebElement cachedElement, int index, [CallerMemberName] string userFriendlyName = null) : this(parent.TestObject, parent.WebDriver, locator, userFriendlyName)
+        protected AbstractLazyIWebElement(AbstractLazyIWebElement parent, By locator, IWebElement cachedElement, int index, [CallerMemberName] string userFriendlyName = null) : this(parent.TestObject, parent.WebDriver, parent.WaitDriver, locator, userFriendlyName)
         {
             this.parent = parent;
             this.CachedElement = cachedElement;
@@ -95,6 +116,11 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// Gets the web driver
         /// </summary>
         public IWebDriver WebDriver { get; private set; }
+
+        /// <summary>
+        /// Gets the wait driver
+        /// </summary>
+        public WebDriverWait WaitDriver { get; private set; }
 
         /// <summary>
         /// Gets the logger
@@ -120,8 +146,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 {
                     return this.GetElement(this.GetRawExistingElement).Enabled;
                 },
-                Extend.GetWaitDriver(this.WebDriver).PollingInterval,
-                Extend.GetWaitDriver(this.WebDriver).Timeout);
+                this.WaitTime(),
+                this.TimeoutTime());
             }
         }
 
@@ -139,8 +165,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 {
                     return this.GetElement(this.GetRawExistingElement).Selected;
                 },
-                Extend.GetWaitDriver(this.WebDriver).PollingInterval,
-                Extend.GetWaitDriver(this.WebDriver).Timeout);
+                this.WaitTime(),
+                this.TimeoutTime());
             }
         }
 
@@ -158,8 +184,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 {
                     return this.GetElement(this.GetRawExistingElement).Displayed;
                 },
-                Extend.GetWaitDriver(this.WebDriver).PollingInterval,
-                Extend.GetWaitDriver(this.WebDriver).Timeout);
+                this.WaitTime(),
+                this.TimeoutTime());
             }
         }
 
@@ -178,8 +204,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                     this.GetElement(this.GetRawExistingElement);
                     return true;
                 },
-                Extend.GetWaitDriver(this.WebDriver).PollingInterval,
-                Extend.GetWaitDriver(this.WebDriver).Timeout);
+                this.WaitTime(),
+                this.TimeoutTime());
             }
         }
 
@@ -224,8 +250,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 {
                     return this.GetElement(this.GetRawExistingElement).TagName;
                 },
-                Extend.GetWaitDriver(this.WebDriver).PollingInterval,
-                Extend.GetWaitDriver(this.WebDriver).Timeout);
+                this.WaitTime(),
+                this.TimeoutTime());
             }
         }
 
@@ -243,8 +269,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 {
                     return this.GetElement(this.GetRawExistingElement).Text;
                 },
-                Extend.GetWaitDriver(this.WebDriver).PollingInterval,
-                Extend.GetWaitDriver(this.WebDriver).Timeout);
+                this.WaitTime(),
+                this.TimeoutTime());
             }
         }
 
@@ -262,8 +288,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 {
                     return this.GetElement(this.GetRawVisibleElement).Location;
                 },
-                Extend.GetWaitDriver(this.WebDriver).PollingInterval,
-                Extend.GetWaitDriver(this.WebDriver).Timeout);
+                this.WaitTime(),
+                this.TimeoutTime());
             }
         }
 
@@ -281,8 +307,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 {
                     return this.GetElement(this.GetRawVisibleElement).Size;
                 },
-                Extend.GetWaitDriver(this.WebDriver).PollingInterval,
-                Extend.GetWaitDriver(this.WebDriver).Timeout);
+                this.WaitTime(),
+                this.TimeoutTime());
             }
         }
 
@@ -300,8 +326,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 this.ExecuteEvent(() => element.Click(), "Click");
                 return true;
             },
-            Extend.GetWaitDriver(this.WebDriver).PollingInterval,
-            Extend.GetWaitDriver(this.WebDriver).Timeout);
+            this.WaitTime(),
+            this.TimeoutTime());
         }
 
         /// <summary>
@@ -319,8 +345,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 this.ExecuteEvent(() => element.SendKeys(text), "SendKeys");
                 return true;
             },
-            Extend.GetWaitDriver(this.WebDriver).PollingInterval,
-            Extend.GetWaitDriver(this.WebDriver).Timeout);
+            this.WaitTime(),
+            this.TimeoutTime());
         }
 
         /// <summary>
@@ -342,7 +368,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             {
                 this.TestObject.Log.ContinueLogging();
                 this.TestObject.Log.LogMessage(MessageType.ERROR, "Exception during sending secret keys: " + e.Message + Environment.NewLine + e.StackTrace);
-                throw e;
+                throw;
             }
         }
 
@@ -360,8 +386,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 this.ExecuteEvent(() => element.Clear(), "Clear");
                 return true;
             },
-            Extend.GetWaitDriver(this.WebDriver).PollingInterval,
-            Extend.GetWaitDriver(this.WebDriver).Timeout);
+            this.WaitTime(),
+            this.TimeoutTime());
         }
 
         /// <summary>
@@ -378,8 +404,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 this.ExecuteEvent(() => element.Submit(), "Submit");
                 return true;
             },
-            Extend.GetWaitDriver(this.WebDriver).PollingInterval,
-            Extend.GetWaitDriver(this.WebDriver).Timeout);
+            this.WaitTime(),
+            this.TimeoutTime());
         }
 
         /// <summary>
@@ -397,8 +423,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 this.ExecuteEvent(() => new SelectElement(element).SelectByText(option), "Select DropDown Option");
                 return true;
             },
-            Extend.GetWaitDriver(this.WebDriver).PollingInterval,
-            Extend.GetWaitDriver(this.WebDriver).Timeout);
+            this.WaitTime(),
+            this.TimeoutTime());
         }
 
         /// <summary>
@@ -416,8 +442,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 this.ExecuteEvent(() => new SelectElement(element).SelectByValue(value), "Select DropDown Option By Value");
                 return true;
             },
-            Extend.GetWaitDriver(this.WebDriver).PollingInterval,
-            Extend.GetWaitDriver(this.WebDriver).Timeout);
+            this.WaitTime(),
+            this.TimeoutTime());
         }
 
         /// <summary>
@@ -433,8 +459,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             {
                 return new SelectElement(this.GetElement(this.GetRawExistingElement)).SelectedOption.Text;
             },
-            Extend.GetWaitDriver(this.WebDriver).PollingInterval,
-            Extend.GetWaitDriver(this.WebDriver).Timeout);
+            this.WaitTime(),
+            this.TimeoutTime());
         }
 
         /// <summary>
@@ -461,8 +487,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
                     return selectedItems;
                 },
-            Extend.GetWaitDriver(this.WebDriver).PollingInterval,
-            Extend.GetWaitDriver(this.WebDriver).Timeout);
+            this.WaitTime(),
+            this.TimeoutTime());
         }
 
         /// <summary>
@@ -479,8 +505,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             {
                 return this.GetElement(this.GetRawExistingElement).GetAttribute(attributeName);
             },
-            Extend.GetWaitDriver(this.WebDriver).PollingInterval,
-            Extend.GetWaitDriver(this.WebDriver).Timeout);
+            this.WaitTime(),
+            this.TimeoutTime());
         }
 
         /// <summary>
@@ -496,8 +522,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             {
                 return this.GetElement(this.GetRawVisibleElement).GetAttribute("value");
             },
-            Extend.GetWaitDriver(this.WebDriver).PollingInterval,
-            Extend.GetWaitDriver(this.WebDriver).Timeout);
+            this.WaitTime(),
+            this.TimeoutTime());
         }
 
         /// <summary>
@@ -514,8 +540,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             {
                 return this.GetElement(this.GetRawExistingElement).GetCssValue(propertyName);
             },
-            Extend.GetWaitDriver(this.WebDriver).PollingInterval,
-            Extend.GetWaitDriver(this.WebDriver).Timeout);
+            this.WaitTime(),
+            this.TimeoutTime());
         }
 
         /// <summary>
@@ -526,6 +552,10 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         {
             if (this.elementIndex == null)
             {
+
+
+
+
                 this.CachedElement = (this.parent == null) ? this.WebDriver.Wait().ForVisibleElement(this.By) :
                 this.parent.GetRawExistingElement().Wait().ForVisibleElement(this.By);
             }
@@ -595,8 +625,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
                 return element;
             }),
-            Extend.GetWaitDriver(this.WebDriver).PollingInterval,
-            Extend.GetWaitDriver(this.WebDriver).Timeout);
+            this.WaitTime(),
+            this.TimeoutTime());
         }
 
         /// <summary>
@@ -633,6 +663,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// Finds the first OpenQA.Selenium.IWebElement using the given method.
         /// </summary>
         /// <param name="by">The locating mechanism to use</param>
+        /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
         /// <returns>The first matching OpenQA.Selenium.IWebElement on the current context</returns>
         public abstract IWebElement FindElement(By by, string userFriendlyName);
 
@@ -660,6 +691,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// Finds all OpenQA.Selenium.IWebElement within the current context using the given mechanism.
         /// </summary>
         /// <param name="by">The locating mechanism to use</param>
+        /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
         /// <returns>All web elements matching the current criteria, or an empty list if nothing matches</returns>
         public abstract ReadOnlyCollection<IWebElement> FindElements(By by, string userFriendlyName);
 

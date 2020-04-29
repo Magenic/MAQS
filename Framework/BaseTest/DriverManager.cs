@@ -51,9 +51,12 @@ namespace Magenic.Maqs.BaseTest
         /// </summary>
         protected Func<object> GetDriver { get; private set; }
 
+        /// <summary>
+        /// Overrides the driver get
+        /// </summary>
+        /// <param name="driverGet">Function of the driver get</param>
         protected void OverrideDriverGet(Func<object> driverGet)
         {
-
                 this.DriverDispose();
                 this.BaseDriver = null;
                 this.GetDriver = driverGet;

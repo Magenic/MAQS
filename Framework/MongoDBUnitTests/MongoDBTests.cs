@@ -53,7 +53,7 @@ namespace MongoDBUnitTests
         }
 
         /// <summary>
-        /// Is the driver override respected 
+        /// Is the driver override respected
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.MongoDB)]
@@ -69,7 +69,7 @@ namespace MongoDBUnitTests
         }
 
         /// <summary>
-        /// 
+        /// Is the test over-ridable with a custom driver
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.MongoDB)]
