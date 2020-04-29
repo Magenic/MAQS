@@ -34,8 +34,20 @@ namespace Magenic.Maqs.BaseSeleniumTest
             {
                 string path = string.Empty;
 
-                // Check if we are using a file logger
-                if (!(testObject.Log is FileLogger))
+
+                // Check if we are using an HTMl logger
+                if (testObject.Log is HtmlFileLogger)
+                {
+                    var writer = new StreamWriter(((HtmlFileLogger)testObject.Log).FilePath, true);
+
+                    // Since this is a HTML File logger we need to add a card with the image in it
+                    writer.WriteLine(StringProcessor.SafeFormatter(
+                        "<div class='collapse col-12 show' data-logtype='IMAGE'><div class='card'><div class='card-body'><h6 class='card-subtitle mb-1'>2020-01-16 18:57:47.184-05:00</h6></div><a class='pop' href='#'><img class='card-img-top rounded' src='data:image/png;base64, {0}'style='width: 200px;'></a></div></div>",
+                        ((ITakesScreenshot)webDriver).GetScreenshot().AsBase64EncodedString));
+                    writer.Flush();
+                    writer.Close();
+                } // Check if we are using a file logger
+                else if (!(testObject.Log is FileLogger))
                 {
                     // Since this is not a file logger we will need to use a generic file name
                     path = CaptureScreenshot(webDriver, testObject, LoggingConfig.GetLogDirectory(), "ScreenCap" + appendName, GetScreenShotFormat());
