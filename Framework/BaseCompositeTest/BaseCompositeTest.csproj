@@ -5,6 +5,7 @@
     <AssemblyVersion>5.8.1</AssemblyVersion>
     <FileVersion>5.8.1</FileVersion>
     <Version>5.8.1</Version>
+    <PackageId>Magenic.Maqs</PackageId>
     <AssemblyName>Magenic.Maqs.BaseCompositeTest</AssemblyName>
     <RootNamespace>Magenic.Maqs.BaseCompositeTest</RootNamespace>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>

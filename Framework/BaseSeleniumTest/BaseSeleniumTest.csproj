@@ -5,6 +5,7 @@
     <AssemblyVersion>5.8.1</AssemblyVersion>
     <FileVersion>5.8.1</FileVersion>
     <Version>5.8.1</Version>
+    <PackageId>Magenic.Maqs.Selenium</PackageId>
     <AssemblyName>Magenic.Maqs.BaseSeleniumTest</AssemblyName>
     <RootNamespace>Magenic.Maqs.BaseSeleniumTest</RootNamespace>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>

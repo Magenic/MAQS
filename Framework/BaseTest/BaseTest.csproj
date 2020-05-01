@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net471;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <PackageId>Magenic.Maqs.Base</PackageId>
     <AssemblyName>Magenic.Maqs.BaseTest</AssemblyName>
     <RootNamespace>Magenic.Maqs.BaseTest</RootNamespace>
     <AssemblyVersion>5.8.1</AssemblyVersion>
