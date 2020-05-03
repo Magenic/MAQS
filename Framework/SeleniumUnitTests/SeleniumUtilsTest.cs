@@ -15,6 +15,7 @@ using Selenium.Axe;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace SeleniumUnitTests
 {
@@ -76,6 +77,64 @@ namespace SeleniumUnitTests
             // Make sure we got the screenshot and than cleanup
             Assert.IsTrue(File.Exists(expectedPath), "Fail to find screenshot");
             File.Delete(expectedPath);
+        }
+
+        /// <summary>
+        /// Verify CaptureScreenshot works with HTML File logger - Validating that the screenshot was created
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void TryScreenshotWithHTMLFileLogger()
+        {
+            WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            WebDriver.Wait().ForPageLoad();
+
+            // Create a console logger and calculate the file location
+            HtmlFileLogger htmlFileLogger = new HtmlFileLogger(LoggingConfig.GetLogDirectory()); ;
+            TestObject.Log = htmlFileLogger;
+
+            // Take a screenshot
+            SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject, "Delete");
+
+            Stream fileStream = null;
+            string logContents = string.Empty;
+
+            // This will open the Log file and read in the text
+            try
+            {
+                fileStream = new FileStream(htmlFileLogger.FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+
+                using (StreamReader textReader = new StreamReader(fileStream))
+                {
+                    fileStream = null;
+                    logContents = textReader.ReadToEnd();
+                }
+            }
+            finally
+            {
+                if (fileStream != null)
+                {
+                    fileStream.Dispose();
+                }
+            }
+
+            // Find the base64 encoded string
+            Regex pattern = new Regex("src='data:image/png;base64, (?<image>[^']+)'");
+            var matches = pattern.Match(logContents);
+            
+            // Try to convert the Base 64 string to find if it is a valid string
+            try
+            {
+                Convert.FromBase64String(matches.Groups["image"].Value);
+            }
+            catch (FormatException)
+            {
+                Assert.Fail("image saves was not a Base64 string");
+            }
+            finally
+            {
+                File.Delete(htmlFileLogger.FilePath);
+            }
         }
 
         /// <summary>
