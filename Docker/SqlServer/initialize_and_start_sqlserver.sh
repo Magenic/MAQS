@@ -21,8 +21,12 @@
     /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P magenicMAQS2 -d master -i `dirname $0`/schema.sql
     /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P magenicMAQS2 -d master -i `dirname $0`/stored_procedures.sql
     # Use BCP to import test data
-    /opt/mssql-tools/bin/bcp MagenicAutomation.dbo.States in "`dirname $0`/SeedData/MagenicAutomation/States.csv" \
-        -c -t',' -S localhost -U sa -P magenicMAQS2
+    /opt/mssql-tools/bin/bcp MagenicAutomation.dbo.States in "`dirname $0`/SeedData/MagenicAutomation/States.bcp" \
+        -n -S localhost -U sa -P magenicMAQS2
+    /opt/mssql-tools/bin/bcp MagenicAutomation.dbo.Cities in "`dirname $0`/SeedData/MagenicAutomation/Cities.bcp" \
+        -n -S localhost -U sa -P magenicMAQS2
+    /opt/mssql-tools/bin/bcp MagenicAutomation.dbo.Datatype in "`dirname $0`/SeedData/MagenicAutomation/Datatype.bcp" \
+        -n -S localhost -U sa -P magenicMAQS2
     echo "Finished initializing database"
 }&
 
