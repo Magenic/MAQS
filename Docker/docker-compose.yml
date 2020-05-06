@@ -1,18 +1,11 @@
-version: '3.1'
+# The extends functionality is not yet avaliable in
+# Docker config files versioned 3 and higher.
+# If the version is bumped, this config file will have to change.
+# See https://github.com/moby/moby/issues/31101.
+version: '2'
 
 services:
   mssql:
-    image: mcr.microsoft.com/mssql/server:latest
-    ports:
-      - 1433:1433
-    environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=magenicMAQS2
-      - MSSQL_PID=Developer
-    expose:
-      - 1433
-    volumes:
-      # Mount the current directory onto /mnt/host on the image.
-      - ./SqlServer/:/mnt/host/
-    # Run a custom bash script that bootstraps the database after it is started.
-    command: ['/bin/bash', '/mnt/host/initialize_and_start_sqlserver.sh']
+    extends: 
+      file: ./DatabaseUnitTests/docker-compose.yml
+      service: mssql 
