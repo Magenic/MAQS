@@ -9,3 +9,7 @@ services:
     extends: 
       file: ./DatabaseUnitTests/docker-compose.yml
       service: mssql 
+  mongo:
+    extends:
+      file: ./MongoDBUnitTests/docker-compose.yml
+      service: mongo
