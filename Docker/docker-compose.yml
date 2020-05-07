@@ -7,9 +7,9 @@ version: '2'
 services:
   mssql:
     extends: 
-      file: ./DatabaseUnitTests/docker-compose.yml
+      file: ./MAQSSQLServer/docker-compose.yml
       service: mssql 
   mongo:
     extends:
-      file: ./MongoDBUnitTests/docker-compose.yml
+      file: ./MAQSMongoDB/docker-compose.yml
       service: mongo
