@@ -28,6 +28,8 @@ namespace DatabaseUnitTests
         public void GetDatabaseConnectionStringTest()
         {
             string connection = DatabaseConfig.GetConnectionString();
+            // For when we use dockerized SQL server
+            // Assert.AreEqual("Data Source=localhost;Initial Catalog=MagenicAutomation;Persist Security Info=True;User ID=sa;Password=magenicMAQS2;Connection Timeout=30", connection);
             Assert.AreEqual("Data Source=qasqlserver.database.windows.net;Initial Catalog=MagenicAutomation;Persist Security Info=True;User ID=MagenicQA;Password=1magenicMARQ;Connection Timeout=30", connection);
         }
 
