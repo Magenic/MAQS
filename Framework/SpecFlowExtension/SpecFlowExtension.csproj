@@ -18,7 +18,7 @@
   <ItemGroup>
     <PackageReference Include="Appium.WebDriver" version="4.1.1" />
     <PackageReference Include="BoDi" version="1.4.1" />
-    <PackageReference Include="Castle.Core" version="4.4.0" />
+    <PackageReference Include="Castle.Core" version="4.4.1" />
     <PackageReference Include="Dapper" version="2.0.35" />
     <PackageReference Include="DotNetSeleniumExtras.PageObjects" version="3.11.0" />
     <PackageReference Include="Gherkin" version="6.0.0" />
@@ -27,7 +27,7 @@
     <PackageReference Include="NUnit" version="3.12.0" />
     <PackageReference Include="Selenium.Support" version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver" version="3.141.0" />
-    <PackageReference Include="SpecFlow" version="3.1.95" />
+    <PackageReference Include="SpecFlow" version="3.1.97" />
     <PackageReference Include="System.Reflection.Emit" version="4.7.0" />
     <PackageReference Include="System.Reflection.Emit.Lightweight" version="4.7.0" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" version="4.7.1" />
