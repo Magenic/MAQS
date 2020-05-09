@@ -4,7 +4,7 @@
     <TargetFrameworks>net471;netstandard2.0;netstandard2.1</TargetFrameworks>
     <AssemblyName>Magenic.Maqs.BaseEmailTest</AssemblyName>
     <RootNamespace>Magenic.Maqs.BaseEmailTest</RootNamespace>
-    <PackageId>Magenic.Maqs.BaseEmailTest</PackageId>
+    <PackageId>Magenic.Maqs.Email</PackageId>
     <Company>Magenic</Company>
     <Product>Magenic.Maqs.BaseEmailTest</Product>
     <Version>5.8.1</Version>

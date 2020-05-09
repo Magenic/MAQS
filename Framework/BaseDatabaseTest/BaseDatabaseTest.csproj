@@ -5,6 +5,7 @@
     <AssemblyName>Magenic.Maqs.BaseDatabaseTest</AssemblyName>
     <RootNamespace>Magenic.Maqs.BaseDatabaseTest</RootNamespace>
     <Version>5.8.1</Version>
+    <PackageId>Magenic.Maqs.Database</PackageId>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>
     <ProjectGuid>{40C69F26-3B81-43D3-AC2E-2F9B5104AE38}</ProjectGuid>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

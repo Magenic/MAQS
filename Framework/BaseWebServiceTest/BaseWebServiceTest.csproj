@@ -5,6 +5,7 @@
     <AssemblyName>Magenic.Maqs.BaseWebServiceTest</AssemblyName>
     <RootNamespace>Magenic.Maqs.BaseWebServiceTest</RootNamespace>
     <Version>5.8.1</Version>
+    <PackageId>Magenic.Maqs.WebService</PackageId>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Magenic</Authors>
