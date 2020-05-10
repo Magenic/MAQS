@@ -38,8 +38,6 @@
     <SonarQubeTestProject>false</SonarQubeTestProject>
   </PropertyGroup>
 
-
-
   <ItemGroup>
     <PackageReference Include="MongoDB.Bson" Version="2.10.4" />
     <PackageReference Include="MongoDB.Driver" Version="2.10.4" />
