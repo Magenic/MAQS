@@ -6,12 +6,14 @@
     <FileVersion>5.8.1</FileVersion>
     <Version>5.8.1</Version>
     <PackageId>Magenic.Maqs</PackageId>
+    <Product>Magenic.Maqs</Product>
     <AssemblyName>Magenic.Maqs.BaseCompositeTest</AssemblyName>
     <RootNamespace>Magenic.Maqs.BaseCompositeTest</RootNamespace>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Magenic</Authors>
+    <Company>Magenic</Company>
     <Description>Composite extension for Magenic's automation quick start framework. Includes all MAQS extensions.</Description>
     <Copyright>Copyright © Magenic 2020</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -20,7 +22,110 @@
     <PackageProjectUrl>https://github.com/Magenic/MAQS</PackageProjectUrl>
     <PackageTags>test selenium appium automation NUnit MSTest TestFramework</PackageTags>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageReleaseNotes>6.0.0 - 2020-??-??</PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/Magenic/MAQS</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>
+      6.0.0 - 2020/05/15
+      Release of MAQS 6.0
+      - Updated to individual NuGet packages
+      - Changes to Lazy Elements
+      - Bug fixes and minor enhancements
+
+      5.8.1 - 2020/03/13
+      Bug fixes and minor enhancements
+      - Add FindLazyElement and FindLazyElements to LazyElement
+      - Have Lazy element return standard elements for FindElement and FindElements
+      - No longer set browser specific timeouts when running non-browser tests in Appium
+
+      5.8.0 - 2020/02/04
+      Bug fixes and minor enhancements
+      - Preparation for MAQS 6.0
+      - Ability to log A11y at different levels
+      - Copyright Update
+      - Step and Action Log Levels
+      - Configuration validation checks
+      - Documentation updates
+
+      5.7.0 - 2019/12/04
+      Bug fixes and minor enhancements
+      - Have lazy element FindElement and FindElements return lazy element
+      - Add Exists and ExistsNow checks to lazy element
+      - Consolidate core lazy element and core lazy mobile element functionality
+      - Add SelectDropdownOption and SelectDropdownOption to lazy element
+      - Add GetSelectedOptionFromDropdown and GetSelectedOptionsFromDropdown to lazy element
+      - Exclude more duplicate log entries
+      - Stop create multiple log files for NUnit tests
+
+      5.6.0 - 2019/10/10
+      Bug fixes and minor enhancements
+      - Logging improvements
+      - Add proxy configuration for Selenium and web service tests
+      Package update
+      - Add support for .Net Core 3
+      - Mass dependency updates
+      Template updates
+      - Mass dependency updates
+      - Add models to SpecFlow templates
+
+      5.5.2 - 2019/9/5
+      Bug fixes and minor enhancements
+      - Add associated files to Core MSTest test results
+      Package update
+      - Add Mongo module to the package
+      Template updates
+      - Mass dependency updates
+
+      5.5.1 - 2019/8/1
+      Bug fixes and minor enhancements
+      - Less strict configuration rules
+      - Improve loggers multi-threading support
+      - Extend generic waits
+      - Extend Selenium find to support multiple element searches
+      Template updates
+      - Move over to SDK style
+
+      5.5.0 - 2019/5/11
+      Bug fixes and minor enhancements
+      Update how and when test context info is added to config (GitHub Issue #14)
+      Deprecating FakerData
+      WaitFor and WaitUntil List of elements
+      Template updates
+
+      5.4.0 - 2019/3/28
+      Bug fixes and minor enhancements
+      - Add support for Oracle SQL support
+      - Add accessibility testing support
+      - Fix Appium driver dispose
+      - Move driver initializations to factories
+      - Change to lighter icon
+
+      5.3.1 - 2019/2/20
+      Bug fixes and minor enhancements
+      - Appium fix for soft assert
+      - Selenium template fix
+
+      5.3.0 - 2019/2/9
+      Bug fixes and minor enhancements
+      - Enhance how we add associated files to a test
+      - Enhance Selenium page object model to support web driver overrides
+
+      5.2.0 - 2018/12/21
+      Bug fixes and minor enhancements
+      - Check for long file paths before attaching them to a test run result
+      - Streamline Selenium cleanup
+      - Make it easier to override soft assert
+      - Stop creating a second log file when a test fails because of a soft assert
+
+      5.1.1 - 2018/10/5
+      Bug fixes and minor enhancements
+      - Build and package both .Net Standard and .Net framework libraries
+      - Reintroduce automatically adding log and screenshot files to test results
+      - For Microsoft.VisualStudio.TestTools.UnitTesting tests only
+      - Only works for .Net framework, this feature is not available for .Net core
+      - Update to Appium 4
+      - Remove generic remote browser options
+      - Pull PhantomJS support as it has been deprecated and removed from Selenium
+    </PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -41,5 +146,4 @@
     <ProjectReference Include="..\BaseSeleniumTest\BaseSeleniumTest.csproj" />
     <ProjectReference Include="..\BaseWebServiceTest\BaseWebServiceTest.csproj" />
   </ItemGroup>
-
 </Project>

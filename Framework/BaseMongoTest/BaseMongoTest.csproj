@@ -2,18 +2,18 @@
 
   <PropertyGroup>
     <TargetFrameworks>net471;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <AssemblyVersion>5.8.1</AssemblyVersion>
+    <FileVersion>5.8.1</FileVersion>
     <Version>5.8.1</Version>
+    <PackageId>Magenic.Maqs.Mongo</PackageId>
+    <Product>Magenic.Maqs.Mongo</Product>
     <AssemblyName>Magenic.Maqs.BaseMongoTest</AssemblyName>
     <RootNamespace>Magenic.Maqs.BaseMongoTest</RootNamespace>
-    <PackageId>Magenic.Maqs.Mongo</PackageId>
-    <Authors>Magenic.Maqs.BaseMongoTest</Authors>
-    <Company>Magenic</Company>
-    <Product>Magenic.Maqs.BaseMongoTest</Product>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>
-    <ProjectGuid>{134221CF-DE9A-4075-A301-C7A89B1644D9}</ProjectGuid>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Magenic</Authors>
+    <Company>Magenic</Company>
     <Description>Mongo extension for Magenic's automation quick start framework</Description>
     <Copyright>Copyright © Magenic 2020</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -22,7 +22,14 @@
     <PackageProjectUrl>https://github.com/Magenic/MAQS</PackageProjectUrl>
     <PackageTags>test mongo database automation NUnit MSTest TestFramework</PackageTags>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageReleaseNotes>6.0.0 - 2020-??-??</PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/Magenic/MAQS</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>
+      6.0.0 - 2020/05/15
+      Release of MAQS 6.0
+      - Updated to individual NuGet packages
+      - Bug fixes and minor enhancements
+    </PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -32,14 +39,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\MAQS.jpg" Pack="true" PackagePath="" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="MongoDB.Bson" Version="2.10.3" />
     <PackageReference Include="MongoDB.Driver" Version="2.10.3" />
     <PackageReference Include="MongoDB.Driver.Core" Version="2.10.3" />
     <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\MAQS.jpg" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>

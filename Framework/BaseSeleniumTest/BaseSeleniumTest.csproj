@@ -6,13 +6,14 @@
     <FileVersion>5.8.1</FileVersion>
     <Version>5.8.1</Version>
     <PackageId>Magenic.Maqs.Selenium</PackageId>
+    <Product>Magenic.Maqs.Selenium</Product>
     <AssemblyName>Magenic.Maqs.BaseSeleniumTest</AssemblyName>
     <RootNamespace>Magenic.Maqs.BaseSeleniumTest</RootNamespace>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>
-    <ProjectGuid>{EE0F4483-0254-412C-8AF6-D020E6646C22}</ProjectGuid>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Magenic</Authors>
+    <Company>Magenic</Company>
     <Description>Magenic's automation quick start framework</Description>
     <Copyright>Copyright © Magenic 2020</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -21,7 +22,15 @@
     <PackageProjectUrl>https://github.com/Magenic/MAQS</PackageProjectUrl>
     <PackageTags>test selenium appium automation NUnit MSTest TestFramework</PackageTags>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageReleaseNotes>6.0.0 - 2020-??-??</PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/Magenic/MAQS</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>
+      6.0.0 - 2020/05/15
+      Release of MAQS 6.0
+      - Updated to individual NuGet packages
+      - Changes to Lazy Elements
+      - Bug fixes and minor enhancements
+    </PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -31,15 +40,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\MAQS.jpg" Pack="true" PackagePath=""/>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Appium.WebDriver" Version="4.1.1" />
     <PackageReference Include="Selenium.Axe" Version="1.5.0" />
     <PackageReference Include="Selenium.Support" Version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\MAQS.jpg" Pack="true" PackagePath=""/>
   </ItemGroup>
 
   <ItemGroup>
