@@ -109,8 +109,18 @@ namespace DatabaseUnitTests
         /// <returns>string path of the file</returns>
         private string GetDByPath()
         {
-            UriBuilder uri = new UriBuilder(Assembly.GetExecutingAssembly().Location);
-            return $"{Path.GetDirectoryName(Uri.UnescapeDataString(uri.Path))}\\MyDatabase.sqlite";
+            Uri uri = null;
+            // Building an absolute URL from the assembly location fails on some
+            // Azure DevOps hosted build environments.
+            if (Uri.TryCreate(Assembly.GetExecutingAssembly().Location, UriKind.RelativeOrAbsolute, out uri) &&
+                uri.IsAbsoluteUri) 
+            {
+                return $"{Path.GetDirectoryName(Uri.UnescapeDataString(uri.AbsolutePath))}\\MyDatabase.sqlite";
+            }
+            else 
+            {
+                return "MyDatabase.sqlite";
+            }
         }
     }
 }

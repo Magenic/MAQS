@@ -1,0 +1,15 @@
+# The extends functionality is not yet avaliable in
+# Docker config files versioned 3 and higher.
+# If the version is bumped, this config file will have to change.
+# See https://github.com/moby/moby/issues/31101.
+version: '2'
+
+services:
+  mssql:
+    extends: 
+      file: ./MAQSSQLServer/docker-compose.yml
+      service: mssql 
+  mongo:
+    extends:
+      file: ./MAQSMongoDB/docker-compose.yml
+      service: mongo
