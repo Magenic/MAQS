@@ -21,7 +21,6 @@
     <Description>Magenic's automation quick start framework</Description>
     <Copyright>Copyright © Magenic 2020</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageIconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</PackageIconUrl>
     <PackageIcon>MAQS.jpg</PackageIcon>
     <PackageProjectUrl>https://github.com/Magenic/MAQS</PackageProjectUrl>
     <PackageTags>test selenium appium automation NUnit MSTest TestFramework SpecFlow</PackageTags>
