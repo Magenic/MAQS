@@ -1,10 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <BuildVersion>6.0.0</BuildVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <TargetFrameworks>net471;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <AssemblyVersion>5.8.1</AssemblyVersion>
-    <FileVersion>5.8.1</FileVersion>
-    <Version>5.8.1</Version>
+    <AssemblyVersion>$(BuildVersion)</AssemblyVersion>
+    <FileVersion>$(BuildVersion)</FileVersion>
+    <Version>$(BuildVersion)</Version>
     <PackageId>Magenic.Maqs.Utilities</PackageId>
     <Product>Magenic.Maqs.Utilities</Product>
     <AssemblyName>Magenic.Maqs.Utilities</AssemblyName>
@@ -17,7 +21,6 @@
     <Description>Magenic's automation quick start framework</Description>
     <Copyright>Copyright © Magenic 2020</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageIconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</PackageIconUrl>
     <PackageIcon>MAQS.jpg</PackageIcon>
     <PackageProjectUrl>https://github.com/Magenic/MAQS</PackageProjectUrl>
     <PackageTags>test selenium appium automation NUnit MSTest TestFramework</PackageTags>
