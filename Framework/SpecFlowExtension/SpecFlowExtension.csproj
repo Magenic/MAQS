@@ -67,11 +67,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BaseAppiumTest\BaseAppiumTest.csproj" />
-    <ProjectReference Include="..\BaseDatabaseTest\BaseDatabaseTest.csproj" />
-    <ProjectReference Include="..\BaseEmailTest\BaseEmailTest.csproj" />
-    <ProjectReference Include="..\BaseSeleniumTest\BaseSeleniumTest.csproj" />
-    <ProjectReference Include="..\BaseTest\BaseTest.csproj" />
-    <ProjectReference Include="..\BaseWebServiceTest\BaseWebServiceTest.csproj" />
+    <ProjectReference Include="..\BaseCompositeTest\BaseCompositeTest.csproj" />
   </ItemGroup>
 </Project>
