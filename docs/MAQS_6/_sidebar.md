@@ -4,6 +4,7 @@
 - [Installation](MAQS_6/EnterpriseInstallation.md)
 - [Getting Started](MAQS_6/Getting-Started.md)
 - [Upgrading to MAQS 6](MAQS_6/UpgradingFromMAQS5ToMAQS6.md)
+- [Release Notes](MAQS_6/ReleaseNotes.md)
 
 - Features
 
