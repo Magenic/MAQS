@@ -26,10 +26,7 @@
     <RepositoryUrl>https://github.com/Magenic/MAQS</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReleaseNotes>
-      6.0.0 - 2020/05/15
-      Release of MAQS 6.0
-      - Updated to individual NuGet packages
-      - Bug fixes and minor enhancements
+      Release Notes can be found at https://magenic.github.io/MAQS/#/MAQS_6/ReleaseNotes
     </PackageReleaseNotes>
   </PropertyGroup>
 
