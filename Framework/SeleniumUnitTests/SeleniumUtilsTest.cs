@@ -90,7 +90,7 @@ namespace SeleniumUnitTests
             WebDriver.Wait().ForPageLoad();
 
             // Create a console logger and calculate the file location
-            HtmlFileLogger htmlFileLogger = new HtmlFileLogger(LoggingConfig.GetLogDirectory()); ;
+            HtmlFileLogger htmlFileLogger = new HtmlFileLogger(LoggingConfig.GetLogDirectory());
             TestObject.Log = htmlFileLogger;
 
             // Take a screenshot
@@ -121,7 +121,7 @@ namespace SeleniumUnitTests
             // Find the base64 encoded string
             Regex pattern = new Regex("src='data:image/png;base64, (?<image>[^']+)'");
             var matches = pattern.Match(logContents);
-            
+
             // Try to convert the Base 64 string to find if it is a valid string
             try
             {

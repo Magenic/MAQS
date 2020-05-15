@@ -1,12 +1,35 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <BuildVersion>6.0.0</BuildVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <TargetFrameworks>net471;netcoreapp2.0;netcoreapp3.0</TargetFrameworks>
+    <AssemblyVersion>$(BuildVersion)</AssemblyVersion>
+    <FileVersion>$(BuildVersion)</FileVersion>
+    <Version>$(BuildVersion)</Version>
+    <PackageId>Magenic.Maqs.SpecFlow</PackageId>
+    <Product>Magenic.Maqs.SpecFlow</Product>
     <AssemblyName>Magenic.Maqs.SpecFlow</AssemblyName>
     <RootNamespace>Magenic.Maqs.SpecFlow</RootNamespace>
-    <Version>5.8.1</Version>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>
-    <ProjectGuid>{26D35A87-D2F4-4A04-931A-EF2DBEA9EBB5}</ProjectGuid>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Authors>Magenic</Authors>
+    <Company>Magenic</Company>
+    <Description>Magenic's automation quick start framework</Description>
+    <Copyright>Copyright © Magenic 2020</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>MAQS.jpg</PackageIcon>
+    <PackageProjectUrl>https://github.com/Magenic/MAQS</PackageProjectUrl>
+    <PackageTags>test selenium appium automation NUnit MSTest TestFramework SpecFlow</PackageTags>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <RepositoryUrl>https://github.com/Magenic/MAQS</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>
+      Release Notes can be found at https://magenic.github.io/MAQS/#/MAQS_6/ReleaseNotes
+    </PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -37,11 +60,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BaseAppiumTest\BaseAppiumTest.csproj" />
-    <ProjectReference Include="..\BaseDatabaseTest\BaseDatabaseTest.csproj" />
-    <ProjectReference Include="..\BaseEmailTest\BaseEmailTest.csproj" />
-    <ProjectReference Include="..\BaseSeleniumTest\BaseSeleniumTest.csproj" />
-    <ProjectReference Include="..\BaseTest\BaseTest.csproj" />
-    <ProjectReference Include="..\BaseWebServiceTest\BaseWebServiceTest.csproj" />
+    <None Include="..\MAQS.jpg" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BaseCompositeTest\BaseCompositeTest.csproj" />
   </ItemGroup>
 </Project>

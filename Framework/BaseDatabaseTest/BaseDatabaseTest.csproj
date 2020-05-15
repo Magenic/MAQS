@@ -1,24 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <BuildVersion>6.0.0</BuildVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <TargetFrameworks>net471;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <AssemblyVersion>$(BuildVersion)</AssemblyVersion>
+    <FileVersion>$(BuildVersion)</FileVersion>
+    <Version>$(BuildVersion)</Version>
+    <PackageId>Magenic.Maqs.Database</PackageId>
     <AssemblyName>Magenic.Maqs.BaseDatabaseTest</AssemblyName>
     <RootNamespace>Magenic.Maqs.BaseDatabaseTest</RootNamespace>
-    <Version>5.8.1</Version>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>
-    <ProjectGuid>{40C69F26-3B81-43D3-AC2E-2F9B5104AE38}</ProjectGuid>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Magenic</Authors>
     <Description>Database extension for Magenic's automation quick start framework</Description>
     <Copyright>Copyright © Magenic 2020</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageIconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</PackageIconUrl>
     <PackageIcon>MAQS.jpg</PackageIcon>
     <PackageProjectUrl>https://github.com/Magenic/MAQS</PackageProjectUrl>
     <PackageTags>test SQL database automation NUnit MSTest TestFramework</PackageTags>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageReleaseNotes>6.0.0 - 2020-??-??</PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/Magenic/MAQS</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>
+      Release Notes can be found at https://magenic.github.io/MAQS/#/MAQS_6/ReleaseNotes
+    </PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -40,10 +49,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BaseTest\BaseTest.csproj" />
+    <None Include="..\MAQS.jpg" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\MAQS.jpg" Pack="true" PackagePath="" />
+    <ProjectReference Include="..\BaseTest\BaseTest.csproj" />
   </ItemGroup>
+
 </Project>
