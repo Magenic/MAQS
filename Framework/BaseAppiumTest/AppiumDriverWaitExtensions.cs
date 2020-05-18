@@ -154,7 +154,7 @@ namespace Magenic.Maqs.BaseAppiumTest
                 try
                 {
                     // Find any element
-                    driver.FindElement(By.CssSelector("*"));
+                    driver.FindElement(By.XPath("/*"));
 
                     // Get the page source
                     string newSource = driver.PageSource;
