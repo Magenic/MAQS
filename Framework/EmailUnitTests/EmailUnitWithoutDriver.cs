@@ -46,7 +46,7 @@ namespace EmailUnitTests
         public void GetHostTest()
         {
             string host = EmailConfig.GetHost();
-            Assert.AreEqual("imap.gmail.com", host);
+            Assert.AreEqual("localhost", host);
         }
         
         /// <summary>

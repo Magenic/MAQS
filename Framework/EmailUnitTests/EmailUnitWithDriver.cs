@@ -32,30 +32,6 @@ namespace EmailUnitTests
     public class EmailUnitWithDriver : BaseEmailTest
     {
         /// <summary>
-        /// Cleanup after the test run
-        /// </summary>
-        [ClassCleanup]
-        public static void Cleanup()
-        {
-            string host = EmailConfig.GetHost();
-            string username = EmailConfig.GetUserName();
-            string password = EmailConfig.GetPassword();
-            int port = EmailConfig.GetPort();
-            bool isSsl = EmailConfig.GetEmailViaSSL();
-            bool checkSsl = EmailConfig.GetEmailSkipSslValidation();
-
-            using (EmailDriver driver = new EmailDriver(host, username, password, port, 10000, isSsl, checkSsl))
-            {
-                driver.SelectMailbox("Inbox");
-                foreach (MimeMessage messageHeader in driver.GetAllMessageHeaders())
-                {
-                    driver.DeleteMessage(messageHeader);
-                    Thread.Sleep(100);
-                }
-            }
-        }
-
-        /// <summary>
         /// Verify the user can access account 
         /// </summary>
         [TestMethod]
@@ -74,9 +50,6 @@ namespace EmailUnitTests
         {
             List<string> mailBoxes = this.EmailDriver.GetMailBoxNames();
 
-            // The Gmail inbox is not needed
-            mailBoxes.Remove("[Gmail]");
-
             foreach (string mailBox in mailBoxes)
             {
                 this.EmailDriver.SelectMailbox(mailBox);
@@ -92,9 +65,6 @@ namespace EmailUnitTests
         public void GetEachMailBox()
         {
             List<string> mailBoxes = this.EmailDriver.GetMailBoxNames();
-
-            // The Gmail inbox is not needed
-            mailBoxes.Remove("[Gmail]");
 
             foreach (string mailBox in mailBoxes)
             {
@@ -122,7 +92,7 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void GetMailbox()
         {
-            string mailBox = "[Gmail]/All Mail";
+            string mailBox = "TestInbox";
             IMailFolder box = this.EmailDriver.GetMailbox(mailBox);
             Assert.AreEqual(box.FullName, mailBox);
             Assert.AreEqual(mailBox, this.EmailDriver.CurrentMailBox);
@@ -135,7 +105,7 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void SelectMailbox()
         {
-            string mailBox = "[Gmail]/All Mail";
+            string mailBox = "TestInbox";
             this.EmailDriver.SelectMailbox(mailBox);
             Assert.AreEqual(mailBox, this.EmailDriver.CurrentMailBox);
         }
@@ -171,19 +141,19 @@ namespace EmailUnitTests
         }
 
         /// <summary>
-        /// Create a mailbox
+        /// Create a mailbox to test deleting a Mailbox
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Email)]
-        public void CreateMailBoxTest()
+        public void DeleteMailBox()
         {
             string newMailBox = Guid.NewGuid().ToString();
+
             this.EmailDriver.CreateMailbox(newMailBox);
             Assert.AreEqual(newMailBox, this.EmailDriver.CurrentMailBox);
-            this.EmailDriver.GetMailbox(newMailBox);
-
-            Assert.AreEqual(newMailBox, this.EmailDriver.CurrentMailBox);
             this.EmailDriver.GetMailbox(newMailBox).Delete();
+
+            Assert.IsTrue(this.EmailDriver.GetMailBoxNames().Any(mailbox => mailbox != newMailBox), $"Unable to delete mailbox {newMailBox}");
         }
 
         /// <summary>
@@ -193,8 +163,8 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void GetSpecificMessage()
         {
-            this.EmailDriver.SelectMailbox("Test/SubTest");
-            MimeMessage singleMessage = this.EmailDriver.GetMessage("3");
+            this.EmailDriver.SelectMailbox("TestInbox");
+            MimeMessage singleMessage = this.EmailDriver.GetMessage("7");
             Assert.AreEqual("Plain Text", singleMessage.Subject);
             Assert.IsFalse(string.IsNullOrEmpty(singleMessage.Body.ToString()), "Expected to go the message body");
         }
@@ -206,8 +176,8 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void GetSpecificMessageHeader()
         {
-            this.EmailDriver.SelectMailbox("Test/SubTest");
-            MimeMessage singleMessage = this.EmailDriver.GetMessage("3", true);
+            this.EmailDriver.SelectMailbox("TestInbox");
+            MimeMessage singleMessage = this.EmailDriver.GetMessage("7", true);
             Assert.AreEqual("Plain Text", singleMessage.Subject);
             Assert.IsNull(singleMessage.Body, "Expected not to go the message body");
         }
@@ -219,7 +189,7 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void GetSpecificMessagePassingInMailbox()
         {
-            MimeMessage singleMessage = this.EmailDriver.GetMessage("Test/SubTest", "2");
+            MimeMessage singleMessage = this.EmailDriver.GetMessage("TestInbox", "6");
             Assert.AreEqual("RTF Text", singleMessage.Subject);
             Assert.IsFalse(string.IsNullOrEmpty(singleMessage.Body.ToString()), "Expected to go the message body");
         }
@@ -231,7 +201,7 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void GetSpecificMessageHeaderPassingInMailbox()
         {
-            MimeMessage singleMessage = this.EmailDriver.GetMessage("Test/SubTest", "2", true);
+            MimeMessage singleMessage = this.EmailDriver.GetMessage("TestInbox", "6", true);
 
             Assert.AreEqual("RTF Text", singleMessage.Subject);
             Assert.IsNull(singleMessage.Body, "Expected not to go the message body");
@@ -244,9 +214,9 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void GetEmailHeaders()
         {
-            this.EmailDriver.SelectMailbox("Test/SubTest");
+            this.EmailDriver.SelectMailbox("TestInbox");
             List<MimeMessage> messageHeaders = this.EmailDriver.GetAllMessageHeaders();
-            Assert.AreEqual(4, messageHeaders.Count, "Expected 4 messages in 'Test/SubTest' but found " + messageHeaders.Count);
+            Assert.AreEqual(4, messageHeaders.Count, "Expected 4 messages in 'TestInbox' but found " + messageHeaders.Count);
             foreach (MimeMessage message in messageHeaders)
             {
                 Assert.IsNull(message.Body, "Got body data but only expected header data");
@@ -260,8 +230,8 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void GetEmailHeadersMailbox()
         {
-            List<MimeMessage> messageHeaders = this.EmailDriver.GetAllMessageHeaders("Test/SubTest");
-            Assert.AreEqual(4, messageHeaders.Count, "Expected 4 messages in 'Test/SubTest' but found " + messageHeaders.Count);
+            List<MimeMessage> messageHeaders = this.EmailDriver.GetAllMessageHeaders("TestInbox");
+            Assert.AreEqual(4, messageHeaders.Count, "Expected 4 messages in 'TestInbox' but found " + messageHeaders.Count);
             foreach (MimeMessage message in messageHeaders)
             {
                 Assert.IsNull(message.Body, "Got body data but only expected header data");
@@ -278,7 +248,7 @@ namespace EmailUnitTests
             int seen = 0;
             int notSeen = 0;
 
-            this.EmailDriver.SelectMailbox("Test/SubTest");
+            this.EmailDriver.SelectMailbox("TestInbox");
 
             List<MimeMessage> messageHeaders = this.EmailDriver.GetAllMessageHeaders();
 
@@ -488,7 +458,7 @@ namespace EmailUnitTests
         {
             string testFilePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestFiles");
 
-            MimeMessage singleMessage = this.EmailDriver.GetMessage("Test/SubTest", "4");
+            MimeMessage singleMessage = this.EmailDriver.GetMessage("TestInbox", "5");
             List<MimeEntity> attchments = this.EmailDriver.GetAttachments(this.EmailDriver.GetUniqueIDString(singleMessage));
 
             // Make sure we have the correct number of attachments
@@ -510,7 +480,7 @@ namespace EmailUnitTests
         {
             string testFilePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestFiles");
 
-            List<MimeEntity> attchments = this.EmailDriver.GetAttachments("Test/SubTest", "4");
+            List<MimeEntity> attchments = this.EmailDriver.GetAttachments("TestInbox", "5");
 
             // Make sure we have the correct number of attachments
             Assert.AreEqual(3, attchments.Count, "Expected 3 attachments");
@@ -531,7 +501,7 @@ namespace EmailUnitTests
         {
             string testFilePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestFiles");
 
-            MimeMessage singleMessage = this.EmailDriver.GetMessage("Test/SubTest", "4");
+            MimeMessage singleMessage = this.EmailDriver.GetMessage("TestInbox", "5");
             List<MimeEntity> attchments = this.EmailDriver.GetAttachments(singleMessage);
 
             // Make sure we have the correct number of attachments
@@ -551,7 +521,7 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void DownloadAttachmentsToConfigLocation()
         {
-            MimeMessage singleMessage = this.EmailDriver.GetMessage("Test/SubTest", "4");
+            MimeMessage singleMessage = this.EmailDriver.GetMessage("TestInbox", "5");
             List<string> attchments = this.EmailDriver.DownloadAttachments(singleMessage);
 
             try
@@ -588,7 +558,7 @@ namespace EmailUnitTests
 
             try
             {
-                MimeMessage singleMessage = this.EmailDriver.GetMessage("Test/SubTest", "4");
+                MimeMessage singleMessage = this.EmailDriver.GetMessage("TestInbox", "5");
                 List<string> attchments = this.EmailDriver.DownloadAttachments(singleMessage, downloadLocation);
 
                 Assert.AreEqual(3, attchments.Count, "Expected 3 attachments");
@@ -630,10 +600,10 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void GetMessagesSince()
         {
-            this.EmailDriver.SelectMailbox("Test/SubTest");
+            this.EmailDriver.SelectMailbox("TestInbox");
 
-            List<MimeMessage> messages = this.EmailDriver.SearchMessagesSince(new DateTime(2016, 3, 11), false);
-            Assert.AreEqual(1, messages.Count, "Expected 1 message in 'Test/SubTest' after the given date but found " + messages.Count);
+            List<MimeMessage> messages = this.EmailDriver.SearchMessagesSince(new DateTime(2020, 5, 12), false);
+            Assert.AreEqual(1, messages.Count, "Expected 1 message in 'TestInbox' after the given date but found " + messages.Count);
             Assert.IsFalse(string.IsNullOrEmpty(messages[0].Body.ToString()), "Expected the full message, not just the header");
         }
 
@@ -644,8 +614,8 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void GetMessagesSinceForMailbox()
         {
-            List<MimeMessage> messages = this.EmailDriver.SearchMessagesSince("Test/SubTest", new DateTime(2016, 3, 11), false);
-            Assert.AreEqual(1, messages.Count, "Expected 1 message in 'Test/SubTest' after the given date but found " + messages.Count);
+            List<MimeMessage> messages = this.EmailDriver.SearchMessagesSince("TestInbox", new DateTime(2020, 5, 12), false);
+            Assert.AreEqual(1, messages.Count, "Expected 1 message in 'TestInbox' after the given date but found " + messages.Count);
             Assert.IsFalse(string.IsNullOrEmpty(messages[0].Body.ToString()), "Expected the full message, not just the header");
         }
 
@@ -656,12 +626,12 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void GetMessageHeaderWithCompoundCondition()
         {
-            this.EmailDriver.SelectMailbox("Test/SubTest");
+            this.EmailDriver.SelectMailbox("TestInbox");
 
-            SearchQuery condition = SearchQuery.NotSeen.And(SearchQuery.SubjectContains("Plain"));
+            SearchQuery condition = SearchQuery.Seen.And(SearchQuery.SubjectContains("Plain"));
 
             List<MimeMessage> messages = this.EmailDriver.SearchMessages(condition);
-            Assert.AreEqual(1, messages.Count, "Expected 1 message in 'Test/SubTest' between the given dates but found " + messages.Count);
+            Assert.AreEqual(1, messages.Count, "Expected 1 message in 'TestInbox' between the given dates but found " + messages.Count);
             Assert.IsNull(messages[0].Body, "Expected the message header only, not the entire message");
         }
 
@@ -672,12 +642,12 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void GetMessageWithCompoundCondition()
         {
-            this.EmailDriver.SelectMailbox("Test/SubTest");
+            this.EmailDriver.SelectMailbox("TestInbox");
 
-            SearchQuery condition = SearchQuery.NotSeen.And(SearchQuery.SubjectContains("Plain"));
+            SearchQuery condition = SearchQuery.Seen.And(SearchQuery.SubjectContains("Plain"));
 
             List<MimeMessage> messages = this.EmailDriver.SearchMessages(condition, false);
-            Assert.AreEqual(1, messages.Count, "Expected 1 message in 'Test/SubTest' between the given dates but found " + messages.Count);
+            Assert.AreEqual(1, messages.Count, "Expected 1 message in 'TestInbox' between the given dates but found " + messages.Count);
             Assert.IsFalse(string.IsNullOrEmpty(messages[0].Body.ToString()), "Expected the entire message, but only got the header");
         }
 
@@ -688,9 +658,9 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void GetMessageWithMailboxAndCompoundCondition()
         {
-            SearchQuery condition = SearchQuery.NotSeen.And(SearchQuery.FromContains("walsh"));
-            List<MimeMessage> messages = this.EmailDriver.SearchMessages("Test/SubTest", condition, false);
-            Assert.AreEqual(3, messages.Count, "Expected 3 message in 'Test/SubTest' between the given dates but found " + messages.Count);
+            SearchQuery condition = SearchQuery.NotSeen.And(SearchQuery.SubjectContains("Message"));
+            List<MimeMessage> messages = this.EmailDriver.SearchMessages("TestInbox", condition, false);
+            Assert.AreEqual(2, messages.Count, "Expected 2 message in 'TestInbox' between the given dates but found " + messages.Count);
             Assert.IsFalse(string.IsNullOrEmpty(messages[0].Body.ToString()), "Expected the entire message, but only got the header");
         }
 
@@ -701,12 +671,12 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void GetNoMessagesWithCompoundCondition()
         {
-            this.EmailDriver.SelectMailbox("Test/SubTest");
+            this.EmailDriver.SelectMailbox("TestInbox");
 
-            SearchQuery condition = SearchQuery.NotSeen.And(SearchQuery.SubjectContains("RTF"));
+            SearchQuery condition = SearchQuery.Seen.And(SearchQuery.SubjectContains("Production"));
 
             List<MimeMessage> messages = this.EmailDriver.SearchMessages(condition);
-            Assert.AreEqual(0, messages.Count, "Expected 0 message in 'Test/SubTest' between the given dates but found " + messages.Count);
+            Assert.AreEqual(0, messages.Count, "Expected 0 message in 'TestInbox' between the given dates but found " + messages.Count);
         }
 
         /// <summary>
@@ -716,10 +686,10 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void GetMessagesHeadersSince()
         {
-            this.EmailDriver.SelectMailbox("Test/SubTest");
+            this.EmailDriver.SelectMailbox("TestInbox");
 
-            List<MimeMessage> messages = this.EmailDriver.SearchMessagesSince(new DateTime(2016, 3, 11));
-            Assert.AreEqual(1, messages.Count, "Expected 1 message in 'Test/SubTest' after the given date but found " + messages.Count);
+            List<MimeMessage> messages = this.EmailDriver.SearchMessagesSince(new DateTime(2020, 5, 12));
+            Assert.AreEqual(1, messages.Count, "Expected 1 message in 'TestInbox' after the given date but found " + messages.Count);
             Assert.IsNull(messages[0].Body, "Expected the message header only, not the entire message");
         }
 
@@ -730,9 +700,9 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void GetTypes()
         {
-            this.EmailDriver.SelectMailbox("Test/SubTest");
+            this.EmailDriver.SelectMailbox("TestInbox");
 
-            List<MimeMessage> messages = this.EmailDriver.SearchMessagesSince(new DateTime(2016, 3, 11), false);
+            List<MimeMessage> messages = this.EmailDriver.SearchMessagesSince(new DateTime(2020, 5, 12), false);
 
             List<string> types = this.EmailDriver.GetContentTypes(messages[0]);
 
@@ -748,12 +718,12 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void GetBodyByContentType()
         {
-            this.EmailDriver.SelectMailbox("Test/SubTest");
-            List<MimeMessage> messages = this.EmailDriver.SearchMessagesSince(new DateTime(2016, 3, 11), false);
+            this.EmailDriver.SelectMailbox("TestInbox");
+            List<MimeMessage> messages = this.EmailDriver.SearchMessagesSince(new DateTime(2020, 5, 12), false);
             string content = this.EmailDriver.GetBodyByContentTypes(messages[0], "text/html");
 
             // Make sure we got the html content back
-            Assert.IsTrue(content.StartsWith("<html "), "Expected html content");
+            Assert.IsTrue(content.StartsWith("<html>"), "Expected html content");
         }
 
         /// <summary>
@@ -833,9 +803,9 @@ namespace EmailUnitTests
         private void SendTestEmail(string subject)
         {
             SystemEmail.SmtpClient client = new SystemEmail.SmtpClient();
-            client.Port = 587;
-            client.Host = "smtp.gmail.com";
-            client.EnableSsl = true;
+            client.Port = 25;
+            client.Host = "localhost";
+            client.EnableSsl = false;
             client.Timeout = 60000;
             client.DeliveryMethod = SystemEmail.SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;
@@ -843,6 +813,7 @@ namespace EmailUnitTests
 
             SystemEmail.MailMessage message = new SystemEmail.MailMessage(EmailConfig.GetUserName(), EmailConfig.GetUserName(), subject, "test");
             message.BodyEncoding = UTF8Encoding.UTF8;
+            message.Headers.Add("Message-Id", Guid.NewGuid().ToString());
             message.DeliveryNotificationOptions = SystemEmail.DeliveryNotificationOptions.OnFailure;
 
             client.Send(message);

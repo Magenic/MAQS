@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  imap:
+    # Uncomment this for build image in local
+    # build:
+    #   context: .
+    image: antespi/docker-imap-devel:latest
+    container_name: imap
+    volumes:
+      - ./Mailbox:/var/mail/localdomain.test/debug
+    ports:
+    - "25:25"
+    - "143:143"
+    - "993:993"
+    environment:
+    - MAILNAME=localdomain.test
+    - MAIL_ADDRESS=debug@localdomain.test
+    - MAIL_PASS=pass
