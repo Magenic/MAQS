@@ -124,6 +124,14 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Gets a child element that does not exist
+        /// </summary>
+        private LazyElement MissingChild
+        {
+            get { return new LazyElement(this.FlowerTableLazyElement, By.CssSelector("MISSING"), "Missing child element"); }
+        }
+
+        /// <summary>
         /// Gets the first table caption
         /// </summary>
         private LazyElement FirstTableCaption
@@ -837,6 +845,44 @@ namespace SeleniumUnitTests
             WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Automation/AsyncPage");
 
             Assert.IsTrue(slowLoad.Exists, "Element should exist");
+        }
+
+        /// <summary>
+        /// Verify lazy element doesn't exist
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementDoesntExist()
+        {
+            this.WebDriver.SetWaitDriver(new WebDriverWait(this.WebDriver, TimeSpan.FromSeconds(2)));
+
+            DateTime start = DateTime.Now;
+
+            // Make sure we return false when the element does not exist
+            Assert.IsFalse(MissingItem.Exists, "Expect element not to exist");
+
+            // Make sure the override wait time is respected
+            TimeSpan duration = DateTime.Now - start;
+            Assert.IsTrue(duration < TimeSpan.FromSeconds(4), "The max wait time should be less than 4 seconds but was " + duration.TotalSeconds);
+        }
+
+        /// <summary>
+        /// Verify lazy child element doesn't exist
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyChildElementDoesntExist()
+        {
+            this.WebDriver.SetWaitDriver(new WebDriverWait(this.WebDriver, TimeSpan.FromSeconds(2)));
+
+            DateTime start = DateTime.Now;
+
+            // Make sure we return false when the element does not exist
+            Assert.IsFalse(MissingChild.Exists, "Expect child element not to exist");
+
+            // Make sure the override wait time is respected
+            TimeSpan duration = DateTime.Now - start;
+            Assert.IsTrue(duration < TimeSpan.FromSeconds(4), "The max wait time should be less than 4 seconds but was " + duration.TotalSeconds);
         }
 
         /// <summary>

@@ -6,6 +6,7 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseWebServiceTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -65,6 +66,9 @@ namespace WebServiceTesterUnitTesting
         [TestMethod]
         public void WebServiceDriverUsesProxy()
         {
+            string url = WebServiceConfig.GetWebServiceUri().Replace("https://", "http://");
+            this.WebServiceDriver.HttpClient.BaseAddress = new Uri(url);
+
             this.WebServiceDriver.GetWithResponse("/api/XML_JSON/GetAllProducts", "application/json");
 
             bool proxyUsed = RequestsHistory.Values.Any(r => r.RequestUri.ToString().Contains("/api/XML_JSON/GetAllProducts"));
