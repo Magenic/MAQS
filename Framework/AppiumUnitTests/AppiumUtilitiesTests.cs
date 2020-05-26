@@ -161,5 +161,33 @@ namespace AppiumUnitTests
             TimeSpan duration = DateTime.Now - start;
             Assert.IsTrue(duration < TimeSpan.FromSeconds(6), "The max wait time should be less than 6 seconds but was " + duration.TotalSeconds);
         }
+
+        /// <summary>
+        /// Test lazy parent element and finds
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Appium)]
+        public void AppiumLazyParentTest()
+        {
+            this.AppiumDriver.Navigate().GoToUrl(Config.GetValueForSection(ConfigSection.AppiumMaqs, "WebSiteBase"));
+            LazyMobileElement parent = new LazyMobileElement(this.TestObject, By.XPath("//*[@class=\"jumbotron\"]"), "Parent");
+            LazyMobileElement child = new LazyMobileElement(this.TestObject, By.XPath("//H2"), "Child");
+            LazyMobileElement missingChild = new LazyMobileElement(this.TestObject, By.XPath("//Missing"), "Missing");
+
+            this.SoftAssert.AreEqual(child.Text, parent.FindElement(child.By, "Child").Text);
+            this.SoftAssert.Assert(() => Assert.AreEqual(1, parent.FindElements(child.By, "Child").Count));
+            this.SoftAssert.Assert(() => Assert.IsTrue(child.Exists, "Expect exists now"));
+
+            // Override the timeout
+            this.AppiumDriver.SetWaitDriver(new WebDriverWait(this.AppiumDriver, TimeSpan.FromSeconds(3)));
+
+            DateTime start = DateTime.Now;
+            this.SoftAssert.IsFalse(missingChild.Exists, "Expect element not to exist");
+
+            TimeSpan duration = DateTime.Now - start;
+            this.SoftAssert.IsTrue(duration < TimeSpan.FromSeconds(6), "The max wait time should be less than 6 seconds but was " + duration.TotalSeconds);
+
+            this.SoftAssert.FailTestIfAssertFailed();
+        }
     }
 }
