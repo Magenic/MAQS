@@ -9,6 +9,8 @@ using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using System;
 using System.IO;
 
 namespace AppiumUnitTests
@@ -149,6 +151,15 @@ namespace AppiumUnitTests
             Assert.IsTrue(lazy.Displayed, "Expect displayed");
             Assert.IsTrue(lazy.ExistsNow, "Expect exists now");
             lazy.Click();
+
+            LazyMobileElement missing = new LazyMobileElement(this.TestObject, By.XPath("//button[@class=\"Missing\"]"), "Missing");
+            this.AppiumDriver.SetWaitDriver(new WebDriverWait(this.AppiumDriver, TimeSpan.FromSeconds(3)));
+
+            DateTime start = DateTime.Now;
+            Assert.IsFalse(missing.Exists, "Expect element not to exist");
+
+            TimeSpan duration = DateTime.Now - start;
+            Assert.IsTrue(duration < TimeSpan.FromSeconds(6), "The max wait time should be less than 6 seconds but was " + duration.TotalSeconds);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="testObject">The base Selenium test object</param>
         /// <param name="locator">The 'by' selector for the element</param>
         /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
-        public LazyElement(SeleniumTestObject testObject, By locator, [CallerMemberName] string userFriendlyName = null) : base(testObject, testObject.WebDriver, testObject.WebDriver.GetWaitDriver(), locator, userFriendlyName)
+        public LazyElement(SeleniumTestObject testObject, By locator, [CallerMemberName] string userFriendlyName = null) : base(testObject, testObject.WebDriver, () => testObject.WebDriver.GetWaitDriver(), locator, userFriendlyName)
         {
 
         }
