@@ -70,7 +70,7 @@ namespace AppiumUnitTests
         {
             TimeSpan initTimeout = AppiumConfig.GetCommandTimeout();
 
-            Assert.AreEqual(122, initTimeout.TotalSeconds);
+            Assert.AreEqual(200, initTimeout.TotalSeconds);
         }
 
         /// <summary>
