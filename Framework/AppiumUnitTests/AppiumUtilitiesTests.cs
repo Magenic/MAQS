@@ -153,13 +153,13 @@ namespace AppiumUnitTests
             lazy.Click();
 
             LazyMobileElement missing = new LazyMobileElement(this.TestObject, By.XPath("//button[@class=\"Missing\"]"), "Missing");
-            this.AppiumDriver.SetWaitDriver(new WebDriverWait(this.AppiumDriver, TimeSpan.FromSeconds(3)));
+            this.AppiumDriver.SetWaitDriver(new WebDriverWait(this.AppiumDriver, TimeSpan.FromSeconds(10)));
 
             DateTime start = DateTime.Now;
             Assert.IsFalse(missing.Exists, "Expect element not to exist");
 
             TimeSpan duration = DateTime.Now - start;
-            Assert.IsTrue(duration < TimeSpan.FromSeconds(6), "The max wait time should be less than 6 seconds but was " + duration.TotalSeconds);
+            Assert.IsTrue(duration < TimeSpan.FromSeconds(20), "The max wait time should be less than 20 seconds but was " + duration.TotalSeconds);
         }
 
         /// <summary>
@@ -179,13 +179,13 @@ namespace AppiumUnitTests
             this.SoftAssert.Assert(() => Assert.IsTrue(child.Exists, "Expect exists now"));
 
             // Override the timeout
-            this.AppiumDriver.SetWaitDriver(new WebDriverWait(this.AppiumDriver, TimeSpan.FromSeconds(3)));
+            this.AppiumDriver.SetWaitDriver(new WebDriverWait(this.AppiumDriver, TimeSpan.FromSeconds(10)));
 
             DateTime start = DateTime.Now;
             this.SoftAssert.IsFalse(missingChild.Exists, "Expect element not to exist");
 
             TimeSpan duration = DateTime.Now - start;
-            this.SoftAssert.IsTrue(duration < TimeSpan.FromSeconds(6), "The max wait time should be less than 6 seconds but was " + duration.TotalSeconds);
+            this.SoftAssert.IsTrue(duration < TimeSpan.FromSeconds(20), "The max wait time should be less than 20 seconds but was " + duration.TotalSeconds);
 
             this.SoftAssert.FailTestIfAssertFailed();
         }
