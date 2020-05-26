@@ -86,11 +86,11 @@ namespace CompositeUnitTests
         public void SeparateInteractions()
         {
             SeleniumDriverManager newDriver = new SeleniumDriverManager(() => WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.HeadlessChrome), this.TestObject);
-            newDriver.GetWebDriver().Navigate().GoToUrl("http://magenicautomation.azurewebsites.net/");
+            newDriver.GetWebDriver().Navigate().GoToUrl("https://magenicautomation.azurewebsites.net/");
 
             this.ManagerStore.Add("test", newDriver);
 
-            this.TestObject.WebDriver.Navigate().GoToUrl("http://magenicautomation.azurewebsites.net/Automation");
+            this.TestObject.WebDriver.Navigate().GoToUrl("https://magenicautomation.azurewebsites.net/Automation");
 
             Assert.AreNotEqual(this.TestObject.WebDriver.Url, ((SeleniumDriverManager)this.ManagerStore["test"]).GetWebDriver().Url);
         }
