@@ -155,11 +155,7 @@ namespace AppiumUnitTests
             LazyMobileElement missing = new LazyMobileElement(this.TestObject, By.XPath("//button[@class=\"Missing\"]"), "Missing");
             this.AppiumDriver.SetWaitDriver(new WebDriverWait(this.AppiumDriver, TimeSpan.FromSeconds(10)));
 
-            DateTime start = DateTime.Now;
             Assert.IsFalse(missing.Exists, "Expect element not to exist");
-
-            TimeSpan duration = DateTime.Now - start;
-            Assert.IsTrue(duration < TimeSpan.FromSeconds(20), "The max wait time should be less than 20 seconds but was " + duration.TotalSeconds);
         }
 
         /// <summary>
@@ -181,11 +177,25 @@ namespace AppiumUnitTests
             // Override the timeout
             this.AppiumDriver.SetWaitDriver(new WebDriverWait(this.AppiumDriver, TimeSpan.FromSeconds(10)));
 
-            DateTime start = DateTime.Now;
             this.SoftAssert.IsFalse(missingChild.Exists, "Expect element not to exist");
+            this.SoftAssert.FailTestIfAssertFailed();
+        }
 
-            TimeSpan duration = DateTime.Now - start;
-            this.SoftAssert.IsTrue(duration < TimeSpan.FromSeconds(20), "The max wait time should be less than 20 seconds but was " + duration.TotalSeconds);
+        /// <summary>
+        /// Test lazy element wait overrides
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Appium)]
+        public void AppiumLazyWaitOverride()
+        {
+            TimeSpan overrideTimeSpan = TimeSpan.FromSeconds(10);
+            LazyMobileElement parent = new LazyMobileElement(this.TestObject, By.XPath("//*[@class=\"jumbotron\"]"), "Parent");
+            LazyMobileElement child = new LazyMobileElement(this.TestObject, By.XPath("//H2"), "Child");
+
+            this.AppiumDriver.SetWaitDriver(new WebDriverWait(this.AppiumDriver, overrideTimeSpan));
+
+            this.SoftAssert.Assert(() => Assert.AreEqual(overrideTimeSpan, parent.WaitDriver().Timeout, "Parent wait override was not respected"));
+            this.SoftAssert.Assert(() => Assert.AreEqual(overrideTimeSpan, child.WaitDriver().Timeout, "Child wait override was not respected"));
 
             this.SoftAssert.FailTestIfAssertFailed();
         }
