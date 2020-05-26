@@ -195,7 +195,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void GetElementAttributeTest()
         {
-            string expectedText = "http://magenicautomation.azurewebsites.net/Swagger";
+            string expectedText = "https://magenicautomation.azurewebsites.net/Swagger";
             NavigateToUrl();
             string actualText = WebDriver.GetElementAttribute(swaggerLinkBy, "href");
             VerifyText(actualText, expectedText);

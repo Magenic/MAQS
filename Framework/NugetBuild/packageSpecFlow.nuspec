@@ -10,7 +10,7 @@
     <description>Magenic's automation quick start SpecFlow extension</description>
     <copyright>Copyright © Magenic 2020</copyright>
     <license type="expression">MIT</license>
-    <iconUrl>http://magenicautomation.azurewebsites.net/content/favicon.ico</iconUrl>
+    <iconUrl>https://magenicautomation.azurewebsites.net/content/favicon.ico</iconUrl>
     <summary>Magenic's automation quick start framework - SpecFlow extension. MAQS is a modular test automation framework that can be used as the base for your automation project or individual pieces can be used to enhance existing frameworks. Utilizing project templates, NuGet, and utility libraries we are able to have a functioning framework up and running in minutes, almost entirely removing on the initial time investment on implementing an automation solution.</summary>
     <releaseNotes>
       5.8.1 - 2020/03/13

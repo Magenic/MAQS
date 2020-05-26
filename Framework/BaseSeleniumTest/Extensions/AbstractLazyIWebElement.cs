@@ -45,7 +45,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <returns>The timeout</returns>
         protected TimeSpan TimeoutTime()
         {
-            return this.WaitDriver.Timeout;
+            return this.WaitDriver().Timeout;
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <returns>The wait time</returns>
         protected TimeSpan WaitTime()
         {
-            return this.WaitDriver.PollingInterval;
+            return this.WaitDriver().PollingInterval;
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="waitDriver">The assoicated web driver wait</param>
         /// <param name="locator">The 'by' selector for the element</param>
         /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
-        protected AbstractLazyIWebElement(BaseTestObject testObject, IWebDriver webDriver, WebDriverWait waitDriver, By locator, [CallerMemberName] string userFriendlyName = null)
+        protected AbstractLazyIWebElement(BaseTestObject testObject, IWebDriver webDriver, Func<WebDriverWait> waitDriver, By locator, [CallerMemberName] string userFriendlyName = null)
         {
             this.TestObject = testObject;
             this.WebDriver = webDriver;
@@ -73,7 +73,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             this.Log = testObject.Log;
             this.By = locator;
             this.userFriendlyName = userFriendlyName;
-            Extend.SetWaitDriver(this.WebDriver, this.WaitDriver);
+            Extend.SetWaitDriver(this.WebDriver, this.WaitDriver());
         }
 
         /// <summary>
@@ -118,9 +118,9 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         public IWebDriver WebDriver { get; private set; }
 
         /// <summary>
-        /// Gets the wait driver
+        /// Gets the wait driver function
         /// </summary>
-        public WebDriverWait WaitDriver { get; private set; }
+        public Func<WebDriverWait> WaitDriver { get; private set; }
 
         /// <summary>
         /// Gets the logger
@@ -198,14 +198,14 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             {
                 this.Log.LogMessage(MessageType.INFORMATION, $"Checking to see if the lazy element '{this.userFriendlyName}' exists");
 
-                return GenericWait.Wait<bool>(
+                return GenericWait.Wait(
                     () =>
                 {
                     this.GetElement(this.GetRawExistingElement);
                     return true;
                 },
                 this.WaitTime(),
-                this.TimeoutTime());
+                this.TimeoutTime(), false);
             }
         }
 

@@ -9,6 +9,8 @@ using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using System;
 using System.IO;
 
 namespace AppiumUnitTests
@@ -149,6 +151,53 @@ namespace AppiumUnitTests
             Assert.IsTrue(lazy.Displayed, "Expect displayed");
             Assert.IsTrue(lazy.ExistsNow, "Expect exists now");
             lazy.Click();
+
+            LazyMobileElement missing = new LazyMobileElement(this.TestObject, By.XPath("//button[@class=\"Missing\"]"), "Missing");
+            this.AppiumDriver.SetWaitDriver(new WebDriverWait(this.AppiumDriver, TimeSpan.FromSeconds(10)));
+
+            Assert.IsFalse(missing.Exists, "Expect element not to exist");
+        }
+
+        /// <summary>
+        /// Test lazy parent element and finds
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Appium)]
+        public void AppiumLazyParentTest()
+        {
+            this.AppiumDriver.Navigate().GoToUrl(Config.GetValueForSection(ConfigSection.AppiumMaqs, "WebSiteBase"));
+            LazyMobileElement parent = new LazyMobileElement(this.TestObject, By.XPath("//*[@class=\"jumbotron\"]"), "Parent");
+            LazyMobileElement child = new LazyMobileElement(this.TestObject, By.XPath("//H2"), "Child");
+            LazyMobileElement missingChild = new LazyMobileElement(this.TestObject, By.XPath("//Missing"), "Missing");
+
+            this.SoftAssert.AreEqual(child.Text, parent.FindElement(child.By, "Child").Text);
+            this.SoftAssert.Assert(() => Assert.AreEqual(1, parent.FindElements(child.By, "Child").Count));
+            this.SoftAssert.Assert(() => Assert.IsTrue(child.Exists, "Expect exists now"));
+
+            // Override the timeout
+            this.AppiumDriver.SetWaitDriver(new WebDriverWait(this.AppiumDriver, TimeSpan.FromSeconds(10)));
+
+            this.SoftAssert.IsFalse(missingChild.Exists, "Expect element not to exist");
+            this.SoftAssert.FailTestIfAssertFailed();
+        }
+
+        /// <summary>
+        /// Test lazy element wait overrides
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Appium)]
+        public void AppiumLazyWaitOverride()
+        {
+            TimeSpan overrideTimeSpan = TimeSpan.FromSeconds(10);
+            LazyMobileElement parent = new LazyMobileElement(this.TestObject, By.XPath("//*[@class=\"jumbotron\"]"), "Parent");
+            LazyMobileElement child = new LazyMobileElement(this.TestObject, By.XPath("//H2"), "Child");
+
+            this.AppiumDriver.SetWaitDriver(new WebDriverWait(this.AppiumDriver, overrideTimeSpan));
+
+            this.SoftAssert.Assert(() => Assert.AreEqual(overrideTimeSpan, parent.WaitDriver().Timeout, "Parent wait override was not respected"));
+            this.SoftAssert.Assert(() => Assert.AreEqual(overrideTimeSpan, child.WaitDriver().Timeout, "Child wait override was not respected"));
+
+            this.SoftAssert.FailTestIfAssertFailed();
         }
     }
 }
