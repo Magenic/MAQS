@@ -223,13 +223,15 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             return CreateDriver(() =>
             {
-                FirefoxDriverService service = FirefoxDriverService.CreateDefaultService(GetDriverLocation("geckodriver.exe"), "geckodriver.exe");
-
                 // Add support for encoding 437 that was removed in .net core
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-                var driver = new FirefoxDriver(service, firefoxOptions, commandTimeout);
+
+
+                var driver = new FirefoxDriver(FirefoxDriverService.CreateDefaultService(), firefoxOptions, commandTimeout);
                 SetBrowserSize(driver, size);
+
+
 
                 return driver;
             });
