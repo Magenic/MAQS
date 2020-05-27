@@ -17,3 +17,5 @@ services:
     - MAILNAME=localdomain.test
     - MAIL_ADDRESS=debug@localdomain.test
     - MAIL_PASS=pass
+    command:
+      - chmod a+rwx /var/mail
