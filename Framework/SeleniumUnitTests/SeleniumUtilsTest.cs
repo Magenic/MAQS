@@ -719,5 +719,25 @@ namespace SeleniumUnitTests
             string file = this.TestObject.GetArrayOfAssociatedFiles().Last(x => x.EndsWith(".html"));
             Assert.IsTrue(new FileInfo(file).Length > 0, "Accessibility report is empty");
         }
+
+
+        /// <summary>
+        /// Verify we suppress the JS logging assoicated with running Axe
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void AccessibilityHtmlLogSuppression()
+        {
+            // Make sure we are not using verbose logging
+            this.Log.SetLoggingLevel(MessageType.INFORMATION);
+            
+            WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            WebDriver.Wait().ForPageLoad();
+
+            WebDriver.CreateAccessibilityHtmlReport(this.TestObject);
+
+            // The script executed message should be suppressed when we run the accessablity check
+            Assert.IsFalse(File.ReadAllText(((FileLogger)this.Log).FilePath).Contains("Script executed"), "Logging was not suppressed as expected");
+        }
     }
 }
