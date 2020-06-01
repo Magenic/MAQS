@@ -31,6 +31,11 @@ namespace EmailUnitTests
     [ExcludeFromCodeCoverage]
     public class EmailUnitWithDriver : BaseEmailTest
     {
+        private const string PlainTextMessageUID = "1";
+        private const string RTFMessageUID = "2";
+        private const string MultipartMessageUID = "3";
+        private const string MimeMessageUID = "4";
+
         /// <summary>
         /// Verify the user can access account 
         /// </summary>
@@ -164,7 +169,7 @@ namespace EmailUnitTests
         public void GetSpecificMessage()
         {
             this.EmailDriver.SelectMailbox("TestInbox");
-            MimeMessage singleMessage = this.EmailDriver.GetMessage("7");
+            MimeMessage singleMessage = this.EmailDriver.GetMessage(PlainTextMessageUID);
             Assert.AreEqual("Plain Text", singleMessage.Subject);
             Assert.IsFalse(string.IsNullOrEmpty(singleMessage.Body.ToString()), "Expected to go the message body");
         }
@@ -177,7 +182,7 @@ namespace EmailUnitTests
         public void GetSpecificMessageHeader()
         {
             this.EmailDriver.SelectMailbox("TestInbox");
-            MimeMessage singleMessage = this.EmailDriver.GetMessage("7", true);
+            MimeMessage singleMessage = this.EmailDriver.GetMessage(PlainTextMessageUID, true);
             Assert.AreEqual("Plain Text", singleMessage.Subject);
             Assert.IsNull(singleMessage.Body, "Expected not to go the message body");
         }
@@ -189,7 +194,7 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void GetSpecificMessagePassingInMailbox()
         {
-            MimeMessage singleMessage = this.EmailDriver.GetMessage("TestInbox", "6");
+            MimeMessage singleMessage = this.EmailDriver.GetMessage("TestInbox", RTFMessageUID);
             Assert.AreEqual("RTF Text", singleMessage.Subject);
             Assert.IsFalse(string.IsNullOrEmpty(singleMessage.Body.ToString()), "Expected to go the message body");
         }
@@ -201,7 +206,7 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void GetSpecificMessageHeaderPassingInMailbox()
         {
-            MimeMessage singleMessage = this.EmailDriver.GetMessage("TestInbox", "6", true);
+            MimeMessage singleMessage = this.EmailDriver.GetMessage("TestInbox", RTFMessageUID, true);
 
             Assert.AreEqual("RTF Text", singleMessage.Subject);
             Assert.IsNull(singleMessage.Body, "Expected not to go the message body");
@@ -458,7 +463,7 @@ namespace EmailUnitTests
         {
             string testFilePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestFiles");
 
-            MimeMessage singleMessage = this.EmailDriver.GetMessage("TestInbox", "5");
+            MimeMessage singleMessage = this.EmailDriver.GetMessage("TestInbox", MimeMessageUID);
             List<MimeEntity> attchments = this.EmailDriver.GetAttachments(this.EmailDriver.GetUniqueIDString(singleMessage));
 
             // Make sure we have the correct number of attachments
@@ -480,7 +485,7 @@ namespace EmailUnitTests
         {
             string testFilePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestFiles");
 
-            List<MimeEntity> attchments = this.EmailDriver.GetAttachments("TestInbox", "5");
+            List<MimeEntity> attchments = this.EmailDriver.GetAttachments("TestInbox", MimeMessageUID);
 
             // Make sure we have the correct number of attachments
             Assert.AreEqual(3, attchments.Count, "Expected 3 attachments");
@@ -501,7 +506,7 @@ namespace EmailUnitTests
         {
             string testFilePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestFiles");
 
-            MimeMessage singleMessage = this.EmailDriver.GetMessage("TestInbox", "5");
+            MimeMessage singleMessage = this.EmailDriver.GetMessage("TestInbox", MimeMessageUID);
             List<MimeEntity> attchments = this.EmailDriver.GetAttachments(singleMessage);
 
             // Make sure we have the correct number of attachments
@@ -521,7 +526,7 @@ namespace EmailUnitTests
         [TestCategory(TestCategories.Email)]
         public void DownloadAttachmentsToConfigLocation()
         {
-            MimeMessage singleMessage = this.EmailDriver.GetMessage("TestInbox", "5");
+            MimeMessage singleMessage = this.EmailDriver.GetMessage("TestInbox", MimeMessageUID);
             List<string> attchments = this.EmailDriver.DownloadAttachments(singleMessage);
 
             try
@@ -558,7 +563,7 @@ namespace EmailUnitTests
 
             try
             {
-                MimeMessage singleMessage = this.EmailDriver.GetMessage("TestInbox", "5");
+                MimeMessage singleMessage = this.EmailDriver.GetMessage("TestInbox", MimeMessageUID);
                 List<string> attchments = this.EmailDriver.DownloadAttachments(singleMessage, downloadLocation);
 
                 Assert.AreEqual(3, attchments.Count, "Expected 3 attachments");
