@@ -4,6 +4,7 @@
 // </copyright>
 // <summary>Utilities class for generic selenium methods</summary>
 //--------------------------------------------------
+using Magenic.Maqs.BaseSeleniumTest.Extensions;
 using Magenic.Maqs.Utilities.Data;
 using Magenic.Maqs.Utilities.Logging;
 using OpenQA.Selenium;
@@ -33,12 +34,13 @@ namespace Magenic.Maqs.BaseSeleniumTest
             try
             {
                 string path = string.Empty;
-
+                var htmlLogger = testObject.Log as HtmlFileLogger;
+                var fileLogger = testObject.Log as FileLogger;
 
                 // Check if we are using an HTMl logger
-                if (testObject.Log is HtmlFileLogger)
+                if (htmlLogger != null)
                 {
-                    var writer = new StreamWriter(((HtmlFileLogger)testObject.Log).FilePath, true);
+                    var writer = new StreamWriter(htmlLogger.FilePath, true);
 
                     // Since this is a HTML File logger we need to add a card with the image in it
                     writer.WriteLine(StringProcessor.SafeFormatter(
@@ -47,18 +49,18 @@ namespace Magenic.Maqs.BaseSeleniumTest
                     writer.Flush();
                     writer.Close();
                 } // Check if we are using a file logger
-                else if (!(testObject.Log is FileLogger))
-                {
-                    // Since this is not a file logger we will need to use a generic file name
-                    path = CaptureScreenshot(webDriver, testObject, LoggingConfig.GetLogDirectory(), "ScreenCap" + appendName, GetScreenShotFormat());
-                }
-                else
+                else if (fileLogger != null)
                 {
                     // Calculate the file name
                     string fullpath = ((FileLogger)testObject.Log).FilePath;
                     string directory = Path.GetDirectoryName(fullpath);
                     string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fullpath) + appendName;
                     path = CaptureScreenshot(webDriver, testObject, directory, fileNameWithoutExtension, GetScreenShotFormat());
+                }
+                else
+                {
+                    // Since this is not a file logger we will need to use a generic file name
+                    path = CaptureScreenshot(webDriver, testObject, LoggingConfig.GetLogDirectory(), "ScreenCap" + appendName, GetScreenShotFormat());
                 }
 
                 testObject.Log.LogMessage(MessageType.INFORMATION, "Screenshot saved: " + path);
@@ -175,6 +177,98 @@ namespace Magenic.Maqs.BaseSeleniumTest
         }
 
         /// <summary>
+        /// Create a HTML accessibility report for an entire web page
+        /// </summary>
+        /// <param name="webDriver">The WebDriver</param>
+        /// <param name="testObject">The TestObject to associate the report with</param>
+        /// <param name="throwOnViolation">Should violations cause and exception to be thrown</param>
+        public static void CreateAccessibilityHtmlReport(this IWebDriver webDriver, SeleniumTestObject testObject, bool throwOnViolation = false)
+        {
+            CreateAccessibilityHtmlReport(webDriver, testObject, () => webDriver.Analyze(), throwOnViolation);
+        }
+
+        /// <summary>
+        /// Create a HTML accessibility report for a specific web element and all of it's children
+        /// </summary>
+        /// <param name="webDriver">The WebDriver</param>
+        /// <param name="testObject">The TestObject to associate the report with</param>
+        /// <param name="element">The WebElement you want to use as the root for your accessibility scan</param>
+        /// <param name="throwOnViolation">Should violations cause and exception to be thrown</param>
+        public static void CreateAccessibilityHtmlReport(this IWebDriver webDriver, SeleniumTestObject testObject, IWebElement element, bool throwOnViolation = false)
+        {
+            // If we are using a lazy element go get the raw element instead
+            LazyElement raw = element as LazyElement;
+
+            if (raw != null)
+            {
+                element = ((LazyElement)element).GetRawExistingElement();
+            }
+
+            CreateAccessibilityHtmlReport(element, testObject, () => webDriver.Analyze(element), throwOnViolation);
+        }
+
+        /// <summary>
+        /// Create a HTML accessibility report
+        /// </summary>
+        /// <param name="context">The scan context, this is either a web driver or web element</param>
+        /// <param name="testObject">The TestObject to associate the report with</param>
+        /// <param name="getResults">Function for getting the accessibility scan results</param>
+        /// <param name="throwOnViolation">Should violations cause and exception to be thrown</param>
+        public static void CreateAccessibilityHtmlReport(this ISearchContext context, SeleniumTestObject testObject, Func<AxeResult> getResults, bool throwOnViolation = false)
+        {
+            // If we are using a lazy element go get the raw element instead
+            LazyElement raw = context as LazyElement;
+
+            if (raw != null)
+            {
+                context = ((LazyElement)context).GetRawExistingElement();
+            }
+
+            // Check to see if the logger is not verbose and not already suspended
+            bool restoreLogging = testObject.Log.GetLoggingLevel() != MessageType.VERBOSE && testObject.Log.GetLoggingLevel() != MessageType.SUSPENDED;
+
+            AxeResult results;
+            string report = GetAccessibilityReportPath(testObject);
+            testObject.Log.LogMessage(MessageType.INFORMATION, "Running accessibility check");
+
+            try
+            {
+                // Suspend logging if we are not verbose or already suspended
+                if (restoreLogging)
+                {
+                    testObject.Log.SuspendLogging();
+                }
+
+                results = getResults();
+                context.CreateAxeHtmlReport(results, report);
+            }
+            finally
+            {
+                // Restore logging if we suspended it
+                if(restoreLogging)
+                {
+                    testObject.Log.ContinueLogging();
+                }
+            }
+
+            // Add the report
+            testObject.AddAssociatedFile(report);
+            testObject.Log.LogMessage(MessageType.INFORMATION, $"Ran accessibility check and created HTML report: {report} ");
+
+            // Throw exception if we found violations and we want that to cause an error
+            if (throwOnViolation &&  results.Violations.Length > 0)
+            {
+                throw new ApplicationException($"Accessibility violations, see: {report} for more details.");
+            }
+
+            // Throw exception if the accessibility check had any errors
+            if (results.Error.Length > 0)
+            {
+                throw new ApplicationException($"Accessibility check failure, see: {report} for more details.");
+            }
+        }
+
+        /// <summary>
         /// Run axe accessibility and log the results
         /// </summary>
         /// <param name="testObject">The test object which contains the web driver and logger you wish to use</param>
@@ -228,6 +322,8 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="throwOnResults">Throw error if any results are found</param>
         public static void CheckAccessibility(this IWebDriver webDriver, Logger logger, string checkType, Func<AxeResultItem[]> getResults, MessageType loggingLevel, bool throwOnResults = false)
         {
+            logger.LogMessage(MessageType.INFORMATION, "Running accessibility check");
+
             if (GetReadableAxeResults(checkType, webDriver, getResults(), out string axeText) && throwOnResults)
             {
                 throw new ApplicationException(axeText);
@@ -246,7 +342,6 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="loggingLevel">What level should logging the check take, this gets used if the check doesn't throw an exception</param>
         public static void CheckAccessibilityPasses(this IWebDriver webDriver, Logger logger, MessageType loggingLevel)
         {
-            // Look at passed
             CheckAccessibility(webDriver, logger, AccessibilityCheckType.Passes.ToString(), () => webDriver.Analyze().Passes, loggingLevel);
         }
 
@@ -369,10 +464,10 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="element">The web element</param>
         /// <returns>The web driver</returns>
         public static IWebDriver WebElementToWebDriver(IWebElement element)
-        {
+        {            
             // Extract the web driver from the element
-            IWebDriver driver = null;
-
+            IWebDriver driver;
+            
             // Get the parent driver - this is a protected property so we need to user reflection to access it
             var eventFiringPropertyInfo = element.GetType().GetProperty("ParentDriver", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetProperty);
 
@@ -458,6 +553,26 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             driver.Manage().Timeouts().PageLoad = timeoutTime;
             driver.Manage().Timeouts().AsynchronousJavaScript = timeoutTime;
+        }
+
+        /// <summary>
+        /// Get a unique file name that we can user for the accessibility HTML report
+        /// </summary>
+        /// <param name="testObject">The TestObject to associate the report with</param>
+        /// <returns>A unique HTML file name, includes full path</returns>
+        private static string GetAccessibilityReportPath(SeleniumTestObject testObject)
+        {
+            string logDirectory = testObject.Log is FileLogger ? Path.GetDirectoryName(((FileLogger)testObject.Log).FilePath) : LoggingConfig.GetLogDirectory();
+            string reportBaseName = testObject.Log is FileLogger ? Path.GetFileNameWithoutExtension(((FileLogger)testObject.Log).FilePath) + "_Axe" : "AxeReport";
+            string reportFile = Path.Combine(logDirectory, reportBaseName + ".html");
+            int reportNumber = 0;
+
+            while (File.Exists(reportFile))
+            {
+                reportFile = Path.Combine(logDirectory, reportBaseName + reportNumber++ + ".html");
+            }
+
+            return reportFile;
         }
     }
 }

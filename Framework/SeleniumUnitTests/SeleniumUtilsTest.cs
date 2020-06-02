@@ -9,12 +9,14 @@ using Magenic.Maqs.BaseSeleniumTest.Extensions;
 using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
 using Selenium.Axe;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace SeleniumUnitTests
@@ -26,6 +28,11 @@ namespace SeleniumUnitTests
     [ExcludeFromCodeCoverage]
     public class SeleniumUtilsTest : BaseSeleniumTest
     {
+        /// <summary>
+        /// Axe JSON with an error
+        /// </summary>
+        private const string AxeResultWithError = "{\"error\":\"AutomationError\",\"results\":{\"testEngine\": { \"name\":\"axe-core\",\"version\":\"3.4.1\"}, \"testRunner\": { \"name\":\"axe\"}, \"testEnvironment\": { \"userAgent\":\"AutoAgent\",\"windowWidth\": 1200, \"windowHeight\": 646, \"orientationAngle\": 0, \"orientationType\":\"landscape-primary\"},\"timestamp\":\"2020-04-14T01:33:59.139Z\",\"url\":\"url\",\"toolOptions\":{\"reporter\":\"v1\"},\"violations\":[],\"passes\":[],\"incomplete\":[],\"inapplicable\": []}}";
+
         /// <summary>
         /// Unit testing site URL - Login page
         /// </summary>
@@ -592,6 +599,145 @@ namespace SeleniumUnitTests
 
             Assert.IsTrue(messages.Contains("TEST check for"), "Expected header.");
             Assert.IsTrue(messages.Contains("Found 6 items"), "Expected to find 6 violations matches.");
+        }
+
+        /// <summary>
+        /// Verify we can create and associate an accessibility HTML report
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void AccessibilityHtmlReport()
+        {
+            WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            WebDriver.Wait().ForPageLoad();
+
+            WebDriver.CreateAccessibilityHtmlReport(this.TestObject);
+
+            string file = this.TestObject.GetArrayOfAssociatedFiles().Last(x => x.EndsWith(".html"));
+            Assert.IsTrue(new FileInfo(file).Length > 0, "Accessibility report is empty");
+        }
+
+        /// <summary>
+        /// Verify we can create and associate multiple accessibility HTML reports
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void AccessibilityMultipleHtmlReports()
+        {
+            WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            WebDriver.Wait().ForPageLoad();
+
+            // Create 3 reports
+            WebDriver.CreateAccessibilityHtmlReport(this.TestObject);
+            WebDriver.CreateAccessibilityHtmlReport(this.TestObject);
+            WebDriver.CreateAccessibilityHtmlReport(this.TestObject);
+
+            int count = this.TestObject.GetArrayOfAssociatedFiles().Count(x => x.EndsWith(".html"));
+            Assert.IsTrue(count == 3, $"Expected 3 accessibility reports but see {count} instead");
+        }
+
+        /// <summary>
+        /// Verify we throw an exception if the scan has an error
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        [ExpectedException(typeof(ApplicationException))]
+        public void AccessibilityHtmlReportWithError()
+        {
+            WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            WebDriver.Wait().ForPageLoad();
+
+            WebDriver.CreateAccessibilityHtmlReport(this.TestObject, () => new AxeResult(JObject.Parse(AxeResultWithError)));
+
+            string file = this.TestObject.GetArrayOfAssociatedFiles().Last(x => x.EndsWith(".html"));
+            Assert.IsTrue(new FileInfo(file).Length > 0, "Accessibility report is empty");
+        }
+
+        /// <summary>
+        /// Verify we throw an exception if the scan has an error and are using lazy elements
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        [ExpectedException(typeof(ApplicationException))]
+        public void AccessibilityHtmlReportWithErrorFromLazyElement()
+        {
+            WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            WebDriver.Wait().ForPageLoad();
+
+            LazyElement foodTable = new LazyElement(this.TestObject, By.Id("FoodTable"));
+
+            foodTable.CreateAccessibilityHtmlReport(this.TestObject, () => new AxeResult(JObject.Parse(AxeResultWithError)));
+
+            string file = this.TestObject.GetArrayOfAssociatedFiles().Last(x => x.EndsWith(".html"));
+            Assert.IsTrue(new FileInfo(file).Length > 0, "Accessibility report is empty");
+        }
+
+        /// <summary>
+        /// Verify we throw an exception if there are violations and we choose the throw exception option 
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        [ExpectedException(typeof(ApplicationException))]
+        public void AccessibilityHtmlReportWithViolation()
+        {
+            WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            WebDriver.Wait().ForPageLoad();
+
+            WebDriver.CreateAccessibilityHtmlReport(this.TestObject, true);
+        }
+
+        /// <summary>
+        /// Verify we can create an accessibility HTML report off a lazy element
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void AccessibilityHtmlReportWithLazyElement()
+        {
+            WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            WebDriver.Wait().ForPageLoad();
+
+            LazyElement foodTable = new LazyElement(this.TestObject, By.Id("FoodTable"));
+
+            WebDriver.CreateAccessibilityHtmlReport(this.TestObject, foodTable);
+
+            string file = this.TestObject.GetArrayOfAssociatedFiles().Last(x => x.EndsWith(".html"));
+            Assert.IsTrue(new FileInfo(file).Length > 0, "Accessibility report is empty");
+        }
+
+        /// <summary>
+        /// Verify we can create an accessibility HTML report off a normal web element
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void AccessibilityHtmlReportWithElement()
+        {
+            WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            WebDriver.Wait().ForPageLoad();
+
+            WebDriver.CreateAccessibilityHtmlReport(this.TestObject, WebDriver.FindElement(By.Id("FoodTable")));
+
+            string file = this.TestObject.GetArrayOfAssociatedFiles().Last(x => x.EndsWith(".html"));
+            Assert.IsTrue(new FileInfo(file).Length > 0, "Accessibility report is empty");
+        }
+
+
+        /// <summary>
+        /// Verify we suppress the JS logging assoicated with running Axe
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void AccessibilityHtmlLogSuppression()
+        {
+            // Make sure we are not using verbose logging
+            this.Log.SetLoggingLevel(MessageType.INFORMATION);
+            
+            WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            WebDriver.Wait().ForPageLoad();
+
+            WebDriver.CreateAccessibilityHtmlReport(this.TestObject);
+
+            // The script executed message should be suppressed when we run the accessablity check
+            Assert.IsFalse(File.ReadAllText(((FileLogger)this.Log).FilePath).Contains("Script executed"), "Logging was not suppressed as expected");
         }
     }
 }
