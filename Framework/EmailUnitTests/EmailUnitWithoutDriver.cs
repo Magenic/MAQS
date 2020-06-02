@@ -140,7 +140,7 @@ namespace EmailUnitTests
         public void GetDownloadDirectoryTest()
         {
             string downloadDirectory = EmailConfig.GetAttachmentDownloadDirectory();
-            Assert.AreEqual(@"C:\Frameworks\downloads", downloadDirectory);
+            Assert.AreEqual(@"/tmp/emailmaqsdownloads", downloadDirectory);
         }
     }
 }

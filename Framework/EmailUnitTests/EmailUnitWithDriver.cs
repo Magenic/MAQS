@@ -156,7 +156,10 @@ namespace EmailUnitTests
 
             this.EmailDriver.CreateMailbox(newMailBox);
             Assert.AreEqual(newMailBox, this.EmailDriver.CurrentMailBox);
-            this.EmailDriver.GetMailbox(newMailBox).Delete();
+            var mailbox = this.EmailDriver.GetMailbox(newMailBox);
+            // In dovecot, if you delete a mailbox without closing it, it terminates the IMAP connection.
+            this.EmailDriver.CurrentFolder.Close();
+            mailbox.Delete();
 
             Assert.IsTrue(this.EmailDriver.GetMailBoxNames().Any(mailbox => mailbox != newMailBox), $"Unable to delete mailbox {newMailBox}");
         }
