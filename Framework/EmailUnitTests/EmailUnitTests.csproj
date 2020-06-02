@@ -43,7 +43,7 @@
     <None Update="App.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\Associate.PNG">
+    <None Update="TestFiles\Associate.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestFiles\deleteme.xlsm">
