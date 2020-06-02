@@ -233,8 +233,6 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 var driver = new FirefoxDriver(service, firefoxOptions, commandTimeout);
                 SetBrowserSize(driver, size);
 
-
-
                 return driver;
             });
         }
