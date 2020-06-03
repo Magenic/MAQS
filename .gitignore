@@ -66,6 +66,7 @@ artifacts/
 *.tlh
 *.tmp
 *.tmp_proj
+*.log
 *.vspscc
 *.vssscc
 .builds
@@ -184,6 +185,7 @@ _pkginfo.txt
 
 # Visual Studio cache files
 # files ending in .cache can be ignored
+*.[Cc]ache
 # but keep track of directories ending in .cache
 !*.[Cc]ache/
 
@@ -255,5 +257,3 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
-
-#EmailDocker
