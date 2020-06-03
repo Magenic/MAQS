@@ -13,3 +13,7 @@ services:
     extends:
       file: ./MAQSMongoDB/docker-compose.yml
       service: mongo
+  imap:
+    extends:
+      file: ./MAQSEmail/docker-compose.yml
+      service: imap
