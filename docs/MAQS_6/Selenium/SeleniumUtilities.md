@@ -14,6 +14,9 @@ The SeleniumUtilities class is a utility class for working with Selenium
 [GetReadableAxeResults](#GetReadableAxeResults) 
 
 
+[CreateAccessibilityHtmlReport](#CreateAccessibilityHtmlReport) 
+
+
 ##  CaptureScreenshot
 Capture a screenshot.  
 *By default screenshots ends up in the log folder, but one of the 'CaptureScreenshot' functions allows you to choose a different directory.*
@@ -131,5 +134,29 @@ Get a readable accessibility analysis as a string
 ```csharp
 SeleniumUtilities.GetReadableAxeResults("Violations", WebDriver, WebDriver.Analyze().Violations, out string messages);
 Console.WriteLine(messages);
-
+```
+## CreateAccessibilityHtmlReport
+Run an accessibility check and create a standalone HTML report. The standard MAQS log will provide a link to the produced report.
+*The report ends up in the log folder.*
+```csharp
+// Report on entire page
+SeleniumUtilities.CreateAccessibilityHtmlReport(WebDriver, this.TestObject);
+```
+```csharp
+// Report on entire page and throw exception if any violations are found
+SeleniumUtilities.CreateAccessibilityHtmlReport(WebDriver, this.TestObject, true);
+```
+```csharp
+// Report on specific lazy element and it's children
+LazyElement foodTable = new LazyElement(this.TestObject, By.Id("FoodTable"));
+SeleniumUtilities.CreateAccessibilityHtmlReport(WebDriver, this.TestObject, foodTable);
+```
+```csharp
+// Report on specific element and it's children
+SeleniumUtilities.CreateAccessibilityHtmlReport(WebDriver, this.TestObject, WebDriver.FindElement(By.Id("FoodTable")));
+```
+```csharp
+// Report with user defined rules
+var builder = new AxeBuilder(WebDriver).DisableRules("color-contrast");           
+SeleniumUtilities.CreateAccessibilityHtmlReport(WebDriver, this.TestObject, () => builder.Analyze());
 ```

@@ -13,6 +13,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -74,7 +75,8 @@ namespace SeleniumUnitTests
             options.SetProxySettings(Config.GetValueForSection(ConfigSection.SeleniumMaqs, "ProxyAddress"));
             this.WebDriver = WebDriverFactory.GetChromeDriver(TimeSpan.FromMilliseconds(61000), (ChromeOptions)options);
 
-            this.WebDriver.Navigate().GoToUrl("http://magenicautomation.azurewebsites.net/Employees");
+            string url = Path.Combine(SeleniumConfig.GetWebSiteBase().Replace("https://", "http://"), "Employees");
+            this.WebDriver.Navigate().GoToUrl(url);
 
             bool proxyUsed = RequestsHistory.Values.Any(r => r.RequestUri.ToString().Contains("magenicautomation.azurewebsites.net/Employees"));
             Assert.IsTrue(proxyUsed, "Failed to assert the proxy was used by the web driver.");

@@ -37,7 +37,7 @@ namespace WebServiceTesterUnitTesting
         {
             try
             {
-                WebServiceDriver client = new WebServiceDriver(new Uri("http://magenicautomation.azurewebsites.net"));
+                WebServiceDriver client = new WebServiceDriver(new Uri("https://magenicautomation.azurewebsites.net"));
                 client.Get("/api/String/1", "text/plain", false);
             }
             catch
@@ -79,7 +79,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void GetString()
         {
-            WebServiceDriver client = new WebServiceDriver(new Uri("http://magenicautomation.azurewebsites.net")); 
+            WebServiceDriver client = new WebServiceDriver(new Uri("https://magenicautomation.azurewebsites.net")); 
             string result = client.Get("/api/String/1", "text/plain", false);
 
             Assert.IsTrue(result.Contains("Tomato Soup"), "Was expecting a result with Tomato Soup but instead got - " + result);
