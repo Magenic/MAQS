@@ -28,7 +28,7 @@ namespace UtilitiesUnitTesting
         public void StringFormatterCheckForJson()
         {
             string message = StringProcessor.SafeFormatter("{This is a test for JSON}");
-            Assert.AreEqual("{This is a test for JSON}\r\n", message);
+            Assert.AreEqual("{This is a test for JSON}" + Environment.NewLine, message);
         }
 
         /// <summary>
