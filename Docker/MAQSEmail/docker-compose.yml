@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  imap:
+    # Uncomment this for build image in local
+    # build:
+    #   context: .
+    image: antespi/docker-imap-devel:latest
+    container_name: imap
+    volumes:
+      - ./:/mnt/host/
+      - ./conf.d/10-mail.conf:/etc/dovecot/conf.d/10-mail.conf
+    ports:
+    - "25:25"
+    - "143:143"
+    - "993:993"
+    environment:
+    - MAILNAME=localdomain.test
+    - MAIL_ADDRESS=debug@localdomain.test
+    - MAIL_PASS=pass
+    command: ['/bin/bash', '/mnt/host/initialize_and_start_dovecot.sh']

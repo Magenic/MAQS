@@ -1,0 +1,19 @@
+Return-Path: <debug@localdomain.test>
+Delivered-To: debug@localdomain.test
+Received: from 326ccc96fc80
+	by 326ccc96fc80 (Dovecot) with LMTP id vthNFCnMuF7uAAAAc0QkNQ
+	for <debug@localdomain.test>; Mon, 11 May 2020 03:53:13 +0000
+Received: from JeffZ-PC2 (unknown [192.168.0.1])
+	by 326ccc96fc80 (Postfix) with ESMTP id 4CFD4380D4C
+	for <debug@localdomain.test>; Mon, 11 May 2020 03:53:13 +0000 (UTC)
+MIME-Version: 1.0
+From: debug@localdomain.test
+To: debug@localdomain.test
+Date: 11 May 2020 23:36:14 -0500
+Message-ID: 5138dfeb-b321-48c8-b563-ab75592d158d
+Subject: Plain Text
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+
+dGVzdA==
+

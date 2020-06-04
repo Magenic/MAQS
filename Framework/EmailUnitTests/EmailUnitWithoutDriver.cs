@@ -46,7 +46,7 @@ namespace EmailUnitTests
         public void GetHostTest()
         {
             string host = EmailConfig.GetHost();
-            Assert.AreEqual("imap.gmail.com", host);
+            Assert.AreEqual("localhost", host);
         }
         
         /// <summary>
@@ -140,7 +140,7 @@ namespace EmailUnitTests
         public void GetDownloadDirectoryTest()
         {
             string downloadDirectory = EmailConfig.GetAttachmentDownloadDirectory();
-            Assert.AreEqual(@"C:\Frameworks\downloads", downloadDirectory);
+            Assert.AreEqual(@"/tmp/emailmaqsdownloads", downloadDirectory);
         }
     }
 }

@@ -1,0 +1,31 @@
+Return-Path: <debug@localdomain.test>
+Delivered-To: debug@localdomain.test
+Received: from 326ccc96fc80
+	by 326ccc96fc80 (Dovecot) with LMTP id 0cwEMhvYuF7eAAAAc0QkNQ
+	for <debug@localdomain.test>; Mon, 12 May 2020 04:44:11 +0000
+Received: from JeffZ-PC2 (unknown [192.168.0.1])
+	by 326ccc96fc80 (Postfix) with ESMTP id C7723380D4C
+	for <debug@localdomain.test>; Mon, 12 May 2020 04:44:11 +0000 (UTC)
+MIME-Version: 1.0
+From: debug@localdomain.test
+To: debug@localdomain.test
+Date: 12 May 2020 00:27:13 -0500
+Message-ID: b076bb7e-33b4-467b-b7ab-9e7b59b5ae88
+Subject: Alternative View Message
+Content-Type: multipart/alternative;
+ boundary=--boundary_0_aa6fd869-433b-4d4d-9566-bdfa95be72de
+
+
+----boundary_0_aa6fd869-433b-4d4d-9566-bdfa95be72de
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+
+Plain Text
+----boundary_0_aa6fd869-433b-4d4d-9566-bdfa95be72de
+Content-Type: text/html; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+
+<html><body>Hello world</body></html>
+----boundary_0_aa6fd869-433b-4d4d-9566-bdfa95be72de--
+
+
