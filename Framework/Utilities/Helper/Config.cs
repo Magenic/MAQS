@@ -112,6 +112,8 @@ namespace Magenic.Maqs.Utilities.Helper
                 {
                     message.AppendLine(mess);
                 }
+
+                message.AppendLine("*This check can be skipped by setting the 'SkipConfigValidation' configuration value to 'Yes'.");
                 throw new MaqsConfigException(message.ToString());
             }
         }
