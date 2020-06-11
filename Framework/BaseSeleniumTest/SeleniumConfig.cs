@@ -38,7 +38,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             {
                 RequiredFields = new List<string>()
                 {
-                    "WebSiteBase"
+                    "BrowserTimeout"
                 }
             };
             Config.Validate(ConfigSection.SeleniumMaqs, validator);
@@ -271,7 +271,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <returns>The timeout time span</returns>
         public static TimeSpan GetTimeoutTime()
         {
-            int timeoutTime = Convert.ToInt32(Config.GetValueForSection(SELENIUMSECTION, "BrowserTimeout", "0"));
+            int timeoutTime = Convert.ToInt32(Config.GetValueForSection(SELENIUMSECTION, "BrowserTimeout"));
             return TimeSpan.FromMilliseconds(timeoutTime);
         }
 
