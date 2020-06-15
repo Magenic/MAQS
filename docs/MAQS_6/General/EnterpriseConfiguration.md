@@ -97,6 +97,18 @@ The first chance exception handler will capture any exceptions thrown that are u
 <add key="UseFirstChanceHandler" value="YES"/>-->
 ```
 
+#### SkipConfigValidation - Optional
+The configuration validation will throw an exception if required configuration settings are missing.
+Use this configuration to disable this feature.  Values are "YES" and "NO".
+
+*By default validation is not skipped
+##### Examples
+```xml
+ <!-- Should the configuration validation be skipped
+<add key="SkipConfigValidation" value="YES"/>
+<add key="SkipConfigValidation" value="NO"/>-->
+```
+
 # Full Configuration
 ## App.Config
 Primarily uses with the .Net Framework implementation of MAQS.
@@ -147,6 +159,10 @@ Primarily uses with the .Net Framework implementation of MAQS.
     <!-- Use First Chance Handler - Defaults to enabled
     <add key="UseFirstChanceHandler" value="NO"/>
     <add key="UseFirstChanceHandler" value="YES"/>-->
+
+     <!-- Should the configuration validation be skipped
+    <add key="SkipConfigValidation" value="YES"/>
+    <add key="SkipConfigValidation" value="NO"/>-->
   </MagenicMaqs>
   <AppiumMaqs>
     <!--Device platform
@@ -321,7 +337,8 @@ Primarily uses with the .Net Core implementation of MAQS.
     "Log": "OnFail",
     "LogLevel": "INFORMATION",
     "LogType": "TXT",
-    "UseFirstChanceHandler": "YES"
+    "UseFirstChanceHandler": "YES",
+    "SkipConfigValidation": "NO",
   },
   "AppiumMaqs": {
     "PlatformName": "Android",
