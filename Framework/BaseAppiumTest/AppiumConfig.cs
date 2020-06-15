@@ -36,8 +36,7 @@ namespace Magenic.Maqs.BaseAppiumTest
                 {
                     "PlatformName",
                     "PlatformVersion",
-                    "DeviceName",
-                    "MobileHubUrl"
+                    "DeviceName"
                 }
             };
             Config.Validate(ConfigSection.AppiumMaqs, validator);
