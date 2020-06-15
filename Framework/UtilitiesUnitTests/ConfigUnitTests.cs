@@ -81,7 +81,7 @@ namespace UtilitiesUnitTesting
         {
             string key = "AddNewKey";
             string value = "TestValue";
-            
+
             // Make sure the new key is not present
             Assert.AreEqual(string.Empty, Config.GetGeneralValue(key));
 
@@ -170,6 +170,44 @@ namespace UtilitiesUnitTesting
             };
 
             Config.Validate(ConfigSection.WebServiceMaqs, configValidation);
+        }
+
+        /// <summary>
+        /// Tests that we can skip the validation 
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        [DoNotParallelize]
+        public void ConfigFieldsMissingButValidationSkipped()
+        {
+            try
+            {
+                Dictionary<string, string> overrides = new Dictionary<string, string>
+                {
+                    { "SkipConfigValidation", "Yes" }
+                };
+
+                Config.AddGeneralTestSettingValues(overrides, true);
+
+                ConfigValidation configValidation = new ConfigValidation()
+                {
+                    RequiredFields = new List<string>
+                    {
+                        "Invalid_Config_Field_For_Validation"
+                    }
+                };
+
+                Config.Validate(ConfigSection.WebServiceMaqs, configValidation);
+            }
+            finally
+            {
+                Dictionary<string, string> overrides = new Dictionary<string, string>
+                {
+                    { "SkipConfigValidation", "No" }
+                };
+
+                Config.AddGeneralTestSettingValues(overrides, true);
+            }
         }
 
         /// <summary>

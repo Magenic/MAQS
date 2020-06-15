@@ -6,6 +6,7 @@
 //--------------------------------------------------
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -83,6 +84,12 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <param name="configValidation">A list of strings containing the requried field names</param>
         public static void Validate(ConfigSection configSection, ConfigValidation configValidation)
         {
+            // Don't run the validation if the user has decided to skip the validation
+            if(GetGeneralValue("SkipConfigValidation").Equals("Yes", StringComparison.CurrentCultureIgnoreCase))
+            {
+                return;
+            }
+
             if (configValidation == null)
             {
                 throw new MaqsConfigException("The value passed in for configValidation (required fields in a config) is null");
@@ -105,6 +112,8 @@ namespace Magenic.Maqs.Utilities.Helper
                 {
                     message.AppendLine(mess);
                 }
+
+                message.AppendLine("*This check can be skipped by setting the 'SkipConfigValidation' configuration value to 'Yes'.");
                 throw new MaqsConfigException(message.ToString());
             }
         }
