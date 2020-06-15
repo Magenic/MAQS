@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <BuildVersion>6.0.0</BuildVersion>
+    <PreRelease>-beta</PreRelease>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -9,6 +10,7 @@
     <AssemblyVersion>$(BuildVersion)</AssemblyVersion>
     <FileVersion>$(BuildVersion)</FileVersion>
     <Version>$(BuildVersion)</Version>
+    <PackageVersion>$(BuildVersion)$(PreRelease)</PackageVersion>
     <PackageId>Magenic.Maqs.WebService</PackageId>
     <Product>Magenic.Maqs.Base</Product>
     <AssemblyName>Magenic.Maqs.BaseWebServiceTest</AssemblyName>
