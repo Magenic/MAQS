@@ -6,6 +6,17 @@ The first step is to install MAQS.  Checkout the [MAQS Installation](MAQS_6/Ente
 ## Building Your First Project
 After the MAQS Visual Studio Extension has been installed, you're ready to start testing.
 
+## VS Code
+
+1. Type ```dotnet new```
+
+2. Use the Short name of the package you want to create such as ```Maqs.Selenium```
+
+### ![MAQS templates in template](resources/DotNetTemplates.png)
+
+Right now there are no item templates available for the dotnet cli installation
+
+## Visual Studio Professional (or Enterprise) 2017 or above.
 
 1. Go To File > New > Project  
 ![New Project](resources/NewProject1.png)  

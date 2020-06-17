@@ -1,7 +1,22 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> Installation
 
-## Requirements
-Visual Studio Professional (or Enterprise) 2017 or above.
+## Visual Stuido Code install
+
+### Template install
+
+1. From [nuget](https://www.nuget.org/packages/Magenic.Maqs.Templates/) get the most recent template version.
+
+2. In the VS Code terminal type the following code.
+
+```dotnet new --install Magenic.Maqs.Templates::6.0.0```
+
+### ![add templates in dotnet cli](resources/installMAQSTemplates.png)
+
+3. You should then see the MAQS templates available
+
+### ![MAQS templates in template](resources/DotNetTemplates.png)
+
+## Visual Studio Professional (or Enterprise) 2017 or above.
 
 ## There are 2 ways to install MAQS Templates:
     Option 1. Install via Visual Studio 
