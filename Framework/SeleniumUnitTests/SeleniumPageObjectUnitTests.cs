@@ -20,11 +20,6 @@ namespace SeleniumUnitTests
     public class SeleniumPageObjectUnitTests : BaseSeleniumTest
     {
         /// <summary>
-        /// Base Selenium page model
-        /// </summary>
-        private SeleniumPageModel basePageModel;
-
-        /// <summary>
         /// Setup test Selenium page model
         /// </summary>
         [TestInitialize]
@@ -32,7 +27,7 @@ namespace SeleniumUnitTests
         {
             this.WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Automation");
             this.WebDriver.Wait().ForPageLoad();
-            this.basePageModel = new SeleniumPageModel(this.TestObject);
+            this.TestObject.SetObject("pom", new SeleniumPageModel(this.TestObject));
         }
 
         /// <summary>
@@ -42,7 +37,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void PageModelTestObject()
         {
-            Assert.AreEqual(this.TestObject, this.basePageModel.GetTestObject());
+            Assert.AreEqual(this.TestObject, this.getPageModel().GetTestObject());
         }
 
         /// <summary>
@@ -52,7 +47,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void PageModelWebDriver()
         {
-            Assert.AreEqual(this.WebDriver, this.basePageModel.GetWebDriver());
+            Assert.AreEqual(this.WebDriver, this.getPageModel().GetWebDriver());
         }
 
         /// <summary>
@@ -62,7 +57,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void PageModelLogger()
         {
-            Assert.AreEqual(this.Log, this.basePageModel.GetLogger());
+            Assert.AreEqual(this.Log, this.getPageModel().GetLogger());
         }
 
         /// <summary>
@@ -72,7 +67,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void PageModelPerfTimerCollection()
         {
-            Assert.AreEqual(this.PerfTimerCollection, this.basePageModel.GetPerfTimerCollection());
+            Assert.AreEqual(this.PerfTimerCollection, this.getPageModel().GetPerfTimerCollection());
         }
 
         /// <summary>
@@ -82,9 +77,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void GetLazyElementReturnsExistingElement()
         {
-            var lazyElement = this.basePageModel.FlowerTableLazyElement;
+            var lazyElement = this.getPageModel().FlowerTableLazyElement;
             lazyElement.GetRawExistingElement();
-            Assert.AreEqual(lazyElement.CachedElement, this.basePageModel.FlowerTableLazyElement.CachedElement);
+            Assert.AreEqual(lazyElement.CachedElement, this.getPageModel().FlowerTableLazyElement.CachedElement);
         }
 
         /// <summary>
@@ -94,9 +89,9 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void GetLazyElementReturnsExistingElementWithParent()
         {
-            var lazyElement = this.basePageModel.FlowerTableCaptionWithParent;
+            var lazyElement = this.getPageModel().FlowerTableCaptionWithParent;
             lazyElement.GetRawExistingElement();
-            Assert.AreEqual(lazyElement.CachedElement, this.basePageModel.FlowerTableCaptionWithParent.CachedElement);
+            Assert.AreEqual(lazyElement.CachedElement, this.getPageModel().FlowerTableCaptionWithParent.CachedElement);
         }
 
         /// <summary>
@@ -106,10 +101,26 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void OverridePageObjectWebdriver()
         {
-            var oldWebDriver = this.basePageModel.GetWebDriver();
-            this.basePageModel.OverrideWebDriver(WebDriverFactory.GetDefaultBrowser());
+            try
+            {
+                var oldWebDriver = this.getPageModel().GetWebDriver();
+                this.getPageModel().OverrideWebDriver(WebDriverFactory.GetDefaultBrowser());
 
-            Assert.AreNotEqual(oldWebDriver, this.basePageModel.GetWebDriver(), "The webdriver was not updated");
+                Assert.AreNotEqual(oldWebDriver, this.getPageModel().GetWebDriver(), "The webdriver was not updated");
+            }
+            finally
+            {
+                this.getPageModel().GetWebDriver()?.KillDriver();
+            }
+        }
+
+        /// <summary>
+        /// Get the Selenim page object
+        /// </summary>
+        /// <returns>The page model</returns>
+        private SeleniumPageModel getPageModel()
+        {
+            return this.TestObject.Objects["pom"] as SeleniumPageModel;
         }
     }
 }
