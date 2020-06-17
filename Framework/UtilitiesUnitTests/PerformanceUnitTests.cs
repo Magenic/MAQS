@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 
 namespace UtilitiesUnitTesting
 {
@@ -219,12 +220,13 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void PerfTimerWriteException()
         {
-            // Invalid testName
-            PerfTimerCollection p = new PerfTimerCollection("<>");
+            // Create an invalid testName using characters not allowed on host OS
+            PerfTimerCollection p = new PerfTimerCollection("<>" + Path.GetInvalidFileNameChars().Aggregate("", (curr, next) => curr + next));
             p.StartTimer("testTimer");
             p.EndTimer("testTimer");
             FileLogger log = new FileLogger("PerfTimerWriteException", "PerfTimerWriteException", MessageType.GENERIC, true);
             p.Write(log);
+            // Tests that an exception is thrown and logged.
             Assert.IsTrue(File.ReadAllText(log.FilePath).Contains("Could not save response time file.  Error was:"));
         }
 

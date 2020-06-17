@@ -154,13 +154,13 @@ namespace Magenic.Maqs.Utilities.Performance
                             this.FileName = "PerformanceTimerResults" + "-" + this.TestName + "-" + DateTime.UtcNow.ToString("O").Replace(':', '-') + ".xml";
                         }
 
-                        log.LogMessage(MessageType.INFORMATION, "filename: " + LoggingConfig.GetLogDirectory() + "\\" + this.FileName);
+                        log.LogMessage(MessageType.INFORMATION, "filename: " + LoggingConfig.GetLogDirectory() + Path.DirectorySeparatorChar + this.FileName);
 
                         XmlWriterSettings settings = new XmlWriterSettings();
                         settings.WriteEndDocumentOnClose = true;
                         settings.Indent = true;
                         
-                        XmlWriter writer = XmlWriter.Create(string.Format("{0}\\{1}", LoggingConfig.GetLogDirectory(), this.FileName), settings);
+                        XmlWriter writer = XmlWriter.Create(string.Format("{0}{2}{1}", LoggingConfig.GetLogDirectory(), this.FileName, Path.DirectorySeparatorChar), settings);
 
                         XmlSerializer x = new XmlSerializer(this.GetType());
                         x.Serialize(writer, this);
