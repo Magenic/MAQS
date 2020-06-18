@@ -8,10 +8,8 @@ using Magenic.Maqs.BaseDatabaseTest;
 using Magenic.Maqs.BaseWebServiceTest;
 using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NUnit.Framework;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
-using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace FrameworkUnitTests
 {
@@ -103,19 +101,6 @@ namespace FrameworkUnitTests
         {
             WebServiceDriverManager driverDriver = this.ManagerStore[typeof(WebServiceDriverManager).FullName] as WebServiceDriverManager;
             Assert.IsFalse(driverDriver.IsDriverIntialized(), "The driver should not be initialized until it gets used");
-        }
-
-        /// <summary>
-        /// Check that tests can run as repeat
-        /// </summary>
-        [Test]
-        [Category(TestCategories.Framework)]
-        [Category(TestCategories.NUnit)]
-        [Repeat(2)]
-        public void RepeatWorks()
-        {
-            // Make sure the driver was set
-            Assert.IsNotNull(this.WebServiceDriver.HttpClient.BaseAddress);
         }
     }
 }
