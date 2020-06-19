@@ -14,42 +14,48 @@ using System.Reflection;
 using Magenic.Maqs.BaseDatabaseTest;
 using Magenic.Maqs.Utilities.Helper;
 using Microsoft.Data.Sqlite;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DatabaseUnitTests
 {
     /// <summary>
     /// Test basic database base test functionality
     /// </summary>
-    [TestFixture]
+    [TestClass]
     [ExcludeFromCodeCoverage]
-    [NonParallelizable]
+    [DoNotParallelize]
     public class DatabaseSQLiteUnitTests
     {
+        /// <summary>
+        /// Hold the connection string for replacing at the end
+        /// </summary>
         public static string ConnectionStringToReplace = DatabaseConfig.GetConnectionString();
+
+        /// <summary>
+        /// Holds the provider type to replace in the class cleanup
+        /// </summary>
         public static string ProviderTypeToReplace = DatabaseConfig.GetProviderTypeString();
-        [OneTimeSetUp]
-        public void Setup()
+
+        /// <summary>
+        /// Setup to override the connections
+        /// </summary>
+        /// <param name="testContext">TestContext that is unused</param>
+        [ClassInitialize]
+        public static void Setup(TestContext testContext)
         {
-            System.Console.WriteLine(DatabaseConfig.GetConnectionString());
-            System.Console.WriteLine(DatabaseConfig.GetProviderTypeString());
             // Override the configuration
             var overrides = new Dictionary<string, string>()
             {
                 { "DataBaseProviderType", "SQLITE" },
-                { "DataBaseConnectionString", $"Data Source={ this.GetDByPath() }" },
+                { "DataBaseConnectionString", $"Data Source={ GetDByPath() }" },
             };
 
             Config.AddTestSettingValues(overrides, "DatabaseMaqs", true);
-            System.Console.WriteLine(DatabaseConfig.GetConnectionString());
-            System.Console.WriteLine(DatabaseConfig.GetProviderTypeString());
         }
 
-        [OneTimeTearDown]
-        public void TearDown()
+        [ClassCleanup]
+        public static void TearDown()
         {
-            System.Console.WriteLine(DatabaseConfig.GetConnectionString());
-            System.Console.WriteLine(DatabaseConfig.GetProviderTypeString());
             // Override the configuration
             var overrides = new Dictionary<string, string>()
             {
@@ -58,15 +64,13 @@ namespace DatabaseUnitTests
             };
 
             Config.AddTestSettingValues(overrides, "DatabaseMaqs", true);
-            System.Console.WriteLine(DatabaseConfig.GetConnectionString());
-            System.Console.WriteLine(DatabaseConfig.GetProviderTypeString());
         }
 
         /// <summary>
         /// Check that we get back the state table
         /// </summary>
-        [Test]
-        [Category(TestCategories.Database)]
+        [TestMethod]
+        [TestCategory(TestCategories.Database)]
         public void VerifyOrdersSqliteNoDriverDefault()
         {
             DatabaseDriver driver = new DatabaseDriver();
@@ -78,11 +82,11 @@ namespace DatabaseUnitTests
         /// <summary>
         /// Check that we get back the state table
         /// </summary>
-        [Test]
-        [Category(TestCategories.Database)]
+        [TestMethod]
+        [TestCategory(TestCategories.Database)]
         public void VerifyOrdersSqliteNoDriverString()
         {
-            DatabaseDriver driver = new DatabaseDriver("SQLITE", $"Data Source={ this.GetDByPath() }");
+            DatabaseDriver driver = new DatabaseDriver("SQLITE", $"Data Source={ GetDByPath() }");
 
             var orders = driver.Query("select * from orders").ToList();
             Assert.AreEqual(11, orders.Count);
@@ -91,8 +95,8 @@ namespace DatabaseUnitTests
         /// <summary>
         /// Check that we get back the state table
         /// </summary>
-        [Test]
-        [Category(TestCategories.Database)]
+        [TestMethod]
+        [TestCategory(TestCategories.Database)]
         public void VerifyOrdersSqliteNoDriverFunction()
         {
             using (SqliteConnection connection = new SqliteConnection(DatabaseConfig.GetConnectionString()))
@@ -110,7 +114,7 @@ namespace DatabaseUnitTests
         /// Gets the path of the SQLITE file
         /// </summary>
         /// <returns>string path of the file</returns>
-        private string GetDByPath()
+        private static string GetDByPath()
         {
             Uri uri = null;
             // Building an absolute URL from the assembly location fails on some
