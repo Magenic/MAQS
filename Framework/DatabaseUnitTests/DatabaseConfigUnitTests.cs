@@ -28,9 +28,8 @@ namespace DatabaseUnitTests
         public void GetDatabaseConnectionStringTest()
         {
             string connection = DatabaseConfig.GetConnectionString();
-            // For when we use dockerized SQL server
-            // Assert.AreEqual("Data Source=localhost;Initial Catalog=MagenicAutomation;Persist Security Info=True;User ID=sa;Password=magenicMAQS2;Connection Timeout=30", connection);
-            Assert.AreEqual("Data Source=qasqlserver.database.windows.net;Initial Catalog=MagenicAutomation;Persist Security Info=True;User ID=MagenicQA;Password=1magenicMARQ;Connection Timeout=30", connection);
+            Assert.AreEqual("Data Source=localhost;Initial Catalog=MagenicAutomation;Persist Security Info=True;User ID=sa;Password=magenicMAQS2;Connection Timeout=30", connection);
+            //Assert.AreEqual("Data Source=qasqlserver.database.windows.net;Initial Catalog=MagenicAutomation;Persist Security Info=True;User ID=MagenicQA;Password=1magenicMARQ;Connection Timeout=30", connection);
         }
 
         /// <summary>
@@ -57,7 +56,7 @@ namespace DatabaseUnitTests
         }
 
         /// <summary>
-        /// Test the if custom providers classes can be passed to create database connection client, using passed connection string 
+        /// Test the if custom providers classes can be passed to create database connection client, using passed connection string
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Database)]
