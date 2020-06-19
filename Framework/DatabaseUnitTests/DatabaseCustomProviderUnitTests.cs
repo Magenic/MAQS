@@ -42,15 +42,7 @@ namespace DatabaseUnitTests
         /// <returns>The database connection</returns>
         protected override IDbConnection GetDataBaseConnection()
         {
-            // Override the configuration 
-            var overrides = new Dictionary<string, string>()
-            {
-                { "DataBaseProviderType", "DatabaseUnitTests.TestProvider" },
-            };
-
-            Config.AddTestSettingValues(overrides, "DatabaseMaqs", true);
-
-            return DatabaseConfig.GetOpenConnection();
+            return DatabaseConfig.GetOpenConnection("DatabaseUnitTests.TestProvider", DatabaseConfig.GetConnectionString());
         }
     }
 }
