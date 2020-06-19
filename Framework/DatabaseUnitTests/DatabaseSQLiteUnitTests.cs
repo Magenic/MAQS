@@ -26,16 +26,13 @@ namespace DatabaseUnitTests
     [NonParallelizable]
     public class DatabaseSQLiteUnitTests
     {
-        /// <summary>
-        /// Check that we get back the state table
-        /// </summary>
-        [Test]
-        [Category(TestCategories.Database)]
-        public void VerifyOrdersSqliteNoDriverDefault()
+        public static string ConnectionStringToReplace = DatabaseConfig.GetConnectionString();
+        public static string ProviderTypeToReplace = DatabaseConfig.GetProviderTypeString();
+        [OneTimeSetUp]
+        public void Setup()
         {
             System.Console.WriteLine(DatabaseConfig.GetConnectionString());
             System.Console.WriteLine(DatabaseConfig.GetProviderTypeString());
-
             // Override the configuration
             var overrides = new Dictionary<string, string>()
             {
@@ -44,10 +41,34 @@ namespace DatabaseUnitTests
             };
 
             Config.AddTestSettingValues(overrides, "DatabaseMaqs", true);
-
             System.Console.WriteLine(DatabaseConfig.GetConnectionString());
             System.Console.WriteLine(DatabaseConfig.GetProviderTypeString());
+        }
 
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            System.Console.WriteLine(DatabaseConfig.GetConnectionString());
+            System.Console.WriteLine(DatabaseConfig.GetProviderTypeString());
+            // Override the configuration
+            var overrides = new Dictionary<string, string>()
+            {
+                { "DataBaseProviderType", ProviderTypeToReplace },
+                { "DataBaseConnectionString", ConnectionStringToReplace },
+            };
+
+            Config.AddTestSettingValues(overrides, "DatabaseMaqs", true);
+            System.Console.WriteLine(DatabaseConfig.GetConnectionString());
+            System.Console.WriteLine(DatabaseConfig.GetProviderTypeString());
+        }
+
+        /// <summary>
+        /// Check that we get back the state table
+        /// </summary>
+        [Test]
+        [Category(TestCategories.Database)]
+        public void VerifyOrdersSqliteNoDriverDefault()
+        {
             DatabaseDriver driver = new DatabaseDriver();
 
             var orders = driver.Query("select * from orders").ToList();
@@ -61,16 +82,7 @@ namespace DatabaseUnitTests
         [Category(TestCategories.Database)]
         public void VerifyOrdersSqliteNoDriverString()
         {
-            // Override the configuration
-            var overrides = new Dictionary<string, string>()
-            {
-                { "DataBaseProviderType", "SQLITE" },
-                { "DataBaseConnectionString", $"Data Source={ this.GetDByPath() }" },
-            };
-
-            Config.AddTestSettingValues(overrides, "DatabaseMaqs", true);
-
-            DatabaseDriver driver = new DatabaseDriver(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString());
+            DatabaseDriver driver = new DatabaseDriver("SQLITE", $"Data Source={ this.GetDByPath() }");
 
             var orders = driver.Query("select * from orders").ToList();
             Assert.AreEqual(11, orders.Count);
@@ -83,15 +95,6 @@ namespace DatabaseUnitTests
         [Category(TestCategories.Database)]
         public void VerifyOrdersSqliteNoDriverFunction()
         {
-            // Override the configuration
-            var overrides =
-                new Dictionary<string, string>()
-                    {
-                        { "DataBaseConnectionString", $"Data Source={this.GetDByPath()}" },
-                    };
-
-            Config.AddTestSettingValues(overrides, "DatabaseMaqs");
-
             using (SqliteConnection connection = new SqliteConnection(DatabaseConfig.GetConnectionString()))
             {
                 SQLitePCL.Batteries.Init();
@@ -113,11 +116,11 @@ namespace DatabaseUnitTests
             // Building an absolute URL from the assembly location fails on some
             // Azure DevOps hosted build environments.
             if (Uri.TryCreate(Assembly.GetExecutingAssembly().Location, UriKind.RelativeOrAbsolute, out uri) &&
-                uri.IsAbsoluteUri) 
+                uri.IsAbsoluteUri)
             {
                 return $"{Path.GetDirectoryName(Uri.UnescapeDataString(uri.AbsolutePath))}\\MyDatabase.sqlite";
             }
-            else 
+            else
             {
                 return "MyDatabase.sqlite";
             }
