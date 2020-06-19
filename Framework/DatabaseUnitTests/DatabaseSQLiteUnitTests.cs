@@ -40,9 +40,11 @@ namespace DatabaseUnitTests
         /// Setup to override the connections
         /// </summary>
         /// <param name="testContext">TestContext that is unused</param>
-        [ClassInitialize]
-        public static void Setup(TestContext testContext)
+        [TestInitialize]
+        public void Setup()
         {
+            ConnectionStringToReplace = DatabaseConfig.GetConnectionString();
+            ProviderTypeToReplace = DatabaseConfig.GetProviderTypeString();
             // Override the configuration
             var overrides = new Dictionary<string, string>()
             {
@@ -53,8 +55,8 @@ namespace DatabaseUnitTests
             Config.AddTestSettingValues(overrides, "DatabaseMaqs", true);
         }
 
-        [ClassCleanup]
-        public static void TearDown()
+        [TestCleanup]
+        public void TearDown()
         {
             // Override the configuration
             var overrides = new Dictionary<string, string>()
@@ -71,12 +73,14 @@ namespace DatabaseUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Database)]
+        [DoNotParallelize]
         public void VerifyOrdersSqliteNoDriverDefault()
         {
-            DatabaseDriver driver = new DatabaseDriver();
-
-            var orders = driver.Query("select * from orders").ToList();
-            Assert.AreEqual(11, orders.Count);
+            using (DatabaseDriver driver = new DatabaseDriver())
+            {
+                var orders = driver.Query("select * from orders").ToList();
+                Assert.AreEqual(11, orders.Count);
+            }
         }
 
         /// <summary>
@@ -84,12 +88,14 @@ namespace DatabaseUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Database)]
+        [DoNotParallelize]
         public void VerifyOrdersSqliteNoDriverString()
         {
-            DatabaseDriver driver = new DatabaseDriver("SQLITE", $"Data Source={ GetDByPath() }");
-
-            var orders = driver.Query("select * from orders").ToList();
-            Assert.AreEqual(11, orders.Count);
+            using (DatabaseDriver driver = new DatabaseDriver("SQLITE", $"Data Source={ GetDByPath() }"))
+            {
+                var orders = driver.Query("select * from orders").ToList();
+                Assert.AreEqual(11, orders.Count);
+            }
         }
 
         /// <summary>
@@ -97,6 +103,7 @@ namespace DatabaseUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Database)]
+        [DoNotParallelize]
         public void VerifyOrdersSqliteNoDriverFunction()
         {
             using (SqliteConnection connection = new SqliteConnection(DatabaseConfig.GetConnectionString()))
