@@ -18,7 +18,7 @@ namespace WebServiceTesterUnitTesting
     /// </summary>
     [TestFixture]
     [ExcludeFromCodeCoverage]
-    public class WebServiceNUnit
+    public class WebServiceNUnit :BaseWebServiceTest
     {
         /// <summary>
         /// Test XML get
@@ -29,6 +29,19 @@ namespace WebServiceTesterUnitTesting
         {
             WebServiceDriver client = new WebServiceDriver(new Uri(WebServiceConfig.GetWebServiceUri()));
             client.Get<ArrayOfProduct>("/api/XML_JSON/GetAllProducts", "application/xml", false);
+        }
+
+        /// <summary>
+        /// Check that tests can run as repeat
+        /// </summary>
+        [Test]
+        [Category(TestCategories.Framework)]
+        [Category(TestCategories.NUnit)]
+        [Repeat(2)]
+        public void RepeatWorks()
+        {
+            // Make sure the driver was set
+            Assert.IsNotNull(this.WebServiceDriver.HttpClient.BaseAddress);
         }
     }
 }

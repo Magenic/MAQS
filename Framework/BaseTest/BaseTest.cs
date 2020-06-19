@@ -226,82 +226,82 @@ namespace Magenic.Maqs.BaseTest
         [TearDown]
         public void Teardown()
         {
-            TestResultType resultType = this.GetResultType();
-            bool forceTestFailure = false;
-
-            // Switch the test to a failure if we have a soft assert failure
-            if (!this.SoftAssert.DidUserCheck() && this.SoftAssert.DidSoftAssertsFail())
-            {
-                resultType = TestResultType.FAIL;
-                forceTestFailure = true;
-                this.SoftAssert.LogFinalAssertData();
-            }
-
-            // Log the test result
-            if (resultType == TestResultType.PASS)
-            {
-                this.TryToLog(MessageType.SUCCESS, "Test passed");
-            }
-            else if (resultType == TestResultType.FAIL)
-            {
-                this.TryToLog(MessageType.ERROR, "Test failed");
-            }
-            else if (resultType == TestResultType.INCONCLUSIVE)
-            {
-                this.TryToLog(MessageType.ERROR, "Test was inconclusive");
-            }
-            else
-            {
-                this.TryToLog(MessageType.WARNING, "Test had an unexpected result of {0}", this.GetResultText());
-            }
-
-            this.BeforeLoggingTeardown(resultType);
-
-            // Cleanup log files we don't want
-            try
-            {
-                if (this.Log is FileLogger && resultType == TestResultType.PASS
-                    && this.LoggingEnabledSetting == LoggingEnabled.ONFAIL)
-                {
-                    File.Delete(((FileLogger)this.Log).FilePath);
-                }
-            }
-            catch (Exception e)
-            {
-                this.TryToLog(MessageType.WARNING, "Failed to cleanup log files because: {0}", e.Message);
-            }
-
             // Get the Fully Qualified Test Name
             string fullyQualifiedTestName = this.GetFullyQualifiedTestClassName();
-            PerfTimerCollection collection = this.TestObject.PerfTimerCollection;
 
-            // Write out the performance timers
-            collection.Write(this.Log);
-            if (collection.FileName != null)
+            try
             {
-                this.TestObject.AddAssociatedFile(LoggingConfig.GetLogDirectory() + "\\" + collection.FileName);
+                TestResultType resultType = this.GetResultType();
+                bool forceTestFailure = false;
+
+                // Switch the test to a failure if we have a soft assert failure
+                if (!this.SoftAssert.DidUserCheck() && this.SoftAssert.DidSoftAssertsFail())
+                {
+                    resultType = TestResultType.FAIL;
+                    forceTestFailure = true;
+                    this.SoftAssert.LogFinalAssertData();
+                }
+
+                // Log the test result
+                if (resultType == TestResultType.PASS)
+                {
+                    this.TryToLog(MessageType.SUCCESS, "Test passed");
+                }
+                else if (resultType == TestResultType.FAIL)
+                {
+                    this.TryToLog(MessageType.ERROR, "Test failed");
+                }
+                else if (resultType == TestResultType.INCONCLUSIVE)
+                {
+                    this.TryToLog(MessageType.ERROR, "Test was inconclusive");
+                }
+                else
+                {
+                    this.TryToLog(MessageType.WARNING, "Test had an unexpected result of {0}", this.GetResultText());
+                }
+
+                this.BeforeLoggingTeardown(resultType);
+
+                // Cleanup log files we don't want
+                try
+                {
+                    if (this.Log is FileLogger && resultType == TestResultType.PASS
+                        && this.LoggingEnabledSetting == LoggingEnabled.ONFAIL)
+                    {
+                        File.Delete(((FileLogger)this.Log).FilePath);
+                    }
+                }
+                catch (Exception e)
+                {
+                    this.TryToLog(MessageType.WARNING, "Failed to cleanup log files because: {0}", e.Message);
+                }
+
+                PerfTimerCollection collection = this.TestObject.PerfTimerCollection;
+
+                // Write out the performance timers
+                collection.Write(this.Log);
+                if (collection.FileName != null)
+                {
+                    this.TestObject.AddAssociatedFile(LoggingConfig.GetLogDirectory() + "\\" + collection.FileName);
+                }
+
+                // Attach associated files if we can
+                this.AttachAssociatedFiles();
+
+                // Release the logged messages
+                this.LoggedExceptions.TryRemove(fullyQualifiedTestName, out List<string> loggedMessages);
+
+                // Force the test to fail
+                if (forceTestFailure)
+                {
+                    throw new AssertFailedException("Test was forced to fail in the cleanup - Likely the result of a soft assert failure.");
+                }
             }
-
-            // Attach associated files if we can
-            this.AttachAssociatedFiles();
-
-            // Release the logged messages
-            this.LoggedExceptions.TryRemove(fullyQualifiedTestName, out List<string> loggedMessages);
-            loggedMessages = null;
-
-            // Release the base test object
-            this.BaseTestObjects.TryRemove(fullyQualifiedTestName, out BaseTestObject baseTestObject);
-
-            // Create console logger to log subsequent messages
-            this.TestObject = new BaseTestObject(new ConsoleLogger(), this.GetFullyQualifiedTestClassName());
-
-            baseTestObject.Dispose();
-            baseTestObject = null;
-
-            // Force the test to fail
-            if (forceTestFailure)
+            finally
             {
-                throw new AssertFailedException("Test was forced to fail in the cleanup - Likely the result of a soft assert failure.");
+                // Release the base test object
+                this.BaseTestObjects.TryRemove(fullyQualifiedTestName, out BaseTestObject baseTestObject);
+                baseTestObject.Dispose();
             }
         }
 
