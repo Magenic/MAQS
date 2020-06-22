@@ -61,7 +61,7 @@ namespace AppiumUnitTests
         {
             FileLogger tempLogger = new FileLogger
             {
-                FilePath = "<>" // illegal file path
+                FilePath = "\\<>/" // illegal file path
             };
 
             this.TestObject.Log = tempLogger;
