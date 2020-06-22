@@ -36,9 +36,7 @@
     <None Update="App.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="MyDatabase.sqlite">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <Content Include="..\MyDatabase.sqlite" Link="MyDatabase.sqlite" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>
