@@ -369,9 +369,9 @@ namespace SeleniumUnitTests
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
             WebDriver.Wait().ForPageLoad();
             SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject);
-            string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, SeleniumConfig.GetImageFormat());
+            string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, SeleniumUtilities.GetScreenShotFormat().ToString());
             Assert.IsTrue(File.Exists(filePath), "Fail to find screenshot");
-            Assert.AreEqual(Path.GetExtension(filePath), "." + SeleniumConfig.GetImageFormat(), "The screenshot format was not in correct Format");
+            Assert.AreEqual(Path.GetExtension(filePath), "." + SeleniumUtilities.GetScreenShotFormat().ToString(), "The screenshot format was not in correct Format");
             File.Delete(filePath);
         }
 
