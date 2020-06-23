@@ -153,7 +153,7 @@ namespace SeleniumUnitTests
         {
             FileLogger tempLogger = new FileLogger
             {
-                FilePath = "<>/" // illegal file path
+                FilePath = "<>\0" // illegal file path
             };
 
             TestObject.Log = tempLogger;
@@ -239,7 +239,7 @@ namespace SeleniumUnitTests
         {
             FileLogger tempLogger = new FileLogger
             {
-                FilePath = "<>/" // illegal file path
+                FilePath = "<>\0" // illegal file path
             };
 
             TestObject.Log = tempLogger;
