@@ -29,7 +29,7 @@ namespace AppiumUnitTests
         public void CaptureScreenshotTest()
         {
             AppiumUtilities.CaptureScreenshot(this.TestObject.AppiumDriver, this.TestObject);
-            string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, ".png");
+            string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, ".Png");
             Assert.IsTrue(File.Exists(filePath), "Fail to find screenshot");
             File.Delete(filePath);
         }
@@ -77,7 +77,7 @@ namespace AppiumUnitTests
         public void CaptureScreenshotTestObjectAssociation()
         {
             AppiumUtilities.CaptureScreenshot(this.TestObject.AppiumDriver, this.TestObject);
-            string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, ".png");
+            string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, ".Png");
             Assert.IsTrue(this.TestObject.ContainsAssociatedFile(filePath), "Failed to find screenshot");
             File.Delete(filePath);
         }

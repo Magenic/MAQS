@@ -58,7 +58,7 @@ namespace SeleniumUnitTests
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
             WebDriver.Wait().ForPageLoad();
             SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject);
-            string filePath = Path.ChangeExtension(((FileLogger)TestObject.Log).FilePath, ".png");
+            string filePath = Path.ChangeExtension(((FileLogger)TestObject.Log).FilePath, ".Png");
             Assert.IsTrue(File.Exists(filePath), "Fail to find screenshot");
             File.Delete(filePath);
         }
@@ -76,7 +76,7 @@ namespace SeleniumUnitTests
             // Create a console logger and calculate the file location
             ConsoleLogger consoleLogger = new ConsoleLogger();
             TestObject.Log = consoleLogger;
-            string expectedPath = Path.Combine(LoggingConfig.GetLogDirectory(), "ScreenCapDelete.png");
+            string expectedPath = Path.Combine(LoggingConfig.GetLogDirectory(), "ScreenCapDelete.Png");
 
             // Take a screenshot
             SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject, "Delete");

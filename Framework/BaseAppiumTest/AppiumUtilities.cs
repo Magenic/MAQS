@@ -61,7 +61,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         {
             Screenshot screenshot = ((ITakesScreenshot)appiumDriver).GetScreenshot();
 
-            string path = Path.Combine(directory, fileNameWithoutExtension + ".png");
+            string path = Path.Combine(directory, fileNameWithoutExtension + ".Png");
             screenshot.SaveAsFile(path, ScreenshotImageFormat.Png);
 
             testObject.AddAssociatedFile(path);
