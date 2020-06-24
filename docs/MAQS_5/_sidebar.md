@@ -1,7 +1,6 @@
 - [Introduction to MAQS ](MAQS_5/Introduction.md)
 
 
-- [Installation](MAQS_5/EnterpriseInstallation.md)
 - [Getting Started](MAQS_5/Getting-Started.md)
 
 - Features
