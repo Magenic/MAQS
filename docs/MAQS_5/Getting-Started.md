@@ -1,11 +1,32 @@
-# <img src="resources/maqslogo.ico" height="32" width="32"> Getting Started
+# <img src="resources/maqslogo.ico" height="32" width="32"> Getting Started 
 
-## Installation
-The first step is to install MAQS.  Checkout the [MAQS Installation](MAQS_5/EnterpriseInstallation) guide.  
-
-## Building Your First Project
+## Installing and Building Your First Project
 After the MAQS Visual Studio Extension has been installed, you're ready to start testing.
 
+# Visual Studio Professional (or Enterprise) 2017 or above.
+
+## Installation
+
+### There are 2 ways to install MAQS Templates:
+    Option 1. Install via Visual Studio 
+    Option 2. Install via Marketplace
+
+## Option 1. Install MAQS Templates Using Visual Studio
+1. Open Visual Studio and open "Extensions and Updates"  
+
+### ![Extensions and updates](resources/ExtensionsAndUpdates.PNG)
+
+2. Find and download MAQS  
+
+### ![From store](resources/FromStore.PNG)
+
+### Option 2. Install MAQS Templates Using The VS Marketplace
+The MAQS Visual Studio Extension contains a collection of templates for NUnit, VSTest, Test Classes, and Page Models.
+It can be downloaded from the [Microsoft Marketplace](https://marketplace.visualstudio.com/items?itemName=vs-publisher-1465771.MAQSOpenFramework)
+
+&nbsp;
+
+## Creating a Project
 
 1. Go To File > New > Project  
 ![New Project](resources/NewProject1.png)  
@@ -14,7 +35,7 @@ After the MAQS Visual Studio Extension has been installed, you're ready to start
 ![New Project](resources/NewProject2.png)  
 
 3. Finally, name the solution whatever you'd like and click "ok".
-## Adding a Page Model
+### Adding a Page Model
 To add a new Page Model from a template
 
 1. Right click PageModel project.
@@ -27,8 +48,8 @@ To add a new Page Model from a template
 
 This will add a template for a Page Object Model.  The template is filled with sample code and methods.  The methods included are common methods used on every page.
 
-## Adding a Test
-### VSTest Test
+### Adding a Test
+#### VSTest Test
 1. Right click PageModel project.
 2. Click "Add>New Item". This will open a list of templates.  
 ![New Test](resources/NewTest1.png)  
@@ -38,7 +59,7 @@ This will add a template for a Page Object Model.  The template is filled with s
 ![New Test](resources/NewTest2.png)  
 
 The VSTest class will generate a template for a VSTest TestClass and include a sample VSTest TestMethod. Visual Studio will use VSTest test runner to execute tests when the solution is run.
-### NUnit Test
+#### NUnit Test
 1. Right click PageModel project.
 2. Click "Add>New Item". This will open a list of templates.  
 ![New NUnit](resources/NewTest1.png)
@@ -117,6 +138,89 @@ string testCategory = "Login Tests"
 ```
 Test methods with multiple Category attributes will add that test case to each attribute group, but the test will only be run once when running all tests.
 
+# VS Code
+
+## Template install
+
+
+2. In the VS Code terminal type the following to get the most current 5 version.
+
+```dotnet new --install Magenic.Maqs.Templates::5.8.2```
+
+3. You should then see the MAQS templates available
+
+### ![MAQS templates in template](resources/DotNetTemplates.png)
+
+## Creating a Project
+
+1. Go to the VS code terminal
+
+2. type  ```dotnet new Maqs.Selenium```
+
+3. type ```dotnet build```
+
+### Adding a Page Model
+### Adding a Test
+
+Unfortunatly no item templates are available for .NET core, only project templates. All new classes will need to be manually created
+
+## Running Tests
+Tests can be run through the dotnet cli. You can also run through VS code using the "C# for Visual Studio Code" extension.
+
+### Running Tests using C# for Visual Studio Code
+There are 3 options to running tests from VS code
+1. Tests can be run individually by clicking the "Run Test" or "Debug Test" buttons above the test method
+3. All tests can be run on a page by clicking the "Run All Tests" or "Debug All Tests" buttons above the test class
+
+### Organizing Tests
+
+An easy way to group tests is to give those tests a trait attribute. These are written in the test classes. These traits can be used to filter test for running.
+
+#### VSTest Traits
+Above the test method, add an attribute with the TestCategory tag.
+
+Written As
+```csharp
+[TestCategory(string testCategoryName)]
+```
+
+Examples
+```csharp
+[TestCategory("SmokeTests")]
+```
+
+```csharp
+string testCategory = "Login Tests"
+
+[TestCategory(testCategory)]
+```
+Test methods with multiple TestCategory attributes will add that test case to each attribute group, but the test will only be run once when running all tests.
+ 
+#### NUnit Traits
+Above the test method, add an attribute with the Category tag.
+
+Written As
+```csharp
+[Category(string testCategoryName)]
+```
+
+Examples
+```csharp
+[Category("SmokeTests")]
+```
+
+```csharp
+string testCategory = "Login Tests"
+
+[Category(testCategory)]
+```
+
+### Running Tests using dotnet cli
+1. Run all tests by typing ```dotnet test```
+
+2. Run filtered tests by typing ```dotnet test --filter TestCategory==SmokeTests```
+
+ - learn more about dotnet test --filter at [docs.microsoft.com](https://docs.microsoft.com/en-us/dotnet/core/testing/selective-unit-tests)
 
 ## Configurations
-There are a number of configurations included with MAQS.  Checkout the [MAQS Configurations](MAQS_5/General/EnterpriseConfiguration.md) guide.
+There are a number of configurations included with MAQS.  Checkout the [MAQS Configurations](MAQS_6/General/EnterpriseConfiguration.md) guide.
