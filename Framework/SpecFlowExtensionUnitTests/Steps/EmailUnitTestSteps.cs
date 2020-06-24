@@ -70,23 +70,5 @@ namespace SpecFlowExtUnitTests.Steps
         {
             Assert.IsTrue(this.LocalScenarioContext.GetType().Equals(typeof(ScenarioContext)), $"LocalScenarioContext for EmailTestObject class is the wrong type : {this.LocalScenarioContext.GetType()}.");
         }
-
-        /// <summary>
-        /// EmailDriver exists
-        /// </summary>
-        [Then(@"BaseEmailTestSteps EmailDriver is not null")]
-        public void ThenEmailDriverIsNotNull()
-        {
-            Assert.IsNotNull(this.TestObject.EmailDriver, "EmailDriver for EmailTestObject class is null.");
-        }
-
-        /// <summary>
-        /// EmailDriver exists
-        /// </summary>
-        [Then(@"EmailDriver is type EventFiringEmailConnectionDriver")]
-        public void AndEmailDriverIsTypeEventFiringEmailConnectionDriver()
-        {
-            Assert.IsTrue(this.TestObject.EmailDriver.GetType().Equals(typeof(EventFiringEmailDriver)), $"EmailDriver for EmailTestObject class is the wrong type : {this.TestObject.EmailDriver.GetType()}.");
-        }
     }
 }

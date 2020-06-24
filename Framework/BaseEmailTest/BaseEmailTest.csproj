@@ -30,6 +30,8 @@
     <PackageReleaseNotes>
       Release Notes can be found at https://magenic.github.io/MAQS/#/MAQS_6/ReleaseNotes
     </PackageReleaseNotes>
+    <DebugSymbols>true</DebugSymbols>
+    <IncludeSymbols>true</IncludeSymbols>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

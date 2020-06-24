@@ -671,7 +671,7 @@ namespace SeleniumUnitTests
             this.Log = new FileLogger(string.Empty, "SeleniumSoftAssertIsTrueFalseCondition.txt", MessageType.GENERIC, true);
             SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(TestObject);
             string logLocation = ((FileLogger)Log).FilePath;
-            string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " testSoftAssert" + " (1).png";
+            string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " testSoftAssert" + " (1).Png";
 
             bool isFalse = seleniumSoftAssert.IsTrue(false, "testSoftAssert", "message");
 
@@ -716,7 +716,7 @@ namespace SeleniumUnitTests
 
             SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(TestObject);
             string logLocation = ((FileLogger)Log).FilePath;
-            string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " testSoftAssert" + " (1).png";
+            string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " testSoftAssert" + " (1).Png";
 
             bool isFalse = seleniumSoftAssert.IsFalse(true, "testSoftAssert", "message");
 
@@ -1140,7 +1140,7 @@ namespace SeleniumUnitTests
             try
             {
                 File.Delete(outputLog.FilePath);
-                string screenShotLocation = outputLog.FilePath.Substring(0, outputLog.FilePath.LastIndexOf('.')) + ".png";
+                string screenShotLocation = outputLog.FilePath.Substring(0, outputLog.FilePath.LastIndexOf('.')) + ".Png";
                 File.Delete(screenShotLocation);
             }
             catch (FileNotFoundException e)

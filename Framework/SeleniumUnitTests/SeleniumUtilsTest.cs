@@ -58,7 +58,7 @@ namespace SeleniumUnitTests
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
             WebDriver.Wait().ForPageLoad();
             SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject);
-            string filePath = Path.ChangeExtension(((FileLogger)TestObject.Log).FilePath, ".png");
+            string filePath = Path.ChangeExtension(((FileLogger)TestObject.Log).FilePath, ".Png");
             Assert.IsTrue(File.Exists(filePath), "Fail to find screenshot");
             File.Delete(filePath);
         }
@@ -76,7 +76,7 @@ namespace SeleniumUnitTests
             // Create a console logger and calculate the file location
             ConsoleLogger consoleLogger = new ConsoleLogger();
             TestObject.Log = consoleLogger;
-            string expectedPath = Path.Combine(LoggingConfig.GetLogDirectory(), "ScreenCapDelete.png");
+            string expectedPath = Path.Combine(LoggingConfig.GetLogDirectory(), "ScreenCapDelete.Png");
 
             // Take a screenshot
             SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject, "Delete");
@@ -153,7 +153,7 @@ namespace SeleniumUnitTests
         {
             FileLogger tempLogger = new FileLogger
             {
-                FilePath = "<>" // illegal file path
+                FilePath = "<>\0" // illegal file path
             };
 
             TestObject.Log = tempLogger;
@@ -239,7 +239,7 @@ namespace SeleniumUnitTests
         {
             FileLogger tempLogger = new FileLogger
             {
-                FilePath = "<>" // illegal file path
+                FilePath = "<>\0" // illegal file path
             };
 
             TestObject.Log = tempLogger;
@@ -369,9 +369,9 @@ namespace SeleniumUnitTests
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
             WebDriver.Wait().ForPageLoad();
             SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject);
-            string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, SeleniumConfig.GetImageFormat());
+            string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, SeleniumUtilities.GetScreenShotFormat().ToString());
             Assert.IsTrue(File.Exists(filePath), "Fail to find screenshot");
-            Assert.AreEqual(Path.GetExtension(filePath), "." + SeleniumConfig.GetImageFormat(), "The screenshot format was not in correct Format");
+            Assert.AreEqual(Path.GetExtension(filePath), "." + SeleniumUtilities.GetScreenShotFormat().ToString(), "The screenshot format was not in correct Format");
             File.Delete(filePath);
         }
 

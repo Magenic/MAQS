@@ -1,5 +1,5 @@
 Builds:  
-[![Build Status](https://dev.azure.com/MagenicOpen/MAQS/_apis/build/status/C%23%20MAQS%20Build?branchName=master)](https://dev.azure.com/MagenicOpen/MAQS/_build/latest?definitionId=4&branchName=master)  
+[![Build Status](https://dev.azure.com/MagenicOpen/MAQS/_apis/build/status/MAQS%20-%20Full%20Build?branchName=master)](https://dev.azure.com/MagenicOpen/MAQS/_build/latest?definitionId=35&branchName=master)  
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=MAQS&metric=alert_status)](https://sonarcloud.io/dashboard?id=MAQS)
   
 Releases:  

@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="coverlet.collector" Version="1.3.0">
+    <PackageReference Include="coverlet.msbuild" Version="2.9.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -36,9 +36,7 @@
     <None Update="App.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="MyDatabase.sqlite">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <Content Include="..\MyDatabase.sqlite" Link="MyDatabase.sqlite" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

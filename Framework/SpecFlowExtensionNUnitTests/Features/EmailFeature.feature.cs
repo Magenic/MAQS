@@ -106,10 +106,13 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Given("class BaseEmailTestSteps", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 7
- testRunner.Then("BaseEmailTestSteps EmailDriver is not null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("BaseEmailTestSteps TestObject is not null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 8
- testRunner.And("EmailDriver is type EventFiringEmailConnectionDriver", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("TestObject is type EmailTestObject", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 9
+ testRunner.And("BaseEmailTestSteps ScenarioContext is not null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
