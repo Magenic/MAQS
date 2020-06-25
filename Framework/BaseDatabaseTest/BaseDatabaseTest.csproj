@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <BuildVersion>6.0.0</BuildVersion>
-    <PreRelease>-beta</PreRelease>
+    <PreRelease>-beta.1</PreRelease>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -33,6 +33,7 @@
     <DebugSymbols>true</DebugSymbols>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <EmbedAllSources>true</EmbedAllSources>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
