@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <BuildVersion>6.0.0</BuildVersion>
-    <PreRelease>-beta</PreRelease>
+    <PreRelease>-beta.3</PreRelease>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -32,6 +32,8 @@
     </PackageReleaseNotes>
     <DebugSymbols>true</DebugSymbols>
     <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -42,6 +44,10 @@
 
   <ItemGroup>
     <PackageReference Include="MailKit" Version="2.7.0" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
