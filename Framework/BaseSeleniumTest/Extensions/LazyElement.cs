@@ -30,6 +30,18 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <summary>
         /// Initializes a new instance of the <see cref="LazyElement" /> class
         /// </summary>
+        /// <param name="testObject">The base Selenium test object</param>
+        /// <param name="driver">The web driver</param>
+        /// <param name="locator">The 'by' selector for the element</param>
+        /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
+        public LazyElement(SeleniumTestObject testObject, IWebDriver driver, By locator, [CallerMemberName] string userFriendlyName = null) : base(testObject, driver, () => driver.GetWaitDriver(), locator, userFriendlyName)
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LazyElement" /> class
+        /// </summary>
         /// <param name="parent">The parent lazy element</param>
         /// <param name="locator">The 'by' selector for the element</param>
         /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>

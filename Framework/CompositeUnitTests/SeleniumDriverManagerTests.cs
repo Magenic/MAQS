@@ -96,6 +96,24 @@ namespace CompositeUnitTests
         }
 
         /// <summary>
+        /// Make sure separate lazy elements can interactions with separate drivers
+        /// </summary>
+        [TestMethod]
+        public void SeparateLazyElementInteractions()
+        {
+            SeleniumDriverManager newDriver = new SeleniumDriverManager(() => WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.HeadlessChrome), this.TestObject);
+            newDriver.GetWebDriver().Navigate().GoToUrl("https://magenicautomation.azurewebsites.net/");
+            this.ManagerStore.Add("test", newDriver);
+
+            this.TestObject.WebDriver.Navigate().GoToUrl("https://magenicautomation.azurewebsites.net/Automation");
+
+            LazyElement topNew = new LazyElement(this.TestObject, newDriver.GetWebDriver(), By.CssSelector("*"));
+            LazyElement topDefault = new LazyElement(this.TestObject, By.CssSelector("*"));
+
+            Assert.AreNotEqual(topNew.Text, topDefault.Text);
+        }
+
+        /// <summary>
         /// Make sure the driver is  initialized if we use it
         /// </summary>
         [TestMethod]
