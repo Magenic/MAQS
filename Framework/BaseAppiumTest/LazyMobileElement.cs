@@ -6,6 +6,7 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseSeleniumTest.Extensions;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Appium;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
@@ -26,6 +27,18 @@ namespace Magenic.Maqs.BaseAppiumTest
         public LazyMobileElement(AppiumTestObject testObject, By locator, [CallerMemberName] string userFriendlyName = null) : base(testObject, testObject.AppiumDriver, () => testObject.AppiumDriver.GetWaitDriver(), locator, userFriendlyName)
         {
             
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LazyMobileElement" /> class
+        /// </summary>
+        /// <param name="testObject">The base Appium test object</param>
+        /// <param name="appiumDriver">The Appium driver</param>
+        /// <param name="locator">The 'by' selector for the element</param>
+        /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
+        public LazyMobileElement(AppiumTestObject testObject, AppiumDriver<IWebElement> appiumDriver, By locator, [CallerMemberName] string userFriendlyName = null) : base(testObject, appiumDriver, () => appiumDriver.GetWaitDriver(), locator, userFriendlyName)
+        {
+
         }
 
         /// <summary>
