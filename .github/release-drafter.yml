@@ -1,0 +1,37 @@
+name-template: 'v$RESOLVED_VERSION'
+tag-template: 'v$RESOLVED_VERSION'
+template: |
+  # What's Changed
+
+  $CHANGES
+
+categories:
+  - title: 'Feature'
+    label: 'feature'
+  - title: 'Enhancement'
+    label: 'enhancement'
+  - title: 'Bug Fixes'
+    label: 'bug'
+  - title: 'Documentation'
+    label: 'documentation'
+  - title: 'Dependencies'
+    labels:
+      - 'dependencies'
+      - 'dependabot'
+  - title: 'Pipeline'
+    label: 'pipeline'
+
+version-resolver:
+  major:
+    labels:
+      - 'type: breaking'
+  minor:
+    labels:
+      - 'type: feature'
+  patch:
+    labels:
+      - 'type: bug'
+      - 'type: maintenance'
+      - 'type: documentation'
+      - 'type: dependencies'
+      - 'type: dependabot'
