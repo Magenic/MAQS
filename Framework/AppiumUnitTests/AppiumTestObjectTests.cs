@@ -71,6 +71,24 @@ namespace AppiumUnitTests
         }
 
         /// <summary>
+        /// Make sure separate lazy mobile elements can interactions with separate drivers
+        /// </summary>
+        [TestMethod]
+        public void SeparateLazyElementInteractions()
+        {
+            MobileDriverManager newDriver = new MobileDriverManager(() => AppiumDriverFactory.GetDefaultMobileDriver(), this.TestObject);
+            newDriver.GetMobileDriver().Navigate().GoToUrl("https://magenicautomation.azurewebsites.net/");
+            this.ManagerStore.Add("test", newDriver);
+
+            this.TestObject.AppiumDriver.Navigate().GoToUrl("https://magenicautomation.azurewebsites.net/Automation");
+
+            LazyMobileElement topNew = new LazyMobileElement(this.TestObject, newDriver.GetMobileDriver(), By.CssSelector("*"));
+            LazyMobileElement topDefault = new LazyMobileElement(this.TestObject, By.CssSelector("*"));
+
+            Assert.AreNotEqual(topNew.Text, topDefault.Text);
+        }
+
+        /// <summary>
         /// Override driver function respected
         /// </summary>
         [TestMethod]
