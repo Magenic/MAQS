@@ -55,7 +55,7 @@
     <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="2.0.3" />
     <PackageReference Include="SQLitePCLRaw.core" Version="2.0.3" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.1" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
   </ItemGroup>
 
   <ItemGroup>
