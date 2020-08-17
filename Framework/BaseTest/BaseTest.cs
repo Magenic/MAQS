@@ -609,6 +609,15 @@ namespace Magenic.Maqs.BaseTest
             }
 
             // Not all the files were attached so write them to the log instead
+            WriteAssociatedFilesNamesToLog();
+        }
+
+        /// <summary>
+        /// Write list of associated files to the log
+        /// </summary>
+        private void WriteAssociatedFilesNamesToLog()
+        {
+            // Not all the files were attached so write them to the log instead
             string[] assocFiles = this.TestObject.GetArrayOfAssociatedFiles();
 
             if (assocFiles.Length > 0)
