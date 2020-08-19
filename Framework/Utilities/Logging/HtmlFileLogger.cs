@@ -38,6 +38,11 @@ namespace Magenic.Maqs.Utilities.Logging
         private const string FILTERDROPDOWN = "<div id='Header' class='dropdown'><button class='btn btn-secondary dropdown-toggle' type='button' id='FilterByDropdown' data-toggle='dropdown'aria-haspopup='true' aria-expanded='false'>Filter By</button><div class='dropdown-menu' aria-labelledby='FilterByDropdown'><button class='dropdown-item' data-name='ERROR'>Filter Error</button><button class='dropdown-item' data-name='WARNING'>Filter Warning</button><button class='dropdown-item' data-name='SUCCESS'>Filter Success</button><button class='dropdown-item' data-name='GENERIC'>Filter Generic</a><button class='dropdown-item' data-name='STEP'>Filter Step</button><button class='dropdown-item' data-name='ACTION'>Filter Action</button><button class='dropdown-item' data-name='INFORMATION'>Filter Information</button><button class='dropdown-item' data-name='VERBOSE'>Filter Verbose</button><button class='dropdown-item' data-name='IMAGE'>Filter Images</button></div></div>";
 
         /// <summary>
+        /// Contains the Modal Div that is needed to make a larger image
+        /// </summary>
+        private const string MODALDIV = "<div class='modal fade' id='imagemodal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'><div class='modal-dialog'> <div class='modal-content'> <div class='modal-body'><button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button> <img src='' class='imagepreview' style='width: 100%;' ></div></div></div></div>";
+
+        /// <summary>
         /// The begininning to the cards section
         /// </summary>
         private const string CARDSTART = "<div class='container-fluid'><div class='row'>";
@@ -127,7 +132,8 @@ namespace Magenic.Maqs.Utilities.Logging
             {
                 var writer = new StreamWriter(this.FilePath, true);
 
-                writer.WriteLine("</div></body></html>");
+                writer.Write(MODALDIV);
+                writer.Write("</div></body></html>");
                 writer.Flush();
                 writer.Close();
             }
