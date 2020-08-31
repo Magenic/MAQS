@@ -215,12 +215,37 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <summary>
         /// Add configuration override values
         /// </summary>
+        /// <param name="key">Key for the value you are adding or overriding</param>
+        /// <param name="value">Value being added or overridden</param>
+        /// <param name="overrideExisting">If the override already exists should we override it</param>
+        public static void AddGeneralTestSettingValues(string key, string value, bool overrideExisting = false)
+        {
+            var newKeyValue = new Dictionary<string, string> { { key, value } };
+            AddTestSettingValues(newKeyValue, DEFAULTMAQSSECTION.ToString(), overrideExisting);
+        }
+
+        /// <summary>
+        /// Add configuration override values
+        /// </summary>
         /// <param name="configurations">Dictionary of configuration overrides</param>
         /// <param name="section">What section it should be added to</param>
         /// <param name="overrideExisting">If the override already exists should we override it</param>
         public static void AddTestSettingValues(IDictionary<string, string> configurations, ConfigSection section = DEFAULTMAQSSECTION, bool overrideExisting = false)
         {
             AddTestSettingValues(configurations, section.ToString(), overrideExisting);
+        }
+
+        /// <summary>
+        /// Add configuration override values
+        /// </summary>
+        /// <param name="key">Key for the value you are adding or overriding</param>
+        /// <param name="value">Value being added or overridden</param>
+        /// <param name="section">What section it should be added to</param>
+        /// <param name="overrideExisting">If the override already exists should we override it</param>
+        public static void AddTestSettingValues(string key, string value, ConfigSection section = DEFAULTMAQSSECTION, bool overrideExisting = false)
+        {
+            var newKeyValue = new Dictionary<string, string> { { key, value } };
+            AddTestSettingValues(newKeyValue, section, overrideExisting);
         }
 
         /// <summary>
@@ -263,6 +288,19 @@ namespace Magenic.Maqs.Utilities.Helper
                     configOverrides[specificSection].AddOrUpdate(configKey, configuration.Value, (key, oldValue) => configuration.Value);
                 }
             }
+        }
+
+        /// <summary>
+        /// Add configuration override values
+        /// </summary>
+        /// <param name="key">Key for the value you are adding or overriding</param>
+        /// <param name="value">Value being added or overridden</param>
+        /// <param name="section">What section it should be added to</param>
+        /// <param name="overrideExisting">If the override already exists should we override it</param>
+        public static void AddTestSettingValues(string key, string value, string section, bool overrideExisting = false)
+        {
+            var newKeyValue = new Dictionary<string, string> { { key, value } };
+            AddTestSettingValues(newKeyValue, section, overrideExisting);
         }
 
         /// <summary>
