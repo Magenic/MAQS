@@ -130,6 +130,25 @@ namespace UtilitiesUnitTesting
         }
 
         /// <summary>
+        ///  Verify simple override of a single configuration for a specific section
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void SimpleSingleForConfigSectionString()
+        {
+            // Simple override data
+            string key = "SimpleOverrideSingleInSectionString";
+            string baseValue = Config.GetGeneralValue(key);
+            string overrideValue = baseValue + "_Override";
+
+            // Override the configuration
+            Config.AddTestSettingValues(key, overrideValue, ConfigSection.MagenicMaqs.ToString());
+
+            // Make sure it worked
+            Assert.AreEqual(overrideValue, Config.GetGeneralValue(key));
+        }
+
+        /// <summary>
         ///  Verify simple override of a new configuration
         /// </summary>
         [TestMethod]
