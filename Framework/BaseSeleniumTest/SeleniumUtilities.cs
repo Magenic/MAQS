@@ -44,7 +44,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
 
                     // Since this is a HTML File logger we need to add a card with the image in it
                     writer.WriteLine(StringProcessor.SafeFormatter(
-                        "<div class='collapse col-12 show' data-logtype='IMAGE'><div class='card'><div class='card-body'><h6 class='card-subtitle mb-1'>2020-01-16 18:57:47.184-05:00</h6></div><a class='pop' href='#'><img class='card-img-top rounded' src='data:image/png;base64, {0}'style='width: 200px;'></a></div></div>",
+                        "<div class='collapse col-12 show' data-logtype='IMAGE'><div class='card'><div class='card-body'><h6 class='card-subtitle mb-1'>2020-01-16 18:57:47.184-05:00</h6></div><a class='pop'><img class='card-img-top rounded' src='data:image/png;base64, {0}'style='width: 200px;'></a></div></div>",
                         ((ITakesScreenshot)webDriver).GetScreenshot().AsBase64EncodedString));
                     writer.Flush();
                     writer.Close();
