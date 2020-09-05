@@ -121,7 +121,6 @@ namespace Magenic.Maqs.BaseTest
         /// <param name="message">Message to be used when logging</param>
         /// <returns>Boolean if they are equal</returns>
         [Obsolete("SoftAssert.AreEqual will be deprecated in MAQS 7.0.  Please use SoftAssert.Assert() instead")]
-
         public virtual bool AreEqual(string expectedText, string actualText, string softAssertName, string message = "")
         {
             void test()
