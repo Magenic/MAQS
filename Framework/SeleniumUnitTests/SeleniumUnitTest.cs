@@ -661,6 +661,32 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Method to check for soft asserts
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void SeleniumSoftAssertEmptyMessageTest()
+        {
+            WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            SoftAssert.IsTrue(WebDriver.Title.Contains("Automation"), "", "Title is incorrect");
+            SoftAssert.FailTestIfAssertFailed();
+        }
+
+        /// <summary>
+        /// Method to check for soft asserts
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        [ExpectedException(typeof(AggregateException))]
+        public void SeleniumSoftAssertIsTrueFalseBoolean()
+        {
+            WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            var result = SoftAssert.IsTrue(!WebDriver.Title.Contains("Automation"), "", "Title is incorrect");
+            Assert.IsFalse(result);
+            this.SoftAssert.FailTestIfAssertFailed();
+        }
+
+        /// <summary>
         /// Verify that a screenshot is taken if the SeleniumSoftAssert.IsTrue gets a false condition and the logger is set to log screenshots
         /// </summary>
         [TestMethod]
