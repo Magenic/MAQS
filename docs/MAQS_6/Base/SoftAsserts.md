@@ -49,7 +49,7 @@ Assert will check the provided assertion function. If an assertion exception is 
 SoftAssert.Assert(() => 
 {
     Assert.IsTrue(true, "True assertion");
-    Assert.false(false, "True assertion"));
+    Assert.IsFalse(false, "True assertion"));
 });
 
 // Results in a false assertion, Only the first two asserts run
