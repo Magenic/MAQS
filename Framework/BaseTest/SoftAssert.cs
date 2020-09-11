@@ -18,7 +18,7 @@ namespace Magenic.Maqs.BaseTest
     public class SoftAssert
     {
         /// <summary>
-        /// List of all asserted exceptions 
+        /// List of all asserted exceptions
         /// </summary>
         private readonly List<string> listOfExceptions = new List<string>();
 
@@ -106,6 +106,7 @@ namespace Magenic.Maqs.BaseTest
         /// <param name="actualText">Actual value of the string</param>
         /// <param name="message">Message to be used when logging</param>
         /// <returns>Boolean if they are equal</returns>
+        [Obsolete("SoftAssert.AreEqual will be deprecated in MAQS 7.0.  Please use SoftAssert.Assert() instead")]
         public virtual bool AreEqual(string expectedText, string actualText, string message = "")
         {
             return this.AreEqual(expectedText, actualText, string.Empty, message);
@@ -119,6 +120,7 @@ namespace Magenic.Maqs.BaseTest
         /// <param name="softAssertName">Soft assert name</param>
         /// <param name="message">Message to be used when logging</param>
         /// <returns>Boolean if they are equal</returns>
+        [Obsolete("SoftAssert.AreEqual will be deprecated in MAQS 7.0.  Please use SoftAssert.Assert() instead")]
         public virtual bool AreEqual(string expectedText, string actualText, string softAssertName, string message = "")
         {
             void test()
@@ -144,6 +146,8 @@ namespace Magenic.Maqs.BaseTest
         /// <param name="softAssertName">Soft assert name</param>
         /// <param name="failureMessage">Failure message</param>
         /// <returns>Boolean if condition is met</returns>
+        [Obsolete("SoftAssert.IsTrue will be deprecated in MAQS 7.0.  Please use SoftAssert.Assert() instead")]
+
         public virtual bool IsTrue(bool condition, string softAssertName, string failureMessage = "")
         {
             void test()
@@ -169,6 +173,8 @@ namespace Magenic.Maqs.BaseTest
         /// <param name="softAssertName">Soft assert name</param>
         /// <param name="failureMessage">Failure message</param>
         /// <returns>Boolean if condition is met</returns>
+        [Obsolete("SoftAssert.IsFalse will be deprecated in MAQS 7.0.  Please use SoftAssert.Assert() instead")]
+
         public virtual bool IsFalse(bool condition, string softAssertName, string failureMessage = "")
         {
             void test()
@@ -281,7 +287,7 @@ namespace Magenic.Maqs.BaseTest
         }
 
         /// <summary>
-        /// Wrap an assert that is expected to fail and the expected failure 
+        /// Wrap an assert that is expected to fail and the expected failure
         /// </summary>
         /// <param name="assertFunction">The assert function</param>
         /// <param name="expectedException">The type of expected exception</param>
