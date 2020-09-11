@@ -6,7 +6,7 @@
 trigger:
 - master
 
-pool: OnPremQe
+pool: Azure Pipelines
 
 variables:
   solution: '**/*.sln'
