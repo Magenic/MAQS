@@ -104,7 +104,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
             catch (Exception e)
             {
                 RaiseErrorMessage(e);
-                throw e;
+                throw;
             }
         }
 
@@ -129,7 +129,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
             catch (Exception e)
             {
                 RaiseErrorMessage(e);
-                throw e;
+                throw;
             }
         }
 
@@ -153,7 +153,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
             catch (Exception e)
             {
                 RaiseErrorMessage(e);
-                throw e;
+                throw;
             }
         }
 
@@ -176,7 +176,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
             catch (Exception e)
             {
                 RaiseErrorMessage(e);
-                throw e;
+                throw;
             }
         }
 
@@ -199,7 +199,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
             catch (Exception e)
             {
                 RaiseErrorMessage(e);
-                throw e;
+                throw;
             }
         }
 

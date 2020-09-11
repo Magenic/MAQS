@@ -99,13 +99,13 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Unit Test for creating a sorted comma delimited string
         /// </summary>
-        [TestMethod]	
+        [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void CreateSortedCommaDelimitedStringFromWebElementsTest()	
-        {	
-            string expectedText = "Hard Drive, Keyboard, Monitor, Motherboard, Mouse, Power Supply";	
-            NavigateToUrl();	
-            Assert.AreEqual(expectedText, WebDriver.CreateCommaDelimitedString(computerPartsListOptions, true), "Expected string does not match actual");	
+        public void CreateSortedCommaDelimitedStringFromWebElementsTest()
+        {
+            string expectedText = "Hard Drive, Keyboard, Monitor, Motherboard, Mouse, Power Supply";
+            NavigateToUrl();
+            Assert.AreEqual(expectedText, WebDriver.CreateCommaDelimitedString(computerPartsListOptions, true), "Expected string does not match actual");
         }
 
         /// <summary>
@@ -301,6 +301,18 @@ namespace SeleniumUnitTests
         {
             NavigateToUrl();
             WebDriver.ScrollIntoView(checkbox);
+        }
+
+        /// <summary>
+        /// Test to verify scrolling into view via web element
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void ScrollIntoViewWebElement()
+        {
+            NavigateToUrl();
+            var element = this.WebDriver.FindElement(checkbox);
+            WebDriver.ScrollIntoView(element);
         }
 
         /// <summary>
