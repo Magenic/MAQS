@@ -35,12 +35,33 @@ SoftAssert.Assert(() => Assert.IsTrue(shouldBeTrue, "Expected true"));
 SoftAssert.Assert(() => Assert.IsTrue(true, "True assertion")); 
 
 // Results in a false assertion
-SoftAssert.Assert(() => Assert.IsFalse(false, "False assertion")); 
+SoftAssert.Assert(() => Assert.IsFalse(true, "False assertion")); 
 
 // Throws assertion
 SoftAssert.Assert(() => Assert.ThrowsException<StackOverflowException>(DoSomethingBadFunc));
 ``` 
-Assert will check the provided assertion function. If the an assertion if thrown it will store that assert as a failure. If the no assertion is thrown it will store that result as a success.
+Assert will check the provided assertion function. If an assertion exception is thrown it will store that assert as a failure. If no assertion exception is thrown it will store that result as a success.
+
+#### Pass in multiple asserts
+
+```csharp
+// Results in a false assertion
+SoftAssert.Assert(() => 
+{
+    Assert.IsTrue(true, "True assertion");
+    Assert.IsFalse(false, "True assertion"));
+});
+
+// Results in a false assertion, Only the first two asserts run
+SoftAssert.Assert(() => 
+{
+    Assert.IsTrue(true, "True assertion");
+    Assert.IsTrue(false, "False assertion"));
+    Assert.IsTrue(false, "False assertion"));
+});
+```
+
+Assert can also combine multiple asserts together. If a single assertion exception is thrown it will store that assert as a failure. On the first failure the method will no invoke any more lines of code, so be sure to use multiple Assert methods if certain items must be checked.  If no assertion exception is thrown it will store that result as a success.
 
 ### IsTrue(conditional)
 IsTrue will evaluate the condition. If the condition is true it will store that assert as a success. If the condition is false it will store that result as a failure.

@@ -6,6 +6,7 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseTest;
 using Magenic.Maqs.Utilities.Data;
+using System;
 
 namespace Magenic.Maqs.BaseAppiumTest
 {
@@ -37,6 +38,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <param name="softAssertName">Soft assert name</param>
         /// <param name="message">Exception message if desired</param>
         /// <returns>Boolean if the assert is true</returns>
+        [Obsolete("SoftAssert.AreEqual will be deprecated in MAQS 7.0.  Please use SoftAssert.Assert() instead")]
         public override bool AreEqual(string expectedText, string actualText, string softAssertName, string message = "")
         {
             bool didPass = base.AreEqual(expectedText, actualText, softAssertName, message);
@@ -85,7 +87,7 @@ namespace Magenic.Maqs.BaseAppiumTest
                     softAssertName = softAssertName.Replace(invalidChar, '~');
                 }
 
-                // If softAssertName is provided, use combination of softAssertName and AssertNumber 
+                // If softAssertName is provided, use combination of softAssertName and AssertNumber
                 appendToFileName = " " + softAssertName + StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts);
             }
 

@@ -6,6 +6,7 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseTest;
 using Magenic.Maqs.Utilities.Data;
+using System;
 
 namespace Magenic.Maqs.BaseSeleniumTest
 {
@@ -36,6 +37,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="actualText">Actual text</param>
         /// <param name="message">Exception message if desired</param>
         /// <returns>Boolean if the assert is true</returns>
+        [Obsolete("SoftAssert.AreEqual will be deprecated in MAQS 7.0.  Please use SoftAssert.Assert() instead")]
         public override bool AreEqual(string expectedText, string actualText, string message = "")
         {
             return this.AreEqual(expectedText, actualText, string.Empty, message);
@@ -49,6 +51,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="softAssertName">Soft assert name to use</param>
         /// <param name="message">Exception message if desired</param>
         /// <returns>Boolean if the assert is true</returns>
+        [Obsolete("SoftAssert.AreEqual will be deprecated in MAQS 7.0.  Please use SoftAssert.Assert() instead")]
         public override bool AreEqual(string expectedText, string actualText, string softAssertName, string message = "")
         {
             bool didPass = base.AreEqual(expectedText, actualText, softAssertName, message);
@@ -82,6 +85,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="softAssertName">Soft assert name</param>
         /// <param name="failureMessage">Failure message</param>
         /// <returns>Boolean of the assert</returns>
+        [Obsolete("SoftAssert.IsFalse will be deprecated in MAQS 7.0.  Please use SoftAssert.Assert() instead")]
         public override bool IsFalse(bool condition, string softAssertName, string failureMessage = "")
         {
             bool didPass = base.IsFalse(condition, softAssertName, failureMessage);
@@ -115,6 +119,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="softAssertName">Soft assert name</param>
         /// <param name="failureMessage">Failure message</param>
         /// <returns>Boolean of the assert</returns>
+        [Obsolete("SoftAssert.IsTrue will be deprecated in MAQS 7.0.  Please use SoftAssert.Assert() instead")]
         public override bool IsTrue(bool condition, string softAssertName, string failureMessage = "")
         {
             bool didPass = base.IsTrue(condition, softAssertName, failureMessage);
@@ -148,12 +153,11 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <returns>String to be appended</returns>
         private string TextToAppend(string softAssertName)
         {
-            string appendToFileName = string.Empty;
 
             // If softAssertName name is not provided only append the AssertNumber
-            if (softAssertName == string.Empty)
+            if (string.IsNullOrEmpty(softAssertName))
             {
-                appendToFileName = StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts);
+                return StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts);
             }
             else
             {
@@ -163,11 +167,9 @@ namespace Magenic.Maqs.BaseSeleniumTest
                     softAssertName = softAssertName.Replace(invalidChar, '~');
                 }
 
-                // If softAssertName is provided, use combination of softAssertName and AssertNumber 
-                appendToFileName = " " + softAssertName + StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts);
+                // If softAssertName is provided, use combination of softAssertName and AssertNumber
+                return " " + softAssertName + StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts);
             }
-
-            return appendToFileName;
         }
     }
 }

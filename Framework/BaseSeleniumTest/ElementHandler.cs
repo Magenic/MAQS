@@ -231,7 +231,16 @@ namespace Magenic.Maqs.BaseSeleniumTest
         public static void ScrollIntoView(this ISearchContext searchContext, By by)
         {
             IWebElement element = searchContext.FindElement(by);
+            ScrollIntoView(searchContext, element);
+        }
 
+        /// <summary>
+        /// JavaScript method to scroll an element into the view
+        /// </summary>
+        /// <param name="searchContext">Web driver or element</param>
+        /// <param name="element">IWebElement</param>
+        public static void ScrollIntoView(this ISearchContext searchContext, IWebElement element)
+        {
             IJavaScriptExecutor executor = SeleniumUtilities.SearchContextToJavaScriptExecutor(searchContext);
             executor.ExecuteScript("arguments[0].scrollIntoView(true);", element);
         }
@@ -299,7 +308,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             {
                 logger.ContinueLogging();
                 logger.LogMessage(MessageType.ERROR, "Exception during sending secret keys: " + e.Message + Environment.NewLine + e.StackTrace);
-                throw e;
+                throw;
             }
         }
     }

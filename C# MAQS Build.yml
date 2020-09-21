@@ -6,7 +6,8 @@
 trigger:
 - master
 
-pool: OnPremQe
+pool:
+  vmImage: 'windows-latest'
 
 variables:
   solution: '**/*.sln'
