@@ -25,10 +25,9 @@ version-resolver:
   major:
     labels:
       - "breaking"
-      - "feature"
   minor:
     labels:
-      - "enhancement"
+      - "feature"
   patch:
     labels:
       - "bug"
@@ -36,4 +35,5 @@ version-resolver:
       - "documentation"
       - "dependencies"
       - "dependabot"
+      - "enhancement"
   default: patch
