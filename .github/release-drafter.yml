@@ -36,3 +36,4 @@ version-resolver:
       - "documentation"
       - "dependencies"
       - "dependabot"
+  default: patch
