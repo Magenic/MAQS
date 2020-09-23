@@ -1,32 +1,42 @@
 Builds:  
 [![Build Status](https://dev.azure.com/MagenicOpen/MAQS/_apis/build/status/MAQS%20-%20Full%20Build?branchName=master)](https://dev.azure.com/MagenicOpen/MAQS/_build/latest?definitionId=35&branchName=master)  
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=MAQS&metric=alert_status)](https://sonarcloud.io/dashboard?id=MAQS)
-  
+
 Releases:  
 [![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/vs-publisher-1465771.MAQSOpenFramework.svg?label=extension)](https://marketplace.visualstudio.com/items?itemName=vs-publisher-1465771.MAQSOpenFramework)  
 [![Nuget](https://img.shields.io/nuget/v/Magenic.Maqs.svg)](https://www.nuget.org/packages/Magenic.Maqs/)
 
 License:  
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://raw.githubusercontent.com/Magenic/MAQS/master/LICENSE)  
-
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://raw.githubusercontent.com/Magenic/MAQS/master/LICENSE)
 
 # MAQS
-## Introduction 
+
+## Introduction
+
 MAQS stands for Magenic's automation quick start.
 
 It …
- - is a modular test automation framework
- - can be used as the base for your automation project or individual pieces can be used to enhance existing frameworks
- - is maintained/extended by Magenic volunteers
+
+- is a modular test automation framework
+- can be used as the base for your automation project or individual pieces can be used to enhance existing frameworks
+- is maintained/extended by Magenic volunteers
 
 The main idea behind MAQS is to avoid **reinventing the wheel**. Most automation engagements have you doing the same basic steps to get a functioning framework implemented. Utilizing project templates, NuGet, and utility libraries we are able to have a functioning framework up and running in minutes, almost entirely removing on the initial time investment on implementating an automation solution.
 
 ## Help files
-* [MAQS 4](https://magenic.github.io/MAQS/#/MAQS_4/Introduction)
-* [MAQS 5](https://magenic.github.io/MAQS/#/MAQS_5/Introduction)
-* [MAQS 6](https://magenic.github.io/MAQS/#/MAQS_6/Introduction)
+
+- [MAQS 4](https://magenic.github.io/MAQS/#/MAQS_4/Introduction)
+- [MAQS 5](https://magenic.github.io/MAQS/#/MAQS_5/Introduction)
+- [MAQS 6](https://magenic.github.io/MAQS/#/MAQS_6/Introduction)
+
+## Powered By
+
+[![Testing Powered By SauceLabs](https://opensource.saucelabs.com/images/opensauce/powered-by-saucelabs-badge-white.png?sanitize=true "Testing Powered By SauceLabs")](https://saucelabs.com)
+
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/dashboard?id=MAQS)
 
 ## License
+
 The MIT License (MIT)
 Copyright (c) 2020 Magenic
 

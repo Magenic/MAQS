@@ -24,14 +24,16 @@ categories:
 version-resolver:
   major:
     labels:
-      - 'type: breaking'
+      - 'breaking'
   minor:
     labels:
-      - 'type: feature'
+      - 'feature'
   patch:
     labels:
-      - 'type: bug'
-      - 'type: maintenance'
-      - 'type: documentation'
-      - 'type: dependencies'
-      - 'type: dependabot'
+      - 'bug'
+      - 'maintenance'
+      - 'documentation'
+      - 'dependencies'
+      - 'dependabot'
+      - 'enhancement'
+  default: patch
