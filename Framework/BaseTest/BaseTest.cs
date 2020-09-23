@@ -299,6 +299,12 @@ namespace Magenic.Maqs.BaseTest
             }
             finally
             {
+                // if the logger is HTML dispose of it to add ending tags
+                if (this.Log is HtmlFileLogger)
+                {
+                    ((HtmlFileLogger)this.Log).Dispose();
+                }
+
                 // Release the base test object
                 this.BaseTestObjects.TryRemove(fullyQualifiedTestName, out BaseTestObject baseTestObject);
                 baseTestObject.Dispose();

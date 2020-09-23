@@ -30,12 +30,17 @@ namespace Magenic.Maqs.Utilities.Logging
         /// <summary>
         /// Contains the CSS tags, and the JQuery Scripts
         /// </summary>
-        private const string SCRIPTANDCSSTAGS = "<style>.modal-dialog{max-width: fit-content} p{white-space: pre-wrap}</style><script>$(function (){$('.pop').on('click', function (e){$('.imagepreview').attr('src', $(this).find('img').attr('src'));$('#imagemodal').modal('show');});});</script><script>$(function (){$('.pop2').on('click', function (){$('.imagepreview').attr('src', $(this).attr('src'));$('#imagemodal').modal('show');});});</script><script>$(function (){$('.dropdown-item').on('click', function (e){$(this).attr('class', function (i, old){return old=='dropdown-item' ? 'dropdown-item bg-secondary' :'dropdown-item';});var temp=$(this).data('name');$('[data-logtype=\\\'' + temp + '\\\']').toggleClass('show');e.stopPropagation();});});</script><script>$(function (){$(document).ready(function(){$('#Header').append(' ' + $('title').text())})});</script>";
+        private const string SCRIPTANDCSSTAGS = "<style>.modal-dialog{max-width: fit-content} p{white-space: pre-wrap} .pop{ cursor: pointer; }</style><script>$(function (){$('.pop').on('click', function (e){$('.imagepreview').attr('src', $(this).find('img').attr('src'));$('#imagemodal').modal('show');});});</script><script>$(function (){$('.pop2').on('click', function (){$('.imagepreview').attr('src', $(this).attr('src'));$('#imagemodal').modal('show');});});</script><script>$(function (){$('.dropdown-item').on('click', function (e){$(this).attr('class', function (i, old){return old=='dropdown-item' ? 'dropdown-item bg-secondary' :'dropdown-item';});var temp=$(this).data('name');$('[data-logtype=\\\'' + temp + '\\\']').toggleClass('show');e.stopPropagation();});});</script><script>$(function (){$(document).ready(function(){$('#Header').append(' ' + $('title').text())})});</script> <script>$(function(){$(document).ready(function(){$('.card-text:contains(\\\'Test\\\')').each(function (index, element){switch($(this).text()){case 'Test passed': $('#TestResult:not([class])').addClass('text-success'); case 'Test failed': $('#TestResult:not([class])').addClass('text-danger'); case 'Test was inconclusive': $('#TestResult:not([class])').addClass('text-danger'); $('#TestResult').text($(this).text()); $('#TestResult').addClass('font-weight-bold'); break;}})})}) </script>";
 
         /// <summary>
         /// Contains the FIlter By dropdown
         /// </summary>
-        private const string FILTERDROPDOWN = "<div id='Header' class='dropdown'><button class='btn btn-secondary dropdown-toggle' type='button' id='FilterByDropdown' data-toggle='dropdown'aria-haspopup='true' aria-expanded='false'>Filter By</button><div class='dropdown-menu' aria-labelledby='FilterByDropdown'><button class='dropdown-item' data-name='ERROR'>Filter Error</button><button class='dropdown-item' data-name='WARNING'>Filter Warning</button><button class='dropdown-item' data-name='SUCCESS'>Filter Success</button><button class='dropdown-item' data-name='GENERIC'>Filter Generic</a><button class='dropdown-item' data-name='STEP'>Filter Step</button><button class='dropdown-item' data-name='ACTION'>Filter Action</button><button class='dropdown-item' data-name='INFORMATION'>Filter Information</button><button class='dropdown-item' data-name='VERBOSE'>Filter Verbose</button><button class='dropdown-item' data-name='IMAGE'>Filter Images</button></div></div>";
+        private const string FILTERDROPDOWN = "<div id='Header' class='dropdown'><button class='btn btn-secondary dropdown-toggle' type='button' id='FilterByDropdown' data-toggle='dropdown'aria-haspopup='true' aria-expanded='false'>Filter By</button><div class='dropdown-menu' aria-labelledby='FilterByDropdown'><button class='dropdown-item' data-name='ERROR'>Filter Error</button><button class='dropdown-item' data-name='WARNING'>Filter Warning</button><button class='dropdown-item' data-name='SUCCESS'>Filter Success</button><button class='dropdown-item' data-name='GENERIC'>Filter Generic</button><button class='dropdown-item' data-name='STEP'>Filter Step</button><button class='dropdown-item' data-name='ACTION'>Filter Action</button><button class='dropdown-item' data-name='INFORMATION'>Filter Information</button><button class='dropdown-item' data-name='VERBOSE'>Filter Verbose</button><button class='dropdown-item' data-name='IMAGE'>Filter Images</button></div><span id='TestResult'></span></div>";
+
+        /// <summary>
+        /// Contains the Modal Div that is needed to make a larger image
+        /// </summary>
+        private const string MODALDIV = "<div class='modal fade' id='imagemodal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'><div class='modal-dialog'> <div class='modal-content'> <div class='modal-body'><button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button> <img src='' class='imagepreview' style='width: 100%;' ></div></div></div></div>";
 
         /// <summary>
         /// The begininning to the cards section
@@ -127,7 +132,8 @@ namespace Magenic.Maqs.Utilities.Logging
             {
                 var writer = new StreamWriter(this.FilePath, true);
 
-                writer.WriteLine("</div></body></html>");
+                writer.Write(MODALDIV);
+                writer.Write("</div></body></html>");
                 writer.Flush();
                 writer.Close();
             }
