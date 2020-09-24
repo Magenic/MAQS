@@ -8,7 +8,9 @@ using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading;
 
 namespace UtilitiesUnitTesting
 {
@@ -608,6 +610,264 @@ namespace UtilitiesUnitTesting
                     return true;
                 });
             Assert.IsTrue(result, "Result did not return a true value");
+        }
+
+        /// <summary>
+        /// Makes sure the WaitUntilRetry method returns the correct value.
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void WaitUntilRetryTimeoutCompletes()
+        {
+            var result = GenericWait.WaitUntilTimeout(() => true, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+            Assert.IsTrue(result);
+            result = GenericWait.WaitUntilTimeout(() => false, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+            Assert.IsFalse(result);
+        }
+
+        /// <summary>
+        /// Even though the method we are waiting for takes 10 seconds, the generic wait should stop checking
+        /// after 1 second. Any results of the method are ignored after the retry timeout has elapsed, including exceptions.
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void WaitUntilRetryTimeoutTimeoutBeforeMethodCompletion()
+        {
+            var stopwatch = Stopwatch.StartNew();
+            var result = GenericWait.WaitUntilTimeout(() =>
+            {
+                Thread.Sleep(TimeSpan.FromSeconds(10));
+                return true;
+            },
+            TimeSpan.FromMilliseconds(333),
+            TimeSpan.FromMilliseconds(666),
+            false);
+
+            stopwatch.Stop();
+            Assert.IsFalse(result);
+            Assert.IsTrue(stopwatch.Elapsed < TimeSpan.FromSeconds(2));
+        }
+
+        /// <summary>
+        /// The result should be the result of the Action.
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void WaitUntilTimeoutReturnsString()
+        {
+            var str = "my string";
+            var result = GenericWait.WaitUntilTimeout(
+                () => str,
+                TimeSpan.FromSeconds(1),
+                TimeSpan.FromSeconds(1));
+
+            Assert.AreEqual(str, result, "Wait result does not match the expected result of the method");
+        }
+
+        /// <summary>
+        /// When a method takes longer than the retry timeout, the method should throw a <see cref="TimeoutException"/>
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        [ExpectedException(typeof(TimeoutException))]
+        public void WaitUntilTimeoutThrowsTimeoutException()
+        {
+            var result = GenericWait.WaitUntilTimeout(() =>
+            {
+                Thread.Sleep(TimeSpan.FromSeconds(10));
+                return "my string";
+            },
+            TimeSpan.FromMilliseconds(333),
+            TimeSpan.FromMilliseconds(666));
+
+            Assert.Fail();
+        }
+
+        /// <summary>
+        /// When passing an argument, the value should be passed into the function being called.
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void WaitUntilTimeoutReturnsStringWithArgument()
+        {
+            var str = "my string";
+            var result = GenericWait.WaitUntilTimeout(
+                (a) => a,
+                TimeSpan.FromSeconds(1),
+                TimeSpan.FromSeconds(1),
+                str);
+
+            Assert.AreEqual(str, result, "Passed argument and result do not match");
+        }
+
+        /// <summary>
+        /// When passing in an argument, the timeout exception is thrown when the method does
+        /// not complete within the time limit.
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        [ExpectedException(typeof(TimeoutException))]
+        public void WaitUntilTimeoutReturnsStringWithArgumentTimeoutException()
+        {
+            var str = "my string";
+            var result = GenericWait.WaitUntilTimeout(
+                (a) =>
+                {
+                    Thread.Sleep(TimeSpan.FromSeconds(10));
+                    return a;
+                },
+                TimeSpan.FromMilliseconds(333),
+                TimeSpan.FromMilliseconds(666),
+                str);
+
+            Assert.Fail("Method should have thrown an exception");
+        }
+
+        /// <summary>
+        /// Wait until timeout with arguments should return true.
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void WaitUntilTimeoutArgumentsTrue()
+        {
+            var str = "my string";
+            var result = GenericWait.WaitUntilTimeout(
+                (a) => true,
+                TimeSpan.FromSeconds(1),
+                TimeSpan.FromSeconds(1),
+                false,
+                str);
+
+            Assert.IsTrue(result, "Wait returned incorrect value");
+        }
+
+        /// <summary>
+        /// Wait until timeout with throws exception set to true should throw an exception when
+        /// given a method that throws exceptions.
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        [ExpectedException(typeof(Exception))]
+        public void WaitUntilTimeoutArgumentsThrowsException()
+        {
+            var str = "my string";
+            var result = GenericWait.WaitUntilTimeout(
+                (a) =>
+                {
+                    throw new Exception("This method didn't work");
+                },
+                TimeSpan.FromMilliseconds(333),
+                TimeSpan.FromMilliseconds(666),
+                true,
+                str);
+
+            Assert.Fail("Method should have thrown an exception");
+        }
+
+        /// <summary>
+        /// Wait until timeout should return false with throws exception set to false
+        /// and a method that throws exceptions.
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void WaitUntilTimeoutArgumentsReturnsFalse()
+        {
+            var str = "my string";
+            var result = GenericWait.WaitUntilTimeout(
+                (a) => throw new Exception("This method didn't work"),
+                TimeSpan.FromMilliseconds(333),
+                TimeSpan.FromMilliseconds(666),
+                false,
+                str);
+
+            Assert.IsFalse(result, "Expected Wait to return false");
+        }
+
+        /// <summary>
+        /// Wait until timeout should return true.
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void WaitUntilTimeoutReturnsTrue()
+        {
+            var result = GenericWait.WaitUntilTimeout(
+                () => true,
+                TimeSpan.FromMilliseconds(333),
+                TimeSpan.FromMilliseconds(666),
+                false);
+
+            Assert.IsTrue(result, "Expected Wait to return true");
+        }
+
+        /// <summary>
+        /// Wait until timout with throws exception should return false and not throw
+        /// an exception.
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void WaitUntilTimeoutReturnsFalse()
+        {
+            var result = GenericWait.WaitUntilTimeout(
+                () => throw new Exception("This method didn't work"),
+                TimeSpan.FromMilliseconds(333),
+                TimeSpan.FromMilliseconds(666),
+                false);
+
+            Assert.IsFalse(result, "Method should throw exception, Wait should return false.");
+        }
+
+        /// <summary>
+        /// Wait until timeout with throws exception true should throw an exception.
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        [ExpectedException(typeof(Exception))]
+        public void WaitUntilTimeoutReturnsThrowsException()
+        {
+            var result = GenericWait.WaitUntilTimeout(
+                () => throw new Exception("This method didn't work"),
+                TimeSpan.FromMilliseconds(333),
+                TimeSpan.FromMilliseconds(666),
+                true);
+
+            Assert.Fail("Method should throw exception, Wait should throw exception.");
+        }
+
+        /// <summary>
+        /// Wait until timeout with no arguments. This test should timeout because the calling function
+        /// never returns and should throw a timeout exception.
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        [ExpectedException(typeof(TimeoutException))]
+        public void WaitUntilTimeoutReturnsAnyReturnThrowsException()
+        {
+            var result = GenericWait.WaitUntilTimeout<string>(
+                () => throw new Exception("This method didn't work"),
+                TimeSpan.FromMilliseconds(333),
+                TimeSpan.FromMilliseconds(666));
+
+            Assert.Fail("Method should throw exception, Wait should throw exception.");
+        }
+
+        /// <summary>
+        /// Wait until timeout with arguments and a function that throws an exception.
+        /// This test should timeout because the calling method never returns and should
+        /// throw a timeout exception.
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        [ExpectedException(typeof(TimeoutException))]
+        public void WaitUntilTimeoutReturnsAnyReturnWithArgumentsThrowsException()
+        {
+            var str = "my string";
+            var result = GenericWait.WaitUntilTimeout<string, string>(
+                (a) => throw new Exception("This method didn't work"),
+                TimeSpan.FromMilliseconds(333),
+                TimeSpan.FromMilliseconds(666),
+                str);
+
+            Assert.Fail("Method should throw exception, Wait should throw exception.");
         }
 
         /// <summary>
