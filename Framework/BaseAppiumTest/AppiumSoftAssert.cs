@@ -75,7 +75,7 @@ namespace Magenic.Maqs.BaseAppiumTest
             string appendToFileName = string.Empty;
 
             // If softAssertName name is not provided only append the AssertNumber
-            if (softAssertName == string.Empty)
+            if (string.IsNullOrEmpty(softAssertName))
             {
                 appendToFileName = StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts);
             }
