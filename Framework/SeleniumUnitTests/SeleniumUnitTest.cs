@@ -26,7 +26,7 @@ namespace SeleniumUnitTests
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class SeleniumUnitTest : BaseSeleniumTest
+    public class SeleniumUnitTest : SauceLabsBaseSeleniumTest
     {
         /// <summary>
         /// Unit testing site URL - Login page
@@ -1130,10 +1130,21 @@ namespace SeleniumUnitTests
             this.CreateNewTestObject();
             SeleniumTestObject newTestObject = TestObject;
 
-            Assert.AreEqual(WebDriver.ToString(), newTestObject.WebDriver.ToString());
-            Assert.AreEqual(Log.ToString(), newTestObject.Log.ToString());
-            Assert.AreEqual(SoftAssert.ToString(), newTestObject.SoftAssert.ToString());
-            Assert.AreEqual(PerfTimerCollection.ToString(), newTestObject.PerfTimerCollection.ToString());
+            var expectedWebDriver = WebDriver.ToString();
+            var actualWebDriver = newTestObject.WebDriver.ToString();
+            var expectedLog = Log.ToString();
+            var actualLog = newTestObject.Log.ToString();
+            var expectedSoftAssert = SoftAssert.ToString();
+            var actualSoftAssert = newTestObject.SoftAssert.ToString();
+            var expectedPerf = PerfTimerCollection.ToString();
+            var actualPerf = newTestObject.PerfTimerCollection.ToString();
+
+            // Need to quit webdriver here in order for remote browser to close browser correctly.
+            newTestObject.WebDriver.Quit();
+            Assert.AreEqual(expectedWebDriver, actualWebDriver);
+            Assert.AreEqual(expectedLog, actualLog);
+            Assert.AreEqual(expectedSoftAssert, actualSoftAssert);
+            Assert.AreEqual(expectedPerf, actualPerf);
         }
 
         /// <summary>
