@@ -59,7 +59,7 @@ namespace AppiumUnitTests
             options.AddAdditionalCapability("platformVersion", "12.2");
             options.AddAdditionalCapability("platformName", "iOS");
             options.AddAdditionalCapability("browserName", "Safari");
-            options.AddAdditionalCapability("username", "Partner_Magenic");
+            options.AddAdditionalCapability("username", Config.GetValueForSection(ConfigSection.AppiumCapsMaqs, "userName"));
             options.AddAdditionalCapability("accessKey", Config.GetValueForSection(ConfigSection.AppiumCapsMaqs, "accessKey"));
 
             return new IOSDriver<IWebElement>(AppiumConfig.GetMobileHubUrl(), options, AppiumConfig.GetCommandTimeout());

@@ -26,7 +26,7 @@ namespace SeleniumUnitTests
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class SeleniumUtilsTest : BaseSeleniumTest
+    public class SeleniumUtilsTest : SauceLabsBaseSeleniumTest
     {
         /// <summary>
         /// Axe JSON with an error
@@ -673,7 +673,7 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
-        /// Verify we throw an exception if there are violations and we choose the throw exception option 
+        /// Verify we throw an exception if there are violations and we choose the throw exception option
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
@@ -730,7 +730,7 @@ namespace SeleniumUnitTests
         {
             // Make sure we are not using verbose logging
             this.Log.SetLoggingLevel(MessageType.INFORMATION);
-            
+
             WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
             WebDriver.Wait().ForPageLoad();
 
