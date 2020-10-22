@@ -50,7 +50,7 @@ IWebDriver alsoAlsoDefaultDriver = this.WebDriver;
 *The this.WebDriver is only available when if you are creating base Selenium tests.*
 ### Named driver
 ```csharp
-IWebDriver selenNamed = ((SeleniumDriverManager)this.ManagerStore["NAMESEL"]).GetWebDriver(); // TBD, NOT WORKING
+IWebDriver selenNamed = ((SeleniumDriverManager)this.ManagerStore["NAMESEL"]).GetWebDriver();
 IWebDriver alsoSelenNamed = this.ManagerStore.GetDriver<EventFiringWebDriver>("NAMESEL");
 
 DatabaseDriver dbNamed = ((DatabaseDriverManager)this.ManagerStore["NAMEDB"]).GetDatabaseDriver();
