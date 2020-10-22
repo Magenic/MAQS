@@ -17,12 +17,12 @@ Add a new webdriver to the store.
 
 ### Add default
 ```csharp
-this.ManagerStore.Add(new SeleniumDriverManager(() => SeleniumConfig.Browser(), TestObject));
+this.ManagerStore.Add(new SeleniumDriverManager(() => WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Chrome), this.TestObject);
 ```
 
 ### Add named
 ```csharp
-this.ManagerStore.Add("NAMESEL", new SeleniumDriverManager(() => SeleniumConfig.Browser("HeadlessChrome"), TestObject));
+this.ManagerStore.Add("NAMESEL", new SeleniumDriverManager(() => WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.HeadlessChrome), this.TestObject);
 ```
 
 ##  AddOrOverride
@@ -43,15 +43,15 @@ Get the driver from the store
 ### Default driver
 ```csharp
 // All different ways of getting the same WebDriver
-IWebDriver defaultDriver = this.ManagerStore.GetDriver<SeleniumDriverManager, SeleniumDriverManager>().GetWebDriver();
+IWebDriver defaultDriver = this.ManagerStore.GetDriver<EventFiringWebDriver, SeleniumDriverManager>();
 IWebDriver alsoDefaultDriver = this.TestObject.GetDriverManager<SeleniumDriverManager>().GetWebDriver();
 IWebDriver alsoAlsoDefaultDriver = this.WebDriver;
 ``` 
 *The this.WebDriver is only available when if you are creating base Selenium tests.*
 ### Named driver
 ```csharp
-IWebDriver selenNamed = ((SeleniumDriverManager)this.ManagerStore["NAMESEL"]).GetWebDriver();
-IWebDriver alsoSelenNamed = this.ManagerStore.GetDriver<SeleniumDriverManager>("NAMESEL").GetWebDriver();
+IWebDriver selenNamed = ((SeleniumDriverManager)this.ManagerStore["NAMESEL"]).GetWebDriver(); // TBD, NOT WORKING
+IWebDriver alsoSelenNamed = this.ManagerStore.GetDriver<EventFiringWebDriver>("NAMESEL");
 
 DatabaseDriver dbNamed = ((DatabaseDriverManager)this.ManagerStore["NAMEDB"]).GetDatabaseDriver();
 DatabaseDriver alsoDBNamed = this.ManagerStore.GetDriver<DatabaseDriverManager>("NAMEDB").GetDatabaseDriver();
@@ -79,7 +79,7 @@ namespace Tests
             this.ManagerStore.Add(new DatabaseDriverManager(() => DatabaseConfig.GetOpenConnection(), TestObject));
 
             // Add named WebService driver
-            this.ManagerStore.Add("NAMESEL", new SeleniumDriverManager(() => SeleniumConfig.Browser("HeadlessChrome"), TestObject));
+            this.ManagerStore.Add("NAMESEL", new SeleniumDriverManager(() => WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.HeadlessChrome), this.TestObject));
         }
 
         [TestMethod]
@@ -88,7 +88,7 @@ namespace Tests
             this.WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase());
 
             // Get the other named driver from the store
-            IWebDriver namedWebDriver = this.ManagerStore.GetDriver<SeleniumDriverManager>("NAMESEL").GetWebDriver();
+            IWebDriver namedWebDriver = this.ManagerStore.GetDriver<IWebDriver>("NAMESEL");
             namedWebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase());
 
             Assert.AreEqual(this.WebDriver.Title, namedWebDriver.Title, "Expect page to have the same title");
