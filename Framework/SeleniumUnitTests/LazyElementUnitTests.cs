@@ -529,6 +529,32 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Verify Lazy Element SendKeys with control key
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementSendKeysWithInteractionNav()
+        {
+            WebDriver.Navigate().GoToUrl("https://www.google.com/");
+            LazyElement lazyRoot = new LazyElement(this.TestObject, By.Name("q"));
+            lazyRoot.SendKeys("SEARCH" + Keys.Enter);
+            Assert.AreEqual("SEARCH", lazyRoot.GetValue());
+        }
+
+        /// <summary>
+        /// Verify Lazy Element SendKeys with complex control key interaction
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementSendKeysWithInteractionNavComplex()
+        {
+            WebDriver.Navigate().GoToUrl("https://www.google.com/");
+            LazyElement lazyRoot = new LazyElement(this.TestObject, By.Name("q"));
+            lazyRoot.SendKeys("SEARCH" + Keys.Tab + "TXT");
+            Assert.AreEqual("SEARCH", lazyRoot.GetValue());
+        }
+
+        /// <summary>
         /// Verify Lazy Element SendKeys test
         /// </summary>
         [TestMethod]

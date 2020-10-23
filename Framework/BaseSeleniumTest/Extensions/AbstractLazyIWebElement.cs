@@ -16,6 +16,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Linq;
 
 namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 {
@@ -38,6 +39,11 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// The parent lazy element
         /// </summary>
         private readonly AbstractLazyIWebElement parent;
+
+        /// <summary>
+        /// Navigation character keys
+        /// </summary>
+        private static readonly char[] navigationChars = new char[] { Keys.Enter.First(), Keys.Tab.First() };
 
         /// <summary>
         /// Get the timeout
@@ -340,11 +346,30 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
             GenericWait.Wait(
                 () =>
-            {
-                IWebElement element = this.GetElement(this.GetRawVisibleElement);
-                this.ExecuteEvent(() => element.SendKeys(text), "SendKeys");
-                return true;
-            },
+                {
+                    IWebElement element = this.GetElement(this.GetRawVisibleElement);
+
+                    try
+                    {
+
+                        this.ExecuteEvent(() => element.SendKeys(text), "SendKeys");
+                    }
+                    catch (Exception e)
+                    {
+                        // Check if the value is set correctly , if so than we should say the send keys worked
+                        string sub = text.Split(navigationChars)[0];
+                        element = this.GetElement(this.GetRawVisibleElement);
+
+                        if (!sub.EndsWith(element.GetAttribute("value")))
+                        {
+                            throw e;
+                        }
+
+                        this.Log.LogMessage(MessageType.VERBOSE, "Sending keys caused an error, but text was entered.");
+                    }
+
+                    return true;
+                },
             this.WaitTime(),
             this.TimeoutTime());
         }
@@ -362,7 +387,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             {
                 this.TestObject.Log.SuspendLogging();
                 this.ExecuteEvent(() => element.SendKeys(keys), "SendKeys");
-                this.TestObject.Log.ContinueLogging();
+                
             }
             catch (Exception e)
             {
@@ -370,6 +395,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 this.TestObject.Log.LogMessage(MessageType.ERROR, "Exception during sending secret keys: " + e.Message + Environment.NewLine + e.StackTrace);
                 throw;
             }
+            
+            this.TestObject.Log.ContinueLogging();
         }
 
         /// <summary>
