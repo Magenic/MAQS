@@ -354,14 +354,6 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
                         this.ExecuteEvent(() => element.SendKeys(text), "SendKeys");
                     }
-                    catch (StaleElementReferenceException e)
-                    {
-                        element = this.GetElement(this.GetRawVisibleElement);
-                        if (!element.Text.Contains(text))
-                        {
-                            throw e;
-                        }
-                    }
                     catch (Exception e)
                     {
                         // Check if the value is set correctly , if so than we should say the send keys worked
