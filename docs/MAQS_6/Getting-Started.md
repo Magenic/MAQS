@@ -16,16 +16,16 @@ After the MAQS Visual Studio Extension has been installed, you're ready to start
 #### Visual Studio 2017
 1. Open Visual Studio and open "Extensions and Updates"
 
-### ![Extensions and updates](resources/ExtensionsAndUpdates.PNG)
+![Extensions and updates](resources/ExtensionsAndUpdates.PNG)
 
 #### Visual Studio 2019
 1. Open Visual Studio and open Extensions > Manage Extensions"
 
-### ![Manage Extensions](resources/VS2019ManageExtensions.png)
+![Manage Extensions](resources/VS2019ManageExtensions.png)
 
 2. Find and download MAQS  
 
-### ![From store](resources/FromStore.PNG)
+![From store](resources/FromStore.PNG)
 
 ### Option 2. Install MAQS Templates Using The VS Marketplace
 The MAQS Visual Studio Extension contains a collection of templates for NUnit, VSTest, Test Classes, and Page Models.
@@ -149,14 +149,13 @@ Test methods with multiple Category attributes will add that test case to each a
 
 ## Template install
 
-
 2. In the VS Code terminal type the following to get the most recent version.
 
 ```dotnet new --install Magenic.Maqs.Templates```
 
 3. You should then see the MAQS templates available
 
-### ![MAQS templates in template](resources/DotNetTemplates.png)
+![MAQS templates in template](resources/DotNetTemplates.png)
 
 ## Creating a Project
 
