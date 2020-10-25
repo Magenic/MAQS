@@ -61,6 +61,7 @@ namespace BaseTestUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Framework)]
+        [SuppressMessage("Minor Code Smell", "S3626:Jump statements should not be redundant", Justification = "<Pending>")]
         public void SoftAssertExceptionWithNoMessage()
         {
             MicroAssert.ThrowsException<SoftAssertException>(() => throw new SoftAssertException(), string.Empty);
@@ -71,6 +72,7 @@ namespace BaseTestUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Framework)]
+        [SuppressMessage("Minor Code Smell", "S3626:Jump statements should not be redundant", Justification = "<Pending>")]
         public void SoftAssertExceptionWithMessage()
         {
             string error = "ERROR";
@@ -82,6 +84,7 @@ namespace BaseTestUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Framework)]
+        [SuppressMessage("Minor Code Smell", "S3626:Jump statements should not be redundant", Justification = "<Pending>")]
         public void SoftAssertExceptionWithInnerException()
         {
             string error = "ERROR";
@@ -128,9 +131,9 @@ namespace BaseTestUnitTests
             }
         }
 
-        /// <summary> 
-        /// Test that in core, associated test files get written to the log 
-        /// </summary> 
+        /// <summary>
+        /// Test that in core, associated test files get written to the log
+        /// </summary>
         [Test]
         [Category(TestCategories.Framework)]
         [Category(TestCategories.NUnit)]
@@ -144,23 +147,23 @@ namespace BaseTestUnitTests
             // get log path
             string logFilePath = ((FileLogger)tester.Log).FilePath;
 
-            // create test files 
+            // create test files
             Directory.CreateDirectory("TeardownTest");
 
             File.Create(@"TeardownTest/AssocFileToAttach1.txt").Dispose();
 
-#pragma warning disable S3966 // Objects should not be disposed more than once 
+#pragma warning disable S3966 // Objects should not be disposed more than once
             File.Create(@"TeardownTest/AssocFileToAttach2.txt").Dispose();
 #pragma warning restore S3966 // Objects should not be disposed more than once
 
-            // add associated files 
+            // add associated files
             tester.TestObject.AddAssociatedFile(@"TeardownTest/AssocFileToAttach1.txt");
             tester.TestObject.AddAssociatedFile(@"TeardownTest/AssocFileToAttach2.txt");
 
             // call the teardown to add associated files
             tester.Teardown();
 
-            // test the list of associated files is written to the log 
+            // test the list of associated files is written to the log
             bool messageIsWritten = false;
 
             using (StreamReader sr = File.OpenText(logFilePath))
@@ -179,7 +182,7 @@ namespace BaseTestUnitTests
                 }
             }
 
-            // cleanup the test files 
+            // cleanup the test files
             File.Delete(logFilePath);
             Directory.Delete("TeardownTest", true);
             NUnit.Framework.Assert.IsTrue(messageIsWritten, "The list of files to attach was not written to the log");
@@ -195,7 +198,7 @@ namespace BaseTestUnitTests
         }
 
         /// <summary>
-        /// Soft assert with failure functionality 
+        /// Soft assert with failure functionality
         /// </summary>
         protected void SoftAssertWithFailure()
         {
