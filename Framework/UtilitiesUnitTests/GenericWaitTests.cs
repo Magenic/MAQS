@@ -639,13 +639,13 @@ namespace UtilitiesUnitTesting
                 Thread.Sleep(TimeSpan.FromSeconds(10));
                 return true;
             },
-            TimeSpan.FromMilliseconds(333),
-            TimeSpan.FromMilliseconds(666),
+            TimeSpan.FromSeconds(1),
+            TimeSpan.FromSeconds(2),
             false);
 
             stopwatch.Stop();
             Assert.IsFalse(result);
-            Assert.IsTrue(stopwatch.Elapsed < TimeSpan.FromSeconds(2));
+            Assert.IsTrue(stopwatch.Elapsed < TimeSpan.FromSeconds(10));
         }
 
         /// <summary>
@@ -658,7 +658,7 @@ namespace UtilitiesUnitTesting
             var str = "my string";
             var result = GenericWait.WaitUntilTimeout(
                 () => str,
-                TimeSpan.FromSeconds(1),
+                TimeSpan.FromMilliseconds(500),
                 TimeSpan.FromSeconds(1));
 
             Assert.AreEqual(str, result, "Wait result does not match the expected result of the method");
@@ -677,8 +677,8 @@ namespace UtilitiesUnitTesting
                 Thread.Sleep(TimeSpan.FromSeconds(10));
                 return "my string";
             },
-            TimeSpan.FromMilliseconds(333),
-            TimeSpan.FromMilliseconds(666));
+            TimeSpan.FromSeconds(1),
+            TimeSpan.FromSeconds(2));
 
             Assert.Fail();
         }
@@ -694,7 +694,7 @@ namespace UtilitiesUnitTesting
             var result = GenericWait.WaitUntilTimeout(
                 (a) => a,
                 TimeSpan.FromSeconds(1),
-                TimeSpan.FromSeconds(1),
+                TimeSpan.FromSeconds(2),
                 str);
 
             Assert.AreEqual(str, result, "Passed argument and result do not match");
@@ -716,8 +716,8 @@ namespace UtilitiesUnitTesting
                     Thread.Sleep(TimeSpan.FromSeconds(10));
                     return a;
                 },
-                TimeSpan.FromMilliseconds(333),
-                TimeSpan.FromMilliseconds(666),
+                TimeSpan.FromSeconds(1),
+                TimeSpan.FromSeconds(2),
                 str);
 
             Assert.Fail("Method should have thrown an exception");
@@ -733,7 +733,7 @@ namespace UtilitiesUnitTesting
             var str = "my string";
             var result = GenericWait.WaitUntilTimeout(
                 (a) => true,
-                TimeSpan.FromSeconds(1),
+                TimeSpan.FromMilliseconds(333),
                 TimeSpan.FromSeconds(1),
                 false,
                 str);
@@ -756,8 +756,8 @@ namespace UtilitiesUnitTesting
                 {
                     throw new Exception("This method didn't work");
                 },
-                TimeSpan.FromMilliseconds(333),
-                TimeSpan.FromMilliseconds(666),
+                TimeSpan.FromSeconds(1),
+                TimeSpan.FromSeconds(2),
                 true,
                 str);
 
@@ -775,8 +775,8 @@ namespace UtilitiesUnitTesting
             var str = "my string";
             var result = GenericWait.WaitUntilTimeout(
                 (a) => throw new Exception("This method didn't work"),
-                TimeSpan.FromMilliseconds(333),
-                TimeSpan.FromMilliseconds(666),
+                TimeSpan.FromSeconds(1),
+                TimeSpan.FromSeconds(2),
                 false,
                 str);
 
@@ -792,8 +792,8 @@ namespace UtilitiesUnitTesting
         {
             var result = GenericWait.WaitUntilTimeout(
                 () => true,
-                TimeSpan.FromMilliseconds(333),
-                TimeSpan.FromMilliseconds(666),
+                TimeSpan.FromSeconds(1),
+                TimeSpan.FromSeconds(2),
                 false);
 
             Assert.IsTrue(result, "Expected Wait to return true");
@@ -809,8 +809,8 @@ namespace UtilitiesUnitTesting
         {
             var result = GenericWait.WaitUntilTimeout(
                 () => throw new Exception("This method didn't work"),
-                TimeSpan.FromMilliseconds(333),
-                TimeSpan.FromMilliseconds(666),
+                TimeSpan.FromSeconds(1),
+                TimeSpan.FromSeconds(2),
                 false);
 
             Assert.IsFalse(result, "Method should throw exception, Wait should return false.");
@@ -826,8 +826,8 @@ namespace UtilitiesUnitTesting
         {
             var result = GenericWait.WaitUntilTimeout(
                 () => throw new Exception("This method didn't work"),
-                TimeSpan.FromMilliseconds(333),
-                TimeSpan.FromMilliseconds(666),
+                TimeSpan.FromSeconds(1),
+                TimeSpan.FromSeconds(2),
                 true);
 
             Assert.Fail("Method should throw exception, Wait should throw exception.");
@@ -844,8 +844,8 @@ namespace UtilitiesUnitTesting
         {
             var result = GenericWait.WaitUntilTimeout<string>(
                 () => throw new Exception("This method didn't work"),
-                TimeSpan.FromMilliseconds(333),
-                TimeSpan.FromMilliseconds(666));
+                TimeSpan.FromSeconds(1),
+                TimeSpan.FromSeconds(2));
 
             Assert.Fail("Method should throw exception, Wait should throw exception.");
         }
@@ -863,8 +863,8 @@ namespace UtilitiesUnitTesting
             var str = "my string";
             var result = GenericWait.WaitUntilTimeout<string, string>(
                 (a) => throw new Exception("This method didn't work"),
-                TimeSpan.FromMilliseconds(333),
-                TimeSpan.FromMilliseconds(666),
+                TimeSpan.FromSeconds(1),
+                TimeSpan.FromSeconds(2),
                 str);
 
             Assert.Fail("Method should throw exception, Wait should throw exception.");
