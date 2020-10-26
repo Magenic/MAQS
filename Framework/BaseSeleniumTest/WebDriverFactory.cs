@@ -83,7 +83,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             {
                 if (e.GetType() == typeof(ArgumentException))
                 {
-                    throw e;
+                    throw;
                 }
                 else
                 {
@@ -473,14 +473,13 @@ namespace Magenic.Maqs.BaseSeleniumTest
 
             try
             {
-                webDriver = createFunction();
-                return webDriver;
+                return createFunction();
             }
             catch (Exception e)
             {
                 if (e.GetType() == typeof(ArgumentException))
                 {
-                    throw e;
+                    throw;
                 }
                 else
                 {
@@ -585,7 +584,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             // Try the default hit path next
             if (!string.IsNullOrEmpty(defaultHintPath) && File.Exists(Path.Combine(defaultHintPath, driverFile)))
             {
-                return Path.Combine(defaultHintPath).ToString();
+                return Path.Combine(defaultHintPath);
             }
 
             // Get the test dll location

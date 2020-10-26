@@ -398,7 +398,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             StringBuilder message = new StringBuilder();
             int axeRules = scannedResults.Length;
 
-            message.AppendLine($"ACCESSIBILITY CHECK");
+            message.AppendLine("ACCESSIBILITY CHECK");
             message.AppendLine($"{typeOfScan} check for '{webDriver.Url}'");
             message.AppendLine($"Found {axeRules} items");
 
@@ -414,19 +414,19 @@ namespace Magenic.Maqs.BaseSeleniumTest
 
             foreach (var element in scannedResults)
             {
-                message.AppendLine($@"{loops++}: {element.Help}");
-                message.AppendLine($@"{"\t"}Description: {element.Description}");
-                message.AppendLine($@"{"\t"}Help URL: {element.HelpUrl}");
-                message.AppendLine($@"{"\t"}Impact: {element.Impact}");
-                message.AppendLine($@"{"\t"}Tags: {string.Join(", ", element.Tags)}");
+                message.AppendLine($"{loops++}: {element.Help}");
+                message.AppendLine($"{"\t"}Description: {element.Description}");
+                message.AppendLine($"{"\t"}Help URL: {element.HelpUrl}");
+                message.AppendLine($"{"\t"}Impact: {element.Impact}");
+                message.AppendLine($"{"\t"}Tags: {string.Join(", ", element.Tags)}");
 
                 foreach (var item in element.Nodes)
                 {
-                    message.AppendLine($@"{"\t"}{"\t"}HTML element: {item.Html}");
+                    message.AppendLine($"{"\t"}{"\t"}HTML element: {item.Html}");
 
-                    foreach (string target in item.Target)
+                    foreach (var target in item.Target)
                     {
-                        message.AppendLine($@"{"\t"}{"\t"}Selector: {target}");
+                        message.AppendLine($"{"\t"}{"\t"}Selector: {target}");
                     }
                 }
 
@@ -464,10 +464,10 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="element">The web element</param>
         /// <returns>The web driver</returns>
         public static IWebDriver WebElementToWebDriver(IWebElement element)
-        {            
+        {
             // Extract the web driver from the element
             IWebDriver driver;
-            
+
             // Get the parent driver - this is a protected property so we need to user reflection to access it
             var eventFiringPropertyInfo = element.GetType().GetProperty("ParentDriver", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetProperty);
 
