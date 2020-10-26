@@ -424,7 +424,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 {
                     message.AppendLine($"{"\t"}{"\t"}HTML element: {item.Html}");
 
-                    foreach (string target in item.Target)
+                    foreach (var target in item.Target)
                     {
                         message.AppendLine($"{"\t"}{"\t"}Selector: {target}");
                     }
