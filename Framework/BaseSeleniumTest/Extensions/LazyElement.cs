@@ -24,7 +24,6 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
         public LazyElement(SeleniumTestObject testObject, By locator, [CallerMemberName] string userFriendlyName = null) : base(testObject, testObject.WebDriver, () => testObject.WebDriver.GetWaitDriver(), locator, userFriendlyName)
         {
-
         }
 
         /// <summary>
@@ -36,7 +35,6 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
         public LazyElement(SeleniumTestObject testObject, IWebDriver driver, By locator, [CallerMemberName] string userFriendlyName = null) : base(testObject, driver, () => driver.GetWaitDriver(), locator, userFriendlyName)
         {
-
         }
 
         /// <summary>
@@ -47,7 +45,6 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
         public LazyElement(LazyElement parent, By locator, [CallerMemberName] string userFriendlyName = null) : base(parent, locator, userFriendlyName)
         {
-
         }
 
         /// <summary>
@@ -60,7 +57,6 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
         private LazyElement(LazyElement parent, By locator, IWebElement cachedElement, int index, [CallerMemberName] string userFriendlyName = null) : base(parent, locator, cachedElement, index, userFriendlyName)
         {
-
         }
 
         /// <summary>

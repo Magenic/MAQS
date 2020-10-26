@@ -42,9 +42,9 @@ namespace SeleniumUnitTests
         /// </summary>
         private static readonly string TestSiteAboutUrl = TestSiteUrl + "Home/Contact/";
 
-        /// <summary> 
+        /// <summary>
         /// Body css selector
-        /// </summary> 
+        /// </summary>
         private static readonly By BodyCssSelector = By.CssSelector("BODY");
 
         /// <summary>
@@ -451,7 +451,7 @@ namespace SeleniumUnitTests
             IWebElement element = this.WebDriver.Wait().ForVisibleElement(BodyCssSelector);
 
             Assert.IsTrue(element.Wait().ForClickableElementAndScrollIntoView(AutomationShowDialog1, 0, 100).Displayed, "Failed to find element or scroll");
-            Assert.IsTrue(WebDriver.Wait().ForClickableElementAndScrollIntoView(AutomationShowDialog1, 0, 100).Displayed, "Failed to find element or scroll");  
+            Assert.IsTrue(WebDriver.Wait().ForClickableElementAndScrollIntoView(AutomationShowDialog1, 0, 100).Displayed, "Failed to find element or scroll");
         }
 
         /// <summary>

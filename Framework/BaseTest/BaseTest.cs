@@ -299,8 +299,9 @@ namespace Magenic.Maqs.BaseTest
             }
             finally
             {
+                var logger = this.Log as HtmlFileLogger;
                 // if the logger is HTML dispose of it to add ending tags
-                if (this.Log is HtmlFileLogger)
+                if (logger != null)
                 {
                     ((HtmlFileLogger)this.Log).Dispose();
                 }
@@ -584,7 +585,7 @@ namespace Magenic.Maqs.BaseTest
         /// </summary>
         private void AttachAssociatedFiles()
         {
-            // You can only attach files to VS Unit tests so check that first 
+            // You can only attach files to VS Unit tests so check that first
             if (this.testContextInstance != null)
             {
                 try

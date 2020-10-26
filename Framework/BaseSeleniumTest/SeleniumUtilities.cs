@@ -398,7 +398,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             StringBuilder message = new StringBuilder();
             int axeRules = scannedResults.Length;
 
-            message.AppendLine($"ACCESSIBILITY CHECK");
+            message.AppendLine("ACCESSIBILITY CHECK");
             message.AppendLine($"{typeOfScan} check for '{webDriver.Url}'");
             message.AppendLine($"Found {axeRules} items");
 
@@ -414,19 +414,19 @@ namespace Magenic.Maqs.BaseSeleniumTest
 
             foreach (var element in scannedResults)
             {
-                message.AppendLine($@"{loops++}: {element.Help}");
-                message.AppendLine($@"{"\t"}Description: {element.Description}");
-                message.AppendLine($@"{"\t"}Help URL: {element.HelpUrl}");
-                message.AppendLine($@"{"\t"}Impact: {element.Impact}");
-                message.AppendLine($@"{"\t"}Tags: {string.Join(", ", element.Tags)}");
+                message.AppendLine($"{loops++}: {element.Help}");
+                message.AppendLine($"{"\t"}Description: {element.Description}");
+                message.AppendLine($"{"\t"}Help URL: {element.HelpUrl}");
+                message.AppendLine($"{"\t"}Impact: {element.Impact}");
+                message.AppendLine($"{"\t"}Tags: {string.Join(", ", element.Tags)}");
 
                 foreach (var item in element.Nodes)
                 {
-                    message.AppendLine($@"{"\t"}{"\t"}HTML element: {item.Html}");
+                    message.AppendLine($"{"\t"}{"\t"}HTML element: {item.Html}");
 
                     foreach (var target in item.Target)
                     {
-                        message.AppendLine($@"{"\t"}{"\t"}Selector: {target}");
+                        message.AppendLine($"{"\t"}{"\t"}Selector: {target}");
                     }
                 }
 
