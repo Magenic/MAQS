@@ -92,6 +92,37 @@ namespace BaseTestUnitTests
         }
 
         /// <summary>
+        /// Soft assert is expecting to be called at least once for key "one".
+        /// </summary>
+        [TestMethod]
+        [SoftAssertExpectedAsserts("one")]
+        [Category(TestCategories.Framework)]
+        [ExpectedException(typeof(AssertFailedException))]
+        public void SoftAssertDoesNotAssertExpected()
+        {
+            var tester = GetBaseTest();
+            tester.TestContext = this.TestContext;
+            tester.Setup();
+            tester.Teardown();
+        }
+
+        /// <summary>
+        /// Soft assert is expect assert with key "one" to be called.
+        /// Throws exception on FailTestIfAssertFailed()
+        /// </summary>
+        [TestMethod]
+        [SoftAssertExpectedAsserts("one")]
+        [Category(TestCategories.Framework)]
+        [ExpectedException(typeof(AggregateException))]
+        public void FailSoftAssertIfExpectedAssertsAreNotCalled()
+        {
+            var tester = GetBaseTest();
+            tester.TestContext = this.TestContext;
+            tester.Setup();
+            tester.SoftAssert.FailTestIfAssertFailed();
+        }
+
+        /// <summary>
         ///  Base test does soft assert check
         /// </summary>
         [Test]

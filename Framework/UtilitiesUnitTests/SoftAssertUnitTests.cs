@@ -233,6 +233,37 @@ namespace UtilitiesUnitTesting
         }
 
         /// <summary>
+        /// Expect an Assert and call one assert.
+        /// SoftAssert should not throw an exception.
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void SoftAssertManuallySetExpectedAsserts()
+        {
+            SoftAssert softAssert = new SoftAssert(
+                new FileLogger(LoggingConfig.GetLogDirectory(),
+                "UnitTests.SoftAssertManuallySetExpectedAssert"));
+            softAssert.AddExpectedAsserts("one");
+            softAssert.Assert(() => { }, "one");
+            softAssert.FailTestIfAssertFailed();
+        }
+
+        /// <summary>
+        /// Expect SoftAssert to fail because the expected assert was never called.
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        [ExpectedException(typeof(AggregateException))]
+        public void SoftAssertManuallySetExpectedAssertsFails()
+        {
+            SoftAssert softAssert = new SoftAssert(
+                new FileLogger(LoggingConfig.GetLogDirectory(),
+                "UnitTests.SoftAssertManuallySetExpectedAssertsFails"));
+            softAssert.AddExpectedAsserts("one");
+            softAssert.FailTestIfAssertFailed();
+        }
+
+        /// <summary>
         /// Throws a null reference exception
         /// </summary>
         private void MethodThrowsNullException()
