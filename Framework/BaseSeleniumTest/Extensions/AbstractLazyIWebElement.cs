@@ -437,7 +437,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
 
         /// <summary>
-        /// Deselect all dropdown option from the lazy element
+        /// Deselect all dropdown options from the lazy element
         /// </summary>
         public void DeselectAllDropDownOptions()
         {
