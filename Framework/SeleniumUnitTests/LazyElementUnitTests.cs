@@ -678,6 +678,61 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Verify Lazy Element Deselected All From dropdown
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementGetDeselectedAllFromDropdown()
+        {
+            this.ComputerParts.SelectDropDownOption("Motherboard");
+            this.ComputerParts.SelectDropDownOption("Power Supply");
+
+            this.ComputerParts.DeselectAllDropDownOptions();
+
+            var selectedOptions = this.ComputerParts.GetSelectedOptionsFromDropdown();
+            Assert.AreEqual(0, selectedOptions.Count, "Expected all options to be removed");
+        }
+
+        /// <summary>
+        /// Verify Lazy Element Deselected Option From dropdown
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementGetDeselectedOptionsFromDropdown()
+        {
+            this.ComputerParts.SelectDropDownOption("Motherboard");
+            this.ComputerParts.SelectDropDownOption("Power Supply");
+            this.ComputerParts.DeselectDropDownOption("Motherboard");
+
+            var selectedOptions = this.ComputerParts.GetSelectedOptionsFromDropdown();
+
+            Assert.AreEqual(1, selectedOptions.Count, "Expected one item selected");
+            Assert.AreEqual("Power Supply", selectedOptions[0]);
+        }
+
+        /// <summary>
+        /// Verify Lazy Element Deselected Option From dropdown by value
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementDeselectDropDownOptionByValue()
+        {
+            // Select items
+            this.ComputerParts.SelectDropDownOptionByValue("one");
+            this.ComputerParts.SelectDropDownOptionByValue("three");
+            this.ComputerParts.SelectDropDownOptionByValue("five");
+
+            // Deselect item
+            this.ComputerParts.DeselectDropDownOptionByValue("three");
+
+            var selectedOptions = this.ComputerParts.GetSelectedOptionsFromDropdown();
+
+            Assert.AreEqual(2, selectedOptions.Count, "Expected two item selected");
+            Assert.AreEqual("Motherboard", selectedOptions[0]);
+            Assert.AreEqual("Mouse", selectedOptions[1]);
+        }
+
+        /// <summary>
         /// Verify Lazy Element Displayed test
         /// </summary>
         [TestMethod]

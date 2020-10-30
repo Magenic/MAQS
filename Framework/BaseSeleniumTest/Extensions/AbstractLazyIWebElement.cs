@@ -435,6 +435,63 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             this.TimeoutTime());
         }
 
+
+        /// <summary>
+        /// Deselect all dropdown options from the lazy element
+        /// </summary>
+        public void DeselectAllDropDownOptions()
+        {
+            this.Log.LogMessage(MessageType.ACTION, $"Deselect all options from '{this.userFriendlyName}'");
+
+            GenericWait.Wait(
+                () =>
+                {
+                    IWebElement element = this.GetElement(this.GetRawVisibleElement);
+                    this.ExecuteEvent(() => new SelectElement(element).DeselectAll(), "Deselect All DropDown Options");
+                    return true;
+                },
+            this.WaitTime(),
+            this.TimeoutTime());
+        }
+
+        /// <summary>
+        /// Deselect the dropdown option from the lazy element
+        /// </summary>
+        /// <param name="option">the option to deselect</param>
+        public void DeselectDropDownOption(string option)
+        {
+            this.Log.LogMessage(MessageType.ACTION, $"Deselect option: {option} from '{this.userFriendlyName}'");
+
+            GenericWait.Wait(
+                () =>
+                {
+                    IWebElement element = this.GetElement(this.GetRawVisibleElement);
+                    this.ExecuteEvent(() => new SelectElement(element).DeselectByText(option), "Deselect DropDown Option");
+                    return true;
+                },
+            this.WaitTime(),
+            this.TimeoutTime());
+        }
+
+        /// <summary>
+        /// Deselect the dropdown option by value from the Lazy element
+        /// </summary>
+        /// <param name="value">the value to deselect</param>
+        public void DeselectDropDownOptionByValue(string value)
+        {
+            this.Log.LogMessage(MessageType.ACTION, $"Deselect value: {value} from '{this.userFriendlyName}'");
+
+            GenericWait.Wait(
+                () =>
+                {
+                    IWebElement element = this.GetElement(this.GetRawVisibleElement);
+                    this.ExecuteEvent(() => new SelectElement(element).DeselectByValue(value), "Deselect DropDown Option By Value");
+                    return true;
+                },
+            this.WaitTime(),
+            this.TimeoutTime());
+        }
+
         /// <summary>
         /// Select the dropdown option from the lazy element
         /// </summary>
@@ -579,10 +636,6 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         {
             if (this.elementIndex == null)
             {
-
-
-
-
                 this.CachedElement = (this.parent == null) ? this.WebDriver.Wait().ForVisibleElement(this.By) :
                 this.parent.GetRawExistingElement().Wait().ForVisibleElement(this.By);
             }
