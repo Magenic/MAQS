@@ -25,7 +25,7 @@ namespace SeleniumUnitTests
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class LazyElementUnitTests : SauceLabsBaseSeleniumTest
+    public class LazyElementUnitTests : BaseSeleniumTest
     {
         /// <summary>
         /// Gets the div root

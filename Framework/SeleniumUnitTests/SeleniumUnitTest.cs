@@ -26,7 +26,7 @@ namespace SeleniumUnitTests
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class SeleniumUnitTest : SauceLabsBaseSeleniumTest
+    public class SeleniumUnitTest : BaseSeleniumTest
     {
         /// <summary>
         /// Unit testing site URL - Login page

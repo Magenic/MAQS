@@ -26,7 +26,7 @@ namespace SeleniumUnitTests
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class SeleniumUtilsTest : SauceLabsBaseSeleniumTest
+    public class SeleniumUtilsTest : BaseSeleniumTest
     {
         /// <summary>
         /// Axe JSON with an error
