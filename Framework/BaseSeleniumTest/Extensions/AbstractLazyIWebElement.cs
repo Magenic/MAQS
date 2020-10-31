@@ -16,6 +16,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Linq;
 
 namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 {
@@ -38,6 +39,11 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// The parent lazy element
         /// </summary>
         private readonly AbstractLazyIWebElement parent;
+
+        /// <summary>
+        /// Navigation character keys
+        /// </summary>
+        private static readonly char[] navigationChars = new char[] { Keys.Enter.First(), Keys.Tab.First() };
 
         /// <summary>
         /// Get the timeout
@@ -340,11 +346,30 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
             GenericWait.Wait(
                 () =>
-            {
-                IWebElement element = this.GetElement(this.GetRawVisibleElement);
-                this.ExecuteEvent(() => element.SendKeys(text), "SendKeys");
-                return true;
-            },
+                {
+                    IWebElement element = this.GetElement(this.GetRawVisibleElement);
+
+                    try
+                    {
+
+                        this.ExecuteEvent(() => element.SendKeys(text), "SendKeys");
+                    }
+                    catch (Exception e)
+                    {
+                        // Check if the value is set correctly , if so than we should say the send keys worked
+                        string sub = text.Split(navigationChars)[0];
+                        element = this.GetElement(this.GetRawVisibleElement);
+
+                        if (!sub.EndsWith(element.GetAttribute("value")))
+                        {
+                            throw e;
+                        }
+
+                        this.Log.LogMessage(MessageType.VERBOSE, "Sending keys caused an error, but text was entered.");
+                    }
+
+                    return true;
+                },
             this.WaitTime(),
             this.TimeoutTime());
         }
@@ -362,7 +387,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             {
                 this.TestObject.Log.SuspendLogging();
                 this.ExecuteEvent(() => element.SendKeys(keys), "SendKeys");
-                this.TestObject.Log.ContinueLogging();
+                
             }
             catch (Exception e)
             {
@@ -370,6 +395,8 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 this.TestObject.Log.LogMessage(MessageType.ERROR, "Exception during sending secret keys: " + e.Message + Environment.NewLine + e.StackTrace);
                 throw;
             }
+            
+            this.TestObject.Log.ContinueLogging();
         }
 
         /// <summary>
@@ -404,6 +431,63 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 this.ExecuteEvent(() => element.Submit(), "Submit");
                 return true;
             },
+            this.WaitTime(),
+            this.TimeoutTime());
+        }
+
+
+        /// <summary>
+        /// Deselect all dropdown options from the lazy element
+        /// </summary>
+        public void DeselectAllDropDownOptions()
+        {
+            this.Log.LogMessage(MessageType.ACTION, $"Deselect all options from '{this.userFriendlyName}'");
+
+            GenericWait.Wait(
+                () =>
+                {
+                    IWebElement element = this.GetElement(this.GetRawVisibleElement);
+                    this.ExecuteEvent(() => new SelectElement(element).DeselectAll(), "Deselect All DropDown Options");
+                    return true;
+                },
+            this.WaitTime(),
+            this.TimeoutTime());
+        }
+
+        /// <summary>
+        /// Deselect the dropdown option from the lazy element
+        /// </summary>
+        /// <param name="option">the option to deselect</param>
+        public void DeselectDropDownOption(string option)
+        {
+            this.Log.LogMessage(MessageType.ACTION, $"Deselect option: {option} from '{this.userFriendlyName}'");
+
+            GenericWait.Wait(
+                () =>
+                {
+                    IWebElement element = this.GetElement(this.GetRawVisibleElement);
+                    this.ExecuteEvent(() => new SelectElement(element).DeselectByText(option), "Deselect DropDown Option");
+                    return true;
+                },
+            this.WaitTime(),
+            this.TimeoutTime());
+        }
+
+        /// <summary>
+        /// Deselect the dropdown option by value from the Lazy element
+        /// </summary>
+        /// <param name="value">the value to deselect</param>
+        public void DeselectDropDownOptionByValue(string value)
+        {
+            this.Log.LogMessage(MessageType.ACTION, $"Deselect value: {value} from '{this.userFriendlyName}'");
+
+            GenericWait.Wait(
+                () =>
+                {
+                    IWebElement element = this.GetElement(this.GetRawVisibleElement);
+                    this.ExecuteEvent(() => new SelectElement(element).DeselectByValue(value), "Deselect DropDown Option By Value");
+                    return true;
+                },
             this.WaitTime(),
             this.TimeoutTime());
         }
@@ -552,10 +636,6 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         {
             if (this.elementIndex == null)
             {
-
-
-
-
                 this.CachedElement = (this.parent == null) ? this.WebDriver.Wait().ForVisibleElement(this.By) :
                 this.parent.GetRawExistingElement().Wait().ForVisibleElement(this.By);
             }

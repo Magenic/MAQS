@@ -386,7 +386,7 @@ LazyElement stateDropdown =
     By.CssSelector("#state"),
     "The State dropdown");
 
-chatWindow.SendKeys("Minneapolis");
+stateDropdown.SelectDropDownOption("Minnesota");
 ```
 ### SelectDropDownOptionByValue
 This method selects the provided option from the lazy element by value.
@@ -403,7 +403,72 @@ LazyElement stateDropdown =
     By.CssSelector("#state"),
     "The State dropdown");
 
-chatWindow.SendKeys("6");
+stateDropdown.SelectDropDownOptionByValue("23");
+```
+
+### DeselectDropDownOption
+This method deselects the provided option from the lazy element.
+#### Written as
+```csharp
+this.ElementID.DeselectDropDownOption("DROPDOWN OPTION")
+```
+
+#### Example
+```csharp
+LazyElement stateDropdown =
+    new LazyElement(
+    this.TestObject,
+    By.CssSelector("#state"),
+    "The State dropdown");
+
+stateDropdown.SelectDropDownOption("California");
+stateDropdown.SelectDropDownOption("Minnesota");
+
+// Deselecting
+stateDropdown.DeselectDropDownOption("California");
+```
+### DeselectDropDownOptionByValue
+This method deselects the provided option from the lazy element by value.
+#### Written as
+```csharp
+this.ElementID.DeselectDropDownOptionByValue("DROPDOWN VALUE")
+```
+
+#### Example
+```csharp
+LazyElement stateDropdown =
+    new LazyElement(
+    this.TestObject,
+    By.CssSelector("#state"),
+    "The State dropdown");
+
+stateDropdown.SelectDropDownOptionByValue("5");
+stateDropdown.SelectDropDownOptionByValue("23");
+
+// Deselecting
+stateDropdown.DeselectDropDownOptionByValue("5");
+```
+
+### DeselectAllDropDownOptions
+This method deselects all options from the lazy element.
+#### Written as
+```csharp
+this.ElementID.DeselectAllDropDownOptions()
+```
+
+#### Example
+```csharp
+LazyElement stateDropdown =
+    new LazyElement(
+    this.TestObject,
+    By.CssSelector("#state"),
+    "The State dropdown");
+
+stateDropdown.SelectDropDownOptionByValue("five");
+stateDropdown.SelectDropDownOptionByValue("twentythree");
+
+// Deselecting all
+stateDropdown.DeselectAllDropDownOptions();
 ```
 ### SendKeys
 This method enters the provided text into the lazy element.

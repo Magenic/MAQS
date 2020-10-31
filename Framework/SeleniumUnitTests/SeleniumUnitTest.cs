@@ -255,8 +255,7 @@ namespace SeleniumUnitTests
         public void TryWaitForAttributeTextContains()
         {
             WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
-            IWebElement element;
-            bool found = WebDriver.Wait().TryForAttributeTextContains(AsyncLoadingTextDiv, "none;", "style", element: out element);
+            bool found = WebDriver.Wait().TryForAttributeTextContains(AsyncLoadingTextDiv, "none;", "style", element: out IWebElement element);
             Assert.IsTrue(found, "False was returned");
             Assert.IsNotNull(element, "Null element was returned");
         }

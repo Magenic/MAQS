@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <BuildVersion>6.0.1</BuildVersion>
-    <PreRelease></PreRelease>
+    <BuildVersion>6.1.0</BuildVersion>
+    <PreRelease>-beta.1</PreRelease>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -50,7 +50,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Selenium.Axe" Version="1.5.2" />
+    <PackageReference Include="Selenium.Axe" Version="2.0.0" />
     <PackageReference Include="Selenium.Support" Version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.1" />

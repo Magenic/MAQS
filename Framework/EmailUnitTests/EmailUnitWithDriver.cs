@@ -37,7 +37,7 @@ namespace EmailUnitTests
         private const string MimeMessageUID = "4";
 
         /// <summary>
-        /// Verify the user can access account 
+        /// Verify the user can access account
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Email)]
@@ -720,7 +720,7 @@ namespace EmailUnitTests
         }
 
         /// <summary>
-        /// Get the body of an email and verify it is of the correct type 
+        /// Get the body of an email and verify it is of the correct type
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Email)]
@@ -810,17 +810,21 @@ namespace EmailUnitTests
         /// <param name="subject">Subject of the test email</param>
         private void SendTestEmail(string subject)
         {
-            SystemEmail.SmtpClient client = new SystemEmail.SmtpClient();
-            client.Port = 25;
-            client.Host = "localhost";
-            client.EnableSsl = false;
-            client.Timeout = 60000;
-            client.DeliveryMethod = SystemEmail.SmtpDeliveryMethod.Network;
-            client.UseDefaultCredentials = false;
-            client.Credentials = new System.Net.NetworkCredential(EmailConfig.GetUserName(), EmailConfig.GetPassword());
+            SystemEmail.SmtpClient client = new SystemEmail.SmtpClient
+            {
+                Port = 25,
+                Host = "localhost",
+                EnableSsl = false,
+                Timeout = 60000,
+                DeliveryMethod = SystemEmail.SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new System.Net.NetworkCredential(EmailConfig.GetUserName(), EmailConfig.GetPassword())
+            };
 
-            SystemEmail.MailMessage message = new SystemEmail.MailMessage(EmailConfig.GetUserName(), EmailConfig.GetUserName(), subject, "test");
-            message.BodyEncoding = UTF8Encoding.UTF8;
+            SystemEmail.MailMessage message = new SystemEmail.MailMessage(EmailConfig.GetUserName(), EmailConfig.GetUserName(), subject, "test")
+            {
+                BodyEncoding = UTF8Encoding.UTF8
+            };
             message.Headers.Add("Message-Id", Guid.NewGuid().ToString());
             message.DeliveryNotificationOptions = SystemEmail.DeliveryNotificationOptions.OnFailure;
 

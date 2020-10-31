@@ -29,11 +29,13 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PostJSONSerializedVerifyStatusCode()
         {
-            ProductJson p = new ProductJson();
-            p.Category = "ff";
-            p.Id = 4;
-            p.Name = "ff";
-            p.Price = 3.25f;
+            ProductJson p = new ProductJson
+            {
+                Category = "ff",
+                Id = 4,
+                Name = "ff",
+                Price = 3.25f
+            };
             var content = WebServiceUtils.MakeStringContent<ProductJson>(p, Encoding.UTF8, "application/json");
             var result = this.WebServiceDriver.PostWithResponse("/api/XML_JSON/Post", "application/json", content, true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
@@ -46,11 +48,13 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PostJSONStreamSerializedVerifyStatusCode()
         {
-            ProductJson p = new ProductJson();
-            p.Category = "ff";
-            p.Id = 4;
-            p.Name = "ff";
-            p.Price = 3.25f;
+            ProductJson p = new ProductJson
+            {
+                Category = "ff",
+                Id = 4,
+                Name = "ff",
+                Price = 3.25f
+            };
             var content = WebServiceUtils.MakeStreamContent<ProductJson>(p, Encoding.UTF8, "application/json");
             var result = this.WebServiceDriver.PostWithResponse("/api/XML_JSON/Post", "application/json", content, true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
@@ -63,11 +67,13 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PostXMLSerializedVerifyStatusCode()
         {
-            Product p = new Product();
-            p.Category = "ff";
-            p.Id = 4;
-            p.Name = "ff";
-            p.Price = 3.25f;
+            Product p = new Product
+            {
+                Category = "ff",
+                Id = 4,
+                Name = "ff",
+                Price = 3.25f
+            };
             var content = WebServiceUtils.MakeStringContent<Product>(p, Encoding.UTF8, "application/xml");
             var result = this.WebServiceDriver.PostWithResponse("/api/XML_JSON/Post", "application/xml", content, true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
@@ -80,11 +86,13 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PostXMLStreamSerializedVerifyStatusCode()
         {
-            Product p = new Product();
-            p.Category = "ff";
-            p.Id = 4;
-            p.Name = "ff";
-            p.Price = 3.25f;
+            Product p = new Product
+            {
+                Category = "ff",
+                Id = 4,
+                Name = "ff",
+                Price = 3.25f
+            };
             var content = WebServiceUtils.MakeStreamContent<Product>(p, Encoding.UTF8, "application/xml");
             var result = this.WebServiceDriver.PostWithResponse("/api/XML_JSON/Post", "application/xml", content, true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
@@ -97,11 +105,13 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PostWithJson()
         {
-            ProductJson p = new ProductJson();
-            p.Category = "ff";
-            p.Id = 4;
-            p.Name = "ff";
-            p.Price = 3.25f;
+            ProductJson p = new ProductJson
+            {
+                Category = "ff",
+                Id = 4,
+                Name = "ff",
+                Price = 3.25f
+            };
             var content = WebServiceUtils.MakeStreamContent<ProductJson>(p, Encoding.UTF8, "application/json");
             var result = this.WebServiceDriver.Post<ProductJson>("/api/XML_JSON/Post", "application/json", content, true);
             Assert.IsTrue(result == null);
@@ -114,11 +124,13 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PostXMLSerializedVerifyEmptyString()
         {
-            Product p = new Product();
-            p.Category = "ff";
-            p.Id = 4;
-            p.Name = "ff";
-            p.Price = 3.25f;
+            Product p = new Product
+            {
+                Category = "ff",
+                Id = 4,
+                Name = "ff",
+                Price = 3.25f
+            };
             var content = WebServiceUtils.MakeStringContent<Product>(p, Encoding.UTF8, "application/xml");
             var result = this.WebServiceDriver.Post("/api/XML_JSON/Post", "application/xml", content, true);
             Assert.AreEqual(string.Empty, result);

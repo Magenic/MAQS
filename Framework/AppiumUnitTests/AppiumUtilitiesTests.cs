@@ -104,8 +104,10 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void SavePageSourceThrownException()
         {
-            FileLogger tempLogger = new FileLogger();
-            tempLogger.FilePath = "<>"; // illegal file path
+            FileLogger tempLogger = new FileLogger
+            {
+                FilePath = "<>" // illegal file path
+            };
             this.TestObject.Log = tempLogger;
             bool successfullyCaptured = AppiumUtilities.SavePageSource(this.AppiumDriver, this.TestObject);
 
@@ -113,7 +115,7 @@ namespace AppiumUnitTests
         }
 
         /// <summary>
-        /// Verify that SavePageSource creates Directory if it does not exist already 
+        /// Verify that SavePageSource creates Directory if it does not exist already
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Appium)]

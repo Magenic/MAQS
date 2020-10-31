@@ -8,6 +8,7 @@ using Magenic.Maqs.Utilities.Data;
 using System;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Magenic.Maqs.Utilities.Helper
 {
@@ -531,6 +532,180 @@ namespace Magenic.Maqs.Utilities.Helper
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Retry the <paramref name="waitForTrue"/> function has returned true until the <paramref name="timeout"/> has elapsed.
+        /// If the <paramref name="waitForTrue"/> has not completed before the <paramref name="retryTime"/> has elapsed, the
+        /// result of the function (including exceptions) will be forgotten, and the <paramref name="waitForTrue"/> will be
+        /// called again.
+        /// </summary>
+        /// <typeparam name="T">The type of the parameter to pass to the wait for true function</typeparam>
+        /// <param name="waitForTrue">The function we are waiting to return true</param>
+        /// <param name="retryTime">How long do we wait before retrying the wait for true function</param>
+        /// <param name="timeout">Max timeout for the check</param>
+        /// <param name="throwException">If the last check failed because of an exception should we throw the exception</param>
+        /// <param name="arg">Parameter to pass to the wait for true function</param>
+        /// <returns>True if the wait for true function returned true before timing out</returns>
+        public static bool WaitUntilTimeout<T>(Func<T, bool> waitForTrue, TimeSpan retryTime, TimeSpan timeout, bool throwException, T arg)
+        {
+            var cancellationTokenSource = new CancellationTokenSource(timeout);
+            var token = cancellationTokenSource.Token;
+            Exception exception = null;
+            while (!token.IsCancellationRequested)
+            {
+                exception = null;
+                try
+                {
+                    var task = Task.Run(() => waitForTrue(arg));
+                    if (task.Wait(retryTime) && task.Result)
+                    {
+                        return true;
+                    }
+                }
+                //Ignore OperationCanceledExceptions, we expect these to happen if the retryTime elapses.
+                catch (OperationCanceledException) { }
+                catch (AggregateException e)
+                {
+                    if (throwException)
+                    {
+                        exception = e.InnerException;
+                    }
+                }
+            }
+
+            // Check if we had an exceptions 
+            if (throwException && exception != null)
+            {
+                throw exception;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Retry the <paramref name="waitForTrue"/> function has returned true until the <paramref name="timeout"/> has elapsed.
+        /// If the <paramref name="waitForTrue"/> has not completed before the <paramref name="retryTime"/> has elapsed, the
+        /// result of the function (including exceptions) will be forgotten, and the <paramref name="waitForTrue"/> will be
+        /// called again.
+        /// </summary>
+        /// <param name="waitForTrue">The function we are waiting to return true</param>
+        /// <param name="retryTime">How long do we wait before retrying the wait for true function</param>
+        /// <param name="timeout">Max timeout for the check</param>
+        /// <param name="throwException">If the last check failed because of an exception should we throw the exception</param>
+        /// <returns>True if the wait for true function returned true before timing out</returns>
+        public static bool WaitUntilTimeout(Func<bool> waitForTrue, TimeSpan retryTime, TimeSpan timeout, bool throwException)
+        {
+            var cancellationTokenSource = new CancellationTokenSource(timeout);
+            var token = cancellationTokenSource.Token;
+            Exception exception = null;
+            while (!token.IsCancellationRequested)
+            {
+                exception = null;
+                try
+                {
+                    var task = Task.Run(() => waitForTrue());
+                    if (task.Wait(retryTime) && task.Result)
+                    {
+                        return true;
+                    }
+                }
+                //Ignore OperationCanceledExceptions, we expect these to happen if the retryTime elapses.
+                catch (OperationCanceledException) { }
+                catch (AggregateException e)
+                {
+                    if (throwException)
+                    {
+                        exception = e.InnerException;
+                    }
+                }
+            }
+
+            // Check if we had an exceptions 
+            if (throwException && exception != null)
+            {
+                throw exception;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Retry the <paramref name="waitFor"/> function has returned true until the <paramref name="timeout"/> has elapsed.
+        /// If the <paramref name="waitFor"/> has not completed before the <paramref name="retryTime"/> has elapsed, the
+        /// result of the function (including exceptions) will be forgotten, and the <paramref name="waitFor"/> will be
+        /// called again.
+        /// </summary>
+        /// <typeparam name="T">The expected return type</typeparam>
+        /// <param name="waitFor">The wait for function</param>
+        /// <param name="retryTime">How long do we wait before retrying the wait for true function</param>
+        /// <param name="timeout">Max timeout for the check</param>
+        /// <returns>Return value of the wait for function</returns>
+        public static T WaitUntilTimeout<T>(Func<T> waitFor, TimeSpan retryTime, TimeSpan timeout)
+        {
+            var cancellationTokenSource = new CancellationTokenSource(timeout);
+            var token = cancellationTokenSource.Token;
+            Exception exception = null;
+            while (!token.IsCancellationRequested)
+            {
+                exception = null;
+                try
+                {
+                    var task = Task.Run(() => waitFor());
+                    if (task.Wait(retryTime))
+                    {
+                        return task.Result;
+                    }
+                }
+                //Ignore OperationCanceledExceptions, we expect these to happen if the retryTime elapses.
+                catch (OperationCanceledException) { }
+                catch (AggregateException e)
+                {
+                    exception = e.InnerException;
+                }
+            }
+
+            throw new TimeoutException("Timed out waiting for " + waitFor.Method.Name + " to return", exception);
+        }
+
+        /// <summary>
+        /// Retry the <paramref name="waitFor"/> function has returned true until the <paramref name="timeout"/> has elapsed.
+        /// If the <paramref name="waitFor"/> has not completed before the <paramref name="retryTime"/> has elapsed, the
+        /// result of the function (including exceptions) will be forgotten, and the <paramref name="waitFor"/> will be
+        /// called again.
+        /// </summary>
+        /// <typeparam name="T">The expected return type</typeparam>
+        /// <typeparam name="U">Wait for argument type</typeparam>
+        /// <param name="waitFor">The wait for function</param>
+        /// <param name="retryTime">How long do we wait before retrying the wait for true function</param>
+        /// <param name="timeout">Max timeout for the check</param>
+        /// <param name="arg">Arguments to pass into the wait for function</param>
+        /// <returns>Return value of the wait for function</returns>
+        public static T WaitUntilTimeout<T, U>(Func<U, T> waitFor, TimeSpan retryTime, TimeSpan timeout, U arg)
+        {
+            var cancellationTokenSource = new CancellationTokenSource(timeout);
+            var token = cancellationTokenSource.Token;
+            Exception exception = null;
+            while (!token.IsCancellationRequested)
+            {
+                exception = null;
+                try
+                {
+                    var task = Task.Run(() => waitFor(arg));
+                    if (task.Wait(retryTime))
+                    {
+                        return task.Result;
+                    }
+                }
+                //Ignore OperationCanceledExceptions, we expect these to happen if the retryTime elapses.
+                catch (OperationCanceledException) { }
+                catch (AggregateException e)
+                {
+                    exception = e.InnerException;
+                }
+            }
+
+            throw new TimeoutException("Timed out waiting for " + waitFor.Method.Name + " to return", exception);
         }
 
         /// <summary>
