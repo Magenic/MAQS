@@ -18,10 +18,12 @@ namespace SeleniumUnitTests
             if(string.Equals(Config.GetValueForSection(ConfigSection.RemoteSeleniumCapsMaqs, "RunOnSauceLabs"), "YES", System.StringComparison.OrdinalIgnoreCase))
             {
                 var name = this.TestContext.FullyQualifiedTestClassName + "." + this.TestContext.TestName;
-                var sauceOptions = new Dictionary<string, object>();
-                sauceOptions.Add("screenResolution", "1280x1024");
-                sauceOptions.Add("build", string.IsNullOrEmpty(Environment.GetEnvironmentVariable("SAUCE_BUILD_NAME"))? BuildDate : Environment.GetEnvironmentVariable("SAUCE_BUILD_NAME"));
-                sauceOptions.Add("name", name);
+                var sauceOptions = new Dictionary<string, object>
+                {
+                    ["screenResolution"] = "1280x1024",
+                    ["build"] = string.IsNullOrEmpty(Environment.GetEnvironmentVariable("SAUCE_BUILD_NAME")) ? BuildDate : Environment.GetEnvironmentVariable("SAUCE_BUILD_NAME"),
+                    ["name"] = name
+                };
 
                 var remoteCapabilitySection = Config.GetSection(ConfigSection.RemoteSeleniumCapsMaqs);
                 if (remoteCapabilitySection != null)
@@ -34,6 +36,7 @@ namespace SeleniumUnitTests
                         }
                     }
                 }
+
                 var browserOptions = new ChromeOptions
                 {
                     UseSpecCompliantProtocol = true,
