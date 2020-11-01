@@ -243,8 +243,11 @@ namespace SeleniumUnitTests
         [DoNotParallelize]
         public void RemoteCapabilitySectionRespected()
         {
+            var checkedAssertion = false;
             IWebDriver driver = null;
-
+            // TODO: If this runs with the SauceLabs override, it will put in a test without a name.  We have a potential issue if this is run with
+            // the line below and the ElementHandler tests
+            //Config.AddTestSettingValues(new Dictionary<string, string> { ["username"] = "Sauce_Labs_Username" }, ConfigSection.RemoteSeleniumCapsMaqs);
             try
             {
                 driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Remote);
@@ -253,6 +256,7 @@ namespace SeleniumUnitTests
             catch (Exception e)
             {
                 Assert.IsTrue(e.InnerException.Message.Contains("Sauce_Labs_Username"), "Did not see 'Sauce_Labs_Username' in error message: " + e.Message + " -- " + e.InnerException.Message);
+                checkedAssertion = true;
             }
             finally
             {
@@ -262,6 +266,8 @@ namespace SeleniumUnitTests
                     driver.Quit();
                 }
             }
+
+            Assert.IsTrue(checkedAssertion, "Did not receive the error message on inner exception");
         }
 
         /// <summary>
