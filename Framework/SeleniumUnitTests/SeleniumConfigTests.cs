@@ -245,11 +245,12 @@ namespace SeleniumUnitTests
         {
             var checkedAssertion = false;
             IWebDriver driver = null;
-            // TODO: If this runs with the SauceLabs override, it will put in a test without a name.  We have a potential issue if this is run with
-            // the line below and the ElementHandler tests
-            //Config.AddTestSettingValues(new Dictionary<string, string> { ["username"] = "Sauce_Labs_Username" }, ConfigSection.RemoteSeleniumCapsMaqs);
+            var username = Config.GetValueForSection(ConfigSection.RemoteSeleniumCapsMaqs, "username");
             try
             {
+                // TODO: If this runs with the SauceLabs override, it will put in a test without a name.  We have a potential issue if this is run with
+                // the line below and the ElementHandler tests
+                Config.AddTestSettingValues(new Dictionary<string, string> { ["username"] = "Sauce_Labs_Username" }, ConfigSection.RemoteSeleniumCapsMaqs);
                 driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Remote);
                 driver.Navigate().GoToUrl("https://magenic.com/");
             }
@@ -265,6 +266,8 @@ namespace SeleniumUnitTests
                 {
                     driver.Quit();
                 }
+                Config.AddTestSettingValues(new Dictionary<string, string> { ["username"] = username }, ConfigSection.RemoteSeleniumCapsMaqs);
+
             }
 
             Assert.IsTrue(checkedAssertion, "Did not receive the error message on inner exception");
