@@ -66,6 +66,32 @@ namespace Magenic.Maqs.BaseAppiumTest
         }
 
         /// <summary>
+        /// Soft assert method to check if the Action is false
+        /// </summary>
+        /// <param name="assertFunction">Function to use</param>
+        /// <returns>Boolean of the assert</returns>
+        public override bool Assert(Action assertFunction)
+        {
+            bool didPass = base.Assert(assertFunction);
+
+            if (!didPass && this.appiumTestObject.GetDriverManager<MobileDriverManager>().IsDriverIntialized())
+            {
+                if (AppiumConfig.GetSoftAssertScreenshot())
+                {
+                    AppiumUtilities.CaptureScreenshot(this.appiumTestObject.AppiumDriver, this.appiumTestObject);
+                }
+
+                if (AppiumConfig.GetSavePagesourceOnFail())
+                {
+                    AppiumUtilities.SavePageSource(this.appiumTestObject.AppiumDriver, this.appiumTestObject, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
+                }
+
+                return false;
+            }
+            return didPass;
+        }
+
+        /// <summary>
         /// Method to determine the text to be appended to the screenshot file names
         /// </summary>
         /// <param name="softAssertName">Soft assert name</param>

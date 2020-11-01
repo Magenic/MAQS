@@ -258,7 +258,7 @@ namespace Magenic.Maqs.BaseTest
         /// </summary>
         /// <param name="assertFunction">The assert function</param>
         /// <returns>True if the asset passed</returns>
-        public bool Assert(Action assertFunction)
+        public virtual bool Assert(Action assertFunction)
         {
             // Resetting every time we invoke a test to verify the user checked for failures
             this.DidUserCheckForFailures = false;
