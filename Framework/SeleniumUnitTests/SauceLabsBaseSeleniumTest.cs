@@ -6,9 +6,11 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SeleniumUnitTests
 {
+    [ExcludeFromCodeCoverage]
     public class SauceLabsBaseSeleniumTest : BaseSeleniumTest
     {
         private static readonly string BuildDate = DateTime.Now.ToString("MMddyyyy hhmmss");
