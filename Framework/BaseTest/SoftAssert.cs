@@ -5,6 +5,7 @@
 // <summary>This is the SoftAssert class</summary>
 //--------------------------------------------------
 using Magenic.Maqs.Utilities.Data;
+using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.Utilities.Logging;
 using System;
 using System.Collections.Generic;
@@ -232,6 +233,7 @@ namespace Magenic.Maqs.BaseTest
         /// <summary>
         /// Fail test if there were one or more failures
         /// </summary>
+        [AssertionMethod]
         public void FailTestIfAssertFailed()
         {
             this.FailTestIfAssertFailed("*See log for more details");
@@ -241,6 +243,7 @@ namespace Magenic.Maqs.BaseTest
         /// Fail test if there were one or more failures
         /// </summary>
         /// <param name="message">Customer error message</param>
+        [AssertionMethod]
         public void FailTestIfAssertFailed(string message)
         {
             this.LogFinalAssertData();
