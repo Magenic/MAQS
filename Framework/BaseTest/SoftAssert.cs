@@ -9,6 +9,8 @@ using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.Utilities.Logging;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace Magenic.Maqs.BaseTest
@@ -22,6 +24,16 @@ namespace Magenic.Maqs.BaseTest
         /// List of all asserted exceptions
         /// </summary>
         private readonly List<string> listOfExceptions = new List<string>();
+
+        /// <summary>
+        /// Keys of the asserts that need to be called with soft assert.
+        /// </summary>
+        private readonly HashSet<string> _expectedAsserts = new HashSet<string>();
+
+        /// <summary>
+        /// Keys of the asserts that have been called with soft assert.
+        /// </summary>
+        private readonly HashSet<string> _calledAsserts = new HashSet<string>();
 
         /// <summary>
         /// Initializes a new instance of the SoftAssert class.
@@ -246,6 +258,7 @@ namespace Magenic.Maqs.BaseTest
         [AssertionMethod]
         public void FailTestIfAssertFailed(string message)
         {
+            this.CheckForExpectedAsserts();
             this.LogFinalAssertData();
             this.DidUserCheckForFailures = true;
 
@@ -256,13 +269,32 @@ namespace Magenic.Maqs.BaseTest
             }
         }
 
+        internal void CheckForExpectedAsserts()
+        {
+            foreach(var expectedAssert in _expectedAsserts)
+            {
+                if(!_calledAsserts.Contains(expectedAssert))
+                {
+                    this.NumberOfAsserts++;
+                    this.NumberOfFailedAsserts++;
+                    this.listOfExceptions.Add($"Error: failed to call assert with key {expectedAssert}");
+                }
+            }
+        }
+
         /// <summary>
         /// Wrap an assert inside a soft assert
         /// </summary>
         /// <param name="assertFunction">The assert function</param>
+        /// <param name="assertCalledKey">Key of expected assert being called.</param>
         /// <returns>True if the asset passed</returns>
-        public bool Assert(Action assertFunction)
+        public bool Assert(Action assertFunction, string assertCalledKey = null)
         {
+            if(!string.IsNullOrEmpty(assertCalledKey) && _expectedAsserts.Any())
+            {
+                _calledAsserts.Add(assertCalledKey);
+            }
+
             // Resetting every time we invoke a test to verify the user checked for failures
             this.DidUserCheckForFailures = false;
             bool result = false;
@@ -421,6 +453,31 @@ namespace Magenic.Maqs.BaseTest
             else
             {
                 this.Log.LogMessage(MessageType.WARNING, StringProcessor.SafeFormatter("Soft Assert '{0}' failed. Expected Value = '{1}', Actual Value = '{2}'.", message, expectedText, actualText));
+            }
+        }
+
+        /// <summary>
+        /// Add expected assertions to be called by this soft assert instance.
+        /// </summary>
+        /// <param name="expectedAsserts">Expected Assertions to be called.</param>
+        public void AddExpectedAsserts(params string[] expectedAsserts)
+        {
+            foreach (var expectedAssert in expectedAsserts)
+            {
+                _expectedAsserts.Add(expectedAssert);
+            }
+        }
+
+        /// <summary>
+        /// Look for SoftAssertExpectedAssert attribute on the test method.
+        /// </summary>
+        /// <param name="testMethod">The Method information of the currently running test.</param>
+        public void CaptureTestMethodAttributes(MethodInfo testMethod)
+        {
+            foreach (var attr in Attribute.GetCustomAttributes(testMethod).Where(a => a is SoftAssertExpectedAssertsAttribute))
+            {
+                var expectedAssertAttribute = attr as SoftAssertExpectedAssertsAttribute;
+                AddExpectedAsserts(expectedAssertAttribute.ExpectedAssertKeys);
             }
         }
     }
