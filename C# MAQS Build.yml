@@ -22,7 +22,7 @@ steps:
 - task: NuGetToolInstaller@1
   displayName: 'Install NuGet'
   inputs:
-    versionSpec: '5.4.0'
+    versionSpec: '5.8.0'
 - task: UseDotNet@2
   displayName: 'Download .Net Core v$(NetCoreVersion)'
   inputs:
