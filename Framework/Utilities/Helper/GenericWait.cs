@@ -156,7 +156,7 @@ namespace Magenic.Maqs.Utilities.Helper
 
             // While the params are not equal & the timeout hasn't met, keep checking
             while (!paramsAreEqual && (DateTime.Now - start) < timeout)
-            {                
+            {
                 // If they aren't, wait
                 Thread.Sleep(retryTime);
 
@@ -275,7 +275,7 @@ namespace Magenic.Maqs.Utilities.Helper
             }
             while ((DateTime.Now - start) < timeout);
 
-            // Check if we had an exceptions 
+            // Check if we had an exceptions
             if (throwException && exception != null)
             {
                 throw exception;
@@ -326,7 +326,7 @@ namespace Magenic.Maqs.Utilities.Helper
             }
             while ((DateTime.Now - start) < timeout);
 
-            // Check if we had an exceptions 
+            // Check if we had an exceptions
             if (throwException && exception != null)
             {
                 throw exception;
@@ -563,8 +563,10 @@ namespace Magenic.Maqs.Utilities.Helper
                         return true;
                     }
                 }
-                //Ignore OperationCanceledExceptions, we expect these to happen if the retryTime elapses.
-                catch (OperationCanceledException) { }
+                catch (OperationCanceledException)
+                {
+                    //Ignore OperationCanceledExceptions, we expect these to happen if the retryTime elapses.
+                }
                 catch (AggregateException e)
                 {
                     if (throwException)
@@ -574,7 +576,7 @@ namespace Magenic.Maqs.Utilities.Helper
                 }
             }
 
-            // Check if we had an exceptions 
+            // Check if we had an exceptions
             if (throwException && exception != null)
             {
                 throw exception;
@@ -610,8 +612,10 @@ namespace Magenic.Maqs.Utilities.Helper
                         return true;
                     }
                 }
-                //Ignore OperationCanceledExceptions, we expect these to happen if the retryTime elapses.
-                catch (OperationCanceledException) { }
+                catch (OperationCanceledException)
+                {
+                    //Ignore OperationCanceledExceptions, we expect these to happen if the retryTime elapses.
+                }
                 catch (AggregateException e)
                 {
                     if (throwException)
@@ -621,7 +625,7 @@ namespace Magenic.Maqs.Utilities.Helper
                 }
             }
 
-            // Check if we had an exceptions 
+            // Check if we had an exceptions
             if (throwException && exception != null)
             {
                 throw exception;
@@ -657,8 +661,10 @@ namespace Magenic.Maqs.Utilities.Helper
                         return task.Result;
                     }
                 }
-                //Ignore OperationCanceledExceptions, we expect these to happen if the retryTime elapses.
-                catch (OperationCanceledException) { }
+                catch (OperationCanceledException)
+                {
+                    //Ignore OperationCanceledExceptions, we expect these to happen if the retryTime elapses.
+                }
                 catch (AggregateException e)
                 {
                     exception = e.InnerException;
@@ -697,8 +703,10 @@ namespace Magenic.Maqs.Utilities.Helper
                         return task.Result;
                     }
                 }
-                //Ignore OperationCanceledExceptions, we expect these to happen if the retryTime elapses.
-                catch (OperationCanceledException) { }
+                catch (OperationCanceledException)
+                {
+                    //Ignore OperationCanceledExceptions, we expect these to happen if the retryTime elapses.
+                }
                 catch (AggregateException e)
                 {
                     exception = e.InnerException;
