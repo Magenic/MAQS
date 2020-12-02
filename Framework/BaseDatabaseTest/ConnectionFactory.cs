@@ -83,8 +83,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// <exception cref="Exception"> Throws exception if the provider type is not supported </exception>
         private static IProvider<IDbConnection> GetProvider(string providerType)
         {
-            IProvider<IDbConnection> provider = null;
-
+            IProvider<IDbConnection> provider;
             switch (providerType.ToUpper())
             {
                 case "SQL":

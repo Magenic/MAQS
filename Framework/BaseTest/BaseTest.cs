@@ -134,7 +134,7 @@ namespace Magenic.Maqs.BaseTest
         private MethodInfo testMethodInfo;
         /// <summary>
         /// Get the method info from the current TestContext. This property lazy loads the <see cref="MethodInfo"/>
-        /// from the assembly. Because the assembly of the test method is unknown, all assembilies in the <see cref="AppDomain"/>
+        /// from the assembly. Because the assembly of the test method is unknown, all assemblies in the <see cref="AppDomain"/>
         /// are searched to find the first one that can load the fully qualified test class name of the
         /// <see cref="TestContext"/>.
         /// </summary>
@@ -585,7 +585,7 @@ namespace Magenic.Maqs.BaseTest
 
         /// <summary>
         /// Gets the method information from the given class and method name from any assembly
-        /// in the curren application domain.
+        /// in the current application domain.
         /// </summary>
         /// <param name="className">The fully qualified class name of the method.</param>
         /// <param name="testName">The name of the test method.</param>
@@ -604,10 +604,11 @@ namespace Magenic.Maqs.BaseTest
                     }
 
                 }
-
-                //Not all assembilies will load, that is okay.
-                //If the assembly cannot be loaded
-                catch { }
+                catch
+                {
+                    //Not all assemblies will load, that is okay.
+                    //If the assembly cannot be loaded
+                }
             }
 
             throw new Exception($"Unable to find assembly with test name {testName}");
