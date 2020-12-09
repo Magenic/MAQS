@@ -20,6 +20,7 @@ namespace UtilitiesUnitTesting
     [TestClass]
     [ExcludeFromCodeCoverage]
     [DoNotParallelize]
+    [SuppressMessage("Minor Code Smell", "S3626:Jump statements should not be redundant", Justification = "GenericWait tests are testing throwing a statement")]
     public class GenericWaitTests
     {
         /// <summary>
@@ -334,12 +335,12 @@ namespace UtilitiesUnitTesting
                 "WaitForListOfActions",
                 TimeSpan.FromSeconds(2),
                 TimeSpan.FromSeconds(0.5),
-                () => 
+                () =>
                 {
                     Assert.IsTrue(dateToTest < DateTime.Now);
                     return true;
                 },
-                () => 
+                () =>
                 {
                     Assert.IsTrue(dateToTest < DateTime.Now);
                     return true;
@@ -408,12 +409,12 @@ namespace UtilitiesUnitTesting
                 "WaitUntilListOfActions",
                 TimeSpan.FromSeconds(2),
                 TimeSpan.FromSeconds(0.5),
-                () => 
+                () =>
                 {
                     Assert.IsTrue(dateToTest < DateTime.Now);
                     return true;
                 },
-                () => 
+                () =>
                 {
                     Assert.IsTrue(dateToTest < DateTime.Now);
                     return true;
@@ -434,12 +435,12 @@ namespace UtilitiesUnitTesting
                 "WaitUntilListOfActionsMultiple",
                 TimeSpan.FromSeconds(2),
                 TimeSpan.FromSeconds(0.5),
-                () => 
+                () =>
                 {
                     Assert.IsTrue(dateToTest < DateTime.Now);
                     return true;
                 },
-                () => 
+                () =>
                 {
                     Assert.IsTrue(otherDateToTest < DateTime.Now);
                     return true;
@@ -460,12 +461,12 @@ namespace UtilitiesUnitTesting
                 "WaitUntilListOfActionsMultiple",
                 TimeSpan.FromSeconds(2),
                 TimeSpan.FromSeconds(0.5),
-                () => 
+                () =>
                 {
                     Assert.IsTrue(dateToTest < DateTime.Now);
                     return true;
                 },
-                () => 
+                () =>
                 {
                     Assert.IsTrue(otherDateToTest < DateTime.Now);
                     return true;
@@ -483,7 +484,7 @@ namespace UtilitiesUnitTesting
             DateTime dateToTest = DateTime.Now.AddSeconds(120);
             var result = GenericWait.WaitUntilAnyAction(
                 "WaitUntilListOfActionsFalse",
-                () => 
+                () =>
                 {
                     Assert.IsTrue(dateToTest < DateTime.Now);
                     return true;
@@ -507,12 +508,12 @@ namespace UtilitiesUnitTesting
                 "WaitUntilListOfActionsMultiple",
                 TimeSpan.FromSeconds(2),
                 TimeSpan.FromSeconds(0.5),
-                () => 
+                () =>
                 {
                     Assert.IsTrue(dateToTest < DateTime.Now);
                     return true;
                 },
-                () => 
+                () =>
                 {
                     Assert.IsTrue(otherDateToTest < DateTime.Now);
                     return true;
@@ -538,12 +539,12 @@ namespace UtilitiesUnitTesting
                 "WaitForListOfActions",
                 TimeSpan.FromSeconds(2),
                 TimeSpan.FromSeconds(0.5),
-                () => 
+                () =>
                 {
                     Assert.IsTrue(dateToTest < DateTime.Now);
                     return true;
                 },
-                () => 
+                () =>
                 {
                     Assert.IsTrue(otherDateToTest < DateTime.Now);
                     return true;
@@ -553,7 +554,7 @@ namespace UtilitiesUnitTesting
         }
 
         /// <summary>
-        /// Sets up a list of actions that the first item will never return true, but the second one will.  Validating time test 
+        /// Sets up a list of actions that the first item will never return true, but the second one will.  Validating time test
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
@@ -564,18 +565,18 @@ namespace UtilitiesUnitTesting
 
             DateTime dateToTest = DateTime.Now.AddSeconds(120);
             DateTime otherDateToTest = DateTime.Now.AddSeconds(1);
-            
+
             GenericWait.WaitTryForAnyAction<bool>(
                 "WaitForListOfActions",
                 TimeSpan.FromSeconds(2),
                 TimeSpan.FromSeconds(0.5),
                 out bool result,
-                () => 
+                () =>
                 {
                     Assert.IsTrue(dateToTest < DateTime.Now);
                     return true;
                 },
-                () => 
+                () =>
                 {
                     Assert.IsTrue(otherDateToTest < DateTime.Now);
                     return true;
@@ -599,12 +600,12 @@ namespace UtilitiesUnitTesting
                 TimeSpan.FromSeconds(2),
                 TimeSpan.FromSeconds(0.5),
                 out bool result,
-                () => 
+                () =>
                 {
                     Assert.IsTrue(dateToTest < DateTime.Now);
                     return true;
                 },
-                () => 
+                () =>
                 {
                     Assert.IsTrue(otherDateToTest < DateTime.Now);
                     return true;
@@ -672,7 +673,7 @@ namespace UtilitiesUnitTesting
         [ExpectedException(typeof(TimeoutException))]
         public void WaitUntilTimeoutThrowsTimeoutException()
         {
-            var result = GenericWait.WaitUntilTimeout(() =>
+            GenericWait.WaitUntilTimeout(() =>
             {
                 Thread.Sleep(TimeSpan.FromSeconds(10));
                 return "my string";
@@ -710,7 +711,7 @@ namespace UtilitiesUnitTesting
         public void WaitUntilTimeoutReturnsStringWithArgumentTimeoutException()
         {
             var str = "my string";
-            var result = GenericWait.WaitUntilTimeout(
+            GenericWait.WaitUntilTimeout(
                 (a) =>
                 {
                     Thread.Sleep(TimeSpan.FromSeconds(10));
@@ -751,7 +752,7 @@ namespace UtilitiesUnitTesting
         public void WaitUntilTimeoutArgumentsThrowsException()
         {
             var str = "my string";
-            var result = GenericWait.WaitUntilTimeout(
+            GenericWait.WaitUntilTimeout(
                 (a) =>
                 {
                     throw new Exception("This method didn't work");
@@ -800,7 +801,7 @@ namespace UtilitiesUnitTesting
         }
 
         /// <summary>
-        /// Wait until timout with throws exception should return false and not throw
+        /// Wait until timeout with throws exception should return false and not throw
         /// an exception.
         /// </summary>
         [TestMethod]
@@ -824,7 +825,7 @@ namespace UtilitiesUnitTesting
         [ExpectedException(typeof(Exception))]
         public void WaitUntilTimeoutReturnsThrowsException()
         {
-            var result = GenericWait.WaitUntilTimeout(
+            GenericWait.WaitUntilTimeout(
                 () => throw new Exception("This method didn't work"),
                 TimeSpan.FromSeconds(1),
                 TimeSpan.FromSeconds(2),
@@ -842,7 +843,7 @@ namespace UtilitiesUnitTesting
         [ExpectedException(typeof(TimeoutException))]
         public void WaitUntilTimeoutReturnsAnyReturnThrowsException()
         {
-            var result = GenericWait.WaitUntilTimeout<string>(
+            GenericWait.WaitUntilTimeout<string>(
                 () => throw new Exception("This method didn't work"),
                 TimeSpan.FromSeconds(1),
                 TimeSpan.FromSeconds(2));
@@ -861,7 +862,7 @@ namespace UtilitiesUnitTesting
         public void WaitUntilTimeoutReturnsAnyReturnWithArgumentsThrowsException()
         {
             var str = "my string";
-            var result = GenericWait.WaitUntilTimeout<string, string>(
+            GenericWait.WaitUntilTimeout<string, string>(
                 (a) => throw new Exception("This method didn't work"),
                 TimeSpan.FromSeconds(1),
                 TimeSpan.FromSeconds(2),
@@ -900,7 +901,7 @@ namespace UtilitiesUnitTesting
         }
 
         /// <summary>
-        /// Test function that checks if the object array passed in is in the form expected 
+        /// Test function that checks if the object array passed in is in the form expected
         /// </summary>
         /// <param name="parameters">Object array</param>
         /// <returns>True if the array is in the form expected</returns>

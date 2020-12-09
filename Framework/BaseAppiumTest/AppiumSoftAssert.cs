@@ -72,7 +72,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <returns>String to be appended</returns>
         private string TextToAppend(string softAssertName)
         {
-            string appendToFileName = string.Empty;
+            string appendToFileName;
 
             // If softAssertName name is not provided only append the AssertNumber
             if (softAssertName == string.Empty)

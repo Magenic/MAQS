@@ -131,6 +131,33 @@ namespace Magenic.Maqs.BaseTest
             }
         }
 
+        private MethodInfo testMethodInfo;
+        /// <summary>
+        /// Get the method info from the current TestContext. This property lazy loads the <see cref="MethodInfo"/>
+        /// from the assembly. Because the assembly of the test method is unknown, all assemblies in the <see cref="AppDomain"/>
+        /// are searched to find the first one that can load the fully qualified test class name of the
+        /// <see cref="TestContext"/>.
+        /// </summary>
+        protected MethodInfo TestMethodInfo
+        {
+            get
+            {
+                if(this.testMethodInfo != null)
+                {
+                    return this.testMethodInfo;
+                }
+                else if(this.TestContext != null)
+                {
+                    return (this.testMethodInfo =
+                        GetMethodInfoFromClassAndTestName(
+                            this.TestContext.FullyQualifiedTestClassName,
+                            this.TestContext.TestName));
+                }
+
+                return null;
+            }
+        }
+
         /// <summary>
         /// Gets or sets the Visual Studio TextContext
         /// </summary>
@@ -216,6 +243,11 @@ namespace Magenic.Maqs.BaseTest
             {
                 // Create the test object
                 this.CreateNewTestObject();
+
+                if(this.TestMethodInfo != null)
+                {
+                   this.TestObject.SoftAssert.CaptureTestMethodAttributes(this.TestMethodInfo);
+                }
             }
         }
 
@@ -235,6 +267,7 @@ namespace Magenic.Maqs.BaseTest
                 bool forceTestFailure = false;
 
                 // Switch the test to a failure if we have a soft assert failure
+                this.SoftAssert.CheckForExpectedAsserts();
                 if (!this.SoftAssert.DidUserCheck() && this.SoftAssert.DidSoftAssertsFail())
                 {
                     resultType = TestResultType.FAIL;
@@ -548,6 +581,37 @@ namespace Magenic.Maqs.BaseTest
         private string GetFullyQualifiedTestClassNameNunit()
         {
             return NUnitTestContext.CurrentContext.Test.FullName;
+        }
+
+        /// <summary>
+        /// Gets the method information from the given class and method name from any assembly
+        /// in the current application domain.
+        /// </summary>
+        /// <param name="className">The fully qualified class name of the method.</param>
+        /// <param name="testName">The name of the test method.</param>
+        /// <returns>The method information from the test.</returns>
+        private MethodInfo GetMethodInfoFromClassAndTestName(string className, string testName)
+        {
+            foreach(var assemblyName in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                try
+                {
+                    var loadedAssembly = Assembly.Load(assemblyName.ToString());
+                    var classType = loadedAssembly.GetType(className);
+                    if (classType != null)
+                    {
+                        return classType.GetMethod(testName);
+                    }
+
+                }
+                catch
+                {
+                    //Not all assemblies will load, that is okay.
+                    //If the assembly cannot be loaded
+                }
+            }
+
+            throw new Exception($"Unable to find assembly with test name {testName}");
         }
 
         /// <summary>

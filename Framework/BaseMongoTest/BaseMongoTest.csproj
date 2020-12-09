@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <BuildVersion>6.1.0</BuildVersion>
-    <PreRelease>-beta.1</PreRelease>
+    <PreRelease></PreRelease>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -49,9 +49,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="MongoDB.Bson" Version="2.11.3" />
-    <PackageReference Include="MongoDB.Driver" Version="2.11.3" />
-    <PackageReference Include="MongoDB.Driver.Core" Version="2.11.3" />
+    <PackageReference Include="MongoDB.Bson" Version="2.11.4" />
+    <PackageReference Include="MongoDB.Driver" Version="2.11.4" />
+    <PackageReference Include="MongoDB.Driver.Core" Version="2.11.4" />
     <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />
   </ItemGroup>
 
