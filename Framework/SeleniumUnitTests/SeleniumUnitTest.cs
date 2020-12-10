@@ -631,7 +631,7 @@ namespace SeleniumUnitTests
         public void SeleniumSoftAssertTest()
         {
             WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
-            SoftAssert.AreEqual("Automation - Magenic Automation Test Site", WebDriver.Title, "Title Test", "Title is incorrect");
+            SoftAssert.Assert(() => Assert.AreEqual("Automation - Magenic Automation Test Site", WebDriver.Title, "Title Test", "Title is incorrect"));
             SoftAssert.FailTestIfAssertFailed();
         }
 
@@ -643,7 +643,7 @@ namespace SeleniumUnitTests
         public void SeleniumSoftAssertIsFalseTest()
         {
             WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
-            SoftAssert.IsFalse("Automation".Equals(WebDriver.Title), "Title Test", "Title is incorrect");
+            SoftAssert.Assert(() => Assert.IsFalse("Automation".Equals(WebDriver.Title), "Title Test", "Title is incorrect"));
             SoftAssert.FailTestIfAssertFailed();
         }
 
@@ -655,7 +655,7 @@ namespace SeleniumUnitTests
         public void SeleniumSoftAssertIsTrueTest()
         {
             WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
-            SoftAssert.IsTrue(WebDriver.Title.Contains("Automation"), "Title Test", "Title is incorrect");
+            SoftAssert.Assert(() => Assert.IsTrue(WebDriver.Title.Contains("Automation"), "Title Test", "Title is incorrect"));
             SoftAssert.FailTestIfAssertFailed();
         }
 
@@ -667,7 +667,7 @@ namespace SeleniumUnitTests
         public void SeleniumSoftAssertEmptyMessageTest()
         {
             WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
-            SoftAssert.IsTrue(WebDriver.Title.Contains("Automation"), "", "Title is incorrect");
+            SoftAssert.Assert(() => Assert.IsTrue(WebDriver.Title.Contains("Automation"), "", "Title is incorrect"));
             SoftAssert.FailTestIfAssertFailed();
         }
 
@@ -680,7 +680,7 @@ namespace SeleniumUnitTests
         public void SeleniumSoftAssertIsTrueFalseBoolean()
         {
             WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
-            var result = SoftAssert.IsTrue(!WebDriver.Title.Contains("Automation"), "", "Title is incorrect");
+            var result = SoftAssert.Assert(() => Assert.IsTrue(!WebDriver.Title.Contains("Automation"), "", "Title is incorrect"));
             Assert.IsFalse(result);
             this.SoftAssert.FailTestIfAssertFailed();
         }
@@ -762,7 +762,7 @@ namespace SeleniumUnitTests
             string logLocation = ((FileLogger)Log).FilePath;
             string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " testSoftAssert" + " (1).Jpeg";
 
-            bool isFalse = seleniumSoftAssert.IsFalse(true, "testSoftAssert", "message");
+            bool isFalse = seleniumSoftAssert.Assert(() => Assert.IsFalse(true, "testSoftAssert", "message"));
 
             Assert.IsFalse(File.Exists(screenShotLocation), "Should not have taken screenshot");
             Assert.IsFalse(isFalse);
@@ -815,7 +815,7 @@ namespace SeleniumUnitTests
         public void SeleniumSoftAssertAreEqual()
         {
             SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(TestObject);
-            bool isTrue = seleniumSoftAssert.AreEqual("test string", "test string", "test message");
+            bool isTrue = seleniumSoftAssert.Assert(() => Assert.AreEqual("test string", "test string", "test message"));
             Assert.IsTrue(isTrue);
         }
 
@@ -828,7 +828,7 @@ namespace SeleniumUnitTests
         public void SeleniumSoftAssertExpectFail()
         {
             WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
-            SoftAssert.AreEqual("Wrong Title", WebDriver.Title, "Title Test", "Title is incorrect");
+            SoftAssert.Assert(() => Assert.AreEqual("Wrong Title", WebDriver.Title, "Title Test", "Title is incorrect"));
             SoftAssert.FailTestIfAssertFailed();
         }
 
