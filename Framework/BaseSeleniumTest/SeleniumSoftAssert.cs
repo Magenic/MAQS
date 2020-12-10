@@ -150,10 +150,11 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// Soft assert method to check if the Action is false
         /// </summary>
         /// <param name="assertFunction">Function to use</param>
+        /// <param name="assertCalledKey">Key of expected assert being called.</param>
         /// <returns>Boolean of the assert</returns>
-        public override bool Assert(Action assertFunction)
+        public override bool Assert(Action assertFunction, string assertCalledKey = null)
         {
-            bool didPass = base.Assert(assertFunction);
+            bool didPass = base.Assert(assertFunction, assertCalledKey);
             if (!didPass && this.testObject.GetDriverManager<SeleniumDriverManager>().IsDriverIntialized())
             {
                 if (SeleniumConfig.GetSoftAssertScreenshot())

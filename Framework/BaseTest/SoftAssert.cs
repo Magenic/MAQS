@@ -288,7 +288,7 @@ namespace Magenic.Maqs.BaseTest
         /// <param name="assertFunction">The assert function</param>
         /// <param name="assertCalledKey">Key of expected assert being called.</param>
         /// <returns>True if the asset passed</returns>
-        public bool Assert(Action assertFunction, string assertCalledKey = null)
+        public virtual bool Assert(Action assertFunction, string assertCalledKey = null)
         {
             if(!string.IsNullOrEmpty(assertCalledKey) && _expectedAsserts.Any())
             {
