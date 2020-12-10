@@ -243,16 +243,19 @@ namespace SeleniumUnitTests
         [DoNotParallelize]
         public void RemoteCapabilitySectionRespected()
         {
+            var checkedAssertion = false;
             IWebDriver driver = null;
-
+            var username = Config.GetValueForSection(ConfigSection.RemoteSeleniumCapsMaqs, "username");
             try
             {
+                Config.AddTestSettingValues(new Dictionary<string, string> { ["username"] = "Sauce_Labs_Username" }, ConfigSection.RemoteSeleniumCapsMaqs, true);
                 driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Remote);
                 driver.Navigate().GoToUrl("https://magenic.com/");
             }
             catch (Exception e)
             {
                 Assert.IsTrue(e.InnerException.Message.Contains("Sauce_Labs_Username"), "Did not see 'Sauce_Labs_Username' in error message: " + e.Message + " -- " + e.InnerException.Message);
+                checkedAssertion = true;
             }
             finally
             {
@@ -261,7 +264,9 @@ namespace SeleniumUnitTests
                 {
                     driver.Quit();
                 }
+                Config.AddTestSettingValues(new Dictionary<string, string> { ["username"] = username }, ConfigSection.RemoteSeleniumCapsMaqs, true);
             }
+            Assert.IsTrue(checkedAssertion, "Did not receive the error message on inner exception");
         }
 
         /// <summary>
