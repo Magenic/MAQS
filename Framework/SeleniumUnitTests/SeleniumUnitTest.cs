@@ -715,7 +715,7 @@ namespace SeleniumUnitTests
         public void SeleniumSoftAssertWithAssertIsTrueFalseCondition()
         {
             this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
-            this.Log = new FileLogger(string.Empty, "SeleniumSoftAssertIsTrueFalseCondition.txt", MessageType.GENERIC, true);
+            this.Log = new FileLogger(string.Empty, "SeleniumSoftAssertWithAssertIsTrueFalseCondition.txt", MessageType.GENERIC, true);
             SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(TestObject);
             string logLocation = ((FileLogger)Log).FilePath;
             string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " testSoftAssert" + " (1).Png";
