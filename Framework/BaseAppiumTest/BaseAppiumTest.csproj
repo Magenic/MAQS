@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <BuildVersion>6.1.0</BuildVersion>
-    <PreRelease></PreRelease>
+    <BuildVersion>6.2.0</BuildVersion>
+    <PreRelease>-beta</PreRelease>
   </PropertyGroup>
 
   <PropertyGroup>
