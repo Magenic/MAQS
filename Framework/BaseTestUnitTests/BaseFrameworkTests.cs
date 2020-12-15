@@ -12,6 +12,7 @@ using NUnit.Framework;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using MicroAssert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace BaseTestUnitTests
@@ -217,6 +218,92 @@ namespace BaseTestUnitTests
             File.Delete(logFilePath);
             Directory.Delete("TeardownTest", true);
             NUnit.Framework.Assert.IsTrue(messageIsWritten, "The list of files to attach was not written to the log");
+        }
+
+        [TestMethod]
+        [Category(TestCategories.Framework)]
+        [Category(TestCategories.NUnit)]
+        public void SoftAssertAssertSuccess()
+        {
+            var tester = GetBaseTest();
+
+            tester.Setup();
+            tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
+            tester.SoftAssert.Assert(() => { }, "one");
+            tester.Teardown();
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsFalse(tester.SoftAssert.DidSoftAssertsFail());
+            NUnit.Framework.Assert.IsFalse(tester.SoftAssert.DidSoftAssertsFail());
+        }
+
+        [TestMethod]
+        [Category(TestCategories.Framework)]
+        [Category(TestCategories.NUnit)]
+        public void SoftAssertAssertFailed()
+        {
+            var tester = GetBaseTest();
+
+            tester.Setup();
+            tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
+            tester.SoftAssert.Assert(() => throw new Exception("broke"));
+            tester.SoftAssert.Assert(() => throw new Exception("broke again"));
+            try
+            {
+                tester.SoftAssert.FailTestIfAssertFailed();
+                Microsoft.VisualStudio.TestTools.UnitTesting.Assert.Fail();
+                NUnit.Framework.Assert.Fail();
+            }
+            catch (AggregateException aggregateException)
+            {
+                Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(
+                    2,
+                    aggregateException.InnerExceptions.Count,
+                    "Incorrect number of inner exceptions in Soft Assert");
+                NUnit.Framework.Assert.AreEqual(
+                    2,
+                    aggregateException.InnerExceptions.Count,
+                    "Incorrect number of inner exceptions in Soft Assert");
+            }
+        }
+
+        [TestMethod]
+        [Category(TestCategories.Framework)]
+        [Category(TestCategories.NUnit)]
+        public void SoftAssertAssertFails()
+        {
+            var tester = GetBaseTest();
+
+            tester.Setup();
+            tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
+            tester.SoftAssert.AssertFails(() => throw new Exception("broke"), typeof(Exception), "one");
+            tester.Teardown();
+        }
+
+        [TestMethod]
+        [Category(TestCategories.Framework)]
+        [Category(TestCategories.NUnit)]
+        public void SoftAssertAssertFailsFailed()
+        {
+            var tester = GetBaseTest();
+
+            tester.Setup();
+            tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
+            tester.SoftAssert.AssertFails(() => throw new Exception("broke"), typeof(AggregateException), "one");
+            try
+            {
+                tester.SoftAssert.FailTestIfAssertFailed();
+
+            }
+            catch (AggregateException aggregateException)
+            {
+                Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(
+                    1,
+                    aggregateException.InnerExceptions.Count,
+                    "Incorrect number of inner exceptions in Soft Assert");
+                NUnit.Framework.Assert.AreEqual(
+                    1,
+                    aggregateException.InnerExceptions.Count,
+                    "Incorrect number of inner exceptions in Soft Assert");
+            }
         }
 
         /// <summary>
