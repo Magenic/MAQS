@@ -172,6 +172,17 @@ namespace Magenic.Maqs.BaseDatabaseTest
         }
 
         /// <summary>
+        /// Custom query that uses a Func to allow for utilizing dapper multi-mapping
+        /// </summary>
+        /// <typeparam name="T">Type to return</typeparam>
+        /// <param name="actionToPerform">Action to perform</param>
+        /// <returns>An IEnumerable list of type</returns>
+        public virtual IEnumerable<T> CustomQuery<T>(Func<IDbConnection,IEnumerable<T>> actionToPerform)
+        {
+            return actionToPerform(this.Connection);
+        }
+
+        /// <summary>
         /// Dispose of the database connection
         /// </summary>
         public void Dispose()
