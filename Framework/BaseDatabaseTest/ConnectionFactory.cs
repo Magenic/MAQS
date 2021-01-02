@@ -50,7 +50,6 @@ namespace Magenic.Maqs.BaseDatabaseTest
             try
             {
                 connection = GetProvider(providerType).SetupDataBaseConnection(connectionString);
-                connection.Open();
                 return connection;
             }
             catch (Exception e)
