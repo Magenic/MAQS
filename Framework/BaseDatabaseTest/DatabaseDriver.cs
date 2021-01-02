@@ -115,6 +115,17 @@ namespace Magenic.Maqs.BaseDatabaseTest
         }
 
         /// <summary>
+        /// Custom query that uses a Func to allow for utilizing dapper multi-mapping
+        /// </summary>
+        /// <typeparam name="T">Type to return</typeparam>
+        /// <param name="actionToPerform">Action to perform</param>
+        /// <returns>An IEnumerable list of type</returns>
+        public virtual IEnumerable<T> Query<T>(Func<IDbConnection, IEnumerable<T>> actionToPerform)
+        {
+            return actionToPerform(this.Connection);
+        }
+
+        /// <summary>
         ///  Inserts an entity into table "T" and returns identity id or number of inserted rows if inserting a list.
         /// </summary>
         /// <typeparam name="T">The table to insert into</typeparam>
@@ -169,17 +180,6 @@ namespace Magenic.Maqs.BaseDatabaseTest
             where T : class
         {
             return this.Connection.Update<T>(entityToUpdate, transaction, commandTimeout);
-        }
-
-        /// <summary>
-        /// Custom query that uses a Func to allow for utilizing dapper multi-mapping
-        /// </summary>
-        /// <typeparam name="T">Type to return</typeparam>
-        /// <param name="actionToPerform">Action to perform</param>
-        /// <returns>An IEnumerable list of type</returns>
-        public virtual IEnumerable<T> CustomQuery<T>(Func<IDbConnection,IEnumerable<T>> actionToPerform)
-        {
-            return actionToPerform(this.Connection);
         }
 
         /// <summary>

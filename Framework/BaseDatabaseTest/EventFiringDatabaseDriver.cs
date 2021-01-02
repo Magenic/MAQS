@@ -151,6 +151,26 @@ namespace Magenic.Maqs.BaseDatabaseTest
         }
 
         /// <summary>
+        /// Custom query that uses a Func to allow for utilizing dapper multi-mapping
+        /// </summary>
+        /// <typeparam name="T">Type to return</typeparam>
+        /// <param name="actionToPerform">Action to perform</param>
+        /// <returns>An IEnumerable list of type</returns>
+        public override IEnumerable<T> Query<T>(Func<IDbConnection, IEnumerable<T>> actionToPerform)
+        {
+            try
+            {
+                this.RaiseEvent("query", "Custom Action");
+                return base.Query(actionToPerform);
+            }
+            catch (Exception ex)
+            {
+                this.RaiseErrorMessage(ex);
+                throw ex;
+            }
+        }
+
+        /// <summary>
         ///  Inserts an entity into table "T" and returns identity id or number of inserted rows if inserting a list.
         /// </summary>
         /// <typeparam name="T">The table to insert into</typeparam>
@@ -223,26 +243,6 @@ namespace Magenic.Maqs.BaseDatabaseTest
             {
                 this.RaiseEvent("update", items);
                 return base.Update<T>(entityToUpdate, transaction, commandTimeout);
-            }
-            catch (Exception ex)
-            {
-                this.RaiseErrorMessage(ex);
-                throw ex;
-            }
-        }
-
-        /// <summary>
-        /// Custom query that uses a Func to allow for utilizing dapper multi-mapping
-        /// </summary>
-        /// <typeparam name="T">Type to return</typeparam>
-        /// <param name="actionToPerform">Action to perform</param>
-        /// <returns>An IEnumerable list of type</returns>
-        public override IEnumerable<T> CustomQuery<T>(Func<IDbConnection, IEnumerable<T>> actionToPerform)
-        {
-            try
-            {
-                this.RaiseEvent("query", "Custom Action");
-                return base.CustomQuery(actionToPerform);
             }
             catch (Exception ex)
             {

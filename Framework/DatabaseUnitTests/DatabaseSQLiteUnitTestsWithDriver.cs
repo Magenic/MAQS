@@ -16,6 +16,7 @@ using System.Linq;
 using System.Reflection;
 using DatabaseUnitTests.Models;
 using Dapper;
+using Microsoft.Data.Sqlite;
 
 namespace DatabaseUnitTests
 {
@@ -217,7 +218,7 @@ namespace DatabaseUnitTests
         [TestMethod]
         public void CustomQuery()
         {
-            var result = this.DatabaseDriver.CustomQuery<Orders>((dbConnection) =>
+            var result = this.DatabaseDriver.Query<Orders>((dbConnection) =>
             {
                 return dbConnection.Query<Orders>("SELECT * FROM orders");
             });
@@ -227,7 +228,7 @@ namespace DatabaseUnitTests
         [TestMethod]
         public void CustomQueryMultipleTables()
         {
-            var result = this.DatabaseDriver.CustomQuery<Orders>((dbConnection) =>
+            var result = this.DatabaseDriver.Query<Orders>((dbConnection) =>
             {
                 return dbConnection.Query<Orders, Products, Orders>(
                     @"SELECT o.* FROM orders o
@@ -239,6 +240,16 @@ namespace DatabaseUnitTests
                 }, splitOn: "ProductId");
             });
             Assert.IsTrue(result.Any());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(SqliteException))]
+        public void CustomQueryException()
+        {
+            var result = this.DatabaseDriver.Query<Orders>((dbConnection) =>
+            {
+                return dbConnection.Query<Orders>("SELECT * FROM unknowntable");
+            });
         }
 
         /// <summary>
