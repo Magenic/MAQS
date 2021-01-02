@@ -217,9 +217,9 @@ namespace DatabaseUnitTests
         [TestMethod]
         public void CustomQuery()
         {
-            var result = this.DatabaseDriver.CustomQuery<States>((dbConnection) =>
+            var result = this.DatabaseDriver.CustomQuery<Orders>((dbConnection) =>
             {
-                return dbConnection.Query<States>("SELECT * FROM States");
+                return dbConnection.Query<Orders>("SELECT * FROM orders");
             });
             Assert.IsTrue(result.Any());
         }
@@ -227,7 +227,7 @@ namespace DatabaseUnitTests
         [TestMethod]
         public void CustomQueryMultipleTables()
         {
-            var result = this.DatabaseDriver.CustomQuery((dbConnection) =>
+            var result = this.DatabaseDriver.CustomQuery<Orders>((dbConnection) =>
             {
                 return dbConnection.Query<Orders, Products, Orders>(
                     @"SELECT o.* FROM orders o

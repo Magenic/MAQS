@@ -232,6 +232,26 @@ namespace Magenic.Maqs.BaseDatabaseTest
         }
 
         /// <summary>
+        /// Custom query that uses a Func to allow for utilizing dapper multi-mapping
+        /// </summary>
+        /// <typeparam name="T">Type to return</typeparam>
+        /// <param name="actionToPerform">Action to perform</param>
+        /// <returns>An IEnumerable list of type</returns>
+        public override IEnumerable<T> CustomQuery<T>(Func<IDbConnection, IEnumerable<T>> actionToPerform)
+        {
+            try
+            {
+                this.RaiseEvent("query", "Custom Action");
+                return base.CustomQuery(actionToPerform);
+            }
+            catch (Exception ex)
+            {
+                this.RaiseErrorMessage(ex);
+                throw ex;
+            }
+        }
+
+        /// <summary>
         /// Dispose of the database connection
         /// </summary>
         /// <param name="disposing">True if you want to release managed resources</param>
@@ -309,7 +329,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
                 {
                     builder.AppendLine(item);
                 }
-                
+
                 this.OnActionEvent(StringProcessor.SafeFormatter("Perform {0} with:\r\n{1}", actionType, builder.ToString()));
             }
             catch (Exception e)
