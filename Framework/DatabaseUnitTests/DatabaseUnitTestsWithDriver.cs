@@ -75,6 +75,19 @@ namespace DatabaseUnitTests
         }
 
         /// <summary>
+        /// Check if we get the expected mapped data when mapping to an object
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Database)]
+        public void VerifyCanRunMultipleQueriesOffOneConnection()
+        {
+            var states = this.DatabaseDriver.Query<States>("SELECT * FROM States").ToList();
+            Assert.IsTrue(states.Count > 0, "Expected nonempty state abbreviation.");
+            states = this.DatabaseDriver.Query<States>("SELECT * FROM States").ToList();
+            Assert.IsTrue(states.Count > 0, "Expected nonempty state abbreviation.");
+        }
+
+        /// <summary>
         /// Check if Procedures actions can update an item
         /// </summary>
         [TestMethod]
