@@ -286,9 +286,10 @@ namespace Magenic.Maqs.BaseTest
         /// Wrap an assert inside a soft assert
         /// </summary>
         /// <param name="assertFunction">The assert function</param>
+        /// <param name="failureMessage">Message to log</param>
         /// <param name="assertCalledKey">Key of expected assert being called.</param>
         /// <returns>True if the asset passed</returns>
-        public virtual bool Assert(Action assertFunction, string assertCalledKey = null)
+        public virtual bool Assert(Action assertFunction, string failureMessage = "", string assertCalledKey = null)
         {
             if(!string.IsNullOrEmpty(assertCalledKey) && _expectedAsserts.Any())
             {
@@ -310,7 +311,14 @@ namespace Magenic.Maqs.BaseTest
             {
                 this.NumberOfFailedAsserts = ++this.NumberOfFailedAsserts;
                 result = false;
-                this.Log.LogMessage(MessageType.WARNING, "SoftAssert failed for: {0}. {1}", assertFunction.Method.Name, ex.Message);
+                if (string.IsNullOrEmpty(failureMessage))
+                {
+                    this.Log.LogMessage(MessageType.WARNING, $"SoftAssert failed for: {assertFunction.Method.Name}. {ex.Message}");
+                }
+                else
+                {
+                    this.Log.LogMessage(MessageType.WARNING, $"SoftAssert failed for: {assertFunction.Method.Name}. {failureMessage}. {ex.Message}");
+                }
                 this.listOfExceptions.Add(ex.Message);
             }
             finally

@@ -69,11 +69,12 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// Soft assert method to check if the Action is false
         /// </summary>
         /// <param name="assertFunction">Function to use</param>
+        /// <param name="failureMessage">Message to log</param>
         /// <param name="assertCalledKey">Key of expected assert being called.</param>
         /// <returns>Boolean of the assert</returns>
-        public override bool Assert(Action assertFunction, string assertCalledKey = null)
+        public override bool Assert(Action assertFunction, string failureMessage = "", string assertCalledKey = null)
         {
-            bool didPass = base.Assert(assertFunction, assertCalledKey);
+            bool didPass = base.Assert(assertFunction, failureMessage, assertCalledKey);
 
             if (!didPass && this.appiumTestObject.GetDriverManager<MobileDriverManager>().IsDriverIntialized())
             {
