@@ -160,7 +160,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             {
                 if (SeleniumConfig.GetSoftAssertScreenshot())
                 {
-                    SeleniumUtilities.CaptureScreenshot(this.testObject.WebDriver, this.testObject);
+                    SeleniumUtilities.CaptureScreenshot(this.testObject.WebDriver, this.testObject, this.TextToAppend(assertCalledKey));
                 }
 
                 if (SeleniumConfig.GetSavePagesourceOnFail())

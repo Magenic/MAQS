@@ -80,7 +80,7 @@ namespace Magenic.Maqs.BaseAppiumTest
             {
                 if (AppiumConfig.GetSoftAssertScreenshot())
                 {
-                    AppiumUtilities.CaptureScreenshot(this.appiumTestObject.AppiumDriver, this.appiumTestObject);
+                    AppiumUtilities.CaptureScreenshot(this.appiumTestObject.AppiumDriver, this.appiumTestObject, this.TextToAppend(assertCalledKey));
                 }
 
                 if (AppiumConfig.GetSavePagesourceOnFail())

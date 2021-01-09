@@ -32,13 +32,13 @@ namespace UtilitiesUnitTesting
 
             int one = 1;
             softAssert.AssertFails(
-                () => 
+                () =>
             {
                 one = 0;
                 var result = 9 / one;
                 Assert.Fail($"Result should have thrown an error but is {result} instead");
-            }, 
-            typeof(DivideByZeroException), 
+            },
+            typeof(DivideByZeroException),
             "Assert  action throws divide by zero exception",
             "Failed to assert that we couldn't divide by zero");
 
@@ -64,8 +64,8 @@ namespace UtilitiesUnitTesting
                 var result = 9 / one;
                 Assert.Fail($"Result should have thrown an error but is {result} instead");
             },
-            typeof(NullReferenceException), 
-            "Assert  dividing by zero throws a null reference", 
+            typeof(NullReferenceException),
+            "Assert  dividing by zero throws a null reference",
             "Failed to assert that we couldn't divide by zero");
 
             softAssert.FailTestIfAssertFailed();
@@ -244,7 +244,7 @@ namespace UtilitiesUnitTesting
                 new FileLogger(LoggingConfig.GetLogDirectory(),
                 "UnitTests.SoftAssertManuallySetExpectedAssert"));
             softAssert.AddExpectedAsserts("one");
-            softAssert.Assert(() => { }, "one");
+            softAssert.Assert(() => { }, "AssertionMethod", "one");
             softAssert.FailTestIfAssertFailed();
         }
 
