@@ -239,7 +239,7 @@ namespace DatabaseUnitTests
                     return o;
                 }, splitOn: "ProductId");
             });
-            Assert.IsTrue(result.Any());
+            Assert.IsTrue(result.Any(), "No results were returned");
         }
 
         [TestMethod]

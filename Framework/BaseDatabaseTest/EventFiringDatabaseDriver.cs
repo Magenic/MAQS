@@ -150,17 +150,19 @@ namespace Magenic.Maqs.BaseDatabaseTest
             }
         }
 
+
         /// <summary>
         /// Custom query that uses a Func to allow for utilizing dapper multi-mapping
         /// </summary>
         /// <typeparam name="T">Type to return</typeparam>
         /// <param name="actionToPerform">Action to perform</param>
+        /// <param name="customLogMessage">Custom message to log</param>
         /// <returns>An IEnumerable list of type</returns>
         public override IEnumerable<T> Query<T>(Func<IDbConnection, IEnumerable<T>> actionToPerform)
         {
             try
             {
-                this.RaiseEvent("query", "Custom Action");
+                this.RaiseEvent("query", "Performing Custom Action");
                 return base.Query(actionToPerform);
             }
             catch (Exception ex)
