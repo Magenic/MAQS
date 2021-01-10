@@ -156,7 +156,6 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// </summary>
         /// <typeparam name="T">Type to return</typeparam>
         /// <param name="actionToPerform">Action to perform</param>
-        /// <param name="customLogMessage">Custom message to log</param>
         /// <returns>An IEnumerable list of type</returns>
         public override IEnumerable<T> Query<T>(Func<IDbConnection, IEnumerable<T>> actionToPerform)
         {
