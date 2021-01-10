@@ -231,7 +231,7 @@ namespace BaseTestUnitTests
             tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
             tester.SoftAssert.Assert(() => { }, "one");
             tester.Teardown();
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsFalse(tester.SoftAssert.DidSoftAssertsFail());
+            MicroAssert.IsFalse(tester.SoftAssert.DidSoftAssertsFail());
             NUnit.Framework.Assert.IsFalse(tester.SoftAssert.DidSoftAssertsFail());
         }
 
@@ -249,12 +249,12 @@ namespace BaseTestUnitTests
             try
             {
                 tester.SoftAssert.FailTestIfAssertFailed();
-                Microsoft.VisualStudio.TestTools.UnitTesting.Assert.Fail();
+                MicroAssert.Fail();
                 NUnit.Framework.Assert.Fail();
             }
             catch (AggregateException aggregateException)
             {
-                Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(
+                MicroAssert.AreEqual(
                     2,
                     aggregateException.InnerExceptions.Count,
                     "Incorrect number of inner exceptions in Soft Assert");
@@ -295,7 +295,7 @@ namespace BaseTestUnitTests
             }
             catch (AggregateException aggregateException)
             {
-                Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(
+                MicroAssert.AreEqual(
                     1,
                     aggregateException.InnerExceptions.Count,
                     "Incorrect number of inner exceptions in Soft Assert");
