@@ -23,7 +23,7 @@ namespace Magenic.Maqs.BaseTest
         /// <summary>
         /// List of all asserted exceptions
         /// </summary>
-        private readonly List<string> listOfExceptions = new List<string>();
+        private readonly List<Exception> listOfExceptions = new List<Exception>();
 
         /// <summary>
         /// Keys of the asserts that need to be called with soft assert.
@@ -226,10 +226,10 @@ namespace Magenic.Maqs.BaseTest
                 type = MessageType.ERROR;
                 message.AppendLine("List of failed exceptions:");
 
-                foreach (string exception in this.listOfExceptions)
+                foreach (var exceptionMessage in this.listOfExceptions.Select(e => e?.Message))
                 {
                     // Will log all the exceptions that were caught in Asserts to the log file.
-                    message.AppendLine(exception);
+                    message.AppendLine(exceptionMessage);
                 }
             }
             else
@@ -264,8 +264,10 @@ namespace Magenic.Maqs.BaseTest
 
             if (this.DidSoftAssertsFail())
             {
-                string errors = string.Join(Environment.NewLine, this.listOfExceptions);
-                throw new AggregateException("Soft Asserts failed:" + Environment.NewLine + errors + Environment.NewLine + message);
+                var errors = string.Join(Environment.NewLine, this.listOfExceptions.Select(e => e?.Message));
+                throw new AggregateException(
+                    "Soft Asserts failed:" + Environment.NewLine + errors + Environment.NewLine + message,
+                    listOfExceptions);
             }
         }
 
@@ -277,7 +279,7 @@ namespace Magenic.Maqs.BaseTest
                 {
                     this.NumberOfAsserts++;
                     this.NumberOfFailedAsserts++;
-                    this.listOfExceptions.Add($"Error: failed to call assert with key {expectedAssert}");
+                    this.listOfExceptions.Add(new SoftAssertException($"Error: failed to call assert with key {expectedAssert}"));
                 }
             }
         }
@@ -319,7 +321,7 @@ namespace Magenic.Maqs.BaseTest
                 {
                     this.Log.LogMessage(MessageType.WARNING, $"SoftAssert failed for: {assertFunction.Method.Name}. {failureMessage}. {ex.Message}");
                 }
-                this.listOfExceptions.Add(ex.Message);
+                this.listOfExceptions.Add(ex);
             }
             finally
             {
@@ -363,7 +365,7 @@ namespace Magenic.Maqs.BaseTest
                     this.NumberOfFailedAsserts = ++this.NumberOfFailedAsserts;
                     result = false;
                     this.Log.LogMessage(MessageType.WARNING, "SoftAssert failed for assert {0}: {1}. Expected failure:{2} Actual failure: {3}", assertName, assertFunction.Method.Name, expectedException, ex.Message);
-                    this.listOfExceptions.Add(ex.Message);
+                    this.listOfExceptions.Add(ex);
                 }
             }
             finally
@@ -400,7 +402,7 @@ namespace Magenic.Maqs.BaseTest
                 this.NumberOfFailedAsserts = ++this.NumberOfFailedAsserts;
                 result = false;
                 this.LogMessage(expectedText, actualText, message, result);
-                this.listOfExceptions.Add(ex.Message);
+                this.listOfExceptions.Add(ex);
             }
             finally
             {
@@ -417,6 +419,7 @@ namespace Magenic.Maqs.BaseTest
         /// <param name="softAssertName">Soft assert name</param>
         /// <param name="message">Test Name or Message</param>
         /// <returns>Boolean if the assert is true</returns>
+        [Obsolete("Method only called by SoftAssert.IsTrue and SoftAssert.IsFalse. Should be removed at the same time.")]
         private bool InvokeTest(Action test, string softAssertName, string message)
         {
             // Resetting every time we invoke a test to verify the user checked for failures
@@ -435,7 +438,7 @@ namespace Magenic.Maqs.BaseTest
                 this.NumberOfFailedAsserts = ++this.NumberOfFailedAsserts;
                 result = false;
                 this.Log.LogMessage(MessageType.WARNING, "SoftAssert failed for: {0}. {1}", softAssertName, message);
-                this.listOfExceptions.Add(ex.Message);
+                this.listOfExceptions.Add(ex);
             }
             finally
             {
