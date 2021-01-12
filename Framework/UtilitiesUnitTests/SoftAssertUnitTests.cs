@@ -264,6 +264,20 @@ namespace UtilitiesUnitTesting
         }
 
         /// <summary>
+        /// Test to cover the soft assert .Assert with failure message
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        [ExpectedException(typeof(AggregateException))]
+        public void SoftAssertAssertMethodWithFailureMessage()
+        {
+            SoftAssert softAssert = new SoftAssert(new FileLogger(LoggingConfig.GetLogDirectory(),
+                "UnitTests.SoftAssertAssertMethodWithFailureMessage"));
+            softAssert.Assert(() => Assert.Fail(), "Failure Message");
+            softAssert.FailTestIfAssertFailed();
+        }
+
+        /// <summary>
         /// Throws a null reference exception
         /// </summary>
         private void MethodThrowsNullException()
