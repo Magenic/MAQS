@@ -12,7 +12,6 @@ using NUnit.Framework;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Linq;
 using MicroAssert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace BaseTestUnitTests
