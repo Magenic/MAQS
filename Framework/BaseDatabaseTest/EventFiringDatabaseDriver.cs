@@ -161,7 +161,9 @@ namespace Magenic.Maqs.BaseDatabaseTest
         {
             try
             {
-                this.RaiseEvent("query", "Performing Custom Action");
+                // We currently do not have a built in way to get the query info from the function.
+                // The user can utilize their own logger inside the function for a workaround
+                this.RaiseEvent("query", "Performing Function Base Query");
                 return base.Query(actionToPerform);
             }
             catch (Exception ex)
