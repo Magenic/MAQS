@@ -187,7 +187,7 @@ namespace DatabaseUnitTests
         [ExpectedException(typeof(InvalidOperationException))]
         public void QueryThrowException()
         {
-            this.Query<string>(null);
+            this.Query<string>((string)null);
         }
 
         /// <summary>
@@ -202,7 +202,7 @@ namespace DatabaseUnitTests
                 // Subscribe to the event
                 this.DatabaseErrorEvent += this.DatabaseUnitTestEvent;
 
-                this.Query<string>(null);
+                this.Query<string>((string)null);
             }
             catch (InvalidOperationException e)
             {
