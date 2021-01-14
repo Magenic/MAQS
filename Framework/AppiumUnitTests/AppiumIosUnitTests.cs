@@ -6,10 +6,12 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseAppiumTest;
 using Magenic.Maqs.Utilities.Helper;
+using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.iOS;
+using System.IO;
 
 namespace AppiumUnitTests
 {
@@ -45,6 +47,28 @@ namespace AppiumUnitTests
             Assert.IsTrue(lazy.ExistsNow, "Expect exists now");
             lazy.Click();
         }
+
+        [TestMethod]
+        [TestCategory(TestCategories.Appium)]
+        public void AssertFuncFailPath()
+        {
+            Assert.IsNotNull(this.TestObject.AppiumDriver);
+            this.AppiumDriver.Navigate().GoToUrl(Config.GetValueForSection(ConfigSection.AppiumMaqs, "WebSiteBase"));
+
+
+            Log = new FileLogger(string.Empty, "AssertFuncFailPath.txt", MessageType.GENERIC, true);
+            AppiumSoftAssert appiumSoftAssert = new AppiumSoftAssert(TestObject);
+            string logLocation = ((FileLogger)Log).FilePath;
+            string screenShotLocation = $"{logLocation.Substring(0, logLocation.LastIndexOf('.'))} assertName (1).Png";
+
+            bool isFalse = appiumSoftAssert.Assert(() => Assert.IsTrue(false), "assertName");
+            Assert.IsTrue(File.Exists(screenShotLocation), "Fail to find screenshot");
+            File.Delete(screenShotLocation);
+            File.Delete(logLocation);
+
+            Assert.IsFalse(isFalse);
+        }
+
 
         /// <summary>
         /// Sets capabilities for testing the iOS Driver creation

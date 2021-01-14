@@ -273,7 +273,27 @@ namespace UtilitiesUnitTesting
         {
             SoftAssert softAssert = new SoftAssert(new FileLogger(LoggingConfig.GetLogDirectory(),
                 "UnitTests.SoftAssertAssertMethodWithFailureMessage"));
-            softAssert.Assert(() => Assert.Fail(), "Failure Message");
+            softAssert.Assert(() => Assert.Fail(), "SoftAssertName", "Failure Message");
+            softAssert.FailTestIfAssertFailed();
+        }
+
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        [ExpectedException(typeof(AggregateException))]
+        public void SoftAssertAssertFailsWithPassingAction()
+        {
+            SoftAssert softAssert = new SoftAssert(new FileLogger(LoggingConfig.GetLogDirectory(),
+               "UnitTests.SoftAssertAssertFailsWithPassingAction"));
+            softAssert.AssertFails(() => Assert.IsTrue(true), typeof(AggregateException), "assertName");
+            softAssert.FailTestIfAssertFailed();
+        }
+
+        [TestMethod]
+        public void SoftAssertActionWithEmptyAssertionName()
+        {
+            SoftAssert softAssert = new SoftAssert(new FileLogger(LoggingConfig.GetLogDirectory(),
+               "UnitTests.SoftAssertActionWithEmptyAssertionName"));
+            softAssert.Assert(() => Assert.IsTrue(true), string.Empty);
             softAssert.FailTestIfAssertFailed();
         }
 
