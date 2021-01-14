@@ -1067,7 +1067,7 @@ namespace SeleniumUnitTests
         {
             foreach (IWebElement element in this.FlowerTableLazyElement.FindElements(By.CssSelector("THEAD TH")))
             {
-                this.SoftAssert.Assert(() => Assert.IsTrue(element is LazyElement));
+                this.SoftAssert.Assert(() => Assert.IsTrue(element is LazyElement), "1");
             }
 
             this.SoftAssert.FailTestIfAssertFailed();

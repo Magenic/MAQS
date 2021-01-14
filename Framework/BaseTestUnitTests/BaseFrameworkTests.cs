@@ -12,7 +12,6 @@ using NUnit.Framework;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Linq;
 using MicroAssert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace BaseTestUnitTests
@@ -244,8 +243,8 @@ namespace BaseTestUnitTests
 
             tester.Setup();
             tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
-            tester.SoftAssert.Assert(() => throw new Exception("broke"));
-            tester.SoftAssert.Assert(() => throw new Exception("broke again"));
+            tester.SoftAssert.Assert(() => throw new Exception("broke"), "Name1");
+            tester.SoftAssert.Assert(() => throw new Exception("broke again"), "Name2");
             try
             {
                 tester.SoftAssert.FailTestIfAssertFailed();

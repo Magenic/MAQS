@@ -246,7 +246,7 @@ namespace DatabaseUnitTests
         [ExpectedException(typeof(SqliteException))]
         public void CustomQueryException()
         {
-            var result = this.DatabaseDriver.Query<Orders>((dbConnection) =>
+            this.DatabaseDriver.Query<Orders>((dbConnection) =>
             {
                 return dbConnection.Query<Orders>("SELECT * FROM unknowntable");
             });
