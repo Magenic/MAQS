@@ -15,6 +15,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using DatabaseUnitTests.Models;
+using Dapper;
+using Microsoft.Data.Sqlite;
 
 namespace DatabaseUnitTests
 {
@@ -35,7 +37,7 @@ namespace DatabaseUnitTests
         public void VerifyOrdersHasCorrectNumberOfRecordsSqlite()
         {
             var orders = this.DatabaseDriver.Query("select * from orders").ToList();
-            
+
             Assert.AreEqual(11, orders.Count);
         }
 
@@ -129,7 +131,7 @@ namespace DatabaseUnitTests
 
                 var isDeleted = this.DatabaseDriver.Delete(newOrder);
                 var orders = this.DatabaseDriver.Query<Orders>("select * from orders").ToList();
-                
+
                 // Our database has 11 orders
                 Assert.IsTrue(isDeleted);
                 Assert.AreEqual(11, orders.Count);
@@ -213,6 +215,43 @@ namespace DatabaseUnitTests
             }
         }
 
+        [TestMethod]
+        public void CustomQuery()
+        {
+            var result = this.DatabaseDriver.Query<Orders>((dbConnection) =>
+            {
+                return dbConnection.Query<Orders>("SELECT * FROM orders");
+            });
+            Assert.IsTrue(result.Any());
+        }
+
+        [TestMethod]
+        public void CustomQueryMultipleTables()
+        {
+            var result = this.DatabaseDriver.Query<Orders>((dbConnection) =>
+            {
+                return dbConnection.Query<Orders, Products, Orders>(
+                    @"SELECT o.* FROM orders o
+                    INNER JOIN products p
+                    ON o.ProductId = p.Id
+                    WHERE ProductName = 'Car'", (o, p) =>
+                {
+                    return o;
+                }, splitOn: "ProductId");
+            });
+            Assert.IsTrue(result.Any(), "No results were returned");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(SqliteException))]
+        public void CustomQueryException()
+        {
+            var result = this.DatabaseDriver.Query<Orders>((dbConnection) =>
+            {
+                return dbConnection.Query<Orders>("SELECT * FROM unknowntable");
+            });
+        }
+
         /// <summary>
         /// Get the database connection
         /// </summary>
@@ -248,11 +287,11 @@ namespace DatabaseUnitTests
             // Building an absolute URL from the assembly location fails on some
             // Azure DevOps hosted build environments.
             if (Uri.TryCreate(Assembly.GetExecutingAssembly().Location, UriKind.RelativeOrAbsolute, out uri) &&
-                uri.IsAbsoluteUri) 
+                uri.IsAbsoluteUri)
             {
                 return $"{Path.GetDirectoryName(Uri.UnescapeDataString(uri.AbsolutePath))}\\MyDatabase.sqlite";
             }
-            else 
+            else
             {
                 return "MyDatabase.sqlite";
             }
