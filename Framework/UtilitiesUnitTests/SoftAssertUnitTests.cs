@@ -244,7 +244,7 @@ namespace UtilitiesUnitTesting
                 new FileLogger(LoggingConfig.GetLogDirectory(),
                 "UnitTests.SoftAssertManuallySetExpectedAssert"));
             softAssert.AddExpectedAsserts("one");
-            softAssert.Assert(() => { }, "AssertionMethod", "one");
+            softAssert.Assert(() => { }, "one", "AssertionMethod");
             softAssert.FailTestIfAssertFailed();
         }
 

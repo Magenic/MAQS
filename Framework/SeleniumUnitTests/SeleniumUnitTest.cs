@@ -718,7 +718,7 @@ namespace SeleniumUnitTests
             this.Log = new FileLogger(string.Empty, "SeleniumSoftAssertWithAssertIsTrueFalseCondition.txt", MessageType.GENERIC, true);
             SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(TestObject);
             string logLocation = ((FileLogger)Log).FilePath;
-            string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " (1).Png";
+            string screenShotLocation = $"{logLocation.Substring(0, logLocation.LastIndexOf('.'))} 1 (1).Png";
 
             bool isFalse = seleniumSoftAssert.Assert(() => Assert.IsTrue(false, "testSoftAssert", "message"), "1");
 
