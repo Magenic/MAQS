@@ -151,16 +151,16 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// </summary>
         /// <param name="assertFunction">Function to use</param>
         /// <param name="failureMessage">Message to log</param>
-        /// <param name="assertCalledKey">Key of expected assert being called.</param>
+        /// <param name="assertName">Soft assert name or name of expected assert being called.</param>
         /// <returns>Boolean of the assert</returns>
-        public override bool Assert(Action assertFunction,string failureMessage = "", string assertCalledKey = null)
+        public override bool Assert(Action assertFunction,string failureMessage = "", string assertName = null)
         {
-            bool didPass = base.Assert(assertFunction, failureMessage, assertCalledKey);
+            bool didPass = base.Assert(assertFunction, failureMessage, assertName);
             if (!didPass && this.testObject.GetDriverManager<SeleniumDriverManager>().IsDriverIntialized())
             {
                 if (SeleniumConfig.GetSoftAssertScreenshot())
                 {
-                    SeleniumUtilities.CaptureScreenshot(this.testObject.WebDriver, this.testObject, this.TextToAppend(assertCalledKey));
+                    SeleniumUtilities.CaptureScreenshot(this.testObject.WebDriver, this.testObject, this.TextToAppend(assertName));
                 }
 
                 if (SeleniumConfig.GetSavePagesourceOnFail())
