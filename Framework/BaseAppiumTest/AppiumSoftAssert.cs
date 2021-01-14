@@ -72,9 +72,9 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <param name="failureMessage">Message to log</param>
         /// <param name="assertName">Soft assert name or name of expected assert being called.</param>
         /// <returns>Boolean of the assert</returns>
-        public override bool Assert(Action assertFunction, string failureMessage = "", string assertName = null)
+        public override bool Assert(Action assertFunction, string assertName, string failureMessage = "")
         {
-            bool didPass = base.Assert(assertFunction, failureMessage, assertName);
+            bool didPass = base.Assert(assertFunction, assertName, failureMessage);
 
             if (!didPass && this.appiumTestObject.GetDriverManager<MobileDriverManager>().IsDriverIntialized())
             {

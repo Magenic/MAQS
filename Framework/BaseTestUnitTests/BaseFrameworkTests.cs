@@ -243,8 +243,8 @@ namespace BaseTestUnitTests
 
             tester.Setup();
             tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
-            tester.SoftAssert.Assert(() => throw new Exception("broke"));
-            tester.SoftAssert.Assert(() => throw new Exception("broke again"));
+            tester.SoftAssert.Assert(() => throw new Exception("broke"), "Name1");
+            tester.SoftAssert.Assert(() => throw new Exception("broke again"), "Name2");
             try
             {
                 tester.SoftAssert.FailTestIfAssertFailed();

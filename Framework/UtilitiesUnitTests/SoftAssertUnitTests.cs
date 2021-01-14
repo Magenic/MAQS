@@ -188,7 +188,7 @@ namespace UtilitiesUnitTesting
         public void AcceptVSAsserts()
         {
             SoftAssert softAssert = new SoftAssert(new FileLogger(LoggingConfig.GetLogDirectory(), "UnitTests.SoftAssertUnitTests.AcceptVSAsserts"));
-            softAssert.Assert(() => Assert.AreEqual("a", "a"));
+            softAssert.Assert(() => Assert.AreEqual("a", "a"), "1");
             softAssert.FailTestIfAssertFailed();
         }
 
@@ -200,7 +200,7 @@ namespace UtilitiesUnitTesting
         public void AcceptNUnitAsserts()
         {
             SoftAssert softAssert = new SoftAssert(new FileLogger(LoggingConfig.GetLogDirectory(), "UnitTests.SoftAssertUnitTests.AcceptNUnitAsserts"));
-            softAssert.Assert(() => NUnit.Framework.Assert.AreEqual("a", "a"));
+            softAssert.Assert(() => NUnit.Framework.Assert.AreEqual("a", "a"), "1");
             softAssert.FailTestIfAssertFailed();
         }
 
@@ -213,7 +213,7 @@ namespace UtilitiesUnitTesting
         public void CapturesVSAssertFail()
         {
             SoftAssert softAssert = new SoftAssert(new FileLogger(LoggingConfig.GetLogDirectory(), "UnitTests.SoftAssertUnitTests.RespectVSFailsFails"));
-            softAssert.Assert(() => Assert.AreEqual("a", "b"));
+            softAssert.Assert(() => Assert.AreEqual("a", "b"), "2");
 
             softAssert.FailTestIfAssertFailed();
         }
@@ -227,7 +227,7 @@ namespace UtilitiesUnitTesting
         public void CapturesNUnitAssertFail()
         {
             SoftAssert softAssert = new SoftAssert(new FileLogger(LoggingConfig.GetLogDirectory(), "UnitTests.SoftAssertUnitTests.RespectNUnitFails"));
-            softAssert.Assert(() => NUnit.Framework.Assert.AreEqual("a", "b"));
+            softAssert.Assert(() => NUnit.Framework.Assert.AreEqual("a", "b"), "1");
 
             softAssert.FailTestIfAssertFailed();
         }

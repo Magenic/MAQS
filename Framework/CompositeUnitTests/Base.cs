@@ -25,10 +25,10 @@ namespace CompositeUnitTests
         public void ConfigSections()
         {
             var keysAndValues = Config.GetSection("MagenicMaqS");
-            SoftAssert.Assert(() => Assert.AreEqual(9, keysAndValues.Count, "Expect 9 values, 6 from app.config plus 3 from run settings file"));
-            SoftAssert.Assert(() => Assert.AreEqual("TXT", keysAndValues["LogType"], "Base configuration not respected"));
-            SoftAssert.Assert(() => Assert.AreEqual("SAMPLEGen", keysAndValues["SectionOverride"], "Override not respected"));
-            SoftAssert.Assert(() => Assert.AreEqual("SAMPLEGenz", keysAndValues["SectionAdd"], "Run settings addition not respected"));
+            SoftAssert.Assert(() => Assert.AreEqual(9, keysAndValues.Count, "Expect 9 values, 6 from app.config plus 3 from run settings file"), "1");
+            SoftAssert.Assert(() => Assert.AreEqual("TXT", keysAndValues["LogType"], "Base configuration not respected"), "2");
+            SoftAssert.Assert(() => Assert.AreEqual("SAMPLEGen", keysAndValues["SectionOverride"], "Override not respected"), "3");
+            SoftAssert.Assert(() => Assert.AreEqual("SAMPLEGenz", keysAndValues["SectionAdd"], "Run settings addition not respected"), "4");
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace CompositeUnitTests
         public void EmptyConfigSections()
         {
             var keysAndValues = Config.GetSection("MagenicMaqSZZZ");
-            SoftAssert.Assert(() => Assert.AreEqual(0, keysAndValues.Count, "Expected no matching configuration key value pairs."));
+            SoftAssert.Assert(() => Assert.AreEqual(0, keysAndValues.Count, "Expected no matching configuration key value pairs."), "1");
         }
 
         /// <summary>

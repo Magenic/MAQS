@@ -187,7 +187,6 @@ namespace Magenic.Maqs.BaseTest
         /// <param name="failureMessage">Failure message</param>
         /// <returns>Boolean if condition is met</returns>
         [Obsolete("SoftAssert.IsFalse will be deprecated in MAQS 7.0.  Please use SoftAssert.Assert() instead")]
-
         public virtual bool IsFalse(bool condition, string softAssertName, string failureMessage = "")
         {
             void test()
@@ -273,9 +272,9 @@ namespace Magenic.Maqs.BaseTest
 
         internal void CheckForExpectedAsserts()
         {
-            foreach(var expectedAssert in _expectedAssertNames)
+            foreach (var expectedAssert in _expectedAssertNames)
             {
-                if(!_calledAssertNames.Contains(expectedAssert))
+                if (!_calledAssertNames.Contains(expectedAssert))
                 {
                     this.NumberOfAsserts++;
                     this.NumberOfFailedAsserts++;
@@ -288,12 +287,23 @@ namespace Magenic.Maqs.BaseTest
         /// Wrap an assert inside a soft assert
         /// </summary>
         /// <param name="assertFunction">The assert function</param>
+        /// <returns>True if the asset passed</returns>
+        [Obsolete("SoftAssert.Assert(Action) is obsolete.  Please use SoftAssert.Assert(Action, assertName)")]
+        public bool Assert(Action assertFunction)
+        {
+            return this.Assert(assertFunction, string.Empty, string.Empty);
+        }
+
+        /// <summary>
+        /// Wrap an assert inside a soft assert
+        /// </summary>
+        /// <param name="assertFunction">The assert function</param>
         /// <param name="failureMessage">Message to log</param>
         /// <param name="assertName">Soft assert name or name of expected assert being called.</param>
         /// <returns>True if the asset passed</returns>
-        public virtual bool Assert(Action assertFunction, string failureMessage = "", string assertName = null)
+        public virtual bool Assert(Action assertFunction, string assertName, string failureMessage = "")
         {
-            if(!string.IsNullOrEmpty(assertName) && _expectedAssertNames.Any())
+            if (!string.IsNullOrEmpty(assertName) && _expectedAssertNames.Any())
             {
                 _calledAssertNames.Add(assertName);
             }
@@ -307,40 +317,19 @@ namespace Magenic.Maqs.BaseTest
                 assertFunction.Invoke();
                 this.NumberOfPassedAsserts = ++this.NumberOfPassedAsserts;
                 result = true;
-                if (!string.IsNullOrEmpty(assertName))
-                {
-                    this.Log.LogMessage(MessageType.SUCCESS, "SoftAssert passed for: {0}.", assertName);
-                }
-                else
-                {
-                    this.Log.LogMessage(MessageType.SUCCESS, "SoftAssert passed for: {0}.", assertFunction.Method.Name);
-                }
+                this.Log.LogMessage(MessageType.SUCCESS, $"SoftAssert passed for: {assertName}.");
             }
             catch (Exception ex)
             {
                 this.NumberOfFailedAsserts = ++this.NumberOfFailedAsserts;
                 result = false;
-                if (!string.IsNullOrEmpty(assertName))
+                if (string.IsNullOrEmpty(failureMessage))
                 {
-                    if (string.IsNullOrEmpty(failureMessage))
-                    {
-                        this.Log.LogMessage(MessageType.WARNING, $"SoftAssert failed for: {assertName}. {ex.Message}");
-                    }
-                    else
-                    {
-                        this.Log.LogMessage(MessageType.WARNING, $"SoftAssert failed for: {assertName}. {failureMessage}. {ex.Message}");
-                    }
+                    this.Log.LogMessage(MessageType.WARNING, $"SoftAssert failed for: {assertName}. {ex.Message}");
                 }
                 else
                 {
-                    if (string.IsNullOrEmpty(failureMessage))
-                    {
-                        this.Log.LogMessage(MessageType.WARNING, $"SoftAssert failed for: {assertFunction.Method.Name}. {ex.Message}");
-                    }
-                    else
-                    {
-                        this.Log.LogMessage(MessageType.WARNING, $"SoftAssert failed for: {assertFunction.Method.Name}. {failureMessage}. {ex.Message}");
-                    }
+                    this.Log.LogMessage(MessageType.WARNING, $"SoftAssert failed for: {assertName}. {failureMessage}. {ex.Message}");
                 }
 
                 this.listOfExceptions.Add(ex);
