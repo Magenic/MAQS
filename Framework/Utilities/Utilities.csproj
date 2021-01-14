@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <BuildVersion>6.2.0</BuildVersion>
-    <PreRelease>-beta</PreRelease>
+    <PreRelease>-beta1</PreRelease>
   </PropertyGroup>
 
   <PropertyGroup>
