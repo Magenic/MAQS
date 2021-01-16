@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <BuildVersion>6.2.0</BuildVersion>
-    <PreRelease>-beta</PreRelease>
+    <PreRelease>-beta.2</PreRelease>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -45,13 +45,13 @@
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.78" />
     <PackageReference Include="Dapper.Contrib" Version="2.0.78" />
-    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="5.0.1" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="5.0.2" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Npgsql" Version="5.0.0" />
-    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.19.100" />
+    <PackageReference Include="Npgsql" Version="5.0.1.1" />
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.19.101" />
     <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="2.0.4" />
     <PackageReference Include="SQLitePCLRaw.core" Version="2.0.4" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />

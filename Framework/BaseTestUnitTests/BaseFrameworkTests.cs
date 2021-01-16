@@ -219,6 +219,92 @@ namespace BaseTestUnitTests
             NUnit.Framework.Assert.IsTrue(messageIsWritten, "The list of files to attach was not written to the log");
         }
 
+        [TestMethod]
+        [Category(TestCategories.Framework)]
+        [Category(TestCategories.NUnit)]
+        public void SoftAssertAssertSuccess()
+        {
+            var tester = GetBaseTest();
+
+            tester.Setup();
+            tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
+            tester.SoftAssert.Assert(() => { }, "one");
+            tester.Teardown();
+            MicroAssert.IsFalse(tester.SoftAssert.DidSoftAssertsFail());
+            NUnit.Framework.Assert.IsFalse(tester.SoftAssert.DidSoftAssertsFail());
+        }
+
+        [TestMethod]
+        [Category(TestCategories.Framework)]
+        [Category(TestCategories.NUnit)]
+        public void SoftAssertAssertFailed()
+        {
+            var tester = GetBaseTest();
+
+            tester.Setup();
+            tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
+            tester.SoftAssert.Assert(() => throw new Exception("broke"), "Name1");
+            tester.SoftAssert.Assert(() => throw new Exception("broke again"), "Name2");
+            try
+            {
+                tester.SoftAssert.FailTestIfAssertFailed();
+                MicroAssert.Fail();
+                NUnit.Framework.Assert.Fail();
+            }
+            catch (AggregateException aggregateException)
+            {
+                MicroAssert.AreEqual(
+                    2,
+                    aggregateException.InnerExceptions.Count,
+                    "Incorrect number of inner exceptions in Soft Assert");
+                NUnit.Framework.Assert.AreEqual(
+                    2,
+                    aggregateException.InnerExceptions.Count,
+                    "Incorrect number of inner exceptions in Soft Assert");
+            }
+        }
+
+        [TestMethod]
+        [Category(TestCategories.Framework)]
+        [Category(TestCategories.NUnit)]
+        public void SoftAssertAssertFails()
+        {
+            var tester = GetBaseTest();
+
+            tester.Setup();
+            tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
+            tester.SoftAssert.AssertFails(() => throw new Exception("broke"), typeof(Exception), "one");
+            tester.Teardown();
+        }
+
+        [TestMethod]
+        [Category(TestCategories.Framework)]
+        [Category(TestCategories.NUnit)]
+        public void SoftAssertAssertFailsFailed()
+        {
+            var tester = GetBaseTest();
+
+            tester.Setup();
+            tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
+            tester.SoftAssert.AssertFails(() => throw new Exception("broke"), typeof(AggregateException), "one");
+            try
+            {
+                tester.SoftAssert.FailTestIfAssertFailed();
+
+            }
+            catch (AggregateException aggregateException)
+            {
+                MicroAssert.AreEqual(
+                    1,
+                    aggregateException.InnerExceptions.Count,
+                    "Incorrect number of inner exceptions in Soft Assert");
+                NUnit.Framework.Assert.AreEqual(
+                    1,
+                    aggregateException.InnerExceptions.Count,
+                    "Incorrect number of inner exceptions in Soft Assert");
+            }
+        }
+
         /// <summary>
         /// Get a new base test
         /// </summary>

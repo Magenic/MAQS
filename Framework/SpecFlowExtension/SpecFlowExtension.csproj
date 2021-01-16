@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <BuildVersion>6.2.0</BuildVersion>
-    <PreRelease>-beta</PreRelease>
+    <PreRelease>-beta.2</PreRelease>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -56,7 +56,7 @@
     </PackageReference>
     <PackageReference Include="MSTest.TestFramework" version="2.1.2" />
     <PackageReference Include="Newtonsoft.Json" version="12.0.3" />
-    <PackageReference Include="NUnit" version="3.12.0" />
+    <PackageReference Include="NUnit" version="3.13.0" />
     <PackageReference Include="Selenium.Support" version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver" version="3.141.0" />
     <PackageReference Include="SpecFlow" version="3.5.14" />

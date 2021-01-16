@@ -173,8 +173,8 @@ namespace AppiumUnitTests
             LazyMobileElement missingChild = new LazyMobileElement(this.TestObject, By.XPath("//Missing"), "Missing");
 
             this.SoftAssert.AreEqual(child.Text, parent.FindElement(child.By, "Child").Text);
-            this.SoftAssert.Assert(() => Assert.AreEqual(1, parent.FindElements(child.By, "Child").Count));
-            this.SoftAssert.Assert(() => Assert.IsTrue(child.Exists, "Expect exists now"));
+            this.SoftAssert.Assert(() => Assert.AreEqual(1, parent.FindElements(child.By, "Child").Count), "Name1");
+            this.SoftAssert.Assert(() => Assert.IsTrue(child.Exists, "Expect exists now"), "Name2");
 
             // Override the timeout
             this.AppiumDriver.SetWaitDriver(new WebDriverWait(this.AppiumDriver, TimeSpan.FromSeconds(10)));
@@ -196,8 +196,8 @@ namespace AppiumUnitTests
 
             this.AppiumDriver.SetWaitDriver(new WebDriverWait(this.AppiumDriver, overrideTimeSpan));
 
-            this.SoftAssert.Assert(() => Assert.AreEqual(overrideTimeSpan, parent.WaitDriver().Timeout, "Parent wait override was not respected"));
-            this.SoftAssert.Assert(() => Assert.AreEqual(overrideTimeSpan, child.WaitDriver().Timeout, "Child wait override was not respected"));
+            this.SoftAssert.Assert(() => Assert.AreEqual(overrideTimeSpan, parent.WaitDriver().Timeout, "Parent wait override was not respected"), "Name1");
+            this.SoftAssert.Assert(() => Assert.AreEqual(overrideTimeSpan, child.WaitDriver().Timeout, "Child wait override was not respected"), "Name2");
 
             this.SoftAssert.FailTestIfAssertFailed();
         }

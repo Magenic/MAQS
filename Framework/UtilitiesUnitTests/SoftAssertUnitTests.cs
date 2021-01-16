@@ -32,13 +32,13 @@ namespace UtilitiesUnitTesting
 
             int one = 1;
             softAssert.AssertFails(
-                () => 
+                () =>
             {
                 one = 0;
                 var result = 9 / one;
                 Assert.Fail($"Result should have thrown an error but is {result} instead");
-            }, 
-            typeof(DivideByZeroException), 
+            },
+            typeof(DivideByZeroException),
             "Assert  action throws divide by zero exception",
             "Failed to assert that we couldn't divide by zero");
 
@@ -64,8 +64,8 @@ namespace UtilitiesUnitTesting
                 var result = 9 / one;
                 Assert.Fail($"Result should have thrown an error but is {result} instead");
             },
-            typeof(NullReferenceException), 
-            "Assert  dividing by zero throws a null reference", 
+            typeof(NullReferenceException),
+            "Assert  dividing by zero throws a null reference",
             "Failed to assert that we couldn't divide by zero");
 
             softAssert.FailTestIfAssertFailed();
@@ -188,7 +188,7 @@ namespace UtilitiesUnitTesting
         public void AcceptVSAsserts()
         {
             SoftAssert softAssert = new SoftAssert(new FileLogger(LoggingConfig.GetLogDirectory(), "UnitTests.SoftAssertUnitTests.AcceptVSAsserts"));
-            softAssert.Assert(() => Assert.AreEqual("a", "a"));
+            softAssert.Assert(() => Assert.AreEqual("a", "a"), "1");
             softAssert.FailTestIfAssertFailed();
         }
 
@@ -200,7 +200,7 @@ namespace UtilitiesUnitTesting
         public void AcceptNUnitAsserts()
         {
             SoftAssert softAssert = new SoftAssert(new FileLogger(LoggingConfig.GetLogDirectory(), "UnitTests.SoftAssertUnitTests.AcceptNUnitAsserts"));
-            softAssert.Assert(() => NUnit.Framework.Assert.AreEqual("a", "a"));
+            softAssert.Assert(() => NUnit.Framework.Assert.AreEqual("a", "a"), "1");
             softAssert.FailTestIfAssertFailed();
         }
 
@@ -213,7 +213,7 @@ namespace UtilitiesUnitTesting
         public void CapturesVSAssertFail()
         {
             SoftAssert softAssert = new SoftAssert(new FileLogger(LoggingConfig.GetLogDirectory(), "UnitTests.SoftAssertUnitTests.RespectVSFailsFails"));
-            softAssert.Assert(() => Assert.AreEqual("a", "b"));
+            softAssert.Assert(() => Assert.AreEqual("a", "b"), "2");
 
             softAssert.FailTestIfAssertFailed();
         }
@@ -227,7 +227,7 @@ namespace UtilitiesUnitTesting
         public void CapturesNUnitAssertFail()
         {
             SoftAssert softAssert = new SoftAssert(new FileLogger(LoggingConfig.GetLogDirectory(), "UnitTests.SoftAssertUnitTests.RespectNUnitFails"));
-            softAssert.Assert(() => NUnit.Framework.Assert.AreEqual("a", "b"));
+            softAssert.Assert(() => NUnit.Framework.Assert.AreEqual("a", "b"), "1");
 
             softAssert.FailTestIfAssertFailed();
         }
@@ -244,7 +244,7 @@ namespace UtilitiesUnitTesting
                 new FileLogger(LoggingConfig.GetLogDirectory(),
                 "UnitTests.SoftAssertManuallySetExpectedAssert"));
             softAssert.AddExpectedAsserts("one");
-            softAssert.Assert(() => { }, "one");
+            softAssert.Assert(() => { }, "one", "AssertionMethod");
             softAssert.FailTestIfAssertFailed();
         }
 
@@ -260,6 +260,40 @@ namespace UtilitiesUnitTesting
                 new FileLogger(LoggingConfig.GetLogDirectory(),
                 "UnitTests.SoftAssertManuallySetExpectedAssertsFails"));
             softAssert.AddExpectedAsserts("one");
+            softAssert.FailTestIfAssertFailed();
+        }
+
+        /// <summary>
+        /// Test to cover the soft assert .Assert with failure message
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        [ExpectedException(typeof(AggregateException))]
+        public void SoftAssertAssertMethodWithFailureMessage()
+        {
+            SoftAssert softAssert = new SoftAssert(new FileLogger(LoggingConfig.GetLogDirectory(),
+                "UnitTests.SoftAssertAssertMethodWithFailureMessage"));
+            softAssert.Assert(() => Assert.Fail(), "SoftAssertName", "Failure Message");
+            softAssert.FailTestIfAssertFailed();
+        }
+
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        [ExpectedException(typeof(AggregateException))]
+        public void SoftAssertAssertFailsWithPassingAction()
+        {
+            SoftAssert softAssert = new SoftAssert(new FileLogger(LoggingConfig.GetLogDirectory(),
+               "UnitTests.SoftAssertAssertFailsWithPassingAction"));
+            softAssert.AssertFails(() => Assert.IsTrue(true), typeof(AggregateException), "assertName");
+            softAssert.FailTestIfAssertFailed();
+        }
+
+        [TestMethod]
+        public void SoftAssertActionWithEmptyAssertionName()
+        {
+            SoftAssert softAssert = new SoftAssert(new FileLogger(LoggingConfig.GetLogDirectory(),
+               "UnitTests.SoftAssertActionWithEmptyAssertionName"));
+            softAssert.Assert(() => Assert.IsTrue(true), string.Empty);
             softAssert.FailTestIfAssertFailed();
         }
 

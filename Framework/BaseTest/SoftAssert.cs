@@ -23,17 +23,17 @@ namespace Magenic.Maqs.BaseTest
         /// <summary>
         /// List of all asserted exceptions
         /// </summary>
-        private readonly List<string> listOfExceptions = new List<string>();
+        private readonly List<Exception> listOfExceptions = new List<Exception>();
 
         /// <summary>
         /// Keys of the asserts that need to be called with soft assert.
         /// </summary>
-        private readonly HashSet<string> _expectedAsserts = new HashSet<string>();
+        private readonly HashSet<string> _expectedAssertNames = new HashSet<string>();
 
         /// <summary>
         /// Keys of the asserts that have been called with soft assert.
         /// </summary>
-        private readonly HashSet<string> _calledAsserts = new HashSet<string>();
+        private readonly HashSet<string> _calledAssertNames = new HashSet<string>();
 
         /// <summary>
         /// Initializes a new instance of the SoftAssert class.
@@ -187,7 +187,6 @@ namespace Magenic.Maqs.BaseTest
         /// <param name="failureMessage">Failure message</param>
         /// <returns>Boolean if condition is met</returns>
         [Obsolete("SoftAssert.IsFalse will be deprecated in MAQS 7.0.  Please use SoftAssert.Assert() instead")]
-
         public virtual bool IsFalse(bool condition, string softAssertName, string failureMessage = "")
         {
             void test()
@@ -226,10 +225,10 @@ namespace Magenic.Maqs.BaseTest
                 type = MessageType.ERROR;
                 message.AppendLine("List of failed exceptions:");
 
-                foreach (string exception in this.listOfExceptions)
+                foreach (var exceptionMessage in this.listOfExceptions.Select(e => e?.Message))
                 {
                     // Will log all the exceptions that were caught in Asserts to the log file.
-                    message.AppendLine(exception);
+                    message.AppendLine(exceptionMessage);
                 }
             }
             else
@@ -264,20 +263,22 @@ namespace Magenic.Maqs.BaseTest
 
             if (this.DidSoftAssertsFail())
             {
-                string errors = string.Join(Environment.NewLine, this.listOfExceptions);
-                throw new AggregateException("Soft Asserts failed:" + Environment.NewLine + errors + Environment.NewLine + message);
+                var errors = string.Join(Environment.NewLine, this.listOfExceptions.Select(e => e?.Message));
+                throw new AggregateException(
+                    "Soft Asserts failed:" + Environment.NewLine + errors + Environment.NewLine + message,
+                    listOfExceptions);
             }
         }
 
         internal void CheckForExpectedAsserts()
         {
-            foreach(var expectedAssert in _expectedAsserts)
+            foreach (var expectedAssert in _expectedAssertNames)
             {
-                if(!_calledAsserts.Contains(expectedAssert))
+                if (!_calledAssertNames.Contains(expectedAssert))
                 {
                     this.NumberOfAsserts++;
                     this.NumberOfFailedAsserts++;
-                    this.listOfExceptions.Add($"Error: failed to call assert with key {expectedAssert}");
+                    this.listOfExceptions.Add(new SoftAssertException($"Error: failed to call assert with key {expectedAssert}"));
                 }
             }
         }
@@ -286,13 +287,25 @@ namespace Magenic.Maqs.BaseTest
         /// Wrap an assert inside a soft assert
         /// </summary>
         /// <param name="assertFunction">The assert function</param>
-        /// <param name="assertCalledKey">Key of expected assert being called.</param>
         /// <returns>True if the asset passed</returns>
-        public bool Assert(Action assertFunction, string assertCalledKey = null)
+        [Obsolete("SoftAssert.Assert(Action) is obsolete.  Please use SoftAssert.Assert(Action, assertName)")]
+        public bool Assert(Action assertFunction)
         {
-            if(!string.IsNullOrEmpty(assertCalledKey) && _expectedAsserts.Any())
+            return this.Assert(assertFunction, string.Empty, string.Empty);
+        }
+
+        /// <summary>
+        /// Wrap an assert inside a soft assert
+        /// </summary>
+        /// <param name="assertFunction">The assert function</param>
+        /// <param name="failureMessage">Message to log</param>
+        /// <param name="assertName">Soft assert name or name of expected assert being called.</param>
+        /// <returns>True if the asset passed</returns>
+        public virtual bool Assert(Action assertFunction, string assertName, string failureMessage = "")
+        {
+            if (!string.IsNullOrEmpty(assertName) && _expectedAssertNames.Any())
             {
-                _calledAsserts.Add(assertCalledKey);
+                _calledAssertNames.Add(assertName);
             }
 
             // Resetting every time we invoke a test to verify the user checked for failures
@@ -304,14 +317,22 @@ namespace Magenic.Maqs.BaseTest
                 assertFunction.Invoke();
                 this.NumberOfPassedAsserts = ++this.NumberOfPassedAsserts;
                 result = true;
-                this.Log.LogMessage(MessageType.SUCCESS, "SoftAssert passed for: {0}.", assertFunction.Method.Name);
+                this.Log.LogMessage(MessageType.SUCCESS, $"SoftAssert passed for: {assertName}.");
             }
             catch (Exception ex)
             {
                 this.NumberOfFailedAsserts = ++this.NumberOfFailedAsserts;
                 result = false;
-                this.Log.LogMessage(MessageType.WARNING, "SoftAssert failed for: {0}. {1}", assertFunction.Method.Name, ex.Message);
-                this.listOfExceptions.Add(ex.Message);
+                if (string.IsNullOrEmpty(failureMessage))
+                {
+                    this.Log.LogMessage(MessageType.WARNING, $"SoftAssert failed for: {assertName}. {ex.Message}");
+                }
+                else
+                {
+                    this.Log.LogMessage(MessageType.WARNING, $"SoftAssert failed for: {assertName}. {failureMessage}. {ex.Message}");
+                }
+
+                this.listOfExceptions.Add(ex);
             }
             finally
             {
@@ -355,7 +376,7 @@ namespace Magenic.Maqs.BaseTest
                     this.NumberOfFailedAsserts = ++this.NumberOfFailedAsserts;
                     result = false;
                     this.Log.LogMessage(MessageType.WARNING, "SoftAssert failed for assert {0}: {1}. Expected failure:{2} Actual failure: {3}", assertName, assertFunction.Method.Name, expectedException, ex.Message);
-                    this.listOfExceptions.Add(ex.Message);
+                    this.listOfExceptions.Add(ex);
                 }
             }
             finally
@@ -392,7 +413,7 @@ namespace Magenic.Maqs.BaseTest
                 this.NumberOfFailedAsserts = ++this.NumberOfFailedAsserts;
                 result = false;
                 this.LogMessage(expectedText, actualText, message, result);
-                this.listOfExceptions.Add(ex.Message);
+                this.listOfExceptions.Add(ex);
             }
             finally
             {
@@ -409,6 +430,7 @@ namespace Magenic.Maqs.BaseTest
         /// <param name="softAssertName">Soft assert name</param>
         /// <param name="message">Test Name or Message</param>
         /// <returns>Boolean if the assert is true</returns>
+        [Obsolete("Method only called by SoftAssert.IsTrue and SoftAssert.IsFalse. Should be removed at the same time.")]
         private bool InvokeTest(Action test, string softAssertName, string message)
         {
             // Resetting every time we invoke a test to verify the user checked for failures
@@ -427,7 +449,7 @@ namespace Magenic.Maqs.BaseTest
                 this.NumberOfFailedAsserts = ++this.NumberOfFailedAsserts;
                 result = false;
                 this.Log.LogMessage(MessageType.WARNING, "SoftAssert failed for: {0}. {1}", softAssertName, message);
-                this.listOfExceptions.Add(ex.Message);
+                this.listOfExceptions.Add(ex);
             }
             finally
             {
@@ -464,7 +486,7 @@ namespace Magenic.Maqs.BaseTest
         {
             foreach (var expectedAssert in expectedAsserts)
             {
-                _expectedAsserts.Add(expectedAssert);
+                _expectedAssertNames.Add(expectedAssert);
             }
         }
 
