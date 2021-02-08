@@ -117,7 +117,17 @@ namespace Magenic.Maqs.Utilities.Performance
         /// Method to stop an existing timer with a specified name for a test
         /// </summary>
         /// <param name="timerName">Name of the timer</param>
+        [Obsolete("PerfTimerCollection.EndTimer will be depercated in MAQS 7.0. Please use PerfTimerCollection.StopTimer")]
         public void EndTimer(string timerName)
+        {
+            this.StopTimer(timerName);
+        }
+
+        /// <summary>
+        /// Method to stop an existing timer with a specified name for a test
+        /// </summary>
+        /// <param name="timerName">Name of the timer</param>
+        public void StopTimer(string timerName)
         {
             DateTime et = DateTime.UtcNow;
             if (!this.openTimerList.ContainsKey(timerName))
