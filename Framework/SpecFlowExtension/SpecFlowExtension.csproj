@@ -46,7 +46,7 @@
 
   <ItemGroup>
     <PackageReference Include="Appium.WebDriver" version="4.3.1" />
-    <PackageReference Include="BoDi" version="1.4.1" />
+    <PackageReference Include="BoDi" version="1.5.0" />
     <PackageReference Include="Castle.Core" version="4.4.1" />
     <PackageReference Include="Dapper" version="2.0.78" />
     <PackageReference Include="Gherkin" version="6.0.0" />
