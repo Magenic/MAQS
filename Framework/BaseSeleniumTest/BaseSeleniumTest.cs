@@ -70,7 +70,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             }
             catch (Exception e)
             {
-                this.TryToLog(MessageType.WARNING, "Failed to get screen shot because: {0}", e.Message);
+                this.TryToLog(MessageType.WARNING, $"Failed to get screen shot because: {e.Message}");
             }
         }
 

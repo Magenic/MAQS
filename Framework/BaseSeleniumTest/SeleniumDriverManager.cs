@@ -93,12 +93,12 @@ namespace Magenic.Maqs.BaseSeleniumTest
             messages.AppendLine(StringProcessor.SafeFormatter(message, args));
 
             var methodInfo = MethodBase.GetCurrentMethod();
-            var fullName = methodInfo.DeclaringType.FullName + "." + methodInfo.Name;
+            var fullName = $"{methodInfo.DeclaringType.FullName}.{methodInfo.Name}";
 
             foreach (string stackLevel in Environment.StackTrace.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
             {
                 string trimmed = stackLevel.Trim();
-                if (!trimmed.StartsWith("at Microsoft.") && !trimmed.StartsWith("at System.") && !trimmed.StartsWith("at NUnit.") && !trimmed.StartsWith("at " + fullName))
+                if (!trimmed.StartsWith("at Microsoft.") && !trimmed.StartsWith("at System.") && !trimmed.StartsWith("at NUnit.") && !trimmed.StartsWith($"at {fullName}"))
                 {
                     messages.AppendLine(stackLevel);
                 }
@@ -127,7 +127,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             }
             catch (Exception e)
             {
-                Log.LogMessage(MessageType.ERROR, StringProcessor.SafeFormatter("Failed to close web driver because: {0}", e.Message));
+                Log.LogMessage(MessageType.ERROR, StringProcessor.SafeFormatter($"Failed to close web driver because:{e.Message}"));
             }
 
             this.BaseDriver = null;
@@ -159,19 +159,19 @@ namespace Magenic.Maqs.BaseSeleniumTest
 
                 if (SeleniumConfig.GetBrowserName().Equals("Remote", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    Log.LogMessage(MessageType.INFORMATION, "Remote driver: " + browserType);
+                    Log.LogMessage(MessageType.INFORMATION, $"Remote driver:{browserType}");
                 }
                 else
                 {
-                    Log.LogMessage(MessageType.INFORMATION, "Local driver: " + browserType);
+                    Log.LogMessage(MessageType.INFORMATION, $"Local driver:{browserType}");
                 }
 
                 webDriver.SetWaitDriver(SeleniumConfig.GetWaitDriver(webDriver));
             }
             catch (Exception e)
             {
-                Log.LogMessage(MessageType.ERROR, "Failed to start driver because: {0}", e.Message);
-                Console.WriteLine(StringProcessor.SafeFormatter("Failed to start driver because: {0}", e.Message));
+                Log.LogMessage(MessageType.ERROR, $"Failed to start driver because: {e.Message}");
+                Console.WriteLine(StringProcessor.SafeFormatter($"Failed to start driver because: {e.Message}"));
             }
         }
 
@@ -210,7 +210,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_NavigatingForward(object sender, WebDriverNavigationEventArgs e)
         {
-            this.LogVerbose("Navigating to: {0}", e.Url);
+            this.LogVerbose($"Navigating to: {e.Url}");
         }
 
         /// <summary>
@@ -220,7 +220,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_NavigatingBack(object sender, WebDriverNavigationEventArgs e)
         {
-            this.LogVerbose("Navigating back to: {0}", e.Url);
+            this.LogVerbose($"Navigating back to: {e.Url}");
         }
 
         /// <summary>
@@ -230,7 +230,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_NavigatedForward(object sender, WebDriverNavigationEventArgs e)
         {
-            Log.LogMessage(MessageType.ACTION, "Navigate Forward: {0}", e.Url);
+            Log.LogMessage(MessageType.ACTION, $"Navigate Forward: {e.Url}");
         }
 
         /// <summary>
@@ -240,7 +240,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_NavigatedBack(object sender, WebDriverNavigationEventArgs e)
         {
-            Log.LogMessage(MessageType.ACTION, "Navigate back: {0}", e.Url);
+            Log.LogMessage(MessageType.ACTION, $"Navigate back: {e.Url}");
         }
 
         /// <summary>
@@ -250,7 +250,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_Navigating(object sender, WebDriverNavigationEventArgs e)
         {
-            this.LogVerbose("Navigating to: {0}", e.Url);
+            this.LogVerbose($"Navigating to: {e.Url}");
         }
 
         /// <summary>
@@ -260,7 +260,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_ScriptExecuting(object sender, WebDriverScriptEventArgs e)
         {
-            this.LogVerbose("Script executing: {0}", e.Script);
+            this.LogVerbose($"Script executing: {e.Script}");
         }
 
         /// <summary>
@@ -270,7 +270,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_FindingElement(object sender, FindElementEventArgs e)
         {
-            this.LogVerbose("Finding element: {0}", e.FindMethod);
+            this.LogVerbose($"Finding element: {e.FindMethod}");
         }
 
         /// <summary>
@@ -280,7 +280,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_ElementValueChanging(object sender, WebElementEventArgs e)
         {
-            this.LogVerbose("Value of element changing: {0}", e.Element);
+            this.LogVerbose($"Value of element changing: {e.Element}");
         }
 
         /// <summary>
@@ -290,7 +290,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_ElementClicking(object sender, WebElementEventArgs e)
         {
-            Log.LogMessage(MessageType.INFORMATION, "Element clicking: {0} Text:{1} Location: X:{2} Y:{3}", e.Element, e.Element.Text, e.Element.Location.X, e.Element.Location.Y);
+            Log.LogMessage(MessageType.INFORMATION, $"Element clicking: {e.Element} Text:{e.Element.Text} Location: X:{e.Element.Location.X} Y:{e.Element.Location.Y}");
         }
 
         /// <summary>
@@ -301,7 +301,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         private void WebDriver_ExceptionThrown(object sender, WebDriverExceptionEventArgs e)
         {
             // First chance handler catches these when it is a real error - These are typically retry loops
-            Log.LogMessage(MessageType.VERBOSE, "Exception thrown: {0}", e.ThrownException);
+            Log.LogMessage(MessageType.VERBOSE, $"Exception thrown: {e.ThrownException}");
         }
 
         /// <summary>
@@ -311,7 +311,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_Navigated(object sender, WebDriverNavigationEventArgs e)
         {
-            Log.LogMessage(MessageType.INFORMATION, "Navigated to: {0}", e.Url);
+            Log.LogMessage(MessageType.INFORMATION, $"Navigated to: {e.Url}");
         }
 
         /// <summary>
@@ -321,7 +321,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_ScriptExecuted(object sender, WebDriverScriptEventArgs e)
         {
-            Log.LogMessage(MessageType.INFORMATION, "Script executed: {0}", e.Script);
+            Log.LogMessage(MessageType.INFORMATION, $"Script executed: {e.Script}");
         }
 
         /// <summary>
@@ -331,7 +331,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="e">Event object</param>
         private void WebDriver_FindElementCompleted(object sender, FindElementEventArgs e)
         {
-            Log.LogMessage(MessageType.INFORMATION, "Found element: {0}", e.FindMethod);
+            Log.LogMessage(MessageType.INFORMATION, $"Found element: {e.FindMethod}");
         }
 
         /// <summary>
@@ -342,7 +342,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         private void WebDriver_ElementValueChanged(object sender, WebElementEventArgs e)
         {
             string element = e.Element.GetAttribute("value");
-            Log.LogMessage(MessageType.INFORMATION, "Element value changed: {0}", element);
+            Log.LogMessage(MessageType.INFORMATION, $"Element value changed: {element}");
         }
 
         /// <summary>
@@ -354,7 +354,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             try
             {
-                this.LogVerbose("Element clicked: {0} Text:{1} Location: X:{2} Y:{3}", e.Element, e.Element.Text, e.Element.Location.X, e.Element.Location.Y);
+                this.LogVerbose($"Element clicked: {e.Element} Text:{e.Element.Text} Location: X:{e.Element.Location.X} Y:{e.Element.Location.Y}");
             }
             catch
             {

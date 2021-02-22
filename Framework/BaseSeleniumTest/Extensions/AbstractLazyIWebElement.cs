@@ -392,7 +392,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             catch (Exception e)
             {
                 this.TestObject.Log.ContinueLogging();
-                this.TestObject.Log.LogMessage(MessageType.ERROR, "Exception during sending secret keys: " + e.Message + Environment.NewLine + e.StackTrace);
+                this.TestObject.Log.LogMessage(MessageType.ERROR, $"Exception during sending secret keys:{ e.Message}{ Environment.NewLine}{ e.StackTrace}");
                 throw;
             }
             
@@ -790,7 +790,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 temp += this.parent.ToString();
             }
 
-            return temp + this.By.ToString() + this.userFriendlyName;
+            return $"{temp}{this.By.ToString()}{this.userFriendlyName}";
         }
 
         /// <summary>
@@ -814,13 +814,13 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 }
                 catch (Exception e)
                 {
-                    this.TestObject.Log.LogMessage(MessageType.VERBOSE, "Re-finding element because: " + e.Message);
+                    this.TestObject.Log.LogMessage(MessageType.VERBOSE, $"Re-finding element because: { e.Message}");
                 }
             }
 
             try
             {
-                this.TestObject.Log.LogMessage(MessageType.VERBOSE, "Performing lazy driver find on: " + this.By);
+                this.TestObject.Log.LogMessage(MessageType.VERBOSE, $"Performing lazy driver find on: {this.By}");
                 this.CachedElement = getElement();
                 return this.CachedElement;
             }
@@ -828,9 +828,9 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             {
                 StringBuilder messageBuilder = new StringBuilder();
 
-                messageBuilder.AppendLine("Failed to find: " + this.userFriendlyName);
-                messageBuilder.AppendLine("Locator: " + this.By);
-                messageBuilder.AppendLine("Because: " + e.Message);
+                messageBuilder.AppendLine($"Failed to find: {this.userFriendlyName}");
+                messageBuilder.AppendLine($"Locator: {this.By}");
+                messageBuilder.AppendLine($"Because: {e.Message}");
 
                 throw new Exception(messageBuilder.ToString(), e);
             }
@@ -846,16 +846,16 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         {
             try
             {
-                this.TestObject.Log.LogMessage(MessageType.VERBOSE, "Performing lazy driver action: " + caller);
+                this.TestObject.Log.LogMessage(MessageType.VERBOSE, $"Performing lazy driver action: {caller}");
                 elementAction.Invoke();
             }
             catch (Exception e)
             {
                 StringBuilder messageBuilder = new StringBuilder();
 
-                messageBuilder.AppendLine("Failed to " + caller + ": " + this.userFriendlyName);
-                messageBuilder.AppendLine("Locator: " + this.By);
-                messageBuilder.AppendLine("Because: " + e.Message);
+                messageBuilder.AppendLine($"Failed to {caller} : {this.userFriendlyName}");
+                messageBuilder.AppendLine($"Locator: {this.By}");
+                messageBuilder.AppendLine($"Because: {e.Message}");
 
                 throw new Exception(messageBuilder.ToString(), e);
             }

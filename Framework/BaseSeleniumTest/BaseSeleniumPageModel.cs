@@ -85,7 +85,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <returns>The LazyElement</returns>
         protected LazyElement GetLazyElement(By locator, [CallerMemberName] string userFriendlyName = null)
         {
-            string lazyElementStoreKey = locator.ToString() + userFriendlyName;
+            string lazyElementStoreKey = $"{locator.ToString()}{userFriendlyName}";
 
             if (!this.lazyElementStore.ContainsKey(lazyElementStoreKey))
             {
@@ -105,7 +105,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <returns>The LazyElement</returns>
         protected LazyElement GetLazyElement(LazyElement parent, By locator, [CallerMemberName] string userFriendlyName = null)
         {
-            string lazyElementStoreKey = parent.ToString() + locator.ToString() + userFriendlyName;
+            string lazyElementStoreKey = $"{parent.ToString()}{locator.ToString()}{userFriendlyName}";
 
             if (!this.lazyElementStore.ContainsKey(lazyElementStoreKey))
             {

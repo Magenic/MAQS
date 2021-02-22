@@ -54,21 +54,21 @@ namespace Magenic.Maqs.BaseSeleniumTest
                     // Calculate the file name
                     string fullpath = ((FileLogger)testObject.Log).FilePath;
                     string directory = Path.GetDirectoryName(fullpath);
-                    string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fullpath) + appendName;
+                    string fileNameWithoutExtension = $"{Path.GetFileNameWithoutExtension(fullpath)}{appendName}";
                     path = CaptureScreenshot(webDriver, testObject, directory, fileNameWithoutExtension, GetScreenShotFormat());
                 }
                 else
                 {
                     // Since this is not a file logger we will need to use a generic file name
-                    path = CaptureScreenshot(webDriver, testObject, LoggingConfig.GetLogDirectory(), "ScreenCap" + appendName, GetScreenShotFormat());
+                    path = CaptureScreenshot(webDriver, testObject, LoggingConfig.GetLogDirectory(), $"ScreenCap {appendName}", GetScreenShotFormat());
                 }
 
-                testObject.Log.LogMessage(MessageType.INFORMATION, "Screenshot saved: " + path);
+                testObject.Log.LogMessage(MessageType.INFORMATION, $"Screenshot saved: {path}");
                 return true;
             }
             catch (Exception exception)
             {
-                testObject.Log.LogMessage(MessageType.ERROR, "Screenshot error: {0}", exception.ToString());
+                testObject.Log.LogMessage(MessageType.ERROR, $"Screenshot error: {exception.ToString()}");
                 return false;
             }
         }
@@ -93,7 +93,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             }
 
             // Calculate the file name
-            string path = Path.Combine(directory, fileNameWithoutExtension + "." + imageFormat.ToString());
+            string path = Path.Combine(directory, $"{fileNameWithoutExtension}.{imageFormat.ToString()}");
 
             // Save the screenshot
             screenShot.SaveAsFile(path, imageFormat);
@@ -119,24 +119,24 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 if (!(testObject.Log is FileLogger))
                 {
                     // Since this is not a file logger we will need to use a generic file name
-                    path = SavePageSource(webDriver, testObject, LoggingConfig.GetLogDirectory(), "PageSource" + appendName);
+                    path = SavePageSource(webDriver, testObject, LoggingConfig.GetLogDirectory(), $"PageSource{appendName}");
                 }
                 else
                 {
                     // Calculate the file name
                     string fullpath = ((FileLogger)testObject.Log).FilePath;
                     string directory = Path.GetDirectoryName(fullpath);
-                    string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fullpath) + "_PS" + appendName;
+                    string fileNameWithoutExtension = $"{Path.GetFileNameWithoutExtension(fullpath)}_PS{ appendName}";
 
                     path = SavePageSource(webDriver, testObject, directory, fileNameWithoutExtension);
                 }
 
-                testObject.Log.LogMessage(MessageType.INFORMATION, "Page Source saved: " + path);
+                testObject.Log.LogMessage(MessageType.INFORMATION, $"Page Source saved: {path}");
                 return true;
             }
             catch (Exception exception)
             {
-                testObject.Log.LogMessage(MessageType.ERROR, "Page Source error: {0}", exception.ToString());
+                testObject.Log.LogMessage(MessageType.ERROR, $"Page Source error: {exception.ToString()}");
                 return false;
             }
         }
@@ -161,7 +161,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             }
 
             // Calculate the file name
-            string path = Path.Combine(directory, fileNameWithoutExtension + ".txt");
+            string path = Path.Combine(directory, $"{fileNameWithoutExtension }.txt");
 
             // Create new instance of Streamwriter and Auto Flush after each call
             StreamWriter writer = new StreamWriter(path, false)
@@ -515,7 +515,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 case "TIFF":
                     return ScreenshotImageFormat.Tiff;
                 default:
-                    throw new ArgumentException(StringProcessor.SafeFormatter("ImageFormat '{0}' is not a valid option", SeleniumConfig.GetImageFormat()));
+                    throw new ArgumentException(StringProcessor.SafeFormatter($"ImageFormat '{SeleniumConfig.GetImageFormat()}' is not a valid option"));
             }
         }
 
@@ -563,13 +563,13 @@ namespace Magenic.Maqs.BaseSeleniumTest
         private static string GetAccessibilityReportPath(SeleniumTestObject testObject)
         {
             string logDirectory = testObject.Log is FileLogger ? Path.GetDirectoryName(((FileLogger)testObject.Log).FilePath) : LoggingConfig.GetLogDirectory();
-            string reportBaseName = testObject.Log is FileLogger ? Path.GetFileNameWithoutExtension(((FileLogger)testObject.Log).FilePath) + "_Axe" : "AxeReport";
-            string reportFile = Path.Combine(logDirectory, reportBaseName + ".html");
+            string reportBaseName = testObject.Log is FileLogger ? $"{Path.GetFileNameWithoutExtension(((FileLogger)testObject.Log).FilePath)}_Axe" : "AxeReport";
+            string reportFile = Path.Combine(logDirectory, $"{reportBaseName}.html");
             int reportNumber = 0;
 
             while (File.Exists(reportFile))
             {
-                reportFile = Path.Combine(logDirectory, reportBaseName + reportNumber++ + ".html");
+                reportFile = Path.Combine(logDirectory, $"{reportBaseName}{reportNumber}.html");
             }
 
             return reportFile;
