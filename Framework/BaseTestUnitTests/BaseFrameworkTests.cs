@@ -41,7 +41,7 @@ namespace BaseTestUnitTests
             tester.TestContext = this.TestContext;
             tester.Setup();
             tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
-            tester.SoftAssert.AreEqual(string.Empty, string.Empty);
+            tester.SoftAssert.Assert(() => Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(string.Empty, string.Empty));
             tester.Teardown();
         }
 
@@ -134,7 +134,7 @@ namespace BaseTestUnitTests
 
             tester.Setup();
             tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
-            tester.SoftAssert.AreEqual(string.Empty, string.Empty);
+            tester.SoftAssert.Assert(() => MicroAssert.AreEqual(string.Empty, string.Empty));
             tester.Teardown();
         }
 
@@ -151,7 +151,7 @@ namespace BaseTestUnitTests
                 BaseTest tester = this.GetBaseTest();
                 tester.Setup();
                 tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
-                tester.SoftAssert.AreEqual(string.Empty, "d");
+                tester.SoftAssert.Assert(() => MicroAssert.AreEqual(string.Empty, "d"));
                 tester.Teardown();
                 NUnit.Framework.Assert.Fail("Teardown should have thrown exception");
             }
@@ -163,12 +163,12 @@ namespace BaseTestUnitTests
         }
 
         /// <summary>
-        /// Test that in core, associated test files get written to the log
+        /// Test that in core, associated test files don't get written to the log if they exist
         /// </summary>
         [Test]
         [Category(TestCategories.Framework)]
         [Category(TestCategories.NUnit)]
-        public void TeardownWritesAssociatedFiles()
+        public void TeardownDoesNotWriteAssociatedFiles()
         {
             BaseTest tester = this.GetBaseTest();
             tester.TestContext = this.TestContext;
@@ -216,7 +216,7 @@ namespace BaseTestUnitTests
             // cleanup the test files
             File.Delete(logFilePath);
             Directory.Delete("TeardownTest", true);
-            NUnit.Framework.Assert.IsTrue(messageIsWritten, "The list of files to attach was not written to the log");
+            NUnit.Framework.Assert.IsFalse(messageIsWritten, "The list of files to attach should not be written to the log");
         }
 
         [TestMethod]
@@ -323,7 +323,7 @@ namespace BaseTestUnitTests
             tester.TestContext = this.TestContext;
             tester.Setup();
             tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
-            tester.SoftAssert.AreEqual(string.Empty, "d");
+            tester.SoftAssert.Assert(() => MicroAssert.AreEqual(string.Empty, "d"));
             tester.Teardown();
         }
     }
