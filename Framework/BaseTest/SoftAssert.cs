@@ -288,10 +288,9 @@ namespace Magenic.Maqs.BaseTest
         /// </summary>
         /// <param name="assertFunction">The assert function</param>
         /// <returns>True if the asset passed</returns>
-        [Obsolete("SoftAssert.Assert(Action) is obsolete.  Please use SoftAssert.Assert(Action, assertName)")]
         public bool Assert(Action assertFunction)
         {
-            return this.Assert(assertFunction, string.Empty, string.Empty);
+            return this.Assert(assertFunction, assertFunction.Method.DeclaringType.FullName, string.Empty);
         }
 
         /// <summary>

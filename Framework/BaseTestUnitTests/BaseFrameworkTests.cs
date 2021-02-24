@@ -163,12 +163,12 @@ namespace BaseTestUnitTests
         }
 
         /// <summary>
-        /// Test that in core, associated test files get written to the log
+        /// Test that in core, associated test files don't get written to the log if they exist
         /// </summary>
         [Test]
         [Category(TestCategories.Framework)]
         [Category(TestCategories.NUnit)]
-        public void TeardownWritesAssociatedFiles()
+        public void TeardownDoesNotWriteAssociatedFiles()
         {
             BaseTest tester = this.GetBaseTest();
             tester.TestContext = this.TestContext;
@@ -216,7 +216,7 @@ namespace BaseTestUnitTests
             // cleanup the test files
             File.Delete(logFilePath);
             Directory.Delete("TeardownTest", true);
-            NUnit.Framework.Assert.IsTrue(messageIsWritten, "The list of files to attach was not written to the log");
+            NUnit.Framework.Assert.IsFalse(messageIsWritten, "The list of files to attach should not be written to the log");
         }
 
         [TestMethod]
