@@ -87,7 +87,7 @@ namespace SeleniumUnitTests
                    "SeleniumMaqs",
                    true);
 
-                var driverConfigSize = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Chrome);
+                var driverConfigSize = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Firefox);
 
                 try
                 {
