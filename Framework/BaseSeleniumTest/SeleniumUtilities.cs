@@ -569,7 +569,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
 
             while (File.Exists(reportFile))
             {
-                reportFile = Path.Combine(logDirectory, $"{reportBaseName}{reportNumber}.html");
+                reportFile = Path.Combine(logDirectory, $"{reportBaseName}{reportNumber++}.html");
             }
 
             return reportFile;
