@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <BuildVersion>6.2.0</BuildVersion>
-    <PreRelease>-beta.2</PreRelease>
+    <BuildVersion>6.2.1</BuildVersion>
+    <PreRelease></PreRelease>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -45,8 +45,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Appium.WebDriver" version="4.2.1" />
-    <PackageReference Include="BoDi" version="1.4.1" />
+    <PackageReference Include="Appium.WebDriver" version="4.3.1" />
+    <PackageReference Include="BoDi" version="1.5.0" />
     <PackageReference Include="Castle.Core" version="4.4.1" />
     <PackageReference Include="Dapper" version="2.0.78" />
     <PackageReference Include="Gherkin" version="6.0.0" />
@@ -56,12 +56,12 @@
     </PackageReference>
     <PackageReference Include="MSTest.TestFramework" version="2.1.2" />
     <PackageReference Include="Newtonsoft.Json" version="12.0.3" />
-    <PackageReference Include="NUnit" version="3.13.0" />
+    <PackageReference Include="NUnit" version="3.13.1" />
     <PackageReference Include="Selenium.Support" version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver" version="3.141.0" />
-    <PackageReference Include="SpecFlow" version="3.5.14" />
+    <PackageReference Include="SpecFlow" version="3.7.13" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
-    <PackageReference Include="System.Drawing.Common" Version="5.0.0" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.1" />
     <PackageReference Include="System.Reflection.Emit" version="4.7.0" />
     <PackageReference Include="System.Reflection.Emit.Lightweight" version="4.7.0" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" version="5.0.0" />
