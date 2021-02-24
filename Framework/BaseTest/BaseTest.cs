@@ -142,11 +142,11 @@ namespace Magenic.Maqs.BaseTest
         {
             get
             {
-                if(this.testMethodInfo != null)
+                if (this.testMethodInfo != null)
                 {
                     return this.testMethodInfo;
                 }
-                else if(this.TestContext != null)
+                else if (this.TestContext != null)
                 {
                     return (this.testMethodInfo =
                         GetMethodInfoFromClassAndTestName(
@@ -244,9 +244,9 @@ namespace Magenic.Maqs.BaseTest
                 // Create the test object
                 this.CreateNewTestObject();
 
-                if(this.TestMethodInfo != null)
+                if (this.TestMethodInfo != null)
                 {
-                   this.TestObject.SoftAssert.CaptureTestMethodAttributes(this.TestMethodInfo);
+                    this.TestObject.SoftAssert.CaptureTestMethodAttributes(this.TestMethodInfo);
                 }
             }
         }
@@ -592,7 +592,7 @@ namespace Magenic.Maqs.BaseTest
         /// <returns>The method information from the test.</returns>
         private MethodInfo GetMethodInfoFromClassAndTestName(string className, string testName)
         {
-            foreach(var assemblyName in AppDomain.CurrentDomain.GetAssemblies())
+            foreach (var assemblyName in AppDomain.CurrentDomain.GetAssemblies())
             {
                 try
                 {
@@ -645,42 +645,54 @@ namespace Magenic.Maqs.BaseTest
         }
 
         /// <summary>
-        /// For VS unit tests attach the all of the files in the associated files set if they exist, else write to log
+        /// Attach all of the files in the associated files that exist to the text context 
         /// </summary>
         private void AttachAssociatedFiles()
         {
-            // You can only attach files to VS Unit tests so check that first
-            if (this.testContextInstance != null)
+            try
             {
-                try
+                // See if we can add the log file
+                if (this.Log is FileLogger && File.Exists(((FileLogger)this.Log).FilePath))
                 {
-                    // See if we can add the log file
-                    if (this.Log is FileLogger && File.Exists(((FileLogger)this.Log).FilePath))
-                    {
-                        // Add the log file
-                        this.TestContext.AddResultFile(((FileLogger)this.Log).FilePath);
-                    }
-
-                    // Attach all existing associated files
-                    foreach (string path in this.TestObject.GetArrayOfAssociatedFiles())
-                    {
-                        if (File.Exists(path))
-                        {
-                            this.TestContext.AddResultFile(path);
-                        }
-                    }
-
-                    // All files were attached so nothing left to do
-                    return;
+                    // Add the log file
+                    AttachAssociatedFile(((FileLogger)this.Log).FilePath);
                 }
-                catch (Exception e)
+
+                // Attach all existing associated files
+                foreach (string path in this.TestObject.GetArrayOfAssociatedFiles())
                 {
-                    this.TryToLog(MessageType.WARNING, "Failed to attach test result file because: " + e.Message);
+                    if (File.Exists(path))
+                    {
+                        AttachAssociatedFile(path);
+                    }
                 }
+
+                // All files were attached so nothing left to do
+                return;
+            }
+            catch (Exception e)
+            {
+                this.TryToLog(MessageType.WARNING, "Failed to attach test result file because: " + e.Message);
             }
 
             // Not all the files were attached so write them to the log instead
             WriteAssociatedFilesNamesToLog();
+        }
+
+        /// <summary>
+        /// Attach an associated file to the text context
+        /// </summary>
+        private void AttachAssociatedFile(string path)
+        {
+            // You can only attach files to VS Unit tests so check that first
+            if (this.testContextInstance != null)
+            {
+                this.TestContext.AddResultFile(path);
+            }
+            else
+            {
+                NUnitTestContext.AddTestAttachment(path);
+            }
         }
 
         /// <summary>
