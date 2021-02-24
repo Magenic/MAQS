@@ -60,7 +60,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 else
                 {
                     // Since this is not a file logger we will need to use a generic file name
-                    path = CaptureScreenshot(webDriver, testObject, LoggingConfig.GetLogDirectory(), $"ScreenCap {appendName}", GetScreenShotFormat());
+                    path = CaptureScreenshot(webDriver, testObject, LoggingConfig.GetLogDirectory(), $"ScreenCap{appendName}", GetScreenShotFormat());
                 }
 
                 testObject.Log.LogMessage(MessageType.INFORMATION, $"Screenshot saved: {path}");
@@ -161,7 +161,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             }
 
             // Calculate the file name
-            string path = Path.Combine(directory, $"{fileNameWithoutExtension }.txt");
+            string path = Path.Combine(directory, $"{fileNameWithoutExtension}.txt");
 
             // Create new instance of Streamwriter and Auto Flush after each call
             StreamWriter writer = new StreamWriter(path, false)
@@ -569,7 +569,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
 
             while (File.Exists(reportFile))
             {
-                reportFile = Path.Combine(logDirectory, $"{reportBaseName}{reportNumber}.html");
+                reportFile = Path.Combine(logDirectory, $"{reportBaseName}{reportNumber++}.html");
             }
 
             return reportFile;

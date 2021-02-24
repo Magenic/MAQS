@@ -70,7 +70,7 @@ namespace SeleniumUnitTests
              */
 
             // Using FireFox because headless Chrome does not respect Maximize as of 8/24/2018
-            var driverManualSize = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Firefox);
+            var driverManualSize = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Chrome);
 
             try
             {
@@ -87,7 +87,7 @@ namespace SeleniumUnitTests
                    "SeleniumMaqs",
                    true);
 
-                var driverConfigSize = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Firefox);
+                var driverConfigSize = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Chrome);
 
                 try
                 {

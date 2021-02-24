@@ -392,7 +392,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             catch (Exception e)
             {
                 this.TestObject.Log.ContinueLogging();
-                this.TestObject.Log.LogMessage(MessageType.ERROR, $"Exception during sending secret keys:{ e.Message}{ Environment.NewLine}{ e.StackTrace}");
+                this.TestObject.Log.LogMessage(MessageType.ERROR, $"Exception during sending secret keys: {e.Message}{ Environment.NewLine}{ e.StackTrace}");
                 throw;
             }
             

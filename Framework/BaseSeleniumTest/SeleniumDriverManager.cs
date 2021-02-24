@@ -127,7 +127,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             }
             catch (Exception e)
             {
-                Log.LogMessage(MessageType.ERROR, StringProcessor.SafeFormatter($"Failed to close web driver because:{e.Message}"));
+                Log.LogMessage(MessageType.ERROR, StringProcessor.SafeFormatter($"Failed to close web driver because: {e.Message}"));
             }
 
             this.BaseDriver = null;
@@ -159,11 +159,11 @@ namespace Magenic.Maqs.BaseSeleniumTest
 
                 if (SeleniumConfig.GetBrowserName().Equals("Remote", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    Log.LogMessage(MessageType.INFORMATION, $"Remote driver:{browserType}");
+                    Log.LogMessage(MessageType.INFORMATION, $"Remote driver: {browserType}");
                 }
                 else
                 {
-                    Log.LogMessage(MessageType.INFORMATION, $"Local driver:{browserType}");
+                    Log.LogMessage(MessageType.INFORMATION, $"Local driver: {browserType}");
                 }
 
                 webDriver.SetWaitDriver(SeleniumConfig.GetWaitDriver(webDriver));

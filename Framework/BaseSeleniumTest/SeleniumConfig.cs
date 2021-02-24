@@ -139,7 +139,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             string value = Config.GetValueForSection(SELENIUMSECTION, "SeleniumCommandTimeout", "60000");
             if (!int.TryParse(value, out int timeout))
             {
-                throw new ArgumentException($"SeleniumCommandTimeout should be a number but the current value is:{value}");
+                throw new ArgumentException($"SeleniumCommandTimeout should be a number but the current value is: {value}");
             }
 
             return TimeSpan.FromMilliseconds(timeout);
