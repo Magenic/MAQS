@@ -60,7 +60,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 else
                 {
                     // Since this is not a file logger we will need to use a generic file name
-                    path = CaptureScreenshot(webDriver, testObject, LoggingConfig.GetLogDirectory(), $"ScreenCap {appendName}", GetScreenShotFormat());
+                    path = CaptureScreenshot(webDriver, testObject, LoggingConfig.GetLogDirectory(), $"ScreenCap{appendName}", GetScreenShotFormat());
                 }
 
                 testObject.Log.LogMessage(MessageType.INFORMATION, $"Screenshot saved: {path}");

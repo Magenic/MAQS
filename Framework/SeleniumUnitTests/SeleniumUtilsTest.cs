@@ -82,7 +82,7 @@ namespace SeleniumUnitTests
             SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject, "Delete");
 
             // Make sure we got the screenshot and than cleanup
-            Assert.IsTrue(File.Exists(expectedPath), "Fail to find screenshot");
+            Assert.IsTrue(File.Exists(expectedPath), $"Fail to find screenshot at {expectedPath}");
             File.Delete(expectedPath);
         }
 
