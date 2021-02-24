@@ -454,12 +454,10 @@ namespace SeleniumUnitTests
             {
                 SeleniumUtilities.CheckAccessibilityInapplicable(TestObject.WebDriver, fileLogger, MessageType.WARNING, false);
                 string logContent = File.ReadAllText(fileLogger.FilePath);
-
-                SoftAssert.IsTrue(!logContent.Contains("Violations check"), "Did not expect violation check");
-                SoftAssert.IsTrue(!logContent.Contains("Passes check"), "Did not expect pass check");
-                SoftAssert.IsTrue(!logContent.Contains("Incomplete check"), "Did not expect incomplete check");
-
-                SoftAssert.IsTrue(logContent.Contains("Inapplicable check"), "Did expect inapplicable check");
+                SoftAssert.Assert(() => Assert.IsTrue(!logContent.Contains("Violations check"), "Did not expect violation check"));
+                SoftAssert.Assert(() => Assert.IsTrue(!logContent.Contains("Passes check"), "Did not expect pass check"));
+                SoftAssert.Assert(() => Assert.IsTrue(!logContent.Contains("Incomplete check"), "Did not expect incomplete check"));
+                SoftAssert.Assert(() => Assert.IsTrue(logContent.Contains("Inapplicable check"), "Did expect inapplicable check"));
             }
             finally
             {
@@ -484,12 +482,10 @@ namespace SeleniumUnitTests
             {
                 SeleniumUtilities.CheckAccessibilityIncomplete(TestObject.WebDriver, fileLogger, MessageType.WARNING, false);
                 string logContent = File.ReadAllText(fileLogger.FilePath);
-
-                SoftAssert.IsTrue(!logContent.Contains("Violations check"), "Did not expect violation check");
-                SoftAssert.IsTrue(!logContent.Contains("Passes check"), "Did not expect pass check");
-                SoftAssert.IsTrue(!logContent.Contains("Inapplicable check"), "Did not expect inapplicable check");
-
-                SoftAssert.IsTrue(logContent.Contains("Incomplete check"), "Did expect incomplete check");
+                SoftAssert.Assert(() => Assert.IsTrue(!logContent.Contains("Violations check"), "Did not expect violation check"));
+                SoftAssert.Assert(() => Assert.IsTrue(!logContent.Contains("Passes check"), "Did not expect pass check"));
+                SoftAssert.Assert(() => Assert.IsTrue(!logContent.Contains("Inapplicable check"), "Did not expect inapplicable check"));
+                SoftAssert.Assert(() => Assert.IsTrue(logContent.Contains("Incomplete check"), "Did expect incomplete check"));
             }
             finally
             {
@@ -514,12 +510,10 @@ namespace SeleniumUnitTests
             {
                 SeleniumUtilities.CheckAccessibilityPasses(TestObject.WebDriver, fileLogger, MessageType.SUCCESS);
                 string logContent = File.ReadAllText(fileLogger.FilePath);
-
-                SoftAssert.IsTrue(!logContent.Contains("Violations check"), "Did not expect violation check");
-                SoftAssert.IsTrue(!logContent.Contains("Inapplicable check"), "Did not expect inapplicable check");
-                SoftAssert.IsTrue(!logContent.Contains("Incomplete check"), "Did not expect incomplete check");
-
-                SoftAssert.IsTrue(logContent.Contains("Passes check"), "Did expect pass check");
+                SoftAssert.Assert(() => Assert.IsTrue(!logContent.Contains("Violations check"), "Did not expect violation check"));
+                SoftAssert.Assert(() => Assert.IsTrue(!logContent.Contains("Inapplicable check"), "Did not expect inapplicable check"));
+                SoftAssert.Assert(() => Assert.IsTrue(!logContent.Contains("Incomplete check"), "Did not expect incomplete check"));
+                SoftAssert.Assert(() => Assert.IsTrue(logContent.Contains("Passes check"), "Did expect pass check"));
             }
             finally
             {
@@ -545,11 +539,10 @@ namespace SeleniumUnitTests
                 SeleniumUtilities.CheckAccessibilityViolations(TestObject.WebDriver, fileLogger, MessageType.ERROR, false);
                 string logContent = File.ReadAllText(fileLogger.FilePath);
 
-                SoftAssert.IsTrue(!logContent.Contains("Passes check"), "Did not expect pass check");
-                SoftAssert.IsTrue(!logContent.Contains("Inapplicable check"), "Did not expect inapplicable check");
-                SoftAssert.IsTrue(!logContent.Contains("Incomplete check"), "Did not expect incomplete check");
-
-                SoftAssert.IsTrue(logContent.Contains("Violations check"), "Did expect violation check");
+                SoftAssert.Assert(() => Assert.IsTrue(!logContent.Contains("Passes check"), "Did not expect pass check"));
+                SoftAssert.Assert(() => Assert.IsTrue(!logContent.Contains("Inapplicable check"), "Did not expect inapplicable check"));
+                SoftAssert.Assert(() => Assert.IsTrue(!logContent.Contains("Incomplete check"), "Did not expect incomplete check"));
+                SoftAssert.Assert(() => Assert.IsTrue(logContent.Contains("Violations check"), "Did expect violation check"));
             }
             finally
             {
