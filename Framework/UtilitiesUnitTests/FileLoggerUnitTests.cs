@@ -144,15 +144,15 @@ namespace UtilitiesUnitTesting
 
             // Verify that logging was active
             count = Regex.Matches(logContents, "HellO").Count.ToString();
-            softAssert.AreEqual("1", count, "'HellO' was not found.  Logging Failed");
+            softAssert.Assert(() => Assert.AreEqual("1", count, "'HellO' was not found.  Logging Failed"));
 
             // Verify that logging was suspended
             count = Regex.Matches(logContents, "GoodByE").Count.ToString();
-            softAssert.AreEqual("0", count, "'GoodByE' was found.  Logging Suspension Failed");
+            softAssert.Assert(() => Assert.AreEqual("0", count, "'GoodByE' was found.  Logging Suspension Failed"));
 
             // Verify that logging was active
             count = Regex.Matches(logContents, "BacK").Count.ToString();
-            softAssert.AreEqual("1", count, "'BacK' was not found.  Logging Continue Failed");
+            softAssert.Assert(() => Assert.AreEqual("1", count, "'BacK' was not found.  Logging Continue Failed"));
 
             // Fail the test if any soft asserts failed
             softAssert.FailTestIfAssertFailed();
@@ -288,7 +288,7 @@ namespace UtilitiesUnitTesting
                 {
                     // Verify the number of times that the message type is found.
                     int count = Regex.Matches(logContents, string.Format(logLine, keyValue.Key)).Count;
-                    softAssert.AreEqual(keyValue.Value.ToString(), count.ToString(), "Looking for " + keyValue.Key);
+                    softAssert.Assert(() => Assert.AreEqual(keyValue.Value.ToString(), count.ToString(), "Looking for " + keyValue.Key));
                 }
             }
 

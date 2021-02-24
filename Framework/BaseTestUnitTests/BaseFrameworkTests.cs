@@ -41,7 +41,7 @@ namespace BaseTestUnitTests
             tester.TestContext = this.TestContext;
             tester.Setup();
             tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
-            tester.SoftAssert.AreEqual(string.Empty, string.Empty);
+            tester.SoftAssert.Assert(() => Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(string.Empty, string.Empty));
             tester.Teardown();
         }
 
@@ -134,7 +134,7 @@ namespace BaseTestUnitTests
 
             tester.Setup();
             tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
-            tester.SoftAssert.AreEqual(string.Empty, string.Empty);
+            tester.SoftAssert.Assert(() => MicroAssert.AreEqual(string.Empty, string.Empty));
             tester.Teardown();
         }
 
@@ -151,7 +151,7 @@ namespace BaseTestUnitTests
                 BaseTest tester = this.GetBaseTest();
                 tester.Setup();
                 tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
-                tester.SoftAssert.AreEqual(string.Empty, "d");
+                tester.SoftAssert.Assert(() => MicroAssert.AreEqual(string.Empty, "d"));
                 tester.Teardown();
                 NUnit.Framework.Assert.Fail("Teardown should have thrown exception");
             }
@@ -323,7 +323,7 @@ namespace BaseTestUnitTests
             tester.TestContext = this.TestContext;
             tester.Setup();
             tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
-            tester.SoftAssert.AreEqual(string.Empty, "d");
+            tester.SoftAssert.Assert(() => MicroAssert.AreEqual(string.Empty, "d"));
             tester.Teardown();
         }
     }
