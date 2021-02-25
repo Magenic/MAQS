@@ -17,7 +17,7 @@
     <RootNamespace>Magenic.Maqs.SpecFlow</RootNamespace>
     <ApplicationIcon>MAQS.ico</ApplicationIcon>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>Copyright © Magenic 2021
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Magenic</Authors>
     <Company>Magenic</Company>
     <Description>Magenic's automation quick start framework</Description>
