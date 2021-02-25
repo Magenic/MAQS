@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="Base.cs" company="Magenic">
-//  Copyright 2020 Magenic, All rights Reserved
+//  Copyright 2021 Magenic, All rights Reserved
 // </copyright>
 // <summary>Core Base unit tests</summary>
 //--------------------------------------------------

@@ -1,5 +1,5 @@
 ﻿// <copyright file="MongoDBDriver.cs" company="Magenic">
-//  Copyright 2020 Magenic, All rights Reserved
+//  Copyright 2021 Magenic, All rights Reserved
 // </copyright>
 // <summary>This is the driver for the mongo collection object</summary>
 //--------------------------------------------------

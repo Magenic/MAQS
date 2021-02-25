@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="States.cs" company="Magenic">
-//  Copyright 2020 Magenic, All rights Reserved
+//  Copyright 2021 Magenic, All rights Reserved
 // </copyright>
 // <summary>Model representing States table</summary>
 //--------------------------------------------------

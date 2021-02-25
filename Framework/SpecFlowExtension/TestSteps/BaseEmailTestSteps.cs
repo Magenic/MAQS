@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="BaseEmailTestSteps.cs" company="Magenic">
-//  Copyright 2020 Magenic, All rights Reserved
+//  Copyright 2021 Magenic, All rights Reserved
 // </copyright>
 // <summary>Base teststeps code for tests using email</summary>
 //--------------------------------------------------
