@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <BuildVersion>6.2.1</BuildVersion>
+   <BuildVersion>6.2.2</BuildVersion>
     <PreRelease></PreRelease>
   </PropertyGroup>
 
@@ -19,7 +19,7 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Magenic</Authors>
     <Description>Database extension for Magenic's automation quick start framework</Description>
-    <Copyright>Copyright © Magenic 2020</Copyright>
+    <Copyright>Copyright © Magenic 2021</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>MAQS.jpg</PackageIcon>
     <PackageProjectUrl>https://github.com/Magenic/MAQS</PackageProjectUrl>

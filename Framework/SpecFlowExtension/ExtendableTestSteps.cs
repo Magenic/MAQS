@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="ExtendableTestSteps.cs" company="Magenic">
-//  Copyright 2020 Magenic, All rights Reserved
+//  Copyright 2021 Magenic, All rights Reserved
 // </copyright>
 // <summary>Extendable class for defining a test steps class</summary>
 //--------------------------------------------------

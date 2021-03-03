@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="EmailUnitTestSteps.cs" company="Magenic">
-//  Copyright 2020 Magenic, All rights Reserved
+//  Copyright 2021 Magenic, All rights Reserved
 // </copyright>
 // <summary>TestSteps class that inherits from BaseEmailTestSteps</summary>
 //--------------------------------------------------

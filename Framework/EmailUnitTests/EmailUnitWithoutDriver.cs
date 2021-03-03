@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------
 // <copyright file="EmailUnitWithoutDriver.cs" company="Magenic">
-//  Copyright 2020 Magenic, All rights Reserved
+//  Copyright 2021 Magenic, All rights Reserved
 // </copyright>
 // <summary>Unit test email driver without base email test</summary>
 //--------------------------------------------------
