@@ -65,7 +65,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
 
                 if (SeleniumConfig.GetSavePagesourceOnFail())
                 {
-                    SeleniumUtilities.SavePageSource(this.testObject.WebDriver, this.testObject, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
+                    SeleniumUtilities.SavePageSource(this.testObject.WebDriver, this.testObject, StringProcessor.SafeFormatter($" ({this.NumberOfAsserts})"));
                 }
 
                 return false;
@@ -99,7 +99,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
 
                 if (SeleniumConfig.GetSavePagesourceOnFail())
                 {
-                    SeleniumUtilities.SavePageSource(this.testObject.WebDriver, this.testObject, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
+                    SeleniumUtilities.SavePageSource(this.testObject.WebDriver, this.testObject, StringProcessor.SafeFormatter($" ({this.NumberOfAsserts})"));
                 }
 
                 return false;
@@ -133,7 +133,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
 
                 if (SeleniumConfig.GetSavePagesourceOnFail())
                 {
-                    SeleniumUtilities.SavePageSource(this.testObject.WebDriver, this.testObject, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
+                    SeleniumUtilities.SavePageSource(this.testObject.WebDriver, this.testObject, StringProcessor.SafeFormatter($" ({this.NumberOfAsserts})"));
                 }
 
                 return false;
@@ -165,7 +165,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
 
                 if (SeleniumConfig.GetSavePagesourceOnFail())
                 {
-                    SeleniumUtilities.SavePageSource(this.testObject.WebDriver, this.testObject, StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts));
+                    SeleniumUtilities.SavePageSource(this.testObject.WebDriver, this.testObject, StringProcessor.SafeFormatter($" ({this.NumberOfAsserts})"));
                 }
 
                 return false;
@@ -184,7 +184,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             // If softAssertName name is not provided only append the AssertNumber
             if (string.IsNullOrEmpty(softAssertName))
             {
-                return StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts);
+                return StringProcessor.SafeFormatter($" ({this.NumberOfAsserts})");
             }
             else
             {
@@ -195,7 +195,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 }
 
                 // If softAssertName is provided, use combination of softAssertName and AssertNumber
-                return " " + softAssertName + StringProcessor.SafeFormatter(" ({0})", this.NumberOfAsserts);
+                return $" {softAssertName}{StringProcessor.SafeFormatter($" ({this.NumberOfAsserts})")}";
             }
         }
     }

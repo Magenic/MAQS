@@ -74,7 +74,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                         break;
 
                     default:
-                        throw new ArgumentException(StringProcessor.SafeFormatter("Browser type '{0}' is not supported", browser));
+                        throw new ArgumentException(StringProcessor.SafeFormatter($"Browser type '{browser}' is not supported"));
                 }
 
                 return webDriver;
@@ -367,7 +367,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                     break;
 
                 default:
-                    throw new ArgumentException(StringProcessor.SafeFormatter("Remote browser type '{0}' is not supported", remoteBrowser));
+                    throw new ArgumentException(StringProcessor.SafeFormatter($"Remote browser type '{remoteBrowser}' is not supported"));
             }
 
             // Make sure the remote capabilities dictionary exists
@@ -600,7 +600,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             // We didn't find the web driver so throw an error if we need to know where it is
             if (mustExist)
             {
-                throw new FileNotFoundException(StringProcessor.SafeFormatter("Unable to find driver for '{0}'", driverFile));
+                throw new FileNotFoundException(StringProcessor.SafeFormatter($"Unable to find driver for '{driverFile}'"));
             }
 
             return string.Empty;

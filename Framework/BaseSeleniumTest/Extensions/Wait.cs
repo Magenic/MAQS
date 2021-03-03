@@ -103,7 +103,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         {
             if (!this.UntilAbsentElement(by))
             {
-                throw new TimeoutException(StringProcessor.SafeFormatter("The element '{0}' is still present.", by.ToString()));
+                throw new TimeoutException(StringProcessor.SafeFormatter($"The element {by.ToString()} is still present."));
             }
         }
 
@@ -135,7 +135,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             }
             catch
             {
-                throw new NotFoundException(StringProcessor.SafeFormatter("The element attribute {0} inside '{1}' with the value of {2} was not found", attribute, by.ToString(), textValue));
+                throw new NotFoundException(StringProcessor.SafeFormatter($"The element attribute {attribute} inside '{by.ToString()}' with the value of {textValue} was not found"));
             }
         }
 
@@ -156,7 +156,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             }
             catch
             {
-                throw new NotFoundException(StringProcessor.SafeFormatter("The element attribute {0} inside '{1}' with the value of {2} was not found", attribute, by.ToString(), textValue));
+                throw new NotFoundException(StringProcessor.SafeFormatter($"The element attribute {attribute} inside '{by.ToString()}' with the value of {textValue} was not found"));
             }
         }
 
