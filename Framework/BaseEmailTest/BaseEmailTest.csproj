@@ -28,7 +28,7 @@
     <RepositoryUrl>https://github.com/Magenic/MAQS</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReleaseNotes>
-      Release Notes can be found at https://magenic.github.io/MAQS/#/MAQS_6/ReleaseNotes
+      Release Notes can be found at https://github.com/Magenic/MAQS/releases
     </PackageReleaseNotes>
     <DebugSymbols>true</DebugSymbols>
     <IncludeSymbols>true</IncludeSymbols>
