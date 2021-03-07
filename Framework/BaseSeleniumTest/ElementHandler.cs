@@ -307,7 +307,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             catch (Exception e)
             {
                 logger.ContinueLogging();
-                logger.LogMessage(MessageType.ERROR, "Exception during sending secret keys: " + e.Message + Environment.NewLine + e.StackTrace);
+                logger.LogMessage(MessageType.ERROR, $"Exception during sending secret keys: {e.Message}{ Environment.NewLine}{ e.StackTrace}");
                 throw;
             }
         }

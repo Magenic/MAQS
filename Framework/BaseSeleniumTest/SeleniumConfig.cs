@@ -82,7 +82,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 case "REMOTE":
                     return BrowserType.Remote;
                 default:
-                    throw new ArgumentException(StringProcessor.SafeFormatter("Browser type '{0}' is not supported", browserName));
+                    throw new ArgumentException(StringProcessor.SafeFormatter($"Browser type '{browserName}' is not supported"));
             }
         }
 
@@ -117,7 +117,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 case "EDGE":
                     return RemoteBrowserType.Edge;
                 default:
-                    throw new ArgumentException(StringProcessor.SafeFormatter("Remote browser type '{0}' is not supported", remoteBrowser));
+                    throw new ArgumentException(StringProcessor.SafeFormatter($"Remote browser type '{remoteBrowser}' is not supported"));
             }
         }
 
@@ -139,7 +139,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             string value = Config.GetValueForSection(SELENIUMSECTION, "SeleniumCommandTimeout", "60000");
             if (!int.TryParse(value, out int timeout))
             {
-                throw new ArgumentException("SeleniumCommandTimeout should be a number but the current value is: " + value);
+                throw new ArgumentException($"SeleniumCommandTimeout should be a number but the current value is: {value}");
             }
 
             return TimeSpan.FromMilliseconds(timeout);
