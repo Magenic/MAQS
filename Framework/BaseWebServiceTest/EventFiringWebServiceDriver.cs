@@ -6,9 +6,9 @@
 //--------------------------------------------------
 using Magenic.Maqs.Utilities.Data;
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Magenic.Maqs.BaseWebServiceTest
 {
@@ -85,46 +85,21 @@ namespace Magenic.Maqs.BaseWebServiceTest
         }
 
         /// <summary>
-        /// Do a web service post for the given uri, content and media type
+        /// Execute a web service call 
         /// </summary>
-        /// <param name="requestUri">The request uri</param>
-        /// <param name="responseMediaType">The response media type</param>
-        /// <param name="content">The post body</param>
+        /// <param name="methodVerb">The HTTP verb</param>
+        /// <param name="requestUri">The requested URI</param>
+        /// <param name="expectedMediaType">The expected media type</param>
         /// <param name="expectSuccess">Assert a success code was returned</param>
-        /// <returns>A http response message</returns>
-        protected override async Task<HttpResponseMessage> PostContent(string requestUri, string responseMediaType, HttpContent content, bool expectSuccess = true)
-        {
-            try
-            {
-                RaiseEvent(content, "Post", requestUri, responseMediaType);
-                HttpResponseMessage response = base.PostContent(requestUri, responseMediaType, content, expectSuccess).GetAwaiter().GetResult();
-                RaiseEvent("Post", response);
-                return await Task.FromResult(response);
-            }
-            catch (Exception e)
-            {
-                RaiseErrorMessage(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Make a HTTP call using the custom verb to the URI with the given verb, media response type and content
-        /// </summary>
-        /// <param name="requestUri">The request URI</param>
-        /// <param name="customVerb">Custom HTTP Verb</param>
-        /// <param name="responseMediaType">Response media type</param>
-        /// <param name="content">Content of the message</param>
-        /// <param name="expectSuccess">Assert a success status code was returned</param>
         /// <returns>The HTTP response message</returns>
-        protected override async Task<HttpResponseMessage> CustomContent(string requestUri, string customVerb, string responseMediaType, HttpContent content, bool expectSuccess = true)
+        protected override HttpResponseMessage CallWithResponse(string methodVerb, string requestUri, string expectedMediaType, bool expectSuccess = true)
         {
             try
             {
-                RaiseEvent(content, customVerb, requestUri, responseMediaType);
-                HttpResponseMessage response = base.CustomContent(requestUri, customVerb, responseMediaType, content, expectSuccess).GetAwaiter().GetResult();
-                RaiseEvent(customVerb, response);
-                return await Task.FromResult(response);
+                RaiseEvent(methodVerb, requestUri, expectedMediaType);
+                HttpResponseMessage response = base.CallWithResponse(methodVerb, requestUri, expectedMediaType, expectSuccess);
+                RaiseEvent(methodVerb, response);
+                return response;
             }
             catch (Exception e)
             {
@@ -134,21 +109,47 @@ namespace Magenic.Maqs.BaseWebServiceTest
         }
 
         /// <summary>
-        /// Do a web service put for the given uri, content and media type
+        /// Execute a web service call 
         /// </summary>
-        /// <param name="requestUri">The request uri</param>
+        /// <param name="methodVerb">The HTTP verb</param>
+        /// <param name="requestUri">The requested URI</param>
+        /// <param name="expectedMediaType">The expected media type</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <returns>The HTTP response message</returns>
+        protected override HttpResponseMessage CallWithResponse(string methodVerb, string requestUri, string expectedMediaType, HttpStatusCode expectedStatus)
+        {
+            try
+            {
+                RaiseEvent(methodVerb, requestUri, expectedMediaType);
+                HttpResponseMessage response = base.CallWithResponse(methodVerb, requestUri, expectedMediaType, expectedStatus);
+                RaiseEvent(methodVerb, response);
+                return response;
+            }
+            catch (Exception e)
+            {
+                RaiseErrorMessage(e);
+                throw;
+            }
+
+        }
+
+        /// <summary>
+        /// Execute a web service call 
+        /// </summary>
+        /// <param name="methodVerb">The HTTP verb</param>
+        /// <param name="requestUri">The requested URI</param>
         /// <param name="responseMediaType">The response media type</param>
-        /// <param name="content">The put body</param>
+        /// <param name="content">The content</param>
         /// <param name="expectSuccess">Assert a success code was returned</param>
-        /// <returns>A http response message</returns>
-        protected override async Task<HttpResponseMessage> PutContent(string requestUri, string responseMediaType, HttpContent content, bool expectSuccess = true)
+        /// <returns>The HTTP response message</returns>
+        protected override HttpResponseMessage CallContentWithResponse(string methodVerb, string requestUri, string responseMediaType, HttpContent content, bool expectSuccess = true)
         {
             try
             {
-                RaiseEvent(content, "Put", requestUri, responseMediaType);
-                HttpResponseMessage response = base.PutContent(requestUri, responseMediaType, content, expectSuccess).GetAwaiter().GetResult();
-                RaiseEvent("Put", response);
-                return await Task.FromResult(response);
+                RaiseEvent(content, methodVerb, requestUri, responseMediaType);
+                HttpResponseMessage response = base.CallContentWithResponse(methodVerb, requestUri, responseMediaType, content, expectSuccess);
+                RaiseEvent(methodVerb, response);
+                return response;
             }
             catch (Exception e)
             {
@@ -158,43 +159,22 @@ namespace Magenic.Maqs.BaseWebServiceTest
         }
 
         /// <summary>
-        /// Do a web service delete for the given uri
+        /// Execute a web service call 
         /// </summary>
-        /// <param name="requestUri">The request uri</param>
-        /// <param name="returnMediaType">The expected response media type</param>
-        /// <param name="expectSuccess">Assert a success code was returned</param>
-        /// <returns>A http response message</returns>
-        protected override async Task<HttpResponseMessage> DeleteContent(string requestUri, string returnMediaType, bool expectSuccess = true)
+        /// <param name="methodVerb">The HTTP verb</param>
+        /// <param name="requestUri">The requested URI</param>
+        /// <param name="responseMediaType">The response media type</param>
+        /// <param name="content">The content</param>
+        /// <param name="expectedStatus">Assert a specific status code was returned</param>
+        /// <returns>The HTTP response message</returns>
+        protected override HttpResponseMessage CallContentWithResponse(string methodVerb, string requestUri, string responseMediaType, HttpContent content, HttpStatusCode expectedStatus)
         {
             try
             {
-                RaiseEvent("Delete", requestUri, returnMediaType);
-                HttpResponseMessage response = base.DeleteContent(requestUri, returnMediaType, expectSuccess).GetAwaiter().GetResult();
-                RaiseEvent("Delete", response);
-                return await Task.FromResult(response);
-            }
-            catch (Exception e)
-            {
-                RaiseErrorMessage(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Do a web service get for the given uri and media type
-        /// </summary>
-        /// <param name="requestUri">The request uri</param>
-        /// <param name="mediaType">What type of media are we expecting</param>
-        /// <param name="expectSuccess">Assert a success code was returned</param>
-        /// <returns>A http response message</returns>
-        protected override async Task<HttpResponseMessage> GetContent(string requestUri, string mediaType, bool expectSuccess = true)
-        {
-            try
-            {
-                RaiseEvent("Get", requestUri, mediaType);
-                HttpResponseMessage response = base.GetContent(requestUri, mediaType, expectSuccess).GetAwaiter().GetResult();
-                RaiseEvent("Get", response);
-                return await Task.FromResult(response);
+                RaiseEvent(content, methodVerb, requestUri, responseMediaType);
+                HttpResponseMessage response = base.CallContentWithResponse(methodVerb, requestUri, responseMediaType, content, expectedStatus);
+                RaiseEvent(methodVerb, response);
+                return response;
             }
             catch (Exception e)
             {
@@ -228,17 +208,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
                 StringBuilder message = new StringBuilder();
                 message.AppendLine(StringProcessor.SafeFormatter("Send {0} request with content to base: '{1}' endpoint: '{2}' with the media type: '{3}'", actionType, HttpClient.BaseAddress, requestUri, mediaType));
 
-                mediaType = mediaType.ToUpper();
-
-                if (mediaType.Contains("TEXT") || mediaType.Contains("XML") || mediaType.Contains("JSON"))
-                {
-                    message.AppendLine("Content:");
-
-                    if (content != null)
-                    {
-                        message.AppendLine(content.ReadAsStringAsync().Result);
-                    }
-                }
+                BuildContentMessage(message, mediaType, content);
 
                 OnActionEvent(message.ToString());
             }
@@ -265,17 +235,8 @@ namespace Magenic.Maqs.BaseWebServiceTest
                 // Only pull content if we are returned content
                 if (response.Content.Headers.ContentType != null)
                 {
-                    string mediaType = response.Content.Headers.ContentType.MediaType.ToUpper();
-
-                    // Only add the text if we know it is human readable
-                    if (mediaType.Contains("TEXT") || mediaType.Contains("XML") || mediaType.Contains("JSON"))
-                    {
-                        message.AppendLine("Content:");
-                        if (response.Content != null)
-                        {
-                            message.AppendLine(response.Content.ReadAsStringAsync().Result);
-                        }
-                    }
+                    string mediaType = response.Content.Headers.ContentType.MediaType;
+                    BuildContentMessage(message, mediaType, response.Content);
                 }
 
                 OnEvent(message.ToString());
@@ -293,6 +254,39 @@ namespace Magenic.Maqs.BaseWebServiceTest
         private void RaiseErrorMessage(Exception e)
         {
             OnErrorEvent(StringProcessor.SafeFormatter("Failed because: {0} {1} {2}", e.Message, Environment.NewLine, e.ToString()));
+        }
+
+        /// <summary>
+        /// Build the content massage
+        /// </summary>
+        /// <param name="message">String builder for building the message</param>
+        /// <param name="mediaType">Content media type</param>
+        /// <param name="content">The content we are building a message for</param>
+        private void BuildContentMessage(StringBuilder message, string mediaType, HttpContent content)
+        {
+            message.AppendLine("Content:");
+            message.AppendLine($"  Content Media Type: {mediaType}");
+            message.AppendLine("  Content Text:");
+            if (mediaType != null)
+            { 
+                mediaType = mediaType.ToUpper();
+                
+                if (mediaType.Contains("TEXT") || mediaType.Contains("XML") || mediaType.Contains("JSON") || mediaType.Contains("HTML"))
+                {
+                    if (content != null)
+                    {
+                        message.AppendLine(content.ReadAsStringAsync().Result);
+                    }
+                }
+                else
+                {
+                    message.AppendLine("  **Writting this kind of content to the log is not supported**");
+                }
+            }
+            else
+            {
+                message.AppendLine("  **Content is NULL**");
+            }
         }
     }
 }

@@ -10,6 +10,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using WebServiceTesterUnitTesting.Model;
 
@@ -25,7 +26,7 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// Default baseAddress for default constructor
         /// </summary>
-        private static string baseAddress = WebServiceConfig.GetWebServiceUri();
+        private static readonly string baseAddress = WebServiceConfig.GetWebServiceUri();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EventFiringWebServiceDriverTests"/> class
@@ -39,10 +40,10 @@ namespace WebServiceTesterUnitTesting
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
-        [ExpectedException(typeof(AggregateException))]
+        [ExpectedException(typeof(HttpRequestException))]
         public void PostContentThrowException()
         {
-            PostContent("BAD", null, null).Wait();
+            CallContentWithResponse(WebServiceVerb.Post, "BAD", null, null);
         }
 
         /// <summary>
@@ -50,10 +51,10 @@ namespace WebServiceTesterUnitTesting
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
-        [ExpectedException(typeof(AggregateException))]
+        [ExpectedException(typeof(HttpRequestException))]
         public void PutContentThrowException()
         {
-            PutContent("BAD", null, null).Wait();
+            CallContentWithResponse(WebServiceVerb.Put, "BAD", null, null);
         }
 
         /// <summary>
@@ -61,10 +62,10 @@ namespace WebServiceTesterUnitTesting
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
-        [ExpectedException(typeof(AggregateException))]
+        [ExpectedException(typeof(HttpRequestException))]
         public void DeleteContentThrowException()
         {
-            DeleteContent("BAD", null).Wait();
+            CallWithResponse(WebServiceVerb.Delete, "BAD", null);
         }
 
         /// <summary>
@@ -72,10 +73,10 @@ namespace WebServiceTesterUnitTesting
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
-        [ExpectedException(typeof(AggregateException))]
+        [ExpectedException(typeof(HttpRequestException))]
         public void GetContentThrowException()
         {
-            GetContent("BAD", null).Wait();
+            CallWithResponse(WebServiceVerb.Get, "BAD", null);
         }
 
         /// <summary>
@@ -83,10 +84,10 @@ namespace WebServiceTesterUnitTesting
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
-        [ExpectedException(typeof(AggregateException))]
+        [ExpectedException(typeof(HttpRequestException))]
         public void CustomContentThrowException()
         {
-            CustomContent("BAD", null, null, null).Wait();
+            CallContentWithResponse("BAD", "BAD", null, null);
         }
 
         /// <summary>
@@ -105,7 +106,7 @@ namespace WebServiceTesterUnitTesting
             };
 
             var content = WebServiceUtils.MakeStreamContent<Product>(p, Encoding.UTF8, "application/xml");
-            var result = PostContent("/api/XML_JSON/Post", "application/xml", content, true).Result;
+            var result = CallContentWithResponse(WebServiceVerb.Post, "/api/XML_JSON/Post", "application/xml", content, true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
 
@@ -117,7 +118,7 @@ namespace WebServiceTesterUnitTesting
         public void VerifyCustomContent()
         {
             var content = WebServiceUtils.MakeStringContent("ZED?", Encoding.UTF8, "application/json");
-            var result = CustomContent("/api/ZED", "ZED", "application/json", content, false).Result;
+            var result = CallContentWithResponse("ZED", "/api/ZED", "application/json", content, false);
             Assert.AreEqual(HttpStatusCode.UseProxy, result.StatusCode);
         }
 
@@ -136,7 +137,7 @@ namespace WebServiceTesterUnitTesting
                 Price = 3.25f
             };
             var content = WebServiceUtils.MakeStringContent<Product>(p, Encoding.UTF8, "application/xml");
-            var result = PutContent("/api/XML_JSON/Put/1", "application/xml", content).Result;
+            var result = CallContentWithResponse(WebServiceVerb.Put, "/api/XML_JSON/Put/1", "application/xml", content);
 
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
@@ -148,7 +149,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void VerifyDeleteContent()
         {
-            var result = DeleteContent("/api/String/Delete/1", "text/plain", true).Result;
+            var result = CallWithResponse(WebServiceVerb.Delete, "/api/String/Delete/1", "text/plain", true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
 
@@ -159,7 +160,7 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void VerifyGetContent()
         {
-            var result = GetContent("/api/String/1", "text/plain").Result;
+            var result = CallWithResponse(WebServiceVerb.Get, "/api/String/1", "text/plain");
             Assert.IsFalse(string.IsNullOrEmpty(result.Content.ReadAsStringAsync().Result), "Expected a result to be returned");
         }
 
