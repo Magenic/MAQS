@@ -123,6 +123,30 @@ namespace WebServiceTesterUnitTesting
         }
 
         /// <summary>
+        /// Verify custom content works with a specific response code
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.WebService)]
+        public void VerifyCustomContentWithResponseCode()
+        {
+            var content = WebServiceUtils.MakeStringContent("ZED?", Encoding.UTF8, "application/json");
+            var result = CallContentWithResponse("ZED", "/api/ZED", "application/json", content, HttpStatusCode.UseProxy);
+            Assert.AreEqual(HttpStatusCode.UseProxy, result.StatusCode);
+        }
+
+        /// <summary>
+        /// Verify custom content works with non standard content type
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.WebService)]
+        public void VerifyCustomNonStandardContent()
+        {
+            var content = WebServiceUtils.MakeStringContent("ZED?", Encoding.UTF8, "application/json");
+            var result = CallContentWithResponse("ZED", "/api/ZED", "application/nosj", content, false);
+            Assert.AreEqual(HttpStatusCode.UseProxy, result.StatusCode);
+        }
+
+        /// <summary>
         /// Verify put content works
         /// </summary>
         [TestMethod]
@@ -161,6 +185,17 @@ namespace WebServiceTesterUnitTesting
         public void VerifyGetContent()
         {
             var result = CallWithResponse(WebServiceVerb.Get, "/api/String/1", "text/plain");
+            Assert.IsFalse(string.IsNullOrEmpty(result.Content.ReadAsStringAsync().Result), "Expected a result to be returned");
+        }
+
+        /// <summary>
+        /// Verify get content works with a specific response code
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.WebService)]
+        public void VerifyGetContentWithResponseCode()
+        {
+            var result = CallWithResponse(WebServiceVerb.Get, "/api/String/1", "text/plain", HttpStatusCode.OK);
             Assert.IsFalse(string.IsNullOrEmpty(result.Content.ReadAsStringAsync().Result), "Expected a result to be returned");
         }
 
