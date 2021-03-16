@@ -72,7 +72,7 @@ namespace Magenic.Maqs.BaseAppiumTest
             }
             catch (Exception exception)
             {
-                this.TryToLog(MessageType.WARNING, "Failed to get screen shot because: {0}", exception.Message);
+                this.TryToLog(MessageType.WARNING, $"Failed to get screen shot because: {exception.Message}");
             }
         }
 

@@ -36,7 +36,7 @@ namespace Magenic.Maqs.BaseAppiumTest
 
                 string fullpath = ((FileLogger)testObject.Log).FilePath;
                 string directory = Path.GetDirectoryName(fullpath);
-                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fullpath) + appendName;
+                string fileNameWithoutExtension = $"{Path.GetFileNameWithoutExtension(fullpath)}{appendName}";
                 CaptureScreenshot(appiumDriver, testObject, directory, fileNameWithoutExtension);
 
                 testObject.Log.LogMessage(MessageType.INFORMATION, "Screenshot saved");
@@ -45,7 +45,7 @@ namespace Magenic.Maqs.BaseAppiumTest
             catch (Exception exception)
             {
                 exception = exception.InnerException ?? exception;
-                testObject.Log.LogMessage(MessageType.ERROR, "Screenshot error: {0}", exception.ToString());
+                testObject.Log.LogMessage(MessageType.ERROR, $"Screenshot error: {exception.ToString()}");
                 return false;
             }
         }
@@ -61,7 +61,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         {
             Screenshot screenshot = ((ITakesScreenshot)appiumDriver).GetScreenshot();
 
-            string path = Path.Combine(directory, fileNameWithoutExtension + ".Png");
+            string path = Path.Combine(directory, $"{fileNameWithoutExtension}.Png");
             screenshot.SaveAsFile(path, ScreenshotImageFormat.Png);
 
             testObject.AddAssociatedFile(path);
@@ -84,24 +84,24 @@ namespace Magenic.Maqs.BaseAppiumTest
                 if (!(testObject.Log is FileLogger))
                 {
                     // Since this is not a file logger we will need to use a generic file name
-                    path = SavePageSource(appiumDriver, testObject, LoggingConfig.GetLogDirectory(), "PageSource" + appendName);
+                    path = SavePageSource(appiumDriver, testObject, LoggingConfig.GetLogDirectory(), $"PageSource{appendName}");
                 }
                 else
                 {
                     // Calculate the file name
                     string fullpath = ((FileLogger)testObject.Log).FilePath;
                     string directory = Path.GetDirectoryName(fullpath);
-                    string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fullpath) + "_PS" + appendName;
+                    string fileNameWithoutExtension = $"Path.GetFileNameWithoutExtension(fullpath) _PS appendName";
 
                     path = SavePageSource(appiumDriver, testObject, directory, fileNameWithoutExtension);
                 }
 
-                testObject.Log.LogMessage(MessageType.INFORMATION, "Page Source saved: " + path);
+                testObject.Log.LogMessage(MessageType.INFORMATION, $"Page Source saved: {path}");
                 return true;
             }
             catch (Exception exception)
             {
-                testObject.Log.LogMessage(MessageType.ERROR, "Page Source error: {0}", exception.ToString());
+                testObject.Log.LogMessage(MessageType.ERROR, $"Page Source error: {exception.ToString()}");
                 return false;
             }
         }
@@ -126,7 +126,7 @@ namespace Magenic.Maqs.BaseAppiumTest
             }
 
             // Calculate the file name
-            string path = Path.Combine(directory, fileNameWithoutExtension + ".txt");
+            string path = Path.Combine(directory, $"{fileNameWithoutExtension}.txt");
 
             // Create new instance of Streamwriter and Auto Flush after each call
             StreamWriter writer = new StreamWriter(path, false)

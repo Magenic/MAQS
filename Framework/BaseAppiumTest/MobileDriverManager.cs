@@ -81,7 +81,7 @@ namespace Magenic.Maqs.BaseAppiumTest
             }
             catch (Exception e)
             {
-                this.Log.LogMessage(MessageType.ERROR, StringProcessor.SafeFormatter("Failed to close mobile driver because: {0}", e.Message));
+                this.Log.LogMessage(MessageType.ERROR, StringProcessor.SafeFormatter($"Failed to close mobile driver because: {e.Message}"));
             }
 
             this.BaseDriver = null;

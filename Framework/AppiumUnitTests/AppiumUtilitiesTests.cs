@@ -91,7 +91,7 @@ namespace AppiumUnitTests
         {
             AppiumUtilities.SavePageSource(this.TestObject.AppiumDriver, this.TestObject);
             string logLocation = ((FileLogger)this.Log).FilePath;
-            string pageSourceFilelocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + "_PS.txt";
+            string pageSourceFilelocation = $"{logLocation.Substring(0, logLocation.LastIndexOf('.'))}_PS.txt";
 
             Assert.IsTrue(File.Exists(pageSourceFilelocation), "Failed to find page source");
             File.Delete(pageSourceFilelocation);

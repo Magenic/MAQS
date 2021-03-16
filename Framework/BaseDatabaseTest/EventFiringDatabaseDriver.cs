@@ -309,11 +309,11 @@ namespace Magenic.Maqs.BaseDatabaseTest
         {
             try
             {
-                this.OnActionEvent(StringProcessor.SafeFormatter("Perform {0} with:\r\n{1}", actionType, query));
+                this.OnActionEvent(StringProcessor.SafeFormatter($"Perform {actionType} with:\r\n{query}"));
             }
             catch (Exception e)
             {
-                this.OnErrorEvent(StringProcessor.SafeFormatter("Failed to log event because: {0}", e.ToString()));
+                this.OnErrorEvent(StringProcessor.SafeFormatter($"Failed to log event because: {e.ToString()}"));
             }
         }
 
@@ -333,11 +333,11 @@ namespace Magenic.Maqs.BaseDatabaseTest
                     builder.AppendLine(item);
                 }
 
-                this.OnActionEvent(StringProcessor.SafeFormatter("Perform {0} with:\r\n{1}", actionType, builder.ToString()));
+                this.OnActionEvent(StringProcessor.SafeFormatter($"Perform {actionType} with:\r\n{builder.ToString()}"));
             }
             catch (Exception e)
             {
-                this.OnErrorEvent(StringProcessor.SafeFormatter("Failed to log event because: {0}", e.ToString()));
+                this.OnErrorEvent(StringProcessor.SafeFormatter($"Failed to log event because: {e.ToString()}"));
             }
         }
 
@@ -347,7 +347,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// <param name="e">The exception</param>
         private void RaiseErrorMessage(Exception e)
         {
-            this.OnErrorEvent(StringProcessor.SafeFormatter("Failed because: {0}{1}{2}", e.Message, Environment.NewLine, e.ToString()));
+            this.OnErrorEvent(StringProcessor.SafeFormatter($"Failed because: {e.Message}{Environment.NewLine}{e.ToString()}"));
         }
     }
 }
