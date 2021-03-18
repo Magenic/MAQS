@@ -25,7 +25,7 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// String to hold the URL
         /// </summary>
-        private static string url = WebServiceConfig.GetWebServiceUri();
+        private static readonly string url = WebServiceConfig.GetWebServiceUri();
         
         /// <summary>
         /// Verify the string status code
@@ -35,11 +35,14 @@ namespace WebServiceTesterUnitTesting
         public void PatchJSONWithoutBaseTest()
         {
             WebServiceDriver client = new WebServiceDriver(new Uri(url));
-            ProductJson p = new ProductJson();
-            p.Category = "ff";
-            p.Id = 4;
-            p.Name = "ff";
-            p.Price = 3.25f;
+            ProductJson p = new ProductJson
+            {
+                Category = "ff",
+                Id = 4,
+                Name = "ff",
+                Price = 3.25f
+            };
+
             var content = WebServiceUtils.MakeStringContent<ProductJson>(p, Encoding.UTF8, "application/json");
             var result = client.PatchWithResponse("/api/XML_JSON/Patch/1", "application/json", content, true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
@@ -53,11 +56,14 @@ namespace WebServiceTesterUnitTesting
         public void PatchJSONWithTypeWithoutBaseTest()
         {
             WebServiceDriver client = new WebServiceDriver(new Uri(url));
-            ProductJson p = new ProductJson();
-            p.Category = "ff";
-            p.Id = 4;
-            p.Name = "ff";
-            p.Price = 3.25f;
+            ProductJson p = new ProductJson
+            {
+                Category = "ff",
+                Id = 4,
+                Name = "ff",
+                Price = 3.25f
+            };
+
             var content = WebServiceUtils.MakeStringContent<ProductJson>(p, Encoding.UTF8, "application/json");
             var result = client.Patch<ProductJson>("/api/XML_JSON/Patch/1", "application/json", content, true);
             Assert.AreEqual(p.Category, result.Category);
