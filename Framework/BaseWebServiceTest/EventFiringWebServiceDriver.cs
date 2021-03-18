@@ -265,27 +265,33 @@ namespace Magenic.Maqs.BaseWebServiceTest
         private void BuildContentMessage(StringBuilder message, string mediaType, HttpContent content)
         {
             message.AppendLine("Content:");
-            message.AppendLine($"  Content Media Type: {mediaType}");
-            message.AppendLine("  Content Text:");
-            if (mediaType != null)
-            { 
+            
+            if (string.IsNullOrEmpty(mediaType))
+            {
+                message.AppendLine("  **Content media type is null or empty**");
+            }
+            else
+            {
+                message.AppendLine($"  Content Media Type: {mediaType}");
+                message.AppendLine("  Content Text:");
+
                 mediaType = mediaType.ToUpper();
-                
+
                 if (mediaType.Contains("TEXT") || mediaType.Contains("XML") || mediaType.Contains("JSON") || mediaType.Contains("HTML"))
                 {
                     if (content != null)
                     {
                         message.AppendLine(content.ReadAsStringAsync().Result);
                     }
+                    else
+                    {
+                        message.AppendLine("  **Content is null**");
+                    }
                 }
                 else
                 {
                     message.AppendLine("  **Writting this kind of content to the log is not supported**");
                 }
-            }
-            else
-            {
-                message.AppendLine("  **Content is NULL**");
             }
         }
     }
