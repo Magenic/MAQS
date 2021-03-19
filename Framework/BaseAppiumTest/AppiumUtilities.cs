@@ -91,7 +91,7 @@ namespace Magenic.Maqs.BaseAppiumTest
                     // Calculate the file name
                     string fullpath = ((FileLogger)testObject.Log).FilePath;
                     string directory = Path.GetDirectoryName(fullpath);
-                    string fileNameWithoutExtension = $"Path.GetFileNameWithoutExtension(fullpath) _PS appendName";
+                    string fileNameWithoutExtension = $"{Path.GetFileNameWithoutExtension(fullpath)}_PS{appendName}";
 
                     path = SavePageSource(appiumDriver, testObject, directory, fileNameWithoutExtension);
                 }
