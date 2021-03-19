@@ -2,13 +2,13 @@
 // <copyright file="TestCategories.cs" company="Magenic">
 //  Copyright 2021 Magenic, All rights Reserved
 // </copyright>
-// <summary>Web service MediaType class page</summary>
+// <summary>Test category constants</summary>
 //--------------------------------------------------
 
 namespace Magenic.Maqs.Utilities.Helper
 {
     /// <summary>
-    ///  Test category type of web service
+    ///  Test category constants
     /// </summary>
     public static class TestCategories
     {

@@ -7,6 +7,7 @@
 using Magenic.Maqs.BaseWebServiceTest;
 using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
@@ -67,6 +68,24 @@ namespace WebServiceTesterUnitTesting
             builder.Append("123");
 
             Assert.AreEqual(((StringBuilder)this.TestObject.Objects["1"]).ToString(), builder.ToString());
+        }
+
+        /// <summary>
+        /// Make we handle timeouts
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.WebService)]
+        [TestCategory(TestCategories.Utilities)]
+        [ExpectedException(typeof(TimeoutException))]
+        public void WebServiceTimeout()
+        {
+            var httpClient = this.GetHttpClient();
+            httpClient.Timeout = TimeSpan.FromMilliseconds(1);
+            this.WebServiceDriver = new WebServiceDriver(httpClient);
+
+            this.WebServiceDriver.Get("/api/String/1", "text/plain");
+
+            Assert.Fail("Get call should have timed out");
         }
     }
 }
