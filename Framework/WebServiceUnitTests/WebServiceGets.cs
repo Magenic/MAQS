@@ -26,7 +26,7 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// String to hold the URL
         /// </summary>
-        private static string url = WebServiceConfig.GetWebServiceUri();
+        private static readonly string url = WebServiceConfig.GetWebServiceUri();
 
         /// <summary>
         /// Make sure the web service have been woken up
@@ -35,6 +35,11 @@ namespace WebServiceTesterUnitTesting
         [AssemblyInitialize]
         public static void PrimeSite(TestContext context)
         {
+            if (context is null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             try
             {
                 WebServiceDriver client = new WebServiceDriver(new Uri("https://magenicautomation.azurewebsites.net"));
