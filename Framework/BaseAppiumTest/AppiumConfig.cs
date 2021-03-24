@@ -142,7 +142,7 @@ namespace Magenic.Maqs.BaseAppiumTest
 
             if (!int.TryParse(value, out int timeout))
             {
-                throw new ArgumentException("MobileCommandTimeout in " + ConfigSection.AppiumMaqs + " should be a number but the current value is: " + value);
+                throw new ArgumentException($"MobileCommandTimeout in {ConfigSection.AppiumMaqs} should be a number but the current value is: {value}");
             }
 
             return TimeSpan.FromMilliseconds(timeout);
@@ -174,7 +174,7 @@ namespace Magenic.Maqs.BaseAppiumTest
                 case "WINDOWS":
                     return PlatformType.Windows;
                 default:
-                    throw new ArgumentException(StringProcessor.SafeFormatter("Device type '{0}' is not supported", platform));
+                    throw new ArgumentException(StringProcessor.SafeFormatter($"Device type '{platform}' is not supported"));
             }
         }
     }

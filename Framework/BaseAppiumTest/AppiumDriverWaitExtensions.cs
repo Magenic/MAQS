@@ -82,7 +82,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         {
             if (!WaitUntilAbsentElement(driver, by))
             {
-                throw new TimeoutException(StringProcessor.SafeFormatter("The element '{0}' is still present.", by.ToString()));
+                throw new TimeoutException(StringProcessor.SafeFormatter($"The element '{by.ToString()}' is still present."));
             }
         }
 

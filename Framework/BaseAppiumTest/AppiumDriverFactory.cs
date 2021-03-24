@@ -59,7 +59,7 @@ namespace Magenic.Maqs.BaseAppiumTest
                     break;
 
                 default:
-                    throw new ArgumentException(StringProcessor.SafeFormatter("Mobile OS type '{0}' is not supported", deviceType));
+                    throw new ArgumentException(StringProcessor.SafeFormatter($"Mobile OS type '{deviceType}' is not supported"));
             }
 
             // Check options to see if we are doing browser or app tests
