@@ -62,11 +62,14 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PostTypeParamWithExpectedStatus()
         {
-            ProductJson p = new ProductJson();
-            p.Category = "ff";
-            p.Id = 4;
-            p.Name = "ff";
-            p.Price = 3.25f;
+            ProductJson p = new ProductJson
+            {
+                Category = "ff",
+                Id = 4,
+                Name = "ff",
+                Price = 3.25f
+            };
+
             var req = WebServiceUtils.MakeStringContent<ProductJson>(p, Encoding.UTF8, "application/json");
             var res = this.WebServiceDriver.Post<ProductJson>("/api/XML_JSON/Post", "application/json", req, HttpStatusCode.OK);
             Assert.IsNull(res);
@@ -79,11 +82,14 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PostWithExpectedStatus()
         {
-            ProductJson p = new ProductJson();
-            p.Category = "ff";
-            p.Id = 4;
-            p.Name = "ff";
-            p.Price = 3.25f;
+            ProductJson p = new ProductJson
+            {
+                Category = "ff",
+                Id = 4,
+                Name = "ff",
+                Price = 3.25f
+            };
+
             var req = WebServiceUtils.MakeStringContent<ProductJson>(p, Encoding.UTF8, "application/json");
             var res = this.WebServiceDriver.Post("/api/XML_JSON/Post", "application/json", req, HttpStatusCode.OK);
             Assert.IsNotNull(res);
@@ -96,11 +102,13 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PostMoreParamsWithExpectedStatus()
         {
-            ProductJson p = new ProductJson();
-            p.Category = "ff";
-            p.Id = 4;
-            p.Name = "ff";
-            p.Price = 3.25f;
+            ProductJson p = new ProductJson
+            {
+                Category = "ff",
+                Id = 4,
+                Name = "ff",
+                Price = 3.25f
+            };
 
             var res = this.WebServiceDriver.Post("/api/XML_JSON/Post", "application/json", JsonConvert.SerializeObject(p), Encoding.UTF8, "application/json", HttpStatusCode.OK, true);
             Assert.IsNotNull(res);
@@ -113,11 +121,13 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PostMoreParamsWithResponseWithExpectedStatus()
         {
-            ProductJson p = new ProductJson();
-            p.Category = "ff";
-            p.Id = 4;
-            p.Name = "ff";
-            p.Price = 3.25f;
+            ProductJson p = new ProductJson
+            {
+                Category = "ff",
+                Id = 4,
+                Name = "ff",
+                Price = 3.25f
+            };
 
             var res = this.WebServiceDriver.PostWithResponse("/api/XML_JSON/Post", "application/json", JsonConvert.SerializeObject(p), Encoding.UTF8, "application/json", HttpStatusCode.OK, true);
             Assert.IsNotNull(res);
@@ -130,11 +140,14 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PostWithResponseWithExpectedStatus()
         {
-            ProductJson p = new ProductJson();
-            p.Category = "ff";
-            p.Id = 4;
-            p.Name = "ff";
-            p.Price = 3.25f;
+            ProductJson p = new ProductJson
+            {
+                Category = "ff",
+                Id = 4,
+                Name = "ff",
+                Price = 3.25f
+            };
+
             var req = WebServiceUtils.MakeStringContent<ProductJson>(p, Encoding.UTF8, "application/json");
             var res = this.WebServiceDriver.PostWithResponse("/api/XML_JSON/Post", "application/json", req, HttpStatusCode.OK);
             Assert.IsNotNull(res);
@@ -242,11 +255,14 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PatchTypeParamWithExpectedStatus()
         {
-            ProductJson p = new ProductJson();
-            p.Category = "ff";
-            p.Id = 4;
-            p.Name = "ff";
-            p.Price = 3.25f;
+            ProductJson p = new ProductJson
+            {
+                Category = "ff",
+                Id = 4,
+                Name = "ff",
+                Price = 3.25f
+            };
+
             var req = WebServiceUtils.MakeStringContent<ProductJson>(p, Encoding.UTF8, "application/json");
             var res = this.WebServiceDriver.Patch<ProductJson>("/api/XML_JSON/Patch/1", "application/json", req, HttpStatusCode.OK);
             Assert.IsNotNull(res);
@@ -259,11 +275,14 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PatchWithExpectedStatus()
         {
-            ProductJson p = new ProductJson();
-            p.Category = "ff";
-            p.Id = 4;
-            p.Name = "ff";
-            p.Price = 3.25f;
+            ProductJson p = new ProductJson
+            {
+                Category = "ff",
+                Id = 4,
+                Name = "ff",
+                Price = 3.25f
+            };
+
             var req = WebServiceUtils.MakeStringContent<ProductJson>(p, Encoding.UTF8, "application/json");
             var res = this.WebServiceDriver.Patch("/api/XML_JSON/Patch/1", "application/json", req, HttpStatusCode.OK);
             Assert.IsNotNull(res);
@@ -276,11 +295,13 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PatchMoreParamsWithExpectedStatus()
         {
-            ProductJson p = new ProductJson();
-            p.Category = "ff";
-            p.Id = 4;
-            p.Name = "ff";
-            p.Price = 3.25f;
+            ProductJson p = new ProductJson
+            {
+                Category = "ff",
+                Id = 4,
+                Name = "ff",
+                Price = 3.25f
+            };
 
             var res = this.WebServiceDriver.Patch("/api/XML_JSON/Patch/1", "application/json", JsonConvert.SerializeObject(p), Encoding.UTF8, "application/json", HttpStatusCode.OK, true);
             Assert.IsNotNull(res);
@@ -293,11 +314,13 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PatchMoreParamsWithResponseWithExpectedStatus()
         {
-            ProductJson p = new ProductJson();
-            p.Category = "ff";
-            p.Id = 4;
-            p.Name = "ff";
-            p.Price = 3.25f;
+            ProductJson p = new ProductJson
+            {
+                Category = "ff",
+                Id = 4,
+                Name = "ff",
+                Price = 3.25f
+            };
 
             var res = this.WebServiceDriver.PatchWithResponse("/api/XML_JSON/Patch/1", "application/json", JsonConvert.SerializeObject(p), Encoding.UTF8, "application/json", HttpStatusCode.OK, true);
             Assert.IsNotNull(res);
@@ -310,11 +333,14 @@ namespace WebServiceTesterUnitTesting
         [TestCategory(TestCategories.WebService)]
         public void PatchWithResponseWithExpectedStatus()
         {
-            ProductJson p = new ProductJson();
-            p.Category = "ff";
-            p.Id = 4;
-            p.Name = "ff";
-            p.Price = 3.25f;
+            ProductJson p = new ProductJson
+            {
+                Category = "ff",
+                Id = 4,
+                Name = "ff",
+                Price = 3.25f
+            };
+
             var req = WebServiceUtils.MakeStringContent<ProductJson>(p, Encoding.UTF8, "application/json");
             var res = this.WebServiceDriver.PatchWithResponse("/api/XML_JSON/Patch/1", "application/json", req, HttpStatusCode.OK);
             Assert.IsNotNull(res);

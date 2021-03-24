@@ -130,7 +130,7 @@ namespace Magenic.Maqs.BaseEmailTest
                 case "NO":
                     return false;
                 default:
-                    throw new ArgumentException(StringProcessor.SafeFormatter(key + " value '{0}' is not a valid option", Config.GetValueForSection(ConfigSection.EmailMaqs, key, defaultValue)));
+                    throw new ArgumentException(StringProcessor.SafeFormatter( $" value '{key}' is not a valid option", Config.GetValueForSection(ConfigSection.EmailMaqs, key, defaultValue)));
             }
         }
     }
