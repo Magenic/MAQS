@@ -156,11 +156,11 @@ namespace Magenic.Maqs.BaseMongoTest
         {
             try
             {
-                this.OnEvent(StringProcessor.SafeFormatter("Performing {0}.", actionType));
+                this.OnEvent(StringProcessor.SafeFormatter($"Performing {actionType}."));
             }
             catch (Exception e)
             {
-                this.OnErrorEvent(StringProcessor.SafeFormatter("Failed to log event because: {0}", e.ToString()));
+                this.OnErrorEvent(StringProcessor.SafeFormatter($"Failed to log event because: {e.ToString()}"));
             }
         }
 
@@ -170,7 +170,7 @@ namespace Magenic.Maqs.BaseMongoTest
         /// <param name="e">The exception</param>
         private void RaiseErrorMessage(Exception e)
         {
-            this.OnErrorEvent(StringProcessor.SafeFormatter("Failed because: {0}{1}{2}", e.Message, Environment.NewLine, e.ToString()));
+            this.OnErrorEvent(StringProcessor.SafeFormatter($"Failed because: {e.Message}{Environment.NewLine}{e.ToString()}"));
         }
     }
 }
