@@ -88,8 +88,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The response deserialized as - <typeparamref name="T"/></returns>
         public T Get<T>(string requestUri, string expectedMediaType, bool expectSuccess = true)
         {
-            HttpResponseMessage response = this.CallWithResponse(WebServiceVerb.Get, requestUri, expectedMediaType, expectSuccess);
-            return WebServiceUtils.DeserializeResponse<T>(response, this.supportedFormatters);
+            return Send<T>(this.CreateRequest(WebServiceVerb.Get, requestUri), expectedMediaType, expectSuccess);
         }
 
         /// <summary>
@@ -102,8 +101,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The response deserialized as - <typeparamref name="T"/></returns>
         public T Get<T>(string requestUri, string expectedMediaType, HttpStatusCode expectedStatus)
         {
-            HttpResponseMessage response = this.CallWithResponse(WebServiceVerb.Get, requestUri, expectedMediaType, expectedStatus);
-            return WebServiceUtils.DeserializeResponse<T>(response, this.supportedFormatters);
+            return Send<T>(this.CreateRequest(WebServiceVerb.Get, requestUri), expectedMediaType, expectedStatus);
         }
 
         /// <summary>
@@ -115,8 +113,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The response content as a string</returns>
         public string Get(string requestUri, string expectedMediaType, bool expectSuccess = true)
         {
-            HttpResponseMessage response = this.CallWithResponse(WebServiceVerb.Get, requestUri, expectedMediaType, expectSuccess);
-            return response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            return Send(this.CreateRequest(WebServiceVerb.Get, requestUri), expectedMediaType, expectSuccess);
         }
 
         /// <summary>
@@ -128,8 +125,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The response content as a string</returns>
         public string Get(string requestUri, string expectedMediaType, HttpStatusCode expectedStatus)
         {
-            HttpResponseMessage response = this.CallWithResponse(WebServiceVerb.Get, requestUri, expectedMediaType, expectedStatus);
-            return response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            return Send(this.CreateRequest(WebServiceVerb.Get, requestUri), expectedMediaType, expectedStatus);
         }
 
         /// <summary>
@@ -141,7 +137,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The http response message</returns>
         public HttpResponseMessage GetWithResponse(string requestUri, string expectedMediaType, bool expectSuccess = true)
         {
-            return this.CallWithResponse(WebServiceVerb.Get, requestUri, expectedMediaType, expectSuccess);
+            return SendWithResponse(this.CreateRequest(WebServiceVerb.Get, requestUri), expectedMediaType, expectSuccess);
         }
 
         /// <summary>
@@ -153,7 +149,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The http response message</returns>
         public HttpResponseMessage GetWithResponse(string requestUri, string expectedMediaType, HttpStatusCode expectedStatus)
         {
-            return this.CallWithResponse(WebServiceVerb.Get, requestUri, expectedMediaType, expectedStatus);
+            return SendWithResponse(this.CreateRequest(WebServiceVerb.Get, requestUri), expectedMediaType, expectedStatus);
         }
 
         /// <summary>
@@ -167,8 +163,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The response deserialized as - <typeparamref name="T"/></returns>
         public T Post<T>(string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
         {
-            HttpResponseMessage response = this.CustomWithResponse(WebServiceVerb.Post, requestUri, expectedMediaType, content, expectSuccess);
-            return WebServiceUtils.DeserializeResponse<T>(response, this.supportedFormatters);
+            return Send<T>(this.CreateRequest(WebServiceVerb.Post, requestUri, content), expectedMediaType, expectSuccess);
         }
 
         /// <summary>
@@ -182,8 +177,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The response deserialized as - <typeparamref name="T"/></returns>
         public T Post<T>(string requestUri, string expectedMediaType, HttpContent content, HttpStatusCode expectedStatus)
         {
-            HttpResponseMessage response = this.CustomWithResponse(WebServiceVerb.Post, requestUri, expectedMediaType, content, expectedStatus);
-            return WebServiceUtils.DeserializeResponse<T>(response, this.supportedFormatters);
+            return Send<T>(this.CreateRequest(WebServiceVerb.Post, requestUri, content), expectedMediaType, expectedStatus);
         }
 
         /// <summary>
@@ -196,8 +190,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The response body as a string</returns>
         public string Post(string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
         {
-            HttpResponseMessage response = this.CustomWithResponse(WebServiceVerb.Post, requestUri, expectedMediaType, content, expectSuccess);
-            return response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            return Send(this.CreateRequest(WebServiceVerb.Post, requestUri, content), expectedMediaType, expectSuccess);
         }
 
         /// <summary>
@@ -210,8 +203,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The response body as a string</returns>
         public string Post(string requestUri, string expectedMediaType, HttpContent content, HttpStatusCode expectedStatus)
         {
-            HttpResponseMessage response = this.CustomWithResponse(WebServiceVerb.Post, requestUri, expectedMediaType, content, expectedStatus);
-            return response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            return Send(this.CreateRequest(WebServiceVerb.Post, requestUri, content), expectedMediaType, expectedStatus);
         }
 
         /// <summary>
@@ -227,8 +219,8 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The response body as a string</returns>
         public string Post(string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, bool contentAsString = true, bool expectSuccess = true)
         {
-            HttpResponseMessage response = this.CustomWithResponse(WebServiceVerb.Post, requestUri, expectedMediaType, content, contentEncoding, postMediaType, contentAsString, expectSuccess);
-            return response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            HttpContent httpContent = CreateContent(content, contentEncoding, postMediaType, contentAsString);
+            return Send(this.CreateRequest(WebServiceVerb.Post, requestUri, httpContent), expectedMediaType, expectSuccess);
         }
 
         /// <summary>
@@ -244,8 +236,8 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The response body as a string</returns>
         public string Post(string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, HttpStatusCode expectedStatus, bool contentAsString = true)
         {
-            HttpResponseMessage response = this.CustomWithResponse(WebServiceVerb.Post, requestUri, expectedMediaType, content, contentEncoding, postMediaType, expectedStatus, contentAsString);
-            return response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            HttpContent httpContent = CreateContent(content, contentEncoding, postMediaType, contentAsString);
+            return Send(this.CreateRequest(WebServiceVerb.Post, requestUri, httpContent), expectedMediaType, expectedStatus);
         }
 
         /// <summary>
@@ -262,7 +254,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         public HttpResponseMessage PostWithResponse(string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, bool contentAsString = true, bool expectSuccess = true)
         {
             HttpContent httpContent = CreateContent(content, contentEncoding, postMediaType, contentAsString);
-            return this.CustomWithResponse(WebServiceVerb.Post, requestUri, expectedMediaType, httpContent, expectSuccess);
+            return SendWithResponse(this.CreateRequest(WebServiceVerb.Post, requestUri, httpContent), expectedMediaType, expectSuccess);
         }
 
         /// <summary>
@@ -279,7 +271,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         public HttpResponseMessage PostWithResponse(string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, HttpStatusCode expectedStatus, bool contentAsString = true)
         {
             HttpContent httpContent = CreateContent(content, contentEncoding, postMediaType, contentAsString);
-            return this.CustomWithResponse(WebServiceVerb.Post, requestUri, expectedMediaType, httpContent, expectedStatus);
+            return SendWithResponse(this.CreateRequest(WebServiceVerb.Post, requestUri, httpContent), expectedMediaType, expectedStatus);
         }
 
         /// <summary>
@@ -292,7 +284,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The http response message</returns>
         public HttpResponseMessage PostWithResponse(string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
         {
-            return this.CallContentWithResponse(WebServiceVerb.Post, requestUri, expectedMediaType, content, expectSuccess);
+            return SendWithResponse(this.CreateRequest(WebServiceVerb.Post, requestUri, content), expectedMediaType, expectSuccess);
         }
 
         /// <summary>
@@ -305,7 +297,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The http response message</returns>
         public HttpResponseMessage PostWithResponse(string requestUri, string expectedMediaType, HttpContent content, HttpStatusCode expectedStatus)
         {
-            return this.CallContentWithResponse(WebServiceVerb.Post, requestUri, expectedMediaType, content, expectedStatus);
+            return SendWithResponse(this.CreateRequest(WebServiceVerb.Post, requestUri, content), expectedMediaType, expectedStatus);
         }
 
         /// <summary>
@@ -319,8 +311,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The response deserialized as - <typeparamref name="T"/></returns>
         public T Put<T>(string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
         {
-            HttpResponseMessage response = this.CustomWithResponse(WebServiceVerb.Put, requestUri, expectedMediaType, content, expectSuccess);
-            return WebServiceUtils.DeserializeResponse<T>(response, this.supportedFormatters);
+            return Send<T>(this.CreateRequest(WebServiceVerb.Put, requestUri, content), expectedMediaType, expectSuccess);
         }
 
         /// <summary>
@@ -334,8 +325,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The response deserialized as - <typeparamref name="T"/></returns>
         public T Put<T>(string requestUri, string expectedMediaType, HttpContent content, HttpStatusCode expectedStatus)
         {
-            HttpResponseMessage response = this.CustomWithResponse(WebServiceVerb.Put, requestUri, expectedMediaType, content, expectedStatus);
-            return WebServiceUtils.DeserializeResponse<T>(response, this.supportedFormatters);
+            return Send<T>(this.CreateRequest(WebServiceVerb.Put, requestUri, content), expectedMediaType, expectedStatus);
         }
 
         /// <summary>
@@ -348,8 +338,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The response body as a string</returns>
         public string Put(string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
         {
-            HttpResponseMessage response = this.CustomWithResponse(WebServiceVerb.Put, requestUri, expectedMediaType, content, expectSuccess);
-            return response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            return Send(this.CreateRequest(WebServiceVerb.Put, requestUri, content), expectedMediaType, expectSuccess);
         }
 
         /// <summary>
@@ -362,8 +351,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The response body as a string</returns>
         public string Put(string requestUri, string expectedMediaType, HttpContent content, HttpStatusCode expectedStatus)
         {
-            HttpResponseMessage response = this.CustomWithResponse(WebServiceVerb.Put, requestUri, expectedMediaType, content, expectedStatus);
-            return response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            return Send(this.CreateRequest(WebServiceVerb.Put, requestUri, content), expectedMediaType, expectedStatus);
         }
 
         /// <summary>
@@ -379,8 +367,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The response body as a string</returns>
         public string Put(string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, bool contentAsString = true, bool expectSuccess = true)
         {
-            HttpResponseMessage response = this.CustomWithResponse(WebServiceVerb.Put, requestUri, expectedMediaType, content, contentEncoding, postMediaType, contentAsString, expectSuccess);
-            return response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            return this.Custom(WebServiceVerb.Put, requestUri, expectedMediaType, content, contentEncoding, postMediaType, contentAsString, expectSuccess);
         }
 
         /// <summary>
@@ -396,8 +383,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The response body as a string</returns>
         public string Put(string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, HttpStatusCode expectedStatus, bool contentAsString = true)
         {
-            HttpResponseMessage response = this.CustomWithResponse(WebServiceVerb.Put, requestUri, expectedMediaType, content, contentEncoding, postMediaType, expectedStatus, contentAsString);
-            return response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            return this.Custom(WebServiceVerb.Put, requestUri, expectedMediaType, content, contentEncoding, postMediaType, expectedStatus, contentAsString);
         }
 
         /// <summary>
@@ -414,7 +400,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         public HttpResponseMessage PutWithResponse(string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, bool contentAsString = true, bool expectSuccess = true)
         {
             HttpContent httpContent = CreateContent(content, contentEncoding, postMediaType, contentAsString);
-            return this.CustomWithResponse(WebServiceVerb.Put, requestUri, expectedMediaType, httpContent, expectSuccess);
+            return SendWithResponse(this.CreateRequest(WebServiceVerb.Put, requestUri, httpContent), expectedMediaType, expectSuccess);
         }
 
         /// <summary>
@@ -431,7 +417,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         public HttpResponseMessage PutWithResponse(string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, HttpStatusCode expectedStatus, bool contentAsString = true)
         {
             HttpContent httpContent = CreateContent(content, contentEncoding, postMediaType, contentAsString);
-            return this.CustomWithResponse(WebServiceVerb.Put, requestUri, expectedMediaType, httpContent, expectedStatus);
+            return SendWithResponse(this.CreateRequest(WebServiceVerb.Put, requestUri, httpContent), expectedMediaType, expectedStatus);
         }
 
         /// <summary>
@@ -444,7 +430,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The http response message</returns>
         public HttpResponseMessage PutWithResponse(string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
         {
-            return this.CallContentWithResponse(WebServiceVerb.Put, requestUri, expectedMediaType, content, expectSuccess);
+            return SendWithResponse(this.CreateRequest(WebServiceVerb.Put, requestUri, content), expectedMediaType, expectSuccess);
         }
 
         /// <summary>
@@ -457,7 +443,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The http response message</returns>
         public HttpResponseMessage PutWithResponse(string requestUri, string expectedMediaType, HttpContent content, HttpStatusCode expectedStatus)
         {
-            return this.CallContentWithResponse(WebServiceVerb.Put, requestUri, expectedMediaType, content, expectedStatus);
+            return SendWithResponse(this.CreateRequest(WebServiceVerb.Put, requestUri, content), expectedMediaType, expectedStatus);
         }
 
         /// <summary>
@@ -471,8 +457,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The response deserialized as - <typeparamref name="T"/></returns>
         public T Patch<T>(string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
         {
-            HttpResponseMessage response = this.CustomWithResponse(WebServiceVerb.Patch, requestUri, expectedMediaType, content, expectSuccess);
-            return WebServiceUtils.DeserializeResponse<T>(response, this.supportedFormatters);
+            return Send<T>(this.CreateRequest(WebServiceVerb.Patch, requestUri, content), expectedMediaType, expectSuccess);
         }
 
         /// <summary>
@@ -486,8 +471,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The response deserialized as - <typeparamref name="T"/></returns>
         public T Patch<T>(string requestUri, string expectedMediaType, HttpContent content, HttpStatusCode expectedStatus)
         {
-            HttpResponseMessage response = this.CustomWithResponse(WebServiceVerb.Patch, requestUri, expectedMediaType, content, expectedStatus);
-            return WebServiceUtils.DeserializeResponse<T>(response, this.supportedFormatters);
+            return Send<T>(this.CreateRequest(WebServiceVerb.Patch, requestUri, content), expectedMediaType, expectedStatus);
         }
 
         /// <summary>
@@ -500,8 +484,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The response body as a string</returns>
         public string Patch(string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
         {
-            HttpResponseMessage response = this.CustomWithResponse(WebServiceVerb.Patch, requestUri, expectedMediaType, content, expectSuccess);
-            return response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            return Send(this.CreateRequest(WebServiceVerb.Patch, requestUri, content), expectedMediaType, expectSuccess);
         }
 
         /// <summary>
@@ -514,8 +497,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The response body as a string</returns>
         public string Patch(string requestUri, string expectedMediaType, HttpContent content, HttpStatusCode expectedStatus)
         {
-            HttpResponseMessage response = this.CustomWithResponse(WebServiceVerb.Patch, requestUri, expectedMediaType, content, expectedStatus);
-            return response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            return Send(this.CreateRequest(WebServiceVerb.Patch, requestUri, content), expectedMediaType, expectedStatus);
         }
 
         /// <summary>
@@ -531,8 +513,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The response body as a string</returns>
         public string Patch(string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, bool contentAsString = true, bool expectSuccess = true)
         {
-            HttpResponseMessage response = this.CustomWithResponse(WebServiceVerb.Patch, requestUri, expectedMediaType, content, contentEncoding, postMediaType, contentAsString, expectSuccess);
-            return response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            return this.Custom(WebServiceVerb.Patch, requestUri, expectedMediaType, content, contentEncoding, postMediaType, contentAsString, expectSuccess);
         }
 
         /// <summary>
@@ -548,8 +529,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The response body as a string</returns>
         public string Patch(string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, HttpStatusCode expectedStatus, bool contentAsString = true)
         {
-            HttpResponseMessage response = this.CustomWithResponse(WebServiceVerb.Patch, requestUri, expectedMediaType, content, contentEncoding, postMediaType, expectedStatus, contentAsString);
-            return response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            return this.Custom(WebServiceVerb.Patch, requestUri, expectedMediaType, content, contentEncoding, postMediaType, expectedStatus, contentAsString);
         }
 
         /// <summary>
@@ -566,7 +546,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         public HttpResponseMessage PatchWithResponse(string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, bool contentAsString = true, bool expectSuccess = true)
         {
             HttpContent httpContent = CreateContent(content, contentEncoding, postMediaType, contentAsString);
-            return this.CustomWithResponse(WebServiceVerb.Patch, requestUri, expectedMediaType, httpContent, expectSuccess);
+            return SendWithResponse(this.CreateRequest(WebServiceVerb.Patch, requestUri, httpContent), expectedMediaType, expectSuccess);
         }
 
         /// <summary>
@@ -583,7 +563,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         public HttpResponseMessage PatchWithResponse(string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, HttpStatusCode expectedStatus, bool contentAsString = true)
         {
             HttpContent httpContent = CreateContent(content, contentEncoding, postMediaType, contentAsString);
-            return this.CustomWithResponse(WebServiceVerb.Patch, requestUri, expectedMediaType, httpContent, expectedStatus);
+            return SendWithResponse(this.CreateRequest(WebServiceVerb.Patch, requestUri, httpContent), expectedMediaType, expectedStatus);
         }
 
         /// <summary>
@@ -596,7 +576,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The http response message</returns>
         public HttpResponseMessage PatchWithResponse(string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
         {
-            return this.CallContentWithResponse(WebServiceVerb.Patch, requestUri, expectedMediaType, content, expectSuccess);
+            return SendWithResponse(this.CreateRequest(WebServiceVerb.Patch, requestUri, content), expectedMediaType, expectSuccess);
         }
 
         /// <summary>
@@ -609,7 +589,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The http response message</returns>
         public HttpResponseMessage PatchWithResponse(string requestUri, string expectedMediaType, HttpContent content, HttpStatusCode expectedStatus)
         {
-            return this.CallContentWithResponse(WebServiceVerb.Patch, requestUri, expectedMediaType, content, expectedStatus);
+            return SendWithResponse(this.CreateRequest(WebServiceVerb.Patch, requestUri, content), expectedMediaType, expectedStatus);
         }
 
         /// <summary>
@@ -622,8 +602,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The response by deserialized as the <typeparamref name="T"/></returns>
         public T Delete<T>(string requestUri, string expectedMediaType, bool expectSuccess = true)
         {
-            HttpResponseMessage response = this.CallWithResponse(WebServiceVerb.Delete, requestUri, expectedMediaType, expectSuccess);
-            return WebServiceUtils.DeserializeResponse<T>(response, this.supportedFormatters);
+            return Send<T>(this.CreateRequest(WebServiceVerb.Delete, requestUri), expectedMediaType, expectSuccess);
         }
 
         /// <summary>
@@ -636,8 +615,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The response by deserialized as the <typeparamref name="T"/></returns>
         public T Delete<T>(string requestUri, string expectedMediaType, HttpStatusCode expectedStatus)
         {
-            HttpResponseMessage response = this.CallWithResponse(WebServiceVerb.Delete, requestUri, expectedMediaType, expectedStatus);
-            return WebServiceUtils.DeserializeResponse<T>(response, this.supportedFormatters);
+            return Send<T>(this.CreateRequest(WebServiceVerb.Delete, requestUri), expectedMediaType, expectedStatus);
         }
 
         /// <summary>
@@ -649,8 +627,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The response as a string</returns>
         public string Delete(string requestUri, string expectedMediaType, bool expectSuccess = true)
         {
-            HttpResponseMessage response = this.CallWithResponse(WebServiceVerb.Delete, requestUri, expectedMediaType, expectSuccess);
-            return response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            return Send(this.CreateRequest(WebServiceVerb.Delete, requestUri), expectedMediaType, expectSuccess);
         }
 
         /// <summary>
@@ -662,8 +639,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The response as a string</returns>
         public string Delete(string requestUri, string expectedMediaType, HttpStatusCode expectedStatus)
         {
-            HttpResponseMessage response = this.DeleteWithResponse(requestUri, expectedMediaType, expectedStatus);
-            return response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            return Send(this.CreateRequest(WebServiceVerb.Delete, requestUri), expectedMediaType, expectedStatus);
         }
 
         /// <summary>
@@ -675,7 +651,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The http response message</returns>
         public HttpResponseMessage DeleteWithResponse(string requestUri, string expectedMediaType, bool expectSuccess = true)
         {
-            return this.CallWithResponse(WebServiceVerb.Delete, requestUri, expectedMediaType, expectSuccess);
+            return SendWithResponse(this.CreateRequest(WebServiceVerb.Delete, requestUri), expectedMediaType, expectSuccess);
         }
 
         /// <summary>
@@ -687,7 +663,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The http response message</returns>
         public HttpResponseMessage DeleteWithResponse(string requestUri, string expectedMediaType, HttpStatusCode expectedStatus)
         {
-            return this.CallWithResponse(WebServiceVerb.Delete, requestUri, expectedMediaType, expectedStatus);
+            return SendWithResponse(this.CreateRequest(WebServiceVerb.Delete, requestUri), expectedMediaType, expectedStatus);
         }
 
         /// <summary>
@@ -702,8 +678,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>HTTP response message</returns>
         public T Custom<T>(string customType, string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
         {
-            HttpResponseMessage response = this.CustomWithResponse(customType, requestUri, expectedMediaType, content, expectSuccess);
-            return WebServiceUtils.DeserializeResponse<T>(response, this.supportedFormatters);
+            return Send<T>(this.CreateRequest(customType, requestUri, content), expectedMediaType, expectSuccess);
         }
 
         /// <summary>
@@ -718,8 +693,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>HTTP response message</returns>
         public T Custom<T>(string customType, string requestUri, string expectedMediaType, HttpContent content, HttpStatusCode expectedStatus)
         {
-            HttpResponseMessage response = this.CustomWithResponse(customType, requestUri, expectedMediaType, content, expectedStatus);
-            return WebServiceUtils.DeserializeResponse<T>(response, this.supportedFormatters);
+            return Send<T>(this.CreateRequest(customType, requestUri, content), expectedMediaType, expectedStatus);
         }
 
         /// <summary>
@@ -733,8 +707,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The HTTP response message</returns>
         public string Custom(string customType, string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
         {
-            HttpResponseMessage response = this.CustomWithResponse(customType, requestUri, expectedMediaType, content, expectSuccess);
-            return response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            return Send(this.CreateRequest(customType, requestUri, content), expectedMediaType, expectSuccess);
         }
 
         /// <summary>
@@ -748,8 +721,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The HTTP response message</returns>
         public string Custom(string customType, string requestUri, string expectedMediaType, HttpContent content, HttpStatusCode expectedStatus)
         {
-            HttpResponseMessage response = this.CustomWithResponse(customType, requestUri, expectedMediaType, content, expectedStatus);
-            return response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            return Send(this.CreateRequest(customType, requestUri, content), expectedMediaType, expectedStatus);
         }
 
         /// <summary>
@@ -803,7 +775,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         public HttpResponseMessage CustomWithResponse(string customType, string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, bool contentAsString = true, bool expectSuccess = true)
         {
             HttpContent httpContent = CreateContent(content, contentEncoding, postMediaType, contentAsString);
-            return this.CustomWithResponse(customType, requestUri, expectedMediaType, httpContent, expectSuccess);
+            return SendWithResponse(this.CreateRequest(customType, requestUri, httpContent), expectedMediaType, expectSuccess);
         }
 
         /// <summary>
@@ -821,7 +793,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         public HttpResponseMessage CustomWithResponse(string customType, string requestUri, string expectedMediaType, string content, Encoding contentEncoding, string postMediaType, HttpStatusCode expectedStatus, bool contentAsString = true)
         {
             HttpContent httpContent = CreateContent(content, contentEncoding, postMediaType, contentAsString);
-            return this.CustomWithResponse(customType, requestUri, expectedMediaType, httpContent, expectedStatus);
+            return SendWithResponse(this.CreateRequest(customType, requestUri, httpContent), expectedMediaType, expectedStatus);
         }
 
         /// <summary>
@@ -835,7 +807,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The HTTP response message</returns>
         public HttpResponseMessage CustomWithResponse(string customType, string requestUri, string expectedMediaType, HttpContent content, bool expectSuccess = true)
         {
-            return this.CallContentWithResponse(customType, requestUri, expectedMediaType, content, expectSuccess);
+            return SendWithResponse(this.CreateRequest(customType, requestUri, content), expectedMediaType, expectSuccess);
         }
 
         /// <summary>
@@ -849,79 +821,74 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>The HTTP response message</returns>
         public HttpResponseMessage CustomWithResponse(string customType, string requestUri, string expectedMediaType, HttpContent content, HttpStatusCode expectedStatus)
         {
-            return this.CallContentWithResponse(customType, requestUri, expectedMediaType, content, expectedStatus);
+            return SendWithResponse(this.CreateRequest(customType, requestUri, content), expectedMediaType, expectedStatus);
         }
 
         /// <summary>
-        /// Execute a web service call 
+        /// Execute a web service send with a web request
         /// </summary>
-        /// <param name="methodVerb">The HTTP verb</param>
-        /// <param name="requestUri">The requested URI</param>
-        /// <param name="expectedMediaType">The expected media type</param>
+        /// <param name="httpRequestMessage">The request message</param>
         /// <param name="expectSuccess">Assert a success code was returned</param>
-        /// <returns>The HTTP response message</returns>
-        protected virtual HttpResponseMessage CallWithResponse(string methodVerb, string requestUri, string expectedMediaType, bool expectSuccess = true)
+        /// <returns>The HTTP Response message</returns>
+        public string Send(HttpRequestMessage httpRequestMessage, string expectedMediaType, bool expectSuccess = true)
         {
-            return this.Call(methodVerb, requestUri, expectedMediaType, expectSuccess);
+            HttpResponseMessage response = this.SendWithResponse(httpRequestMessage, expectedMediaType, expectSuccess);
+            return response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
         }
 
         /// <summary>
-        /// Execute a web service call 
+        /// Execute a web service send with a web request
         /// </summary>
-        /// <param name="methodVerb">The HTTP verb</param>
-        /// <param name="requestUri">The requested URI</param>
-        /// <param name="expectedMediaType">The expected media type</param>
+        /// <param name="httpRequestMessage">The request message</param>
         /// <param name="expectedStatus">Assert a specific status code was returned</param>
-        /// <returns>The HTTP response message</returns>
-        protected virtual HttpResponseMessage CallWithResponse(string methodVerb, string requestUri, string expectedMediaType, HttpStatusCode expectedStatus)
+        /// <returns>The HTTP Response message</returns>
+        public string Send(HttpRequestMessage httpRequestMessage, string expectedMediaType, HttpStatusCode expectedStatus)
         {
-            return this.Call(methodVerb, requestUri, expectedMediaType, expectedStatus);
+            HttpResponseMessage response = this.SendWithResponse(httpRequestMessage, expectedMediaType, expectedStatus);
+            return response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
         }
 
         /// <summary>
-        /// Execute a web service call 
+        /// Execute a web service send with a web request
         /// </summary>
-        /// <param name="methodVerb">The HTTP verb</param>
-        /// <param name="requestUri">The requested URI</param>
-        /// <param name="responseMediaType">The response media type</param>
-        /// <param name="content">The content</param>
+        /// <typeparam name="T">The expected response type</typeparam>
+        /// <param name="httpRequestMessage">The request message</param>
+        /// <param name="expectedMediaType">The type of media you are expecting back</param>
         /// <param name="expectSuccess">Assert a success code was returned</param>
-        /// <returns>The HTTP response message</returns>
-        protected virtual HttpResponseMessage CallContentWithResponse(string methodVerb, string requestUri, string responseMediaType, HttpContent content, bool expectSuccess = true)
+        /// <returns>The response deserialized as - <typeparamref name="T"/></returns>
+        public T Send<T>(HttpRequestMessage httpRequestMessage, string expectedMediaType, bool expectSuccess = true)
         {
-            return this.CallWithContent(methodVerb, requestUri, responseMediaType, content, expectSuccess);
+            HttpResponseMessage response = this.SendWithResponse(httpRequestMessage, expectedMediaType, expectSuccess);
+            return WebServiceUtils.DeserializeResponse<T>(response, this.supportedFormatters);
         }
 
         /// <summary>
-        /// Execute a web service call 
+        /// Execute a web service send with a web request
         /// </summary>
-        /// <param name="methodVerb">The HTTP verb</param>
-        /// <param name="requestUri">The requested URI</param>
-        /// <param name="responseMediaType">The response media type</param>
-        /// <param name="content">The content</param>
+        /// <typeparam name="T">The expected response type</typeparam>
+        /// <param name="httpRequestMessage">The request message</param>
+        /// <param name="expectedMediaType">The type of media you are expecting back</param>
         /// <param name="expectedStatus">Assert a specific status code was returned</param>
-        /// <returns>The HTTP response message</returns>
-        protected virtual HttpResponseMessage CallContentWithResponse(string methodVerb, string requestUri, string responseMediaType, HttpContent content, HttpStatusCode expectedStatus)
+        /// <returns>The response deserialized as - <typeparamref name="T"/></returns>
+        public T Send<T>(HttpRequestMessage httpRequestMessage, string expectedMediaType, HttpStatusCode expectedStatus)
         {
-            return this.CallWithContent(methodVerb, requestUri, responseMediaType, content, expectedStatus);
+            HttpResponseMessage response = this.SendWithResponse(httpRequestMessage, expectedMediaType, expectedStatus);
+            return WebServiceUtils.DeserializeResponse<T>(response, this.supportedFormatters);
         }
 
         /// <summary>
-        /// Do a web service call with the given verb and return type
+        /// Execute a web service send with a web request
         /// </summary>
-        /// <param name="methodVerb">The HTTP request verb to be used</param>
-        /// <param name="requestUri">The request URI</param>
-        /// <param name="returnMediaType">The expected response type</param>
+        /// <param name="httpRequestMessage">The request message</param>
+        /// <param name="expectedMediaType">The type of media you are expecting back</param>
         /// <param name="expectSuccess">Assert a success code was returned</param>
-        /// <returns>The HTTP response message</returns>
-        private HttpResponseMessage Call(string methodVerb, string requestUri, string returnMediaType, bool expectSuccess = true)
+        /// <returns>A reponse message</returns>
+        public virtual HttpResponseMessage SendWithResponse(HttpRequestMessage httpRequestMessage, string expectedMediaType, bool expectSuccess = true)
         {
-            HttpMethod method = new HttpMethod(methodVerb);
+            // Make sure the Http client accepts the requested media tyoe
+            this.AddAcceptIfNotPresent(expectedMediaType);
 
-            HttpRequestMessage message = new HttpRequestMessage(method, requestUri);
-
-            this.AddAcceptIfNotPresent(returnMediaType);
-            HttpResponseMessage response = SendAsync(message).GetAwaiter().GetResult();
+            HttpResponseMessage response = SendAsync(httpRequestMessage).GetAwaiter().GetResult();
 
             if (expectSuccess)
             {
@@ -932,77 +899,18 @@ namespace Magenic.Maqs.BaseWebServiceTest
         }
 
         /// <summary>
-        /// Do a web service call with the given verb and return type
+        /// Execute a web service send with a web request
         /// </summary>
-        /// <param name="methodVerb">The HTTP request verb to be used</param>
-        /// <param name="requestUri">The request URI</param>
-        /// <param name="returnMediaType">The expected response type</param>
+        /// <param name="httpRequestMessage">The request message</param>
+        /// <param name="expectedMediaType">The type of media you are expecting back</param>
         /// <param name="expectedStatus">Assert a specific status code was returned</param>
-        /// <returns>The HTTP response message</returns>
-        private HttpResponseMessage Call(string methodVerb, string requestUri, string returnMediaType, HttpStatusCode expectedStatus)
+        /// <returns>A reponse message</returns>
+        public virtual HttpResponseMessage SendWithResponse(HttpRequestMessage httpRequestMessage, string expectedMediaType, HttpStatusCode expectedStatus)
         {
-            HttpMethod method = new HttpMethod(methodVerb);
+            // Make sure the Http client accepts the requested media tyoe
+            this.AddAcceptIfNotPresent(expectedMediaType);
 
-            HttpRequestMessage message = new HttpRequestMessage(method, requestUri);
-
-            this.AddAcceptIfNotPresent(returnMediaType);
-            HttpResponseMessage response = SendAsync(message).GetAwaiter().GetResult();
-
-            // We check for specific status
-            EnsureStatusCodesMatch(response, expectedStatus);
-
-            return response;
-        }
-
-        /// <summary>
-        /// Do a web service call with the given verb, content, and return type
-        /// </summary>
-        /// <param name="methodVerb">The HTTP request verb to be used</param>
-        /// <param name="requestUri">The request URI</param>
-        /// <param name="responseMediaType">The expected response type</param>
-        /// <param name="content">The content of the message</param>
-        /// <param name="expectSuccess">Assert a success code was returned</param>
-        /// <returns>The HTTP response message</returns>
-        private HttpResponseMessage CallWithContent(string methodVerb, string requestUri, string responseMediaType, HttpContent content, bool expectSuccess = true)
-        {
-            HttpMethod method = new HttpMethod(methodVerb);
-
-            HttpRequestMessage message = new HttpRequestMessage(method, requestUri)
-            {
-                Content = content
-            };
-
-            this.AddAcceptIfNotPresent(responseMediaType);
-            HttpResponseMessage response = SendAsync(message).GetAwaiter().GetResult();
-
-            if (expectSuccess)
-            {
-                EnsureSuccessStatusCode(response);
-            }
-
-            return response;
-        }
-
-        /// <summary>
-        /// Do a web service call with the given verb, content, and return type
-        /// </summary>
-        /// <param name="methodVerb">The HTTP request verb to be used</param>
-        /// <param name="requestUri">The request URI</param>
-        /// <param name="responseMediaType">The expected response type</param>
-        /// <param name="content">The content of the message</param>
-        /// <param name="expectedStatus">Assert a specific status code was returned</param>
-        /// <returns>The HTTP response message</returns>
-        private HttpResponseMessage CallWithContent(string methodVerb, string requestUri, string responseMediaType, HttpContent content, HttpStatusCode expectedStatus)
-        {
-            HttpMethod method = new HttpMethod(methodVerb);
-
-            HttpRequestMessage message = new HttpRequestMessage(method, requestUri)
-            {
-                Content = content
-            };
-
-            this.AddAcceptIfNotPresent(responseMediaType);
-            HttpResponseMessage response = SendAsync(message).GetAwaiter().GetResult();
+            HttpResponseMessage response = SendAsync(httpRequestMessage).GetAwaiter().GetResult();
 
             EnsureStatusCodesMatch(response, expectedStatus);
 
@@ -1032,6 +940,34 @@ namespace Magenic.Maqs.BaseWebServiceTest
                 // This was not a timeout
                 throw ex;
             }
+        }
+
+        /// <summary>
+        /// Create http request message
+        /// </summary>
+        /// <param name="methodVerb">The HTTP request verb</param>
+        /// <param name="requestUri">The requested URI</param>
+        /// <returns>A http request message</returns>
+        private HttpRequestMessage CreateRequest(string methodVerb, string requestUri)
+        {
+            HttpMethod method = new HttpMethod(methodVerb);
+            HttpRequestMessage message = new HttpRequestMessage(method, requestUri);
+
+            return message;
+        }
+
+        /// <summary>
+        /// Create http request message
+        /// </summary>
+        /// <param name="methodVerb">The HTTP request verb</param>
+        /// <param name="requestUri">The requested URI</param>
+        /// <param name="content">The content</param>
+        /// <returns>A http request message</returns>
+        private HttpRequestMessage CreateRequest(string methodVerb, string requestUri, HttpContent content)
+        {
+            HttpRequestMessage message = CreateRequest(methodVerb, requestUri);
+            message.Content = content;
+            return message;
         }
 
         /// <summary>
