@@ -828,6 +828,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// Execute a web service send with a web request
         /// </summary>
         /// <param name="httpRequestMessage">The request message</param>
+        /// <param name="expectedMediaType">The expected media type</param>
         /// <param name="expectSuccess">Assert a success code was returned</param>
         /// <returns>The HTTP Response message</returns>
         public string Send(HttpRequestMessage httpRequestMessage, string expectedMediaType, bool expectSuccess = true)
@@ -840,6 +841,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// Execute a web service send with a web request
         /// </summary>
         /// <param name="httpRequestMessage">The request message</param>
+        /// <param name="expectedMediaType">The expected media type</param>
         /// <param name="expectedStatus">Assert a specific status code was returned</param>
         /// <returns>The HTTP Response message</returns>
         public string Send(HttpRequestMessage httpRequestMessage, string expectedMediaType, HttpStatusCode expectedStatus)

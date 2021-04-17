@@ -168,6 +168,50 @@ namespace WebServiceTesterUnitTesting
         }
 
         /// <summary>
+        /// Verify null events are raised
+        /// </summary>
+        [TestMethod]
+        [DoNotParallelize]
+        [TestCategory(TestCategories.WebService)]
+        public void RaiseNullEvent()
+        {
+            OnEvent(null);
+        }
+
+        /// <summary>
+        /// Verify null action events are raised
+        /// </summary>
+        [TestMethod]
+        [DoNotParallelize]
+        [TestCategory(TestCategories.WebService)]
+        public void RaiseNullActionEvent()
+        {
+            OnActionEvent(null);
+        }
+
+        /// <summary>
+        /// Verify null error events are raised
+        /// </summary>
+        [TestMethod]
+        [DoNotParallelize]
+        [TestCategory(TestCategories.WebService)]
+        public void RaiseNullError()
+        {
+            OnErrorEvent(null);
+        }
+
+        /// <summary>
+        /// Verify null verbose events are raised
+        /// </summary>
+        [TestMethod]
+        [DoNotParallelize]
+        [TestCategory(TestCategories.WebService)]
+        public void RaiseNullVerbose()
+        {
+            OnVerboseEvent(null);
+        }
+
+        /// <summary>
         /// Test a single event is raised correctly
         /// </summary>
         /// <param name="sendMessage">The send event</param>

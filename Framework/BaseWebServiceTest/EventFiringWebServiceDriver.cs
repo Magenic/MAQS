@@ -67,7 +67,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="message">The event message</param>
         protected virtual void OnEvent(string message)
         {
-            WebServiceEvent?.Invoke(this, message.Trim());
+            WebServiceEvent?.Invoke(this, message?.Trim());
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="message">The event message</param>
         protected virtual void OnActionEvent(string message)
         {
-            WebServiceActionEvent?.Invoke(this, message.Trim());
+            WebServiceActionEvent?.Invoke(this, message?.Trim());
         }
 
         /// <summary>
@@ -85,16 +85,16 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="message">The event error message</param>
         protected virtual void OnErrorEvent(string message)
         {
-            WebServiceErrorEvent?.Invoke(this, message.Trim());
+            WebServiceErrorEvent?.Invoke(this, message?.Trim());
         }
 
-        /// <summary>
+        /// <summary>?
         /// Web service verbose event
         /// </summary>
         /// <param name="message">The event verbose message</param>
         protected virtual void OnVerboseEvent(string message)
         {
-            WebServiceVerboseEvent?.Invoke(this, message.Trim());
+            WebServiceVerboseEvent?.Invoke(this, message?.Trim());
         }
 
         /// <summary>

@@ -6,11 +6,14 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseWebServiceTest;
 using Magenic.Maqs.Utilities.Helper;
+using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using WebServiceTesterUnitTesting.Model;
 
 namespace WebServiceTesterUnitTesting
@@ -20,8 +23,36 @@ namespace WebServiceTesterUnitTesting
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
+    [DoNotParallelize]
     public class WebServiceWithDriverSend : BaseWebServiceTest
     {
+        /// <summary>
+        /// Old logging type
+        /// </summary>
+        private static string oldLoggingType;
+
+        /// <summary>
+        /// Make sure we are using a text logger
+        /// </summary>
+        /// <param name="context"></param>
+        [ClassInitialize]
+#pragma warning disable IDE0060 // Remove unused parameter
+        public static void ClassInitialize(TestContext context)
+#pragma warning restore IDE0060 // Remove unused parameter
+        {
+            oldLoggingType = Config.GetGeneralValue("LogType");
+            Config.AddGeneralTestSettingValues("LogType", "TXT", true);
+        }
+
+        /// <summary>
+        /// Restore old logger type
+        /// </summary>
+        [ClassCleanup]
+        public static void ClassCleanup()
+        {
+            Config.AddGeneralTestSettingValues("LogType", oldLoggingType, true);
+        }
+
         /// <summary>
         /// Send and verify status codes
         /// </summary>
@@ -64,20 +95,6 @@ namespace WebServiceTesterUnitTesting
         {
             var result = this.WebServiceDriver.Send(GetValidZedRequestMessageWithContent(), MediaType.PlainText, HttpStatusCode.OK);
             Assert.AreEqual("\"ZEDTest\"", result.ToString());
-        }
-
-
-        /// <summary>
-        /// Send and verify status codes
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.WebService)]
-        public void SendExpectedStatusCode2()
-        {
-HttpRequestMessage message = new HttpRequestMessage(new HttpMethod(WebServiceVerb.Get), "/api/XML_JSON/GetAllProducts");
-
-var result = this.WebServiceDriver.SendWithResponse(message, MediaType.PlainText);
-Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
 
         /// <summary>
@@ -133,7 +150,7 @@ Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
                 Content = WebServiceUtils.MakeStringContent("ZEDTest", Encoding.UTF8, "text/plain")
             };
         }
-        
+
 
         /// <summary>
         /// Get a valid request message without content
