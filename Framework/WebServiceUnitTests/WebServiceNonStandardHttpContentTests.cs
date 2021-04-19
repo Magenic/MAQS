@@ -21,14 +21,8 @@ namespace WebServiceTesterUnitTesting
     /// Test web service gets
     /// </summary>
     [TestClass]
-    [ExcludeFromCodeCoverage]
     public class WebServiceNonStandardHttpContentTests : BaseWebServiceTest
     {
-        /// <summary>
-        /// String to hold the URL
-        /// </summary>
-        private static readonly string Url = Config.GetGeneralValue("WebServiceUri");
-
         /// <summary>
         /// Verify the string status code
         /// </summary>
