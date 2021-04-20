@@ -95,18 +95,14 @@ namespace Magenic.Maqs.Utilities.Logging
                         using (StreamWriter writer = new StreamWriter(this.FilePath, true))
                         {
                             writer.Write(StringProcessor.SafeFormatter(
-                                "<div class='collapse col-12 show' data-logtype='{0}'><div class='card'><div class='card-body {1}'><h5 class='card-title mb-1'>{0}</h5><h6 class='card-subtitle mb-1'>{2}</h6><p class='card-text'>{3}</p></div></div></div>", 
-                                messageType.ToString(),
-                                GetTextWithColorFlag(messageType),
-                                date,
-                                HttpUtility.HtmlEncode(StringProcessor.SafeFormatter(message, args))));
+                                $"<div class='collapse col-12 show' data-logtype='{messageType.ToString()}'><div class='card'><div class='card-body {GetTextWithColorFlag(messageType)}'><h5 class='card-title mb-1'>{messageType.ToString()}</h5><h6 class='card-subtitle mb-1'>{date}</h6><p class='card-text'>{HttpUtility.HtmlEncode(StringProcessor.SafeFormatter(message, args))}</p></div></div></div>"));
                         }   
                     }
                     catch (Exception e)
                     {
                         // Failed to write to the event log, write error to the console instead
                         ConsoleLogger console = new ConsoleLogger();
-                        console.LogMessage(MessageType.ERROR, StringProcessor.SafeFormatter("Failed to write to event log because: {0}", e.Message));
+                        console.LogMessage(MessageType.ERROR, StringProcessor.SafeFormatter($"Failed to write to event log because: {e.Message}"));
                         console.LogMessage(messageType, message, args);
                     }
                 }

@@ -57,7 +57,7 @@ namespace Magenic.Maqs.Utilities.Helper
         {
             if (!Wait(waitForTrue, retryTimeFromConfig, timeoutFromConfig, true))
             {
-                throw new TimeoutException(StringProcessor.SafeFormatter("Timed out waiting for '{0}' to return true", waitForTrue.Method.Name));
+                throw new TimeoutException(StringProcessor.SafeFormatter($"Timed out waiting for '{waitForTrue.Method.Name}' to return true"));
             }
         }
 
@@ -71,7 +71,7 @@ namespace Magenic.Maqs.Utilities.Helper
         {
             if (!Wait(waitForTrue, retryTimeFromConfig, timeoutFromConfig, true, arg))
             {
-                throw new TimeoutException(StringProcessor.SafeFormatter("Timed out waiting for '{0}' to return true", waitForTrue.Method.Name));
+                throw new TimeoutException(StringProcessor.SafeFormatter($"Timed out waiting for '{waitForTrue.Method.Name}' to return true"));
             }
         }
 
@@ -196,7 +196,7 @@ namespace Magenic.Maqs.Utilities.Helper
 
             if (!paramsAreEqual)
             {
-                throw new TimeoutException("Timed out waiting for " + waitForTrue.Method.Name + " to return expected value of " + typeof(T) + ": " + comparativeValue);
+                throw new TimeoutException($"Timed out waiting for {waitForTrue.Method.Name} to return expected value of {typeof(T)}: {comparativeValue}");
             }
         }
 
@@ -228,7 +228,7 @@ namespace Magenic.Maqs.Utilities.Helper
 
             if (!paramsAreEqual)
             {
-                throw new TimeoutException("Timed out waiting for " + waitForTrue.Method.Name + " to return expected value of " + typeof(T) + ": " + comparativeValue);
+                throw new TimeoutException($"Timed out waiting for {waitForTrue.Method.Name} to return expected value of {typeof(T)}: {comparativeValue}");
             }
         }
 
@@ -366,7 +366,7 @@ namespace Magenic.Maqs.Utilities.Helper
             }
             while ((DateTime.Now - start) < timeout);
 
-            throw new TimeoutException("Timed out waiting for " + waitFor.Method.Name + " to return", exception);
+            throw new TimeoutException($"Timed out waiting for {waitFor.Method.Name} to return{exception}");
         }
 
         /// <summary>
@@ -401,7 +401,7 @@ namespace Magenic.Maqs.Utilities.Helper
             }
             while ((DateTime.Now - start) < timeout);
 
-            throw new TimeoutException("Timed out waiting for " + waitFor.Method.Name + " to return", exception);
+            throw new TimeoutException($"Timed out waiting for {waitFor.Method.Name} to return{exception}");
         }
 
         /// <summary>
@@ -449,7 +449,7 @@ namespace Magenic.Maqs.Utilities.Helper
             }
             while (DateTime.Now < maxWait);
 
-            throw new TimeoutException("Timed out waiting for " + actionName + " to return.  Exception log: " + sb.ToString());
+            throw new TimeoutException($"Timed out waiting for {actionName} to return.  Exception log: {sb.ToString()}");
         }
 
         /// <summary>
@@ -671,7 +671,7 @@ namespace Magenic.Maqs.Utilities.Helper
                 }
             }
 
-            throw new TimeoutException("Timed out waiting for " + waitFor.Method.Name + " to return", exception);
+            throw new TimeoutException($"Timed out waiting for {waitFor.Method.Name} to return{exception}");
         }
 
         /// <summary>
@@ -713,7 +713,7 @@ namespace Magenic.Maqs.Utilities.Helper
                 }
             }
 
-            throw new TimeoutException("Timed out waiting for " + waitFor.Method.Name + " to return", exception);
+            throw new TimeoutException($"Timed out waiting for {waitFor.Method.Name} to return{exception}");
         }
 
         /// <summary>

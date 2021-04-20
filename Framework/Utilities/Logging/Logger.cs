@@ -119,7 +119,8 @@ namespace Magenic.Maqs.Utilities.Logging
         /// <returns>The unknown message type message</returns>
         protected string UnknownMessageTypeMessage(MessageType type)
         {
-            return StringProcessor.SafeFormatter("Unknown MessageType: {0}{1}{2}{3}", Enum.GetName(typeof(MessageType), type), Environment.NewLine, "Message will be displayed with the MessageType of: ", Enum.GetName(typeof(MessageType), MessageType.GENERIC));
+            //return StringProcessor.SafeFormatter("Unknown MessageType: {0}{1}{2}{3}", Enum.GetName(typeof(MessageType), type), Environment.NewLine, "Message will be displayed with the MessageType of: ", Enum.GetName(typeof(MessageType), MessageType.GENERIC));
+            return StringProcessor.SafeFormatter($"Unknown MessageType: {Enum.GetName(typeof(MessageType), type)}{Environment.NewLine}{Enum.GetName(typeof(MessageType), MessageType.GENERIC)}{3}Message will be displayed with the MessageType of: ");
         }
     }
 }

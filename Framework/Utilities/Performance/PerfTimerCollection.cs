@@ -100,11 +100,11 @@ namespace Magenic.Maqs.Utilities.Performance
         {
             if (this.openTimerList.ContainsKey(timerName))
             {
-                throw new ArgumentException("Timer already Started: " + timerName);
+                throw new ArgumentException($"Timer already Started: {timerName}");
             }
             else 
             {
-                this.Log.LogMessage(MessageType.INFORMATION, "Starting response timer: {0}", timerName);
+                this.Log.LogMessage(MessageType.INFORMATION, $"Starting response timer: {timerName}");
                 PerfTimer timer = new PerfTimer();
                 timer.TimerName = timerName;
                 timer.TimerContext = contextName;
@@ -136,7 +136,7 @@ namespace Magenic.Maqs.Utilities.Performance
             }
             else
             {
-                this.Log.LogMessage(MessageType.INFORMATION, "Stopping response time test: {0}", timerName);
+                this.Log.LogMessage(MessageType.INFORMATION, $"Stopping response time test: {timerName}");
                 this.openTimerList[timerName].EndTime = et;
                 this.openTimerList[timerName].Duration = this.openTimerList[timerName].EndTime - this.openTimerList[timerName].StartTime;
                 this.Timerlist.Add(this.openTimerList[timerName]);
@@ -161,16 +161,16 @@ namespace Magenic.Maqs.Utilities.Performance
                         // If filename doesn't exist, we haven't created the file yet
                         if (this.FileName == null)
                         {
-                            this.FileName = "PerformanceTimerResults" + "-" + this.TestName + "-" + DateTime.UtcNow.ToString("O").Replace(':', '-') + ".xml";
+                            this.FileName = $"PerformanceTimerResults-{ this.TestName}-{DateTime.UtcNow.ToString("O").Replace(':', '-')}.xml";
                         }
 
-                        log.LogMessage(MessageType.INFORMATION, "filename: " + LoggingConfig.GetLogDirectory() + Path.DirectorySeparatorChar + this.FileName);
+                        log.LogMessage(MessageType.INFORMATION, $"filename: {LoggingConfig.GetLogDirectory()}{Path.DirectorySeparatorChar}{this.FileName}");
 
                         XmlWriterSettings settings = new XmlWriterSettings();
                         settings.WriteEndDocumentOnClose = true;
                         settings.Indent = true;
                         
-                        XmlWriter writer = XmlWriter.Create(string.Format("{0}{2}{1}", LoggingConfig.GetLogDirectory(), this.FileName, Path.DirectorySeparatorChar), settings);
+                        XmlWriter writer = XmlWriter.Create(string.Format($"{LoggingConfig.GetLogDirectory()}{this.FileName}{Path.DirectorySeparatorChar}"), settings);
 
                         XmlSerializer x = new XmlSerializer(this.GetType());
                         x.Serialize(writer, this);
@@ -180,7 +180,7 @@ namespace Magenic.Maqs.Utilities.Performance
                     }
                     catch (Exception e)
                     {
-                        log.LogMessage(MessageType.ERROR, "Could not save response time file.  Error was: {0}", e.Message);
+                        log.LogMessage(MessageType.ERROR, $"Could not save response time file.  Error was: {e.Message}");
                     }
                 }
             }

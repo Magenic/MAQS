@@ -101,7 +101,7 @@ namespace Magenic.Maqs.Utilities.Helper
             {
                 if (!configSectionPassed.ContainsKey(requiredField))
                 {
-                    exceptions.Add("Key missing " + requiredField);
+                    exceptions.Add($"Key missing {requiredField}");
                 } 
             }
 
@@ -489,7 +489,7 @@ namespace Magenic.Maqs.Utilities.Helper
 
                     if (attributes.Any(x => x.Name.LocalName.Equals("key")) && attributes.Any(y => y.Name.LocalName.Equals("value")))
                     {
-                        keys.Add(node.Name.LocalName + ":" + config.Attribute("key").Value, config.Attribute("value").Value);
+                        keys.Add($"{node.Name.LocalName}:{config.Attribute("key").Value}", config.Attribute("value").Value);
                     }
                 }
             }
