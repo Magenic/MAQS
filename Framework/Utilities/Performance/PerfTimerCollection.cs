@@ -170,7 +170,7 @@ namespace Magenic.Maqs.Utilities.Performance
                         settings.WriteEndDocumentOnClose = true;
                         settings.Indent = true;
                         
-                        XmlWriter writer = XmlWriter.Create(string.Format($"{LoggingConfig.GetLogDirectory()}{this.FileName}{Path.DirectorySeparatorChar}"), settings);
+                        XmlWriter writer = XmlWriter.Create($"{LoggingConfig.GetLogDirectory()}{Path.DirectorySeparatorChar}{this.FileName}", settings);
 
                         XmlSerializer x = new XmlSerializer(this.GetType());
                         x.Serialize(writer, this);

@@ -366,7 +366,7 @@ namespace Magenic.Maqs.Utilities.Helper
             }
             while ((DateTime.Now - start) < timeout);
 
-            throw new TimeoutException($"Timed out waiting for {waitFor.Method.Name} to return{exception}");
+            throw new TimeoutException($"Timed out waiting for {waitFor.Method.Name} to return", exception);
         }
 
         /// <summary>
@@ -401,7 +401,7 @@ namespace Magenic.Maqs.Utilities.Helper
             }
             while ((DateTime.Now - start) < timeout);
 
-            throw new TimeoutException($"Timed out waiting for {waitFor.Method.Name} to return{exception}");
+            throw new TimeoutException($"Timed out waiting for {waitFor.Method.Name} to return", exception);
         }
 
         /// <summary>
@@ -671,7 +671,7 @@ namespace Magenic.Maqs.Utilities.Helper
                 }
             }
 
-            throw new TimeoutException($"Timed out waiting for {waitFor.Method.Name} to return{exception}");
+            throw new TimeoutException($"Timed out waiting for {waitFor.Method.Name} to return", exception);
         }
 
         /// <summary>
@@ -713,7 +713,7 @@ namespace Magenic.Maqs.Utilities.Helper
                 }
             }
 
-            throw new TimeoutException($"Timed out waiting for {waitFor.Method.Name} to return{exception}");
+            throw new TimeoutException($"Timed out waiting for {waitFor.Method.Name} to return", exception);
         }
 
         /// <summary>
