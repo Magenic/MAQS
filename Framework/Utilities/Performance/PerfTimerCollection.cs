@@ -161,7 +161,7 @@ namespace Magenic.Maqs.Utilities.Performance
                         // If filename doesn't exist, we haven't created the file yet
                         if (this.FileName == null)
                         {
-                            this.FileName = $"PerformanceTimerResults-{ this.TestName}-{DateTime.UtcNow.ToString("O").Replace(':', '-')}.xml";
+                            this.FileName = $"PerformanceTimerResults-{this.TestName}-{DateTime.UtcNow.ToString("O").Replace(':', '-')}.xml";
                         }
 
                         log.LogMessage(MessageType.INFORMATION, $"filename: {LoggingConfig.GetLogDirectory()}{Path.DirectorySeparatorChar}{this.FileName}");
