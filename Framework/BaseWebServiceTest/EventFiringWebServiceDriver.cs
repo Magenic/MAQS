@@ -4,7 +4,6 @@
 // </copyright>
 // <summary>The event firing basic http client interactions</summary>
 //--------------------------------------------------
-using Magenic.Maqs.Utilities.Data;
 using System;
 using System.Net;
 using System.Net.Http;
@@ -58,12 +57,17 @@ namespace Magenic.Maqs.BaseWebServiceTest
         public event EventHandler<string> WebServiceErrorEvent;
 
         /// <summary>
+        /// Web service verbose event
+        /// </summary>
+        public event EventHandler<string> WebServiceVerboseEvent;
+
+        /// <summary>
         /// Web service event
         /// </summary>
         /// <param name="message">The event message</param>
         protected virtual void OnEvent(string message)
         {
-            WebServiceEvent?.Invoke(this, message);
+            WebServiceEvent?.Invoke(this, message?.Trim());
         }
 
         /// <summary>
@@ -72,7 +76,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="message">The event message</param>
         protected virtual void OnActionEvent(string message)
         {
-            WebServiceActionEvent?.Invoke(this, message);
+            WebServiceActionEvent?.Invoke(this, message?.Trim());
         }
 
         /// <summary>
@@ -81,140 +85,77 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="message">The event error message</param>
         protected virtual void OnErrorEvent(string message)
         {
-            WebServiceErrorEvent?.Invoke(this, message);
+            WebServiceErrorEvent?.Invoke(this, message?.Trim());
+        }
+
+        /// <summary>?
+        /// Web service verbose event
+        /// </summary>
+        /// <param name="message">The event verbose message</param>
+        protected virtual void OnVerboseEvent(string message)
+        {
+            WebServiceVerboseEvent?.Invoke(this, message?.Trim());
         }
 
         /// <summary>
-        /// Execute a web service call 
+        /// Send a request and get a response message back
         /// </summary>
-        /// <param name="methodVerb">The HTTP verb</param>
-        /// <param name="requestUri">The requested URI</param>
-        /// <param name="expectedMediaType">The expected media type</param>
+        /// <param name="httpRequestMessage">The request</param>
+        /// <param name="expectedMediaType">The type of media being requested</param>
         /// <param name="expectSuccess">Assert a success code was returned</param>
-        /// <returns>The HTTP response message</returns>
-        protected override HttpResponseMessage CallWithResponse(string methodVerb, string requestUri, string expectedMediaType, bool expectSuccess = true)
+        /// <returns></returns>
+        public override HttpResponseMessage SendWithResponse(HttpRequestMessage httpRequestMessage, string expectedMediaType, bool expectSuccess = true)
         {
-            try
-            {
-                RaiseEvent(methodVerb, requestUri, expectedMediaType);
-                HttpResponseMessage response = base.CallWithResponse(methodVerb, requestUri, expectedMediaType, expectSuccess);
-                RaiseEvent(methodVerb, response);
-                return response;
-            }
-            catch (Exception e)
-            {
-                RaiseErrorMessage(e);
-                throw;
-            }
+            RaiseSendEvent(httpRequestMessage);
+            HttpResponseMessage response = base.SendWithResponse(httpRequestMessage, expectedMediaType, expectSuccess);
+            RaiseEvent(httpRequestMessage.Method.ToString(), response);
+
+            return response;
         }
 
         /// <summary>
-        /// Execute a web service call 
+        /// Send a request and get a response message back
         /// </summary>
-        /// <param name="methodVerb">The HTTP verb</param>
-        /// <param name="requestUri">The requested URI</param>
-        /// <param name="expectedMediaType">The expected media type</param>
+        /// <param name="httpRequestMessage">The request</param>
+        /// <param name="expectedMediaType">The type of media being requested</param>
         /// <param name="expectedStatus">Assert a specific status code was returned</param>
-        /// <returns>The HTTP response message</returns>
-        protected override HttpResponseMessage CallWithResponse(string methodVerb, string requestUri, string expectedMediaType, HttpStatusCode expectedStatus)
+        /// <returns></returns>
+        public override HttpResponseMessage SendWithResponse(HttpRequestMessage httpRequestMessage, string expectedMediaType, HttpStatusCode expectedStatus)
         {
-            try
-            {
-                RaiseEvent(methodVerb, requestUri, expectedMediaType);
-                HttpResponseMessage response = base.CallWithResponse(methodVerb, requestUri, expectedMediaType, expectedStatus);
-                RaiseEvent(methodVerb, response);
-                return response;
-            }
-            catch (Exception e)
-            {
-                RaiseErrorMessage(e);
-                throw;
-            }
+            RaiseSendEvent(httpRequestMessage);
+            HttpResponseMessage response = base.SendWithResponse(httpRequestMessage, expectedMediaType, expectedStatus);
+            RaiseEvent(httpRequestMessage.Method.ToString(), response);
 
+            return response;
         }
 
         /// <summary>
-        /// Execute a web service call 
+        /// Raise an request action message
         /// </summary>
-        /// <param name="methodVerb">The HTTP verb</param>
-        /// <param name="requestUri">The requested URI</param>
-        /// <param name="responseMediaType">The response media type</param>
-        /// <param name="content">The content</param>
-        /// <param name="expectSuccess">Assert a success code was returned</param>
-        /// <returns>The HTTP response message</returns>
-        protected override HttpResponseMessage CallContentWithResponse(string methodVerb, string requestUri, string responseMediaType, HttpContent content, bool expectSuccess = true)
+        /// <param name="httpRequestMessage">The request message</param>
+        private void RaiseSendEvent(HttpRequestMessage httpRequestMessage)
         {
             try
             {
-                RaiseEvent(content, methodVerb, requestUri, responseMediaType);
-                HttpResponseMessage response = base.CallContentWithResponse(methodVerb, requestUri, responseMediaType, content, expectSuccess);
-                RaiseEvent(methodVerb, response);
-                return response;
-            }
-            catch (Exception e)
-            {
-                RaiseErrorMessage(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Execute a web service call 
-        /// </summary>
-        /// <param name="methodVerb">The HTTP verb</param>
-        /// <param name="requestUri">The requested URI</param>
-        /// <param name="responseMediaType">The response media type</param>
-        /// <param name="content">The content</param>
-        /// <param name="expectedStatus">Assert a specific status code was returned</param>
-        /// <returns>The HTTP response message</returns>
-        protected override HttpResponseMessage CallContentWithResponse(string methodVerb, string requestUri, string responseMediaType, HttpContent content, HttpStatusCode expectedStatus)
-        {
-            try
-            {
-                RaiseEvent(content, methodVerb, requestUri, responseMediaType);
-                HttpResponseMessage response = base.CallContentWithResponse(methodVerb, requestUri, responseMediaType, content, expectedStatus);
-                RaiseEvent(methodVerb, response);
-                return response;
-            }
-            catch (Exception e)
-            {
-                RaiseErrorMessage(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Raise an action message without content
-        /// </summary>
-        /// <param name="actionType">The action type - Get, Post, etc.</param>
-        /// <param name="requestUri">The request uri</param>
-        /// <param name="mediaType">The type of media being requested</param>
-        private void RaiseEvent(string actionType, string requestUri, string mediaType)
-        {
-            OnActionEvent(StringProcessor.SafeFormatter("Send {0} request to base: '{1}' endpoint: '{2}' with the media type: '{3}'", actionType, HttpClient.BaseAddress, requestUri, mediaType));
-        }
-
-        /// <summary>
-        /// Raise an action message with content
-        /// </summary>
-        /// <param name="content">The content</param>
-        /// <param name="actionType">The action type - Get, Post, etc.</param>
-        /// <param name="requestUri">The request uri</param>
-        /// <param name="mediaType">The type of media being requested</param>
-        private void RaiseEvent(HttpContent content, string actionType, string requestUri, string mediaType)
-        {
-            try
-            {
+                // Action logging information 
                 StringBuilder message = new StringBuilder();
-                message.AppendLine(StringProcessor.SafeFormatter("Send {0} request with content to base: '{1}' endpoint: '{2}' with the media type: '{3}'", actionType, HttpClient.BaseAddress, requestUri, mediaType));
-
-                BuildContentMessage(message, mediaType, content);
-
+                message.AppendLine($"Sending {httpRequestMessage.Method} request to {this.HttpClient.BaseAddress} at endpoint {httpRequestMessage.RequestUri}");
+                BuildContentMessage(message, httpRequestMessage.Content);
                 OnActionEvent(message.ToString());
+
+                // Verbose logging information 
+                message = new StringBuilder();
+                message.AppendLine("Request details:");
+                message.AppendLine($"Base address: {this.HttpClient.BaseAddress}");
+                message.AppendLine(httpRequestMessage.ToString().Trim());
+                message.AppendLine($"Default header:  {this.HttpClient.DefaultRequestHeaders.ToString().Trim()}");
+                message.AppendLine($"Timeout: {this.HttpClient.Timeout}");
+                message.AppendLine($"Max buffer: {this.HttpClient.MaxResponseContentBufferSize}");
+                OnVerboseEvent(message.ToString());
             }
             catch (Exception e)
             {
-                OnErrorEvent(StringProcessor.SafeFormatter("Failed to log event because: {0}", e.ToString()));
+                RaiseLoggingErrorMessage(e);
             }
         }
 
@@ -227,66 +168,66 @@ namespace Magenic.Maqs.BaseWebServiceTest
         {
             try
             {
+                // Action logging information 
                 StringBuilder message = new StringBuilder();
                 HttpRequestMessage responseMessage = response.RequestMessage;
-                message.AppendLine(StringProcessor.SafeFormatter("Received {0} response from {1}", actionType, responseMessage.RequestUri));
-                message.AppendLine(StringProcessor.SafeFormatter("Returned {0}({1})", response.ReasonPhrase, (int)response.StatusCode));
+                message.AppendLine($"Received {actionType} response from {responseMessage.RequestUri}");
+                message.AppendLine($"Returned {response.ReasonPhrase}({(int)response.StatusCode})");
 
                 // Only pull content if we are returned content
                 if (response.Content.Headers.ContentType != null)
                 {
-                    string mediaType = response.Content.Headers.ContentType.MediaType;
-                    BuildContentMessage(message, mediaType, response.Content);
+                    BuildContentMessage(message, response.Content);
                 }
 
                 OnEvent(message.ToString());
+
+                // Verbose logging information 
+                OnVerboseEvent($"Response details:{ Environment.NewLine}{response}{Environment.NewLine}From Request:{Environment.NewLine}{response.RequestMessage}");
             }
             catch (Exception e)
             {
-                OnErrorEvent(StringProcessor.SafeFormatter("Failed to log event because: {0}", e.ToString()));
+                RaiseLoggingErrorMessage(e);
             }
         }
 
         /// <summary>
-        /// Raise an exception message
+        /// Raise a logging exception message
         /// </summary>
         /// <param name="e">The exception</param>
-        private void RaiseErrorMessage(Exception e)
+        private void RaiseLoggingErrorMessage(Exception e)
         {
-            OnErrorEvent(StringProcessor.SafeFormatter("Failed because: {0} {1} {2}", e.Message, Environment.NewLine, e.ToString()));
+            OnErrorEvent($"Failed to log event because: {e.Message} {Environment.NewLine} {e}");
         }
 
         /// <summary>
         /// Build the content massage
         /// </summary>
         /// <param name="message">String builder for building the message</param>
-        /// <param name="mediaType">Content media type</param>
         /// <param name="content">The content we are building a message for</param>
-        private void BuildContentMessage(StringBuilder message, string mediaType, HttpContent content)
+        private void BuildContentMessage(StringBuilder message, HttpContent content)
         {
             message.AppendLine("Content:");
-            
+
+            if (content == null)
+            {
+                message.AppendLine("  **Content is null**");
+                return;
+            }
+
+            string mediaType = content.Headers.ContentType.MediaType;
+
             if (string.IsNullOrEmpty(mediaType))
             {
                 message.AppendLine("  **Content media type is null or empty**");
             }
             else
             {
-                message.AppendLine($"  Content Media Type: {mediaType}");
-                message.AppendLine("  Content Text:");
-
                 mediaType = mediaType.ToUpper();
 
                 if (mediaType.Contains("TEXT") || mediaType.Contains("XML") || mediaType.Contains("JSON") || mediaType.Contains("HTML"))
                 {
-                    if (content != null)
-                    {
-                        message.AppendLine(content.ReadAsStringAsync().Result);
-                    }
-                    else
-                    {
-                        message.AppendLine("  **Content is null**");
-                    }
+                    message.AppendLine(content.ReadAsStringAsync().Result);
                 }
                 else
                 {

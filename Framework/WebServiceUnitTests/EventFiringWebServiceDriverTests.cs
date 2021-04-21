@@ -29,174 +29,83 @@ namespace WebServiceTesterUnitTesting
         private static readonly string baseAddress = WebServiceConfig.GetWebServiceUri();
 
         /// <summary>
+        /// Number of information events events fired
+        /// </summary>
+        private static int InformationEvents = 0;
+
+        /// <summary>
+        /// Number of action events fired
+        /// </summary>
+        private static int ActionEvents = 0;
+
+        /// <summary>
+        /// Number of error events fired
+        /// </summary>
+        private static int ErrorEvents = 0;
+
+        /// <summary>
+        /// Number of verbose fired
+        /// </summary>
+        private static int VerboseEvents = 0;
+
+        /// <summary>
+        /// Last event message sent
+        /// </summary>
+        private static string LatestMessage = string.Empty;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="EventFiringWebServiceDriverTests"/> class
         /// </summary>
         public EventFiringWebServiceDriverTests() : base(baseAddress)
         {
+            this.WebServiceEvent += this.WebService_Event;
+            this.WebServiceActionEvent += this.WebService_Action;
+            this.WebServiceErrorEvent += this.WebService_Error;
+            this.WebServiceVerboseEvent += this.WebService_Verbose;
         }
 
         /// <summary>
-        /// Verify that PostContent throws proper exception
+        /// Verify that send throws proper exception
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
-        [ExpectedException(typeof(HttpRequestException))]
-        public void PostContentThrowException()
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void SendWithResponseThrowException()
         {
-            CallContentWithResponse(WebServiceVerb.Post, "BAD", null, null);
+            SendWithResponse(null, null);
         }
 
         /// <summary>
-        /// Verify that PutContent throws proper exception
+        /// Verify that sent throws proper exception 
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
-        [ExpectedException(typeof(HttpRequestException))]
-        public void PutContentThrowException()
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void SendWithResponseAndReturnCodeThrowException()
         {
-            CallContentWithResponse(WebServiceVerb.Put, "BAD", null, null);
+            SendWithResponse(null, null, HttpStatusCode.OK);
         }
 
         /// <summary>
-        /// Verify that DeleteContent throws proper exception
+        /// Verify that we can send
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
-        [ExpectedException(typeof(HttpRequestException))]
-        public void DeleteContentThrowException()
+        public void SendWithResponse()
         {
-            CallWithResponse(WebServiceVerb.Delete, "BAD", null);
-        }
-
-        /// <summary>
-        /// Verify that GetContent throws proper exception
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.WebService)]
-        [ExpectedException(typeof(HttpRequestException))]
-        public void GetContentThrowException()
-        {
-            CallWithResponse(WebServiceVerb.Get, "BAD", null);
-        }
-
-        /// <summary>
-        /// Verify that CustomContent throws proper exception
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.WebService)]
-        [ExpectedException(typeof(HttpRequestException))]
-        public void CustomContentThrowException()
-        {
-            CallContentWithResponse("BAD", "BAD", null, null);
-        }
-
-        /// <summary>
-        /// Verify post content works
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.WebService)]
-        public void VerifyPostContent()
-        {
-            Product p = new Product
-            {
-                Category = "ff",
-                Id = 4,
-                Name = "ff",
-                Price = 3.25f
-            };
-
-            var content = WebServiceUtils.MakeStreamContent<Product>(p, Encoding.UTF8, "application/xml");
-            var result = CallContentWithResponse(WebServiceVerb.Post, "/api/XML_JSON/Post", "application/xml", content, true);
+            var result = SendWithResponse(GetValidRequestMessage(), MediaType.AppJson, true);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
 
         /// <summary>
-        /// Verify custom content works
+        /// Verify that we can send with expected
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.WebService)]
-        public void VerifyCustomContent()
+        public void SendWithResponseAndReturnCode()
         {
-            var content = WebServiceUtils.MakeStringContent("ZED?", Encoding.UTF8, "application/json");
-            var result = CallContentWithResponse("ZED", "/api/ZED", "application/json", content, false);
-            Assert.AreEqual(HttpStatusCode.UseProxy, result.StatusCode);
-        }
-
-        /// <summary>
-        /// Verify custom content works with a specific response code
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.WebService)]
-        public void VerifyCustomContentWithResponseCode()
-        {
-            var content = WebServiceUtils.MakeStringContent("ZED?", Encoding.UTF8, "application/json");
-            var result = CallContentWithResponse("ZED", "/api/ZED", "application/json", content, HttpStatusCode.UseProxy);
-            Assert.AreEqual(HttpStatusCode.UseProxy, result.StatusCode);
-        }
-
-        /// <summary>
-        /// Verify custom content works with non standard content type
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.WebService)]
-        public void VerifyCustomNonStandardContent()
-        {
-            var content = WebServiceUtils.MakeStringContent("ZED?", Encoding.UTF8, "application/json");
-            var result = CallContentWithResponse("ZED", "/api/ZED", "application/nosj", content, false);
-            Assert.AreEqual(HttpStatusCode.UseProxy, result.StatusCode);
-        }
-
-        /// <summary>
-        /// Verify put content works
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.WebService)]
-        public void VerifyPutContent()
-        {
-            Product p = new Product
-            {
-                Category = "ff",
-                Id = 4,
-                Name = "ff",
-                Price = 3.25f
-            };
-            var content = WebServiceUtils.MakeStringContent<Product>(p, Encoding.UTF8, "application/xml");
-            var result = CallContentWithResponse(WebServiceVerb.Put, "/api/XML_JSON/Put/1", "application/xml", content);
-
+            var result = SendWithResponse(GetValidRequestMessage(), MediaType.AppXml, HttpStatusCode.OK);
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
-        }
-
-        /// <summary>
-        /// Verify delete content works
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.WebService)]
-        public void VerifyDeleteContent()
-        {
-            var result = CallWithResponse(WebServiceVerb.Delete, "/api/String/Delete/1", "text/plain", true);
-            Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
-        }
-
-        /// <summary>
-        /// Verify get content works
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.WebService)]
-        public void VerifyGetContent()
-        {
-            var result = CallWithResponse(WebServiceVerb.Get, "/api/String/1", "text/plain");
-            Assert.IsFalse(string.IsNullOrEmpty(result.Content.ReadAsStringAsync().Result), "Expected a result to be returned");
-        }
-
-        /// <summary>
-        /// Verify get content works with a specific response code
-        /// </summary>
-        [TestMethod]
-        [TestCategory(TestCategories.WebService)]
-        public void VerifyGetContentWithResponseCode()
-        {
-            var result = CallWithResponse(WebServiceVerb.Get, "/api/String/1", "text/plain", HttpStatusCode.OK);
-            Assert.IsFalse(string.IsNullOrEmpty(result.Content.ReadAsStringAsync().Result), "Expected a result to be returned");
         }
 
         /// <summary>
@@ -208,6 +117,177 @@ namespace WebServiceTesterUnitTesting
         {
             EventFiringWebServiceDriver standAlone = new EventFiringWebServiceDriver(new Uri(baseAddress));
             Assert.IsTrue(standAlone.HttpClient.BaseAddress.Equals(baseAddress), $"Expected {baseAddress} but got {standAlone.HttpClient.BaseAddress}");
+        }
+
+        /// <summary>
+        /// Verify events are raised
+        /// </summary>
+        [TestMethod]
+        [DoNotParallelize]
+        [TestCategory(TestCategories.WebService)]
+        public void RaiseEvent()
+        {
+            string message = "Event" + Guid.NewGuid();
+            TestSingleEvent(OnEvent, message, ref InformationEvents);
+        }
+
+        /// <summary>
+        /// Verify action events are raised
+        /// </summary>
+        [TestMethod]
+        [DoNotParallelize]
+        [TestCategory(TestCategories.WebService)]
+        public void RaiseAction()
+        {
+            string message = "Action" + Guid.NewGuid();
+            TestSingleEvent(OnActionEvent, message, ref ActionEvents);
+        }
+
+        /// <summary>
+        /// Verify verbose events are raised
+        /// </summary>
+        [TestMethod]
+        [DoNotParallelize]
+        [TestCategory(TestCategories.WebService)]
+        public void RaiseVerbose()
+        {
+            string message = "Verbose" + Guid.NewGuid();
+            TestSingleEvent(OnVerboseEvent, message, ref VerboseEvents);
+        }
+
+        /// <summary>
+        /// Verify error events are raised
+        /// </summary>
+        [TestMethod]
+        [DoNotParallelize]
+        [TestCategory(TestCategories.WebService)]
+        public void RaiseError()
+        {
+            string message = "Error" + Guid.NewGuid();
+            TestSingleEvent(OnErrorEvent, message, ref ErrorEvents);
+        }
+
+        /// <summary>
+        /// Verify null events are raised
+        /// </summary>
+        [TestMethod]
+        [DoNotParallelize]
+        [TestCategory(TestCategories.WebService)]
+        public void RaiseNullEvent()
+        {
+            OnEvent(null);
+        }
+
+        /// <summary>
+        /// Verify null action events are raised
+        /// </summary>
+        [TestMethod]
+        [DoNotParallelize]
+        [TestCategory(TestCategories.WebService)]
+        public void RaiseNullActionEvent()
+        {
+            OnActionEvent(null);
+        }
+
+        /// <summary>
+        /// Verify null error events are raised
+        /// </summary>
+        [TestMethod]
+        [DoNotParallelize]
+        [TestCategory(TestCategories.WebService)]
+        public void RaiseNullError()
+        {
+            OnErrorEvent(null);
+        }
+
+        /// <summary>
+        /// Verify null verbose events are raised
+        /// </summary>
+        [TestMethod]
+        [DoNotParallelize]
+        [TestCategory(TestCategories.WebService)]
+        public void RaiseNullVerbose()
+        {
+            OnVerboseEvent(null);
+        }
+
+        /// <summary>
+        /// Test a single event is raised correctly
+        /// </summary>
+        /// <param name="sendMessage">The send event</param>
+        /// <param name="message">Event massage</param>
+        /// <param name="eventRef">The releated event count</param>
+        private void TestSingleEvent(Action<string> sendMessage, string message, ref int eventRef)
+        {
+            eventRef = 0;
+            sendMessage(message);
+
+            Assert.AreEqual(message, LatestMessage);
+            Assert.AreEqual(1, eventRef);
+        }
+
+        /// <summary>
+        /// Get a valid request message
+        /// </summary>
+        /// <returns>A valid request message</returns>
+        private HttpRequestMessage GetValidRequestMessage()
+        {
+            Product product = new Product
+            {
+                Category = "ff",
+                Id = 4,
+                Name = "ff",
+                Price = 3.25f
+            };
+
+            return new HttpRequestMessage(new HttpMethod(WebServiceVerb.Post), "/api/XML_JSON/Post")
+            {
+                Content = WebServiceUtils.MakeStreamContent(product, Encoding.UTF8, "application/xml")
+            };
+        }
+
+        /// <summary>
+        /// Web service event
+        /// </summary>
+        /// <param name="sender">Sender object</param>
+        /// <param name="message">The logging message</param>
+        private void WebService_Event(object sender, string message)
+        {
+            LatestMessage = message;
+            InformationEvents++;
+        }
+
+        /// <summary>
+        /// Web service action event
+        /// </summary>
+        /// <param name="sender">Sender object</param>
+        /// <param name="message">The logging message</param>
+        private void WebService_Action(object sender, string message)
+        {
+            LatestMessage = message;
+            ActionEvents++;
+        }
+
+        /// <summary>
+        /// Web service error event
+        /// </summary>
+        /// <param name="sender">Sender object</param>
+        /// <param name="message">The logging message</param>
+        private void WebService_Error(object sender, string message)
+        {
+            LatestMessage = message;
+            ErrorEvents++;
+        }
+
+        /// <summary>
+        /// Web service verbose event
+        /// </summary>
+        /// <param name="sender">Sender object</param>
+        /// <param name="message">The logging message</param>
+        private void WebService_Verbose(object sender, string message)
+        {
+            LatestMessage = message;
+            VerboseEvents++;
         }
     }
 }
