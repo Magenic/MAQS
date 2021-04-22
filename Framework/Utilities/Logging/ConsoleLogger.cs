@@ -176,7 +176,7 @@ namespace Magenic.Maqs.Utilities.Logging
             }
             catch (Exception e)
             {
-                Console.WriteLine(StringProcessor.SafeFormatter("Failed to write to the console because: {0}", e.Message));
+                Console.WriteLine(StringProcessor.SafeFormatter($"Failed to write to the console because: {e.Message}"));
             }
 
             // Cleanup after yourself
