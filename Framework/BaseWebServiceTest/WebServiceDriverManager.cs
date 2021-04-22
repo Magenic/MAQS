@@ -121,6 +121,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
             eventFiringDriver.WebServiceEvent += this.WebService_Event;
             eventFiringDriver.WebServiceActionEvent += this.WebService_Action;
             eventFiringDriver.WebServiceErrorEvent += this.WebService_Error;
+            eventFiringDriver.WebServiceVerboseEvent += this.WebService_Verbose;
         }
 
         /// <summary>
@@ -159,6 +160,16 @@ namespace Magenic.Maqs.BaseWebServiceTest
         private void WebService_Error(object sender, string message)
         {
             this.Log.LogMessage(MessageType.ERROR, message);
+        }
+
+        /// <summary>
+        /// Web service verbose event
+        /// </summary>
+        /// <param name="sender">Sender object</param>
+        /// <param name="message">The logging message</param>
+        private void WebService_Verbose(object sender, string message)
+        {
+            this.Log.LogMessage(MessageType.VERBOSE, message);
         }
     }
 }

@@ -22,7 +22,7 @@ Each web driver call has a similar format
 [Patch](#Patch)  
 [Delete](#Delete)  
 [Custom](#Custom)
-
+[Send](#Send)  
 ## Get
 Execute a "get" call and get the response body back as a string
 ```csharp
@@ -157,8 +157,6 @@ Execute a "get" call and get back the HTTP response
 HttpResponseMessage result = this.WebServiceDriver.DeleteWithResponse("/api/String/Delete/43", "text/plain", false);
 Assert.AreEqual(HttpStatusCode.NotFound, result.StatusCode);
 ```
-
-
 ## Custom
 Execute a custom call type and get the response body back as a string
 ```csharp
@@ -183,7 +181,33 @@ HttpResponseMessage result = this.WebServiceDriver.CustomWithResponse("ZED", "/a
 
 Assert.AreEqual(HttpStatusCode.UseProxy, result.StatusCode);
 ```
+## Send
+Execute a send call type and get the response body back as a string
+```csharp
+HttpRequestMessage message = new HttpRequestMessage(new HttpMethod("ZED"), "/api/ZED")
+{
+    Content = WebServiceUtils.MakeStringContent("ZEDTest", Encoding.UTF8, "text/plain")
+};
 
+var result = this.WebServiceDriver.Send(message, MediaType.PlainText, HttpStatusCode.OK);
+Assert.AreEqual("\"ZEDTest\"", result);
+```
 
+Execute a send call type and get the response body back as a specific object 
+```csharp
+HttpRequestMessage message = new HttpRequestMessage(new HttpMethod("ZED"), "/api/ZED")
+{
+    Content = WebServiceUtils.MakeStringContent("ZEDTest", Encoding.UTF8, "text/plain")
+};
 
+var result = this.WebServiceDriver.Send<string>(message, MediaType.PlainText, HttpStatusCode.OK);
+Assert.AreEqual("ZEDTest", result);
+```
 
+Execute a send call type and get back the HTTP response
+```csharp
+HttpRequestMessage message = new HttpRequestMessage(new HttpMethod(WebServiceVerb.Get), "/api/XML_JSON/GetAllProducts");
+var result = this.WebServiceDriver.SendWithResponse(message, MediaType.AppXml);
+
+Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
+```

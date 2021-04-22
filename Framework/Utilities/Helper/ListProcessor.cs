@@ -40,7 +40,7 @@ namespace Magenic.Maqs.Utilities.Data
                 }
                 else
                 {
-                    commaDelimitedString.Append(StringProcessor.SafeFormatter(", {0}", text));
+                    commaDelimitedString.Append(StringProcessor.SafeFormatter($", {text}"));
                 }
             }
 
@@ -61,12 +61,7 @@ namespace Magenic.Maqs.Utilities.Data
             {
                 results.Append(
                     StringProcessor.SafeFormatter(
-                    "The following lists are not the same size: Expected {0} [{1}] {2} and got {3} [{4}]",
-                    Environment.NewLine,
-                    CreateCommaDelimitedString(expectedList),
-                    Environment.NewLine,
-                    Environment.NewLine,
-                    CreateCommaDelimitedString(actualList)));
+                    $"The following lists are not the same size: Expected {Environment.NewLine} [{CreateCommaDelimitedString(expectedList)}] {Environment.NewLine} and got {Environment.NewLine} [{CreateCommaDelimitedString(actualList)}]"));
             }
 
             // Clone the first list 
@@ -83,7 +78,7 @@ namespace Magenic.Maqs.Utilities.Data
                 {
                     if (!clonedList.Contains(expectedValue))
                     {
-                        results.Append(StringProcessor.SafeFormatter("[{0}] was not found in the list but was expected{1}", expectedValue, Environment.NewLine));
+                        results.Append(StringProcessor.SafeFormatter($"[{expectedValue}] was not found in the list but was expected{Environment.NewLine}"));
                     }
                     else
                     {
@@ -93,7 +88,7 @@ namespace Magenic.Maqs.Utilities.Data
                 }
                 else if (clonedList[i] == null || !clonedList[i].Equals(expectedValue))
                 {
-                    results.Append(StringProcessor.SafeFormatter("Expected [{0}] but found [{1}]{2}", expectedValue, clonedList[i], Environment.NewLine));
+                    results.Append(StringProcessor.SafeFormatter($"Expected [{expectedValue}] but found [{clonedList[i]}]{Environment.NewLine}"));
                 }
             }
 
