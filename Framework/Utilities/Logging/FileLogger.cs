@@ -20,7 +20,7 @@ namespace Magenic.Maqs.Utilities.Logging
         /// <summary>
         /// The default log file save location
         /// </summary>
-        protected readonly string DEFAULTLOGFOLDER = Path.GetTempPath();
+        protected readonly string DEFAULTLOGFOLDER = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 
         /// <summary>
         /// Object for locking the log file so 
