@@ -4,7 +4,6 @@
 // </copyright>
 // <summary>This is the base Appium page model class</summary>
 //--------------------------------------------------
-using Magenic.Maqs.BaseAppiumTest;
 using Magenic.Maqs.Utilities.Logging;
 using Magenic.Maqs.Utilities.Performance;
 using OpenQA.Selenium;
@@ -12,10 +11,10 @@ using OpenQA.Selenium.Appium;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-namespace Magenic.Maqs.BaseSeleniumTest
+namespace Magenic.Maqs.BaseAppiumTest
 {
     /// <summary>
-    /// Base Selenium page model
+    /// Base Appium page model
     /// </summary>
     public abstract class BaseAppiumPageModel
     {
@@ -62,11 +61,11 @@ namespace Magenic.Maqs.BaseSeleniumTest
         protected AppiumTestObject TestObject { get; set; }
 
         /// <summary>
-        /// Override the webdriver 
-        /// This allows you to use something other than the default tests object webdriver.
+        /// Override the driver 
+        /// This allows you to use something other than the default tests object driver.
         /// </summary>
         /// <param name="appiumDriver">The override driver</param>
-        public void OverrideWebDriver(AppiumDriver<IWebElement> appiumDriver)
+        public void OverrideDriver(AppiumDriver<IWebElement> appiumDriver)
         {
             this.AppiumDriver = appiumDriver;
         }
