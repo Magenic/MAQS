@@ -65,15 +65,15 @@ namespace UtilitiesUnitTesting
             Assert.IsTrue(File.Exists(filepath), "File Check : Expected File does not exist:" + filepath);
 
             // Otherwise record the assertion as true and continue...
-            SoftAssert.IsTrue(true, "File Check : Expected File exists.");
+            SoftAssert.Assert(() => Assert.IsTrue(true, "File Check : Expected File exists."));
 
             PerfTimerCollection r = PerfTimerCollection.LoadPerfTimerCollection(filepath);
 
             // Payload check
-            SoftAssert.AreEqual(json_string, r.PerfPayloadString, "Payload", "Validated Payload (json)");
+            SoftAssert.Assert(() => Assert.AreEqual(json_string, r.PerfPayloadString, "Payload", "Validated Payload (json)"));
 
             // There should be 2 timers
-            SoftAssert.AreEqual(2.ToString(), r.Timerlist.Count.ToString(), "Expected number of timers");
+            SoftAssert.Assert(() => Assert.AreEqual(2.ToString(), r.Timerlist.Count.ToString(), "Expected number of timers"));
 
             // Check the timers
             int badnamecount = 0;
@@ -83,18 +83,18 @@ namespace UtilitiesUnitTesting
                 {
                     // Timer = test1 should have a context of Outer
                     case "test1":
-                        SoftAssert.AreEqual("Outer", pt.TimerContext, "test1", "Test1 Context");
+                        SoftAssert.Assert(() => Assert.AreEqual("Outer", pt.TimerContext, "test1", "Test1 Context"));
                         break;
 
                     // Timer = test2 should have an empty context
                     case "test2":
-                        SoftAssert.AreEqual("Inner", pt.TimerContext, "test2", "Test2 Context");
+                        SoftAssert.Assert(() => Assert.AreEqual("Inner", pt.TimerContext, "test2", "Test2 Context"));
                         break;
 
                     // Catch any extra timers
                     default:
                         badnamecount++;
-                        SoftAssert.IsTrue(false, "ExtraTimer", "Extra timer present: " + pt.TimerName);
+                        SoftAssert.Assert(() => Assert.IsTrue(false, "ExtraTimer", "Extra timer present: " + pt.TimerName));
                         break;
                 }
             }
@@ -102,7 +102,7 @@ namespace UtilitiesUnitTesting
             if (badnamecount != 0)
             {
                 // We would have logged any extra timers, so pass the ExtraTimer assert
-                SoftAssert.IsTrue(true, "ExtraTimer");
+                SoftAssert.Assert(() => Assert.IsTrue(true, "ExtraTimer"));
             }
 
             SoftAssert.FailTestIfAssertFailed();
@@ -134,15 +134,15 @@ namespace UtilitiesUnitTesting
             Assert.IsTrue(File.Exists(filepath), "File Check : Expected File does not exist:" + filepath);
 
             // Otherwise record the assertion as true and continue...
-            SoftAssert.IsTrue(true, "File Check : Expected File exists.");
+            SoftAssert.Assert(() => Assert.IsTrue(true, "File Check : Expected File exists."));
 
             r = PerfTimerCollection.LoadPerfTimerCollection(filepath);
 
             // Payload should be empty
-            SoftAssert.IsTrue(string.IsNullOrEmpty(r.PerfPayloadString), "EmptyPayload", "Payload was not Empty! Contained: " + r.PerfPayloadString);
+            SoftAssert.Assert(() => Assert.IsTrue(string.IsNullOrEmpty(r.PerfPayloadString), "EmptyPayload", "Payload was not Empty! Contained: " + r.PerfPayloadString));
 
             // There should be 2 timers
-            SoftAssert.AreEqual(2.ToString(), r.Timerlist.Count.ToString(), "Expected number of timers");
+            SoftAssert.Assert(() => Assert.AreEqual(2.ToString(), r.Timerlist.Count.ToString(), "Expected number of timers"));
 
             // Check the timers
             int badnamecount = 0;
@@ -152,18 +152,18 @@ namespace UtilitiesUnitTesting
                 {
                     // Timer = test1 should have a context of StoppedOuter
                     case "test1":
-                        SoftAssert.AreEqual("StoppedOuter", pt.TimerContext, "test1", "Test1 Context");
+                        SoftAssert.Assert(() => Assert.AreEqual("StoppedOuter", pt.TimerContext, "test1", "Test1 Context"));
                         break;
 
                     // Timer = test2 should have an empty context
                     case "test2":
-                        SoftAssert.IsTrue(string.IsNullOrEmpty(pt.TimerContext), "Timer2Context", "Context for " + pt.TimerName + " was not Empty! Contained: " + pt.TimerContext);
+                        SoftAssert.Assert(() => Assert.IsTrue(string.IsNullOrEmpty(pt.TimerContext), "Timer2Context", "Context for " + pt.TimerName + " was not Empty! Contained: " + pt.TimerContext));
                         break;
 
                     // Catch any extra timers
                     default:
                         badnamecount++;
-                        SoftAssert.IsTrue(false, "ExtraTimer", "Extra timer present: " + pt.TimerName);
+                        SoftAssert.Assert(() => Assert.IsTrue(false, "ExtraTimer", "Extra timer present: " + pt.TimerName));
                         break;
                 }
             }
@@ -171,7 +171,7 @@ namespace UtilitiesUnitTesting
             if (badnamecount != 0)
             {
                 // We would have logged any extra timers, so pass the ExtraTimer assert
-                SoftAssert.IsTrue(true, "ExtraTimer");
+                SoftAssert.Assert(() => Assert.IsTrue(true, "ExtraTimer"));
             }
 
             SoftAssert.FailTestIfAssertFailed();

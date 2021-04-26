@@ -172,14 +172,14 @@ namespace AppiumUnitTests
             LazyMobileElement child = new LazyMobileElement(this.TestObject, By.XPath("//H2"), "Child");
             LazyMobileElement missingChild = new LazyMobileElement(this.TestObject, By.XPath("//Missing"), "Missing");
 
-            this.SoftAssert.AreEqual(child.Text, parent.FindElement(child.By, "Child").Text);
+            this.SoftAssert.Assert(() => Assert.AreEqual(child.Text, parent.FindElement(child.By, "Child").Text));
             this.SoftAssert.Assert(() => Assert.AreEqual(1, parent.FindElements(child.By, "Child").Count), "Name1");
             this.SoftAssert.Assert(() => Assert.IsTrue(child.Exists, "Expect exists now"), "Name2");
 
             // Override the timeout
             this.AppiumDriver.SetWaitDriver(new WebDriverWait(this.AppiumDriver, TimeSpan.FromSeconds(10)));
 
-            this.SoftAssert.IsFalse(missingChild.Exists, "Expect element not to exist");
+            this.SoftAssert.Assert(() => Assert.IsFalse(missingChild.Exists, "Expect element not to exist"));
             this.SoftAssert.FailTestIfAssertFailed();
         }
 
