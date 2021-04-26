@@ -6,6 +6,7 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseAppiumTest;
 using Magenic.Maqs.Utilities.Helper;
+using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
@@ -30,7 +31,7 @@ namespace AppiumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Appium)]
-        public void AppiumWinAppDriverTest2()
+        public void AppiumWinAppDriverTest()
         {
             string testString = "A test this is";
 
@@ -52,20 +53,21 @@ namespace AppiumUnitTests
             this.SoftAssert.Assert(() => Assert.AreEqual(null, NotepadApplication.GetAppiumDriver()));
 
             NotepadApplication.OverrideDriver(this.AppiumDriver);
-
+            Assert.Fail();
             this.SoftAssert.FailTestIfAssertFailed();
         }
 
         /// <summary>
         /// Cleanup after application
         /// </summary>
-        [TestCleanup]
-        public void CleanApplication()
+        protected override void BeforeLoggingTeardown(TestResultType resultType)
         {
+            // Make sure we get all the logging info
+            base.BeforeLoggingTeardown(resultType);
+
+            // Cleanup after the app
             NotepadApplication?.CloseAndDontSave();
             NotepadApplication = null;
-
-            this.AppiumDriver.KillDriver();
         }
 
         /// <summary>
