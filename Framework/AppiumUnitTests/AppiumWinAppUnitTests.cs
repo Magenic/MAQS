@@ -26,6 +26,7 @@ namespace AppiumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Appium)]
+        [Ignore]
         public void AppiumWinAppDriverTest()
         {
             LazyMobileElement lazy = new LazyMobileElement(this.TestObject, By.XPath("//Button[@AutomationId=\"num7Button\"]"), "Seven");
@@ -42,6 +43,29 @@ namespace AppiumUnitTests
             Assert.AreEqual("Display is 10", this.AppiumDriver.FindElementByAccessibilityId("CalculatorResults").GetAttribute("Name"));
         }
 
+
+        /// <summary>
+        /// Tests the creation of the Appium Windows application driver
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Appium)]
+        public void AppiumWinAppDriverTest2()
+        {
+            string testString = "A test this is";
+            this.AppiumDriver.FindElementByName("Text Editor").SendKeys(testString);
+            Assert.AreEqual(testString, this.AppiumDriver.FindElementByName("Text Editor").Text);
+
+        }
+
+        [TestCleanup]
+        public void CleanMe()
+        {
+            new LazyMobileElement(this.TestObject, By.Name("Close"), "Close").Click();
+            new LazyMobileElement(this.TestObject, By.Name("Don't Save"), "Don't Save").Click();
+
+            this.AppiumDriver.KillDriver();
+        }
+
         /// <summary>
         /// Sets capabilities for testing the Windows application driver creation
         /// </summary>
@@ -50,8 +74,10 @@ namespace AppiumUnitTests
         {
             AppiumOptions options = new AppiumOptions();
 
-            options.AddAdditionalCapability("app", "Microsoft.WindowsCalculator_8wekyb3d8bbwe!App");
-            options.AddAdditionalCapability(MobileCapabilityType.Udid, "0C0E26E7-966B-4C89-A765-32C5C997A456");
+            options.AddAdditionalCapability("app", $"{Environment.SystemDirectory}\\notepad.exe");
+           // NotepadAppId = @"C:\Windows\System32\notepad.exe"; Environment.SystemDirectory
+           // options.AddAdditionalCapability("app", "Microsoft.WindowsCalculator_8wekyb3d8bbwe!App");
+           // options.AddAdditionalCapability(MobileCapabilityType.Udid, "0C0E26E7-966B-4C89-A765-32C5C997A456");
             return new WindowsDriver<IWebElement>(new Uri("http://127.0.0.1:4723"), options);
         }
     }
