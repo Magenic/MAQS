@@ -16,7 +16,6 @@ namespace AppiumUnitTests
     /// <summary>
     /// Notepad page model class for testing
     /// </summary>
-    [ExcludeFromCodeCoverage]
     public class NotepadPageModel : BaseAppiumPageModel
     {
         /// <summary>
@@ -27,7 +26,6 @@ namespace AppiumUnitTests
             : base(testObject)
         {
         }
-
 
         /// <summary>
         /// Get the document
