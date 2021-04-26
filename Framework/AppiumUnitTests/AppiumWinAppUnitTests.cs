@@ -26,7 +26,6 @@ namespace AppiumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Appium)]
-        [Ignore] // Can currently only run WinAppDriver locally with our current setup
         public void AppiumWinAppDriverTest()
         {
             LazyMobileElement lazy = new LazyMobileElement(this.TestObject, By.XPath("//Button[@AutomationId=\"num7Button\"]"), "Seven");
