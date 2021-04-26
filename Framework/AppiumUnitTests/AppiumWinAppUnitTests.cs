@@ -53,7 +53,7 @@ namespace AppiumUnitTests
             this.SoftAssert.Assert(() => Assert.AreEqual(null, NotepadApplication.GetAppiumDriver()));
 
             NotepadApplication.OverrideDriver(this.AppiumDriver);
-            Assert.Fail();
+
             this.SoftAssert.FailTestIfAssertFailed();
         }
 
