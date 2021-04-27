@@ -10,8 +10,8 @@ namespace UtilitiesUnitTesting
     [TestClass]
     public class LoggingConfigUnitTests
     {
-        [AssemblyCleanup]
-        public static void CleanUp()
+        [TestCleanup]
+        public void CleanUp()
         {
             Config.AddTestSettingValues("Log", LoggingEnabled.ONFAIL.ToString(), "MagenicMaqs", true);
             Config.AddTestSettingValues("LogLevel", MessageType.INFORMATION.ToString(), "MagenicMaqs", true);
