@@ -40,7 +40,7 @@ namespace UtilitiesUnitTesting
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
         [ExpectedException(typeof(ArgumentException))]
-        public void GetDefaultLoggingEnabledSetting()
+        public void GetLoggingEnabledSettingsDefault()
         {
             Config.AddTestSettingValues("Log", "Default", "MagenicMaqs", true);
             LoggingConfig.GetLoggingEnabledSetting();
@@ -68,7 +68,7 @@ namespace UtilitiesUnitTesting
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
         [ExpectedException(typeof(ArgumentException))]
-        public void GetDefaultLoggingLevelSetting()
+        public void GetLoggingLevelSettingsDefault()
         {
             Config.AddTestSettingValues("LogLevel", "Random", "MagenicMaqs", true);
             LoggingConfig.GetLoggingLevelSetting();
@@ -146,7 +146,7 @@ namespace UtilitiesUnitTesting
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
         [ExpectedException(typeof(ArgumentException))]
-        public void GetDefaultLogger()
+        public void GetLoggerDefault()
         {
             Config.AddTestSettingValues("Log", LoggingEnabled.YES.ToString(), "MagenicMaqs", true);
             Config.AddTestSettingValues("LogType", "Default", "MagenicMaqs", true);
