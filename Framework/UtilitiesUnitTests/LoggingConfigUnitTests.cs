@@ -122,23 +122,19 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void GetHTMLLogger()
         {
+            string[] loggerType = {"HTML", "HTM" };
             Config.AddTestSettingValues("LogLevel", MessageType.VERBOSE.ToString(), "MagenicMaqs", true);
             Config.AddTestSettingValues("Log", LoggingEnabled.YES.ToString(), "MagenicMaqs", true);
-            Config.AddTestSettingValues("LogType", "HTML", "MagenicMaqs", true);
-            var logger = LoggingConfig.GetLogger(StringProcessor.SafeFormatter(
-                    "{0} - {1}",
-                    "Test",
-                    DateTime.UtcNow.ToString("yyyy-MM-dd-hh-mm-ss-ffff", CultureInfo.InvariantCulture)));
 
-            Assert.AreEqual(typeof(HtmlFileLogger), logger.GetType());
-
-            Config.AddTestSettingValues("LogType", "HTM", "MagenicMaqs", true);
-            logger = LoggingConfig.GetLogger(StringProcessor.SafeFormatter(
-                    "{0} - {1}",
-                    "Test",
-                    DateTime.UtcNow.ToString("yyyy-MM-dd-hh-mm-ss-ffff", CultureInfo.InvariantCulture)));
-
-            Assert.AreEqual(typeof(HtmlFileLogger), logger.GetType());
+            for (int i = 0; i < loggerType.Length; i++)
+            {
+                Config.AddTestSettingValues("LogType", loggerType[i], "MagenicMaqs", true);
+                var logger = LoggingConfig.GetLogger(StringProcessor.SafeFormatter(
+                        "{0} - {1}",
+                        "Test",
+                        DateTime.UtcNow.ToString("yyyy-MM-dd-hh-mm-ss-ffff", CultureInfo.InvariantCulture)));
+                Assert.AreEqual(typeof(HtmlFileLogger), logger.GetType());
+            }
         }
 
         /// <summary>
