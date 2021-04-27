@@ -10,6 +10,14 @@ namespace UtilitiesUnitTesting
     [TestClass]
     public class LoggingConfigUnitTests
     {
+        [AssemblyCleanup]
+        public static void CleanUp()
+        {
+            Config.AddTestSettingValues("Log", LoggingEnabled.ONFAIL.ToString(), "MagenicMaqs", true);
+            Config.AddTestSettingValues("LogLevel", MessageType.INFORMATION.ToString(), "MagenicMaqs", true);
+            Config.AddTestSettingValues("LogType", "TXT", "MagenicMaqs", true);
+        }
+
         /// <summary>
         /// Test getting the LoggingEnabledSettings
         /// </summary>
@@ -23,7 +31,7 @@ namespace UtilitiesUnitTesting
             {
                 Config.AddTestSettingValues("Log", loggingEnableds[i].ToString(), "MagenicMaqs", true);
                 Assert.AreEqual(loggingEnableds[i] , LoggingConfig.GetLoggingEnabledSetting());
-            }         
+            }
         }
 
         /// <summary>
