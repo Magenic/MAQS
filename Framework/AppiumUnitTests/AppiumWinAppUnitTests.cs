@@ -6,10 +6,10 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseAppiumTest;
 using Magenic.Maqs.Utilities.Helper;
+using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Appium.Enums;
 using OpenQA.Selenium.Appium.Windows;
 using System;
 
@@ -19,28 +19,56 @@ namespace AppiumUnitTests
     /// Windows application driver related Appium tests
     /// </summary>
     [TestClass]
+    [DoNotParallelize]
     public class AppiumWinAppUnitTests : BaseAppiumTest
     {
+        /// <summary>
+        /// The notepad application
+        /// </summary>
+        private static NotepadPageModel NotepadApplication;
+
         /// <summary>
         /// Tests the creation of the Appium Windows application driver
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Appium)]
-        [Ignore] // Can currently only run WinAppDriver locally with our current setup
         public void AppiumWinAppDriverTest()
         {
-            LazyMobileElement lazy = new LazyMobileElement(this.TestObject, By.XPath("//Button[@AutomationId=\"num7Button\"]"), "Seven");
-           
-            lazy.Click();
-            Assert.IsTrue(lazy.Enabled, "Expect enabled");
-            Assert.IsTrue(lazy.Displayed, "Expect displayed");
-            Assert.IsTrue(lazy.ExistsNow, "Expect exists now");
+            string testString = "A test this is";
 
-            this.AppiumDriver.FindElementByName("Plus").Click();
-            this.AppiumDriver.FindElement(By.Name("Three")).Click();
-            this.AppiumDriver.FindElementByAccessibilityId("equalButton").Click();
+            NotepadApplication = new NotepadPageModel(this.TestObject);
+            NotepadApplication.TextEditor.SendKeys(testString);
 
-            Assert.AreEqual("Display is 10", this.AppiumDriver.FindElementByAccessibilityId("CalculatorResults").GetAttribute("Name"));
+            this.SoftAssert.Assert(() => Assert.AreEqual(this.Log, NotepadApplication.GetLogger(), "Expected same logger"));
+            this.SoftAssert.Assert(() => Assert.AreEqual(this.PerfTimerCollection, NotepadApplication.GetPerfTimerCollection(), "Expected same perf collection"));
+            this.SoftAssert.Assert(() => Assert.AreEqual(this.AppiumDriver, NotepadApplication.GetAppiumDriver(), "Expected same logger"));
+
+            this.SoftAssert.Assert(() => Assert.IsTrue(NotepadApplication.IsPageLoaded(), "Expect page is loaded"));
+            this.SoftAssert.Assert(() => Assert.IsTrue(NotepadApplication.TextEditor.Enabled, "Expect enabled"));
+            this.SoftAssert.Assert(() => Assert.IsTrue(NotepadApplication.TextEditor.Displayed, "Expect displayed"));
+            this.SoftAssert.Assert(() => Assert.IsFalse(NotepadApplication.DontSave.ExistsNow, "Expect not to exist now"));
+
+            this.SoftAssert.Assert(() => Assert.AreEqual(testString, this.AppiumDriver.FindElementByName("Text Editor").Text));
+
+            NotepadApplication.OverrideDriver(null);
+            this.SoftAssert.Assert(() => Assert.AreEqual(null, NotepadApplication.GetAppiumDriver()));
+
+            NotepadApplication.OverrideDriver(this.AppiumDriver);
+
+            this.SoftAssert.FailTestIfAssertFailed();
+        }
+
+        /// <summary>
+        /// Cleanup after application
+        /// </summary>
+        protected override void BeforeLoggingTeardown(TestResultType resultType)
+        {
+            // Make sure we get all the logging info
+            base.BeforeLoggingTeardown(resultType);
+
+            // Cleanup after the app
+            NotepadApplication?.CloseAndDontSave();
+            NotepadApplication = null;
         }
 
         /// <summary>
@@ -50,9 +78,7 @@ namespace AppiumUnitTests
         protected override AppiumDriver<IWebElement> GetMobileDevice()
         {
             AppiumOptions options = new AppiumOptions();
-
-            options.AddAdditionalCapability("app", "Microsoft.WindowsCalculator_8wekyb3d8bbwe!App");
-            options.AddAdditionalCapability(MobileCapabilityType.Udid, "0C0E26E7-966B-4C89-A765-32C5C997A456");
+            options.AddAdditionalCapability("app", $"{Environment.SystemDirectory}\\notepad.exe");
             return new WindowsDriver<IWebElement>(new Uri("http://127.0.0.1:4723"), options);
         }
     }
