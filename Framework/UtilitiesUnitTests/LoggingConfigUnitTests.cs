@@ -70,7 +70,7 @@ namespace UtilitiesUnitTesting
         [ExpectedException(typeof(ArgumentException))]
         public void GetLoggingLevelSettingsDefault()
         {
-            Config.AddTestSettingValues("LogLevel", "Random", "MagenicMaqs", true);
+            Config.AddTestSettingValues("LogLevel", "Default", "MagenicMaqs", true);
             LoggingConfig.GetLoggingLevelSetting();
         }
 
