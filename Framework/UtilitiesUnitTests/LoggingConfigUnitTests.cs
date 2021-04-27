@@ -45,7 +45,7 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void GetLoggingLevelSettings()
         {
-            MessageType[] messageTypes = { MessageType.ACTION, MessageType.STEP, MessageType.GENERIC, MessageType.SUCCESS, MessageType.WARNING, MessageType.ERROR, MessageType.SUSPENDED };
+            MessageType[] messageTypes = { MessageType.VERBOSE, MessageType.INFORMATION, MessageType.ACTION, MessageType.STEP, MessageType.GENERIC, MessageType.SUCCESS, MessageType.WARNING, MessageType.ERROR, MessageType.SUSPENDED };
 
             for (int i = 0; i < messageTypes.Length; i++) 
             {
