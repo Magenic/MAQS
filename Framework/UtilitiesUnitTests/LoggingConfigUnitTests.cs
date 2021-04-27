@@ -25,8 +25,8 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void GetLoggingEnabledSettings()
         {
-            LoggingEnabled[] loggingEnableds = { LoggingEnabled.YES, LoggingEnabled.NO, LoggingEnabled.ONFAIL };
-
+            LoggingEnabled[] loggingEnableds = (LoggingEnabled[])Enum.GetValues(typeof(LoggingEnabled));
+    
             for (int i = 0; i < loggingEnableds.Length; i++)
             {
                 Config.AddTestSettingValues("Log", loggingEnableds[i].ToString(), "MagenicMaqs", true);
@@ -53,8 +53,8 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void GetLoggingLevelSettings()
         {
-            MessageType[] messageTypes = { MessageType.VERBOSE, MessageType.INFORMATION, MessageType.ACTION, MessageType.STEP, MessageType.GENERIC, MessageType.SUCCESS, MessageType.WARNING, MessageType.ERROR, MessageType.SUSPENDED };
-
+            MessageType[] messageTypes = (MessageType[])Enum.GetValues(typeof(MessageType));
+          
             for (int i = 0; i < messageTypes.Length; i++) 
             {
                 Config.AddTestSettingValues("LogLevel", messageTypes[i].ToString(), "MagenicMaqs", true);
@@ -81,20 +81,21 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void GetConsoleLogger()
         {
-            Config.AddTestSettingValues("Log", LoggingEnabled.NO.ToString(), "MagenicMaqs", true);
-            var logger = LoggingConfig.GetLogger(StringProcessor.SafeFormatter(
-                    "{0} - {1}",
-                    "Test",
-                    DateTime.UtcNow.ToString("yyyy-MM-dd-hh-mm-ss-ffff", CultureInfo.InvariantCulture)));
-            Assert.AreEqual(typeof(ConsoleLogger), logger.GetType());
-
-            Config.AddTestSettingValues("Log", LoggingEnabled.YES.ToString(), "MagenicMaqs", true);
+            LoggingEnabled[] loggingEnableds = (LoggingEnabled[])Enum.GetValues(typeof(LoggingEnabled));
             Config.AddTestSettingValues("LogType", "CONSOLE", "MagenicMaqs", true);
-            logger = LoggingConfig.GetLogger(StringProcessor.SafeFormatter(
+
+            for (int i = 0; i < loggingEnableds.Length; i++)
+            {
+                if (loggingEnableds[i] != LoggingEnabled.ONFAIL)
+                {
+                    Config.AddTestSettingValues("Log", loggingEnableds[i].ToString(), "MagenicMaqs", true);
+                    var logger = LoggingConfig.GetLogger(StringProcessor.SafeFormatter(
                     "{0} - {1}",
                     "Test",
                     DateTime.UtcNow.ToString("yyyy-MM-dd-hh-mm-ss-ffff", CultureInfo.InvariantCulture)));
-            Assert.AreEqual(typeof(ConsoleLogger), logger.GetType());
+                    Assert.AreEqual(typeof(ConsoleLogger), logger.GetType());
+                }       
+            }
         }
 
         /// <summary>
