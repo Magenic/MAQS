@@ -19,6 +19,7 @@ namespace AppiumUnitTests
     /// Windows application driver related Appium tests
     /// </summary>
     [TestClass]
+    [DoNotParallelize]
     public class AppiumWinAppUnitTests : BaseAppiumTest
     {
         /// <summary>
