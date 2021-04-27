@@ -5,6 +5,7 @@
 // <summary>Web driver factory</summary>
 //--------------------------------------------------
 using Magenic.Maqs.Utilities.Data;
+using Microsoft.Extensions.Options;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
@@ -72,7 +73,8 @@ namespace Magenic.Maqs.BaseSeleniumTest
                     case BrowserType.Remote:
                         webDriver = new RemoteWebDriver(SeleniumConfig.GetHubUri(), GetDefaultRemoteOptions().ToCapabilities(), SeleniumConfig.GetCommandTimeout());
                         break;
-
+                    case BrowserType.ChromiumEdge:
+                        webDriver = GetChromiumEdgeDriver(timeout, GetDefaultChromiumEdgeOptions(), SeleniumConfig.GetCommandTimeout());
                     default:
                         throw new ArgumentException(StringProcessor.SafeFormatter($"Browser type '{browser}' is not supported"));
                 }
@@ -185,6 +187,22 @@ namespace Magenic.Maqs.BaseSeleniumTest
         }
 
         /// <summary>
+        /// Get the default Chromium Edge options
+        /// </summary>
+        /// <returns>The default Edge options</returns>
+        public static EdgeOptions GetDefaultChromiumEdgeOptions()
+        {
+            EdgeOptions edgeOptions = new EdgeOptions
+            {
+                PageLoadStrategy = PageLoadStrategy.Normal,
+                UseChromium = true
+            };
+
+            edgeOptions.SetProxySettings();
+            return edgeOptions;
+        }
+
+        /// <summary>
         /// Initialize a new Chrome driver
         /// </summary>
         /// <param name="commandTimeout">Browser command timeout</param>
@@ -266,6 +284,23 @@ namespace Magenic.Maqs.BaseSeleniumTest
             return CreateDriver(() =>
             {
                 var driver = new InternetExplorerDriver(GetDriverLocation("IEDriverServer.exe"), internetExplorerOptions, commandTimeout);
+                SetBrowserSize(driver, size);
+
+                return driver;
+            });
+        }
+
+        /// Get a new Chromium Edge driver
+        /// </summary>
+        /// <param name="commandTimeout">Browser command timeout</param>
+        /// <param name="internetExplorerOptions">Browser options</param>
+        /// <param name="size">Browser size in the following format: MAXIMIZE, DEFAULT, or #x# (such as 1920x1080)</param>
+        /// <returns>A new IE driver</returns>
+        public static IWebDriver GetChromiumEdgeDriver(TimeSpan commandTimeout, InternetExplorerOptions internetExplorerOptions, string size = "MAXIMIZE")
+        {
+            return CreateDriver(() =>
+            {
+                var driver = new EdgeDriver(options);
                 SetBrowserSize(driver, size);
 
                 return driver;

@@ -39,6 +39,11 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <summary>
         /// Remote web browser - Used when executing on Grid or cloud based provides like Sauce Labs
         /// </summary>
-        Remote
+        Remote,
+
+        /// <summary>
+        /// Chrome Edge Driver
+        /// </summary>
+        ChromiumEdge
     }
 }

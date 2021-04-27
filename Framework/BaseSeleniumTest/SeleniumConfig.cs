@@ -81,6 +81,8 @@ namespace Magenic.Maqs.BaseSeleniumTest
                     return BrowserType.Edge;
                 case "REMOTE":
                     return BrowserType.Remote;
+                case "CHROMIUMEDGE":
+                    return BrowserType.ChromiumEdge;
                 default:
                     throw new ArgumentException(StringProcessor.SafeFormatter($"Browser type '{browserName}' is not supported"));
             }
