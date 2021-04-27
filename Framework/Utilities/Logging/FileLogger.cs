@@ -20,7 +20,7 @@ namespace Magenic.Maqs.Utilities.Logging
         /// <summary>
         /// The default log file save location
         /// </summary>
-        protected readonly string DEFAULTLOGFOLDER = Path.GetTempPath();
+        protected readonly string DEFAULTLOGFOLDER = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 
         /// <summary>
         /// Object for locking the log file so 
@@ -117,8 +117,8 @@ namespace Magenic.Maqs.Utilities.Logging
                         using (StreamWriter writer = new StreamWriter(this.FilePath, true))
                         {
                             string date = DateTime.UtcNow.ToString(Logger.DEFAULTDATEFORMAT, CultureInfo.InvariantCulture);
-                            writer.WriteLine(StringProcessor.SafeFormatter("{0}{1}", Environment.NewLine, date));
-                            writer.Write(StringProcessor.SafeFormatter("{0}:\t", messageType.ToString()));
+                            writer.WriteLine(StringProcessor.SafeFormatter($"{Environment.NewLine}{date}"));
+                            writer.Write(StringProcessor.SafeFormatter($"{messageType.ToString()}:\t"));
 
                             writer.WriteLine(StringProcessor.SafeFormatter(message, args));
                         }
@@ -127,7 +127,7 @@ namespace Magenic.Maqs.Utilities.Logging
                     {
                         // Failed to write to the event log, write error to the console instead
                         ConsoleLogger console = new ConsoleLogger();
-                        console.LogMessage(MessageType.ERROR, StringProcessor.SafeFormatter("Failed to write to event log because: {0}", e.Message));
+                        console.LogMessage(MessageType.ERROR, StringProcessor.SafeFormatter($"Failed to write to event log because: {e.Message}"));
                         console.LogMessage(messageType, message, args);
                     }
                 }

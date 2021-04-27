@@ -32,7 +32,7 @@ namespace Magenic.Maqs.Utilities.Logging
                 case "NO":
                     return LoggingEnabled.NO;
                 default:
-                    throw new ArgumentException(StringProcessor.SafeFormatter("Log value '{0}' is not a valid option", Config.GetGeneralValue("Log", "NO")));
+                    throw new ArgumentException(StringProcessor.SafeFormatter($"Log value '{Config.GetGeneralValue("Log", "NO")}' is not a valid option"));
             }
         }
 
@@ -63,7 +63,7 @@ namespace Magenic.Maqs.Utilities.Logging
                 case "SUSPENDED":
                     return MessageType.SUSPENDED;       // All logging is suspended
                 default:
-                    throw new ArgumentException(StringProcessor.SafeFormatter("Logging level value '{0}' is not a valid option", Config.GetGeneralValue("LogLevel")));
+                    throw new ArgumentException(StringProcessor.SafeFormatter($"Logging level value '{Config.GetGeneralValue("LogLevel")}' is not a valid option"));
             }
         }
 
@@ -92,7 +92,7 @@ namespace Magenic.Maqs.Utilities.Logging
                 case "HTM":
                     return new HtmlFileLogger(logDirectory, fileName, GetLoggingLevelSetting());
                 default:
-                    throw new ArgumentException(StringProcessor.SafeFormatter("Log type '{0}' is not a valid option", Config.GetGeneralValue("LogType", "CONSOLE")));
+                    throw new ArgumentException(StringProcessor.SafeFormatter($"Log type '{Config.GetGeneralValue("LogType", "CONSOLE")}' is not a valid option"));
             }
         }
 

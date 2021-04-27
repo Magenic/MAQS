@@ -8,6 +8,7 @@ using Magenic.Maqs.BaseDatabaseTest;
 using Magenic.Maqs.BaseWebServiceTest;
 using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Net.Http;
 
 namespace CompositeUnitTests
@@ -73,7 +74,7 @@ namespace CompositeUnitTests
         public void Intialized()
         {
             // Do something so we initialize the web driver
-            this.WebServiceDriver.ToString();
+            this.WebServiceDriver.HttpClient.Timeout = TimeSpan.FromSeconds(1);
 
             WebServiceDriverManager driverDriver = this.ManagerStore[typeof(WebServiceDriverManager).FullName] as WebServiceDriverManager;
             Assert.IsTrue(driverDriver.IsDriverIntialized(), "The driver should have been initialized");

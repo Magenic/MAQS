@@ -172,11 +172,14 @@ namespace Magenic.Maqs.BaseWebServiceTest
         public static string GetXmlObjectAsString<T>(T body, Encoding contentEncoding)
         {
             MemoryStream memoryStream = new MemoryStream();
-            XmlWriterSettings xmlWriterSettings = new XmlWriterSettings();
-            xmlWriterSettings.Encoding = contentEncoding;
-            xmlWriterSettings.Indent = true;
-            xmlWriterSettings.CloseOutput = false;
-            xmlWriterSettings.OmitXmlDeclaration = false;
+
+            XmlWriterSettings xmlWriterSettings = new XmlWriterSettings
+            {
+                Encoding = contentEncoding,
+                Indent = true,
+                CloseOutput = false,
+                OmitXmlDeclaration = false
+            };
 
             XmlWriter xw = XmlWriter.Create(memoryStream, xmlWriterSettings);
             XmlSerializer s = new XmlSerializer(typeof(T));
