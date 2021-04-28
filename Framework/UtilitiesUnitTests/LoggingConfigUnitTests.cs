@@ -3,6 +3,7 @@ using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace UtilitiesUnitTesting
@@ -11,12 +12,19 @@ namespace UtilitiesUnitTesting
     [DoNotParallelize]
     public class LoggingConfigUnitTests
     {
+
+        Dictionary<string, string> general; 
+
+        [TestInitialize]
+        public void SetUp()
+        {
+           general = Config.GetSection(ConfigSection.MagenicMaqs);
+        }
+
         [TestCleanup]
         public void CleanUp()
         {
-            Config.AddTestSettingValues("Log", LoggingEnabled.ONFAIL.ToString(), "MagenicMaqs", true);
-            Config.AddTestSettingValues("LogLevel", MessageType.INFORMATION.ToString(), "MagenicMaqs", true);
-            Config.AddTestSettingValues("LogType", "TXT", "MagenicMaqs", true);
+            Config.AddTestSettingValues(general, ConfigSection.MagenicMaqs, true);
         }
 
         /// <summary>
