@@ -1,4 +1,4 @@
-﻿//--------------------------------------------------
+//--------------------------------------------------
 // <copyright file="SoftAssert.cs" company="Magenic">
 //  Copyright 2021 Magenic, All rights Reserved
 // </copyright>
@@ -142,10 +142,10 @@ namespace Magenic.Maqs.BaseTest
                 {
                     if (string.IsNullOrEmpty(message))
                     {
-                        throw new SoftAssertException(StringProcessor.SafeFormatter("SoftAssert.AreEqual failed for {0}.  Expected '{1}' but got '{2}'", softAssertName, expectedText, actualText));
+                        throw new SoftAssertException(StringProcessor.SafeFormatter("SoftAssert.AreEqual failed  {0}.  Expected '{1}' but got '{2}'", softAssertName, expectedText, actualText));
                     }
 
-                    throw new SoftAssertException(StringProcessor.SafeFormatter("SoftAssert.AreEqual failed for {0}.  Expected '{1}' but got '{2}'.  {3}", softAssertName, expectedText, actualText, message));
+                    throw new SoftAssertException(StringProcessor.SafeFormatter("SoftAssert.AreEqual failed {0}.  Expected '{1}' but got '{2}'.  {3}", softAssertName, expectedText, actualText, message));
                 }
             }
 
@@ -169,10 +169,10 @@ namespace Magenic.Maqs.BaseTest
                 {
                     if (string.IsNullOrEmpty(failureMessage))
                     {
-                        throw new SoftAssertException(StringProcessor.SafeFormatter("SoftAssert.IsTrue failed for: {0}", softAssertName));
+                        throw new SoftAssertException(StringProcessor.SafeFormatter("SoftAssert.IsTrue failed: {0}", softAssertName));
                     }
 
-                    throw new SoftAssertException(StringProcessor.SafeFormatter("SoftAssert.IsTrue failed for: {0}. {1}", softAssertName, failureMessage));
+                    throw new SoftAssertException(StringProcessor.SafeFormatter("SoftAssert.IsTrue failed: {0}. {1}", softAssertName, failureMessage));
                 }
             }
 
@@ -195,10 +195,10 @@ namespace Magenic.Maqs.BaseTest
                 {
                     if (string.IsNullOrEmpty(failureMessage))
                     {
-                        throw new SoftAssertException(StringProcessor.SafeFormatter("SoftAssert.IsFalse failed for: {0}", softAssertName));
+                        throw new SoftAssertException(StringProcessor.SafeFormatter("SoftAssert.IsFalse failed: {0}", softAssertName));
                     }
 
-                    throw new SoftAssertException(StringProcessor.SafeFormatter("SoftAssert.IsFalse failed for: {0}. {1}", softAssertName, failureMessage));
+                    throw new SoftAssertException(StringProcessor.SafeFormatter("SoftAssert.IsFalse failed: {0}. {1}", softAssertName, failureMessage));
                 }
             }
 
@@ -316,20 +316,14 @@ namespace Magenic.Maqs.BaseTest
                 assertFunction.Invoke();
                 this.NumberOfPassedAsserts = ++this.NumberOfPassedAsserts;
                 result = true;
-                this.Log.LogMessage(MessageType.SUCCESS, $"SoftAssert passed for: {assertName}.");
+                this.Log.LogMessage(MessageType.SUCCESS, $"SoftAssert '{assertName}' passed");
             }
             catch (Exception ex)
             {
                 this.NumberOfFailedAsserts = ++this.NumberOfFailedAsserts;
                 result = false;
-                if (string.IsNullOrEmpty(failureMessage))
-                {
-                    this.Log.LogMessage(MessageType.WARNING, $"SoftAssert failed for: {assertName}. {ex.Message}");
-                }
-                else
-                {
-                    this.Log.LogMessage(MessageType.WARNING, $"SoftAssert failed for: {assertName}. {failureMessage}. {ex.Message}");
-                }
+
+                this.LogFailedMessage(assertName, ex, failureMessage);
 
                 this.listOfExceptions.Add(ex);
             }
@@ -360,7 +354,7 @@ namespace Magenic.Maqs.BaseTest
                 assertFunction.Invoke();
                 this.NumberOfFailedAsserts = ++this.NumberOfFailedAsserts;
                 result = false;
-                this.Log.LogMessage(MessageType.WARNING, "SoftAssert failed for assert {0}:  {1} passed.  Expected failure type {2}.", assertName, assertFunction.Method.Name, expectedException);
+                this.Log.LogMessage(MessageType.WARNING, "SoftAssert failed assert {0}:  {1} passed.  Expected failure type {2}.", assertName, assertFunction.Method.Name, expectedException);
             }
             catch (Exception ex)
             {
@@ -368,13 +362,13 @@ namespace Magenic.Maqs.BaseTest
                 {
                     this.NumberOfPassedAsserts = ++this.NumberOfPassedAsserts;
                     result = true;
-                    this.Log.LogMessage(MessageType.SUCCESS, "SoftAssert passed for assert {0}: {1}.", assertName, assertFunction.Method.Name);
+                    this.Log.LogMessage(MessageType.SUCCESS, "SoftAssert passed assert {0}: {1}.", assertName, assertFunction.Method.Name);
                 }
                 else
                 {
                     this.NumberOfFailedAsserts = ++this.NumberOfFailedAsserts;
                     result = false;
-                    this.Log.LogMessage(MessageType.WARNING, "SoftAssert failed for assert {0}: {1}. Expected failure:{2} Actual failure: {3}", assertName, assertFunction.Method.Name, expectedException, ex.Message);
+                    this.LogFailedMessage(assertName, ex, failureMessage);
                     this.listOfExceptions.Add(ex);
                 }
             }
@@ -411,7 +405,8 @@ namespace Magenic.Maqs.BaseTest
             {
                 this.NumberOfFailedAsserts = ++this.NumberOfFailedAsserts;
                 result = false;
-                this.LogMessage(expectedText, actualText, message, result);
+
+                this.LogFailedMessage($"Expected '{expectedText}' but got {actualText}", ex, message);
                 this.listOfExceptions.Add(ex);
             }
             finally
@@ -441,13 +436,14 @@ namespace Magenic.Maqs.BaseTest
                 test.Invoke();
                 this.NumberOfPassedAsserts = ++this.NumberOfPassedAsserts;
                 result = true;
-                this.Log.LogMessage(MessageType.SUCCESS, "SoftAssert passed for: {0}.", softAssertName);
+                this.Log.LogMessage(MessageType.SUCCESS, $"SoftAssert passed: {softAssertName}.");
             }
             catch (Exception ex)
             {
                 this.NumberOfFailedAsserts = ++this.NumberOfFailedAsserts;
                 result = false;
-                this.Log.LogMessage(MessageType.WARNING, "SoftAssert failed for: {0}. {1}", softAssertName, message);
+
+                this.LogFailedMessage(softAssertName, ex, message);
                 this.listOfExceptions.Add(ex);
             }
             finally
@@ -474,6 +470,26 @@ namespace Magenic.Maqs.BaseTest
             else
             {
                 this.Log.LogMessage(MessageType.WARNING, StringProcessor.SafeFormatter("Soft Assert '{0}' failed. Expected Value = '{1}', Actual Value = '{2}'.", message, expectedText, actualText));
+            }
+        }
+
+        /// <summary>
+        /// Log a failed soft assert message
+        /// </summary>
+        /// <param name="assertName">The name of the assertion</param>
+        /// <param name="ex">The related exception</param>
+        /// <param name="failureMessage">Failure message</param>
+        private void LogFailedMessage(string assertName, Exception ex, string failureMessage)
+        {
+            string formattedException = StringProcessor.SafeExceptionFormatter(ex);
+
+            if (string.IsNullOrEmpty(failureMessage))
+            {
+                this.Log.LogMessage(MessageType.WARNING, $"SoftAssert '{assertName}' failed {Environment.NewLine}Exception: {formattedException}");
+            }
+            else
+            {
+                this.Log.LogMessage(MessageType.WARNING, $"SoftAssert '{assertName}' failed {failureMessage}{Environment.NewLine}Exception: {formattedException}");
             }
         }
 
