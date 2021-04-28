@@ -54,8 +54,8 @@ namespace UtilitiesUnitTesting
             System.Threading.Thread.Sleep(1000);
             p.StartTimer("Inner", "test2");
             System.Threading.Thread.Sleep(1000);
-            p.EndTimer("test1");
-            p.EndTimer("test2");
+            p.StopTimer("test1");
+            p.StopTimer("test2");
 
             // Write the log and validate the resulting file contents
             p.Write(this.Log);
@@ -122,8 +122,8 @@ namespace UtilitiesUnitTesting
             p.StartTimer("StoppedOuter", "test1");
             p.StartTimer("test2");
             System.Threading.Thread.Sleep(1000);
-            p.EndTimer("test1");
-            p.EndTimer("test2");
+            p.StopTimer("test1");
+            p.StopTimer("test2");
             p.StartTimer("NotStopped", "test3");
 
             // Write the log and validate the resulting file contents
@@ -199,7 +199,7 @@ namespace UtilitiesUnitTesting
         public void PerfEndTimerThrowException()
         {
             PerfTimerCollection p = this.PerfTimerCollection;
-            p.EndTimer("notStarted");
+            p.StopTimer("notStarted");
         }
 
         /// <summary>
@@ -223,7 +223,7 @@ namespace UtilitiesUnitTesting
             // Create an invalid testName using characters not allowed on host OS
             PerfTimerCollection p = new PerfTimerCollection("<>" + Path.GetInvalidFileNameChars().Aggregate("", (curr, next) => curr + next));
             p.StartTimer("testTimer");
-            p.EndTimer("testTimer");
+            p.StopTimer("testTimer");
             FileLogger log = new FileLogger("PerfTimerWriteException", "PerfTimerWriteException", MessageType.GENERIC, true);
             p.Write(log);
             // Tests that an exception is thrown and logged.

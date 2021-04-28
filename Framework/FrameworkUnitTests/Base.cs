@@ -100,7 +100,7 @@ namespace FrameworkUnitTests
             string logFilePath = ((FileLogger)this.Log).FilePath;
 
             this.PerfTimerCollection.StartTimer("testTimer");
-            this.PerfTimerCollection.EndTimer("testTimer");
+            this.PerfTimerCollection.StopTimer("testTimer");
             this.PerfTimerCollection.Write(this.Log);
 
             string perfTimerLogPath = LoggingConfig.GetLogDirectory() + "\\" + this.PerfTimerCollection.FileName;
