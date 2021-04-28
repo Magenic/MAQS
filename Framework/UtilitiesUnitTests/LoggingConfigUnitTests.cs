@@ -8,6 +8,7 @@ using System.Globalization;
 namespace UtilitiesUnitTesting
 {
     [TestClass]
+    [DoNotParallelize]
     public class LoggingConfigUnitTests
     {
         [TestCleanup]
