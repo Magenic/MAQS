@@ -2,34 +2,48 @@
 <RunSettings>
   <RunConfiguration>
     <DisableAppDomain>True</DisableAppDomain>
-    <MaxCpuCount>1</MaxCpuCount>
+    <MaxCpuCount>0</MaxCpuCount>
   </RunConfiguration>
   <MSTest>
     <Parallelize>
-      <Workers>6</Workers>
+      <Workers>5</Workers>
       <Scope>MethodLevel</Scope>
     </Parallelize>
   </MSTest>
   <TestRunParameters>
-    <Parameter name="SeleniumMaqs:Adding" value="SAMPLE" />
-    <Parameter name="MagenicMaqs:SectionOverrideCore" value="ANOTHERSAMPLE" />
-    <Parameter name="Grog" value="YetAnother" />
-    <Parameter name="Magenicmaqs:SectionOverride" value="SAMPLEGen" />
-    <Parameter name="Appiummaqs:SectionOverride" value="SAMPLEApp" />
-    <Parameter name="AppiumCaPsMaqs:SectionOverride" value="SAMPLEAppCap" />
-    <Parameter name="DatabasEMaqs:SectionOverride" value="SAMPLEDatabase" />
-    <Parameter name="EmailMaqS:SectionOverride" value="SAMPLEEmail" />
-    <Parameter name="SeleniumMAqs:SectionOverride" value="SAMPLESel" />
-    <Parameter name="RemoteseleniumCapsMaqs:SectionOverride" value="SAMPLESelCap" />
-    <Parameter name="WebServiceMaqs:SectionOverride" value="SAMPLEWeb" />
-    <Parameter name="magenicMaqs:SectionAdd" value="SAMPLEGenz" />
-    <Parameter name="appiummaqs:SectionAdd" value="SAMPLEAppz" />
-    <Parameter name="appiumCapsMaqs:SectionAdd" value="SAMPLEAppCapz" />
-    <Parameter name="Databasemaqs:SectionAdd" value="SAMPLEDatabasez" />
-    <Parameter name="Emailmaqs:SectionAdd" value="SAMPLEEmailz" />
-    <Parameter name="SeleniumMaqs:SectionAdd" value="SAMPLESelz" />
-    <Parameter name="RemoteseleniumCapsMaqs:SectionAdd" value="SAMPLESelCapz" />
-    <Parameter name="webServiceMaqs:SectionAdd" value="SAMPLEWebz" />
+    <!-- <Parameter name="SeleniumMaqs:Adding" value="SAMPLE" />
+      <Parameter name="MagenicMaqs:SectionOverrideCore" value="ANOTHERSAMPLE" />
+      <Parameter name="Grog" value="YetAnother" />
+      <Parameter name="Magenicmaqs:SectionOverride" value="SAMPLEGen" />
+      <Parameter name="Appiummaqs:SectionOverride" value="SAMPLEApp" />
+      <Parameter name="AppiumCaPsMaqs:SectionOverride" value="SAMPLEAppCap" />
+      <Parameter name="DatabasEMaqs:SectionOverride" value="SAMPLEDatabase" />
+      <Parameter name="EmailMaqS:SectionOverride" value="SAMPLEEmail" />
+      <Parameter name="SeleniumMAqs:SectionOverride" value="SAMPLESel" />
+      <Parameter name="RemoteseleniumCapsMaqs:SectionOverride" value="SAMPLESelCap" />
+      <Parameter name="WebServiceMaqs:SectionOverride" value="SAMPLEWeb" />
+      <Parameter name="magenicMaqs:SectionAdd" value="SAMPLEGenz" />
+      <Parameter name="appiummaqs:SectionAdd" value="SAMPLEAppz" />
+      <Parameter name="appiumCapsMaqs:SectionAdd" value="SAMPLEAppCapz" />
+      <Parameter name="Databasemaqs:SectionAdd" value="SAMPLEDatabasez" />
+      <Parameter name="Emailmaqs:SectionAdd" value="SAMPLEEmailz" />
+      <Parameter name="SeleniumMaqs:SectionAdd" value="SAMPLESelz" />
+      <Parameter name="RemoteseleniumCapsMaqs:SectionAdd" value="SAMPLESelCapz" />
+      <Parameter name="webServiceMaqs:SectionAdd" value="SAMPLEWebz" />
+	  <Parameter name="EmailMaqs:EmailUserName" value="maqsbaseemailtest@gmail.com" />
+      <Parameter name="EmailMaqs:EmailPassword" value="Gr00veePW" />
+	  <Parameter name="AppiumCapsMaqs:accessKey" value="0a4d7d84-f93b-43e6-9af1-1c89ac143355" />
+      
+	  <Parameter name="RemoteSeleniumCapsMaqs:accessKey" value="0a4d7d84-f93b-43e6-9af1-1c89ac143355" /> -->
+
+
+    <Parameter name="SeleniumMaqs:Browser" value="Remote" />
+    <Parameter name="AppiumCapsMaqs:username" value="jakefe" />
+    <Parameter name="RemoteSeleniumCapsMaqs:username" value="jakefe" />
+    <Parameter name="RemoteSeleniumCapsMaqs:accessKey" value="88f42051-e583-4fa1-8c85-0df14f95b1ee" />
+    <Parameter name="RemoteSeleniumCapsMaqs:platform" value="Windows 10" />
+    <Parameter name="RemoteSeleniumCapsMaqs:version" value="latest" />
+    <Parameter name="AppiumCapsMaqs:accessKey" value="88f42051-e583-4fa1-8c85-0df14f95b1ee" />
   </TestRunParameters>
   <DataCollectionRunSettings>
     <DataCollectors>
@@ -38,7 +52,7 @@
           <CodeCoverage>
             <ModulePaths>
               <Exclude>
-                <ModulePath>.*UnitTests.*</ModulePath>
+                <ModulePath>.*UnitTestsz.*</ModulePath>
               </Exclude>
             </ModulePaths>
           </CodeCoverage>
