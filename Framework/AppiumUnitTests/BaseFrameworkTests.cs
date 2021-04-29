@@ -44,7 +44,8 @@ namespace AppiumUnitTests
             tester.TestContext = this.TestContext;
             tester.Setup();
             tester.Log = new ConsoleLogger();
-            tester.SoftAssert.AreEqual(string.Empty, "d");
+
+            tester.SoftAssert.Assert(() => Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("d", string.Empty));
             tester.Teardown();
         }
 
