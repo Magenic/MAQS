@@ -7,21 +7,20 @@ using System.Collections.Generic;
 using System.Globalization;
 
 namespace UtilitiesUnitTesting
-{
-    [TestClass]  
+{   
+    [TestClass]
+    [DoNotParallelize]
     public class LoggingConfigUnitTests
     {
-        Dictionary<string, string> general; 
+        Dictionary<string, string> general;
 
         [TestInitialize]
-        [DoNotParallelize]
         public void SetUp()
         {
            general = Config.GetSection(ConfigSection.MagenicMaqs);
         }
 
         [TestCleanup]
-        [DoNotParallelize]
         public void CleanUp()
         {
             Config.AddTestSettingValues(general, ConfigSection.MagenicMaqs, true);
@@ -30,8 +29,7 @@ namespace UtilitiesUnitTesting
         /// <summary>
         /// Test getting the LoggingEnabledSettings
         /// </summary>
-        [TestMethod]
-        [DoNotParallelize]
+        [TestMethod]   
         [TestCategory(TestCategories.Utilities)]
         public void GetLoggingEnabledSettings()
         {
@@ -48,7 +46,6 @@ namespace UtilitiesUnitTesting
         /// Test getting the LoggingEnabledSettings default, it should throw an exception
         /// </summary>
         [TestMethod]
-        [DoNotParallelize]
         [TestCategory(TestCategories.Utilities)]
         [ExpectedException(typeof(ArgumentException))]
         public void GetLoggingEnabledSettingsDefault()
@@ -61,7 +58,6 @@ namespace UtilitiesUnitTesting
         /// Tests getting the LoggingLevelSettings
         /// </summary>
         [TestMethod]
-        [DoNotParallelize]
         [TestCategory(TestCategories.Utilities)]
         public void GetLoggingLevelSettings()
         {
@@ -78,7 +74,6 @@ namespace UtilitiesUnitTesting
         /// Tests getting the default LoggingLevelSettings, this should throw an exception
         /// </summary>
         [TestMethod]
-        [DoNotParallelize]
         [TestCategory(TestCategories.Utilities)]
         [ExpectedException(typeof(ArgumentException))]
         public void GetLoggingLevelSettingsDefault()
@@ -91,7 +86,6 @@ namespace UtilitiesUnitTesting
         /// Tests getting the Console Logger 
         /// </summary>
         [TestMethod]
-        [DoNotParallelize]
         [TestCategory(TestCategories.Utilities)]
         public void GetConsoleLogger()
         {
@@ -116,7 +110,6 @@ namespace UtilitiesUnitTesting
         /// Tests Getting the File Logger
         /// </summary>
         [TestMethod]
-        [DoNotParallelize]
         [TestCategory(TestCategories.Utilities)]
         public void GetFileLogger()
         {
@@ -134,7 +127,6 @@ namespace UtilitiesUnitTesting
         /// Tests getting the HTML Logger
         /// </summary>
         [TestMethod]
-        [DoNotParallelize]
         [TestCategory(TestCategories.Utilities)]
         public void GetHTMLLogger()
         {
@@ -157,7 +149,6 @@ namespace UtilitiesUnitTesting
         /// Test getting the logger default, it should throw an exception
         /// </summary>
         [TestMethod]
-        [DoNotParallelize]
         [TestCategory(TestCategories.Utilities)]
         [ExpectedException(typeof(ArgumentException))]
         public void GetLoggerDefault()
