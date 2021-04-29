@@ -698,7 +698,7 @@ namespace SeleniumUnitTests
             string logLocation = ((FileLogger)Log).FilePath;
             string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " testSoftAssert" + " (1).Png";
 
-            bool isFalse = seleniumSoftAssert.Assert(() => Assert.IsTrue(false, "testSoftAssert", "message"));
+            bool isFalse = seleniumSoftAssert.Assert(() => Assert.IsTrue(false), "testSoftAssert", "message");
 
             Assert.IsTrue(File.Exists(screenShotLocation), "Fail to find screenshot");
             File.Delete(screenShotLocation);
@@ -787,7 +787,7 @@ namespace SeleniumUnitTests
             string logLocation = ((FileLogger)Log).FilePath;
             string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " testSoftAssert" + " (1).Png";
 
-            bool isFalse = seleniumSoftAssert.Assert(() => Assert.IsFalse(true, "testSoftAssert", "message"));
+            bool isFalse = seleniumSoftAssert.Assert(() => Assert.IsFalse(true), "testSoftAssert", "message");
 
             Assert.IsTrue(File.Exists(screenShotLocation), "Fail to find screenshot");
             File.Delete(screenShotLocation);
