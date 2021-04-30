@@ -7,19 +7,26 @@ using System.Collections.Generic;
 using System.Globalization;
 
 namespace UtilitiesUnitTesting
-{   
+{
     [TestClass]
     [DoNotParallelize]
     public class LoggingConfigUnitTests
     {
+        // Cached config settings
         Dictionary<string, string> general;
 
+        /// <summary>
+        /// Cache config settings
+        /// </summary>
         [TestInitialize]
         public void SetUp()
         {
-           general = Config.GetSection(ConfigSection.MagenicMaqs);
+            general = Config.GetSection(ConfigSection.MagenicMaqs);
         }
 
+        /// <summary>
+        /// Restore config settings
+        /// </summary>
         [TestCleanup]
         public void CleanUp()
         {
@@ -29,16 +36,16 @@ namespace UtilitiesUnitTesting
         /// <summary>
         /// Test getting the LoggingEnabledSettings
         /// </summary>
-        [TestMethod]   
+        [TestMethod]
         [TestCategory(TestCategories.Utilities)]
         public void GetLoggingEnabledSettings()
         {
             LoggingEnabled[] loggingEnableds = (LoggingEnabled[])Enum.GetValues(typeof(LoggingEnabled));
-    
+
             for (int i = 0; i < loggingEnableds.Length; i++)
             {
                 Config.AddTestSettingValues("Log", loggingEnableds[i].ToString(), "MagenicMaqs", true);
-                Assert.AreEqual(loggingEnableds[i] , LoggingConfig.GetLoggingEnabledSetting());
+                Assert.AreEqual(loggingEnableds[i], LoggingConfig.GetLoggingEnabledSetting());
             }
         }
 
@@ -47,7 +54,7 @@ namespace UtilitiesUnitTesting
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(MaqsLoggingConfigException))]
         public void GetLoggingEnabledSettingsDefault()
         {
             Config.AddTestSettingValues("Log", "Default", "MagenicMaqs", true);
@@ -62,8 +69,8 @@ namespace UtilitiesUnitTesting
         public void GetLoggingLevelSettings()
         {
             MessageType[] messageTypes = (MessageType[])Enum.GetValues(typeof(MessageType));
-          
-            for (int i = 0; i < messageTypes.Length; i++) 
+
+            for (int i = 0; i < messageTypes.Length; i++)
             {
                 Config.AddTestSettingValues("LogLevel", messageTypes[i].ToString(), "MagenicMaqs", true);
                 Assert.AreEqual(messageTypes[i], LoggingConfig.GetLoggingLevelSetting());
@@ -75,7 +82,7 @@ namespace UtilitiesUnitTesting
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(MaqsLoggingConfigException))]
         public void GetLoggingLevelSettingsDefault()
         {
             Config.AddTestSettingValues("LogLevel", "Default", "MagenicMaqs", true);
@@ -102,7 +109,7 @@ namespace UtilitiesUnitTesting
                     "Test",
                     DateTime.UtcNow.ToString("yyyy-MM-dd-hh-mm-ss-ffff", CultureInfo.InvariantCulture)));
                     Assert.AreEqual(typeof(ConsoleLogger), logger.GetType());
-                }       
+                }
             }
         }
 
@@ -130,7 +137,7 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void GetHTMLLogger()
         {
-            string[] loggerType = {"HTML", "HTM" };
+            string[] loggerType = { "HTML", "HTM" };
             Config.AddTestSettingValues("LogLevel", MessageType.VERBOSE.ToString(), "MagenicMaqs", true);
             Config.AddTestSettingValues("Log", LoggingEnabled.YES.ToString(), "MagenicMaqs", true);
 
@@ -150,7 +157,7 @@ namespace UtilitiesUnitTesting
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Utilities)]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(MaqsLoggingConfigException))]
         public void GetLoggerDefault()
         {
             Config.AddTestSettingValues("Log", LoggingEnabled.YES.ToString(), "MagenicMaqs", true);
