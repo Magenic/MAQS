@@ -351,26 +351,35 @@ namespace Magenic.Maqs.BaseTest
         /// <returns>A logger</returns>
         protected Logger CreateLogger()
         {
-            this.LoggedExceptionList = new List<string>();
-            this.LoggingEnabledSetting = LoggingConfig.GetLoggingEnabledSetting();
+            try
+            {
+                this.LoggedExceptionList = new List<string>();
+                this.LoggingEnabledSetting = LoggingConfig.GetLoggingEnabledSetting();
 
-            // Setup the exception listener
-            if (LoggingConfig.GetFirstChanceHandler())
-            {
-                AppDomain.CurrentDomain.FirstChanceException += this.FirstChanceHandler;
-            }
+                // Setup the exception listener
+                if (LoggingConfig.GetFirstChanceHandler())
+                {
+                    AppDomain.CurrentDomain.FirstChanceException += this.FirstChanceHandler;
+                }
 
-            if (this.LoggingEnabledSetting != LoggingEnabled.NO)
-            {
-                return LoggingConfig.GetLogger(
-                    StringProcessor.SafeFormatter(
-                    "{0} - {1}",
-                    this.GetFullyQualifiedTestClassName(),
-                    DateTime.UtcNow.ToString("yyyy-MM-dd-hh-mm-ss-ffff", CultureInfo.InvariantCulture)));
+                if (this.LoggingEnabledSetting != LoggingEnabled.NO)
+                {
+                    return LoggingConfig.GetLogger(
+                        StringProcessor.SafeFormatter(
+                        "{0} - {1}",
+                        this.GetFullyQualifiedTestClassName(),
+                        DateTime.UtcNow.ToString("yyyy-MM-dd-hh-mm-ss-ffff", CultureInfo.InvariantCulture)));
+                }
+                else
+                {
+                    return new ConsoleLogger();
+                }
             }
-            else
+            catch (Exception e)
             {
-                return new ConsoleLogger();
+                ConsoleLogger newLogger = new ConsoleLogger();
+                newLogger.LogMessage(MessageType.WARNING, StringProcessor.SafeExceptionFormatter(e));
+                return newLogger;
             }
         }
 
@@ -503,6 +512,13 @@ namespace Magenic.Maqs.BaseTest
         /// <param name="e">The first chance exception</param>
         private void FirstChanceHandler(object source, FirstChanceExceptionEventArgs e)
         {
+            // Config settings for logging are messed up so we cannot safely log to anything but the console
+            if (e.Exception is MaqsLoggingConfigException)
+            {
+                Console.WriteLine(StringProcessor.SafeExceptionFormatter(e.Exception));
+                return;
+            }
+
             try
             {
                 // Only do this is we are logging
