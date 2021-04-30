@@ -293,6 +293,8 @@ namespace Magenic.Maqs.BaseTest
                     this.TryToLog(MessageType.WARNING, "Test had an unexpected result of {0}", this.GetResultText());
                 }
 
+                this.LogVerbose("Test outcome");
+
                 this.BeforeLoggingTeardown(resultType);
 
                 // Cleanup log files we don't want
