@@ -8,6 +8,8 @@ using Magenic.Maqs.BaseSeleniumTest;
 using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium.Chrome;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace SeleniumUnitTests
@@ -76,6 +78,45 @@ namespace SeleniumUnitTests
         {
             var options = WebDriverFactory.GetRemoteOptions(RemoteBrowserType.Chrome);
             Assert.IsNotNull(options, "Was unable to retrieve remote options");
+        }
+
+        /// <summary>
+        /// Validating we can get the default remote options
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        [ExpectedException(typeof(Exception))]
+        public void CreateInvalidDriver()
+        {
+            WebDriverFactory.CreateDriver(null);
+        }
+
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void GetAllRemoteOptions()
+        {
+            RemoteBrowserType[] remoteBrowserTypes = (RemoteBrowserType[])Enum.GetValues(typeof(RemoteBrowserType));
+            var remoteCapabilities = new Dictionary<string, object>();
+
+            for (int i = 0; i < remoteBrowserTypes.Length; i++)
+            {
+                var options = WebDriverFactory.GetRemoteOptions(remoteBrowserTypes[i], "1.2", "2.2", remoteCapabilities);
+                Assert.IsNotNull(options, $"Was unable to retrieve remote options for: {remoteBrowserTypes[i]}");
+                Assert.IsTrue(options.ToString().ToLower().Contains(remoteBrowserTypes[i].ToString().ToLower()));
+            }           
+        }
+
+        //[TestCategory(TestCategories.Selenium)]
+        public void GetBrowserWithDefaultConfiguration()
+        {
+            //BrowserType[] browserTypes = (BrowserType[])Enum.GetValues(typeof(BrowserType));
+            BrowserType[] browserTypes = {BrowserType.Chrome, BrowserType.Firefox, BrowserType.HeadlessChrome, BrowserType.IE, BrowserType.Remote };
+
+            for (int i = 0; i < browserTypes.Length; i++)
+            {
+                var browser = WebDriverFactory.GetBrowserWithDefaultConfiguration(browserTypes[i]);
+                Assert.IsNotNull(browser);
+            }       
         }
     }
 }
