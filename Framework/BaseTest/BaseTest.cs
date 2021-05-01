@@ -294,6 +294,7 @@ namespace Magenic.Maqs.BaseTest
                     this.TryToLog(MessageType.WARNING, "Test had an unexpected result of {0}", this.GetResultText());
                 }
 
+                this.GetResultTextNunit();
                 this.LogVerbose("Test outcome");
                 this.BeforeLoggingTeardown(resultType);
 
@@ -312,6 +313,7 @@ namespace Magenic.Maqs.BaseTest
                 }
 
                 PerfTimerCollection collection = this.TestObject.PerfTimerCollection;
+                this.TestObject.PerfTimerCollection = collection;
 
                 // Write out the performance timers
                 collection.Write(this.Log);
@@ -488,6 +490,7 @@ namespace Magenic.Maqs.BaseTest
         {
             Logger newLogger = this.CreateLogger();
             this.TestObject = new BaseTestObject(newLogger, new SoftAssert(newLogger), this.GetFullyQualifiedTestClassName());
+            this.SoftAssert = this.TestObject.SoftAssert;
         }
 
         /// <summary>
