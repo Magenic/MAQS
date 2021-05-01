@@ -247,7 +247,6 @@ namespace Magenic.Maqs.BaseTest
                 if (this.TestMethodInfo != null)
                 {
                     this.TestObject.SoftAssert.CaptureTestMethodAttributes(this.TestMethodInfo);
-                    this.TestObject.SoftAssert = this.SoftAssert;
                 }
             }
         }
@@ -312,10 +311,7 @@ namespace Magenic.Maqs.BaseTest
                     this.TryToLog(MessageType.WARNING, "Failed to cleanup log files because: {0}", e.Message);
                 }
 
-                LogVerbose("Test Message", null);
-
                 PerfTimerCollection collection = this.TestObject.PerfTimerCollection;
-                this.TestObject.PerfTimerCollection = collection;
 
                 // Write out the performance timers
                 collection.Write(this.Log);
