@@ -313,7 +313,7 @@ namespace Magenic.Maqs.BaseTest
                 }
 
                 PerfTimerCollection collection = this.TestObject.PerfTimerCollection;
-                this.TestObject.PerfTimerCollection = collection;
+                this.PerfTimerCollection = collection;
 
                 // Write out the performance timers
                 collection.Write(this.Log);
