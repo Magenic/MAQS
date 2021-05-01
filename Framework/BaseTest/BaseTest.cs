@@ -277,10 +277,9 @@ namespace Magenic.Maqs.BaseTest
 
                 // Log the test result
                 if (resultType == TestResultType.PASS)
-                {
-                    this.TryToLog(MessageType.SUCCESS, "Test passed");
-                    this.LogVerbose("Test outcome");
-                    this.WriteAssociatedFilesNamesToLog();
+                {                    
+                   this.TryToLog(MessageType.SUCCESS, "Test passed");
+                   this.WriteAssociatedFilesNamesToLog();
                 }
                 else if (resultType == TestResultType.FAIL)
                 {
@@ -295,6 +294,7 @@ namespace Magenic.Maqs.BaseTest
                     this.TryToLog(MessageType.WARNING, "Test had an unexpected result of {0}", this.GetResultText());
                 }
 
+                this.LogVerbose("Test outcome");
                 this.BeforeLoggingTeardown(resultType);
 
                 // Cleanup log files we don't want
