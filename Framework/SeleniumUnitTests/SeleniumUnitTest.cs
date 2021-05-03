@@ -764,7 +764,7 @@ namespace SeleniumUnitTests
             string logLocation = ((FileLogger)Log).FilePath;
             string pageSourceLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + "_PS (1).txt";
 
-            bool isFalse = seleniumSoftAssert.Assert(() => Assert.IsTrue(false, "testSoftAssert", "message"), "1");
+            bool isFalse = seleniumSoftAssert.Assert(() => Assert.IsTrue(false), "1", "message");
 
             Assert.IsTrue(File.Exists(pageSourceLocation), "Fail to find page source");
             File.Delete(pageSourceLocation);
@@ -806,7 +806,7 @@ namespace SeleniumUnitTests
             string logLocation = ((FileLogger)Log).FilePath;
             string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " testSoftAssert" + " (1).Jpeg";
 
-            bool isFalse = seleniumSoftAssert.Assert(() => Assert.IsFalse(true, "testSoftAssert", "message"));
+            bool isFalse = seleniumSoftAssert.Assert(() => Assert.IsFalse(true), "testSoftAssert", "message");
 
             Assert.IsFalse(File.Exists(screenShotLocation), "Should not have taken screenshot");
             Assert.IsFalse(isFalse);
@@ -826,7 +826,7 @@ namespace SeleniumUnitTests
             string logLocation = ((FileLogger)Log).FilePath;
             string pageSourceLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + "_PS (1).txt";
 
-            bool isFalse = seleniumSoftAssert.Assert(() => Assert.IsFalse(true, "testSoftAssert", "message"));
+            bool isFalse = seleniumSoftAssert.Assert(() => Assert.IsFalse(true), "testSoftAssert", "message");
 
             Assert.IsTrue(File.Exists(pageSourceLocation), "Fail to find page source");
             File.Delete(pageSourceLocation);
@@ -845,7 +845,7 @@ namespace SeleniumUnitTests
             string logLocation = ((FileLogger)Log).FilePath;
             string pageSourceLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + "_PS (1).txt";
 
-            bool isFalse = seleniumSoftAssert.Assert(() => Assert.IsFalse(true, "testSoftAssert", "message"));
+            bool isFalse = seleniumSoftAssert.Assert(() => Assert.IsFalse(true), "testSoftAssert", "message");
 
             Assert.IsTrue(!File.Exists(pageSourceLocation), "Should not have captured page source");
             Assert.IsFalse(isFalse);
@@ -859,7 +859,7 @@ namespace SeleniumUnitTests
         public void SeleniumSoftAssertAreEqual()
         {
             SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(TestObject);
-            bool isTrue = seleniumSoftAssert.Assert(() => Assert.AreEqual("test string", "test string", "test message"));
+            bool isTrue = seleniumSoftAssert.Assert(() => Assert.AreEqual("test string", "test string"), "test message");
             Assert.IsTrue(isTrue);
         }
 
@@ -872,7 +872,7 @@ namespace SeleniumUnitTests
         public void SeleniumSoftAssertExpectFail()
         {
             WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
-            SoftAssert.Assert(() => Assert.AreEqual("Wrong Title", WebDriver.Title, "Title Test", "Title is incorrect"));
+            SoftAssert.Assert(() => Assert.AreEqual("Wrong Title", WebDriver.Title), "Title Test", "Title is incorrect");
             SoftAssert.FailTestIfAssertFailed();
         }
 

@@ -79,8 +79,8 @@ namespace UtilitiesUnitTesting
         public void SoftAssertValidTest()
         {
             SoftAssert softAssert = new SoftAssert(new FileLogger(LoggingConfig.GetLogDirectory(), "UnitTests.SoftAssertUnitTests.SoftAssertValidTest"));
-            softAssert.Assert(() => Assert.AreEqual("Yes", "Yes", "Utilities Soft Assert", "Message is not equal"));
-            softAssert.Assert(() => Assert.AreEqual("YesAgain", "YesAgain", "Utilities Soft Assert 2"));
+            softAssert.Assert(() => Assert.AreEqual("Yes", "Yes"), "Utilities Soft Assert", "Message is not equal");
+            softAssert.Assert(() => Assert.AreEqual("YesAgain", "YesAgain"), "Utilities Soft Assert 2");
             softAssert.FailTestIfAssertFailed();
         }
 
@@ -93,8 +93,8 @@ namespace UtilitiesUnitTesting
         public void SoftAssertFailTest()
         {
             SoftAssert softAssert = new SoftAssert(new FileLogger(LoggingConfig.GetLogDirectory(), "UnitTests.SoftAssertUnitTests.SoftAssertFailTest"));
-            softAssert.Assert(() => Assert.AreEqual("Yes", "No", "Utilities Soft Assert", "Message is not equal"));
-            softAssert.Assert(() => Assert.AreEqual("Yes", "NoAgain", "Utilities Soft Assert 2"));
+            softAssert.Assert(() => Assert.AreEqual("Yes", "No"), "Utilities Soft Assert", "Message is not equal");
+            softAssert.Assert(() => Assert.AreEqual("Yes", "NoAgain"), "Utilities Soft Assert 2");
             softAssert.FailTestIfAssertFailed();
         }
 
@@ -117,12 +117,12 @@ namespace UtilitiesUnitTesting
         public void SoftAssertVerifyCheckForFailures()
         {
             SoftAssert softAssert = new SoftAssert(new FileLogger(LoggingConfig.GetLogDirectory(), "UnitTests.SoftAssertUnitTests.SoftAssertVerifyCheckForFailures"));
-            softAssert.Assert(() => Assert.AreEqual("Yes", "Yes", "Utilities Soft Assert", "Message is not equal"));
+            softAssert.Assert(() => Assert.AreEqual("Yes", "Yes"), "Utilities Soft Assert", "Message is not equal");
 
             softAssert.FailTestIfAssertFailed();
             Assert.IsTrue(softAssert.DidUserCheck());
 
-            softAssert.Assert(() => Assert.AreEqual("Yes", "Yes", "Utilities Soft Assert", "Message is not equal"));
+            softAssert.Assert(() => Assert.AreEqual("Yes", "Yes"), "Utilities Soft Assert", "Message is not equal");
             Assert.IsFalse(softAssert.DidUserCheck());
         }
 
@@ -176,7 +176,7 @@ namespace UtilitiesUnitTesting
         public void SoftAssertIsFalseTest()
         {
             SoftAssert softAssert = new SoftAssert(new FileLogger(LoggingConfig.GetLogDirectory(), "UnitTests.SoftAssertUnitTests.SoftAssertIsFalseTest", MessageType.GENERIC, true));
-            softAssert.Assert(() => Assert.IsFalse(2 == 1, "Test"));
+            softAssert.Assert(() => Assert.IsFalse(2 == 1), "Test");
             softAssert.FailTestIfAssertFailed();
         }
 
