@@ -248,7 +248,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             return CreateDriver(() =>
             {
-                var driver = new EdgeDriver(GetDriverLocation("msedge.exe"), edgeOptions, commandTimeout);
+                var driver = new EdgeDriver(GetDriverLocation("MicrosoftWebDriver.exe", GetProgramFilesFolder("Microsoft Web Driver", "MicrosoftWebDriver.exe")), edgeOptions, commandTimeout);
                 SetBrowserSize(driver, size);
                 return driver;
             });

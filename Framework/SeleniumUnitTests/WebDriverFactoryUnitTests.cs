@@ -81,6 +81,33 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Validating we can get the default remote options with capabilities Strings
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void GetDefaultRemoteOptionsWithCapabilitiesAsString()
+        {
+            Dictionary<string, string> remoteCapabilities = new Dictionary<string, string>();
+            remoteCapabilities.Add("Type", "10");
+            var options = WebDriverFactory.GetRemoteOptions(RemoteBrowserType.Firefox, remoteCapabilities);
+            Assert.IsNotNull(options, "Was unable to retrieve remote options");
+        }
+
+        /// <summary>
+        /// Validating we can get the default remote options with capabilities and an object
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void GetDefaultRemoteOptionsWithCapabilitiesAsObject()
+        {
+            object obj = new object();
+            Dictionary<string, object> remoteCapabilities = new Dictionary<string, object>();
+            remoteCapabilities.Add("Type", obj);
+            var options = WebDriverFactory.GetRemoteOptions(RemoteBrowserType.Firefox, remoteCapabilities);
+            Assert.IsNotNull(options, "Was unable to retrieve remote options");
+        }
+
+        /// <summary>
         /// Validating we can get the default remote options
         /// </summary>
         [TestMethod]
@@ -97,6 +124,7 @@ namespace SeleniumUnitTests
         {
             RemoteBrowserType[] remoteBrowserTypes = (RemoteBrowserType[])Enum.GetValues(typeof(RemoteBrowserType));
             var remoteCapabilities = new Dictionary<string, object>();
+            remoteCapabilities.Add("stat", "2");
 
             for (int i = 0; i < remoteBrowserTypes.Length; i++)
             {
@@ -104,19 +132,6 @@ namespace SeleniumUnitTests
                 Assert.IsNotNull(options, $"Was unable to retrieve remote options for: {remoteBrowserTypes[i]}");
                 Assert.IsTrue(options.ToString().ToLower().Contains(remoteBrowserTypes[i].ToString().ToLower()));
             }           
-        }
-
-        //[TestCategory(TestCategories.Selenium)]
-        public void GetBrowserWithDefaultConfiguration()
-        {
-            //BrowserType[] browserTypes = (BrowserType[])Enum.GetValues(typeof(BrowserType));
-            BrowserType[] browserTypes = {BrowserType.Chrome, BrowserType.Firefox, BrowserType.HeadlessChrome, BrowserType.IE, BrowserType.Remote };
-
-            for (int i = 0; i < browserTypes.Length; i++)
-            {
-                var browser = WebDriverFactory.GetBrowserWithDefaultConfiguration(browserTypes[i]);
-                Assert.IsNotNull(browser);
-            }       
         }
     }
 }
