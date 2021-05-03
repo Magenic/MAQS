@@ -29,6 +29,11 @@ jobs:
           artifact-name: 'utils'
       - run: echo random-numberz ${{ steps.builder.outputs.random-number }}
         shell: powershell
+      - uses: actions/upload-artifact@v2
+        name: "Upload test artifact"
+        with:
+          name: tests
+          path: artifactTests
    
   test-untilstwo:
     name: BuildTwo
@@ -44,6 +49,11 @@ jobs:
           artifact-name: 'utils'
       - run: echo random-numberz ${{ steps.builder.outputs.random-number }}
         shell: powershell
+      - uses: actions/upload-artifact@v2
+        name: "Upload test artifact"
+        with:
+          name: tests
+          path: artifactTests
         
   sonar:
     name: Sonar
