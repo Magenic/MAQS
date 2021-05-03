@@ -16,11 +16,6 @@ runs:
   steps:
     - run: dotnet test ${{ inputs.bt-param }} -o "${{github.workspace}}/artifactTests/${{ inputs.artifact-name }}
       shell: pwsh 
-    - uses: actions/upload-artifact@v2
-      name: "Upload test artifact"
-      with:
-        name: tests
-        path: artifactTests
     - id: random-number-generator
       run: echo "::set-output name=random-id::123"
       shell: pwsh
