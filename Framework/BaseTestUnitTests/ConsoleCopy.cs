@@ -9,7 +9,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 
-namespace UtilitiesUnitTesting
+namespace BaseTestUnitTests
 {
     /// <summary>
     /// Class to copy console output to a file
