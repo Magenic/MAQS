@@ -14,8 +14,13 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - run: dotnet test ${{ inputs.bt-param }}
-      shell: pwsh
+    - run: dotnet test ${{ inputs.bt-param }} -o "${{github.workspace}}/artifactTests/${{ inputs.artifact-name }}
+      shell: pwsh 
+    - name: Upload test artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: tests
+        path: artifactTests
     - id: random-number-generator
       run: echo "::set-output name=random-id::123"
       shell: pwsh
