@@ -4,6 +4,7 @@
 // </copyright>
 // <summary>Test the file logger</summary>
 //-----------------------------------------------------
+using BaseTestUnitTests;
 using Magenic.Maqs.BaseTest;
 using Magenic.Maqs.Utilities.Data;
 using Magenic.Maqs.Utilities.Helper;

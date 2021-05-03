@@ -151,7 +151,7 @@ namespace BaseTestUnitTests
                 BaseTest tester = this.GetBaseTest();
                 tester.Setup();
                 tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
-                tester.SoftAssert.Assert(() => MicroAssert.AreEqual(string.Empty, "d"));
+                tester.SoftAssert.Assert(() => MicroAssert.AreEqual("d", string.Empty));
                 tester.Teardown();
                 NUnit.Framework.Assert.Fail("Teardown should have thrown exception");
             }
@@ -323,7 +323,7 @@ namespace BaseTestUnitTests
             tester.TestContext = this.TestContext;
             tester.Setup();
             tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
-            tester.SoftAssert.Assert(() => MicroAssert.AreEqual(string.Empty, "d"));
+            tester.SoftAssert.Assert(() => MicroAssert.AreEqual("d", string.Empty));
             tester.Teardown();
         }
     }
