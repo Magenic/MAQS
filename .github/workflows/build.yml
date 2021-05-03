@@ -25,8 +25,7 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/UtilitiesUnitTests/UtilitiesUnitTests.csproj  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
-          artifact-name: 'utils'
+          bt-param: 'Framework/UtilitiesUnitTests/UtilitiesUnitTests.csproj  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -o "${{github.workspace}}/artifactTests/one"'
       - run: echo random-numberz ${{ steps.builder.outputs.random-number }}
         shell: powershell
       - uses: actions/upload-artifact@v2
@@ -45,7 +44,7 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/UtilitiesUnitTests/UtilitiesUnitTests.csproj  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+          bt-param: 'Framework/UtilitiesUnitTests/UtilitiesUnitTests.csproj  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover  -o "${{github.workspace}}/artifactTests/two" ' 
           artifact-name: 'utils'
       - run: echo random-numberz ${{ steps.builder.outputs.random-number }}
         shell: powershell
