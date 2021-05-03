@@ -15,7 +15,7 @@ on:
       tags:
         description: 'Manual'  
 jobs:
-  build:
+  test-untils:
     name: Build
     runs-on: windows-latest
     steps:
@@ -26,8 +26,30 @@ jobs:
         uses: ./.github/workflows/buildtest-action
         with:
           bt-param: 'Framework/UtilitiesUnitTests/UtilitiesUnitTests.csproj  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+          artifact-name: 'utils'
       - run: echo random-numberz ${{ steps.builder.outputs.random-number }}
         shell: powershell
+   
+  test-untilstwo:
+    name: BuildTwo
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - id: builder
+        uses: ./.github/workflows/buildtest-action
+        with:
+          bt-param: 'Framework/UtilitiesUnitTests/UtilitiesUnitTests.csproj  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+          artifact-name: 'utils'
+      - run: echo random-numberz ${{ steps.builder.outputs.random-number }}
+        shell: powershell
+        
+  sonar:
+    name: Sonar
+    runs-on: windows-latest
+    needs: [test-untils, test-untilstwo]
+    steps:
       - name: Set up JDK 11
         uses: actions/setup-java@v1
         with:
