@@ -14,5 +14,5 @@ runs:
     - run: echo Hello ${{ inputs.bt-param }}.
       shell: pwsh
     - id: random-number-generator
-      run: echo "::set-output name=random-id::$(echo $RANDOM)"
+      run: echo "::set-output name=random-id::123"
       shell: pwsh
