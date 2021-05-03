@@ -1,0 +1,14 @@
+name: 'Build and test action'
+description: 'Build and test something'
+inputs:
+  bt-param:  # id of input
+    description: 'Build and test params'
+    required: true
+outputs:
+  random-number:
+    description: "Random number"
+    value: ${{ steps.random-number-generator.outputs.random-id }}
+runs:
+  using: "composite"
+  steps:
+    - run: echo Hello ${{ inputs.bt-param }}.
