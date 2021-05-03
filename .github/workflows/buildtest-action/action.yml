@@ -4,6 +4,9 @@ inputs:
   bt-param:  # id of input
     description: 'Build and test params'
     required: true
+  artifact-name:  # id of input
+    description: 'Artifact name'
+    required: true
 outputs:
   random-number:
     description: "Random number"
@@ -11,7 +14,7 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - run: echo Hello ${{ inputs.bt-param }}.
+    - run: dotnet test ${{ inputs.bt-param }}
       shell: pwsh
     - id: random-number-generator
       run: echo "::set-output name=random-id::123"
