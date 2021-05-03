@@ -13,3 +13,6 @@ runs:
   steps:
     - run: echo Hello ${{ inputs.bt-param }}.
       shell: pwsh
+    - id: random-number-generator
+      run: echo "::set-output name=random-id::$(echo $RANDOM)"
+      shell: pwsh
