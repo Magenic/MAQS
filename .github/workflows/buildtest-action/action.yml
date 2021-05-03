@@ -14,7 +14,7 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - run: dotnet test ${{ inputs.bt-param }} -o "${{github.workspace}}/artifactTests/${{ inputs.artifact-name }}
+    - run: dotnet test ${{ inputs.bt-param }} -o "${{github.workspace}}/artifactTests/${{ inputs.artifact-name }}"
       shell: pwsh 
     - id: random-number-generator
       run: echo "::set-output name=random-id::123"
