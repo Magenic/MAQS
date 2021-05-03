@@ -12,3 +12,4 @@ runs:
   using: "composite"
   steps:
     - run: echo Hello ${{ inputs.bt-param }}.
+      shell: pwsh
