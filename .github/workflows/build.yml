@@ -22,6 +22,9 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+        
+      - run: echo workspace ${{ GITHUB_WORKSPACE }}
+        shell: pwsh
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
@@ -43,6 +46,9 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+        
+      - run: echo workspace ${{ GITHUB_WORKSPACE }}
+        shell: pwsh
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
