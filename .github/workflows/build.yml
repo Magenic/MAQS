@@ -156,10 +156,82 @@ jobs:
             artifactTests/database/**/*.xml
             artifactTests/database/**/*.trx
 
+  test-email:
+    name: Email
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Build the docker-compose stack
+        run: docker-compose -f Docker/MAQSEmail/docker-compose.yml -p Magenic/MAQS up -d
+      - run: echo ${{ github.workspace }}
+        shell: pwsh
+      - id: builder
+        uses: ./.github/workflows/buildtest-action
+        with:
+          bt-param: 'Framework/EmailUnitTests/EmailUnitTests.csproj  --settings Framework/Parallel.RunSettings   --logger trx --results-directory "${{github.workspace}}/artifactTests/email/" /p:CoverletOutput="${{github.workspace}}/artifactTests/email/"  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover' 
+          artifact-name: 'email'
+      - uses: actions/upload-artifact@v2
+        name: "Upload test artifact"
+        with:
+          name: emailResults
+          path: |
+            artifactTests/email/**/*.xml
+            artifactTests/email/**/*.trx
+
+  test-framework:
+    name: Framework
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - run: echo ${{ github.workspace }}
+        shell: pwsh
+      - id: browserupdate
+        uses: ./.github/workflows/setupbrowser-action
+      - id: builder
+        uses: ./.github/workflows/buildtest-action
+        with:
+          bt-param: 'Framework/FrameworkUnitTests/FrameworkUnitTests.csproj --settings Framework/Parallel.RunSettings  --logger trx --results-directory "${{github.workspace}}/artifactTests/framework/" /p:CoverletOutput="${{github.workspace}}/artifactTests/framework/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+      - uses: actions/upload-artifact@v2
+        name: "Upload test artifact"
+        with:
+          name: frameworkResults
+          path: |
+            artifactTests/framework/**/*.xml
+            artifactTests/framework/**/*.trx
+
+  test-specflow:
+    name: SpecFlow
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - run: echo ${{ github.workspace }}
+        shell: pwsh
+      - id: browserupdate
+        uses: ./.github/workflows/setupbrowser-action
+      - id: builder
+        uses: ./.github/workflows/buildtest-action
+        with:
+          bt-param: 'Framework/SpecFlowExtensionUnitTests/SpecFlowExtensionUnitTests.csproj --settings Framework/Parallel.RunSettings  --logger trx --results-directory "${{github.workspace}}/artifactTests/specflow/" /p:CoverletOutput="${{github.workspace}}/artifactTests/specflow/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+      - uses: actions/upload-artifact@v2
+        name: "Upload test artifact"
+        with:
+          name: specflowResults
+          path: |
+            artifactTests/specflow/**/*.xml
+            artifactTests/specflow/**/*.trx
+
+
+
   sonar:
     name: Sonar
     runs-on: windows-latest
-    needs: [test-winapp, test-untils, test-mongo, test-database, test-webservice, test-base]
+    needs: [test-winapp, test-untils, test-mongo, test-database, test-webservice, test-base, test-email, test-framework, test-specflow]
     steps:
       - name: Set up JDK 11
         uses: actions/setup-java@v1
