@@ -31,8 +31,10 @@ jobs:
       - uses: actions/upload-artifact@v2
         name: "Upload test artifact"
         with:
-          name: tests
-          path: artifactTests
+          name: testsOne
+          path: |
+            artifactTests/**/*.xml
+            artifactTests/**/*.trx
    
   test-untilstwo:
     name: BuildTwo
@@ -51,8 +53,10 @@ jobs:
       - uses: actions/upload-artifact@v2
         name: "Upload test artifact"
         with:
-          name: tests
-          path: artifactTests
+          name: testsTwo
+          path: |
+            artifactTests/**/*.xml
+            artifactTests/**/*.trx
         
   sonar:
     name: Sonar
