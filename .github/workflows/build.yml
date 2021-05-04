@@ -241,7 +241,7 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/CompositeUnitTests/CompositeUnitTests.csproj --settings Framework/Parallel.RunSettings --filter "(FullyQualifiedName!~EmailDriverManagerTests)|(FullyQualifiedName!~MongoDBManagerTests)"  --logger trx --results-directory "${{github.workspace}}/artifactTests/composite/" /p:CoverletOutput="${{github.workspace}}/artifactTests/composite/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+          bt-param: 'Framework/CompositeUnitTests/CompositeUnitTests.csproj --settings Framework/Parallel.RunSettings --filter "(FullyQualifiedName!~EmailDriverManagerTests)&(FullyQualifiedName!~MongoDBManagerTests)"  --logger trx --results-directory "${{github.workspace}}/artifactTests/composite/" /p:CoverletOutput="${{github.workspace}}/artifactTests/composite/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
         name: "Upload test artifact"
         with:
