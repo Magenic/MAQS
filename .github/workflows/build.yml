@@ -45,12 +45,14 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Build the docker-compose stack
+        run: docker-compose -f Docker/MAQSMongoDB/docker-compose.yml -p Magenic/MAQS up -d
       - run: echo ${{ github.workspace }}
         shell: pwsh
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/UtilitiesUnitTests/UtilitiesUnitTests.csproj  --settings Framework/Parallel.RunSettings   --logger trx --results-directory "${{github.workspace}}/artifactTests/two/" /p:CoverletOutput="${{github.workspace}}/artifactTests/two/"  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover' 
+          bt-param: 'Framework/MongoDBUnitTests/MongoDBUnitTests.csproj  --settings Framework/Parallel.RunSettings   --logger trx --results-directory "${{github.workspace}}/artifactTests/two/" /p:CoverletOutput="${{github.workspace}}/artifactTests/two/"  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover' 
           artifact-name: 'utils'
       - run: echo random-numberz ${{ steps.builder.outputs.random-number }}
         shell: pwsh
