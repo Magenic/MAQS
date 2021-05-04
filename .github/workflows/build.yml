@@ -287,7 +287,7 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/SeleniumUnitTests/SeleniumUnitTests.csproj --settings Framework/Parallel.RunSettings --filter (FullyQualifiedName~SeleniumUnitTests.LazyElementUnitTests)|(FullyQualifiedName~SeleniumPageObjectUnitTest)|(FullyQualifiedName~SeleniumWebElementTest)|(FullyQualifiedName~Proxy)  --logger trx --results-directory "${{github.workspace}}/artifactTests/pomlazy/" /p:CoverletOutput="${{github.workspace}}/artifactTests/pomlazy/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+          bt-param: 'Framework/SeleniumUnitTests/SeleniumUnitTests.csproj --settings Framework/Parallel.RunSettings --filter "(FullyQualifiedName~SeleniumUnitTests.LazyElementUnitTests)|(FullyQualifiedName~SeleniumPageObjectUnitTest)|(FullyQualifiedName~SeleniumWebElementTest)|(FullyQualifiedName~Proxy)"  --logger trx --results-directory "${{github.workspace}}/artifactTests/pomlazy/" /p:CoverletOutput="${{github.workspace}}/artifactTests/pomlazy/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
         name: "Upload test artifact"
         with:
@@ -310,7 +310,7 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/SeleniumUnitTests/SeleniumUnitTests.csproj --settings Framework/Parallel.RunSettings --filter (FullyQualifiedName~SeleniumUnitTests.SeleniumUnitTest)|(FullyQualifiedName~SeleniumUnitTests.SeleniumUtilsTest) --logger trx --results-directory "${{github.workspace}}/artifactTests/selenutil/" /p:CoverletOutput="${{github.workspace}}/artifactTests/selenutil/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+          bt-param: 'Framework/SeleniumUnitTests/SeleniumUnitTests.csproj --settings Framework/Parallel.RunSettings --filter "(FullyQualifiedName~SeleniumUnitTests.SeleniumUnitTest)|(FullyQualifiedName~SeleniumUnitTests.SeleniumUtilsTest)" --logger trx --results-directory "${{github.workspace}}/artifactTests/selenutil/" /p:CoverletOutput="${{github.workspace}}/artifactTests/selenutil/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
         name: "Upload test artifact"
         with:
