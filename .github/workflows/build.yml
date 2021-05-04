@@ -25,7 +25,7 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/UtilitiesUnitTests/UtilitiesUnitTests.csproj --logger trx --results-directory "${{github.workspace}}/artifactTests/one/" /p:CoverletOutput="${{github.workspace}}/artifactTests/one/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+          bt-param: 'Framework/UtilitiesUnitTests/UtilitiesUnitTests.csproj --settings Framework/Parallel.RunSettings  --logger trx --results-directory "${{github.workspace}}/artifactTests/one/" /p:CoverletOutput="${{github.workspace}}/artifactTests/one/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - run: echo random-numberz ${{ steps.builder.outputs.random-number }}
         shell: pwsh
       - uses: actions/upload-artifact@v2
@@ -46,7 +46,7 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/UtilitiesUnitTests/UtilitiesUnitTests.csproj --logger trx --results-directory "${{github.workspace}}/artifactTests/two/" /p:CoverletOutput="${{github.workspace}}/artifactTests/two/"  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover' 
+          bt-param: 'Framework/UtilitiesUnitTests/UtilitiesUnitTests.csproj  --settings Framework/Parallel.RunSettings   --logger trx --results-directory "${{github.workspace}}/artifactTests/two/" /p:CoverletOutput="${{github.workspace}}/artifactTests/two/"  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover' 
           artifact-name: 'utils'
       - run: echo random-numberz ${{ steps.builder.outputs.random-number }}
         shell: pwsh
