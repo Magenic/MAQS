@@ -33,8 +33,8 @@ jobs:
         with:
           name: testsOne
           path: |
-            artifactTests/**/*.xml
-            artifactTests/**/*.trx
+            artifactTests/one/**/*.xml
+            artifactTests/one/**/*.trx
    
   test-untilstwo:
     name: BuildTwo
@@ -55,8 +55,8 @@ jobs:
         with:
           name: testsTwo
           path: |
-            artifactTests/**/*.xml
-            artifactTests/**/*.trx
+            artifactTests/two/**/*.xml
+            artifactTests/two/**/*.trx
         
   sonar:
     name: Sonar
