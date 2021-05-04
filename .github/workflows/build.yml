@@ -34,7 +34,33 @@ jobs:
           name: untilResults
           path: |
             artifactTests/untils/**/*.xml
+            artifactTests/untils/**/*.trx
+ 
+  test-winapp:
+    name: WinApp
+    runs-on: ubuntu-windows
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - run:  |
+          & "C:\Program Files (x86)\Windows Application Driver\WinAppDriver.exe"
+        shell: pwsh
+      - id: builder
+        uses: ./.github/workflows/buildtest-action
+        with:
+          bt-param: 'Framework/AppiumUnitTests/AppiumUnitTests.csproj --settings Framework/Parallel.RunSettings --filter FullyQualifiedName~AppiumWinAppUnitTests --logger trx --results-directory "${{github.workspace}}/artifactTests/winapp/" /p:CoverletOutput="${{github.workspace}}/artifactTests/winapp/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+      - uses: actions/upload-artifact@v2
+        name: "Upload test artifact"
+        with:
+          name: baseResults
+          path: |
+            artifactTests/winapp/**/*.xml
+            artifactTests/winapp/**/*.trx
+ 
 
+ 
+  
   test-base:
     name: Base
     runs-on: ubuntu-latest
@@ -54,7 +80,8 @@ jobs:
           name: baseResults
           path: |
             artifactTests/base/**/*.xml
-
+            artifactTests/base/**/*.trx
+ 
  
   test-webservice:
     name: WebService
@@ -75,7 +102,7 @@ jobs:
           name: webserviceResults
           path: |
             artifactTests/webservice/**/*.xml
-
+            artifactTests/webservice/**/*.trx
    
   test-mongo:
     name: Mongo
@@ -101,7 +128,7 @@ jobs:
           name: mongoResults
           path: |
             artifactTests/mongo/**/*.xml
-
+            artifactTests/mongo/**/*.trx
 
   test-database:
     name: Database
@@ -132,7 +159,7 @@ jobs:
   sonar:
     name: Sonar
     runs-on: windows-latest
-    needs: [test-untils, test-mongo, test-database, test-webservice, test-base]
+    needs: [test-winapp, test-untils, test-mongo, test-database, test-webservice, test-base]
     steps:
       - name: Set up JDK 11
         uses: actions/setup-java@v1
