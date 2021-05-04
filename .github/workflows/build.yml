@@ -47,7 +47,7 @@ jobs:
           bt-param: 'Framework/UtilitiesUnitTests/UtilitiesUnitTests.csproj --logger trx --results-directory "${{github.workspace}}/artifactTests/two/" /p:CoverletOutput="${{github.workspace}}/artifactTests/two/"  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover' 
           artifact-name: 'utils'
       - run: echo random-numberz ${{ steps.builder.outputs.random-number }}
-        shell: powershell
+        shell: pwsh
       - uses: actions/upload-artifact@v2
         name: "Upload test artifact"
         with:
