@@ -17,7 +17,7 @@ on:
 jobs:
   test-untils:
     name: Build
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
@@ -25,9 +25,9 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/UtilitiesUnitTests/UtilitiesUnitTests.csproj /p:CoverletOutput="${{github.workspace}}/artifactTests/one" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+          bt-param: 'Framework/UtilitiesUnitTests/UtilitiesUnitTests.csproj --logger trx --results-directory "${{github.workspace}}/artifactTests/one/" /p:CoverletOutput="${{github.workspace}}/artifactTests/one/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - run: echo random-numberz ${{ steps.builder.outputs.random-number }}
-        shell: powershell
+        shell: pwsh
       - uses: actions/upload-artifact@v2
         name: "Upload test artifact"
         with:
@@ -44,7 +44,7 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/UtilitiesUnitTests/UtilitiesUnitTests.csproj /p:CoverletOutput="${{github.workspace}}/artifactTests/two"  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover' 
+          bt-param: 'Framework/UtilitiesUnitTests/UtilitiesUnitTests.csproj --logger trx --results-directory "${{github.workspace}}/artifactTests/one/" /p:CoverletOutput="${{github.workspace}}/artifactTests/two/"  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover' 
           artifact-name: 'utils'
       - run: echo random-numberz ${{ steps.builder.outputs.random-number }}
         shell: powershell
