@@ -40,7 +40,7 @@ jobs:
    
   test-untilstwo:
     name: BuildTwo
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
@@ -71,12 +71,50 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.11
-      - uses: actions/download-artifact@v2
-        with:
-          path: ${{env.working-directory}}/Results
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - uses: actions/download-artifact@v2
+        with:
+          path: ${{ github.workspace }}/Results
+          
+      - name: Update coverage mappings
+        shell: powershell
+        run: |
+          $rootPath = "${{ github.workspace }}/Results"
+          $sourcePath = "${{ github.workspace }}"
+
+          Write-Host "Start"
+
+          Function Replace($path, $pattern, $replace)
+          {
+          Write-Host $path, 
+          Write-Host $pattern
+          Write-Host $replace
+
+              $text = (Get-Content $path) -join "`n"
+              [System.Text.RegularExpressions.Regex]::Replace($text, $pattern, $replace) |  Out-File -encoding ASCII $path
+
+          }
+
+          $files = Get-ChildItem -Path $rootPath -Recurse -Include *.xml
+          foreach ($file in $files)
+          {
+              Replace $file.FullName '(?<=fullPath=")(([\w\d\s/\\:]+)(?=[\\/][Ff]ramework))' $sourcePath 
+              Replace $file.FullName '(?<=fullPath="[\w\d\s/.\\:]+)((/)(?=[\w\d\s/.]+"))' "\"
+          }
+
+          $files = Get-ChildItem -Path $rootPath  -Recurse  -Include *.trx
+          foreach ($file in $files)
+          {
+              Replace $file.FullName '(?<=codeBase=")(([\w\d\s/\\:]+)(?=[\\/][Ff]ramework))' $sourcePath
+              Replace $file.FullName '(?<=codeBase="[\w\d\s/.\\:]+)((/)(?=[\w\d\s/.]+"))' "\"
+              Replace $file.FullName '(?<=storage=")(([\w\d\s/\\:]+)(?=[\\/][Ff]ramework))' $sourcePath.ToLower()
+              Replace $file.FullName '(?<=storage="[\w\d\s/.\\:]+)((/)(?=[\w\d\s/.]+"))' "\"
+          }
+
+          Write-Host "End"
+          
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
         with:
@@ -102,7 +140,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"MAQS" /o:"magenic" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths=D:\Results\**\coverage.opencover.xml  /d:sonar.cs.dotcover.reportsPaths=D:\Results\**\*.coverage
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"MAQS" /o:"magenic" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths=${{ github.workspace }}\Results\**\coverage.opencover.xml  /d:sonar.cs.dotcover.reportsPaths=${{ github.workspace }}\Results\**\*.coverage
           dotnet build Framework/Base.sln
           # dotnet test Framework/UtilitiesUnitTests/UtilitiesUnitTests.csproj  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
