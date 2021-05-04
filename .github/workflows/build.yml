@@ -191,6 +191,8 @@ jobs:
         shell: pwsh
       - id: browserupdate
         uses: ./.github/workflows/setupwinbrowser-action
+      - name: Build the docker-compose stack
+        run: docker-compose -f Docker/MAQSEmail/docker-compose.yml -p Magenic/MAQS up -d
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
