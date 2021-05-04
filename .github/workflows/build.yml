@@ -38,7 +38,7 @@ jobs:
  
   test-winapp:
     name: WinApp
-    runs-on: ubuntu-windows
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
         with:
