@@ -17,7 +17,7 @@ on:
 jobs:
   test-untils:
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
         with:
@@ -36,7 +36,7 @@ jobs:
    
   test-untilstwo:
     name: BuildTwo
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
@@ -44,7 +44,7 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/UtilitiesUnitTests/UtilitiesUnitTests.csproj --logger trx --results-directory "${{github.workspace}}/artifactTests/one/" /p:CoverletOutput="${{github.workspace}}/artifactTests/two/"  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover' 
+          bt-param: 'Framework/UtilitiesUnitTests/UtilitiesUnitTests.csproj --logger trx --results-directory "${{github.workspace}}/artifactTests/two/" /p:CoverletOutput="${{github.workspace}}/artifactTests/two/"  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover' 
           artifact-name: 'utils'
       - run: echo random-numberz ${{ steps.builder.outputs.random-number }}
         shell: powershell
