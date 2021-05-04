@@ -36,7 +36,6 @@ jobs:
           name: untilResults
           path: |
             artifactTests/untils/**/*.xml
-            artifactTests/untils/**/*.trx
    
   test-mongo:
     name: Mongo
@@ -65,7 +64,7 @@ jobs:
             artifactTests/mongo/**/*.trx
 
   test-database:
-    name: DATABASE
+    name: Database
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -85,7 +84,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         name: "Upload test artifact"
         with:
-          name: testsTwo
+          name: databaseResults
           path: |
             artifactTests/database/**/*.xml
             artifactTests/database/**/*.trx
