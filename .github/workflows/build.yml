@@ -190,7 +190,7 @@ jobs:
       - run: echo ${{ github.workspace }}
         shell: pwsh
       - id: browserupdate
-        uses: ./.github/workflows/setupbrowser-action
+        uses: ./.github/workflows/setupwinbrowser-action
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
@@ -213,7 +213,7 @@ jobs:
       - run: echo ${{ github.workspace }}
         shell: pwsh
       - id: browserupdate
-        uses: ./.github/workflows/setupbrowser-action
+        uses: ./.github/workflows/setuplinbrowser-action
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
