@@ -53,12 +53,30 @@ jobs:
       - uses: actions/upload-artifact@v2
         name: "Upload test artifact"
         with:
-          name: baseResults
+          name: winappResults
           path: |
             artifactTests/winapp/**/*.xml
             artifactTests/winapp/**/*.trx
  
 
+  test-appium:
+    name: Appium
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - id: builder
+        uses: ./.github/workflows/buildtest-action
+        with:
+          bt-param: 'Framework/AppiumUnitTests/AppiumUnitTests.csproj --settings Framework/SauceLabs.RunSettings --filter FullyQualifiedName!~AppiumWinAppUnitTests --logger trx --results-directory "${{github.workspace}}/artifactTests/winapp/" /p:CoverletOutput="${{github.workspace}}/artifactTests/appium/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -- ''TestRunParameters.Parameter(name=\"AppiumCapsMaqs:accessKey\",value=\"${{ secrets.SAUCE }}\")'''
+      - uses: actions/upload-artifact@v2
+        name: "Upload test artifact"
+        with:
+          name: appiumResults
+          path: |
+            artifactTests/appium/**/*.xml
+            artifactTests/appium/**/*.trx
  
   
   test-base:
