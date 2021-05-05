@@ -62,7 +62,7 @@ jobs:
 
   test-appium:
     name: Appium
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
@@ -331,7 +331,7 @@ jobs:
 
   test-selenutil:
     name: SeleniumUtils
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
         with:
@@ -339,7 +339,7 @@ jobs:
       - run: echo ${{ github.workspace }}
         shell: pwsh
       - id: browserupdate
-        uses: ./.github/workflows/setuplinbrowser-action
+        uses: ./.github/workflows/setupwinbrowser-action
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
@@ -364,6 +364,10 @@ jobs:
         shell: pwsh
       - id: browserupdate
         uses: ./.github/workflows/setuplinbrowser-action
+      - run: |
+          Write-Host "Installing/Updating Firefox"
+          sudo apt-get --only-upgrade install  firefox
+        shell: pwsh 
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
