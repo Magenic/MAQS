@@ -463,3 +463,11 @@ jobs:
           dotnet build Framework/Base.sln
           # dotnet test Framework/UtilitiesUnitTests/UtilitiesUnitTests.csproj  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+        
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()    # run this step even if previous step failed
+        with:
+          name: ReportResults
+          path: ${{ github.workspace }}/Results/**/*.trx    # Path to test results
+          reporter: dotnet-trx    
