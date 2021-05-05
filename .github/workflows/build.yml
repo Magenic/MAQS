@@ -27,7 +27,7 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/UtilitiesUnitTests/UtilitiesUnitTests.csproj --settings Framework/Parallel.RunSettings  --logger trx --results-directory "${{github.workspace}}/artifactTests/untils/" /p:CoverletOutput="${{github.workspace}}/artifactTests/untils/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+          bt-param: 'Framework/UtilitiesUnitTests/UtilitiesUnitTests.csproj --settings Framework/Parallel.RunSettings  --logger trx --results-directory "${{github.workspace}}/artifactTests/untils/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/untils/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
         if: always()
         name: "Upload test artifact"
@@ -35,7 +35,7 @@ jobs:
           name: untilResults
           path: |
             artifactTests/untils/**/*.xml
-            artifactTests/untils/**/*.trx
+            artifactTests/untils/testResults/
  
   test-winapp:
     name: WinApp
@@ -50,7 +50,7 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/AppiumUnitTests/AppiumUnitTests.csproj --settings Framework/Parallel.RunSettings --filter FullyQualifiedName~AppiumWinAppUnitTests --logger trx --results-directory "${{github.workspace}}/artifactTests/winapp/" /p:CoverletOutput="${{github.workspace}}/artifactTests/winapp/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+          bt-param: 'Framework/AppiumUnitTests/AppiumUnitTests.csproj --settings Framework/Parallel.RunSettings --filter FullyQualifiedName~AppiumWinAppUnitTests --logger trx --results-directory "${{github.workspace}}/artifactTests/winapp/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/winapp/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
         if: always()
         name: "Upload test artifact"
@@ -58,8 +58,7 @@ jobs:
           name: winappResults
           path: |
             artifactTests/winapp/**/*.xml
-            artifactTests/winapp/**/*.trx
- 
+            artifactTests/winapp/testResults/
 
   test-appium:
     name: Appium
@@ -71,7 +70,7 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/AppiumUnitTests/AppiumUnitTests.csproj --settings Framework/SauceLabs.RunSettings --filter FullyQualifiedName!~AppiumWinAppUnitTests --logger trx --results-directory "${{github.workspace}}/artifactTests/winapp/" /p:CoverletOutput="${{github.workspace}}/artifactTests/appium/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -- ''TestRunParameters.Parameter(name=\"AppiumCapsMaqs:accessKey\",value=\"${{ secrets.SAUCE }}\")'''
+          bt-param: 'Framework/AppiumUnitTests/AppiumUnitTests.csproj --settings Framework/SauceLabs.RunSettings --filter FullyQualifiedName!~AppiumWinAppUnitTests --logger trx --results-directory "${{github.workspace}}/artifactTests/winapp/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/appium/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -- ''TestRunParameters.Parameter(name=\"AppiumCapsMaqs:accessKey\",value=\"${{ secrets.SAUCE }}\")'''
       - uses: actions/upload-artifact@v2
         if: always()
         name: "Upload test artifact"
@@ -79,7 +78,7 @@ jobs:
           name: appiumResults
           path: |
             artifactTests/appium/**/*.xml
-            artifactTests/appium/**/*.trx
+            artifactTests/appium/testResults/
   
   test-base:
     name: Base
@@ -93,7 +92,7 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/BaseTestUnitTests/BaseTestUnitTests.csproj --settings Framework/Parallel.RunSettings  --logger trx --results-directory "${{github.workspace}}/artifactTests/base/" /p:CoverletOutput="${{github.workspace}}/artifactTests/base/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+          bt-param: 'Framework/BaseTestUnitTests/BaseTestUnitTests.csproj --settings Framework/Parallel.RunSettings  --logger trx --results-directory "${{github.workspace}}/artifactTests/base/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/base/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
         if: always()
         name: "Upload test artifact"
@@ -101,7 +100,7 @@ jobs:
           name: baseResults
           path: |
             artifactTests/base/**/*.xml
-            artifactTests/base/**/*.trx
+            artifactTests/base/testResults/
  
  
   test-webservice:
@@ -116,7 +115,7 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/WebServiceUnitTests/WebServiceUnitTests.csproj --settings Framework/Parallel.RunSettings  --logger trx --results-directory "${{github.workspace}}/artifactTests/webservice/" /p:CoverletOutput="${{github.workspace}}/artifactTests/webservice/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+          bt-param: 'Framework/WebServiceUnitTests/WebServiceUnitTests.csproj --settings Framework/Parallel.RunSettings  --logger trx --results-directory "${{github.workspace}}/artifactTests/webservice/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/webservice/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
         if: always()
         name: "Upload test artifact"
@@ -124,7 +123,7 @@ jobs:
           name: webserviceResults
           path: |
             artifactTests/webservice/**/*.xml
-            artifactTests/webservice/**/*.trx
+            artifactTests/webservice/testResults/
    
   test-mongo:
     name: Mongo
@@ -140,7 +139,7 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/MongoDBUnitTests/MongoDBUnitTests.csproj  --settings Framework/Parallel.RunSettings   --logger trx --results-directory "${{github.workspace}}/artifactTests/mongo/" /p:CoverletOutput="${{github.workspace}}/artifactTests/mongo/"  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover' 
+          bt-param: 'Framework/MongoDBUnitTests/MongoDBUnitTests.csproj  --settings Framework/Parallel.RunSettings   --logger trx --results-directory "${{github.workspace}}/artifactTests/mongo/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/mongo/"  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover' 
           artifact-name: 'utils'
       - run: echo random-numberz ${{ steps.builder.outputs.random-number }}
         shell: pwsh
@@ -151,7 +150,7 @@ jobs:
           name: mongoResults
           path: |
             artifactTests/mongo/**/*.xml
-            artifactTests/mongo/**/*.trx
+            artifactTests/mongo/testResults/
 
   test-database:
     name: Database
@@ -167,7 +166,7 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/DatabaseUnitTests/DatabaseUnitTests.csproj  --settings Framework/Parallel.RunSettings   --logger trx --results-directory "${{github.workspace}}/artifactTests/database/" /p:CoverletOutput="${{github.workspace}}/artifactTests/database/"  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover' 
+          bt-param: 'Framework/DatabaseUnitTests/DatabaseUnitTests.csproj  --settings Framework/Parallel.RunSettings   --logger trx --results-directory "${{github.workspace}}/artifactTests/database/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/database/"  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover' 
           artifact-name: 'utils'
       - run: echo random-numberz ${{ steps.builder.outputs.random-number }}
         shell: pwsh
@@ -178,7 +177,7 @@ jobs:
           name: databaseResults
           path: |
             artifactTests/database/**/*.xml
-            artifactTests/database/**/*.trx
+            artifactTests/database/testResults/
 
   test-email:
     name: Email
@@ -194,7 +193,7 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/EmailUnitTests/EmailUnitTests.csproj  --settings Framework/Parallel.RunSettings   --logger trx --results-directory "${{github.workspace}}/artifactTests/email/" /p:CoverletOutput="${{github.workspace}}/artifactTests/email/"  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover' 
+          bt-param: 'Framework/EmailUnitTests/EmailUnitTests.csproj  --settings Framework/Parallel.RunSettings   --logger trx --results-directory "${{github.workspace}}/artifactTests/email/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/email/"  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover' 
           artifact-name: 'email'
       - uses: actions/upload-artifact@v2
         if: always()
@@ -203,7 +202,7 @@ jobs:
           name: emailResults
           path: |
             artifactTests/email/**/*.xml
-            artifactTests/email/**/*.trx
+            artifactTests/email/testResults/
 
   test-framework:
     name: Framework
@@ -219,7 +218,7 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/FrameworkUnitTests/FrameworkUnitTests.csproj --settings Framework/Parallel.RunSettings --filter FullyQualifiedName!~EmailDriverManagerTests --logger trx --results-directory "${{github.workspace}}/artifactTests/framework/" /p:CoverletOutput="${{github.workspace}}/artifactTests/framework/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+          bt-param: 'Framework/FrameworkUnitTests/FrameworkUnitTests.csproj --settings Framework/Parallel.RunSettings --filter FullyQualifiedName!~EmailDriverManagerTests --logger trx --results-directory "${{github.workspace}}/artifactTests/framework/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/framework/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
         if: always()
         name: "Upload test artifact"
@@ -227,7 +226,7 @@ jobs:
           name: frameworkResults
           path: |
             artifactTests/framework/**/*.xml
-            artifactTests/framework/**/*.trx
+            artifactTests/framework/testResults/
 
   test-specflow:
     name: SpecFlow
@@ -243,7 +242,7 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/SpecFlowExtensionUnitTests/SpecFlowExtensionUnitTests.csproj --settings Framework/Parallel.RunSettings  --logger trx --results-directory "${{github.workspace}}/artifactTests/specflow/" /p:CoverletOutput="${{github.workspace}}/artifactTests/specflow/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+          bt-param: 'Framework/SpecFlowExtensionUnitTests/SpecFlowExtensionUnitTests.csproj --settings Framework/Parallel.RunSettings  --logger trx --results-directory "${{github.workspace}}/artifactTests/specflow/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/specflow/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
         if: always()
         name: "Upload test artifact"
@@ -251,7 +250,7 @@ jobs:
           name: specflowResults
           path: |
             artifactTests/specflow/**/*.xml
-            artifactTests/specflow/**/*.trx
+            artifactTests/specflow/testResults/
 
 
   test-composite:
@@ -272,7 +271,7 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/CompositeUnitTests/CompositeUnitTests.csproj --settings Framework/Parallel.RunSettings --logger trx --results-directory "${{github.workspace}}/artifactTests/composite/" /p:CoverletOutput="${{github.workspace}}/artifactTests/composite/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+          bt-param: 'Framework/CompositeUnitTests/CompositeUnitTests.csproj --settings Framework/Parallel.RunSettings --logger trx --results-directory "${{github.workspace}}/artifactTests/composite/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/composite/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
         if: always()
         name: "Upload test artifact"
@@ -280,7 +279,7 @@ jobs:
           name: compositeResults
           path: |
             artifactTests/composite/**/*.xml
-            artifactTests/composite/**/*.trx
+            artifactTests/composite/testResults/
 
   test-specflownunit:
     name: SpecFlowNUnit
@@ -296,7 +295,7 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/SpecFlowExtensionNUnitTests/SpecFlowExtensionNUnitTests.csproj --settings Framework/Parallel.RunSettings  --logger trx --results-directory "${{github.workspace}}/artifactTests/specflownunit/" /p:CoverletOutput="${{github.workspace}}/artifactTests/specflownunit/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+          bt-param: 'Framework/SpecFlowExtensionNUnitTests/SpecFlowExtensionNUnitTests.csproj --settings Framework/Parallel.RunSettings  --logger trx --results-directory "${{github.workspace}}/artifactTests/specflownunit/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/specflownunit/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
         if: always()
         name: "Upload test artifact"
@@ -304,7 +303,7 @@ jobs:
           name: specflownunitResults
           path: |
             artifactTests/specflownunit/**/*.xml
-            artifactTests/specflownunit/**/*.trx
+            artifactTests/specflownunit/testResults/
 
   test-pomlazy:
     name: POMLazy
@@ -320,7 +319,7 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/SeleniumUnitTests/SeleniumUnitTests.csproj --settings Framework/Parallel.RunSettings --filter "(FullyQualifiedName~SeleniumUnitTests.LazyElementUnitTests)|(FullyQualifiedName~SeleniumPageObjectUnitTest)|(FullyQualifiedName~SeleniumWebElementTest)|(FullyQualifiedName~Proxy)"  --logger trx --results-directory "${{github.workspace}}/artifactTests/pomlazy/" /p:CoverletOutput="${{github.workspace}}/artifactTests/pomlazy/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+          bt-param: 'Framework/SeleniumUnitTests/SeleniumUnitTests.csproj --settings Framework/Parallel.RunSettings --filter "(FullyQualifiedName~SeleniumUnitTests.LazyElementUnitTests)|(FullyQualifiedName~SeleniumPageObjectUnitTest)|(FullyQualifiedName~SeleniumWebElementTest)|(FullyQualifiedName~Proxy)"  --logger trx --results-directory "${{github.workspace}}/artifactTests/pomlazy/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/pomlazy/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
         if: always()
         name: "Upload test artifact"
@@ -328,7 +327,7 @@ jobs:
           name: pomlazyResults
           path: |
             artifactTests/pomlazy/**/*.xml
-            artifactTests/pomlazy/**/*.trx
+            artifactTests/pomlazy/testResults/
 
   test-selenutil:
     name: SeleniumUtils
@@ -344,7 +343,7 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/SeleniumUnitTests/SeleniumUnitTests.csproj --settings Framework/Parallel.RunSettings --filter "(FullyQualifiedName~SeleniumUnitTests.SeleniumUnitTest)|(FullyQualifiedName~SeleniumUnitTests.SeleniumUtilsTest)" --logger trx --results-directory "${{github.workspace}}/artifactTests/selenutil/" /p:CoverletOutput="${{github.workspace}}/artifactTests/selenutil/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+          bt-param: 'Framework/SeleniumUnitTests/SeleniumUnitTests.csproj --settings Framework/Parallel.RunSettings --filter "(FullyQualifiedName~SeleniumUnitTests.SeleniumUnitTest)|(FullyQualifiedName~SeleniumUnitTests.SeleniumUtilsTest)" --logger trx --results-directory "${{github.workspace}}/artifactTests/selenutil/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/selenutil/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
         if: always()
         name: "Upload test artifact"
@@ -352,7 +351,7 @@ jobs:
           name: selenutilResults
           path: |
             artifactTests/selenutil/**/*.xml
-            artifactTests/selenutil/**/*.trx
+            artifactTests/selenutil/testResults/
 
   test-selengen:
     name: SeleniumGeneral
@@ -368,7 +367,7 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/SeleniumUnitTests/SeleniumUnitTests.csproj --settings Framework/SauceLabs.RunSettings --filter "(FullyQualifiedName!~Proxy)&(FullyQualifiedName!~SeleniumPageObjectUnitTest)&(FullyQualifiedName!~LazyElementUnitTests)&(FullyQualifiedName!~SeleniumUnitTests.SeleniumUnitTest)&(FullyQualifiedName!~SeleniumWebElementTest)&(FullyQualifiedName!~SeleniumUtilsTest)" --logger trx --results-directory "${{github.workspace}}/artifactTests/selengen/" /p:CoverletOutput="${{github.workspace}}/artifactTests/selengen/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -- ''TestRunParameters.Parameter(name=\"RemoteSeleniumCapsMaqs:accessKey\",value=\"${{ secrets.SAUCE }}\")'' ''TestRunParameters.Parameter(name=\"RemoteSeleniumCapsMaqs:RunOnSauceLabs\",value=\"YES\")'''
+          bt-param: 'Framework/SeleniumUnitTests/SeleniumUnitTests.csproj --settings Framework/SauceLabs.RunSettings --filter "(FullyQualifiedName!~Proxy)&(FullyQualifiedName!~SeleniumPageObjectUnitTest)&(FullyQualifiedName!~LazyElementUnitTests)&(FullyQualifiedName!~SeleniumUnitTests.SeleniumUnitTest)&(FullyQualifiedName!~SeleniumWebElementTest)&(FullyQualifiedName!~SeleniumUtilsTest)" --logger trx --results-directory "${{github.workspace}}/artifactTests/selengen/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/selengen/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -- ''TestRunParameters.Parameter(name=\"RemoteSeleniumCapsMaqs:accessKey\",value=\"${{ secrets.SAUCE }}\")'' ''TestRunParameters.Parameter(name=\"RemoteSeleniumCapsMaqs:RunOnSauceLabs\",value=\"YES\")'''
       - uses: actions/upload-artifact@v2
         if: always()
         name: "Upload test artifact"
@@ -376,7 +375,7 @@ jobs:
           name: selengenResults
           path: |
             artifactTests/selengen/**/*.xml
-            artifactTests/selengen/**/*.trx
+            artifactTests/selengen/testResults/
 
   sonar:
     name: Sonar
