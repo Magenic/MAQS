@@ -467,7 +467,7 @@ jobs:
   Report:
     name: Report
     runs-on: ubuntu-latest
-    needs: [ test-webservice, test-base, test-email]
+    needs: [test-appium, test-winapp, test-untils, test-mongo, test-database, test-webservice, test-base, test-email, test-framework, test-specflow, test-specflownunit, test-composite, test-selenpomlazy, test-selenutil, test-selengen]
     if: always()  
     steps:
       - uses: actions/checkout@v2
