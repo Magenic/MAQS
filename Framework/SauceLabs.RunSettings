@@ -30,6 +30,7 @@
       <Parameter name="SeleniumMaqs:SectionAdd" value="SAMPLESelz" />
       <Parameter name="RemoteseleniumCapsMaqs:SectionAdd" value="SAMPLESelCapz" />
       <Parameter name="webServiceMaqs:SectionAdd" value="SAMPLEWebz" />
+      <Parameter name="SeleniumMaqs:Browser" value="Remote" />
       <Parameter name="AppiumCapsMaqs:username" value="magenicMAQSService" />
       <Parameter name="RemoteSeleniumCapsMaqs:username" value="magenicMAQSService" />
       <Parameter name="RemoteSeleniumCapsMaqs:accessKey" value="OVERRIDE_ME_ON_COMMANDLINE" />
