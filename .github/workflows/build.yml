@@ -305,8 +305,8 @@ jobs:
             artifactTests/specflownunit/**/*.xml
             artifactTests/specflownunit/testResults/
 
-  test-pomlazy:
-    name: POMLazy
+  test-selenpomlazy:
+    name: SeleniumPOMLazy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -319,15 +319,15 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/SeleniumUnitTests/SeleniumUnitTests.csproj --settings Framework/Parallel.RunSettings --filter "(FullyQualifiedName~SeleniumUnitTests.LazyElementUnitTests)|(FullyQualifiedName~SeleniumPageObjectUnitTest)|(FullyQualifiedName~SeleniumWebElementTest)|(FullyQualifiedName~Proxy)"  --logger trx --results-directory "${{github.workspace}}/artifactTests/pomlazy/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/pomlazy/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+          bt-param: 'Framework/SeleniumUnitTests/SeleniumUnitTests.csproj --settings Framework/Parallel.RunSettings --filter "(FullyQualifiedName~SeleniumUnitTests.LazyElementUnitTests)|(FullyQualifiedName~SeleniumPageObjectUnitTest)|(FullyQualifiedName~SeleniumWebElementTest)|(FullyQualifiedName~Proxy)"  --logger trx --results-directory "${{github.workspace}}/artifactTests/selenpomlazy/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/selenpomlazy/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
         if: always()
         name: "Upload test artifact"
         with:
           name: pomlazyResults
           path: |
-            artifactTests/pomlazy/**/*.xml
-            artifactTests/pomlazy/testResults/
+            artifactTests/selenpomlazy/**/*.xml
+            artifactTests/selenpomlazy/testResults/
 
   test-selenutil:
     name: SeleniumUtils
@@ -340,6 +340,8 @@ jobs:
         shell: pwsh
       - id: browserupdate
         uses: ./.github/workflows/setupwinbrowser-action
+      - run: dotnet restore Framework/SeleniumUnitTests/SeleniumUnitTests.csproj
+        shell: pwsh
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
