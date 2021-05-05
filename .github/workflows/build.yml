@@ -340,7 +340,7 @@ jobs:
         shell: pwsh
       - id: browserupdate
         uses: ./.github/workflows/setupwinbrowser-action
-      - run: dotnet restore Framework/SeleniumUnitTests/SeleniumUnitTests.csproj
+      - run: dotnet restore Framework/Base.sln
         shell: pwsh
       - id: builder
         uses: ./.github/workflows/buildtest-action
