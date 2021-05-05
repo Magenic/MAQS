@@ -29,6 +29,7 @@ jobs:
         with:
           bt-param: 'Framework/UtilitiesUnitTests/UtilitiesUnitTests.csproj --settings Framework/Parallel.RunSettings  --logger trx --results-directory "${{github.workspace}}/artifactTests/untils/" /p:CoverletOutput="${{github.workspace}}/artifactTests/untils/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
+        if: always()
         name: "Upload test artifact"
         with:
           name: untilResults
@@ -51,6 +52,7 @@ jobs:
         with:
           bt-param: 'Framework/AppiumUnitTests/AppiumUnitTests.csproj --settings Framework/Parallel.RunSettings --filter FullyQualifiedName~AppiumWinAppUnitTests --logger trx --results-directory "${{github.workspace}}/artifactTests/winapp/" /p:CoverletOutput="${{github.workspace}}/artifactTests/winapp/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
+        if: always()
         name: "Upload test artifact"
         with:
           name: winappResults
@@ -71,6 +73,7 @@ jobs:
         with:
           bt-param: 'Framework/AppiumUnitTests/AppiumUnitTests.csproj --settings Framework/SauceLabs.RunSettings --filter FullyQualifiedName!~AppiumWinAppUnitTests --logger trx --results-directory "${{github.workspace}}/artifactTests/winapp/" /p:CoverletOutput="${{github.workspace}}/artifactTests/appium/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -- ''TestRunParameters.Parameter(name=\"AppiumCapsMaqs:accessKey\",value=\"${{ secrets.SAUCE }}\")'''
       - uses: actions/upload-artifact@v2
+        if: always()
         name: "Upload test artifact"
         with:
           name: appiumResults
@@ -92,6 +95,7 @@ jobs:
         with:
           bt-param: 'Framework/BaseTestUnitTests/BaseTestUnitTests.csproj --settings Framework/Parallel.RunSettings  --logger trx --results-directory "${{github.workspace}}/artifactTests/base/" /p:CoverletOutput="${{github.workspace}}/artifactTests/base/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
+        if: always()
         name: "Upload test artifact"
         with:
           name: baseResults
@@ -114,6 +118,7 @@ jobs:
         with:
           bt-param: 'Framework/WebServiceUnitTests/WebServiceUnitTests.csproj --settings Framework/Parallel.RunSettings  --logger trx --results-directory "${{github.workspace}}/artifactTests/webservice/" /p:CoverletOutput="${{github.workspace}}/artifactTests/webservice/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
+        if: always()
         name: "Upload test artifact"
         with:
           name: webserviceResults
@@ -140,6 +145,7 @@ jobs:
       - run: echo random-numberz ${{ steps.builder.outputs.random-number }}
         shell: pwsh
       - uses: actions/upload-artifact@v2
+        if: always()
         name: "Upload test artifact"
         with:
           name: mongoResults
@@ -166,6 +172,7 @@ jobs:
       - run: echo random-numberz ${{ steps.builder.outputs.random-number }}
         shell: pwsh
       - uses: actions/upload-artifact@v2
+        if: always()
         name: "Upload test artifact"
         with:
           name: databaseResults
@@ -190,6 +197,7 @@ jobs:
           bt-param: 'Framework/EmailUnitTests/EmailUnitTests.csproj  --settings Framework/Parallel.RunSettings   --logger trx --results-directory "${{github.workspace}}/artifactTests/email/" /p:CoverletOutput="${{github.workspace}}/artifactTests/email/"  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover' 
           artifact-name: 'email'
       - uses: actions/upload-artifact@v2
+        if: always()
         name: "Upload test artifact"
         with:
           name: emailResults
@@ -213,6 +221,7 @@ jobs:
         with:
           bt-param: 'Framework/FrameworkUnitTests/FrameworkUnitTests.csproj --settings Framework/Parallel.RunSettings --filter FullyQualifiedName!~EmailDriverManagerTests --logger trx --results-directory "${{github.workspace}}/artifactTests/framework/" /p:CoverletOutput="${{github.workspace}}/artifactTests/framework/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
+        if: always()
         name: "Upload test artifact"
         with:
           name: frameworkResults
@@ -236,6 +245,7 @@ jobs:
         with:
           bt-param: 'Framework/SpecFlowExtensionUnitTests/SpecFlowExtensionUnitTests.csproj --settings Framework/Parallel.RunSettings  --logger trx --results-directory "${{github.workspace}}/artifactTests/specflow/" /p:CoverletOutput="${{github.workspace}}/artifactTests/specflow/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
+        if: always()
         name: "Upload test artifact"
         with:
           name: specflowResults
@@ -264,6 +274,7 @@ jobs:
         with:
           bt-param: 'Framework/CompositeUnitTests/CompositeUnitTests.csproj --settings Framework/Parallel.RunSettings --logger trx --results-directory "${{github.workspace}}/artifactTests/composite/" /p:CoverletOutput="${{github.workspace}}/artifactTests/composite/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
+        if: always()
         name: "Upload test artifact"
         with:
           name: compositeResults
@@ -287,6 +298,7 @@ jobs:
         with:
           bt-param: 'Framework/SpecFlowExtensionNUnitTests/SpecFlowExtensionNUnitTests.csproj --settings Framework/Parallel.RunSettings  --logger trx --results-directory "${{github.workspace}}/artifactTests/specflownunit/" /p:CoverletOutput="${{github.workspace}}/artifactTests/specflownunit/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
+        if: always()
         name: "Upload test artifact"
         with:
           name: specflownunitResults
@@ -310,6 +322,7 @@ jobs:
         with:
           bt-param: 'Framework/SeleniumUnitTests/SeleniumUnitTests.csproj --settings Framework/Parallel.RunSettings --filter "(FullyQualifiedName~SeleniumUnitTests.LazyElementUnitTests)|(FullyQualifiedName~SeleniumPageObjectUnitTest)|(FullyQualifiedName~SeleniumWebElementTest)|(FullyQualifiedName~Proxy)"  --logger trx --results-directory "${{github.workspace}}/artifactTests/pomlazy/" /p:CoverletOutput="${{github.workspace}}/artifactTests/pomlazy/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
+        if: always()
         name: "Upload test artifact"
         with:
           name: pomlazyResults
@@ -333,6 +346,7 @@ jobs:
         with:
           bt-param: 'Framework/SeleniumUnitTests/SeleniumUnitTests.csproj --settings Framework/Parallel.RunSettings --filter "(FullyQualifiedName~SeleniumUnitTests.SeleniumUnitTest)|(FullyQualifiedName~SeleniumUnitTests.SeleniumUtilsTest)" --logger trx --results-directory "${{github.workspace}}/artifactTests/selenutil/" /p:CoverletOutput="${{github.workspace}}/artifactTests/selenutil/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
+        if: always()
         name: "Upload test artifact"
         with:
           name: selenutilResults
@@ -356,6 +370,7 @@ jobs:
         with:
           bt-param: 'Framework/SeleniumUnitTests/SeleniumUnitTests.csproj --settings Framework/SauceLabs.RunSettings --filter "(FullyQualifiedName!~Proxy)&(FullyQualifiedName!~SeleniumPageObjectUnitTest)&(FullyQualifiedName!~LazyElementUnitTests)&(FullyQualifiedName!~SeleniumUnitTests.SeleniumUnitTest)&(FullyQualifiedName!~SeleniumWebElementTest)&(FullyQualifiedName!~SeleniumUtilsTest)" --logger trx --results-directory "${{github.workspace}}/artifactTests/selengen/" /p:CoverletOutput="${{github.workspace}}/artifactTests/selengen/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -- ''TestRunParameters.Parameter(name=\"RemoteSeleniumCapsMaqs:accessKey\",value=\"${{ secrets.SAUCE }}\")'' ''TestRunParameters.Parameter(name=\"RemoteSeleniumCapsMaqs:RunOnSauceLabs\",value=\"YES\")'''
       - uses: actions/upload-artifact@v2
+        if: always()
         name: "Upload test artifact"
         with:
           name: selengenResults
