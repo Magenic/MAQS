@@ -41,19 +41,19 @@ function UpdateFileContent($file, $maqsVersion, $betaVersion) {
 
 function UpdateLine($fileText, $maqsVersion, $betaVersion) {
     $originalText = $filetext
-    $regexPattern = "(<BuildVersion>)([\d\.]*)(</BuildVersion>)"
+    $regexPattern = "(<BuildVersion>)(.*)(</BuildVersion>)"
         
     $maqsVersion = "`${1}" + $maqsVersion + "`${3}"
     $filetext = $filetext -replace $regexPattern, $maqsVersion
         
-    $regexPattern = "(<PreRelease>)([\d\.]*)(</PreRelease>)"
+    $regexPattern = "(<PreRelease>)(.*)(</PreRelease>)"
     $betaVersion = "`${1}" + $betaVersion + "`${3}"
     $filetext = $filetext -replace $regexPattern, $betaVersion
        
-    if($originalText -eq $filetext){
+    if ($originalText -eq $filetext) {
         Write-Host "No Changes to file"
     }
-    else{
+    else {
         Write-Host "File Updated"
     }
     
