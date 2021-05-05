@@ -80,30 +80,6 @@ jobs:
             artifactTests/appium/**/*.xml
             artifactTests/appium/testResults/
   
-  test-selenutil:
-    name: SeleniumUtils
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - run: dotnet restore Framework/Base.sln
-        shell: pwsh
-      - id: browserupdate
-        uses: ./.github/workflows/setupwinbrowser-action
-      - id: builder
-        uses: ./.github/workflows/buildtest-action
-        with:
-          bt-param: 'Framework/SeleniumUnitTests/SeleniumUnitTests.csproj --settings Framework/Parallel.RunSettings --filter "(FullyQualifiedName~SeleniumUnitTests.SeleniumUnitTest)|(FullyQualifiedName~SeleniumUnitTests.SeleniumUtilsTest)|(FullyQualifiedName~SeleniumUnitTests.SeleniumConfigTests)" --logger trx --results-directory "${{github.workspace}}/artifactTests/selenutil/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/selenutil/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
-      - uses: actions/upload-artifact@v2
-        if: always()
-        name: "Upload test artifact"
-        with:
-          name: selenutilResults
-          path: |
-            artifactTests/selenutil/**/*.xml
-            artifactTests/selenutil/testResults/
-  
   test-base:
     name: Base
     runs-on: ubuntu-latest
@@ -353,6 +329,28 @@ jobs:
             artifactTests/selenpomlazy/**/*.xml
             artifactTests/selenpomlazy/testResults/
 
+  test-selenutil:
+    name: SeleniumUtils
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - id: browserupdate
+        uses: ./.github/workflows/setupwinbrowser-action
+      - id: builder
+        uses: ./.github/workflows/buildtest-action
+        with:
+          bt-param: 'Framework/SeleniumUnitTests/SeleniumUnitTests.csproj --settings Framework/Parallel.RunSettings --filter "(FullyQualifiedName~SeleniumUnitTests.SeleniumUnitTest)|(FullyQualifiedName~SeleniumUnitTests.SeleniumUtilsTest)|(FullyQualifiedName~SeleniumUnitTests.SeleniumConfigTests)" --logger trx --results-directory "${{github.workspace}}/artifactTests/selenutil/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/selenutil/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+      - uses: actions/upload-artifact@v2
+        if: always()
+        name: "Upload test artifact"
+        with:
+          name: selenutilResults
+          path: |
+            artifactTests/selenutil/**/*.xml
+            artifactTests/selenutil/testResults/
+
   test-selengen:
     name: SeleniumGeneral
     runs-on: ubuntu-latest
@@ -463,7 +461,13 @@ jobs:
           dotnet build Framework/Base.sln
           # dotnet test Framework/UtilitiesUnitTests/UtilitiesUnitTests.csproj  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-        
+ 
+  Report:
+    name: Report
+    runs-on: linux-latest
+    needs: [test-appium, test-winapp, test-untils, test-mongo, test-database, test-webservice, test-base, test-email, test-framework, test-specflow, test-specflownunit, test-composite, test-selenpomlazy, test-selenutil, test-selengen]
+    if: always()  
+    steps:
       - name: Test Report
         uses: dorny/test-reporter@v1
         if: success() || failure()    # run this step even if previous step failed
