@@ -468,9 +468,11 @@ jobs:
     needs: [test-appium, test-winapp, test-untils, test-mongo, test-database, test-webservice, test-base, test-email, test-framework, test-specflow, test-specflownunit, test-composite, test-selenpomlazy, test-selenutil, test-selengen]
     if: always()  
     steps:
+      - uses: actions/download-artifact@v2
+        with:
+          path: ${{ github.workspace }}/Results
       - name: Test Report
         uses: dorny/test-reporter@v1
-        if: success() || failure()    # run this step even if previous step failed
         with:
           name: ReportResults
           path: ${{ github.workspace }}/Results/**/*.trx    # Path to test results
