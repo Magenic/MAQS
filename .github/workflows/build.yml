@@ -512,7 +512,9 @@ jobs:
         run: dotnet restore Framework/Base.sln
 
       - name: Build
-        run: dotnet build Framework/Base.sln --no-restore --configuration Release -p:Version=$env:BUILD_NUMBER
+        run: |
+          echo "${{ env.BUILD_NUMBER }}" 
+          dotnet build Framework/Base.sln --no-restore --configuration Release -p:Version=${{ env.BUILD_NUMBER }}
         
    # - name: Deploy to nuget
    #   run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.NUGET_DEPLOY_KEY }} --source https://api.nuget.org/v3/index.json
