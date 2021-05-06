@@ -502,17 +502,8 @@ jobs:
               $info = Invoke-RestMethod -Uri $endPoint -Headers $header
 
               $version = $info.name[0].Trim("v")
-              $version
-              #$version = "BUILD_NUMBER=$($version)"
               $version = "::set-output name=BUILD_NUMBER::$($version)"
               echo $version
-              #echo $version >> $GITHUB_ENV
-              #echo $version | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-              echo '::set-output name=SELECTED_COLOR::green'
-      - name: test
-        run: |
-          echo "z${{ steps.ver.outputs.SELECTED_COLOR }}" 
-          echo "z${{ steps.ver.outputs.BUILD_NUMBER }}" 
 
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
@@ -525,7 +516,7 @@ jobs:
       - name: Build
         run: |
           echo "${{ env.BUILD_NUMBER }}" 
-          dotnet build Framework/Base.sln --no-restore --configuration Release -p:Version=${{ env.BUILD_NUMBER }}
+          dotnet build Framework/Base.sln --no-restore --configuration Release -p:Version=${{ steps.ver.outputs.BUILD_NUMBER }}
         
    # - name: Deploy to nuget
    #   run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.NUGET_DEPLOY_KEY }} --source https://api.nuget.org/v3/index.json
