@@ -509,9 +509,10 @@ jobs:
               $version
               $version = "BUILD_NUMBER=$($version)"
               $version
+              #echo $version >> $GITHUB_ENV
               echo $version | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       - name: test
-        run: echo "z${{ env.BUILD_NUMBERz }}" 
+        run: echo "z${{ env.BUILD_NUMBER }}" 
 
       - name: Install dependencies
         run: dotnet restore Framework/Base.sln
@@ -519,7 +520,7 @@ jobs:
       - name: Build
         run: |
           echo "${{ env.BUILD_NUMBER }}" 
-          dotnet build Framework/Base.sln --no-restore --configuration Release -p:Version=${{ env.BUILD_NUMBERz }}
+          dotnet build Framework/Base.sln --no-restore --configuration Release -p:Version=${{ env.BUILD_NUMBER }}
         
    # - name: Deploy to nuget
    #   run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.NUGET_DEPLOY_KEY }} --source https://api.nuget.org/v3/index.json
