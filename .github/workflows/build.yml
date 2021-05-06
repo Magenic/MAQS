@@ -506,9 +506,10 @@ jobs:
               $info = Invoke-RestMethod -Uri $endPoint -Headers $header
 
               $version = $info.name[0].Trim("v")
+              echo "BUILD_NUMBERz=$($version)"
               echo "BUILD_NUMBERz=$($version)" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       - name: test
-        run: echo ${{ env.BUILD_NUMBERz }}
+        run: echo "z${{ env.BUILD_NUMBERz }}" 
 
       - name: Install dependencies
         run: dotnet restore Framework/Base.sln
