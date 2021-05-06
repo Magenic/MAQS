@@ -492,11 +492,6 @@ jobs:
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 3.1.101
-
       - name: GetVersion
         shell: pwsh
         run: |
@@ -509,10 +504,15 @@ jobs:
               $version
               $version = "BUILD_NUMBER=$($version)"
               $version
-              #echo $version >> $GITHUB_ENV
-              echo $version | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+              echo $version >> $GITHUB_ENV
+              #echo $version | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       - name: test
         run: echo "z${{ env.BUILD_NUMBER }}" 
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.101
 
       - name: Install dependencies
         run: dotnet restore Framework/Base.sln
