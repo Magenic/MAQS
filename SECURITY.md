@@ -1,21 +1,15 @@
 # Security Policy
 
 ## Supported Versions
-
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+We are currently only supporting MAQS 6 and above.  
+*If you are using MAQS 5 or below we strongly recommend updating to 6, this [upgrade link](https://magenic.github.io/MAQS/#/MAQS_6/UpgradingFromMAQS5ToMAQS6) may help
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+| 6+   | :white_check_mark: |
+| < 6   | :x:                |
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
-
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+Submit an issue.  
+Be sure to add the security label to the issue.
