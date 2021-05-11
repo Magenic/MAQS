@@ -43,7 +43,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 1  # Shallow clones should be disabled for a better relevancy of analysis
       - run:  |
           Start-Process -FilePath "C:\Program Files (x86)\Windows Application Driver\WinAppDriver.exe"
         shell: pwsh
@@ -66,7 +66,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 1  # Shallow clones should be disabled for a better relevancy of analysis
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
@@ -398,27 +398,23 @@ jobs:
           path: ${{ github.workspace }}/Results
           
       - name: Update coverage mappings
-        shell: powershell
+        shell: pwsh
         run: |
           $rootPath = "${{ github.workspace }}/Results"
           $sourcePath = "${{ github.workspace }}"
 
-          Write-Host "Start"
+          Write-Host "Start updating relative paths"
 
           Function Replace($path, $pattern, $replace)
           {
-          Write-Host $path, 
-          Write-Host $pattern
-          Write-Host $replace
-
               $text = (Get-Content $path) -join "`n"
               [System.Text.RegularExpressions.Regex]::Replace($text, $pattern, $replace) |  Out-File -encoding ASCII $path
-
           }
 
           $files = Get-ChildItem -Path $rootPath -Recurse -Include *.xml
           foreach ($file in $files)
           {
+              Write-Host "Updating" $file
               Replace $file.FullName '(?<=fullPath=")(([\w\d\s/\\:]+)(?=[\\/][Ff]ramework))' $sourcePath 
               Replace $file.FullName '(?<=fullPath="[\w\d\s/.\\:]+)((/)(?=[\w\d\s/.]+"))' "\"
           }
@@ -426,13 +422,14 @@ jobs:
           $files = Get-ChildItem -Path $rootPath  -Recurse  -Include *.trx
           foreach ($file in $files)
           {
+              Write-Host "Updating" $file
               Replace $file.FullName '(?<=codeBase=")(([\w\d\s/\\:]+)(?=[\\/][Ff]ramework))' $sourcePath
               Replace $file.FullName '(?<=codeBase="[\w\d\s/.\\:]+)((/)(?=[\w\d\s/.]+"))' "\"
               Replace $file.FullName '(?<=storage=")(([\w\d\s/\\:]+)(?=[\\/][Ff]ramework))' $sourcePath.ToLower()
               Replace $file.FullName '(?<=storage="[\w\d\s/.\\:]+)((/)(?=[\w\d\s/.]+"))' "\"
           }
 
-          Write-Host "End"
+          Write-Host "Finished updating relative paths"
           
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
