@@ -513,7 +513,16 @@ jobs:
       - name: Build
         run: |
           echo "${{ env.BUILD_NUMBER }}" 
-          dotnet build Framework/Base.sln --no-restore --configuration Release -p:Version=${{ steps.ver.outputs.BUILD_NUMBER }}
+          dotnet build Framework/Base.sln --no-restore --configuration Release -p:Version=${{ steps.ver.outputs.BUILD_NUMBER }} -o "${{github.workspace}}/artifactTests/packages/"
+
+      - uses: actions/upload-artifact@v2
+        if: always()
+        name: "Upload NuGet packages artifact"
+        with:
+          name: packages
+          path: |
+            artifactTests/packages/**/*.nupkg
+            artifactTests/packages/**/*.snupkg
         
    # - name: Deploy to nuget
    #   run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.NUGET_DEPLOY_KEY }} --source https://api.nuget.org/v3/index.json
