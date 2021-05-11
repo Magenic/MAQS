@@ -21,7 +21,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="90.0.4430.2400" />
-    <PackageReference Include="SpecFlow.MsTest" Version="3.7.38" />
+    <PackageReference Include="SpecFlow.MsTest" Version="3.8.7" />
     <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.7.38" />
     <PackageReference Include="System.Buffers" Version="4.5.1" />
     <PackageReference Include="System.Memory" Version="4.5.4" />
