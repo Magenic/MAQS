@@ -20,8 +20,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - run: echo ${{ github.workspace }}
         shell: pwsh
       - id: builder
@@ -42,8 +40,6 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 1  # Shallow clones should be disabled for a better relevancy of analysis
       - run:  |
           Start-Process -FilePath "C:\Program Files (x86)\Windows Application Driver\WinAppDriver.exe"
         shell: pwsh
@@ -65,8 +61,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 1  # Shallow clones should be disabled for a better relevancy of analysis
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
@@ -85,8 +79,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - run: echo ${{ github.workspace }}
         shell: pwsh
       - id: builder
@@ -102,14 +94,11 @@ jobs:
             artifactTests/base/**/*.xml
             artifactTests/base/testResults/
  
- 
   test-webservice:
     name: WebService
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - run: echo ${{ github.workspace }}
         shell: pwsh
       - id: builder
@@ -130,8 +119,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: Build the docker-compose stack
         run: docker-compose -f Docker/MAQSMongoDB/docker-compose.yml -p Magenic/MAQS up -d
       - run: echo ${{ github.workspace }}
@@ -157,8 +144,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: Build the docker-compose stack
         run: docker-compose -f Docker/MAQSSQLServer/docker-compose.yml -p Magenic/MAQS up -d
       - run: echo ${{ github.workspace }}
@@ -184,8 +169,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: Build the docker-compose stack
         run: docker-compose -f Docker/MAQSEmail/docker-compose.yml -p Magenic/MAQS up -d
       - run: echo ${{ github.workspace }}
@@ -209,8 +192,6 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - run: dotnet restore Framework/FrameworkUnitTests/FrameworkUnitTests.csproj
         shell: pwsh
       - id: browserupdate
@@ -233,8 +214,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - run: echo ${{ github.workspace }}
         shell: pwsh
       - id: browserupdate
@@ -258,8 +237,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - run: echo ${{ github.workspace }}
         shell: pwsh
       - id: browserupdate
@@ -286,8 +263,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - run: echo ${{ github.workspace }}
         shell: pwsh
       - id: browserupdate
@@ -310,8 +285,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - run: echo ${{ github.workspace }}
         shell: pwsh
       - id: browserupdate
@@ -334,8 +307,6 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - run: dotnet restore Framework/Base.sln
         shell: pwsh
       - id: browserupdate
@@ -358,8 +329,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - run: echo ${{ github.workspace }}
         shell: pwsh
       - id: browserupdate
@@ -468,8 +437,6 @@ jobs:
     if: always()  
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - uses: actions/download-artifact@v2
         with:
           path: ${{ github.workspace }}/Results
@@ -486,8 +453,6 @@ jobs:
    # needs: [sonar, report]
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
       - name: GetVersion
         id: ver
