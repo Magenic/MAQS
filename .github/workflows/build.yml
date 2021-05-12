@@ -252,7 +252,7 @@ jobs:
             artifactTests/composite/testResults/
 
   test-specflownunit:
-    name: SpecFlowNUnit
+    name: SpecFlow NUnit
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -272,7 +272,7 @@ jobs:
             artifactTests/specflownunit/testResults/
 
   test-selenpomlazy:
-    name: SeleniumPOMLazy
+    name: Selenium POM and Lazy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -292,7 +292,7 @@ jobs:
             artifactTests/selenpomlazy/testResults/
 
   test-selenutil:
-    name: SeleniumUtils
+    name: Selenium Utils
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
@@ -314,7 +314,7 @@ jobs:
             artifactTests/selenutil/testResults/
 
   test-selengen:
-    name: SeleniumGeneral
+    name: Selenium General
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -434,8 +434,8 @@ jobs:
           path: ${{ github.workspace }}/Results/**/*.trx    # Path to test results
           reporter: dotnet-trx
           
-  CreateNugetPacakges:
-    name: createNugetPacakges
+  createNugetPacakges:
+    name: Create NuGet pacakges
     runs-on: windows-latest
     needs: [sonar, report]
     steps:
@@ -475,9 +475,25 @@ jobs:
           path: |
             artifactTests/packages/**/*.nupkg
             artifactTests/packages/**/*.snupkg
+            
+  publish:
+    name: Publish NuGet
+    needs: createNugetPacakges
+    runs-on: windows-latest
+    environment: nuget 
+    steps:
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.101
+
+    - uses: actions/download-artifact@v2
+      with:
+        name: 'packages'
+        path: ${{ github.workspace }}/packages
         
-   # - name: Deploy to nuget
-   #   run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.NUGET_DEPLOY_KEY }} --source https://api.nuget.org/v3/index.json
+    - name: Deploy to nuget
+      run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.NUGET_DEPLOY_KEY }} --source https://api.nuget.org/v3/index.json
 
 
 
