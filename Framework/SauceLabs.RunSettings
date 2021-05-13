@@ -6,7 +6,7 @@
   </RunConfiguration>
   <MSTest>
     <Parallelize>
-      <Workers>4</Workers>
+      <Workers>3</Workers>
       <Scope>MethodLevel</Scope>
     </Parallelize>
   </MSTest>
