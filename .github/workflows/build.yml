@@ -487,9 +487,9 @@ jobs:
             artifactTests/packages/**/*.snupkg
             
   publish:
-    name: Publish NuGet
+    name: Publish NuGet - v${{ needs.getVersion.outputs.buildNumber }}
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-    needs: createNugetPacakges
+    needs: [createNugetPacakges, getVersion]
     runs-on: windows-latest
     environment: nuget 
     steps:
@@ -505,6 +505,30 @@ jobs:
         
     - name: Deploy to nuget
       run: dotnet nuget push ${{ github.workspace }}/packages/**/*.nupkg --api-key ${{ secrets.NUGET_DEPLOY_KEY }} --source https://api.nuget.org/v3/index.json
+    
+    - name: Publish GitHub release v${{ needs.getVersion.outputs.buildNumber }}
+      uses: actions/github-script@v4
+      with:
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+          const result = await github.repos.listReleases({
+            owner: context.repo.owner,
+            repo: context.repo.repo
+          })
+          
+          var id = "NA"
+          var data = result.data
+          for(var key in data){ 
+              if(data[key].tag_name == "v${{ steps.Version.outputs.RELEASE_NUMBER }}" && data[key].draft == true)
+              {
+                  github.repos.updateRelease({
+                  release_id: data[key].id,
+                  "draft": false,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo });
+                  return;
+              }
+          }
 
 
 
