@@ -3,20 +3,19 @@ on:
   push:
     branches:
       - master
-      - feature/AllBuildsToAction
   pull_request:
     branches: [ master ]
   workflow_dispatch:
     inputs:
-      logLevel:
-        description: 'Log level'     
+      override:
+        description: 'Version Number'     
         required: true
-        default: 'warning'
+        default: '0.0.0'
       tags:
-        description: 'Manual'  
+        description: 'Manual'   
 jobs:
 
-  draft-release:
+  draftRelease:
     name: Draft release
     if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-latest
@@ -25,6 +24,35 @@ jobs:
       - uses: release-drafter/release-drafter@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+  getVersion:
+    name: Get package version
+    runs-on: ubuntu-latest 
+    needs: draftRelease
+    outputs:
+      buildNumber: ${{ steps.ver.outputs.BUILD_NUMBER }}
+    
+    steps: 
+    - name: GetVersion
+      id: ver
+      shell: pwsh
+      run: |
+            if ("${{github.event.inputs.override}}")
+            {
+              Write-Host "Using manually entered override version"
+              $version = "${{ github.event.inputs.override}}"
+            }
+            else
+            {
+              $header = @{Authorization = 'Bearer ${{ secrets.GITHUB_TOKEN }}' }
+              $endPoint = "https://api.github.com/repos/${{github.repository}}/releases"
+              $endPoint
+              $info = Invoke-RestMethod -Uri $endPoint -Headers $header
+
+              $version = $info.name[0].Trim("v")
+            }
+            
+            Write-Host "::set-output name=BUILD_NUMBER::$($version)"
 
   test-untils:
     name: Utils
@@ -437,23 +465,10 @@ jobs:
   createNugetPacakges:
     name: Create NuGet pacakges
     runs-on: windows-latest
-    needs: [sonar, report]
+    needs: [sonar, report, getVersion]
     steps:
       - uses: actions/checkout@v2
-
-      - name: GetVersion
-        id: ver
-        shell: pwsh
-        run: |
-              $header = @{Authorization = 'Bearer ${{ secrets.GITHUB_TOKEN }}' }
-              $endPoint = "https://api.github.com/repos/${{github.repository}}/releases"
-              $endPoint
-              $info = Invoke-RestMethod -Uri $endPoint -Headers $header
-
-              $version = $info.name[0].Trim("v")
-              $version = "::set-output name=BUILD_NUMBER::$($version)"
-              echo $version
-
+      
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
@@ -465,7 +480,7 @@ jobs:
       - name: Build
         run: |
           echo "${{ env.BUILD_NUMBER }}" 
-          dotnet build Framework/Base.sln --no-restore --configuration Release -p:Version=${{ steps.ver.outputs.BUILD_NUMBER }} -o "${{github.workspace}}/artifactTests/packages/"
+          dotnet build Framework/Base.sln --no-restore --configuration Release -p:Version=${{needs.getVersion.outputs.buildNumber}} -o "${{github.workspace}}/artifactTests/packages/"
 
       - uses: actions/upload-artifact@v2
         if: always()
@@ -478,6 +493,7 @@ jobs:
             
   publish:
     name: Publish NuGet
+    if: ${{ github.event_name == 'push' }}
     needs: createNugetPacakges
     runs-on: windows-latest
     environment: nuget 
