@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-   <VersionPrefix>6.2.3</VersionPrefix>
+    <VersionPrefix>6.3.0</VersionPrefix>
     <VersionSuffix>beta1</VersionSuffix>
   </PropertyGroup>
 
@@ -46,7 +46,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Npgsql" Version="5.0.4" />
+    <PackageReference Include="Npgsql" Version="5.0.5" />
     <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="2.0.4" />
     <PackageReference Include="SQLitePCLRaw.core" Version="2.0.4" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-   <VersionPrefix>6.2.3</VersionPrefix>
+    <VersionPrefix>6.3.0</VersionPrefix>
     <VersionSuffix>beta1</VersionSuffix>
   </PropertyGroup>
 
@@ -55,7 +55,7 @@
     <PackageReference Include="NUnit" version="3.13.2" />
     <PackageReference Include="Selenium.Support" version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver" version="3.141.0" />
-    <PackageReference Include="SpecFlow" version="3.7.38" />
+    <PackageReference Include="SpecFlow" version="3.8.7" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
     <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
     <PackageReference Include="System.Reflection.Emit" version="4.7.0" />
