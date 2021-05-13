@@ -17,7 +17,6 @@ jobs:
 
   draftRelease:
     name: Draft release
-    if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-latest
     steps:
       # Drafts your next Release notes as Pull Requests are merged into "master"
@@ -443,7 +442,7 @@ jobs:
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"MAQS" /o:"magenic" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths=${{ github.workspace }}\Results\**\coverage.opencover.xml  /d:sonar.cs.dotcover.reportsPaths=${{ github.workspace }}\Results\**\*.coverage
           dotnet build Framework/Base.sln
           # dotnet test Framework/UtilitiesUnitTests/UtilitiesUnitTests.csproj  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"  --version ${{needs.getVersion.outputs.buildNumber}}
  
   report:
     name: Report
@@ -479,7 +478,6 @@ jobs:
 
       - name: Build
         run: |
-          echo "${{ env.BUILD_NUMBER }}" 
           dotnet build Framework/Base.sln --no-restore --configuration Release -p:Version=${{needs.getVersion.outputs.buildNumber}} -o "${{github.workspace}}/artifactTests/packages/"
 
       - uses: actions/upload-artifact@v2
@@ -493,7 +491,7 @@ jobs:
             
   publish:
     name: Publish NuGet
-    if: ${{ github.event_name == 'push' }}
+    if: ${{ github.event_name == 'push' }} || ${{ github.event_name == 'workflow_dispatch' }}
     needs: createNugetPacakges
     runs-on: windows-latest
     environment: nuget 
