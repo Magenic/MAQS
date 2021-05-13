@@ -519,7 +519,7 @@ jobs:
           var id = "NA"
           var data = result.data
           for(var key in data){ 
-              if(data[key].tag_name == "v${{ steps.Version.outputs.RELEASE_NUMBER }}" && data[key].draft == true)
+              if(data[key].tag_name == "v${{ needs.getVersion.outputs.buildNumber }}" && data[key].draft == true)
               {
                   github.repos.updateRelease({
                   release_id: data[key].id,
@@ -529,6 +529,7 @@ jobs:
                   return;
               }
           }
+          console.error("Failed to find related draft release");
 
 
 
