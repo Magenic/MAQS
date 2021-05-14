@@ -499,7 +499,7 @@ jobs:
   publish:
     name: Publish NuGet - v${{ needs.getVersion.outputs.buildNumber }}
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-    needs: [createNugetPacakges, sonar]
+    needs: [getVersion, createNugetPacakges, sonar]
     runs-on: windows-latest
     environment: nuget 
     steps:
