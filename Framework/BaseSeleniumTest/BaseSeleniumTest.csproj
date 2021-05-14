@@ -1,16 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-   <BuildVersion>6.3.0</BuildVersion>
-    <PreRelease></PreRelease>
+    <VersionPrefix>6.3.0</VersionPrefix>
+    <VersionSuffix>beta1</VersionSuffix>
   </PropertyGroup>
 
   <PropertyGroup>
     <TargetFrameworks>net471;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <AssemblyVersion>$(BuildVersion)</AssemblyVersion>
-    <FileVersion>$(BuildVersion)</FileVersion>
-    <Version>$(BuildVersion)</Version>
-    <PackageVersion>$(BuildVersion)$(PreRelease)</PackageVersion>
     <PackageId>Magenic.Maqs.Selenium</PackageId>
     <Product>Magenic.Maqs.Selenium</Product>
     <AssemblyName>Magenic.Maqs.BaseSeleniumTest</AssemblyName>
@@ -21,7 +17,7 @@
     <Authors>Magenic</Authors>
     <Company>Magenic</Company>
     <Description>Magenic's automation quick start framework</Description>
-    <Copyright>Copyright © Magenic 2021</Copyright>
+    <Copyright>Copyright © Magenic $([System.DateTime]::Now.Year)</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>MAQS.jpg</PackageIcon>
     <PackageProjectUrl>https://github.com/Magenic/MAQS</PackageProjectUrl>
