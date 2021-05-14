@@ -13,9 +13,18 @@ on:
         default: '0.0.0'
 
 jobs:
+  stopOld:
+    name: Cancel Previous Runs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel
+        uses: styfle/cancel-workflow-action@0.9.0
+        with:
+          access_token: ${{ github.token }}
 
   draftRelease:
     name: Draft release
+    needs: stopOld
     runs-on: ubuntu-latest
     steps:
       # Drafts your next Release notes as Pull Requests are merged into "master"
