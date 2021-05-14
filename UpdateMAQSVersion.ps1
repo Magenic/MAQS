@@ -8,6 +8,11 @@
 .PARAMETER BetaVersion
     The desired version of the beta release to set.
 .NOTES
+  Version:        2.0
+  Author:         Magenic
+  Creation Date:  05/7/2021
+  Purpose/Change: Chang over to replacing VersionPrefix and VersionSuffix values. 
+  
   Version:        1.0
   Author:         Magenic
   Creation Date:  03/24/2021
@@ -41,12 +46,11 @@ function UpdateFileContent($file, $maqsVersion, $betaVersion) {
 
 function UpdateLine($fileText, $maqsVersion, $betaVersion) {
     $originalText = $filetext
-    $regexPattern = "(<BuildVersion>)(.*)(</BuildVersion>)"
-        
+    $regexPattern = "(<VersionPrefix>)(.*)(</VersionPrefix>)"
     $maqsVersion = "`${1}" + $maqsVersion + "`${3}"
     $filetext = $filetext -replace $regexPattern, $maqsVersion
         
-    $regexPattern = "(<PreRelease>)(.*)(</PreRelease>)"
+    $regexPattern = "(<VersionSuffix>)(.*)(</VersionSuffix>)"
     $betaVersion = "`${1}" + $betaVersion + "`${3}"
     $filetext = $filetext -replace $regexPattern, $betaVersion
        

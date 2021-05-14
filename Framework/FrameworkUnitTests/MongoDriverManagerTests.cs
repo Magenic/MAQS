@@ -92,10 +92,9 @@ namespace FrameworkUnitTests
         [TestMethod]
         public void Intialized()
         {
-            // Do something so we initialize the web driver
-            this.MongoDBDriver.IsCollectionEmpty();
-
             MongoDriverManager<BsonDocument> driverDriver = this.ManagerStore[typeof(MongoDriverManager<BsonDocument>).FullName] as MongoDriverManager<BsonDocument>;
+            
+            Assert.IsNotNull(this.MongoDBDriver.Client, "Should be able to get client");
             Assert.IsTrue(driverDriver.IsDriverIntialized(), "The driver should have been initialized");
         }
 

@@ -1,0 +1,10 @@
+name: 'Setup Linux browser action'
+description: 'Make sure latest browser version is installed'
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        sudo apt-get update
+        Write-Host "Installing/Updating Chrome"
+        sudo apt-get --only-upgrade install google-chrome-stable
+      shell: pwsh

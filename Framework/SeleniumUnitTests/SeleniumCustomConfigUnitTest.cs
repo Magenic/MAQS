@@ -44,7 +44,10 @@ namespace SeleniumUnitTests
         /// <returns>The web driver we want to use - Web driver override</returns>
         protected override IWebDriver GetBrowser()
         {
-            IWebDriver driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Firefox);
+            var firefoxOptions = WebDriverFactory.GetDefaultFirefoxOptions();
+            firefoxOptions.AddArgument("--headless");
+            IWebDriver driver =  WebDriverFactory.GetFirefoxDriver(SeleniumConfig.GetCommandTimeout(), firefoxOptions);
+
             driver.Manage().Window.Size = new Size(701, 199);
 
             return driver;
