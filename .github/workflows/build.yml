@@ -471,7 +471,7 @@ jobs:
   createNugetPacakges:
     name: Create NuGet pacakges
     runs-on: windows-latest
-    needs: [sonar, report, getVersion]
+    needs: [getVersion]
     steps:
       - uses: actions/checkout@v2
       
