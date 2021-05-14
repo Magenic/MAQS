@@ -1,16 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-   <BuildVersion>6.3.0</BuildVersion>
-    <PreRelease></PreRelease>
+    <VersionPrefix>6.3.0</VersionPrefix>
+    <VersionSuffix>beta1</VersionSuffix>
   </PropertyGroup>
 
   <PropertyGroup>
     <TargetFrameworks>net471;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <AssemblyVersion>$(BuildVersion)</AssemblyVersion>
-    <FileVersion>$(BuildVersion)</FileVersion>
-    <Version>$(BuildVersion)</Version>
-    <PackageVersion>$(BuildVersion)$(PreRelease)</PackageVersion>
     <PackageId>Magenic.Maqs.Email</PackageId>
     <AssemblyName>Magenic.Maqs.BaseEmailTest</AssemblyName>
     <RootNamespace>Magenic.Maqs.BaseEmailTest</RootNamespace>
@@ -19,7 +15,7 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Magenic</Authors>
     <Description>Email extension for Magenic's automation quick start framework</Description>
-    <Copyright>Copyright © Magenic 2021</Copyright>
+    <Copyright>Copyright © Magenic $([System.DateTime]::Now.Year)</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>MAQS.jpg</PackageIcon>
     <PackageProjectUrl>https://github.com/Magenic/MAQS</PackageProjectUrl>
@@ -43,7 +39,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MailKit" Version="2.11.1" />
+    <PackageReference Include="MailKit" Version="2.12.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

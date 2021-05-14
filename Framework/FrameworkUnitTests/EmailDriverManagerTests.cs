@@ -7,10 +7,14 @@
 using Magenic.Maqs.BaseEmailTest;
 using Magenic.Maqs.BaseWebServiceTest;
 using Magenic.Maqs.Utilities.Helper;
+using MailKit;
 using MailKit.Net.Imap;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
+using System.Threading;
 
 namespace FrameworkUnitTests
 {
@@ -18,19 +22,47 @@ namespace FrameworkUnitTests
     /// Test the email driver store
     /// </summary>
     [TestClass]
-    [DoNotParallelize]
     [TestCategory(TestCategories.Email)]
     [ExcludeFromCodeCoverage]
     public class EmailDriverManagerTests : BaseEmailTest
     {
+        /// <summary>
+        /// Setup fake email client
+        /// </summary>
+        /// <returns>Fake email client</returns>
+        private Mock<ImapClient> GetMoq()
+        {
+            Mock<ImapClient> mockForClient = new Mock<ImapClient>();
+            var collection = new FolderNamespaceCollection();
+            IList<IMailFolder> folders = new List<IMailFolder>
+            {
+                new MoqMailFolder()
+            };
+
+            collection.Add(new FolderNamespace('/', ""));
+            mockForClient.Setup(x => x.PersonalNamespaces).Returns(collection);
+            mockForClient.Setup(x => x.GetFolders(It.IsAny<FolderNamespace>(), It.IsAny<StatusItems>(), It.IsAny<bool>(), It.IsAny<CancellationToken>())).Returns(folders);
+            mockForClient.Setup(x => x.GetFolder(It.IsAny<string>(), It.IsAny<CancellationToken>())).Returns(new MoqMailFolder());
+
+            return mockForClient;
+        }
+
+        /// <summary>
+        /// Setup a fake email client
+        /// </summary>
+        [TestInitialize]
+        public void SetupMoqDriver()
+        {
+            this.TestObject.OverrideEmailClient(() => GetMoq().Object); 
+        }
+
         /// <summary>
         /// Make sure we can override the driver
         /// </summary>
         [TestMethod]
         public void CanOverrideEmailDriver()
         {
-            EmailDriver temp = new EmailDriver(() => GetClient());
-            this.TestObject.EmailManager.OverrideDriver(temp);
+            this.TestObject.EmailManager.OverrideDriver(() => GetMoq().Object);
 
             Assert.AreEqual(this.TestObject.EmailManager.GetEmailDriver().EmailConnection, EmailDriver.EmailConnection);
         }
@@ -41,7 +73,7 @@ namespace FrameworkUnitTests
         [TestMethod]
         public void CanLazyOverrideEmailDriver()
         {
-            this.TestObject.EmailManager.OverrideDriver(() => GetClient());
+            this.TestObject.EmailManager.OverrideDriver(() => GetMoq().Object);
             Assert.AreEqual(false, this.TestObject.EmailManager.IsDriverIntialized(), "Did not expect the driver to be initialized");
             Assert.AreEqual(this.TestObject.EmailManager.GetEmailDriver().EmailConnection, EmailDriver.EmailConnection);
         }
@@ -52,7 +84,7 @@ namespace FrameworkUnitTests
         [TestMethod]
         public void CanUseMultiple()
         {
-            EmailDriverManager newDriver = new EmailDriverManager(() => GetClient(), this.TestObject);
+            EmailDriverManager newDriver = new EmailDriverManager(() => GetMoq().Object, this.TestObject);
             this.ManagerStore.Add("test", newDriver);
 
             Assert.AreNotEqual(this.TestObject.EmailManager, (EmailDriverManager)this.ManagerStore["test"]);
@@ -101,19 +133,6 @@ namespace FrameworkUnitTests
         {
             EmailDriverManager driverDriver = this.ManagerStore[typeof(EmailDriverManager).FullName] as EmailDriverManager;
             Assert.IsFalse(driverDriver.IsDriverIntialized(), "The driver should not be initialized until it gets used");
-        }
-
-        /// <summary>
-        /// Get an email connection
-        /// </summary>
-        /// <returns>An email connection</returns>
-        private static ImapClient GetClient()
-        {
-            string host = EmailConfig.GetHost();
-            string username = EmailConfig.GetUserName();
-            string password = EmailConfig.GetPassword();
-
-            return ClientFactory.GetEmailClient(host, username, password, 993, 10000, true, true);
         }
     }
 }
