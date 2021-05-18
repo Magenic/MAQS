@@ -186,6 +186,10 @@ namespace SeleniumUnitTests
 
             WebDriver.CheckCheckBox(checkbox, false);
             Assert.IsFalse(WebDriver.Wait().ForClickableElement(checkbox).Selected, "Checkbox was enabled");
+
+            // Check the box again for code coverage
+            WebDriver.CheckCheckBox(checkbox, false);
+            Assert.IsFalse(WebDriver.Wait().ForClickableElement(checkbox).Selected, "Checkbox was enabled");
         }
 
         /// <summary>
