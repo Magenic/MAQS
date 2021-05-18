@@ -38,11 +38,6 @@ namespace SeleniumUnitTests
         private static readonly string TestSiteAutomationUrl = TestSiteUrl + "Automation/";
 
         /// <summary>
-        /// Unit testing site URL - About page
-        /// </summary>
-        private static readonly string TestSiteAboutUrl = TestSiteUrl + "Home/Contact/";
-
-        /// <summary>
         /// Body css selector
         /// </summary>
         private static readonly By BodyCssSelector = By.CssSelector("BODY");
@@ -58,11 +53,6 @@ namespace SeleniumUnitTests
         private static readonly By AsyncDropdownCssSelector = By.CssSelector("#Selector");
 
         /// <summary>
-        /// Dropdown label
-        /// </summary>
-        private static readonly By AsyncOptionsLabel = By.CssSelector("#Label");
-
-        /// <summary>
         /// Dropdown label - hidden once dropdown loads
         /// </summary>
         private static readonly By AsyncLoadingLabel = By.CssSelector("#LoadingLabel");
@@ -71,11 +61,6 @@ namespace SeleniumUnitTests
         /// Asynchronous div that loads after a delay on Async Testing Page
         /// </summary>
         private static readonly By AsyncLoadingTextDiv = By.CssSelector("#loading-div-text");
-
-        /// <summary>
-        /// Names label
-        /// </summary>
-        private static readonly By AutomationNamesLabel = By.CssSelector("#Dropdown > p > strong > label");
 
         /// <summary>
         /// Selector that is not in page
@@ -88,19 +73,9 @@ namespace SeleniumUnitTests
         private static readonly By AutomationShowDialog1 = By.CssSelector("#showDialog1");
 
         /// <summary>
-        /// Text fields
-        /// </summary>
-        private static readonly By TextFields = By.CssSelector("#TextFields");
-
-        /// <summary>
         /// Food table
         /// </summary>
         private static readonly By FoodTable = By.CssSelector("#FoodTable");
-
-        /// <summary>
-        /// Flower table
-        /// </summary>
-        private static readonly By FlowerTable = By.CssSelector("#FlowerTable TD");
 
         /// <summary>
         /// The Contact menu
