@@ -1,0 +1,7 @@
+name: 'Setup Windows browser action'
+description: 'Make sure latest browser version is installed'
+runs:
+  using: "composite"
+  steps:
+    - run: choco upgrade googlechrome
+      shell: pwsh 

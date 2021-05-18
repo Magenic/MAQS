@@ -1,0 +1,21 @@
+name: 'Build and test action'
+description: 'Build and test something'
+inputs:
+  bt-param:  # id of input
+    description: 'Build and test params'
+    required: true
+  artifact-name:  # id of input
+    description: 'Artifact name'
+    required: true
+outputs:
+  random-number:
+    description: "Random number"
+    value: ${{ steps.random-number-generator.outputs.random-id }}
+runs:
+  using: "composite"
+  steps:
+    - run: dotnet test ${{ inputs.bt-param }} -o "${{github.workspace}}/artifactTests/${{ inputs.artifact-name }}"
+      shell: pwsh 
+    - id: random-number-generator
+      run: echo "::set-output name=random-id::123"
+      shell: pwsh
