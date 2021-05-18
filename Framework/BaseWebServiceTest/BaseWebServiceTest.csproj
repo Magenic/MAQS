@@ -1,16 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-   <BuildVersion>6.2.3</BuildVersion>
-    <PreRelease>-beta1</PreRelease>
+    <VersionPrefix>6.3.0</VersionPrefix>
+    <VersionSuffix>beta1</VersionSuffix>
   </PropertyGroup>
 
   <PropertyGroup>
     <TargetFrameworks>net471;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <AssemblyVersion>$(BuildVersion)</AssemblyVersion>
-    <FileVersion>$(BuildVersion)</FileVersion>
-    <Version>$(BuildVersion)</Version>
-    <PackageVersion>$(BuildVersion)$(PreRelease)</PackageVersion>
     <PackageId>Magenic.Maqs.WebService</PackageId>
     <Product>Magenic.Maqs.Base</Product>
     <AssemblyName>Magenic.Maqs.BaseWebServiceTest</AssemblyName>
@@ -21,7 +17,7 @@
     <Authors>Magenic</Authors>
     <Company>Magenic</Company>
     <Description>Web Service extension for Magenic's automation quick start framework</Description>
-    <Copyright>Copyright © Magenic 2021</Copyright>
+    <Copyright>Copyright © Magenic $([System.DateTime]::Now.Year)</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>MAQS.jpg</PackageIcon>
     <PackageProjectUrl>https://github.com/Magenic/MAQS</PackageProjectUrl>
