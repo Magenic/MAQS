@@ -1,16 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-   <BuildVersion>6.2.3</BuildVersion>
-    <PreRelease>-beta1</PreRelease>
+    <VersionPrefix>6.3.0</VersionPrefix>
+    <VersionSuffix>beta1</VersionSuffix>
   </PropertyGroup>
 
   <PropertyGroup>
     <TargetFrameworks>net471;netcoreapp2.1;netcoreapp3.1</TargetFrameworks>
-    <AssemblyVersion>$(BuildVersion)</AssemblyVersion>
-    <FileVersion>$(BuildVersion)</FileVersion>
-    <Version>$(BuildVersion)</Version>
-    <PackageVersion>$(BuildVersion)$(PreRelease)</PackageVersion>
     <PackageId>Magenic.Maqs.SpecFlow</PackageId>
     <Product>Magenic.Maqs.SpecFlow</Product>
     <AssemblyName>Magenic.Maqs.SpecFlow</AssemblyName>
@@ -21,7 +17,7 @@
     <Authors>Magenic</Authors>
     <Company>Magenic</Company>
     <Description>Magenic's automation quick start framework</Description>
-    <Copyright>Copyright © Magenic 2021</Copyright>
+    <Copyright>Copyright © Magenic $([System.DateTime]::Now.Year)</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>MAQS.jpg</PackageIcon>
     <PackageProjectUrl>https://github.com/Magenic/MAQS</PackageProjectUrl>
@@ -59,7 +55,7 @@
     <PackageReference Include="NUnit" version="3.13.2" />
     <PackageReference Include="Selenium.Support" version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver" version="3.141.0" />
-    <PackageReference Include="SpecFlow" version="3.7.38" />
+    <PackageReference Include="SpecFlow" version="3.8.7" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
     <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
     <PackageReference Include="System.Reflection.Emit" version="4.7.0" />
