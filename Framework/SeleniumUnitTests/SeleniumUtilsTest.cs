@@ -555,7 +555,7 @@ namespace SeleniumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        [ExpectedException(typeof(ApplicationException), "Expected an accessibility exception to be thrown")]
+        [ExpectedException(typeof(InvalidOperationException), "Expected an accessibility exception to be thrown")]
         public void AccessibilityCheckThrows()
         {
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
@@ -634,7 +634,7 @@ namespace SeleniumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        [ExpectedException(typeof(ApplicationException))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void AccessibilityHtmlReportWithError()
         {
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
@@ -651,7 +651,7 @@ namespace SeleniumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        [ExpectedException(typeof(ApplicationException))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void AccessibilityHtmlReportWithErrorFromLazyElement()
         {
             WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
@@ -670,7 +670,7 @@ namespace SeleniumUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        [ExpectedException(typeof(ApplicationException))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void AccessibilityHtmlReportWithViolation()
         {
             WebDriver.Navigate().GoToUrl(TestSiteUrl);

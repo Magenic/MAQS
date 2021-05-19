@@ -354,7 +354,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
                         this.ExecuteEvent(() => element.SendKeys(text), "SendKeys");
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         // Check if the value is set correctly , if so than we should say the send keys worked
                         string sub = text.Split(navigationChars)[0];
