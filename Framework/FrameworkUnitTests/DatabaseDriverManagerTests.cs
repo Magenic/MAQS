@@ -73,10 +73,10 @@ namespace FrameworkUnitTests
         [TestMethod]
         public void Intialized()
         {
-            // Do something so we initialize the driver
-            this.DatabaseDriver.Execute("Select * from Sys.Databases");
-
             DatabaseDriverManager driverDriver = this.ManagerStore[typeof(DatabaseDriverManager).FullName] as DatabaseDriverManager;
+
+            // Do something so we initialize the driver
+            Assert.IsNotNull(this.DatabaseDriver.Connection, "Connection should not be null");
             Assert.IsTrue(driverDriver.IsDriverIntialized(), "The driver should have been initialized");
         }
 
