@@ -143,7 +143,7 @@ namespace Magenic.Maqs.BaseAppiumTest
             {
                 if (e.GetType() == typeof(ArgumentException))
                 {
-                    throw e;
+                    throw new ArgumentException(e.Message);
                 }
                 else
                 {
@@ -154,12 +154,12 @@ namespace Magenic.Maqs.BaseAppiumTest
                     }
                     catch (Exception quitExecption)
                     {
-                        throw new Exception("Appium driver setup and teardown failed. Your driver may be out of date", quitExecption);
+                        throw new WebDriverException("Appium driver setup and teardown failed. Your driver may be out of date", quitExecption);
                     }
                 }
 
                 // Log that something went wrong
-                throw new Exception("Your driver may be out of date or unsupported.", e);
+                throw new WebDriverException("Your driver may be out of date or unsupported.", e);
             }
         }
 

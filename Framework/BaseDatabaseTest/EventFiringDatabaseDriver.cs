@@ -82,7 +82,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw new InvalidOperationException(ex.Message);
             }
         }
 
@@ -112,7 +112,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw new InvalidOperationException(ex.Message);
             }
         }
 
@@ -146,7 +146,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw new InvalidOperationException(ex.Message);
             }
         }
 
@@ -169,7 +169,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw new InvalidOperationException(ex.Message);
             }
         }
 
@@ -196,7 +196,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw new InvalidOperationException(ex.Message);
             }
         }
 
@@ -223,7 +223,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw new InvalidOperationException(ex.Message);
             }
         }
 
@@ -250,7 +250,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw new InvalidOperationException(ex.Message);
             }
         }
 
@@ -269,7 +269,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw new InvalidOperationException(ex.Message);
             }
         }
 

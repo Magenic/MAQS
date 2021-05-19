@@ -362,7 +362,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
                         if (!sub.EndsWith(element.GetAttribute("value")))
                         {
-                            throw e;
+                            throw new NotFoundException($"value attribute was not found: {element.TagName} {e}");
                         }
 
                         this.Log.LogMessage(MessageType.VERBOSE, "Sending keys caused an error, but text was entered.");
@@ -832,7 +832,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 messageBuilder.AppendLine($"Locator: {this.By}");
                 messageBuilder.AppendLine($"Because: {e.Message}");
 
-                throw new Exception(messageBuilder.ToString(), e);
+                throw new ElementNotVisibleException(messageBuilder.ToString(), e);
             }
         }
 
@@ -857,7 +857,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 messageBuilder.AppendLine($"Locator: {this.By}");
                 messageBuilder.AppendLine($"Because: {e.Message}");
 
-                throw new Exception(messageBuilder.ToString(), e);
+                throw new ElementNotVisibleException(messageBuilder.ToString(), e);
             }
         }
     }

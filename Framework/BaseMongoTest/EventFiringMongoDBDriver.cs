@@ -81,7 +81,7 @@ namespace Magenic.Maqs.BaseMongoTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw new InvalidOperationException(ex.Message);
             }
         }
 
@@ -99,7 +99,7 @@ namespace Magenic.Maqs.BaseMongoTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw new InvalidOperationException(ex.Message);
             }
         }
 
@@ -117,7 +117,7 @@ namespace Magenic.Maqs.BaseMongoTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw new InvalidOperationException(ex.Message);
             }
         }
 

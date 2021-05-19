@@ -83,7 +83,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             {
                 if (e.GetType() == typeof(ArgumentException))
                 {
-                    throw;
+                    throw new ArgumentException(e.Message);
                 }
                 else
                 {
@@ -94,12 +94,12 @@ namespace Magenic.Maqs.BaseSeleniumTest
                     }
                     catch (Exception quitExecption)
                     {
-                        throw new Exception("Web driver setup and teardown failed. Your web driver may be out of date", quitExecption);
+                        throw new WebDriverException("Web driver setup and teardown failed. Your web driver may be out of date", quitExecption);
                     }
                 }
 
                 // Log that something went wrong
-                throw new Exception("Your web driver may be out of date or unsupported.", e);
+                throw new WebDriverException("Your web driver may be out of date or unsupported.", e);
             }
         }
 
@@ -479,7 +479,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             {
                 if (e.GetType() == typeof(ArgumentException))
                 {
-                    throw;
+                    throw new ArgumentException(e.Message);
                 }
                 else
                 {
@@ -490,12 +490,12 @@ namespace Magenic.Maqs.BaseSeleniumTest
                     }
                     catch (Exception quitExecption)
                     {
-                        throw new Exception("Web driver setup and teardown failed. Your web driver may be out of date", quitExecption);
+                        throw new WebDriverException("Web driver setup and teardown failed. Your web driver may be out of date", quitExecption);
                     }
                 }
 
                 // Log that something went wrong
-                throw new Exception("Your web driver may be out of date or unsupported.", e);
+                throw new WebDriverException("Your web driver may be out of date or unsupported.", e);
             }
         }
 

@@ -75,7 +75,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw new InvalidOperationException(ex.Message);
             }
         }
 
@@ -93,7 +93,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw new InvalidOperationException(ex.Message);
             }
         }
 
@@ -112,7 +112,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw new InvalidOperationException(ex.Message);
             }
         }
 
@@ -130,7 +130,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw new InvalidOperationException(ex.Message);
             }
         }
 
@@ -148,7 +148,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw new InvalidOperationException(ex.Message);
             }
         }
 
@@ -170,7 +170,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw new InvalidOperationException(ex.Message);
             }
         }
 
@@ -189,7 +189,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw new InvalidOperationException(ex.Message);
             }
         }
 
@@ -207,7 +207,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw new InvalidOperationException(ex.Message);
             }
         }
 
@@ -225,7 +225,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw new InvalidOperationException(ex.Message);
             }
         }
 
@@ -244,7 +244,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw new InvalidOperationException(ex.Message);
             }
         }
 
@@ -263,7 +263,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw new InvalidOperationException(ex.Message);
             }
         }
 
@@ -282,7 +282,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw new InvalidOperationException(ex.Message);
             }
         }
 
@@ -302,7 +302,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw new InvalidOperationException(ex.Message);
             }
         }
 
@@ -323,7 +323,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw new InvalidOperationException(ex.Message);
             }
         }
 
@@ -345,7 +345,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw new InvalidOperationException(ex.Message);
             }
         }
 
@@ -364,7 +364,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw new InvalidOperationException(ex.Message);
             }
         }
 
@@ -386,7 +386,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw new InvalidOperationException(ex.Message);
             }
         }
 

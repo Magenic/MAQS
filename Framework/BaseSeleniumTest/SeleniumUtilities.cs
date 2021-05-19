@@ -258,13 +258,13 @@ namespace Magenic.Maqs.BaseSeleniumTest
             // Throw exception if we found violations and we want that to cause an error
             if (throwOnViolation &&  results.Violations.Length > 0)
             {
-                throw new ApplicationException($"Accessibility violations, see: {report} for more details.");
+                throw new InvalidOperationException($"Accessibility violations, see: {report} for more details.");
             }
 
             // Throw exception if the accessibility check had any errors
             if (results.Error.Length > 0)
             {
-                throw new ApplicationException($"Accessibility check failure, see: {report} for more details.");
+                throw new InvalidOperationException($"Accessibility check failure, see: {report} for more details.");
             }
         }
 
@@ -326,7 +326,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
 
             if (GetReadableAxeResults(checkType, webDriver, getResults(), out string axeText) && throwOnResults)
             {
-                throw new ApplicationException(axeText);
+                throw new InvalidOperationException(axeText);
             }
             else
             {
