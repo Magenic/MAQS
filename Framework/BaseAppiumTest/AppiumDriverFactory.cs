@@ -143,7 +143,7 @@ namespace Magenic.Maqs.BaseAppiumTest
             {
                 if (e.GetType() == typeof(ArgumentException))
                 {
-                    throw new ArgumentException(e.Message);
+                    throw;
                 }
                 else
                 {

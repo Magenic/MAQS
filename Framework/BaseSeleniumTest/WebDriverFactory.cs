@@ -83,7 +83,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             {
                 if (e.GetType() == typeof(ArgumentException))
                 {
-                    throw new ArgumentException(e.Message);
+                    throw;
                 }
                 else
                 {
@@ -479,7 +479,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             {
                 if (e.GetType() == typeof(ArgumentException))
                 {
-                    throw new ArgumentException(e.Message);
+                    throw;
                 }
                 else
                 {

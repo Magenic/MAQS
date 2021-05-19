@@ -942,10 +942,6 @@ namespace Magenic.Maqs.BaseWebServiceTest
                 // This was not a timeout
                 throw;
             }
-            catch (Exception ex)
-            {
-                throw new SystemException(ex.Message);
-            }
         }
 
         /// <summary>

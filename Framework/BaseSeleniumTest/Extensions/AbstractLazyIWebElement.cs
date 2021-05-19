@@ -362,7 +362,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
                         if (!sub.EndsWith(element.GetAttribute("value")))
                         {
-                            throw new NotFoundException($"value attribute was not found: {element.TagName} {e}");
+                            throw;
                         }
 
                         this.Log.LogMessage(MessageType.VERBOSE, "Sending keys caused an error, but text was entered.");
