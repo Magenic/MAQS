@@ -75,7 +75,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw;
             }
         }
 
@@ -93,7 +93,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw;
             }
         }
 
@@ -112,7 +112,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw;
             }
         }
 
@@ -130,7 +130,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw;
             }
         }
 
@@ -148,7 +148,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw;
             }
         }
 
@@ -170,7 +170,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw;
             }
         }
 
@@ -189,7 +189,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw;
             }
         }
 
@@ -207,7 +207,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw;
             }
         }
 
@@ -225,7 +225,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw;
             }
         }
 
@@ -244,7 +244,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw;
             }
         }
 
@@ -263,7 +263,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw;
             }
         }
 
@@ -282,7 +282,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw;
             }
         }
 
@@ -302,7 +302,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw;
             }
         }
 
@@ -323,7 +323,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw;
             }
         }
 
@@ -345,7 +345,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw;
             }
         }
 
@@ -364,7 +364,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw;
             }
         }
 
@@ -386,7 +386,7 @@ namespace Magenic.Maqs.BaseEmailTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw;
             }
         }
 

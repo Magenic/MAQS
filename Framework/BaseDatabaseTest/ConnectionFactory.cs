@@ -66,11 +66,11 @@ namespace Magenic.Maqs.BaseDatabaseTest
                 }
                 catch (Exception quitExecption)
                 {
-                    throw new Exception("Connection setup and teardown failed", quitExecption);
+                    throw new OperationCanceledException("Connection setup and teardown failed", quitExecption);
                 }
 
                 // Log that something went wrong
-                throw new Exception("Connection setup failed.", e);
+                throw new InvalidOperationException("Connection setup failed.", e);
             }
         }
 

@@ -354,7 +354,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
                         this.ExecuteEvent(() => element.SendKeys(text), "SendKeys");
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         // Check if the value is set correctly , if so than we should say the send keys worked
                         string sub = text.Split(navigationChars)[0];
@@ -362,7 +362,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
                         if (!sub.EndsWith(element.GetAttribute("value")))
                         {
-                            throw e;
+                            throw;
                         }
 
                         this.Log.LogMessage(MessageType.VERBOSE, "Sending keys caused an error, but text was entered.");
@@ -832,7 +832,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 messageBuilder.AppendLine($"Locator: {this.By}");
                 messageBuilder.AppendLine($"Because: {e.Message}");
 
-                throw new Exception(messageBuilder.ToString(), e);
+                throw new ElementNotVisibleException(messageBuilder.ToString(), e);
             }
         }
 
@@ -857,7 +857,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 messageBuilder.AppendLine($"Locator: {this.By}");
                 messageBuilder.AppendLine($"Because: {e.Message}");
 
-                throw new Exception(messageBuilder.ToString(), e);
+                throw new ElementNotVisibleException(messageBuilder.ToString(), e);
             }
         }
     }
