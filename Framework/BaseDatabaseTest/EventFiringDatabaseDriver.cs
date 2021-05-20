@@ -82,7 +82,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw;
             }
         }
 
@@ -112,7 +112,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw;
             }
         }
 
@@ -146,7 +146,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw;
             }
         }
 
@@ -169,7 +169,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw;
             }
         }
 
@@ -196,7 +196,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw;
             }
         }
 
@@ -223,7 +223,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw;
             }
         }
 
@@ -250,7 +250,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw;
             }
         }
 
@@ -269,7 +269,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
             catch (Exception ex)
             {
                 this.RaiseErrorMessage(ex);
-                throw ex;
+                throw;
             }
         }
 

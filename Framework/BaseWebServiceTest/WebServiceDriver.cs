@@ -940,7 +940,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
                 }
 
                 // This was not a timeout
-                throw ex;
+                throw;
             }
         }
 

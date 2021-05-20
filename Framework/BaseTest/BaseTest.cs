@@ -632,7 +632,7 @@ namespace Magenic.Maqs.BaseTest
                 }
             }
 
-            throw new Exception($"Unable to find assembly with test name {testName}");
+            throw new InvalidOperationException($"Unable to find assembly with test name {testName}");
         }
 
         /// <summary>
