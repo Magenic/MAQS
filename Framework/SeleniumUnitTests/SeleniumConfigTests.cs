@@ -232,7 +232,7 @@ namespace SeleniumUnitTests
         {
             TimeSpan initTimeout = SeleniumConfig.GetCommandTimeout();
 
-            Assert.AreEqual(TimeSpan.FromSeconds(61).Ticks, initTimeout.Ticks);
+            Assert.AreEqual(TimeSpan.FromSeconds(200).Ticks, initTimeout.Ticks);
         }
 
         /// <summary>
