@@ -18,8 +18,8 @@ jobs:
     name: Wait For Older Runs To Complete
     runs-on: ubuntu-latest
     steps:
-    - name: GetVersion
-      id: ver
+    - name: Wait
+      id: wait
       shell: pwsh
       run: |
             $id = ${{ github.run_id }} 
