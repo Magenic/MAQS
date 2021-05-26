@@ -81,6 +81,7 @@ jobs:
 
   test-untils:
     name: Utils
+    needs: waitOld
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -99,6 +100,7 @@ jobs:
  
   test-winapp:
     name: WinApp
+    needs: waitOld
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
@@ -120,6 +122,7 @@ jobs:
 
   test-appium:
     name: Appium
+    needs: waitOld
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -138,6 +141,7 @@ jobs:
   
   test-base:
     name: Base
+    needs: waitOld
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -156,6 +160,7 @@ jobs:
  
   test-webservice:
     name: WebService
+    needs: waitOld
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -174,6 +179,7 @@ jobs:
    
   test-mongo:
     name: Mongo
+    needs: waitOld
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -197,6 +203,7 @@ jobs:
 
   test-database:
     name: Database
+    needs: waitOld
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -218,6 +225,7 @@ jobs:
 
   test-email:
     name: Email
+    needs: waitOld
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -239,6 +247,7 @@ jobs:
 
   test-framework:
     name: Framework
+    needs: waitOld
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
@@ -261,6 +270,7 @@ jobs:
 
   test-specflow:
     name: SpecFlow
+    needs: waitOld
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -282,6 +292,7 @@ jobs:
 
   test-composite:
     name: Composite
+    needs: waitOld
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -306,6 +317,7 @@ jobs:
 
   test-specflownunit:
     name: SpecFlow NUnit
+    needs: waitOld
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -326,6 +338,7 @@ jobs:
 
   test-selenpomlazy:
     name: Selenium POM and Lazy
+    needs: waitOld
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -346,6 +359,7 @@ jobs:
 
   test-selenutil:
     name: Selenium Utils
+    needs: waitOld
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
@@ -368,6 +382,7 @@ jobs:
 
   test-selengen:
     name: Selenium General
+    needs: waitOld
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
