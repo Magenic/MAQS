@@ -14,18 +14,36 @@ on:
 
 jobs:
 
-  stopOld:
-    name: Cancel Previous Runs
+  waitOld:
+    name: Wait For Older Runs To Complete
     runs-on: ubuntu-latest
     steps:
-      - name: Cancel
-        uses: styfle/cancel-workflow-action@0.9.0
-        with:
-          access_token: ${{ github.token }}
+    - name: GetVersion
+      id: ver
+      shell: pwsh
+      run: |
+            $id = ${{ github.run_id }} 
+            $endPoint = "https://api.github.com/repos/${{github.repository}}/actions/runs?status=in_progress"
+
+            $timeout = New-TimeSpan -Minutes 60
+            $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
+
+            do {
+                $result = Invoke-RestMethod -Uri $endPoint
+                $codeQL = $result.workflow_runs | Where-Object {$_.name -eq  "Build" -and $_.id -lt  $id}
+                
+                # Check if there were any older build runs still going, if not we waited long enough
+                if (!$codeQL) { return }
+
+                Start-Sleep -s 60
+
+            } while ($stopwatch.elapsed -lt $timeout)
+
+             Write-Host "Waited more than an hour for earlier runs to complete, continuing action pipeline"
 
   draftRelease:
     name: Draft release
-    needs: stopOld
+    needs: waitOld
     runs-on: ubuntu-latest
     steps:
       # Drafts your next Release notes as Pull Requests are merged into "master"
