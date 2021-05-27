@@ -36,8 +36,6 @@ jobs:
                 if (!$builds) 
                 { 
                   Write-Host "Are now top of the run queue"
-                  Write-Host $runID
-                  Write-Host ($result | ConvertTo-Json) 
                   return 
                 }
 
