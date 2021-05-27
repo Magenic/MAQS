@@ -7,10 +7,6 @@ inputs:
   artifact-name:  # id of input
     description: 'Artifact name'
     required: true
-outputs:
-  random-number:
-    description: "Random number"
-    value: ${{ steps.random-number-generator.outputs.random-id }}
 runs:
   using: "composite"
   steps:
