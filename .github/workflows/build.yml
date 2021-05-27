@@ -43,6 +43,7 @@ jobs:
                 }
 
                 Start-Sleep -s 60
+                Write-Host "Waited so far $($stopwatch.elapsed)"
 
             } while ($stopwatch.elapsed -lt $timeout)
 
