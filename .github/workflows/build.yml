@@ -40,7 +40,7 @@ jobs:
                   Write-Host "Are now top of the run queue"
                   Write-Host $runID
                   Write-Host ($result | ConvertTo-Json) 
-                  Write-Host $result2
+                  Write-Host ($result2 | ConvertTo-Json) 
                   return 
                 }
 
