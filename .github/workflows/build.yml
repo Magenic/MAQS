@@ -33,7 +33,12 @@ jobs:
                 $codeQL = $result.workflow_runs | Where-Object {$_.name -eq  "Build" -and $_.id -lt  $id}
                 
                 # Check if there were any older build runs still going, if not we waited long enough
-                if (!$codeQL) { return }
+                if (!$codeQL) 
+                { 
+                  Write-Host "Are now top of the run queue"
+                  Write-Host $result
+                  return 
+                }
 
                 Start-Sleep -s 60
 
@@ -190,8 +195,6 @@ jobs:
         with:
           bt-param: 'Framework/MongoDBUnitTests/MongoDBUnitTests.csproj  --settings Framework/Parallel.RunSettings   --logger trx --results-directory "${{github.workspace}}/artifactTests/mongo/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/mongo/"  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover' 
           artifact-name: 'utils'
-      - run: echo random-numberz ${{ steps.builder.outputs.random-number }}
-        shell: pwsh
       - uses: actions/upload-artifact@v2
         if: always()
         name: "Upload test artifact"
