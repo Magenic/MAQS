@@ -14,18 +14,36 @@ on:
 
 jobs:
 
-  stopOld:
-    name: Cancel Previous Runs
+  waitOld:
+    name: Wait For Older Runs To Complete
     runs-on: ubuntu-latest
     steps:
-      - name: Cancel
-        uses: styfle/cancel-workflow-action@0.9.0
-        with:
-          access_token: ${{ github.token }}
+    - name: Wait
+      id: wait
+      shell: pwsh
+      run: |
+            $id = ${{ github.run_id }} 
+            $endPoint = "https://api.github.com/repos/${{github.repository}}/actions/runs?status=in_progress"
+
+            $timeout = New-TimeSpan -Minutes 60
+            $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
+
+            do {
+                $result = Invoke-RestMethod -Uri $endPoint
+                $codeQL = $result.workflow_runs | Where-Object {$_.name -eq  "Build" -and $_.id -lt  $id}
+                
+                # Check if there were any older build runs still going, if not we waited long enough
+                if (!$codeQL) { return }
+
+                Start-Sleep -s 60
+
+            } while ($stopwatch.elapsed -lt $timeout)
+
+             Write-Host "Waited more than an hour for earlier runs to complete, continuing action pipeline"
 
   draftRelease:
     name: Draft release
-    needs: stopOld
+    needs: waitOld
     runs-on: ubuntu-latest
     steps:
       # Drafts your next Release notes as Pull Requests are merged into "master"
@@ -63,6 +81,7 @@ jobs:
 
   test-untils:
     name: Utils
+    needs: waitOld
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -81,6 +100,7 @@ jobs:
  
   test-winapp:
     name: WinApp
+    needs: waitOld
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
@@ -102,6 +122,7 @@ jobs:
 
   test-appium:
     name: Appium
+    needs: waitOld
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -120,6 +141,7 @@ jobs:
   
   test-base:
     name: Base
+    needs: waitOld
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -138,6 +160,7 @@ jobs:
  
   test-webservice:
     name: WebService
+    needs: waitOld
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -156,6 +179,7 @@ jobs:
    
   test-mongo:
     name: Mongo
+    needs: waitOld
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -179,6 +203,7 @@ jobs:
 
   test-database:
     name: Database
+    needs: waitOld
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -200,6 +225,7 @@ jobs:
 
   test-email:
     name: Email
+    needs: waitOld
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -221,6 +247,7 @@ jobs:
 
   test-framework:
     name: Framework
+    needs: waitOld
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
@@ -243,6 +270,7 @@ jobs:
 
   test-specflow:
     name: SpecFlow
+    needs: waitOld
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -264,6 +292,7 @@ jobs:
 
   test-composite:
     name: Composite
+    needs: waitOld
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -288,6 +317,7 @@ jobs:
 
   test-specflownunit:
     name: SpecFlow NUnit
+    needs: waitOld
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -308,6 +338,7 @@ jobs:
 
   test-selenpomlazy:
     name: Selenium POM and Lazy
+    needs: waitOld
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -328,6 +359,7 @@ jobs:
 
   test-selenutil:
     name: Selenium Utils
+    needs: waitOld
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
@@ -350,6 +382,7 @@ jobs:
 
   test-selengen:
     name: Selenium General
+    needs: waitOld
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
