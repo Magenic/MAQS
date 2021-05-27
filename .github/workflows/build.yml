@@ -30,7 +30,7 @@ jobs:
 
             do {
                 $result = Invoke-RestMethod -Uri $endPoint
-                $builds = $result.workflow_runs | Where-Object {$_.name -eq  "Build" -and $_.id -lt  $runID}
+                $builds = $result.workflow_runs | Where-Object {$_.name -eq  "Build" -and ($_.status -eq "in_progress" -or $_.status -eq "queued") -and $_.id -lt  $runID}
                 
                 # Check if there were any older build runs still going, if not we waited long enough
                 if (!$builds) 
