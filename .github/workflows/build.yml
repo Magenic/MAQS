@@ -24,12 +24,14 @@ jobs:
       run: |
             $runID = ${{ github.run_id }} 
             $endPoint = "https://api.github.com/repos/${{github.repository}}/actions/runs?status=in_progress"
+            $endPoint2 = "https://api.github.com/repos/${{github.repository}}/actions/runs"
 
             $timeout = New-TimeSpan -Minutes 60
             $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
 
             do {
                 $result = Invoke-RestMethod -Uri $endPoint
+                $result2 = Invoke-RestMethod -Uri $endPoint2
                 $builds = $result.workflow_runs | Where-Object {$_.name -eq  "Build" -and $_.id -lt  $runID}
                 
                 # Check if there were any older build runs still going, if not we waited long enough
@@ -38,7 +40,7 @@ jobs:
                   Write-Host "Are now top of the run queue"
                   Write-Host $runID
                   Write-Host ($result | ConvertTo-Json) 
-                  Write-Host ($builds | ConvertTo-Json) 
+                  Write-Host $result2
                   return 
                 }
 
