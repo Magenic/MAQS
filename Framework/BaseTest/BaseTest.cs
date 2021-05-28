@@ -625,6 +625,11 @@ namespace Magenic.Maqs.BaseTest
                     }
 
                 }
+                catch (AmbiguousMatchException e)
+                {
+                    // We don't know what test method is being called so just return null
+                    return null;
+                }
                 catch
                 {
                     //Not all assemblies will load, that is okay.
