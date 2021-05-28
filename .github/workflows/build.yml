@@ -22,20 +22,25 @@ jobs:
       id: wait
       shell: pwsh
       run: |
-            $id = ${{ github.run_id }} 
-            $endPoint = "https://api.github.com/repos/${{github.repository}}/actions/runs?status=in_progress"
+            $runID = ${{ github.run_id }} 
+            $endPoint = "https://api.github.com/repos/${{github.repository}}/actions/runs"
 
             $timeout = New-TimeSpan -Minutes 60
             $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
 
             do {
                 $result = Invoke-RestMethod -Uri $endPoint
-                $codeQL = $result.workflow_runs | Where-Object {$_.name -eq  "Build" -and $_.id -lt  $id}
+                $builds = $result.workflow_runs | Where-Object {$_.name -eq  "Build" -and ($_.status -eq "in_progress" -or $_.status -eq "queued") -and $_.id -lt  $runID}
                 
                 # Check if there were any older build runs still going, if not we waited long enough
-                if (!$codeQL) { return }
+                if (!$builds) 
+                { 
+                  Write-Host "Are now top of the run queue"
+                  return 
+                }
 
                 Start-Sleep -s 60
+                Write-Host "Waited so far $($stopwatch.elapsed)"
 
             } while ($stopwatch.elapsed -lt $timeout)
 
@@ -190,8 +195,6 @@ jobs:
         with:
           bt-param: 'Framework/MongoDBUnitTests/MongoDBUnitTests.csproj  --settings Framework/Parallel.RunSettings   --logger trx --results-directory "${{github.workspace}}/artifactTests/mongo/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/mongo/"  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover' 
           artifact-name: 'utils'
-      - run: echo random-numberz ${{ steps.builder.outputs.random-number }}
-        shell: pwsh
       - uses: actions/upload-artifact@v2
         if: always()
         name: "Upload test artifact"
