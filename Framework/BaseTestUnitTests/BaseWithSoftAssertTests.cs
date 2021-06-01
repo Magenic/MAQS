@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.IO;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 using NUnitAssert = NUnit.Framework.Assert;
+using TestContext = Microsoft.VisualStudio.TestTools.UnitTesting.TestContext;
 
 namespace BaseTestUnitTests
 {
@@ -24,13 +25,16 @@ namespace BaseTestUnitTests
     public class BaseWithSoftAssertTests : BaseTest
     {
         // Cached config settings
-        Dictionary<string, string> general;
+        private static Dictionary<string, string> general;
 
         /// <summary>
-        /// Cache config settings
+        /// Run class setup
         /// </summary>
-        [TestInitialize]
-        public void SetUp()
+        /// <param name="context">The test context</param>
+        [ClassInitialize]
+#pragma warning disable IDE0060 // Remove unused parameter
+        public static void ClassInit(TestContext context)
+#pragma warning restore IDE0060 // Remove unused parameter
         {
             general = Config.GetSection(ConfigSection.MagenicMaqs);
             Config.AddTestSettingValues("Log", "OnFail", "MagenicMaqs", true);
@@ -38,12 +42,30 @@ namespace BaseTestUnitTests
         }
 
         /// <summary>
-        /// Restore config settings
+        /// Class cleanup
         /// </summary>
-        [TestCleanup]
-        public void CleanUp()
+        [ClassCleanup]
+        public static void ClassCleanup()
         {
             Config.AddTestSettingValues(general, ConfigSection.MagenicMaqs, true);
+        }
+
+        /// <summary>
+        /// Class setup for NUnit
+        /// </summary>
+        [OneTimeSetUp]
+        public void RunBeforeAnyTests()
+        {
+            ClassInit(null);
+        }
+
+        /// <summary>
+        /// Class cleanup for NUnit
+        /// </summary>
+        [OneTimeTearDown]
+        public void RunAfterAnyTests()
+        {
+            ClassCleanup();
         }
 
         /// <summary>
