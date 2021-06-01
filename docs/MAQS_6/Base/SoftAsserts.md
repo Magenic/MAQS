@@ -19,8 +19,8 @@ The test will also write to the log with the end results of the Soft Assert coll
 
 ## Uses
 Soft Asserts are commonly used when collecting large amounts of data that needs to be evaluated without affecting the results of a test.  In unit testing, Asserts will throw an exception if their condition fails.  With Soft Asserts multiple assertions may be made, and stored, to be evaluated later.  They make aggregate that assertion data into one place to be evaluated.
-## Soft Assert Conditionals
 
+## Soft Assert Conditionals
 
 ### Assert(Action)
 Assert will consume any standard assert. If the consumed assertion fails it will store that assert as a failure. If the the consumed assertion does not fail it will store that result as a success.
@@ -63,7 +63,7 @@ SoftAssert.Assert(() =>
 
 Assert can also combine multiple asserts together. If a single assertion exception is thrown it will store that assert as a failure. On the first failure the method will no invoke any more lines of code, so be sure to use multiple Assert methods if certain items must be checked.  If no assertion exception is thrown it will store that result as a success.
 
-### IsTrue(conditional)
+### IsTrue(conditional) - ***DEPRECATED (will remove in version 6)***
 IsTrue will evaluate the condition. If the condition is true it will store that assert as a success. If the condition is false it will store that result as a failure.
 
 #### Written as
@@ -79,7 +79,7 @@ SoftAssert.IsTrue(true, "True assertion");
 SoftAssert.IsTrue(false, "False assertion");
 ``` 
 IsTrue will evaluate the condition.  If the condition is false it will store that assert as a success.  If the condition is true it will store that result as a failure.
-### IsFalse(conditional)
+### IsFalse(conditional) - ***DEPRECATED (will remove in version 6)***
 IsFalse will evaluate the condition.  If the condition is true it will store that assert as a failure.  If the condition is false it will store that result as a success.
 
 #### Written as
@@ -96,7 +96,7 @@ SoftAssert.IsFalse(false, "True assertion");
 SoftAssert.IsFalse(true, "False assertion");
 ``` 
 
-### AreEqual(string 1, string 2)
+### AreEqual(string 1, string 2) - ***DEPRECATED (will remove in version 6)***
 AreEqual will evaluate if both inputs are equal.  If they are not equal it will store that assert as a failure.  If they are equal it will store that assert as a success.
 
 #### Written as
@@ -117,6 +117,55 @@ Soft Assert 'True assertion' passed. Expected Value = '1', Actual Value = '1'.
 
 Soft Assert 'False assertion' failed. Expected Value = '2', Actual Value = '1'
 ```
+
+## Expected Soft Asserts
+Expected soft asserts allow you to include a list of soft asserts which must be run in order for a test to pass. This helps assure that all expected soft asserts are run.
+
+### SoftAssertExpectedAsserts(Attribute)
+The SoftAssertExpectedAsserts attribute allows you to add the expected asserts to your test method as an attribute.
+
+#### Written as
+```csharp
+[SoftAssertExpectedAsserts("one", "two")]
+```
+#### Examples
+```csharp
+[TestMethod]
+[SoftAssertExpectedAsserts("one", "two")]
+public void TEST()
+{
+    this.SoftAssert.Assert(() => Assert.IsTrue(buttonOne.Enabled), "one");
+    this.SoftAssert.Assert(() => Assert.IsTrue(buttonTwo.Enabled), "two");
+
+    // Will fail is soft assert one and two have not been run
+    this.SoftAssert.FailTestIfAssertFailed();
+}
+``` 
+
+
+### AddExpectedAsserts(Action)
+The AddExpectedAsserts function allows you to add the expected asserts within your tests code.
+
+#### Written as
+```csharp
+this.SoftAssert.AddExpectedAsserts("one");
+```
+#### Examples
+```csharp
+[TestMethod]
+public void TEST()
+{
+    this.SoftAssert.AddExpectedAsserts("one");
+    this.SoftAssert.AddExpectedAsserts("two");
+
+    this.SoftAssert.Assert(() => Assert.IsTrue(buttonOne.Enabled), "one");
+    this.SoftAssert.Assert(() => Assert.IsTrue(buttonTwo.Enabled), "two");
+
+    // Will fail is soft assert one and two have not been run
+    this.SoftAssert.FailTestIfAssertFailed();
+}
+``` 
+
 ## Soft Assert Collection Handling
 After assertions have been made, and the soft assert collection has been filled with the results of those assertions, comes options on how to handle the results of that collection.
 ### Fail the Test if Any Soft Assert Failed
