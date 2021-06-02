@@ -30,6 +30,7 @@
     <Parameter name="SeleniumMaqs:SectionAdd" value="SAMPLESelz" />
     <Parameter name="RemoteseleniumCapsMaqs:SectionAdd" value="SAMPLESelCapz" />
     <Parameter name="webServiceMaqs:SectionAdd" value="SAMPLEWebz" />
+    <Parameter name="SeleniumMaqs:RetryRefused" value="Yes" />
   </TestRunParameters>
   <DataCollectionRunSettings>
     <DataCollectors>

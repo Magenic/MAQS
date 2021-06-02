@@ -106,6 +106,24 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Check that retry works and will not get stuck in an infinite loop
+        /// </summary>
+        [DataTestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        [DataRow(true)]
+        [DataRow(false)]
+        [ExpectedException(typeof(WebDriverTimeoutException))]
+        public void RetryRefused(bool retry)
+        {
+            WebDriverFactory.CreateDriver(() =>
+            {
+                throw new WebDriverTimeoutException("refused");
+            }, retry);
+
+            Assert.Fail("Exception should have been thrown ");
+        }
+
+        /// <summary>
         /// Verify resize browser window to Default lengths
         /// </summary>
         [TestMethod]
@@ -233,6 +251,16 @@ namespace SeleniumUnitTests
             TimeSpan initTimeout = SeleniumConfig.GetCommandTimeout();
 
             Assert.AreEqual(TimeSpan.FromSeconds(200).Ticks, initTimeout.Ticks);
+        }
+
+        /// <summary>
+        /// Get command retry refuse
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void GetRetryRefused()
+        {
+            Assert.IsTrue(SeleniumConfig.GetRetryRefused());
         }
 
         /// <summary>

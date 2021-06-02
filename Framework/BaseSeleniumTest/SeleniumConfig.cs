@@ -229,6 +229,15 @@ namespace Magenic.Maqs.BaseSeleniumTest
         }
 
         /// <summary>
+        /// Get if we should retry refused connections
+        /// </summary>
+        /// <returns>True if we want to retry refused connections</returns>
+        public static bool GetRetryRefused()
+        {
+            return Config.GetValueForSection(SELENIUMSECTION, "RetryRefused").Equals("Yes", StringComparison.CurrentCultureIgnoreCase);
+        }
+
+        /// <summary>
         /// Get the format we want to capture screenshots with
         /// </summary>
         /// <returns>The desired format</returns>
