@@ -14,6 +14,7 @@ using NUnit.Framework.Interfaces;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -148,19 +149,47 @@ namespace Magenic.Maqs.BaseTest
                 }
                 else if (this.IsVSTest())
                 {
+                    var parameters = GetVsTestParameters();
                     return (this.testMethodInfo =
                         GetMethodInfoIfUsingSoftAssertExpectedAsserts(
                             this.TestContext.FullyQualifiedTestClassName,
-                            this.TestContext.TestName));
+                            this.TestContext.TestName,
+                            parameters));
                 }
                 else
                 {
+                    var parameters = GetNUnitParameters();
                     return (this.testMethodInfo =
                         GetMethodInfoIfUsingSoftAssertExpectedAsserts(
                             NUnitTestContext.CurrentContext.Test.ClassName,
-                            NUnitTestContext.CurrentContext.Test.MethodName));
+                            NUnitTestContext.CurrentContext.Test.MethodName,
+                            parameters));
                 }
             }
+        }
+
+        private Dictionary<string, object> GetVsTestParameters()
+        {
+            var dataRow = this.TestContext.DataRow;
+            var parameters = new Dictionary<string, object>();
+            foreach (DataColumn tc in dataRow.Table.Columns)
+            {
+                parameters.Add(tc.ColumnName, dataRow[tc.ColumnName]);
+            }
+
+            return parameters;
+        }
+
+        private static Dictionary<string, object> GetNUnitParameters()
+        {
+            var testParameters = NUnitTestContext.Parameters;
+            var parameters = new Dictionary<string, object>();
+            foreach (var parameterName in testParameters.Names)
+            {
+                parameters.Add(parameterName, testParameters.Get(parameterName));
+            }
+
+            return parameters;
         }
 
         /// <summary>
@@ -625,7 +654,7 @@ namespace Magenic.Maqs.BaseTest
         /// <param name="className">The fully qualified class name of the method.</param>
         /// <param name="testName">The name of the test method.</param>
         /// <returns>The method information from the test, provided the method uses the SoftAssertExpectedAsserts attribute.</returns>
-        private MethodInfo GetMethodInfoIfUsingSoftAssertExpectedAsserts(string className, string testName)
+        private MethodInfo GetMethodInfoIfUsingSoftAssertExpectedAsserts(string className, string testName, Dictionary<string, object> parameters)
         {
             // Loop over the assemblies
             foreach (var assemblyName in AppDomain.CurrentDomain.GetAssemblies())
@@ -636,8 +665,10 @@ namespace Magenic.Maqs.BaseTest
                     var classType = loadedAssembly.GetType(className);
                     if (classType != null)
                     {
+
                         // Get methods and see if soft assert expects are used
-                        bool hasSoftAssertExpectedAssertsAttribute = this.GetMethods(classType, testName, out List<MethodInfo> methods);
+                        var methods = this.GetMethods(classType, testName).ToList();
+                        var hasSoftAssertExpectedAssertsAttribute = methods.Any(m => m.GetCustomAttributes<SoftAssertExpectedAssertsAttribute>(false).Any());
 
                         if(!hasSoftAssertExpectedAssertsAttribute)
                         {
@@ -651,6 +682,12 @@ namespace Magenic.Maqs.BaseTest
                         }
                         else if (methods.Count > 1)
                         {
+                            var method = methods.FirstOrDefault(m => MatchesParameters(m, parameters));
+                            if(method != null)
+                            {
+                                return method;
+                            }
+
                             // There are multiple methods that match so log the issue and return null
                             this.TryToLog(MessageType.WARNING, $"There are mutliple methods with the name '{testName}'.  This means MAQS will not respect the SoftAssertExpectedAsserts attribute for this test.");
                             return null;
@@ -667,6 +704,27 @@ namespace Magenic.Maqs.BaseTest
             throw new InvalidOperationException($"Unable to find assembly which contains the test named'{testName}' in the class '{className}'");
         }
 
+        private bool MatchesParameters(MethodInfo methodInfo, Dictionary<string, object> testParameters)
+        {
+            var matchedMethodParameters = methodInfo.GetParameters().ToDictionary(mp => mp, mp => false);
+            foreach(var testParameter in testParameters)
+            {
+                //Find the first parameter that hasn't been matched, and has the same name and type.
+                var matchFound = matchedMethodParameters.Any(mp => !mp.Value && mp.Key.Name == testParameter.Key && mp.Key.ParameterType == testParameter.Value.GetType());
+                if (matchFound)
+                {
+                    var match = matchedMethodParameters.FirstOrDefault(mp => !mp.Value && mp.Key.Name == testParameter.Key && mp.Key.ParameterType == testParameter.Value.GetType());
+                    matchedMethodParameters[match.Key] = true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         /// <summary>
         /// Get related methods
         /// </summary>
@@ -674,27 +732,8 @@ namespace Magenic.Maqs.BaseTest
         /// <param name="testName">The test name</param>
         /// <param name="methods">A list of methods that match the test name and class</param>
         /// <returns>True if any of the methods use expected assert</returns>
-        private bool GetMethods (Type classType, string testName, out List<MethodInfo> methods)
-        {
-            methods  = new List<MethodInfo>();
-            bool hasSoftAssertExpectedAssertsAttribute = false;
-
-            // Loop over the methods
-            foreach (var method in classType.GetMethods())
-            {
-
-                // Check if this method has the right name 
-                if (method.Name.Equals(testName))
-                {
-                    methods.Add(method);
-
-                    // Check if the method is using the expected assert attribute
-                    hasSoftAssertExpectedAssertsAttribute = hasSoftAssertExpectedAssertsAttribute || method.GetCustomAttributes<SoftAssertExpectedAssertsAttribute>(false).Any();
-                }
-            }
-
-            return hasSoftAssertExpectedAssertsAttribute;
-        }
+        private IEnumerable<MethodInfo> GetMethods (Type classType, string testName) =>
+            classType.GetMethods().Where(m => m.Name.Equals(testName));
 
         /// <summary>
         /// Get the type of test result
