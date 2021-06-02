@@ -12,6 +12,7 @@ namespace Magenic.Maqs.BaseTest
     /// <summary>
     /// Soft assert exceptions
     /// </summary>
+    [Serializable]
     public class SoftAssertException : Exception
     {
         /// <summary>
