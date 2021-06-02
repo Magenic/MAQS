@@ -198,7 +198,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 var driver = new ChromeDriver(ChromeDriverService.CreateDefaultService(), chromeOptions, commandTimeout);
                 SetBrowserSize(driver, size);
                 return driver;
-            });
+            }, SeleniumConfig.GetRetryRefused());
         }
 
         /// <summary>
@@ -209,7 +209,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <returns>A new headless Chrome driver</returns>
         public static IWebDriver GetHeadlessChromeDriver(TimeSpan commandTimeout, ChromeOptions headlessChromeOptions)
         {
-            return CreateDriver(() => new ChromeDriver(ChromeDriverService.CreateDefaultService(), headlessChromeOptions, commandTimeout));
+            return CreateDriver(() => new ChromeDriver(ChromeDriverService.CreateDefaultService(), headlessChromeOptions, commandTimeout), SeleniumConfig.GetRetryRefused());
         }
 
         /// <summary>
@@ -234,7 +234,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 SetBrowserSize(driver, size);
 
                 return driver;
-            });
+            }, SeleniumConfig.GetRetryRefused());
         }
 
         /// <summary>
@@ -251,7 +251,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 var driver = new EdgeDriver(GetDriverLocation("MicrosoftWebDriver.exe", GetProgramFilesFolder("Microsoft Web Driver", "MicrosoftWebDriver.exe")), edgeOptions, commandTimeout);
                 SetBrowserSize(driver, size);
                 return driver;
-            });
+            }, SeleniumConfig.GetRetryRefused());
         }
 
         /// <summary>
@@ -269,7 +269,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 SetBrowserSize(driver, size);
 
                 return driver;
-            });
+            }, SeleniumConfig.GetRetryRefused());
         }
 
         /// <summary>
@@ -466,8 +466,9 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// Creates a web driver, but if the creation fails it tries to cleanup after itself
         /// </summary>
         /// <param name="createFunction">Function for creating a web driver</param>
+        /// <param name="retry">If we fail to get the webdriver should we retry</param>
         /// <returns>A web driver</returns>
-        public static IWebDriver CreateDriver(Func<IWebDriver> createFunction)
+        public static IWebDriver CreateDriver(Func<IWebDriver> createFunction, bool retry = false)
         {
             IWebDriver webDriver = null;
 
@@ -494,8 +495,15 @@ namespace Magenic.Maqs.BaseSeleniumTest
                     }
                 }
 
-                // Log that something went wrong
-                throw new WebDriverException("Your web driver may be out of date or unsupported.", e);
+                if (retry && e.Message.ToLower().Contains("refused"))
+                {
+                    return CreateDriver(createFunction, false);
+                }
+                else
+                {
+                    // Log that something went wrong
+                    throw new WebDriverException("Your web driver may be out of date or unsupported.", e);
+                }
             }
         }
 

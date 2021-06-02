@@ -31,6 +31,10 @@ The SeleniumMaqs configuration section contains the following Keys:
     * If this value is "YES" then ***ProxyAddress*** is required
 * ***ProxyAddress*** : The proxy address and port the browser will use
 
+* ***RetryRefused*** : If MAQS should try to get a new web driver if the attempt resulted in a refused connection
+    * This flag may not be respected if you are overriding the web driver initializes.
+    * If you want to assure this flag is respected make sure to use WebDriverFactory.CreateDriver when creating a web driver
+
 
 ## RemoteSeleniumCapsMaqs
 
@@ -114,13 +118,17 @@ Sets the time our for a provided web driver:
 ```csharp
 SeleniumConfig.SetTimeouts(driver);
 ```
-Get the if webdriver should use proxy
+Get the if web driver should use proxy
 ```csharp
 bool useProxy = SeleniumConfig.GetUseProxy();
 ```
 Get the proxy address to use
 ```csharp
 string proxyAddress = SeleniumConfig.GetProxyAddress();
+```
+Get the if we retry getting a web driver after the first attempt resulted in a refused connection 
+```csharp
+bool retryRefused = SeleniumConfig.GetRetryRefused();
 ```
 
 # Sample config files
@@ -195,6 +203,9 @@ string proxyAddress = SeleniumConfig.GetProxyAddress();
     <!-- Proxy settings -->
     <add key="UseProxy" value="No" />
     <add key="ProxyAddress" value="127.0.0.1:8080" />
+
+    <!-- Try to get a new web driver if the first attempt returned a refused connection error  -->
+    <add key="RetryRefused" value="Yes" />
   </SeleniumMaqs>
   <RemoteSeleniumCapsMaqs>
     <!-- Cloud based Grid settings
@@ -253,7 +264,8 @@ string proxyAddress = SeleniumConfig.GetProxyAddress();
     "ImageFormat": "Png",
     "SavePagesourceOnFail": "NO",
     "UseProxy": "NO",
-    "ProxyAddress": "127.0.0.1:8080"
+    "ProxyAddress": "127.0.0.1:8080",
+    "RetryRefused": "YES"
   },
   "RemoteSeleniumCapsMaqs": {
     "Username": "Sauce_Labs_Username",
