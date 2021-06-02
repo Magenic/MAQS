@@ -637,9 +637,10 @@ namespace Magenic.Maqs.BaseTest
                     if (classType != null)
                     {
                         // Get methods and see if soft assert expects are used
-                        bool hasSoftAssertExpectedAssertsAttribute = this.GetMethods(classType, testName, out List<MethodInfo> methods);
+                        var methods = this.GetMethods(classType, testName).ToList();
+                        var hasSoftAssertExpectedAssertsAttribute = methods.Any(m => m.GetCustomAttributes<SoftAssertExpectedAssertsAttribute>(false).Any());
 
-                        if(!hasSoftAssertExpectedAssertsAttribute)
+                        if (!hasSoftAssertExpectedAssertsAttribute)
                         {
                             // The SoftAssertExpectedAsserts attribute was not used so don't return the method information
                             return null;
@@ -672,29 +673,9 @@ namespace Magenic.Maqs.BaseTest
         /// </summary>
         /// <param name="classType">The test class</param>
         /// <param name="testName">The test name</param>
-        /// <param name="methods">A list of methods that match the test name and class</param>
-        /// <returns>True if any of the methods use expected assert</returns>
-        private bool GetMethods (Type classType, string testName, out List<MethodInfo> methods)
-        {
-            methods  = new List<MethodInfo>();
-            bool hasSoftAssertExpectedAssertsAttribute = false;
-
-            // Loop over the methods
-            foreach (var method in classType.GetMethods())
-            {
-
-                // Check if this method has the right name 
-                if (method.Name.Equals(testName))
-                {
-                    methods.Add(method);
-
-                    // Check if the method is using the expected assert attribute
-                    hasSoftAssertExpectedAssertsAttribute = hasSoftAssertExpectedAssertsAttribute || method.GetCustomAttributes<SoftAssertExpectedAssertsAttribute>(false).Any();
-                }
-            }
-
-            return hasSoftAssertExpectedAssertsAttribute;
-        }
+        /// <returns>List of method information for method that match the class and test name</returns>
+        private IEnumerable<MethodInfo> GetMethods(Type classType, string testName) =>
+            classType.GetMethods().Where(m => m.Name.Equals(testName));
 
         /// <summary>
         /// Get the type of test result
