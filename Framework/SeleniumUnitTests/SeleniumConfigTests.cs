@@ -112,7 +112,7 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         [DataRow(true)]
         [DataRow(false)]
-        [ExpectedException(typeof(WebDriverTimeoutException))]
+        [ExpectedException(typeof(WebDriverException))]
         public void RetryRefused(bool retry)
         {
             WebDriverFactory.CreateDriver(() =>
