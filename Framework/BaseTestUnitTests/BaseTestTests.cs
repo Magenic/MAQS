@@ -41,6 +41,26 @@ namespace BaseTestUnitTests
         {
             Config.AddTestSettingValues(general, ConfigSection.MagenicMaqs, true);
         }
+        
+        /// <summary>
+        /// Test duplicate name
+        /// </summary>
+        [TestMethod]
+        public void DuplicateTestName()
+        {
+            Assert.IsTrue(true);
+        }
+
+        /// <summary>
+        /// Also test duplicate name
+        /// </summary>
+        /// <param name="boolean">True or false</param>
+        [DataTestMethod]
+        [DataRow(true)]
+        public void DuplicateTestName(bool boolean)
+        {
+            Assert.IsTrue(boolean);
+        }
 
         /// <summary>
         /// Make sure we get a console logger if the log configuration is invalid
