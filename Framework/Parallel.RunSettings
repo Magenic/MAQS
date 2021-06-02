@@ -6,7 +6,7 @@
   </RunConfiguration>
   <MSTest>
     <Parallelize>
-      <Workers>6</Workers>
+      <Workers>5</Workers>
       <Scope>MethodLevel</Scope>
     </Parallelize>
   </MSTest>
@@ -30,6 +30,7 @@
     <Parameter name="SeleniumMaqs:SectionAdd" value="SAMPLESelz" />
     <Parameter name="RemoteseleniumCapsMaqs:SectionAdd" value="SAMPLESelCapz" />
     <Parameter name="webServiceMaqs:SectionAdd" value="SAMPLEWebz" />
+    <Parameter name="SeleniumMaqs:RetryRefused" value="Yes" />
   </TestRunParameters>
   <DataCollectionRunSettings>
     <DataCollectors>
