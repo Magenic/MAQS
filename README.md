@@ -3,8 +3,8 @@ Builds:
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=MAQS&metric=alert_status)](https://sonarcloud.io/dashboard?id=MAQS) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=MAQS&metric=coverage)](https://sonarcloud.io/dashboard?id=MAQS) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=MAQS&metric=bugs)](https://sonarcloud.io/dashboard?id=MAQS) [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=MAQS&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=MAQS)  
 
 Releases:  
-[![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/vs-publisher-1465771.MAQSOpenFramework.svg?label=extension)](https://marketplace.visualstudio.com/items?itemName=vs-publisher-1465771.MAQSOpenFramework)  
-[![Nuget](https://img.shields.io/nuget/v/Magenic.Maqs.svg)](https://www.nuget.org/packages/Magenic.Maqs/)
+[![Nuget](https://img.shields.io/nuget/v/Magenic.Maqs.svg?label=Nuget%20Package)](https://www.nuget.org/packages/Magenic.Maqs/)  [![NuGet package download counter](https://img.shields.io/nuget/dt/Magenic.Maqs.svg?label=Downloads)](https://www.nuget.org/packages/Magenic.Maqs/)   
+[![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/vs-publisher-1465771.MAQSOpenFramework.svg?label=Visual%20Studio%20Extension)](https://marketplace.visualstudio.com/items?itemName=vs-publisher-1465771.MAQSOpenFramework)  
 
 License:  
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://raw.githubusercontent.com/Magenic/MAQS/master/LICENSE)
