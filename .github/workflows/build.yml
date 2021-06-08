@@ -1,5 +1,7 @@
 name: Build
 on:
+  schedule:
+    - cron: "13 23 * * *"
   push:
     branches:
       - master
@@ -534,7 +536,7 @@ jobs:
             
   publish:
     name: Publish NuGet - v${{ needs.getVersion.outputs.buildNumber }}
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') &&  github.event_name != 'schedule'
     needs: [getVersion, createNugetPacakges, sonar]
     runs-on: windows-latest
     environment: nuget 
