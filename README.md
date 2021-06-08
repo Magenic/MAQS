@@ -1,5 +1,5 @@
 Builds:  
-[![Build Status](https://github.com/Magenic/MAQS/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/Magenic/MAQS/actions/workflows/build.yml)  
+[![Build Status](https://github.com/Magenic/MAQS/actions/workflows/build.yml/badge.svg?event=schedule)](https://github.com/Magenic/MAQS/actions/workflows/build.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=MAQS&metric=alert_status)](https://sonarcloud.io/dashboard?id=MAQS) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=MAQS&metric=coverage)](https://sonarcloud.io/dashboard?id=MAQS) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=MAQS&metric=bugs)](https://sonarcloud.io/dashboard?id=MAQS) [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=MAQS&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=MAQS)  
 
 Releases:  
