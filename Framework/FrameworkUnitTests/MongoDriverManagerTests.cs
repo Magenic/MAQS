@@ -24,6 +24,36 @@ namespace FrameworkUnitTests
     public class MongoDriverManagerTests : BaseMongoTest<BsonDocument>
     {
         /// <summary>
+        /// Can use the empty consturctor
+        /// </summary>
+        [TestMethod]
+        public void EmptyConstuctor()
+        {
+            this.MongoDBDriver = new EventFiringMongoDBDriver<BsonDocument>();
+            Assert.IsNotNull(this.MongoDBDriver);
+        }
+
+        /// <summary>
+        /// Can use the collection consturctor
+        /// </summary>
+        [TestMethod]
+        public void CollectionConstuctor()
+        {
+            this.MongoDBDriver = new EventFiringMongoDBDriver<BsonDocument>(MongoDBConfig.GetCollectionString());
+            Assert.IsNotNull(this.MongoDBDriver);
+        }
+
+        /// <summary>
+        /// Can use the connection consturctor
+        /// </summary>
+        [TestMethod]
+        public void ConnectionConstuctor()
+        {
+            this.MongoDBDriver = new EventFiringMongoDBDriver<BsonDocument>(MongoDBConfig.GetConnectionString(), MongoDBConfig.GetDatabaseString(), MongoDBConfig.GetCollectionString());
+            Assert.IsNotNull(this.MongoDBDriver);
+        }
+
+        /// <summary>
         /// Make sure we can override the driver
         /// </summary>
         [TestMethod]
