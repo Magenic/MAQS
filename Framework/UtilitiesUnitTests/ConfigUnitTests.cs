@@ -249,6 +249,17 @@ namespace UtilitiesUnitTesting
         }
 
         /// <summary>
+        /// Tests that we can use the inner exception
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        [ExpectedException(typeof(MaqsConfigException))]
+        public void MaqsConfigInnerException()
+        {
+            throw new MaqsConfigException(string.Empty, new MaqsConfigException(string.Empty));
+        }
+
+        /// <summary>
         /// Tests that we can skip the validation 
         /// </summary>
         [TestMethod]

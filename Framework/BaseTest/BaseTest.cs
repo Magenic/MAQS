@@ -768,17 +768,18 @@ namespace Magenic.Maqs.BaseTest
 
             if (assocFiles.Length > 0)
             {
-                string listOfFilesMessage = "List of Associated Files: " + Environment.NewLine;
+                StringBuilder listOfFilesMessage = new StringBuilder();
+                listOfFilesMessage.AppendLine("List of Associated Files: ");
 
                 foreach (string assocPath in assocFiles)
                 {
                     if (File.Exists(assocPath))
                     {
-                        listOfFilesMessage += assocPath + Environment.NewLine;
+                        listOfFilesMessage.AppendLine(assocPath);
                     }
                 }
 
-                this.TryToLog(MessageType.GENERIC, listOfFilesMessage);
+                this.TryToLog(MessageType.GENERIC, listOfFilesMessage.ToString());
             }
         }
     }
