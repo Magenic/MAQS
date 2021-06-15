@@ -1,4 +1,4 @@
-﻿//--------------------------------------------------
+//--------------------------------------------------
 // <copyright file="EmailDriverFailureTests.cs" company="Magenic">
 //  Copyright 2021 Magenic, All rights Reserved
 // </copyright>
@@ -6,9 +6,11 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseEmailTest;
 using Magenic.Maqs.Utilities.Helper;
-using MailKit.Security;
+using MailKit.Net.Imap;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MimeKit;
+using Moq;
+using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace FrameworkUnitTests
@@ -22,10 +24,29 @@ namespace FrameworkUnitTests
     public class EmailDriverFailureTests : BaseEmailTest
     {
         /// <summary>
+        /// Setup fake email client
+        /// </summary>
+        /// <returns>Fake email client</returns>
+        private Mock<ImapClient> GetMoq()
+        {
+            Mock<ImapClient> mockForClient = new Mock<ImapClient>();
+            return mockForClient;
+        }
+
+        /// <summary>
+        /// Setup a fake email client
+        /// </summary>
+        [TestInitialize]
+        public void SetupMoqDriver()
+        {
+            this.TestObject.OverrideEmailClient(() => GetMoq().Object);
+        }
+
+        /// <summary>
         /// Make sure email driver throws the correct exception
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(AuthenticationException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void AccessError()
         {
             EmailDriver.CanAccessEmailAccount();
@@ -35,7 +56,7 @@ namespace FrameworkUnitTests
         /// Make sure email driver throws the correct exception
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(AuthenticationException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void MailBoxNamesError()
         {
             EmailDriver.GetMailBoxNames();
@@ -45,7 +66,7 @@ namespace FrameworkUnitTests
         /// Make sure email driver throws the correct exception
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(AuthenticationException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void MailoxError()
         {
             EmailDriver.GetMailbox(string.Empty);
@@ -55,7 +76,7 @@ namespace FrameworkUnitTests
         /// Make sure email driver throws the correct exception
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(AuthenticationException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void SelectBoxError()
         {
             EmailDriver.SelectMailbox(string.Empty);
@@ -65,7 +86,7 @@ namespace FrameworkUnitTests
         /// Make sure email driver throws the correct exception
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(AuthenticationException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void CreateMailboxError()
         {
             EmailDriver.CreateMailbox(string.Empty);
@@ -75,7 +96,7 @@ namespace FrameworkUnitTests
         /// Make sure email driver throws the correct exception
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(AuthenticationException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void GetMessageError()
         {
             EmailDriver.GetMessage(string.Empty);
@@ -85,7 +106,7 @@ namespace FrameworkUnitTests
         /// Make sure email driver throws the correct exception
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(AuthenticationException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void GetAllMessageHeadersError()
         {
             EmailDriver.GetAllMessageHeaders(string.Empty);
@@ -95,7 +116,7 @@ namespace FrameworkUnitTests
         /// Make sure email driver throws the correct exception
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(AuthenticationException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void DeleteMessageError()
         {
             EmailDriver.DeleteMessage(string.Empty);
@@ -105,7 +126,7 @@ namespace FrameworkUnitTests
         /// Make sure email driver throws the correct exception
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(AuthenticationException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void DeleteMimeMessageError()
         {
             EmailDriver.DeleteMessage(new MimeMessage());
@@ -115,7 +136,7 @@ namespace FrameworkUnitTests
         /// Make sure email driver throws the correct exception
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(AuthenticationException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void MoveMimeMessageError()
         {
             EmailDriver.MoveMailMessage(new MimeMessage(), string.Empty);
@@ -125,7 +146,7 @@ namespace FrameworkUnitTests
         /// Make sure email driver throws the correct exception
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(AuthenticationException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void MoveMessageError()
         {
             EmailDriver.MoveMailMessage(string.Empty, string.Empty);
@@ -135,7 +156,7 @@ namespace FrameworkUnitTests
         /// Make sure email driver throws the correct exception
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(AuthenticationException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void GetAttachmentsError()
         {
             EmailDriver.GetAttachments(string.Empty);
@@ -145,7 +166,7 @@ namespace FrameworkUnitTests
         /// Make sure email driver throws the correct exception
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(AuthenticationException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void GetMimeAttachmentsError()
         {
             EmailDriver.GetAttachments(new MimeMessage());
@@ -155,7 +176,7 @@ namespace FrameworkUnitTests
         /// Make sure email driver throws the correct exception
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(AuthenticationException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void DownloadAttachmentsToError()
         {
             EmailDriver.DownloadAttachments(new MimeMessage(), string.Empty);
@@ -165,7 +186,7 @@ namespace FrameworkUnitTests
         /// Make sure email driver throws the correct exception
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(AuthenticationException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void DownloadAttachmentsError()
         {
             EmailDriver.DownloadAttachments(new MimeMessage());
@@ -175,7 +196,7 @@ namespace FrameworkUnitTests
         /// Make sure email driver throws the correct exception
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(AuthenticationException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void SearchMessagesError()
         {
             EmailDriver.SearchMessages(null);
@@ -185,7 +206,7 @@ namespace FrameworkUnitTests
         /// Make sure email driver throws the correct exception
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(AuthenticationException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void GetContentTypesError()
         {
             EmailDriver.GetContentTypes(null);
@@ -195,7 +216,7 @@ namespace FrameworkUnitTests
         /// Make sure email driver throws the correct exception
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(AuthenticationException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void GetBodyByContentTypesError()
         {
             EmailDriver.GetBodyByContentTypes(null, string.Empty);
