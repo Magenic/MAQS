@@ -129,6 +129,8 @@ jobs:
 
   test-appium:
     name: Appium
+    # Skip when dependabot PR - Dependabot PRs cannot access action secrets
+    if: github.actor != 'dependabot[bot]'
     needs: waitOld
     runs-on: ubuntu-latest
     steps:
@@ -387,6 +389,8 @@ jobs:
 
   test-selengen:
     name: Selenium General
+    # Skip when dependabot PR - Dependabot PRs cannot access action secrets
+    if: github.actor != 'dependabot[bot]'
     needs: waitOld
     runs-on: ubuntu-latest
     steps:
@@ -412,6 +416,8 @@ jobs:
 
   sonar:
     name: Sonar
+    # Skip when dependabot PR - Dependabot PRs cannot access action secrets
+    if: github.actor != 'dependabot[bot]'
     runs-on: windows-latest
     needs: [test-appium, test-winapp, test-untils, test-mongo, test-database, test-webservice, test-base, test-email, test-framework, test-specflow, test-specflownunit, test-composite, test-selenpomlazy, test-selenutil, test-selengen, getVersion]
     steps:
@@ -499,7 +505,9 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           path: ${{ github.workspace }}/Results
-      - name: Test Report
+      - name: Test Report    
+        # Skip because dependabot cannot access the associated resources
+        if: github.actor != 'dependabot[bot]'
         uses: dorny/test-reporter@v1
         with:
           name: ReportResults
