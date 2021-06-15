@@ -21,14 +21,19 @@ namespace FrameworkUnitTests
     [ExcludeFromCodeCoverage]
     public class MongoDriverFailureTests : BaseMongoTest<BsonDocument>
     {
+        /// <summary>
+        /// Test driver call fails correctly
+        /// </summary>
         [TestMethod]
-        //[ExpectedException(typeof(TimeoutException))]
+        [ExpectedException(typeof(TimeoutException))]
         public void ListAllCollectionItemsFailure()
         {
             this.MongoDBDriver.ListAllCollectionItems();
         }
 
-
+        /// <summary>
+        /// Test driver call fails correctly
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(TimeoutException))]
         public void IsCollectionEmptyFailure()
@@ -36,6 +41,9 @@ namespace FrameworkUnitTests
             this.MongoDBDriver.IsCollectionEmpty();
         }
 
+        /// <summary>
+        /// Test driver call fails correctly
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(TimeoutException))]
         public void CountAllItemsInCollectionFailure()
