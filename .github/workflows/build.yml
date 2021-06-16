@@ -266,10 +266,14 @@ jobs:
         shell: pwsh
       - id: browserupdate
         uses: ./.github/workflows/setupwinbrowser-action
-      - id: builder
+      - id: testframework
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/FrameworkUnitTests/FrameworkUnitTests.csproj --settings Framework/Parallel.RunSettings --logger trx --results-directory "${{github.workspace}}/artifactTests/framework/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/framework/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+          bt-param: 'Framework/FrameworkUnitTests/FrameworkUnitTests.csproj -f net471 --settings Framework/Parallel.RunSettings --logger trx --results-directory "${{github.workspace}}/artifactTests/framework/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/framework/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+      - id: testcore
+        uses: ./.github/workflows/buildtest-action
+        with:
+          bt-param: 'Framework/FrameworkUnitTests/FrameworkUnitTests.csproj -f netcoreapp3.1 --settings Framework/Parallel.RunSettings --logger trx --results-directory "${{github.workspace}}/artifactTests/framework/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/framework/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
         if: always()
         name: "Upload test artifact"
