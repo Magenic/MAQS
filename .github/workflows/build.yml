@@ -257,6 +257,10 @@ jobs:
     needs: waitOld
     runs-on: windows-latest
     steps:
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.*
       - uses: actions/checkout@v2
       - run: dotnet restore Framework/FrameworkUnitTests/FrameworkUnitTests.csproj
         shell: pwsh
