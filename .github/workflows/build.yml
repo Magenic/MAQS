@@ -269,7 +269,7 @@ jobs:
       - id: testframework
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/FrameworkUnitTests/FrameworkUnitTests.csproj -f net471 --settings Framework/Parallel.RunSettings --logger trx --results-directory "${{github.workspace}}/artifactTests/framework/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/framework/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+          bt-param: 'Framework/FrameworkUnitTests/FrameworkUnitTests.csproj -f net471 --settings Framework/Parallel.RunSettings --logger trx --results-directory "${{github.workspace}}/artifactTests/framework/testResults/"'
       - id: testcore
         uses: ./.github/workflows/buildtest-action
         with:
