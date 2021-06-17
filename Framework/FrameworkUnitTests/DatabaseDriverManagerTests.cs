@@ -22,6 +22,28 @@ namespace FrameworkUnitTests
     public class DatabaseDriverManagerTests : BaseDatabaseTest
     {
         /// <summary>
+        /// Make sure we get the proper factory failure
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void OverideFactoryFailure()
+        {
+            this.TestObject.OverrideDatabaseDriver(ConnectionFactory.GetOpenConnection(string.Empty, string.Empty));
+            Assert.Fail("Get open connection should have thrown exception.");
+        }
+
+        /// <summary>
+        /// Make sure we can override the driver using the connection factory
+        /// </summary>
+        [TestMethod]
+        public void OverrideConnectionWithFactory()
+        {
+            var connection = ConnectionFactory.GetOpenConnection();
+            this.TestObject.OverrideDatabaseDriver(connection);
+            Assert.AreEqual(connection, this.DatabaseDriver.Connection);
+        }
+    
+        /// <summary>
         /// Make sure we can override the driver
         /// </summary>
         [TestMethod]
