@@ -32,6 +32,17 @@ namespace UtilitiesUnitTesting
         {
             Config.AddTestSettingValues(general, ConfigSection.MagenicMaqs, true);
         }
+        
+        /// <summary>
+        /// Tests that we can use the inner exception
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        [ExpectedException(typeof(MaqsLoggingConfigException))]
+        public void MaqsLoggingConfigInnerException()
+        {
+            throw new MaqsLoggingConfigException(string.Empty, new MaqsLoggingConfigException(string.Empty));
+        }
 
         /// <summary>
         /// Test getting the LoggingEnabledSettings
