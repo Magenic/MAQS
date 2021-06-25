@@ -98,8 +98,8 @@ namespace Magenic.Maqs.BaseDatabaseTest
                     break;
                 case "ODP":
                 case "ORACLE":
-                    provider = GetOracleProvider();
-                    break;
+                    throw new NotImplementedException(@"Oracle database is no longer directly supported.  
+See https://magenic.github.io/MAQS/#/MAQS_6/Database/DatabaseFAQ?id=how-can-to-connect-to-an-oracle-sql-database for how to connect to an Oracle database.");
                 default:
                     provider = GetCustomProviderType(providerType);
                     break;
@@ -133,15 +133,6 @@ namespace Magenic.Maqs.BaseDatabaseTest
         private static IProvider<IDbConnection> GetPostgreSqlProvider()
         {
             return new PostgreSqlProvider();
-        }
-
-        /// <summary>
-        /// Get an Oracle SQL provider
-        /// </summary>
-        /// <returns>Connection provider</returns>
-        private static IProvider<IDbConnection> GetOracleProvider()
-        {
-            return new OracleProvider();
         }
 
         /// <summary>

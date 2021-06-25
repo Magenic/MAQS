@@ -8,7 +8,6 @@ Config class for database connections
 [GetSQLServerProvider](#GetSQLServerProvider)  
 [GetSqliteProvider](#GetSqliteProvider)  
 [GetPostgreSqlProvider](#GetPostgreSqlProvider)  
-[GetOracleProvider](#GetOracleProvider)  
 [GetCustomProviderType](#GetCustomProviderType)  
 
 ## GetOpenConnection
@@ -43,12 +42,6 @@ IProvider<IDbConnection> provider = GetSqliteProvider();
 Get a PostgreSQL provider
 ```csharp
 IProvider<IDbConnection> provider = GetPostgreSqlProvider();
-```
-
-## GetOracleProvider
-Get an Oracle SQL provider
-```csharp
-IProvider<IDbConnection> provider = GetOracleProvider();
 ```
 
 ## GetCustomProviderType
