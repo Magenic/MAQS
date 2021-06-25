@@ -22,6 +22,17 @@ namespace AppiumUnitTests
     public class AppiumUtilitiesTests : BaseAppiumTest
     {
         /// <summary>
+        /// Verify a bad create fails in the right way
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Appium)]
+        [ExpectedException(typeof(WebDriverException))]
+        public void BadCreate()
+        {
+            AppiumDriverFactory.CreateDriver(() => throw new AccessViolationException("Should fail"));
+        }
+    
+        /// <summary>
         /// Verify CaptureScreenshot works - Validating that the screenshot was created
         /// </summary>
         [TestMethod]

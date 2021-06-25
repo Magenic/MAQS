@@ -75,11 +75,11 @@ namespace FrameworkUnitTests
         public void SeparateInteractions()
         {
             SeleniumDriverManager newDriver = new SeleniumDriverManager(() => WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.HeadlessChrome), this.TestObject);
-            newDriver.GetWebDriver().Navigate().GoToUrl("https://magenicautomation.azurewebsites.net/");
+            newDriver.GetWebDriver().Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase());
 
             this.ManagerStore.Add("test", newDriver);
 
-            this.TestObject.WebDriver.Navigate().GoToUrl("https://magenicautomation.azurewebsites.net/Automation");
+            this.TestObject.WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "/Automation");
 
             Assert.AreNotEqual(this.TestObject.WebDriver.Url, ((SeleniumDriverManager)this.ManagerStore["test"]).GetWebDriver().Url);
         }
