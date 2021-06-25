@@ -1,5 +1,7 @@
 name: Build
 on:
+  schedule:
+    - cron: "13 23 * * *"
   push:
     branches:
       - master
@@ -127,6 +129,8 @@ jobs:
 
   test-appium:
     name: Appium
+    # Skip when dependabot PR - Dependabot PRs cannot access action secrets
+    if: github.actor != 'dependabot[bot]'
     needs: waitOld
     runs-on: ubuntu-latest
     steps:
@@ -253,15 +257,23 @@ jobs:
     needs: waitOld
     runs-on: windows-latest
     steps:
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.*
       - uses: actions/checkout@v2
       - run: dotnet restore Framework/FrameworkUnitTests/FrameworkUnitTests.csproj
         shell: pwsh
       - id: browserupdate
         uses: ./.github/workflows/setupwinbrowser-action
-      - id: builder
+      - id: testframework
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/FrameworkUnitTests/FrameworkUnitTests.csproj --settings Framework/Parallel.RunSettings --logger trx --results-directory "${{github.workspace}}/artifactTests/framework/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/framework/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+          bt-param: 'Framework/FrameworkUnitTests/FrameworkUnitTests.csproj -f net471 --settings Framework/Parallel.RunSettings --logger trx --results-directory "${{github.workspace}}/artifactTests/framework/testResults/"'
+      - id: testcore
+        uses: ./.github/workflows/buildtest-action
+        with:
+          bt-param: 'Framework/FrameworkUnitTests/FrameworkUnitTests.csproj -f netcoreapp3.1 --settings Framework/Parallel.RunSettings --logger trx --results-directory "${{github.workspace}}/artifactTests/framework/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/framework/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
         if: always()
         name: "Upload test artifact"
@@ -385,6 +397,8 @@ jobs:
 
   test-selengen:
     name: Selenium General
+    # Skip when dependabot PR - Dependabot PRs cannot access action secrets
+    if: github.actor != 'dependabot[bot]'
     needs: waitOld
     runs-on: ubuntu-latest
     steps:
@@ -410,6 +424,8 @@ jobs:
 
   sonar:
     name: Sonar
+    # Skip when dependabot PR - Dependabot PRs cannot access action secrets
+    if: github.actor != 'dependabot[bot]'
     runs-on: windows-latest
     needs: [test-appium, test-winapp, test-untils, test-mongo, test-database, test-webservice, test-base, test-email, test-framework, test-specflow, test-specflownunit, test-composite, test-selenpomlazy, test-selenutil, test-selengen, getVersion]
     steps:
@@ -483,7 +499,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"MAQS" /o:"magenic" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:projectVersion="${{ needs.getVersion.outputs.buildNumber }}"  /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths=${{ github.workspace }}\Results\**\coverage.opencover.xml  /d:sonar.cs.dotcover.reportsPaths=${{ github.workspace }}\Results\**\*.coverage
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"MAQS" /o:"magenic" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:projectVersion="${{ needs.getVersion.outputs.buildNumber }}"  /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths=${{ github.workspace }}\Results\**\coverage*.opencover.xml  /d:sonar.cs.dotcover.reportsPaths=${{ github.workspace }}\Results\**\*.coverage
           dotnet build Framework/Base.sln -p:Version=${{ needs.getVersion.outputs.buildNumber }}
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
  
@@ -497,7 +513,9 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           path: ${{ github.workspace }}/Results
-      - name: Test Report
+      - name: Test Report    
+        # Skip because dependabot cannot access the associated resources
+        if: github.actor != 'dependabot[bot]'
         uses: dorny/test-reporter@v1
         with:
           name: ReportResults
@@ -521,7 +539,7 @@ jobs:
 
       - name: Build
         run: |
-          dotnet build Framework/Base.sln --no-restore --configuration Release -p:Version=${{needs.getVersion.outputs.buildNumber}} -o "${{github.workspace}}/artifactTests/packages/"
+          dotnet build Framework/Base.sln --no-restore --configuration Release -p:Version=${{needs.getVersion.outputs.buildNumber}} -p:BaseOutputPath="${{github.workspace}}/artifactTests/packages/"
 
       - uses: actions/upload-artifact@v2
         if: always()
@@ -534,7 +552,7 @@ jobs:
             
   publish:
     name: Publish NuGet - v${{ needs.getVersion.outputs.buildNumber }}
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') &&  github.event_name != 'schedule'
     needs: [getVersion, createNugetPacakges, sonar]
     runs-on: windows-latest
     environment: nuget 

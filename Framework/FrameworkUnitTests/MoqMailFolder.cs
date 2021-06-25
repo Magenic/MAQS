@@ -73,7 +73,7 @@ namespace FrameworkUnitTests
         public int Count => throw new NotImplementedException();
 
         public HashSet<ThreadingAlgorithm> ThreadingAlgorithms => throw new NotImplementedException();
-
+#pragma warning disable 0067
         public event EventHandler<EventArgs> Opened;
         public event EventHandler<EventArgs> Closed;
         public event EventHandler<EventArgs> Deleted;
@@ -96,6 +96,7 @@ namespace FrameworkUnitTests
         public event EventHandler<EventArgs> CountChanged;
         public event EventHandler<EventArgs> RecentChanged;
         public event EventHandler<EventArgs> UnreadChanged;
+#pragma warning restore 0067
 
         public void AddAccessRights(string name, AccessRights rights, CancellationToken cancellationToken = default)
         {

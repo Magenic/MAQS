@@ -146,15 +146,20 @@ namespace Magenic.Maqs.BaseTest
                 {
                     return this.testMethodInfo;
                 }
-                else if (this.TestContext != null)
+                else if (this.IsVSTest())
                 {
                     return (this.testMethodInfo =
-                        GetMethodInfoFromClassAndTestName(
+                        GetMethodInfoIfUsingSoftAssertExpectedAsserts(
                             this.TestContext.FullyQualifiedTestClassName,
                             this.TestContext.TestName));
                 }
-
-                return null;
+                else
+                {
+                    return (this.testMethodInfo =
+                        GetMethodInfoIfUsingSoftAssertExpectedAsserts(
+                            NUnitTestContext.CurrentContext.Test.ClassName,
+                            NUnitTestContext.CurrentContext.Test.MethodName));
+                }
             }
         }
 
@@ -393,7 +398,7 @@ namespace Magenic.Maqs.BaseTest
         /// <returns>The test name including class</returns>
         protected string GetFullyQualifiedTestClassName()
         {
-            if (this.testContextInstance != null)
+            if (this.IsVSTest())
             {
                 return this.GetFullyQualifiedTestClassNameVS();
             }
@@ -407,7 +412,7 @@ namespace Magenic.Maqs.BaseTest
         /// <returns>The test result type</returns>
         protected TestResultType GetResultType()
         {
-            if (this.testContextInstance != null)
+            if (this.IsVSTest())
             {
                 return this.GetResultTypeVS();
             }
@@ -421,7 +426,7 @@ namespace Magenic.Maqs.BaseTest
         /// <returns>The result type as text</returns>
         protected string GetResultText()
         {
-            if (this.testContextInstance != null)
+            if (this.IsVSTest())
             {
                 return this.GetResultTextVS();
             }
@@ -499,6 +504,15 @@ namespace Magenic.Maqs.BaseTest
         /// <param name="resultType">The test result</param>
         protected virtual void BeforeLoggingTeardown(TestResultType resultType)
         {
+        }
+
+        /// <summary>
+        /// Check if this is a Visual Studio test
+        /// </summary>
+        /// <returns>True if Visaul Studio, false if NUnit</returns>
+        private bool IsVSTest()
+        {
+            return this.testContextInstance != null;
         }
 
         /// <summary>
@@ -606,13 +620,14 @@ namespace Magenic.Maqs.BaseTest
 
         /// <summary>
         /// Gets the method information from the given class and method name from any assembly
-        /// in the current application domain.
+        /// in the current application domain, provide is uses the SoftAssertExpectedAsserts attribute.
         /// </summary>
         /// <param name="className">The fully qualified class name of the method.</param>
         /// <param name="testName">The name of the test method.</param>
-        /// <returns>The method information from the test.</returns>
-        private MethodInfo GetMethodInfoFromClassAndTestName(string className, string testName)
+        /// <returns>The method information from the test, provided the method uses the SoftAssertExpectedAsserts attribute.</returns>
+        private MethodInfo GetMethodInfoIfUsingSoftAssertExpectedAsserts(string className, string testName)
         {
+            // Loop over the assemblies
             foreach (var assemblyName in AppDomain.CurrentDomain.GetAssemblies())
             {
                 try
@@ -621,9 +636,27 @@ namespace Magenic.Maqs.BaseTest
                     var classType = loadedAssembly.GetType(className);
                     if (classType != null)
                     {
-                        return classType.GetMethod(testName);
-                    }
+                        // Get methods and see if soft assert expects are used
+                        var methods = this.GetMethods(classType, testName).ToList();
+                        var hasSoftAssertExpectedAssertsAttribute = methods.Any(m => m.GetCustomAttributes<SoftAssertExpectedAssertsAttribute>(false).Any());
 
+                        if (!hasSoftAssertExpectedAssertsAttribute)
+                        {
+                            // The SoftAssertExpectedAsserts attribute was not used so don't return the method information
+                            return null;
+                        }
+                        else if (methods.Count == 1)
+                        {
+                            // We only have one method that fits so return its information
+                            return methods[0];
+                        }
+                        else if (methods.Count > 1)
+                        {
+                            // There are multiple methods that match so log the issue and return null
+                            this.TryToLog(MessageType.WARNING, $"There are mutliple methods with the name '{testName}'.  This means MAQS will not respect the SoftAssertExpectedAsserts attribute for this test.");
+                            return null;
+                        }
+                    }
                 }
                 catch
                 {
@@ -632,8 +665,17 @@ namespace Magenic.Maqs.BaseTest
                 }
             }
 
-            throw new InvalidOperationException($"Unable to find assembly with test name {testName}");
+            throw new InvalidOperationException($"Unable to find assembly which contains the test named'{testName}' in the class '{className}'");
         }
+
+        /// <summary>
+        /// Get related methods
+        /// </summary>
+        /// <param name="classType">The test class</param>
+        /// <param name="testName">The test name</param>
+        /// <returns>List of method information for method that match the class and test name</returns>
+        private IEnumerable<MethodInfo> GetMethods(Type classType, string testName) =>
+            classType.GetMethods().Where(m => m.Name.Equals(testName));
 
         /// <summary>
         /// Get the type of test result
@@ -706,7 +748,7 @@ namespace Magenic.Maqs.BaseTest
         private void AttachAssociatedFile(string path)
         {
             // You can only attach files to VS Unit tests so check that first
-            if (this.testContextInstance != null)
+            if (this.IsVSTest())
             {
                 this.TestContext.AddResultFile(path);
             }
@@ -726,17 +768,18 @@ namespace Magenic.Maqs.BaseTest
 
             if (assocFiles.Length > 0)
             {
-                string listOfFilesMessage = "List of Associated Files: " + Environment.NewLine;
+                StringBuilder listOfFilesMessage = new StringBuilder();
+                listOfFilesMessage.AppendLine("List of Associated Files: ");
 
                 foreach (string assocPath in assocFiles)
                 {
                     if (File.Exists(assocPath))
                     {
-                        listOfFilesMessage += assocPath + Environment.NewLine;
+                        listOfFilesMessage.AppendLine(assocPath);
                     }
                 }
 
-                this.TryToLog(MessageType.GENERIC, listOfFilesMessage);
+                this.TryToLog(MessageType.GENERIC, listOfFilesMessage.ToString());
             }
         }
     }

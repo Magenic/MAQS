@@ -278,7 +278,7 @@ namespace Magenic.Maqs.BaseTest
                 {
                     this.NumberOfAsserts++;
                     this.NumberOfFailedAsserts++;
-                    this.listOfExceptions.Add(new SoftAssertException($"Error: failed to call assert with key {expectedAssert}"));
+                    this.listOfExceptions.Add(new SoftAssertException($"Error: failed to call assert with key '{expectedAssert}'"));
                 }
             }
         }

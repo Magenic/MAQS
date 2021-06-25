@@ -82,7 +82,7 @@ namespace FrameworkUnitTests
                 string[] lines = File.ReadAllLines(logFilePath);
                 for (int x = 0; x < lines.Length - 1; x++)
                 {
-                    if (lines[x] == "GENERIC:	List of Associated Files: ")
+                    if (lines[x] == "GENERIC:\tList of Associated Files: ")
                     {
                         Assert.Fail("Associated files logged despite the files not existing");
                     }
@@ -103,7 +103,7 @@ namespace FrameworkUnitTests
             this.PerfTimerCollection.StopTimer("testTimer");
             this.PerfTimerCollection.Write(this.Log);
 
-            string perfTimerLogPath = LoggingConfig.GetLogDirectory() + "\\" + this.PerfTimerCollection.FileName;
+            string perfTimerLogPath = Path.Combine(LoggingConfig.GetLogDirectory(), this.PerfTimerCollection.FileName);
 
             this.Teardown();
 
@@ -113,7 +113,7 @@ namespace FrameworkUnitTests
                 string[] lines = File.ReadAllLines(logFilePath);
                 for (int x = 0; x < lines.Length - 1; x++)
                 {
-                    if (lines[x] == "GENERIC:	List of Associated Files: ")
+                    if (lines[x] == "GENERIC:\tList of Associated Files: ")
                     {
                         Assert.AreEqual(perfTimerLogPath, lines[x + 1]);
                     }
