@@ -27,33 +27,12 @@ namespace FrameworkUnitTests
     public class EmailDriverManagerTests : BaseEmailTest
     {
         /// <summary>
-        /// Setup fake email client
-        /// </summary>
-        /// <returns>Fake email client</returns>
-        private Mock<ImapClient> GetMoq()
-        {
-            Mock<ImapClient> mockForClient = new Mock<ImapClient>();
-            var collection = new FolderNamespaceCollection();
-            IList<IMailFolder> folders = new List<IMailFolder>
-            {
-                new MoqMailFolder()
-            };
-
-            collection.Add(new FolderNamespace('/', ""));
-            mockForClient.Setup(x => x.PersonalNamespaces).Returns(collection);
-            mockForClient.Setup(x => x.GetFolders(It.IsAny<FolderNamespace>(), It.IsAny<StatusItems>(), It.IsAny<bool>(), It.IsAny<CancellationToken>())).Returns(folders);
-            mockForClient.Setup(x => x.GetFolder(It.IsAny<string>(), It.IsAny<CancellationToken>())).Returns(new MoqMailFolder());
-
-            return mockForClient;
-        }
-
-        /// <summary>
         /// Setup a fake email client
         /// </summary>
         [TestInitialize]
         public void SetupMoqDriver()
         {
-            this.TestObject.OverrideEmailClient(() => GetMoq().Object); 
+            this.TestObject.OverrideEmailClient(() => EmailDriverMocks.GetMoq().Object); 
         }
 
         /// <summary>
@@ -62,7 +41,7 @@ namespace FrameworkUnitTests
         [TestMethod]
         public void CanOverrideEmailDriver()
         {
-            this.TestObject.EmailManager.OverrideDriver(() => GetMoq().Object);
+            this.TestObject.EmailManager.OverrideDriver(() => EmailDriverMocks.GetMoq().Object);
 
             Assert.AreEqual(this.TestObject.EmailManager.GetEmailDriver().EmailConnection, EmailDriver.EmailConnection);
         }
@@ -73,7 +52,7 @@ namespace FrameworkUnitTests
         [TestMethod]
         public void CanLazyOverrideEmailDriver()
         {
-            this.TestObject.EmailManager.OverrideDriver(() => GetMoq().Object);
+            this.TestObject.EmailManager.OverrideDriver(() => EmailDriverMocks.GetMoq().Object);
             Assert.AreEqual(false, this.TestObject.EmailManager.IsDriverIntialized(), "Did not expect the driver to be initialized");
             Assert.AreEqual(this.TestObject.EmailManager.GetEmailDriver().EmailConnection, EmailDriver.EmailConnection);
         }
@@ -84,7 +63,7 @@ namespace FrameworkUnitTests
         [TestMethod]
         public void CanUseMultiple()
         {
-            EmailDriverManager newDriver = new EmailDriverManager(() => GetMoq().Object, this.TestObject);
+            EmailDriverManager newDriver = new EmailDriverManager(() => EmailDriverMocks.GetMoq().Object, this.TestObject);
             this.ManagerStore.Add("test", newDriver);
 
             Assert.AreNotEqual(this.TestObject.EmailManager, (EmailDriverManager)this.ManagerStore["test"]);

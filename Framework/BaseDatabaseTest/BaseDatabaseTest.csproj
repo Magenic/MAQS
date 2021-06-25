@@ -52,12 +52,6 @@
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' != 'netstandard2.0' and '$(TargetFramework)' != 'net471'">
-    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.1" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'net471'">
-    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.19.110" />
-  </ItemGroup>
 
   <ItemGroup>
     <None Include="..\MAQS.jpg" Pack="true" PackagePath="" />
