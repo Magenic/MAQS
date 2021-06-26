@@ -27,46 +27,12 @@ namespace FrameworkUnitTests
     public class EmailDriverFailureTests : BaseEmailTest
     {
         /// <summary>
-        /// Get mime mock
-        /// </summary>
-        /// <returns>A mime mock</returns>
-        private MimeMessage GetMocMime()
-        {
-            Mock<MimeMessage> map = new Mock<MimeMessage>();
-            map.Setup(x => x.Attachments).Throws<NotImplementedException>();
-            return map.Object;
-        }
-
-        /// <summary>
-        /// Setup fake email client
-        /// </summary>
-        /// <returns>Fake email client</returns>
-        private Mock<ImapClient> GetMoq()
-        {
-            Mock<ImapClient> mockForClient = new Mock<ImapClient>();
-
-            var collection = new FolderNamespaceCollection();
-            IList<IMailFolder> folders = new List<IMailFolder>
-            {
-                new MoqMailFolder()
-            };
-
-            collection.Add(new FolderNamespace('/', ""));
-
-            mockForClient.Setup(x => x.PersonalNamespaces).Returns(collection);
-            mockForClient.Setup(x => x.GetFolders(It.IsAny<FolderNamespace>(), It.IsAny<StatusItems>(), It.IsAny<bool>(), It.IsAny<CancellationToken>())).Returns(folders);
-            mockForClient.Setup(x => x.GetFolder(It.IsNotIn<string>(string.Empty), It.IsAny<CancellationToken>())).Returns(new MoqMailFolder());
-            mockForClient.Setup(x => x.GetFolder(It.IsIn<string>(string.Empty), It.IsAny<CancellationToken>())).Throws<NotImplementedException>();
-            return mockForClient;
-        }
-
-        /// <summary>
         /// Setup a fake email client
         /// </summary>
         [TestInitialize]
         public void SetupMoqDriver()
         {
-            this.TestObject.OverrideEmailClient(() => GetMoq().Object);
+            this.TestObject.OverrideEmailClient(() => EmailDriverMocks.GetMoq().Object);
         }
 
         /// <summary>
@@ -186,7 +152,7 @@ namespace FrameworkUnitTests
         [ExpectedException(typeof(NotSupportedException))]
         public void GetMimeAttachmentsError()
         {
-            EmailDriver.GetAttachments(GetMocMime());
+            EmailDriver.GetAttachments(EmailDriverMocks.GetMocMime());
         }
 
         /// <summary>
@@ -196,7 +162,7 @@ namespace FrameworkUnitTests
         [ExpectedException(typeof(NotSupportedException))]
         public void DownloadAttachmentsToError()
         {
-            EmailDriver.DownloadAttachments(GetMocMime(), string.Empty);
+            EmailDriver.DownloadAttachments(EmailDriverMocks.GetMocMime(), string.Empty);
         }
 
         /// <summary>
@@ -206,7 +172,7 @@ namespace FrameworkUnitTests
         [ExpectedException(typeof(NotSupportedException))]
         public void DownloadAttachmentsError()
         {
-            EmailDriver.DownloadAttachments(GetMocMime());
+            EmailDriver.DownloadAttachments(EmailDriverMocks.GetMocMime());
         }
 
         /// <summary>

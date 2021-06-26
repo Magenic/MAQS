@@ -26,6 +26,17 @@ namespace FrameworkUnitTests
         /// Make sure we get the proper factory failure
         /// </summary>
         [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void OracleFailure()
+        {
+            this.TestObject.OverrideDatabaseDriver(ConnectionFactory.GetOpenConnection("Oracle", string.Empty));
+            Assert.Fail("Get open connection should have thrown exception.");
+        }
+
+        /// <summary>
+        /// Make sure we get the proper factory failure
+        /// </summary>
+        [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void OverideFactoryFailure()
         {

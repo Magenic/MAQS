@@ -539,7 +539,7 @@ jobs:
 
       - name: Build
         run: |
-          dotnet build Framework/Base.sln --no-restore --configuration Release -p:Version=${{needs.getVersion.outputs.buildNumber}} -o "${{github.workspace}}/artifactTests/packages/"
+          dotnet build Framework/Base.sln --no-restore --configuration Release -p:Version=${{needs.getVersion.outputs.buildNumber}} -p:BaseOutputPath="${{github.workspace}}/artifactTests/packages/"
 
       - uses: actions/upload-artifact@v2
         if: always()

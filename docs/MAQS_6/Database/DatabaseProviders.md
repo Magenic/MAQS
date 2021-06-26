@@ -9,7 +9,6 @@ The Provider interface for connecting and accessing databases.
 * ***SQL Server***
 * ***PostgreSql***
 * ***SQLite***
-* ***Oracle***
 
 ## The IProvider Interface
 An IProvider interface defines a ***connection*** type and database connection setup method. DatabaseConfig provides a convenient GetOpenConnection that takes an IProvider.
