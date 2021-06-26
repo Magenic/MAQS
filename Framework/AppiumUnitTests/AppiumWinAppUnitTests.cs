@@ -79,7 +79,7 @@ namespace AppiumUnitTests
         {
             AppiumOptions options = new AppiumOptions();
             options.AddAdditionalCapability("app", $"{Environment.SystemDirectory}\\notepad.exe");
-            return AppiumDriverFactory.GetWindowsDriver(new Uri("http://127.0.0.1:4723"), options, TimeSpan.FromSeconds(10));
+            return AppiumDriverFactory.GetWindowsDriver(new Uri("http://127.0.0.1:4723"), options, TimeSpan.FromSeconds(30));
         }
     }
 }
