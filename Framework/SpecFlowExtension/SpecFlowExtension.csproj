@@ -45,7 +45,7 @@
     <PackageReference Include="BoDi" version="1.5.0" />
     <PackageReference Include="Castle.Core" version="4.4.1" />
     <PackageReference Include="Dapper" version="2.0.90" />
-    <PackageReference Include="Gherkin" version="19.0.3" />
+    <PackageReference Include="Gherkin" version="20.0.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
