@@ -26,7 +26,7 @@ namespace Magenic.Maqs.BaseMongoTest
         /// <param name="logger">The test's logger</param>
         /// <param name="softAssert">The test's soft assert</param>
         /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
-        public MongoTestObject(string connectionString, string databaseString, string collectionString, Logger logger, SoftAssert softAssert, string fullyQualifiedTestName) : base(logger, softAssert, fullyQualifiedTestName)
+        public MongoTestObject(string connectionString, string databaseString, string collectionString, ILogger logger, SoftAssert softAssert, string fullyQualifiedTestName) : base(logger, softAssert, fullyQualifiedTestName)
         {
             this.ManagerStore.Add(typeof(MongoDriverManager<T>).FullName, new MongoDriverManager<T>(connectionString, databaseString, collectionString, this));
         }

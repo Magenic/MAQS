@@ -30,7 +30,8 @@ namespace Magenic.Maqs.BaseTest
     /// </summary>
     [TestClass]
 #pragma warning disable S2187 // TestCases should contain tests
-    public class BaseTest
+    public class BaseTest : IBaseTest
+
 #pragma warning restore S2187 // TestCases should contain tests
     {
         /// <summary>
@@ -44,7 +45,7 @@ namespace Magenic.Maqs.BaseTest
         public BaseTest()
         {
             this.LoggedExceptions = new ConcurrentDictionary<string, List<string>>();
-            this.BaseTestObjects = new ConcurrentDictionary<string, BaseTestObject>();
+            this.BaseTestObjects = new ConcurrentDictionary<string, IBaseTestObject>();
 
             // Update your config parameters
             if (NUnitTestContext.Parameters != null)
@@ -64,7 +65,7 @@ namespace Magenic.Maqs.BaseTest
         /// <summary>
         /// Gets or sets the performance timer collection for a test
         /// </summary>
-        public PerfTimerCollection PerfTimerCollection
+        public IPerfTimerCollection PerfTimerCollection
         {
             get
             {
@@ -80,7 +81,7 @@ namespace Magenic.Maqs.BaseTest
         /// <summary>
         /// Gets or sets the SoftAssert objects
         /// </summary>
-        public SoftAssert SoftAssert
+        public ISoftAssert SoftAssert
         {
             get
             {
@@ -96,7 +97,7 @@ namespace Magenic.Maqs.BaseTest
         /// <summary>
         /// Gets or sets the testing object
         /// </summary>
-        public Logger Log
+        public ILogger Log
         {
             get
             {
@@ -192,7 +193,7 @@ namespace Magenic.Maqs.BaseTest
         /// <summary>
         /// Gets or sets the test object
         /// </summary>
-        public BaseTestObject TestObject
+        public IBaseTestObject TestObject
         {
             get
             {
@@ -224,7 +225,7 @@ namespace Magenic.Maqs.BaseTest
         /// <summary>
         /// Gets or sets the BaseContext objects
         /// </summary>
-        internal ConcurrentDictionary<string, BaseTestObject> BaseTestObjects { get; set; }
+        internal ConcurrentDictionary<string, IBaseTestObject> BaseTestObjects { get; set; }
 
         /// <summary>
         /// Gets the logging enable flag
@@ -282,9 +283,9 @@ namespace Magenic.Maqs.BaseTest
 
                 // Log the test result
                 if (resultType == TestResultType.PASS)
-                {                    
-                   this.TryToLog(MessageType.SUCCESS, "Test passed");
-                   this.WriteAssociatedFilesNamesToLog();
+                {
+                    this.TryToLog(MessageType.SUCCESS, "Test passed");
+                    this.WriteAssociatedFilesNamesToLog();
                 }
                 else if (resultType == TestResultType.FAIL)
                 {
@@ -317,7 +318,7 @@ namespace Magenic.Maqs.BaseTest
                     this.TryToLog(MessageType.WARNING, "Failed to cleanup log files because: {0}", e.Message);
                 }
 
-                PerfTimerCollection collection = this.TestObject.PerfTimerCollection;
+                IPerfTimerCollection collection = this.TestObject.PerfTimerCollection;
                 this.PerfTimerCollection = collection;
 
                 // Write out the performance timers
@@ -349,7 +350,7 @@ namespace Magenic.Maqs.BaseTest
                 }
 
                 // Release the base test object
-                this.BaseTestObjects.TryRemove(fullyQualifiedTestName, out BaseTestObject baseTestObject);
+                this.BaseTestObjects.TryRemove(fullyQualifiedTestName, out IBaseTestObject baseTestObject);
                 baseTestObject.Dispose();
             }
         }
@@ -358,7 +359,7 @@ namespace Magenic.Maqs.BaseTest
         /// Create a logger
         /// </summary>
         /// <returns>A logger</returns>
-        protected Logger CreateLogger()
+        protected ILogger CreateLogger()
         {
             try
             {
@@ -373,7 +374,7 @@ namespace Magenic.Maqs.BaseTest
 
                 if (this.LoggingEnabledSetting != LoggingEnabled.NO)
                 {
-                    return LoggingConfig.GetLogger(
+                    return LoggerFactory.GetLogger(
                         StringProcessor.SafeFormatter(
                         "{0} - {1}",
                         this.GetFullyQualifiedTestClassName(),
@@ -381,12 +382,12 @@ namespace Magenic.Maqs.BaseTest
                 }
                 else
                 {
-                    return new ConsoleLogger();
+                    return LoggerFactory.GetConsoleLogger();
                 }
             }
             catch (Exception e)
             {
-                ConsoleLogger newLogger = new ConsoleLogger();
+                ILogger newLogger = LoggerFactory.GetConsoleLogger();
                 newLogger.LogMessage(MessageType.WARNING, StringProcessor.SafeExceptionFormatter(e));
                 return newLogger;
             }
@@ -493,7 +494,7 @@ namespace Magenic.Maqs.BaseTest
         /// </summary>
         protected virtual void CreateNewTestObject()
         {
-            Logger newLogger = this.CreateLogger();
+            ILogger newLogger = this.CreateLogger();
             this.TestObject = new BaseTestObject(newLogger, new SoftAssert(newLogger), this.GetFullyQualifiedTestClassName());
             this.SoftAssert = this.TestObject.SoftAssert;
         }

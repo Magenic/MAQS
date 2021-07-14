@@ -23,7 +23,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <param name="appiumDriver">The test's Appium driver</param>
         /// <param name="logger">The test's logger</param>
         /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
-        public AppiumTestObject(AppiumDriver<IWebElement> appiumDriver, Logger logger, string fullyQualifiedTestName) : base(logger, fullyQualifiedTestName)
+        public AppiumTestObject(AppiumDriver<IWebElement> appiumDriver, ILogger logger, string fullyQualifiedTestName) : base(logger, fullyQualifiedTestName)
         {
             this.ManagerStore.Add(typeof(MobileDriverManager).FullName,  new MobileDriverManager(() => appiumDriver, this));
             this.SoftAssert = new AppiumSoftAssert(this);
@@ -35,7 +35,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <param name="appiumDriver">Function for initializing a Appium driver</param>
         /// <param name="logger">The test's logger</param>
         /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
-        public AppiumTestObject(Func<AppiumDriver<IWebElement>> appiumDriver, Logger logger, string fullyQualifiedTestName) : base(logger, fullyQualifiedTestName)
+        public AppiumTestObject(Func<AppiumDriver<IWebElement>> appiumDriver, ILogger logger, string fullyQualifiedTestName) : base(logger, fullyQualifiedTestName)
         {
             this.ManagerStore.Add(typeof(MobileDriverManager).FullName, new MobileDriverManager(appiumDriver, this));
             this.SoftAssert = new AppiumSoftAssert(this);

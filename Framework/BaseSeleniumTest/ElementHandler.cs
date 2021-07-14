@@ -295,7 +295,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="by">By selector</param>
         /// <param name="textToEnter">The string being entered into the text input field</param>
         /// <param name="logger">The Logging object</param>
-        public static void SendSecretKeys(this ISearchContext searchContext, By by, string textToEnter, Logger logger)
+        public static void SendSecretKeys(this ISearchContext searchContext, By by, string textToEnter, ILogger logger)
         {
             try
             {

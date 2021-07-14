@@ -31,41 +31,6 @@ namespace Magenic.Maqs.BaseAppiumTest
         }
 
         /// <summary>
-        /// Soft assert method to check if the files are equal
-        /// </summary>
-        /// <param name="expectedText">Expected text</param>
-        /// <param name="actualText">Actual text</param>
-        /// <param name="softAssertName">Soft assert name</param>
-        /// <param name="message">Exception message if desired</param>
-        /// <returns>Boolean if the assert is true</returns>
-        [Obsolete("SoftAssert.AreEqual will be deprecated in MAQS 7.0.  Please use SoftAssert.Assert() instead")]
-        public override bool AreEqual(string expectedText, string actualText, string softAssertName, string message = "")
-        {
-            bool didPass = base.AreEqual(expectedText, actualText, softAssertName, message);
-
-            if (!didPass && this.appiumTestObject.GetDriverManager<MobileDriverManager>().IsDriverIntialized())
-            {
-                if (AppiumConfig.GetSoftAssertScreenshot())
-                {
-                    AppiumUtilities.CaptureScreenshot(this.appiumTestObject.AppiumDriver, this.appiumTestObject, this.TextToAppend(softAssertName));
-                }
-
-                if (AppiumConfig.GetSavePagesourceOnFail())
-                {
-                    AppiumUtilities.SavePageSource(this.appiumTestObject.AppiumDriver, this.appiumTestObject, StringProcessor.SafeFormatter($" ({this.NumberOfAsserts})"));
-                }
-
-                return false;
-            }
-            else if (!didPass)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
         /// Soft assert method to check if the Action is false
         /// </summary>
         /// <param name="assertFunction">Function to use</param>

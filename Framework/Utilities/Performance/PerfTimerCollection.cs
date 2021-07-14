@@ -16,7 +16,7 @@ namespace Magenic.Maqs.Utilities.Performance
     /// <summary>
     /// Response timer collection class -  Object to be owned by Test Class (Object), and passed to page Constructors to insert Performance Timers 
     /// /// </summary>
-    public class PerfTimerCollection
+    public class PerfTimerCollection : IPerfTimerCollection
     {
         /// <summary>
         /// Locker object so the Performance Timer Document save doesn't save at the same time
@@ -33,7 +33,7 @@ namespace Magenic.Maqs.Utilities.Performance
         /// </summary>
         /// <param name="logger">Logger to use</param>
         /// <param name="fullyQualifiedTestName">Test name</param>
-        public PerfTimerCollection(Logger logger, string fullyQualifiedTestName)
+        public PerfTimerCollection(ILogger logger, string fullyQualifiedTestName)
         {
             this.Log = logger;
             this.TestName = fullyQualifiedTestName;
@@ -80,7 +80,7 @@ namespace Magenic.Maqs.Utilities.Performance
         /// <summary>
         /// Gets the logger
         /// </summary>
-        protected Logger Log { get; private set; }
+        protected ILogger Log { get; private set; }
 
         /// <summary>
         /// Method to start a timer with a specified name
@@ -102,7 +102,7 @@ namespace Magenic.Maqs.Utilities.Performance
             {
                 throw new ArgumentException($"Timer already Started: {timerName}");
             }
-            else 
+            else
             {
                 this.Log.LogMessage(MessageType.INFORMATION, $"Starting response timer: {timerName}");
                 PerfTimer timer = new PerfTimer();
@@ -148,7 +148,7 @@ namespace Magenic.Maqs.Utilities.Performance
         /// Method to Write the Performance Timer Collection to disk
         /// </summary>
         /// <param name="log">The current test Logger</param>
-        public void Write(Logger log)
+        public void Write(ILogger log)
         {
             // Only run if the response times is greater than 0
             if (this.Timerlist.Count > 0)
@@ -169,7 +169,7 @@ namespace Magenic.Maqs.Utilities.Performance
                         XmlWriterSettings settings = new XmlWriterSettings();
                         settings.WriteEndDocumentOnClose = true;
                         settings.Indent = true;
-                        
+
                         XmlWriter writer = XmlWriter.Create($"{LoggingConfig.GetLogDirectory()}{Path.DirectorySeparatorChar}{this.FileName}", settings);
 
                         XmlSerializer x = new XmlSerializer(this.GetType());
@@ -191,7 +191,7 @@ namespace Magenic.Maqs.Utilities.Performance
         /// </summary>
         /// <param name="filepath">The file from which to initialize</param>
         /// <returns> <see cref="PerfTimerCollection"/> initialized from file path</returns>
-        public PerfTimerCollection LoadPerfTimerCollection(string filepath)
+        public IPerfTimerCollection LoadPerfTimerCollection(string filepath)
         {
             PerfTimerCollection perfTimerCollection;
             XmlSerializer serializer = new XmlSerializer(typeof(PerfTimerCollection));

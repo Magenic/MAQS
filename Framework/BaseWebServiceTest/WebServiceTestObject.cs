@@ -22,7 +22,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="httpClient">The test's http client driver</param>
         /// <param name="logger">The test's logger</param>
         /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
-        public WebServiceTestObject(Func<HttpClient> httpClient, Logger logger, string fullyQualifiedTestName) : base(logger, fullyQualifiedTestName)
+        public WebServiceTestObject(Func<HttpClient> httpClient, ILogger logger, string fullyQualifiedTestName) : base(logger, fullyQualifiedTestName)
         {
             this.ManagerStore.Add(typeof(WebServiceDriverManager).FullName, new WebServiceDriverManager(httpClient, this));
         }

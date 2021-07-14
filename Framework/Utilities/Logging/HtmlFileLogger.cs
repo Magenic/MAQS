@@ -15,7 +15,7 @@ namespace Magenic.Maqs.Utilities.Logging
     /// <summary>
     /// Helper class for adding logs to an HTML file. Allows configurable file path.
     /// </summary>
-    public class HtmlFileLogger : FileLogger, IDisposable
+    public class HtmlFileLogger : FileLogger
     {
         /// <summary>
         /// The default log name
@@ -112,17 +112,8 @@ namespace Magenic.Maqs.Utilities.Logging
         /// <summary>
         /// Dispose the class
         /// </summary>
-        public void Dispose()
-        {
-            this.Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        /// <summary>
-        /// Dispose the class
-        /// </summary>
         /// <param name="disposing">True if you want to release managed resources</param>
-        protected virtual void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (disposing && File.Exists(this.FilePath))
             {

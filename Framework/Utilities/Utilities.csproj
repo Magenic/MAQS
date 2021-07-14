@@ -56,11 +56,6 @@
     <None Include="..\MAQS.jpg" Pack="true" PackagePath="" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Logging\" />
-    <Folder Include="Performance\" />
-  </ItemGroup>
-
   <Choose>
     <When Condition=" '$(TargetFramework)' != 'netstandard2.0' and '$(TargetFramework)' != 'netstandard2.1'   ">
       <ItemGroup>

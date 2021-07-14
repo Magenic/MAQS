@@ -284,7 +284,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="webDriver">The web driver that is on the page you want to run the accessibility check on</param>
         /// <param name="logger">Where you want the check logged to</param>
         /// <param name="throwOnViolation">Should violations cause and exception to be thrown</param>
-        public static void CheckAccessibility(this IWebDriver webDriver, Logger logger, bool throwOnViolation = false)
+        public static void CheckAccessibility(this IWebDriver webDriver, ILogger logger, bool throwOnViolation = false)
         {
             MessageType type = logger.GetLoggingLevel();
 
@@ -320,7 +320,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="getResults">Function for getting Axe results</param>
         /// <param name="loggingLevel">What level should logging the check take, this gets used if the check doesn't throw an exception</param>
         /// <param name="throwOnResults">Throw error if any results are found</param>
-        public static void CheckAccessibility(this IWebDriver webDriver, Logger logger, string checkType, Func<AxeResultItem[]> getResults, MessageType loggingLevel, bool throwOnResults = false)
+        public static void CheckAccessibility(this IWebDriver webDriver, ILogger logger, string checkType, Func<AxeResultItem[]> getResults, MessageType loggingLevel, bool throwOnResults = false)
         {
             logger.LogMessage(MessageType.INFORMATION, "Running accessibility check");
 
@@ -340,7 +340,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="webDriver">The web driver that is on the page you want to run the accessibility check on</param>
         /// <param name="logger">Where you want the check logged to</param>
         /// <param name="loggingLevel">What level should logging the check take, this gets used if the check doesn't throw an exception</param>
-        public static void CheckAccessibilityPasses(this IWebDriver webDriver, Logger logger, MessageType loggingLevel)
+        public static void CheckAccessibilityPasses(this IWebDriver webDriver, ILogger logger, MessageType loggingLevel)
         {
             CheckAccessibility(webDriver, logger, AccessibilityCheckType.Passes.ToString(), () => webDriver.Analyze().Passes, loggingLevel);
         }
@@ -354,7 +354,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="logger">Where you want the check logged to</param>
         /// <param name="loggingLevel">What level should logging the check take, this gets used if the check doesn't throw an exception</param>
         /// <param name="throwOnInapplicable">Should inapplicable cause and exception to be thrown</param>
-        public static void CheckAccessibilityInapplicable(this IWebDriver webDriver, Logger logger, MessageType loggingLevel, bool throwOnInapplicable = false)
+        public static void CheckAccessibilityInapplicable(this IWebDriver webDriver, ILogger logger, MessageType loggingLevel, bool throwOnInapplicable = false)
         {
             CheckAccessibility(webDriver, logger, AccessibilityCheckType.Inapplicable.ToString(), () => webDriver.Analyze().Inapplicable, loggingLevel, throwOnInapplicable);
         }
@@ -368,7 +368,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="logger">Where you want the check logged to</param>
         /// <param name="loggingLevel">What level should logging the check take, this gets used if the check doesn't throw an exception</param>
         /// <param name="throwOnIncomplete">Should incomplete cause and exception to be thrown</param>
-        public static void CheckAccessibilityIncomplete(this IWebDriver webDriver, Logger logger, MessageType loggingLevel, bool throwOnIncomplete = false)
+        public static void CheckAccessibilityIncomplete(this IWebDriver webDriver, ILogger logger, MessageType loggingLevel, bool throwOnIncomplete = false)
         {
             CheckAccessibility(webDriver, logger, AccessibilityCheckType.Incomplete.ToString(), () => webDriver.Analyze().Incomplete, loggingLevel, throwOnIncomplete);
         }
@@ -380,7 +380,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="logger">Where you want the check logged to</param>
         /// <param name="loggingLevel">What level should logging the check take, this gets used if the check doesn't throw an exception</param>
         /// <param name="throwOnViolation">Should violations cause and exception to be thrown</param>
-        public static void CheckAccessibilityViolations(this IWebDriver webDriver, Logger logger, MessageType loggingLevel, bool throwOnViolation = false)
+        public static void CheckAccessibilityViolations(this IWebDriver webDriver, ILogger logger, MessageType loggingLevel, bool throwOnViolation = false)
         {
             CheckAccessibility(webDriver, logger, AccessibilityCheckType.Violations.ToString(), () => webDriver.Analyze().Violations, loggingLevel, throwOnViolation);
         }

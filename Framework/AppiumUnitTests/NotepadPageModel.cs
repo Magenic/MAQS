@@ -87,7 +87,7 @@ namespace AppiumUnitTests
         /// Get logger
         /// </summary>
         /// <returns>The logger</returns>
-        public Logger GetLogger()
+        public ILogger GetLogger()
         {
             return this.Log;
         }
@@ -105,7 +105,7 @@ namespace AppiumUnitTests
         /// Get performance timer collection
         /// </summary>
         /// <returns>The performance timer collection</returns>
-        public PerfTimerCollection GetPerfTimerCollection()
+        public IPerfTimerCollection GetPerfTimerCollection()
         {
             return this.PerfTimerCollection;
         }

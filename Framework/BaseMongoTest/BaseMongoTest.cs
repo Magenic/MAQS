@@ -102,7 +102,7 @@ namespace Magenic.Maqs.BaseMongoTest
         /// </summary>
         protected override void CreateNewTestObject()
         {
-            Logger newLogger = this.CreateLogger();
+            ILogger newLogger = this.CreateLogger();
             this.TestObject = new MongoTestObject<T>(this.GetBaseConnectionString(), this.GetBaseDatabaseString(), this.GetBaseCollectionString(), newLogger, new SoftAssert(newLogger), this.GetFullyQualifiedTestClassName());
         }
     }

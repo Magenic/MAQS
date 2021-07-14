@@ -12,7 +12,7 @@ namespace Magenic.Maqs.Utilities.Logging
     /// <summary>
     /// Abstract logging interface base class
     /// </summary>
-    public abstract class Logger
+    public abstract class Logger : ILogger
     {
         /// <summary>
         /// Default date format
@@ -120,6 +120,28 @@ namespace Magenic.Maqs.Utilities.Logging
         protected string UnknownMessageTypeMessage(MessageType type)
         {
             return StringProcessor.SafeFormatter($"Unknown MessageType: {Enum.GetName(typeof(MessageType), type)}{Environment.NewLine}Message will be displayed with the MessageType of: {Enum.GetName(typeof(MessageType), MessageType.GENERIC)}");
+        }
+
+        /// <summary>
+        /// Dispose of the logger
+        /// </summary>
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+            
+        }
+
+        /// <summary>
+        /// Dispose the class
+        /// </summary>
+        /// <param name="disposing">True if you want to release managed resources</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this.LogMessage(MessageType.VERBOSE, "Disposing logger");
+            }
         }
     }
 }

@@ -131,7 +131,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <summary>
         /// Gets the logger
         /// </summary>
-        public Logger Log { get; private set; }
+        public ILogger Log { get; private set; }
 
         /// <summary>
         /// Gets a cached copy of the element or null if we haven't already found the element

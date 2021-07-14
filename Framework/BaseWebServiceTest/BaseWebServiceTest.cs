@@ -90,7 +90,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// </summary>
         protected override void CreateNewTestObject()
         {
-            Logger newLogger = this.CreateLogger();
+            ILogger newLogger = this.CreateLogger();
             this.TestObject = new WebServiceTestObject(() => this.GetHttpClient(), newLogger, this.GetFullyQualifiedTestClassName());
         }
     }

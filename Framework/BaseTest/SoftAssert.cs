@@ -18,7 +18,7 @@ namespace Magenic.Maqs.BaseTest
     /// <summary>
     /// SoftAssert class
     /// </summary>
-    public class SoftAssert
+    public class SoftAssert : ISoftAssert
     {
         /// <summary>
         /// List of all asserted exceptions
@@ -40,7 +40,7 @@ namespace Magenic.Maqs.BaseTest
         /// Setup the Logger
         /// </summary>
         /// <param name="logger">Logger to be used</param>
-        public SoftAssert(Logger logger)
+        public SoftAssert(ILogger logger)
         {
             this.Log = logger;
         }
@@ -76,13 +76,13 @@ namespace Magenic.Maqs.BaseTest
         /// <summary>
         /// Gets the logger being used
         /// </summary>
-        protected Logger Log { get; private set; }
+        protected ILogger Log { get; private set; }
 
         /// <summary>
         /// Override the logger
         /// </summary>
         /// <param name="log">The new logger</param>
-        public void OverrideLogger(Logger log)
+        public void OverrideLogger(ILogger log)
         {
             this.Log = log;
         }
@@ -110,99 +110,6 @@ namespace Magenic.Maqs.BaseTest
         public virtual bool DidSoftAssertsFail()
         {
             return this.NumberOfFailedAsserts > 0;
-        }
-
-        /// <summary>
-        /// Asserts if two strings are equal
-        /// </summary>
-        /// <param name="expectedText">Expected value of the string </param>
-        /// <param name="actualText">Actual value of the string</param>
-        /// <param name="message">Message to be used when logging</param>
-        /// <returns>Boolean if they are equal</returns>
-        [Obsolete("SoftAssert.AreEqual will be deprecated in MAQS 7.0.  Please use SoftAssert.Assert() instead")]
-        public virtual bool AreEqual(string expectedText, string actualText, string message = "")
-        {
-            return this.AreEqual(expectedText, actualText, string.Empty, message);
-        }
-
-        /// <summary>
-        /// Asserts if two strings are equal
-        /// </summary>
-        /// <param name="expectedText">Expected value of the string </param>
-        /// <param name="actualText">Actual value of the string</param>
-        /// <param name="softAssertName">Soft assert name</param>
-        /// <param name="message">Message to be used when logging</param>
-        /// <returns>Boolean if they are equal</returns>
-        [Obsolete("SoftAssert.AreEqual will be deprecated in MAQS 7.0.  Please use SoftAssert.Assert() instead")]
-        public virtual bool AreEqual(string expectedText, string actualText, string softAssertName, string message = "")
-        {
-            void test()
-            {
-                if (expectedText != actualText)
-                {
-                    if (string.IsNullOrEmpty(message))
-                    {
-                        throw new SoftAssertException(StringProcessor.SafeFormatter("SoftAssert.AreEqual failed  {0}.  Expected '{1}' but got '{2}'", softAssertName, expectedText, actualText));
-                    }
-
-                    throw new SoftAssertException(StringProcessor.SafeFormatter("SoftAssert.AreEqual failed {0}.  Expected '{1}' but got '{2}'.  {3}", softAssertName, expectedText, actualText, message));
-                }
-            }
-
-            return this.InvokeTest(test, expectedText, actualText, message);
-        }
-
-        /// <summary>
-        /// Soft assert for IsTrue
-        /// </summary>
-        /// <param name="condition">Boolean condition</param>
-        /// <param name="softAssertName">Soft assert name</param>
-        /// <param name="failureMessage">Failure message</param>
-        /// <returns>Boolean if condition is met</returns>
-        [Obsolete("SoftAssert.IsTrue will be deprecated in MAQS 7.0.  Please use SoftAssert.Assert() instead")]
-
-        public virtual bool IsTrue(bool condition, string softAssertName, string failureMessage = "")
-        {
-            void test()
-            {
-                if (!condition)
-                {
-                    if (string.IsNullOrEmpty(failureMessage))
-                    {
-                        throw new SoftAssertException(StringProcessor.SafeFormatter("SoftAssert.IsTrue failed: {0}", softAssertName));
-                    }
-
-                    throw new SoftAssertException(StringProcessor.SafeFormatter("SoftAssert.IsTrue failed: {0}. {1}", softAssertName, failureMessage));
-                }
-            }
-
-            return this.InvokeTest(test, softAssertName, failureMessage);
-        }
-
-        /// <summary>
-        /// Soft assert for IsFalse
-        /// </summary>
-        /// <param name="condition">Boolean condition</param>
-        /// <param name="softAssertName">Soft assert name</param>
-        /// <param name="failureMessage">Failure message</param>
-        /// <returns>Boolean if condition is met</returns>
-        [Obsolete("SoftAssert.IsFalse will be deprecated in MAQS 7.0.  Please use SoftAssert.Assert() instead")]
-        public virtual bool IsFalse(bool condition, string softAssertName, string failureMessage = "")
-        {
-            void test()
-            {
-                if (condition)
-                {
-                    if (string.IsNullOrEmpty(failureMessage))
-                    {
-                        throw new SoftAssertException(StringProcessor.SafeFormatter("SoftAssert.IsFalse failed: {0}", softAssertName));
-                    }
-
-                    throw new SoftAssertException(StringProcessor.SafeFormatter("SoftAssert.IsFalse failed: {0}. {1}", softAssertName, failureMessage));
-                }
-            }
-
-            return this.InvokeTest(test, softAssertName, failureMessage);
         }
 
         /// <summary>
@@ -270,7 +177,7 @@ namespace Magenic.Maqs.BaseTest
             }
         }
 
-        internal void CheckForExpectedAsserts()
+        public void CheckForExpectedAsserts()
         {
             foreach (var expectedAssert in _expectedAssertNames)
             {
@@ -407,43 +314,6 @@ namespace Magenic.Maqs.BaseTest
                 result = false;
 
                 this.LogFailedMessage($"Expected '{expectedText}' but got {actualText}", ex, message);
-                this.listOfExceptions.Add(ex);
-            }
-            finally
-            {
-                this.NumberOfAsserts = ++this.NumberOfAsserts;
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Executes the assert type passed as parameter and updates the total assert count
-        /// </summary>
-        /// <param name="test">Test method Action </param>
-        /// <param name="softAssertName">Soft assert name</param>
-        /// <param name="message">Test Name or Message</param>
-        /// <returns>Boolean if the assert is true</returns>
-        [Obsolete("Method only called by SoftAssert.IsTrue and SoftAssert.IsFalse. Should be removed at the same time.")]
-        private bool InvokeTest(Action test, string softAssertName, string message)
-        {
-            // Resetting every time we invoke a test to verify the user checked for failures
-            this.DidUserCheckForFailures = false;
-            bool result = false;
-
-            try
-            {
-                test.Invoke();
-                this.NumberOfPassedAsserts = ++this.NumberOfPassedAsserts;
-                result = true;
-                this.Log.LogMessage(MessageType.SUCCESS, $"SoftAssert passed: {softAssertName}.");
-            }
-            catch (Exception ex)
-            {
-                this.NumberOfFailedAsserts = ++this.NumberOfFailedAsserts;
-                result = false;
-
-                this.LogFailedMessage(softAssertName, ex, message);
                 this.listOfExceptions.Add(ex);
             }
             finally

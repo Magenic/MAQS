@@ -12,7 +12,7 @@ namespace Magenic.Maqs.BaseTest
     /// <summary>
     /// Driver manager dictionary 
     /// </summary>
-    public class ManagerDictionary : Dictionary<string, DriverManager>, IDisposable
+    public class ManagerDictionary : Dictionary<string, IDriverManager>, IDisposable
     {
         /// <summary>
         /// Get the driver for the associated driver manager
@@ -31,7 +31,7 @@ namespace Magenic.Maqs.BaseTest
         /// <typeparam name="T">The type of driver</typeparam>
         /// <typeparam name="U">The type of driver manager</typeparam>
         /// <returns>The driver</returns>
-        public T GetDriver<T, U>() where U : DriverManager
+        public T GetDriver<T, U>() where U : IDriverManager
         {
             return (T)this[typeof(U).FullName].Get();
         }
@@ -40,7 +40,7 @@ namespace Magenic.Maqs.BaseTest
         /// Add a manager
         /// </summary>
         /// <param name="manager">The manager</param>
-        public void Add(DriverManager manager)
+        public void Add(IDriverManager manager)
         {
             this.Add(manager.GetType().FullName, manager);
         }
@@ -49,7 +49,7 @@ namespace Magenic.Maqs.BaseTest
         /// Add or replace a manager
         /// </summary>
         /// <param name="manager">The manager</param>
-        public void AddOrOverride(DriverManager manager)
+        public void AddOrOverride(IDriverManager manager)
         {
             this.AddOrOverride(manager.GetType().FullName, manager);
         }
@@ -59,7 +59,7 @@ namespace Magenic.Maqs.BaseTest
         /// </summary>
         /// <param name="key">Key for storing the manager</param>
         /// <param name="manager">The manager</param>
-        public void AddOrOverride(string key, DriverManager manager)
+        public void AddOrOverride(string key, IDriverManager manager)
         {
             this.Remove(key);
             this.Add(key, manager);
@@ -102,7 +102,7 @@ namespace Magenic.Maqs.BaseTest
         /// </summary>
         public new void Clear()
         {
-            foreach (KeyValuePair<string, DriverManager> driver in this)
+            foreach (KeyValuePair<string, IDriverManager> driver in this)
             {
                 driver.Value.Dispose();
             }

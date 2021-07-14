@@ -12,7 +12,7 @@ namespace Magenic.Maqs.BaseTest
     /// <summary>
     /// Base driver manager object
     /// </summary>
-    public abstract class DriverManager : IDisposable
+    public abstract class DriverManager : IDisposable, IDriverManager
     {
         /// <summary>
         /// The test object associated with the driver
@@ -33,7 +33,7 @@ namespace Magenic.Maqs.BaseTest
         /// <summary>
         /// Gets the testing object
         /// </summary>
-        public Logger Log
+        public ILogger Log
         {
             get
             {
@@ -57,9 +57,9 @@ namespace Magenic.Maqs.BaseTest
         /// <param name="driverGet">Function of the driver get</param>
         protected void OverrideDriverGet(Func<object> driverGet)
         {
-                this.DriverDispose();
-                this.BaseDriver = null;
-                this.GetDriver = driverGet;
+            this.DriverDispose();
+            this.BaseDriver = null;
+            this.GetDriver = driverGet;
         }
 
         /// <summary>

@@ -14,7 +14,7 @@ namespace Magenic.Maqs.BaseTest
     /// </summary>
     /// <typeparam name="T">Test object type</typeparam>
     [TestClass]
-    public abstract class BaseExtendableTest<T> : BaseTest where T : BaseTestObject
+    public abstract class BaseExtendableTest<T> : BaseTest where T : IBaseTestObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseExtendableTest{T}" /> class

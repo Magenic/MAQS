@@ -75,7 +75,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// </summary>
         protected override void CreateNewTestObject()
         {
-            Logger newLogger = this.CreateLogger();
+            ILogger newLogger = this.CreateLogger();
             this.TestObject = new EmailTestObject(() => this.GetEmailConnection(), newLogger, new SoftAssert(newLogger), this.GetFullyQualifiedTestClassName());
         }
     }

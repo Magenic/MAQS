@@ -54,7 +54,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// </summary>
         protected override void CreateNewTestObject()
         {
-            Logger newLogger = this.CreateLogger();
+            ILogger newLogger = this.CreateLogger();
             this.TestObject = new DatabaseTestObject(() => this.GetDataBaseConnection(), newLogger, new SoftAssert(newLogger), this.GetFullyQualifiedTestClassName());
         }
     }

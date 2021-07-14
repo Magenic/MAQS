@@ -43,7 +43,7 @@ namespace Magenic.Maqs.SpecFlow
         /// <summary>
         /// Gets the logger
         /// </summary>
-        public Logger Log
+        public ILogger Log
         {
             get
             {
@@ -54,7 +54,7 @@ namespace Magenic.Maqs.SpecFlow
         /// <summary>
         /// Gets the performance timer collection from the test object
         /// </summary>
-        protected PerfTimerCollection PerfTimerCollection
+        protected IPerfTimerCollection PerfTimerCollection
         {
             get { return this.TestObject.PerfTimerCollection; }
         }

@@ -42,7 +42,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// Gets the log from the test object
         /// </summary>
-        protected Logger Log
+        protected ILogger Log
         {
             get { return this.TestObject.Log; }
         }
@@ -50,7 +50,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// Gets the performance timer collection from the test object
         /// </summary>
-        protected PerfTimerCollection PerfTimerCollection
+        protected IPerfTimerCollection PerfTimerCollection
         {
             get { return this.TestObject.PerfTimerCollection; }
         }

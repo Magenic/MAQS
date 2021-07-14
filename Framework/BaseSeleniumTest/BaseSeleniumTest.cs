@@ -79,7 +79,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// </summary>
         protected override void CreateNewTestObject()
         {
-            Logger newLogger = this.CreateLogger();
+            ILogger newLogger = this.CreateLogger();
             this.TestObject = new SeleniumTestObject(() => this.GetBrowser(), newLogger, this.GetFullyQualifiedTestClassName());
         }
     }
