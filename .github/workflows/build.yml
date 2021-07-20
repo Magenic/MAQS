@@ -380,6 +380,8 @@ jobs:
       - uses: actions/checkout@v2
       - run: dotnet restore Framework/Base.sln
         shell: pwsh
+      - run: choco upgrade firefox
+        shell: pwsh
       - id: browserupdate
         uses: ./.github/workflows/setupwinbrowser-action
       - id: builder
