@@ -1,10 +1,11 @@
 ﻿//--------------------------------------------------
-// <copyright file="Logger.cs" company="Magenic">
+// <copyright file="ILogger.cs" company="Magenic">
 //  Copyright 2021 Magenic, All rights Reserved
 // </copyright>
 // <summary>Abstract logging interface</summary>
 //--------------------------------------------------
 using System;
+using System.IO;
 
 namespace Magenic.Maqs.Utilities.Logging
 {
@@ -15,6 +16,7 @@ namespace Magenic.Maqs.Utilities.Logging
         void LogMessage(MessageType messageType, string message, params object[] args);
         void LogMessage(string message, params object[] args);
         void SetLoggingLevel(MessageType level);
+        string CurrentDateTime();
         void SuspendLogging();
     }
 }

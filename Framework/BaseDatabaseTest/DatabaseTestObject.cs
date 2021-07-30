@@ -21,9 +21,8 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// </summary>
         /// <param name="databaseConnection">The test's database connection</param>
         /// <param name="logger">The test's logger</param>
-        /// <param name="softAssert">The test's soft assert</param>
         /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
-        public DatabaseTestObject(Func<IDbConnection> databaseConnection, ILogger logger, SoftAssert softAssert, string fullyQualifiedTestName) : base(logger, softAssert, fullyQualifiedTestName)
+        public DatabaseTestObject(Func<IDbConnection> databaseConnection, ILogger logger, string fullyQualifiedTestName) : base(logger, fullyQualifiedTestName)
         {
             this.ManagerStore.Add(typeof(DatabaseDriverManager).FullName, new DatabaseDriverManager(databaseConnection, this));
         }
@@ -35,7 +34,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
         {
             get
             {
-                return this.ManagerStore[typeof(DatabaseDriverManager).FullName] as DatabaseDriverManager;
+                return this.ManagerStore.GetManager<DatabaseDriverManager>();
             }
         }
 

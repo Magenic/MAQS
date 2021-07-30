@@ -17,14 +17,14 @@ namespace Magenic.Maqs.BaseTest
         /// <summary>
         /// The test object associated with the driver
         /// </summary>
-        private readonly BaseTestObject testObject;
+        private readonly ITestObject testObject;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DriverManager"/> class
         /// </summary>
         /// <param name="funcToRun">How to get the underlying driver</param>
         /// <param name="testObject">The associate test object</param>
-        protected DriverManager(Func<object> funcToRun, BaseTestObject testObject)
+        protected DriverManager(Func<object> funcToRun, ITestObject testObject)
         {
             this.GetDriver = funcToRun;
             this.testObject = testObject;

@@ -27,7 +27,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// </summary>
         /// <param name="getDriver">Function for getting an Selenium web driver</param>
         /// <param name="testObject">The associated test object</param>
-        public SeleniumDriverManager(Func<IWebDriver> getDriver, BaseTestObject testObject) : base(getDriver, testObject)
+        public SeleniumDriverManager(Func<IWebDriver> getDriver, ITestObject testObject) : base(getDriver, testObject)
         {
         }
 

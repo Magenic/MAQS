@@ -23,36 +23,38 @@ namespace Magenic.Maqs.BaseSeleniumTest
     public static class SeleniumUtilities
     {
         /// <summary>
-        /// Capture a screenshot during execution and associate to the testObject
+        /// Thhis stu
         /// </summary>
-        /// <param name="webDriver">The WebDriver</param>
-        /// <param name="testObject">The test object to associate and log to</param>
-        /// <param name="appendName">Appends a name to the end of a filename</param>
-        /// <returns>Boolean if the save of the image was successful</returns>
-        public static bool CaptureScreenshot(this IWebDriver webDriver, SeleniumTestObject testObject, string appendName = "")
+        /// <param name="webDriver"></param>
+        /// <param name="testObject"></param>
+        /// <param name="appendName"></param>
+        /// <returns></returns>
+        public static bool CSScreenshot(this IWebDriver webDriver, ISeleniumTestObject testObject, string appendName = "")
+        { return false; }
+
+            /// <summary>
+            /// Capture a screenshot during execution and associate to the testObject
+            /// </summary>
+            /// <param name="webDriver">The WebDriver</param>
+            /// <param name="testObject">The test object to associate and log to</param>
+            /// <param name="appendName">Appends a name to the end of a filename</param>
+            /// <returns>Boolean if the save of the image was successful</returns>
+            public static bool CaptureScreenshot(this IWebDriver webDriver, ISeleniumTestObject testObject, string appendName = "")
         {
             try
             {
                 string path = string.Empty;
-                var htmlLogger = testObject.Log as HtmlFileLogger;
-                var fileLogger = testObject.Log as FileLogger;
+                var htmlLogger = testObject.Log as IHtmlFileLogger;
+                var fileLogger = testObject.Log as IFileLogger;
 
-                // Check if we are using an HTMl logger
                 if (htmlLogger != null)
                 {
-                    var writer = new StreamWriter(htmlLogger.FilePath, true);
-
-                    // Since this is a HTML File logger we need to add a card with the image in it
-                    writer.WriteLine(StringProcessor.SafeFormatter(
-                        "<div class='collapse col-12 show' data-logtype='IMAGE'><div class='card'><div class='card-body'><h6 class='card-subtitle mb-1'>2020-01-16 18:57:47.184-05:00</h6></div><a class='pop'><img class='card-img-top rounded' src='data:image/png;base64, {0}'style='width: 200px;'></a></div></div>",
-                        ((ITakesScreenshot)webDriver).GetScreenshot().AsBase64EncodedString));
-                    writer.Flush();
-                    writer.Close();
-                } // Check if we are using a file logger
+                    htmlLogger.EmbedImage(((ITakesScreenshot)webDriver).GetScreenshot().AsBase64EncodedString);
+                }
                 else if (fileLogger != null)
                 {
                     // Calculate the file name
-                    string fullpath = ((FileLogger)testObject.Log).FilePath;
+                    string fullpath = ((IFileLogger)testObject.Log).FilePath;
                     string directory = Path.GetDirectoryName(fullpath);
                     string fileNameWithoutExtension = $"{Path.GetFileNameWithoutExtension(fullpath)}{appendName}";
                     path = CaptureScreenshot(webDriver, testObject, directory, fileNameWithoutExtension, GetScreenShotFormat());
@@ -68,7 +70,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             }
             catch (Exception exception)
             {
-                testObject.Log.LogMessage(MessageType.ERROR, $"Screenshot error: {exception.ToString()}");
+                testObject.Log.LogMessage(MessageType.ERROR, $"Screenshot error: {exception}");
                 return false;
             }
         }
@@ -82,7 +84,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="fileNameWithoutExtension">Filename without extension</param>
         /// <param name="imageFormat">Optional Screenshot Image format parameter; Default imageFormat is PNG</param>
         /// <returns>Path to the log file</returns>
-        public static string CaptureScreenshot(this IWebDriver webDriver, SeleniumTestObject testObject, string directory, string fileNameWithoutExtension, ScreenshotImageFormat imageFormat = ScreenshotImageFormat.Png)
+        public static string CaptureScreenshot(this IWebDriver webDriver, ISeleniumTestObject testObject, string directory, string fileNameWithoutExtension, ScreenshotImageFormat imageFormat = ScreenshotImageFormat.Png)
         {
             Screenshot screenShot = ((ITakesScreenshot)webDriver).GetScreenshot();
 
@@ -93,7 +95,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             }
 
             // Calculate the file name
-            string path = Path.Combine(directory, $"{fileNameWithoutExtension}.{imageFormat.ToString()}");
+            string path = Path.Combine(directory, $"{fileNameWithoutExtension}.{imageFormat}");
 
             // Save the screenshot
             screenShot.SaveAsFile(path, imageFormat);
@@ -109,14 +111,14 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="testObject">The TestObject to associate the file with</param>
         /// <param name="appendName">Appends a name to the end of a filename</param>
         /// <returns>Boolean if the save of the page source was successful</returns>
-        public static bool SavePageSource(this IWebDriver webDriver, SeleniumTestObject testObject, string appendName = "")
+        public static bool SavePageSource(this IWebDriver webDriver, ISeleniumTestObject testObject, string appendName = "")
         {
             try
             {
                 string path = string.Empty;
 
                 // Check if we are using a file logger
-                if (!(testObject.Log is FileLogger))
+                if (!(testObject.Log is IFileLogger))
                 {
                     // Since this is not a file logger we will need to use a generic file name
                     path = SavePageSource(webDriver, testObject, LoggingConfig.GetLogDirectory(), $"PageSource{appendName}");
@@ -124,7 +126,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 else
                 {
                     // Calculate the file name
-                    string fullpath = ((FileLogger)testObject.Log).FilePath;
+                    string fullpath = ((IFileLogger)testObject.Log).FilePath;
                     string directory = Path.GetDirectoryName(fullpath);
                     string fileNameWithoutExtension = $"{Path.GetFileNameWithoutExtension(fullpath)}_PS{ appendName}";
 
@@ -136,7 +138,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             }
             catch (Exception exception)
             {
-                testObject.Log.LogMessage(MessageType.ERROR, $"Page Source error: {exception.ToString()}");
+                testObject.Log.LogMessage(MessageType.ERROR, $"Page Source error: {exception}");
                 return false;
             }
         }
@@ -149,7 +151,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="directory">The directory file path</param>
         /// <param name="fileNameWithoutExtension">Filename without extension</param>
         /// <returns>Path to the log file</returns>
-        public static string SavePageSource(this IWebDriver webDriver, SeleniumTestObject testObject, string directory, string fileNameWithoutExtension)
+        public static string SavePageSource(this IWebDriver webDriver, ISeleniumTestObject testObject, string directory, string fileNameWithoutExtension)
         {
             // Save the current page source into a string
             string pageSource = webDriver.PageSource;
@@ -182,7 +184,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="webDriver">The WebDriver</param>
         /// <param name="testObject">The TestObject to associate the report with</param>
         /// <param name="throwOnViolation">Should violations cause and exception to be thrown</param>
-        public static void CreateAccessibilityHtmlReport(this IWebDriver webDriver, SeleniumTestObject testObject, bool throwOnViolation = false)
+        public static void CreateAccessibilityHtmlReport(this IWebDriver webDriver, ISeleniumTestObject testObject, bool throwOnViolation = false)
         {
             CreateAccessibilityHtmlReport(webDriver, testObject, () => webDriver.Analyze(), throwOnViolation);
         }
@@ -194,7 +196,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="testObject">The TestObject to associate the report with</param>
         /// <param name="element">The WebElement you want to use as the root for your accessibility scan</param>
         /// <param name="throwOnViolation">Should violations cause and exception to be thrown</param>
-        public static void CreateAccessibilityHtmlReport(this IWebDriver webDriver, SeleniumTestObject testObject, IWebElement element, bool throwOnViolation = false)
+        public static void CreateAccessibilityHtmlReport(this IWebDriver webDriver, ISeleniumTestObject testObject, IWebElement element, bool throwOnViolation = false)
         {
             // If we are using a lazy element go get the raw element instead
             LazyElement raw = element as LazyElement;
@@ -214,7 +216,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="testObject">The TestObject to associate the report with</param>
         /// <param name="getResults">Function for getting the accessibility scan results</param>
         /// <param name="throwOnViolation">Should violations cause and exception to be thrown</param>
-        public static void CreateAccessibilityHtmlReport(this ISearchContext context, SeleniumTestObject testObject, Func<AxeResult> getResults, bool throwOnViolation = false)
+        public static void CreateAccessibilityHtmlReport(this ISearchContext context, ISeleniumTestObject testObject, Func<AxeResult> getResults, bool throwOnViolation = false)
         {
             // If we are using a lazy element go get the raw element instead
             LazyElement raw = context as LazyElement;
@@ -560,10 +562,10 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// </summary>
         /// <param name="testObject">The TestObject to associate the report with</param>
         /// <returns>A unique HTML file name, includes full path</returns>
-        private static string GetAccessibilityReportPath(SeleniumTestObject testObject)
+        private static string GetAccessibilityReportPath(ISeleniumTestObject testObject)
         {
-            string logDirectory = testObject.Log is FileLogger ? Path.GetDirectoryName(((FileLogger)testObject.Log).FilePath) : LoggingConfig.GetLogDirectory();
-            string reportBaseName = testObject.Log is FileLogger ? $"{Path.GetFileNameWithoutExtension(((FileLogger)testObject.Log).FilePath)}_Axe" : "AxeReport";
+            string logDirectory = testObject.Log is IFileLogger ? Path.GetDirectoryName(((IFileLogger)testObject.Log).FilePath) : LoggingConfig.GetLogDirectory();
+            string reportBaseName = testObject.Log is IFileLogger ? $"{Path.GetFileNameWithoutExtension(((IFileLogger)testObject.Log).FilePath)}_Axe" : "AxeReport";
             string reportFile = Path.Combine(logDirectory, $"{reportBaseName}.html");
             int reportNumber = 0;
 

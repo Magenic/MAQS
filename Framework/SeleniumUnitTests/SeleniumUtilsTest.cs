@@ -58,7 +58,7 @@ namespace SeleniumUnitTests
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
             WebDriver.Wait().ForPageLoad();
             SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject);
-            string filePath = Path.ChangeExtension(((FileLogger)TestObject.Log).FilePath, ".Png");
+            string filePath = Path.ChangeExtension(((IFileLogger)TestObject.Log).FilePath, ".Png");
             Assert.IsTrue(File.Exists(filePath), "Fail to find screenshot");
             File.Delete(filePath);
         }
@@ -369,7 +369,7 @@ namespace SeleniumUnitTests
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
             WebDriver.Wait().ForPageLoad();
             SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject);
-            string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, SeleniumUtilities.GetScreenShotFormat().ToString());
+            string filePath = Path.ChangeExtension(((IFileLogger)this.Log).FilePath, SeleniumUtilities.GetScreenShotFormat().ToString());
             Assert.IsTrue(File.Exists(filePath), "Fail to find screenshot");
             Assert.AreEqual(Path.GetExtension(filePath), "." + SeleniumUtilities.GetScreenShotFormat().ToString(), "The screenshot format was not in correct Format");
             File.Delete(filePath);
@@ -395,7 +395,7 @@ namespace SeleniumUnitTests
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
             WebDriver.Wait().ForPageLoad();
 
-            string filePath = ((FileLogger)Log).FilePath;
+            string filePath = ((IFileLogger)Log).FilePath;
 
             SeleniumUtilities.CheckAccessibility(this.TestObject);
 
@@ -418,7 +418,7 @@ namespace SeleniumUnitTests
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
             WebDriver.Wait().ForPageLoad();
 
-            string filePath = Path.GetDirectoryName(((FileLogger)Log).FilePath);
+            string filePath = Path.GetDirectoryName(((IFileLogger)Log).FilePath);
             FileLogger fileLogger = new FileLogger(filePath, "LevTest.txt", MessageType.WARNING);
 
             try
@@ -448,7 +448,7 @@ namespace SeleniumUnitTests
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
             WebDriver.Wait().ForPageLoad();
 
-            string filePath = Path.GetDirectoryName(((FileLogger)Log).FilePath);
+            string filePath = Path.GetDirectoryName(((IFileLogger)Log).FilePath);
             FileLogger fileLogger = new FileLogger(filePath, this.TestContext.TestName + ".txt", MessageType.INFORMATION);
 
             try
@@ -476,7 +476,7 @@ namespace SeleniumUnitTests
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
             WebDriver.Wait().ForPageLoad();
 
-            string filePath = Path.GetDirectoryName(((FileLogger)Log).FilePath);
+            string filePath = Path.GetDirectoryName(((IFileLogger)Log).FilePath);
             FileLogger fileLogger = new FileLogger(filePath, this.TestContext.TestName + ".txt", MessageType.INFORMATION);
 
             try
@@ -504,7 +504,7 @@ namespace SeleniumUnitTests
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
             WebDriver.Wait().ForPageLoad();
 
-            string filePath = Path.GetDirectoryName(((FileLogger)Log).FilePath);
+            string filePath = Path.GetDirectoryName(((IFileLogger)Log).FilePath);
             FileLogger fileLogger = new FileLogger(filePath, this.TestContext.TestName + ".txt", MessageType.INFORMATION);
 
             try
@@ -532,7 +532,7 @@ namespace SeleniumUnitTests
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
             WebDriver.Wait().ForPageLoad();
 
-            string filePath = Path.GetDirectoryName(((FileLogger)Log).FilePath);
+            string filePath = Path.GetDirectoryName(((IFileLogger)Log).FilePath);
             FileLogger fileLogger = new FileLogger(filePath, this.TestContext.TestName + ".txt", MessageType.INFORMATION);
 
             try
@@ -731,7 +731,7 @@ namespace SeleniumUnitTests
             WebDriver.CreateAccessibilityHtmlReport(this.TestObject);
 
             // The script executed message should be suppressed when we run the accessablity check
-            Assert.IsFalse(File.ReadAllText(((FileLogger)this.Log).FilePath).Contains("Script executed"), "Logging was not suppressed as expected");
+            Assert.IsFalse(File.ReadAllText(((IFileLogger)this.Log).FilePath).Contains("Script executed"), "Logging was not suppressed as expected");
         }
     }
 }

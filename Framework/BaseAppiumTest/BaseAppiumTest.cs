@@ -15,7 +15,7 @@ namespace Magenic.Maqs.BaseAppiumTest
     /// <summary>
     /// Generic base Appium test class
     /// </summary>
-    public class BaseAppiumTest : BaseExtendableTest<AppiumTestObject>
+    public class BaseAppiumTest : BaseExtendableTest<IAppiumTestObject>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseAppiumTest"/> class.
@@ -59,7 +59,7 @@ namespace Magenic.Maqs.BaseAppiumTest
             try
             {
                 // Captures screenshot if test result is not a pass and logging is enabled
-                if (this.TestObject.GetDriverManager<MobileDriverManager>().IsDriverIntialized() && this.Log is FileLogger && resultType != TestResultType.PASS &&
+                if (this.TestObject.GetDriverManager<MobileDriverManager>().IsDriverIntialized() && this.Log is IFileLogger && resultType != TestResultType.PASS &&
                     this.LoggingEnabledSetting != LoggingEnabled.NO)
                 {
                     AppiumUtilities.CaptureScreenshot(this.AppiumDriver, this.TestObject, " Final");
@@ -77,11 +77,13 @@ namespace Magenic.Maqs.BaseAppiumTest
         }
 
         /// <summary>
-        /// Create an Appium test object
+        /// Create a test object
         /// </summary>
-        protected override void CreateNewTestObject()
+        /// <param name="log">Assocatied logger</param>
+        /// <returns>The Appium test object</returns>
+        protected override IAppiumTestObject CreateTestObject(ILogger log)
         {
-            this.TestObject = new AppiumTestObject(() => this.GetMobileDevice(), this.CreateLogger(), this.GetFullyQualifiedTestClassName());
+            return new AppiumTestObject(() => this.GetMobileDevice(), log, this.GetFullyQualifiedTestClassName());
         }
     }
 }

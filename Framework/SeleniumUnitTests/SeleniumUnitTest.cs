@@ -268,8 +268,7 @@ namespace SeleniumUnitTests
         public void TryWaitForAttributeTextContainsDontFind()
         {
             WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
-            IWebElement element;
-            bool found = WebDriver.Wait().TryForAttributeTextContains(FoodTable, "Flower Table", "Summary", out element);
+            bool found = WebDriver.Wait().TryForAttributeTextContains(FoodTable, "Flower Table", "Summary", out IWebElement element);
             Assert.IsFalse(found, "True was unexpectedly returned");
             Assert.IsNull(element, "Element was not null");
         }
@@ -282,8 +281,7 @@ namespace SeleniumUnitTests
         public void TryWaitForAttributeTextEquals()
         {
             WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
-            IWebElement element;
-            bool found = WebDriver.Wait().TryForAttributeTextEquals(AsyncLoadingTextDiv, "display: block;", "style", out element);
+            bool found = WebDriver.Wait().TryForAttributeTextEquals(AsyncLoadingTextDiv, "display: block;", "style", out IWebElement element);
             Assert.IsTrue(found, "False was returned");
             Assert.IsNotNull(element, "Null element was returned");
         }
@@ -296,8 +294,7 @@ namespace SeleniumUnitTests
         public void TryWaitForAttributeTextEqualsDontFind()
         {
             WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
-            IWebElement element;
-            bool found = WebDriver.Wait().TryForAttributeTextEquals(FoodTable, "Flower Table", "Summary", out element);
+            bool found = WebDriver.Wait().TryForAttributeTextEquals(FoodTable, "Flower Table", "Summary", out IWebElement element);
             Assert.IsFalse(found, "True was unexpectedly returned");
             Assert.IsNull(element, "Element was not null");
         }
@@ -310,8 +307,7 @@ namespace SeleniumUnitTests
         public void TryWaitForClickableElement()
         {
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
-            IWebElement element;
-            bool found = WebDriver.Wait().TryForClickableElement(HomeButtonCssSelector, out element);
+            bool found = WebDriver.Wait().TryForClickableElement(HomeButtonCssSelector, out IWebElement element);
             Assert.IsTrue(found, "False was returned");
             Assert.IsNotNull(element, "Null element was returned");
         }
@@ -324,8 +320,7 @@ namespace SeleniumUnitTests
         public void TryScrollIntoViewElement()
         {
             WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
-            IWebElement element;
-            bool found = WebDriver.Wait().TryForClickableElementAndScrollIntoView(AutomationShowDialog1, out element);
+            bool found = WebDriver.Wait().TryForClickableElementAndScrollIntoView(AutomationShowDialog1, out IWebElement element);
             Assert.IsTrue(found, "False was returned.");
             Assert.IsNotNull(element, "Failed to find element.");
         }
@@ -338,8 +333,7 @@ namespace SeleniumUnitTests
         public void TryWaitForContainsText()
         {
             WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
-            IWebElement element;
-            bool found = WebDriver.Wait().TryForContainsText(AutomationNamesLabel, "Name", out element);
+            bool found = WebDriver.Wait().TryForContainsText(AutomationNamesLabel, "Name", out IWebElement element);
             Assert.IsTrue(found, "False was returned");
             Assert.IsNotNull(element, "Null element was returned");
         }
@@ -352,8 +346,7 @@ namespace SeleniumUnitTests
         public void TryWaitForElementExist()
         {
             WebDriver.Navigate().GoToUrl(TestSiteUrl);
-            IWebElement element;
-            bool found = WebDriver.Wait().TryForElementExist(HomeButtonCssSelector, out element);
+            bool found = WebDriver.Wait().TryForElementExist(HomeButtonCssSelector, out IWebElement element);
             Assert.IsTrue(found, "False was returned");
             Assert.IsNotNull(element, "Null element was returned");
         }
@@ -366,8 +359,7 @@ namespace SeleniumUnitTests
         public void TryWaitUntilExactText()
         {
             WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
-            IWebElement element;
-            bool found = WebDriver.Wait().TryForExactText(AsyncOptionsLabel, "Options", out element);
+            bool found = WebDriver.Wait().TryForExactText(AsyncOptionsLabel, "Options", out IWebElement element);
             Assert.IsTrue(found, "False was returned");
             Assert.IsNotNull(element, "Null element was returned");
         }
@@ -380,8 +372,7 @@ namespace SeleniumUnitTests
         public void TryWaitForVisibleElement()
         {
             WebDriver.Navigate().GoToUrl(TestSiteAsyncUrl);
-            IWebElement element;
-            bool found = WebDriver.Wait().TryForVisibleElement(AsyncDropdownCssSelector, out element);
+            bool found = WebDriver.Wait().TryForVisibleElement(AsyncDropdownCssSelector, out IWebElement element);
             Assert.IsTrue(found, "False was returned");
             Assert.IsNotNull(element, "Null element was returned");
         }
@@ -695,7 +686,7 @@ namespace SeleniumUnitTests
             this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
             this.Log = new FileLogger(string.Empty, "SeleniumSoftAssertIsTrueFalseCondition.txt", MessageType.GENERIC, true);
             SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(TestObject);
-            string logLocation = ((FileLogger)Log).FilePath;
+            string logLocation = ((IFileLogger)Log).FilePath;
             string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " testSoftAssert" + " (1).Png";
 
             bool isFalse = seleniumSoftAssert.Assert(() => Assert.IsTrue(false), "testSoftAssert", "message");
@@ -717,7 +708,7 @@ namespace SeleniumUnitTests
             this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
             this.Log = new FileLogger(string.Empty, "SeleniumSoftAssertWithAssertIsTrueFalseCondition.txt", MessageType.GENERIC, true);
             SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(TestObject);
-            string logLocation = ((FileLogger)Log).FilePath;
+            string logLocation = ((IFileLogger)Log).FilePath;
             string screenShotLocation = $"{logLocation.Substring(0, logLocation.LastIndexOf('.'))} 1 (1).Png";
 
             bool isFalse = seleniumSoftAssert.Assert(() => Assert.IsTrue(false, "testSoftAssert", "message"), "1");
@@ -739,7 +730,7 @@ namespace SeleniumUnitTests
             this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
             this.Log = new FileLogger(string.Empty, "SeleniumSoftAssertIsTrueFalseConditionPageSource.txt", MessageType.GENERIC, true);
             SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(TestObject);
-            string logLocation = ((FileLogger)Log).FilePath;
+            string logLocation = ((IFileLogger)Log).FilePath;
             string pageSourceLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + "_PS (1).txt";
 
             bool isFalse = seleniumSoftAssert.Assert(() => Assert.IsTrue(false, "testSoftAssert", "message"));
@@ -761,7 +752,7 @@ namespace SeleniumUnitTests
             this.WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
             this.Log = new FileLogger(string.Empty, "SeleniumSoftAssertIsTrueFalseConditionPageSource.txt", MessageType.GENERIC, true);
             SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(TestObject);
-            string logLocation = ((FileLogger)Log).FilePath;
+            string logLocation = ((IFileLogger)Log).FilePath;
             string pageSourceLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + "_PS (1).txt";
 
             bool isFalse = seleniumSoftAssert.Assert(() => Assert.IsTrue(false), "1", "message");
@@ -784,7 +775,7 @@ namespace SeleniumUnitTests
             Assert.IsNotNull(this.WebDriver);
 
             SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(TestObject);
-            string logLocation = ((FileLogger)Log).FilePath;
+            string logLocation = ((IFileLogger)Log).FilePath;
             string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " testSoftAssert" + " (1).Png";
 
             bool isFalse = seleniumSoftAssert.Assert(() => Assert.IsFalse(true), "testSoftAssert", "message");
@@ -803,7 +794,7 @@ namespace SeleniumUnitTests
         public void SeleniumSoftAssertIsFalseTrueConditionNoBrowser()
         {
             SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(TestObject);
-            string logLocation = ((FileLogger)Log).FilePath;
+            string logLocation = ((IFileLogger)Log).FilePath;
             string screenShotLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + " testSoftAssert" + " (1).Jpeg";
 
             bool isFalse = seleniumSoftAssert.Assert(() => Assert.IsFalse(true), "testSoftAssert", "message");
@@ -823,7 +814,7 @@ namespace SeleniumUnitTests
             Assert.IsNotNull(this.WebDriver);
 
             SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(TestObject);
-            string logLocation = ((FileLogger)Log).FilePath;
+            string logLocation = ((IFileLogger)Log).FilePath;
             string pageSourceLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + "_PS (1).txt";
 
             bool isFalse = seleniumSoftAssert.Assert(() => Assert.IsFalse(true), "testSoftAssert", "message");
@@ -842,7 +833,7 @@ namespace SeleniumUnitTests
         public void SeleniumSoftAssertIsFalseTrueConditionPageSourceNoBrowser()
         {
             SeleniumSoftAssert seleniumSoftAssert = new SeleniumSoftAssert(TestObject);
-            string logLocation = ((FileLogger)Log).FilePath;
+            string logLocation = ((IFileLogger)Log).FilePath;
             string pageSourceLocation = logLocation.Substring(0, logLocation.LastIndexOf('.')) + "_PS (1).txt";
 
             bool isFalse = seleniumSoftAssert.Assert(() => Assert.IsFalse(true), "testSoftAssert", "message");
@@ -1115,8 +1106,7 @@ namespace SeleniumUnitTests
             TestObject.SetValue("1", "one");
 
             Assert.AreEqual("one", TestObject.Values["1"]);
-            string outValue;
-            Assert.IsFalse(TestObject.Values.TryGetValue("2", out outValue), "Didn't expect to get value for key '2', but got " + outValue);
+            Assert.IsFalse(TestObject.Values.TryGetValue("2", out string outValue), "Didn't expect to get value for key '2', but got " + outValue);
         }
 
         /// <summary>
@@ -1132,8 +1122,8 @@ namespace SeleniumUnitTests
 
             Assert.AreEqual(TestObject.Objects["1"], builder);
 
-            object outObject;
-            Assert.IsFalse(TestObject.Objects.TryGetValue("2", out outObject), "Didn't expect to get value for key '2'");
+            Assert.IsFalse(TestObject.Objects.TryGetValue("2", out object outObject), "Didn't expect to get value for key '2'");
+            Assert.IsNull(outObject, "Object should be null");
 
             builder.Append("123");
 
@@ -1215,7 +1205,7 @@ namespace SeleniumUnitTests
         /// <returns>string contained in custom log</returns>
         protected string GetAndRemoveCustomFileLog()
         {
-            FileLogger outputLog = (FileLogger)Log;
+            FileLogger outputLog = (IFileLogger)Log;
             string log = File.ReadAllText(outputLog.FilePath);
             try
             {

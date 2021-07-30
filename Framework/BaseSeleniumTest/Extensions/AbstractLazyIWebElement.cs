@@ -71,7 +71,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="waitDriver">The assoicated web driver wait</param>
         /// <param name="locator">The 'by' selector for the element</param>
         /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
-        protected AbstractLazyIWebElement(BaseTestObject testObject, IWebDriver webDriver, Func<WebDriverWait> waitDriver, By locator, [CallerMemberName] string userFriendlyName = null)
+        protected AbstractLazyIWebElement(ITestObject testObject, IWebDriver webDriver, Func<WebDriverWait> waitDriver, By locator, [CallerMemberName] string userFriendlyName = null)
         {
             this.TestObject = testObject;
             this.WebDriver = webDriver;
@@ -116,7 +116,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <summary>
         /// Gets the test object for the element
         /// </summary>
-        public BaseTestObject TestObject { get; private set; }
+        public ITestObject TestObject { get; private set; }
 
         /// <summary>
         /// Gets the web driver

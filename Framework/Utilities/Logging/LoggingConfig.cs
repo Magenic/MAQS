@@ -18,6 +18,15 @@ namespace Magenic.Maqs.Utilities.Logging
     public static class LoggingConfig
     {
         /// <summary>
+        /// Get our logging type
+        /// </summary>
+        /// <returns>The log type as a string</returns>
+        public static string GetLogType()
+        {
+            return Config.GetGeneralValue("LogType", "TXT").ToUpper();
+        }
+
+        /// <summary>
         /// Get our logging state - Yes, no or on failure
         /// </summary>
         /// <returns>The log enabled state</returns>
@@ -64,35 +73,6 @@ namespace Magenic.Maqs.Utilities.Logging
                     return MessageType.SUSPENDED;       // All logging is suspended
                 default:
                     throw new MaqsLoggingConfigException(StringProcessor.SafeFormatter($"Logging level value '{Config.GetGeneralValue("LogLevel")}' is not a valid option"));
-            }
-        }
-
-        /// <summary>
-        /// Get the logger
-        /// </summary>
-        /// <param name="fileName">File name to use for the log</param>
-        /// <returns>The logger</returns>
-        public static Logger GetLogger(string fileName)
-        {
-            // Disable logging means we just send any logged messages to the console
-            if (GetLoggingEnabledSetting() == LoggingEnabled.NO)
-            {
-                return new ConsoleLogger();
-            }
-
-            string logDirectory = GetLogDirectory();
-
-            switch (Config.GetGeneralValue("LogType", "CONSOLE").ToUpper())
-            {
-                case "CONSOLE":
-                    return new ConsoleLogger(GetLoggingLevelSetting());
-                case "TXT":
-                    return new FileLogger(logDirectory, fileName, GetLoggingLevelSetting());
-                case "HTML":
-                case "HTM":
-                    return new HtmlFileLogger(logDirectory, fileName, GetLoggingLevelSetting());
-                default:
-                    throw new MaqsLoggingConfigException(StringProcessor.SafeFormatter($"Log type '{Config.GetGeneralValue("LogType", "CONSOLE")}' is not a valid option"));
             }
         }
 

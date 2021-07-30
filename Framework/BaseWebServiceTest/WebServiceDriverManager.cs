@@ -26,7 +26,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// </summary>
         /// <param name="getDriver">Function for creating an http client</param>
         /// <param name="testObject">The associated test object</param>
-        public WebServiceDriverManager(Func<HttpClient> getDriver, BaseTestObject testObject) : base(getDriver, testObject)
+        public WebServiceDriverManager(Func<HttpClient> getDriver, ITestObject testObject) : base(getDriver, testObject)
         {
         }
 

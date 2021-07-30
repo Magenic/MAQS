@@ -30,7 +30,7 @@ namespace Magenic.Maqs.BaseTest
     /// </summary>
     [TestClass]
 #pragma warning disable S2187 // TestCases should contain tests
-    public class BaseTest : IBaseTest
+    public class BaseTest
 
 #pragma warning restore S2187 // TestCases should contain tests
     {
@@ -39,13 +39,14 @@ namespace Magenic.Maqs.BaseTest
         /// </summary>
         private VSTestContext testContextInstance;
 
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseTest" /> class
         /// </summary>
         public BaseTest()
         {
             this.LoggedExceptions = new ConcurrentDictionary<string, List<string>>();
-            this.BaseTestObjects = new ConcurrentDictionary<string, IBaseTestObject>();
+            this.BaseTestObjects = new ConcurrentDictionary<string, ITestObject>();
 
             // Update your config parameters
             if (NUnitTestContext.Parameters != null)
@@ -132,7 +133,6 @@ namespace Magenic.Maqs.BaseTest
             }
         }
 
-        private MethodInfo testMethodInfo;
         /// <summary>
         /// Get the method info from the current TestContext. This property lazy loads the <see cref="MethodInfo"/>
         /// from the assembly. Because the assembly of the test method is unknown, all assemblies in the <see cref="AppDomain"/>
@@ -143,23 +143,17 @@ namespace Magenic.Maqs.BaseTest
         {
             get
             {
-                if (this.testMethodInfo != null)
+                if (this.IsVSTest())
                 {
-                    return this.testMethodInfo;
-                }
-                else if (this.IsVSTest())
-                {
-                    return (this.testMethodInfo =
-                        GetMethodInfoIfUsingSoftAssertExpectedAsserts(
+                    return GetMethodInfoIfUsingSoftAssertExpectedAsserts(
                             this.TestContext.FullyQualifiedTestClassName,
-                            this.TestContext.TestName));
+                            this.TestContext.TestName);
                 }
                 else
                 {
-                    return (this.testMethodInfo =
-                        GetMethodInfoIfUsingSoftAssertExpectedAsserts(
+                    return GetMethodInfoIfUsingSoftAssertExpectedAsserts(
                             NUnitTestContext.CurrentContext.Test.ClassName,
-                            NUnitTestContext.CurrentContext.Test.MethodName));
+                            NUnitTestContext.CurrentContext.Test.MethodName);
                 }
             }
         }
@@ -193,13 +187,13 @@ namespace Magenic.Maqs.BaseTest
         /// <summary>
         /// Gets or sets the test object
         /// </summary>
-        public IBaseTestObject TestObject
+        public ITestObject TestObject
         {
             get
             {
                 if (!this.BaseTestObjects.ContainsKey(this.GetFullyQualifiedTestClassName()))
                 {
-                    this.CreateNewTestObject();
+                    this.SetupTestObject();
                 }
 
                 return this.BaseTestObjects[this.GetFullyQualifiedTestClassName()];
@@ -214,7 +208,7 @@ namespace Magenic.Maqs.BaseTest
         /// <summary>
         /// Gets the driver store
         /// </summary>
-        public ManagerDictionary ManagerStore
+        public IManagerStore ManagerStore
         {
             get
             {
@@ -225,7 +219,7 @@ namespace Magenic.Maqs.BaseTest
         /// <summary>
         /// Gets or sets the BaseContext objects
         /// </summary>
-        internal ConcurrentDictionary<string, IBaseTestObject> BaseTestObjects { get; set; }
+        internal ConcurrentDictionary<string, ITestObject> BaseTestObjects { get; set; }
 
         /// <summary>
         /// Gets the logging enable flag
@@ -248,7 +242,7 @@ namespace Magenic.Maqs.BaseTest
             if (!this.BaseTestObjects.ContainsKey(this.GetFullyQualifiedTestClassName()))
             {
                 // Create the test object
-                this.CreateNewTestObject();
+                this.SetupTestObject();
 
                 if (this.TestMethodInfo != null)
                 {
@@ -307,10 +301,10 @@ namespace Magenic.Maqs.BaseTest
                 // Cleanup log files we don't want
                 try
                 {
-                    if (this.Log is FileLogger && resultType == TestResultType.PASS
+                    if (this.Log is IFileLogger && resultType == TestResultType.PASS
                         && this.LoggingEnabledSetting == LoggingEnabled.ONFAIL)
                     {
-                        File.Delete(((FileLogger)this.Log).FilePath);
+                        File.Delete(((IFileLogger)this.Log).FilePath);
                     }
                 }
                 catch (Exception e)
@@ -342,15 +336,11 @@ namespace Magenic.Maqs.BaseTest
             }
             finally
             {
-                var logger = this.Log as HtmlFileLogger;
-                // if the logger is HTML dispose of it to add ending tags
-                if (logger != null)
-                {
-                    ((HtmlFileLogger)this.Log).Dispose();
-                }
+                // Release log
+                this.Log?.Dispose();
 
                 // Release the base test object
-                this.BaseTestObjects.TryRemove(fullyQualifiedTestName, out IBaseTestObject baseTestObject);
+                this.BaseTestObjects.TryRemove(fullyQualifiedTestName, out ITestObject baseTestObject);
                 baseTestObject.Dispose();
             }
         }
@@ -359,26 +349,40 @@ namespace Magenic.Maqs.BaseTest
         /// Create a logger
         /// </summary>
         /// <returns>A logger</returns>
-        protected ILogger CreateLogger()
+        protected ILogger CreateAndSetupLogger(string logName, string logType, LoggingEnabled enabled, bool firstChanceHandler)
         {
             try
             {
                 this.LoggedExceptionList = new List<string>();
-                this.LoggingEnabledSetting = LoggingConfig.GetLoggingEnabledSetting();
+                this.LoggingEnabledSetting = enabled;
 
                 // Setup the exception listener
-                if (LoggingConfig.GetFirstChanceHandler())
+                if (firstChanceHandler)
                 {
                     AppDomain.CurrentDomain.FirstChanceException += this.FirstChanceHandler;
                 }
 
-                if (this.LoggingEnabledSetting != LoggingEnabled.NO)
+                return CreateLogger(logName, logType, LoggingConfig.GetLoggingLevelSetting(), enabled);
+            }
+            catch (Exception e)
+            {
+                ILogger newLogger = LoggerFactory.GetConsoleLogger();
+                newLogger.LogMessage(MessageType.WARNING, StringProcessor.SafeExceptionFormatter(e));
+                return newLogger;
+            }
+        }
+
+        /// <summary>
+        /// Create a logger
+        /// </summary>
+        /// <returns>A logger</returns>
+        protected virtual ILogger CreateLogger(string logName, string logType, MessageType loggingLevel, LoggingEnabled enabled)
+        {
+            try
+            {
+                if (enabled != LoggingEnabled.NO)
                 {
-                    return LoggerFactory.GetLogger(
-                        StringProcessor.SafeFormatter(
-                        "{0} - {1}",
-                        this.GetFullyQualifiedTestClassName(),
-                        DateTime.UtcNow.ToString("yyyy-MM-dd-hh-mm-ss-ffff", CultureInfo.InvariantCulture)));
+                    return LoggerFactory.GetLogger(logName, logType, loggingLevel);
                 }
                 else
                 {
@@ -391,6 +395,63 @@ namespace Magenic.Maqs.BaseTest
                 newLogger.LogMessage(MessageType.WARNING, StringProcessor.SafeExceptionFormatter(e));
                 return newLogger;
             }
+        }
+
+        /// <summary>
+        /// Create a Selenium test object
+        /// </summary>
+        protected void SetupTestObject()
+        {
+            ILogger newLogger = this.CreateAndSetupLogger(GetFileNameWithoutExtension(), LoggingConfig.GetLogType(), LoggingConfig.GetLoggingEnabledSetting(), LoggingConfig.GetFirstChanceHandler());
+            this.TestObject = CreateTestObject(newLogger);
+        }
+
+        /// <summary>
+        /// Create test specific test objects
+        /// </summary>
+        /// <param name="log"></param>
+        /// <returns></returns>
+        protected virtual ITestObject CreateTestObject(ILogger log)
+        {
+            return new BaseTestObject(log, this.GetFullyQualifiedTestClassName());
+        }
+
+        /// <summary>
+        /// Get default 
+        /// </summary>
+        /// <param name="logName">The name of the log</param>
+        /// <param name="logType">Type of log</param>
+        /// <param name="loggingLevel">Loggging level</param>
+        /// <param name="enabled">Is logging enabled</param>
+        /// <returns></returns>
+        protected ILogger DefaultLogger(string logName, string logType, MessageType loggingLevel, LoggingEnabled enabled)
+        {
+            try
+            {
+                if (enabled != LoggingEnabled.NO)
+                {
+                    return LoggerFactory.GetLogger(logName, logType, loggingLevel);
+                }
+                else
+                {
+                    return LoggerFactory.GetConsoleLogger();
+                }
+            }
+            catch (Exception e)
+            {
+                ILogger newLogger = LoggerFactory.GetConsoleLogger();
+                newLogger.LogMessage(MessageType.WARNING, StringProcessor.SafeExceptionFormatter(e));
+                return newLogger;
+            }
+        }
+
+        /// <summary>
+        /// Get the default file name for the current test
+        /// </summary>
+        /// <returns>Filename with out the extension</returns>
+        protected virtual  string GetFileNameWithoutExtension()
+        {
+            return $"{this.GetFullyQualifiedTestClassName()} - {DateTime.UtcNow.ToString("yyyy-MM-dd-hh-mm-ss-ffff", CultureInfo.InvariantCulture)}";
         }
 
         /// <summary>
@@ -489,15 +550,8 @@ namespace Magenic.Maqs.BaseTest
             this.Log.LogMessage(MessageType.VERBOSE, messages.ToString());
         }
 
-        /// <summary>
-        /// Create a Selenium test object
-        /// </summary>
-        protected virtual void CreateNewTestObject()
-        {
-            ILogger newLogger = this.CreateLogger();
-            this.TestObject = new BaseTestObject(newLogger, new SoftAssert(newLogger), this.GetFullyQualifiedTestClassName());
-            this.SoftAssert = this.TestObject.SoftAssert;
-        }
+
+
 
         /// <summary>
         /// Steps to do before logging teardown results - If not override nothing is done before logging the results
@@ -716,10 +770,10 @@ namespace Magenic.Maqs.BaseTest
             try
             {
                 // See if we can add the log file
-                if (this.Log is FileLogger && File.Exists(((FileLogger)this.Log).FilePath))
+                if (this.Log is IFileLogger && File.Exists(((IFileLogger)this.Log).FilePath))
                 {
                     // Add the log file
-                    AttachAssociatedFile(((FileLogger)this.Log).FilePath);
+                    AttachAssociatedFile(((IFileLogger)this.Log).FilePath);
                 }
 
                 // Attach all existing associated files

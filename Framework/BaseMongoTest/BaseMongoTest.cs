@@ -6,6 +6,7 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseTest;
 using Magenic.Maqs.Utilities.Logging;
+using Magenic.Maqs.Utilities.Performance;
 using MongoDB.Driver;
 using System;
 
@@ -15,7 +16,7 @@ namespace Magenic.Maqs.BaseMongoTest
     /// Generic base MongoDB test class
     /// </summary>
     /// <typeparam name="T">The mongo collection type</typeparam>
-    public class BaseMongoTest<T> : BaseExtendableTest<MongoTestObject<T>>
+    public class BaseMongoTest<T> : BaseExtendableTest<IMongoTestObject<T>>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseMongoTest{T}"/> class.
@@ -23,6 +24,7 @@ namespace Magenic.Maqs.BaseMongoTest
         /// </summary>
         public BaseMongoTest()
         {
+
         }
 
         /// <summary>
@@ -98,12 +100,13 @@ namespace Magenic.Maqs.BaseMongoTest
         }
 
         /// <summary>
-        /// Create a MongoDB test object
+        /// Create a test object
         /// </summary>
-        protected override void CreateNewTestObject()
+        /// <param name="log">Assocatied logger</param>
+        /// <returns>The email test object</returns>
+        protected override IMongoTestObject<T> CreateTestObject(ILogger log)
         {
-            ILogger newLogger = this.CreateLogger();
-            this.TestObject = new MongoTestObject<T>(this.GetBaseConnectionString(), this.GetBaseDatabaseString(), this.GetBaseCollectionString(), newLogger, new SoftAssert(newLogger), this.GetFullyQualifiedTestClassName());
+            return new MongoTestObject<T>(this.GetBaseConnectionString(), this.GetBaseDatabaseString(), this.GetBaseCollectionString(), log, this.GetFullyQualifiedTestClassName());
         }
     }
 }

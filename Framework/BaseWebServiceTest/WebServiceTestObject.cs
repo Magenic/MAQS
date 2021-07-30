@@ -14,7 +14,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
     /// <summary>
     /// Web service test context data
     /// </summary>
-    public class WebServiceTestObject : BaseTestObject
+    public class WebServiceTestObject : BaseTestObject, IWebServiceTestObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WebServiceTestObject" /> class
@@ -45,7 +45,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         {
             get
             {
-                return this.ManagerStore[typeof(WebServiceDriverManager).FullName] as WebServiceDriverManager;
+                return this.ManagerStore.GetManager<WebServiceDriverManager>();
             }
         }
 

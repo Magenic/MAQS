@@ -29,7 +29,7 @@ namespace Magenic.Maqs.BaseMongoTest
         /// <param name="databaseString">Database connection string</param>
         /// <param name="collectionString">Mongo collection string</param>
         /// <param name="testObject">Test object this driver is getting added to</param>
-        public MongoDriverManager(string connectionString, string databaseString, string collectionString, BaseTestObject testObject) : base(() => MongoFactory.GetCollection<T>(connectionString, databaseString, collectionString), testObject)
+        public MongoDriverManager(string connectionString, string databaseString, string collectionString, ITestObject testObject) : base(() => MongoFactory.GetCollection<T>(connectionString, databaseString, collectionString), testObject)
         {
         }
 

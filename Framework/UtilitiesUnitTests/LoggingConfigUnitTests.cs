@@ -138,7 +138,7 @@ namespace UtilitiesUnitTesting
                     "{0} - {1}",
                     "Test",
                     DateTime.UtcNow.ToString("yyyy-MM-dd-hh-mm-ss-ffff", CultureInfo.InvariantCulture)));
-            Assert.AreEqual(typeof(FileLogger), logger.GetType());
+            Assert.AreEqual(typeof(IFileLogger), logger.GetType());
         }
 
         /// <summary>

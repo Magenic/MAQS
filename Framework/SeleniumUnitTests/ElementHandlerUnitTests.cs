@@ -72,11 +72,6 @@ namespace SeleniumUnitTests
         private static By computerPartsList = By.CssSelector("#computerParts");
 
         /// <summary>
-        /// Manage dropdown selector
-        /// </summary>
-        private static By manageDropdown = By.CssSelector("body > div.navbar.navbar-inverse.navbar-fixed-top > div > div.navbar-collapse.collapse > ul > li:nth-child(2) > a");
-
-        /// <summary>
         /// Employee link
         /// </summary>
         private static By employeeButton = By.CssSelector("#EmployeeButton > a");
@@ -377,7 +372,7 @@ namespace SeleniumUnitTests
             WebDriver.FindElement(firstNameTextBox).Clear();
             WebDriver.SendSecretKeys(firstNameTextBox, "secretKeys", Log);
 
-            FileLogger logger = (FileLogger)TestObject.Log;
+            IFileLogger logger = (IFileLogger)TestObject.Log;
             string filepath = logger.FilePath;
 
             Assert.IsFalse(File.ReadAllText(filepath).Contains("secretKeys"));
@@ -396,7 +391,7 @@ namespace SeleniumUnitTests
             Assert.ThrowsException<ArgumentNullException>(() => this.WebDriver.SendSecretKeys(firstNameTextBox, null, this.Log));
             this.Log.LogMessage(checkLogged);
 
-            FileLogger logger = (FileLogger)TestObject.Log;
+            FileLogger logger = (IFileLogger)TestObject.Log;
             string filepath = logger.FilePath;
 
             Assert.IsTrue(File.ReadAllText(filepath).Contains(checkLogged));
@@ -415,7 +410,7 @@ namespace SeleniumUnitTests
             WebDriver.FindElement(firstNameTextBox).Clear();
             WebDriver.FindElement(firstNameTextBox).SendKeys("somethingTest");
 
-            FileLogger logger = (FileLogger)TestObject.Log;
+            FileLogger logger = (IFileLogger)TestObject.Log;
             string filepath = logger.FilePath;
 
             Assert.IsTrue(File.ReadAllText(filepath).Contains("somethingTest"));

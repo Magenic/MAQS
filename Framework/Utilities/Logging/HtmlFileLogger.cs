@@ -15,7 +15,7 @@ namespace Magenic.Maqs.Utilities.Logging
     /// <summary>
     /// Helper class for adding logs to an HTML file. Allows configurable file path.
     /// </summary>
-    public class HtmlFileLogger : FileLogger
+    public class HtmlFileLogger : FileLogger, IHtmlFileLogger
     {
         /// <summary>
         /// The default log name
@@ -46,6 +46,11 @@ namespace Magenic.Maqs.Utilities.Logging
         /// The begininning to the cards section
         /// </summary>
         private const string CARDSTART = "<div class='container-fluid'><div class='row'>";
+
+        /// <summary>
+        /// Image DIV
+        /// </summary>
+        private const string IMAGEDIV = "<div class='collapse col-12 show' data-logtype='IMAGE'><div class='card'><div class='card-body'><h5 class='card-title mb-1'>IMAGE</h5><h6 class='card-subtitle mb-1'>{0}</h6></div><a class='pop'><img class='card-img-top rounded' src='data:image/png;base64, {1}'style='width: 200px;'></a></div></div>";
 
         /// <summary>
         /// Initializes a new instance of the HtmlFileLogger class
@@ -85,28 +90,43 @@ namespace Magenic.Maqs.Utilities.Logging
             // If the message level is greater that the current log level then do not log it.
             if (this.ShouldMessageBeLogged(messageType))
             {
-                // Log the message
-                lock (this.FileLock)
-                {
-                    string date = DateTime.UtcNow.ToString(Logger.DEFAULTDATEFORMAT, CultureInfo.InvariantCulture);
+                InsertHtml($"<div class='collapse col-12 show' data-logtype='{messageType}'><div class='card'><div class='card-body {GetTextWithColorFlag(messageType)}'><h5 class='card-title mb-1'>{messageType}</h5><h6 class='card-subtitle mb-1'>{CurrentDateTime()}</h6><p class='card-text'>{HttpUtility.HtmlEncode(StringProcessor.SafeFormatter(message, args))}</p></div></div></div>");
 
-                    try
+            }
+        }
+
+        /// <summary>
+        /// Write the formatted message (one line) to the console as a generic message
+        /// </summary>
+        /// <param name="html">Html content</param>
+        private void InsertHtml(string html)
+        {
+            // Log the message
+            lock (this.FileLock)
+            {
+                try
+                {
+                    using (StreamWriter writer = new StreamWriter(this.FilePath, true))
                     {
-                        using (StreamWriter writer = new StreamWriter(this.FilePath, true))
-                        {
-                            writer.Write(StringProcessor.SafeFormatter(
-                                $"<div class='collapse col-12 show' data-logtype='{messageType.ToString()}'><div class='card'><div class='card-body {GetTextWithColorFlag(messageType)}'><h5 class='card-title mb-1'>{messageType.ToString()}</h5><h6 class='card-subtitle mb-1'>{date}</h6><p class='card-text'>{HttpUtility.HtmlEncode(StringProcessor.SafeFormatter(message, args))}</p></div></div></div>"));
-                        }   
-                    }
-                    catch (Exception e)
-                    {
-                        // Failed to write to the event log, write error to the console instead
-                        ConsoleLogger console = new ConsoleLogger();
-                        console.LogMessage(MessageType.ERROR, StringProcessor.SafeFormatter($"Failed to write to event log because: {e.Message}"));
-                        console.LogMessage(messageType, message, args);
+                        writer.Write(html);
                     }
                 }
+                catch (Exception e)
+                {
+                    // Failed to write to the event log, write error to the console instead
+                    ConsoleLogger console = new ConsoleLogger();
+                    console.LogMessage(MessageType.ERROR, StringProcessor.SafeFormatter($"Failed to write to event log because: {e}{Environment.NewLine}Content: {html}"));
+                }
             }
+        }
+
+        /// <summary>
+        /// Embedd a base 64 image
+        /// </summary>
+        /// <param name="base64String">Base 64 image string</param>
+        public void EmbedImage(string base64String)
+        {
+            InsertHtml(StringProcessor.SafeFormatter(IMAGEDIV, CurrentDateTime(), base64String));
         }
 
         /// <summary>

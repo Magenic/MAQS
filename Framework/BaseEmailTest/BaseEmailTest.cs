@@ -14,7 +14,7 @@ namespace Magenic.Maqs.BaseEmailTest
     /// <summary>
     /// Generic base email test class
     /// </summary>
-    public class BaseEmailTest : BaseExtendableTest<EmailTestObject>
+    public class BaseEmailTest : BaseExtendableTest<IEmailTestObject>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseEmailTest"/> class.
@@ -71,12 +71,13 @@ namespace Magenic.Maqs.BaseEmailTest
         }
 
         /// <summary>
-        /// Create an email test object
+        /// Create a test object
         /// </summary>
-        protected override void CreateNewTestObject()
+        /// <param name="log">Assocatied logger</param>
+        /// <returns>The email test object</returns>
+        protected override IEmailTestObject CreateTestObject(ILogger log)
         {
-            ILogger newLogger = this.CreateLogger();
-            this.TestObject = new EmailTestObject(() => this.GetEmailConnection(), newLogger, new SoftAssert(newLogger), this.GetFullyQualifiedTestClassName());
+            return new EmailTestObject(() => this.GetEmailConnection(), log, this.GetFullyQualifiedTestClassName());
         }
     }
 }

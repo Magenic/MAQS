@@ -34,7 +34,7 @@ namespace UtilitiesUnitTesting
         {
             var fileLogger = new FileLogger(logFolder: "Logs", name: $"{this.TestContext.TestName}.txt");
 
-            this.ExecuteLoggingTasks(fileLogger);
+            this.ExecuteLoggingTasks(IFileLogger);
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace UtilitiesUnitTesting
         {
             var fileLogger = new HtmlFileLogger(logFolder: "Logs", name: $"{this.TestContext.TestName}.html");
 
-            this.ExecuteLoggingTasks(fileLogger);
+            this.ExecuteLoggingTasks(IFileLogger);
         }
 
         /// <summary>

@@ -26,7 +26,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// </summary>
         /// <param name="getConnection">Function for getting an database connection</param>
         /// <param name="testObject">The associated test object</param>
-        public DatabaseDriverManager(Func<IDbConnection> getConnection, BaseTestObject testObject) : base(getConnection, testObject)
+        public DatabaseDriverManager(Func<IDbConnection> getConnection, ITestObject testObject) : base(getConnection, testObject)
         {
         }
 

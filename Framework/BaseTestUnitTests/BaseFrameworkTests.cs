@@ -176,7 +176,7 @@ namespace BaseTestUnitTests
             tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
 
             // get log path
-            string logFilePath = ((FileLogger)tester.Log).FilePath;
+            string logFilePath = ((IFileLogger)tester.Log).FilePath;
 
             // create test files
             Directory.CreateDirectory("TeardownTest");

@@ -6,6 +6,8 @@
 //--------------------------------------------------
 using Magenic.Maqs.Utilities.Data;
 using System;
+using System.Globalization;
+using System.IO;
 
 namespace Magenic.Maqs.Utilities.Logging
 {
@@ -142,6 +144,15 @@ namespace Magenic.Maqs.Utilities.Logging
             {
                 this.LogMessage(MessageType.VERBOSE, "Disposing logger");
             }
+        }
+
+        /// <summary>
+        /// Get current date time for logging purposes
+        /// </summary>
+        /// <returns></returns>
+        public string CurrentDateTime()
+        {
+            return DateTime.UtcNow.ToString(Logger.DEFAULTDATEFORMAT, CultureInfo.InvariantCulture);
         }
     }
 }

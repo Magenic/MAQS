@@ -55,7 +55,7 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void NoFile()
         {
-            string path = ((FileLogger)this.Log).FilePath;
+            string path = ((IFileLogger)this.Log).FilePath;
             Assert.IsFalse(System.IO.File.Exists(path), path + " exists, but it should not");
         }
 
@@ -66,7 +66,7 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void File()
         {
-            string path = ((FileLogger)this.Log).FilePath;
+            string path = ((IFileLogger)this.Log).FilePath;
             this.Log.LogMessage(MessageType.ERROR, "Error message");
             Assert.IsTrue(System.IO.File.Exists(path), path + " does not exist, but it should");
             Assert.IsTrue(path.StartsWith(customPath), path + " should be under" + @"C:\FrameworksCustom\");

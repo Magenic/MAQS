@@ -12,8 +12,18 @@ namespace Magenic.Maqs.BaseTest
     /// <summary>
     /// Driver manager dictionary 
     /// </summary>
-    public class ManagerDictionary : Dictionary<string, IDriverManager>, IDisposable
+    public class ManagerStore : IManagerStore
     {
+        /// <summary>
+        /// Dictionary to hold all driver managers
+        /// </summary>
+        private readonly Dictionary<string, IDriverManager> managerDictionary = new Dictionary<string, IDriverManager>();
+
+        /// <summary>
+        /// Gets the count of managed drivers
+        /// </summary>
+        public int Count => managerDictionary.Count;
+
         /// <summary>
         /// Get the driver for the associated driver manager
         /// </summary>
@@ -22,7 +32,7 @@ namespace Magenic.Maqs.BaseTest
         /// <returns>The managed driver</returns>
         public T GetDriver<T>(string key)
         {
-            return (T)this[key].Get();
+            return (T)managerDictionary[key].Get();
         }
 
         /// <summary>
@@ -33,7 +43,27 @@ namespace Magenic.Maqs.BaseTest
         /// <returns>The driver</returns>
         public T GetDriver<T, U>() where U : IDriverManager
         {
-            return (T)this[typeof(U).FullName].Get();
+            return (T)GetManager<U>().Get();
+        }
+
+        public IDriverManager GetManager()
+        {
+            return GetManager<IDriverManager>();
+        }
+
+        public IDriverManager GetManager(string key)
+        {
+            return GetManager<IDriverManager>(key);
+        }
+
+        public T GetManager<T>() where T : IDriverManager
+        {
+            return (T)managerDictionary[typeof(T).FullName];
+        }
+
+        public T GetManager<T>(string key) where T : IDriverManager
+        {
+            return (T)managerDictionary[key];
         }
 
         /// <summary>
@@ -42,7 +72,17 @@ namespace Magenic.Maqs.BaseTest
         /// <param name="manager">The manager</param>
         public void Add(IDriverManager manager)
         {
-            this.Add(manager.GetType().FullName, manager);
+            managerDictionary.Add(manager.GetType().FullName, manager);
+        }
+
+        /// <summary>
+        /// Add a manager
+        /// </summary>
+        /// <param name="key">Key for storing the manager</param>
+        /// <param name="manager">The manager</param>
+        public void Add(string key, IDriverManager manager)
+        {
+            managerDictionary.Add(key, manager);
         }
 
         /// <summary>
@@ -61,8 +101,9 @@ namespace Magenic.Maqs.BaseTest
         /// <param name="manager">The manager</param>
         public void AddOrOverride(string key, IDriverManager manager)
         {
-            this.Remove(key);
-            this.Add(key, manager);
+            managerDictionary[key]?.Dispose();
+            managerDictionary.Remove(key);
+            managerDictionary.Add(key, manager);
         }
 
         /// <summary>
@@ -70,14 +111,14 @@ namespace Magenic.Maqs.BaseTest
         /// </summary>
         /// <param name="key">Key for the manager you want removed</param>
         /// <returns>True if the manager was removed</returns>
-        public new bool Remove(string key)
+        public bool Remove(string key)
         {
-            if (this.ContainsKey(key))
+            if (managerDictionary.ContainsKey(key))
             {
-                this[key].Dispose();
+                managerDictionary[key].Dispose();
             }
 
-            return base.Remove(key);
+            return managerDictionary.Remove(key);
         }
 
         /// <summary>
@@ -89,25 +130,25 @@ namespace Magenic.Maqs.BaseTest
         {
             string key = type.FullName;
 
-            if (this.ContainsKey(key))
+            if (managerDictionary.ContainsKey(key))
             {
-                this[key].Dispose();
+                managerDictionary[key].Dispose();
             }
 
-            return base.Remove(key);
+            return managerDictionary.Remove(key);
         }
 
         /// <summary>
         /// Clear the dictionary
         /// </summary>
-        public new void Clear()
+        public void Clear()
         {
-            foreach (KeyValuePair<string, IDriverManager> driver in this)
+            foreach (KeyValuePair<string, IDriverManager> driver in managerDictionary)
             {
                 driver.Value.Dispose();
             }
 
-            base.Clear();
+            managerDictionary.Clear();
         }
 
         /// <summary>
@@ -128,7 +169,13 @@ namespace Magenic.Maqs.BaseTest
             // Only dealing with managed objects
             if (disposing)
             {
-                this.Clear();
+                // Make sure all of the individual drivers are disposed
+                foreach (IDriverManager singleDrive in managerDictionary.Values)
+                {
+                    singleDrive?.Dispose();
+                }
+
+                managerDictionary.Clear();
             }
         }
     }

@@ -58,7 +58,7 @@ namespace AppiumUnitTests
 
             Log = new FileLogger(string.Empty, "AssertFuncFailPath.txt", MessageType.GENERIC, true);
             AppiumSoftAssert appiumSoftAssert = new AppiumSoftAssert(TestObject);
-            string logLocation = ((FileLogger)Log).FilePath;
+            string logLocation = ((IFileLogger)Log).FilePath;
             string screenShotLocation = $"{logLocation.Substring(0, logLocation.LastIndexOf('.'))} assertName (1).Png";
 
             bool isFalse = appiumSoftAssert.Assert(() => Assert.IsTrue(false), "assertName");

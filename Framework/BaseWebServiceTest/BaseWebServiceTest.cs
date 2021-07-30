@@ -14,7 +14,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
     /// <summary>
     /// Generic base web service test class
     /// </summary>
-    public class BaseWebServiceTest : BaseExtendableTest<WebServiceTestObject>
+    public class BaseWebServiceTest : BaseExtendableTest<IWebServiceTestObject>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseWebServiceTest"/> class.
@@ -86,12 +86,13 @@ namespace Magenic.Maqs.BaseWebServiceTest
         }
 
         /// <summary>
-        /// Create a web service test object
+        /// Create a test object
         /// </summary>
-        protected override void CreateNewTestObject()
+        /// <param name="log">Assocatied logger</param>
+        /// <returns>The web service test object</returns>
+        protected override IWebServiceTestObject CreateTestObject(ILogger log)
         {
-            ILogger newLogger = this.CreateLogger();
-            this.TestObject = new WebServiceTestObject(() => this.GetHttpClient(), newLogger, this.GetFullyQualifiedTestClassName());
+            return new WebServiceTestObject(() => this.GetHttpClient(), log, this.GetFullyQualifiedTestClassName());
         }
     }
 }

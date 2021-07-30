@@ -20,7 +20,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// Initializes a new instance of the <see cref="BaseDatabaseTest"/> class.
         /// Setup the database client for each test class
         /// </summary>
-        public BaseDatabaseTest()
+        public BaseDatabaseTest():base()
         {
         }
 
@@ -50,12 +50,13 @@ namespace Magenic.Maqs.BaseDatabaseTest
         }
 
         /// <summary>
-        /// Create a database test object
+        /// Create a test object
         /// </summary>
-        protected override void CreateNewTestObject()
+        /// <param name="log">Assocatied logger</param>
+        /// <returns>The database test object</returns>
+        protected override DatabaseTestObject CreateTestObject(ILogger log)
         {
-            ILogger newLogger = this.CreateLogger();
-            this.TestObject = new DatabaseTestObject(() => this.GetDataBaseConnection(), newLogger, new SoftAssert(newLogger), this.GetFullyQualifiedTestClassName());
+            return new DatabaseTestObject(() => this.GetDataBaseConnection(), log, this.GetFullyQualifiedTestClassName());
         }
     }
 }

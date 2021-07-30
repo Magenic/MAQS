@@ -15,7 +15,7 @@ namespace Magenic.Maqs.Utilities.Logging
     /// <summary>
     ///  Helper class for adding logs to a plain text file. Allows configurable file path.
     /// </summary>
-    public class FileLogger : Logger
+    public class FileLogger : Logger, IFileLogger
     {
         /// <summary>
         /// The default log file save location
@@ -78,7 +78,7 @@ namespace Magenic.Maqs.Utilities.Logging
         /// <summary>
         /// Gets or sets the FilePath value
         /// </summary>
-        public string FilePath { get; set; }
+        public string FilePath { get; protected set; }
 
         /// <summary>
         /// Gets the file extension
@@ -118,7 +118,7 @@ namespace Magenic.Maqs.Utilities.Logging
                         {
                             string date = DateTime.UtcNow.ToString(Logger.DEFAULTDATEFORMAT, CultureInfo.InvariantCulture);
                             writer.WriteLine(StringProcessor.SafeFormatter($"{Environment.NewLine}{date}"));
-                            writer.Write(StringProcessor.SafeFormatter($"{messageType.ToString()}:\t"));
+                            writer.Write(StringProcessor.SafeFormatter($"{messageType}:\t"));
 
                             writer.WriteLine(StringProcessor.SafeFormatter(message, args));
                         }

@@ -15,7 +15,7 @@ namespace Magenic.Maqs.BaseAppiumTest
     /// <summary>
     /// Appium test context data
     /// </summary>
-    public class AppiumTestObject : BaseTestObject
+    public class AppiumTestObject : BaseTestObject, IAppiumTestObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AppiumTestObject" /> class
@@ -25,7 +25,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
         public AppiumTestObject(AppiumDriver<IWebElement> appiumDriver, ILogger logger, string fullyQualifiedTestName) : base(logger, fullyQualifiedTestName)
         {
-            this.ManagerStore.Add(typeof(MobileDriverManager).FullName,  new MobileDriverManager(() => appiumDriver, this));
+            this.ManagerStore.Add(typeof(MobileDriverManager).FullName, new MobileDriverManager(() => appiumDriver, this));
             this.SoftAssert = new AppiumSoftAssert(this);
         }
 
@@ -59,7 +59,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         {
             get
             {
-                return this.ManagerStore[typeof(MobileDriverManager).FullName] as MobileDriverManager;
+                return this.ManagerStore.GetManager<MobileDriverManager>();
             }
         }
 
