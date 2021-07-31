@@ -398,7 +398,7 @@ namespace Magenic.Maqs.BaseTest
         }
 
         /// <summary>
-        /// Create a Selenium test object
+        /// Create a the test object
         /// </summary>
         protected void SetupTestObject()
         {

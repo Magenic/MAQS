@@ -8,6 +8,6 @@ namespace Magenic.Maqs.Utilities.Logging
 {
     public interface IFileLogger : ILogger
     {
-        string FilePath { get; }
+        string FilePath { get; set; }
     }
 }

@@ -1160,8 +1160,8 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void SeleniumCreateNewTestObject()
         {
-            this.CreateNewTestObject();
-            SeleniumTestObject newTestObject = TestObject;
+            this.SetupTestObject();
+            ISeleniumTestObject newTestObject = TestObject;
 
             var expectedWebDriver = WebDriver.ToString();
             var actualWebDriver = newTestObject.WebDriver.ToString();
@@ -1205,7 +1205,7 @@ namespace SeleniumUnitTests
         /// <returns>string contained in custom log</returns>
         protected string GetAndRemoveCustomFileLog()
         {
-            FileLogger outputLog = (IFileLogger)Log;
+            IFileLogger outputLog = (IFileLogger)Log;
             string log = File.ReadAllText(outputLog.FilePath);
             try
             {

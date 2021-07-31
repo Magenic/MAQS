@@ -15,6 +15,9 @@ namespace Magenic.Maqs.BaseTest
         void AddOrOverride(IDriverManager manager);
         void AddOrOverride(string key, IDriverManager manager);
         void Clear();
+        bool Contains(string key);
+        bool Contains(Type type);
+        bool Contains<T>() where T : IDriverManager;
         int Count { get; }
         T GetDriver<T, U>() where U : IDriverManager;
         T GetDriver<T>(string key);

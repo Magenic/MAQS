@@ -115,7 +115,7 @@ namespace UtilitiesUnitTesting
                 if (loggingEnableds[i] != LoggingEnabled.ONFAIL)
                 {
                     Config.AddTestSettingValues("Log", loggingEnableds[i].ToString(), "MagenicMaqs", true);
-                    var logger = LoggingConfig.GetLogger(StringProcessor.SafeFormatter(
+                    var logger = LoggerFactory.GetLogger(StringProcessor.SafeFormatter(
                     "{0} - {1}",
                     "Test",
                     DateTime.UtcNow.ToString("yyyy-MM-dd-hh-mm-ss-ffff", CultureInfo.InvariantCulture)));
@@ -134,7 +134,7 @@ namespace UtilitiesUnitTesting
             Config.AddTestSettingValues("LogLevel", MessageType.VERBOSE.ToString(), "MagenicMaqs", true);
             Config.AddTestSettingValues("Log", LoggingEnabled.YES.ToString(), "MagenicMaqs", true);
             Config.AddTestSettingValues("LogType", "TXT", "MagenicMaqs", true);
-            var logger = LoggingConfig.GetLogger(StringProcessor.SafeFormatter(
+            var logger = LoggerFactory.GetLogger(StringProcessor.SafeFormatter(
                     "{0} - {1}",
                     "Test",
                     DateTime.UtcNow.ToString("yyyy-MM-dd-hh-mm-ss-ffff", CultureInfo.InvariantCulture)));
@@ -155,7 +155,7 @@ namespace UtilitiesUnitTesting
             for (int i = 0; i < loggerType.Length; i++)
             {
                 Config.AddTestSettingValues("LogType", loggerType[i], "MagenicMaqs", true);
-                var logger = LoggingConfig.GetLogger(StringProcessor.SafeFormatter(
+                var logger = LoggerFactory.GetLogger(StringProcessor.SafeFormatter(
                         "{0} - {1}",
                         "Test",
                         DateTime.UtcNow.ToString("yyyy-MM-dd-hh-mm-ss-ffff", CultureInfo.InvariantCulture)));
@@ -173,7 +173,7 @@ namespace UtilitiesUnitTesting
         {
             Config.AddTestSettingValues("Log", LoggingEnabled.YES.ToString(), "MagenicMaqs", true);
             Config.AddTestSettingValues("LogType", "Default", "MagenicMaqs", true);
-            LoggingConfig.GetLogger(StringProcessor.SafeFormatter(
+            LoggerFactory.GetLogger(StringProcessor.SafeFormatter(
                     "{0} - {1}",
                     "Test",
                     DateTime.UtcNow.ToString("yyyy-MM-dd-hh-mm-ss-ffff", CultureInfo.InvariantCulture)));

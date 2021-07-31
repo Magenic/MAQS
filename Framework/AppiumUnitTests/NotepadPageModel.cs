@@ -22,7 +22,7 @@ namespace AppiumUnitTests
         /// Initializes a new instance of the <see cref="SeleniumPageModel"/> class
         /// </summary>
         /// <param name="testObject">The base Appium test object</param>
-        public NotepadPageModel(AppiumTestObject testObject) 
+        public NotepadPageModel(IAppiumTestObject testObject) 
             : base(testObject)
         {
         }
@@ -96,7 +96,7 @@ namespace AppiumUnitTests
         /// Get test object
         /// </summary>
         /// <returns>The test object</returns>
-        public AppiumTestObject GetTestObject()
+        public IAppiumTestObject GetTestObject()
         {
             return this.TestObject;
         }

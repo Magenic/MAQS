@@ -23,7 +23,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// </summary>
         /// <param name="getDriver">Function for getting an Appium driver</param>
         /// <param name="testObject">The associated test object</param>
-        public MobileDriverManager(Func<AppiumDriver<IWebElement>> getDriver, BaseTestObject testObject) : base(getDriver, testObject)
+        public MobileDriverManager(Func<AppiumDriver<IWebElement>> getDriver, ITestObject testObject) : base(getDriver, testObject)
         {
         }
 

@@ -74,9 +74,9 @@ namespace FrameworkUnitTests
             MongoDriverManager<BsonDocument> newManger = new MongoDriverManager<BsonDocument>(MongoDBConfig.GetConnectionString(), MongoDBConfig.GetDatabaseString(), MongoDBConfig.GetCollectionString(), this.TestObject);
             this.ManagerStore.Add("test", newManger);
 
-            Assert.AreNotEqual(this.TestObject.MongoDBDriver, (MongoDriverManager<BsonDocument>)this.ManagerStore["test"]);
-            Assert.AreNotEqual(this.TestObject.MongoDBManager.Get(), ((MongoDriverManager<BsonDocument>)this.ManagerStore["test"]).Get());
-            Assert.AreEqual(newManger.GetMongoDriver(), ((MongoDriverManager<BsonDocument>)this.ManagerStore["test"]).GetMongoDriver());
+            Assert.AreNotEqual(this.TestObject.MongoDBDriver, this.ManagerStore.GetManager<MongoDriverManager<BsonDocument>>("test"));
+            Assert.AreNotEqual(this.TestObject.MongoDBManager.Get(), this.ManagerStore.GetManager<MongoDriverManager<BsonDocument>>("test").Get());
+            Assert.AreEqual(newManger.GetMongoDriver(), this.ManagerStore.GetManager<MongoDriverManager<BsonDocument>>("test").GetMongoDriver());
         }
 
         /// <summary>
@@ -90,9 +90,9 @@ namespace FrameworkUnitTests
             MongoDriverManager<BsonDocument> newDriver = new MongoDriverManager<BsonDocument>(() => newCollection, this.TestObject);
             this.ManagerStore.Add("test", newDriver);
 
-            Assert.AreNotEqual(this.TestObject.MongoDBDriver, (MongoDriverManager<BsonDocument>)this.ManagerStore["test"]);
-            Assert.AreNotEqual(this.TestObject.MongoDBManager.Get(), ((MongoDriverManager<BsonDocument>)this.ManagerStore["test"]).Get());
-            Assert.AreEqual(newCollection, ((MongoDriverManager<BsonDocument>)this.ManagerStore["test"]).GetMongoDriver().Collection);
+            Assert.AreNotEqual(this.TestObject.MongoDBDriver, this.ManagerStore.GetManager<MongoDriverManager<BsonDocument>>("test"));
+            Assert.AreNotEqual(this.TestObject.MongoDBManager.Get(), this.ManagerStore.GetManager<MongoDriverManager<BsonDocument>>("test").Get());
+            Assert.AreEqual(newCollection, (this.ManagerStore.GetManager<MongoDriverManager<BsonDocument>>("test")).GetMongoDriver().Collection);
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace FrameworkUnitTests
         [TestMethod]
         public void Intialized()
         {
-            MongoDriverManager<BsonDocument> driverDriver = this.ManagerStore[typeof(MongoDriverManager<BsonDocument>).FullName] as MongoDriverManager<BsonDocument>;
+            MongoDriverManager<BsonDocument> driverDriver = this.ManagerStore.GetManager<MongoDriverManager<BsonDocument>>();
             
             Assert.IsNotNull(this.MongoDBDriver.Client, "Should be able to get client");
             Assert.IsTrue(driverDriver.IsDriverIntialized(), "The driver should have been initialized");
@@ -134,7 +134,7 @@ namespace FrameworkUnitTests
         [TestMethod]
         public void NotIntialized()
         {
-            MongoDriverManager<BsonDocument> driverDriver = this.ManagerStore[typeof(MongoDriverManager<BsonDocument>).FullName] as MongoDriverManager<BsonDocument>;
+            MongoDriverManager<BsonDocument> driverDriver = this.ManagerStore.GetManager<MongoDriverManager<BsonDocument>>();
             Assert.IsFalse(driverDriver.IsDriverIntialized(), "The driver should not be initialized until it gets used");
         }
     }

@@ -38,7 +38,7 @@ namespace Magenic.Maqs.BaseMongoTest
         /// </summary>
         /// <param name="getCollection">Function for getting a Mongo collection connection</param>
         /// <param name="testObject">Test object this driver is getting added to</param>
-        public MongoDriverManager(Func<IMongoCollection<T>> getCollection, BaseTestObject testObject) : base(getCollection, testObject)
+        public MongoDriverManager(Func<IMongoCollection<T>> getCollection, ITestObject testObject) : base(getCollection, testObject)
         {
         }
 

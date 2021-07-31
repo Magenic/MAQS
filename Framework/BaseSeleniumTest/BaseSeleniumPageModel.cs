@@ -27,7 +27,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// Initializes a new instance of the <see cref="BaseSeleniumPageModel"/> class.
         /// </summary>
         /// <param name="testObject">The Selenium test object</param>
-        protected BaseSeleniumPageModel(SeleniumTestObject testObject)
+        protected BaseSeleniumPageModel(ISeleniumTestObject testObject)
         {
             this.TestObject = testObject;
             this.WebDriver = testObject.WebDriver;
@@ -58,7 +58,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <summary>
         /// Gets or sets the Selenium test object
         /// </summary>
-        protected SeleniumTestObject TestObject { get; set; }
+        protected ISeleniumTestObject TestObject { get; set; }
 
         /// <summary>
         /// Override the webdriver 

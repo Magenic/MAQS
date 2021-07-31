@@ -27,7 +27,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// Initializes a new instance of the <see cref="BaseAppiumPageModel"/> class.
         /// </summary>
         /// <param name="testObject">The Appium test object</param>
-        protected BaseAppiumPageModel(AppiumTestObject testObject)
+        protected BaseAppiumPageModel(IAppiumTestObject testObject)
         {
             this.TestObject = testObject;
             this.AppiumDriver = testObject.AppiumDriver;
@@ -58,7 +58,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// Gets or sets the Appium test object
         /// </summary>
-        protected AppiumTestObject TestObject { get; set; }
+        protected IAppiumTestObject TestObject { get; set; }
 
         /// <summary>
         /// Override the driver 

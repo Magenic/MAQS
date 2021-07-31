@@ -69,7 +69,7 @@ namespace BaseTestUnitTests
         [TestCategory(TestCategories.Utilities)]
         public void InvalidCreateLoggerMakesConsoleLogger()
         {
-            Assert.IsInstanceOfType(CreateLogger(), typeof(ConsoleLogger));
+            Assert.IsInstanceOfType(CreateLogger("test", "test", MessageType.INFORMATION, LoggingEnabled.YES), typeof(ConsoleLogger));
         }
 
         /// <summary>

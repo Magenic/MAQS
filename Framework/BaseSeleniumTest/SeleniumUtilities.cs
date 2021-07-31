@@ -275,7 +275,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// </summary>
         /// <param name="testObject">The test object which contains the web driver and logger you wish to use</param>
         /// <param name="throwOnViolation">Should violations cause and exception to be thrown</param>
-        public static void CheckAccessibility(this SeleniumTestObject testObject, bool throwOnViolation = false)
+        public static void CheckAccessibility(this ISeleniumTestObject testObject, bool throwOnViolation = false)
         {
             CheckAccessibility(testObject.WebDriver, testObject.Log, throwOnViolation);
         }

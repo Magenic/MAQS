@@ -78,7 +78,7 @@ namespace Magenic.Maqs.Utilities.Logging
         /// <summary>
         /// Gets or sets the FilePath value
         /// </summary>
-        public string FilePath { get; protected set; }
+        public string FilePath { get; set; }
 
         /// <summary>
         /// Gets the file extension

@@ -18,13 +18,13 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// AppiumDriver to be used
         /// </summary>
-        private readonly AppiumTestObject appiumTestObject;
+        private readonly IAppiumTestObject appiumTestObject;
 
         /// <summary>
         /// Initializes a new instance of the AppiumSoftAssert class
         /// </summary>
         /// <param name="appiumTestObject">The related Appium test object</param>
-        public AppiumSoftAssert(AppiumTestObject appiumTestObject)
+        public AppiumSoftAssert(IAppiumTestObject appiumTestObject)
             : base(appiumTestObject.Log)
         {
             this.appiumTestObject = appiumTestObject;

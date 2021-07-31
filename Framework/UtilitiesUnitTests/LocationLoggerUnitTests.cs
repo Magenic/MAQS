@@ -45,7 +45,7 @@ namespace UtilitiesUnitTesting
             Config.UpdateWithVSTestContext(this.TestContext);
 
             // Create a new file
-            this.TestObject.Log = this.CreateLogger();
+            this.TestObject.Log = LoggerFactory.GetLogger(this.GetFileNameWithoutExtension(), "text", MessageType.INFORMATION);
         }
 
         /// <summary>

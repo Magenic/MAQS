@@ -31,7 +31,7 @@ namespace CompositeUnitTests
             IManagerStore managerStore = GetManagerStore();
             managerStore.Add(GetManager());
 
-            Assert.IsTrue(managerStore.con .conate .ContainsKey(typeof(WebServiceDriverManager).FullName));
+            Assert.IsTrue(managerStore.Contains<WebServiceDriverManager>());
         }
 
         /// <summary>

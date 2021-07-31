@@ -44,7 +44,7 @@ namespace FrameworkUnitTests
             SeleniumDriverManager newDriver = new SeleniumDriverManager(() => WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.HeadlessChrome), this.TestObject);
             this.ManagerStore.Add("test", newDriver);
 
-            Assert.AreNotEqual(this.TestObject.WebDriver.GetLowLevelDriver(), ((SeleniumDriverManager)this.ManagerStore["test"]).GetWebDriver().GetLowLevelDriver());
+            Assert.AreNotEqual(this.TestObject.WebDriver.GetLowLevelDriver(), this.ManagerStore.GetManager<SeleniumDriverManager>("test").GetWebDriver().GetLowLevelDriver());
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace FrameworkUnitTests
 
             this.TestObject.WebDriver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "/Automation");
 
-            Assert.AreNotEqual(this.TestObject.WebDriver.Url, ((SeleniumDriverManager)this.ManagerStore["test"]).GetWebDriver().Url);
+            Assert.AreNotEqual(this.TestObject.WebDriver.Url, this.ManagerStore.GetManager<SeleniumDriverManager>("test").GetWebDriver().Url);
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace FrameworkUnitTests
             // Do something so we initialize the web driver
             this.WebDriver.Manage().Window.Maximize();
 
-            SeleniumDriverManager driverDriver = this.ManagerStore[typeof(SeleniumDriverManager).FullName] as SeleniumDriverManager;
+            SeleniumDriverManager driverDriver = this.ManagerStore.GetManager<SeleniumDriverManager>();
             Assert.IsTrue(driverDriver.IsDriverIntialized(), "The driver should have been initialized");
         }
 
@@ -103,7 +103,7 @@ namespace FrameworkUnitTests
         [TestMethod]
         public void NotIntialized()
         {
-            SeleniumDriverManager driverDriver = this.ManagerStore[typeof(SeleniumDriverManager).FullName] as SeleniumDriverManager;
+            SeleniumDriverManager driverDriver = this.ManagerStore.GetManager<SeleniumDriverManager>();
             Assert.IsFalse(driverDriver.IsDriverIntialized(), "The driver should not be initialized until it gets used");
         }
     }

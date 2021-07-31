@@ -18,13 +18,13 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <summary>
         /// WebDriver to be used
         /// </summary>
-        private readonly SeleniumTestObject testObject;
+        private readonly ISeleniumTestObject testObject;
 
         /// <summary>
         /// Initializes a new instance of the SeleniumSoftAssert class
         /// </summary>
         /// <param name="seleniumTestObject">The related Selenium test object</param>
-        public SeleniumSoftAssert(SeleniumTestObject seleniumTestObject)
+        public SeleniumSoftAssert(ISeleniumTestObject seleniumTestObject)
             : base(seleniumTestObject.Log)
         {
             this.testObject = seleniumTestObject;

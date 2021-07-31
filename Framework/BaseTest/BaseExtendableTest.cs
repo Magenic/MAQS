@@ -51,14 +51,14 @@ namespace Magenic.Maqs.BaseTest
             base.Setup();
         }
 
-        /// <summary>
-        /// Create a Selenium test object
-        /// </summary>
-        protected new void SetupTestObject()
-        {
-            ILogger newLogger = this.CreateAndSetupLogger(GetFileNameWithoutExtension(), LoggingConfig.GetLogType(), LoggingConfig.GetLoggingEnabledSetting(), LoggingConfig.GetFirstChanceHandler());
-            this.TestObject = CreateTestObject(newLogger);
-        }
+        ///// <summary>
+        ///// Create a Selenium test object
+        ///// </summary>
+        //protected new void SetupTestObject()
+        //{
+        //    ILogger newLogger = this.CreateAndSetupLogger(GetFileNameWithoutExtension(), LoggingConfig.GetLogType(), LoggingConfig.GetLoggingEnabledSetting(), LoggingConfig.GetFirstChanceHandler());
+        //    this.TestObject = CreateTestObject(newLogger);
+        //}
 
         /// <summary>
         /// Create the test object

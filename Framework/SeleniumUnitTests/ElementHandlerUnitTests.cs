@@ -391,7 +391,7 @@ namespace SeleniumUnitTests
             Assert.ThrowsException<ArgumentNullException>(() => this.WebDriver.SendSecretKeys(firstNameTextBox, null, this.Log));
             this.Log.LogMessage(checkLogged);
 
-            FileLogger logger = (IFileLogger)TestObject.Log;
+            IFileLogger logger = (IFileLogger)TestObject.Log;
             string filepath = logger.FilePath;
 
             Assert.IsTrue(File.ReadAllText(filepath).Contains(checkLogged));
@@ -410,7 +410,7 @@ namespace SeleniumUnitTests
             WebDriver.FindElement(firstNameTextBox).Clear();
             WebDriver.FindElement(firstNameTextBox).SendKeys("somethingTest");
 
-            FileLogger logger = (IFileLogger)TestObject.Log;
+            IFileLogger logger = (IFileLogger)TestObject.Log;
             string filepath = logger.FilePath;
 
             Assert.IsTrue(File.ReadAllText(filepath).Contains("somethingTest"));

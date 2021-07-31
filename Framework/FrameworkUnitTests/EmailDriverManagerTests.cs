@@ -66,8 +66,8 @@ namespace FrameworkUnitTests
             EmailDriverManager newDriver = new EmailDriverManager(() => EmailDriverMocks.GetMoq().Object, this.TestObject);
             this.ManagerStore.Add("test", newDriver);
 
-            Assert.AreNotEqual(this.TestObject.EmailManager, (EmailDriverManager)this.ManagerStore["test"]);
-            Assert.AreNotEqual(this.TestObject.EmailManager.Get(), ((EmailDriverManager)this.ManagerStore["test"]).Get());
+            Assert.AreNotEqual(this.TestObject.EmailManager, this.ManagerStore.GetManager<EmailDriverManager>("test"));
+            Assert.AreNotEqual(this.TestObject.EmailManager.Get(), (this.ManagerStore.GetManager<EmailDriverManager>("test")).Get());
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace FrameworkUnitTests
             // Do something so we initialize the driver
             this.EmailDriver.CanAccessEmailAccount();
 
-            EmailDriverManager driverDriver = this.ManagerStore[typeof(EmailDriverManager).FullName] as EmailDriverManager;
+            EmailDriverManager driverDriver = this.ManagerStore.GetManager<EmailDriverManager>();
             Assert.IsTrue(driverDriver.IsDriverIntialized(), "The driver should have been initialized");
         }
 
@@ -110,7 +110,7 @@ namespace FrameworkUnitTests
         [TestMethod]
         public void NotIntialized()
         {
-            EmailDriverManager driverDriver = this.ManagerStore[typeof(EmailDriverManager).FullName] as EmailDriverManager;
+            EmailDriverManager driverDriver = this.ManagerStore.GetManager<EmailDriverManager>();
             Assert.IsFalse(driverDriver.IsDriverIntialized(), "The driver should not be initialized until it gets used");
         }
     }

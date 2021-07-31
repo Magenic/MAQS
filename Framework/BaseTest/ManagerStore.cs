@@ -178,5 +178,20 @@ namespace Magenic.Maqs.BaseTest
                 managerDictionary.Clear();
             }
         }
+
+        public bool Contains(string key)
+        {
+            return managerDictionary.ContainsKey(key);
+        }
+
+        public bool Contains(Type type)
+        {
+            return this.Contains(type.FullName);
+        }
+
+        public bool Contains<T>() where T : IDriverManager
+        {
+            return this.Contains(typeof(T).FullName);
+        }
     }
 }
