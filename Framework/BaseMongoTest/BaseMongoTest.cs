@@ -104,7 +104,7 @@ namespace Magenic.Maqs.BaseMongoTest
         /// </summary>
         /// <param name="log">Assocatied logger</param>
         /// <returns>The email test object</returns>
-        protected override IMongoTestObject<T> CreateTestObject(ILogger log)
+        protected override IMongoTestObject<T> CreateSpecificTestObject(ILogger log)
         {
             return new MongoTestObject<T>(this.GetBaseConnectionString(), this.GetBaseDatabaseString(), this.GetBaseCollectionString(), log, this.GetFullyQualifiedTestClassName());
         }

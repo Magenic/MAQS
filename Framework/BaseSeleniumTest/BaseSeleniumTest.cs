@@ -79,7 +79,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// </summary>
         /// <param name="log">Assocatied logger</param>
         /// <returns>The Selenium test object</returns>
-        protected override ISeleniumTestObject CreateTestObject(ILogger log)
+        protected override ISeleniumTestObject CreateSpecificTestObject(ILogger log)
         {
            return new SeleniumTestObject(() => this.GetBrowser(), log, this.GetFullyQualifiedTestClassName());
         }

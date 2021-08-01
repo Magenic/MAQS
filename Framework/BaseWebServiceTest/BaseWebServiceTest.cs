@@ -90,7 +90,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// </summary>
         /// <param name="log">Assocatied logger</param>
         /// <returns>The web service test object</returns>
-        protected override IWebServiceTestObject CreateTestObject(ILogger log)
+        protected override IWebServiceTestObject CreateSpecificTestObject(ILogger log)
         {
             return new WebServiceTestObject(() => this.GetHttpClient(), log, this.GetFullyQualifiedTestClassName());
         }

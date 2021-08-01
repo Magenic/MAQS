@@ -54,7 +54,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// </summary>
         /// <param name="log">Assocatied logger</param>
         /// <returns>The database test object</returns>
-        protected override DatabaseTestObject CreateTestObject(ILogger log)
+        protected override DatabaseTestObject CreateSpecificTestObject(ILogger log)
         {
             return new DatabaseTestObject(() => this.GetDataBaseConnection(), log, this.GetFullyQualifiedTestClassName());
         }

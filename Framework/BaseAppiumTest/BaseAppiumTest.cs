@@ -81,7 +81,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// </summary>
         /// <param name="log">Assocatied logger</param>
         /// <returns>The Appium test object</returns>
-        protected override IAppiumTestObject CreateTestObject(ILogger log)
+        protected override IAppiumTestObject CreateSpecificTestObject(ILogger log)
         {
             return new AppiumTestObject(() => this.GetMobileDevice(), log, this.GetFullyQualifiedTestClassName());
         }

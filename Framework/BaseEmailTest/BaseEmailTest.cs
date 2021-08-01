@@ -75,7 +75,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// </summary>
         /// <param name="log">Assocatied logger</param>
         /// <returns>The email test object</returns>
-        protected override IEmailTestObject CreateTestObject(ILogger log)
+        protected override IEmailTestObject CreateSpecificTestObject(ILogger log)
         {
             return new EmailTestObject(() => this.GetEmailConnection(), log, this.GetFullyQualifiedTestClassName());
         }

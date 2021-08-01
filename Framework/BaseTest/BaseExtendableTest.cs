@@ -51,20 +51,30 @@ namespace Magenic.Maqs.BaseTest
             base.Setup();
         }
 
-        ///// <summary>
-        ///// Create a Selenium test object
-        ///// </summary>
-        //protected new void SetupTestObject()
-        //{
-        //    ILogger newLogger = this.CreateAndSetupLogger(GetFileNameWithoutExtension(), LoggingConfig.GetLogType(), LoggingConfig.GetLoggingEnabledSetting(), LoggingConfig.GetFirstChanceHandler());
-        //    this.TestObject = CreateTestObject(newLogger);
-        //}
+        /// <summary>
+        /// Create a Selenium test object
+        /// </summary>
+        protected new void SetupTestObject()
+        {
+            ILogger newLogger = this.CreateAndSetupLogger(GetFileNameWithoutExtension(), LoggingConfig.GetLogType(), LoggingConfig.GetLoggingEnabledSetting(), LoggingConfig.GetFirstChanceHandler());
+            this.TestObject = CreateSpecificTestObject(newLogger);
+        }
+
+        /// <summary>
+        /// Create a test object
+        /// </summary>
+        /// <param name="log">Assocatied logger</param>
+        /// <returns>The Selenium test object</returns>
+        protected override ITestObject CreateTestObject(ILogger log)
+        {
+            return this.CreateSpecificTestObject(log);
+        }
 
         /// <summary>
         /// Create the test object
         /// </summary>
         /// <param name="log">Log to assoicate with the test object</param>
-        /// <returns></returns>
-        protected new abstract T CreateTestObject(ILogger log);
+        /// <returns>Specific test object type</returns>
+        protected abstract T CreateSpecificTestObject(ILogger log);
     }
 }
