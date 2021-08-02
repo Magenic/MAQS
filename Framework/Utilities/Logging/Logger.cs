@@ -2,17 +2,16 @@
 // <copyright file="Logger.cs" company="Magenic">
 //  Copyright 2021 Magenic, All rights Reserved
 // </copyright>
-// <summary>Abstract logging interface</summary>
+// <summary>Abstract logger</summary>
 //--------------------------------------------------
 using Magenic.Maqs.Utilities.Data;
 using System;
 using System.Globalization;
-using System.IO;
 
 namespace Magenic.Maqs.Utilities.Logging
 {
     /// <summary>
-    /// Abstract logging interface base class
+    /// Abstract logger base class
     /// </summary>
     public abstract class Logger : ILogger
     {
@@ -149,7 +148,7 @@ namespace Magenic.Maqs.Utilities.Logging
         /// <summary>
         /// Get current date time for logging purposes
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Current data time in UTC format</returns>
         public string CurrentDateTime()
         {
             return DateTime.UtcNow.ToString(Logger.DEFAULTDATEFORMAT, CultureInfo.InvariantCulture);

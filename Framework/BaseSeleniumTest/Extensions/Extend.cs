@@ -19,7 +19,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <summary>
         /// Selenium Web Driver
         /// </summary>
-        private static ConcurrentDictionary<IWebDriver, WebDriverWait> waitCollection;
+        private static readonly ConcurrentDictionary<IWebDriver, WebDriverWait> waitCollection;
 
 #pragma warning disable S3963 // "static" fields should be initialized inline
                              /// <summary>

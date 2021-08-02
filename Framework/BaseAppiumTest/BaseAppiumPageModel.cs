@@ -105,7 +105,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <returns>The LazyMobileElement</returns>
         protected LazyMobileElement GetLazyElement(LazyMobileElement parent, By locator, [CallerMemberName] string userFriendlyName = null)
         {
-            string lazyElementStoreKey = $"{parent.ToString()}{locator}{userFriendlyName}";
+            string lazyElementStoreKey = $"{parent}{locator}{userFriendlyName}";
 
             if (!this.lazyElementStore.ContainsKey(lazyElementStoreKey))
             {

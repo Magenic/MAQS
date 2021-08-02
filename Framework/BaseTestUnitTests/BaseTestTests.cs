@@ -19,29 +19,7 @@ namespace BaseTestUnitTests
     [TestClass]
     [DoNotParallelize]
     public class BaseTestTests : BaseTest
-    {
-        // Cached config settings
-        Dictionary<string, string> general;
-
-        /// <summary>
-        /// Cache config settings
-        /// </summary>
-        [TestInitialize]
-        public void SetUp()
-        {
-            general = Config.GetSection(ConfigSection.MagenicMaqs);
-            Config.AddTestSettingValues("Log", "Default", "MagenicMaqs", true);
-        }
-
-        /// <summary>
-        /// Restore config settings
-        /// </summary>
-        [TestCleanup]
-        public void CleanUp()
-        {
-            Config.AddTestSettingValues(general, ConfigSection.MagenicMaqs, true);
-        }
-        
+    {  
         /// <summary>
         /// Test duplicate name
         /// </summary>

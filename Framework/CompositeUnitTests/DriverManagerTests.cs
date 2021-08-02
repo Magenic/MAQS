@@ -159,7 +159,7 @@ namespace CompositeUnitTests
 
             managerStore.Add(GetManager());
             managerStore.Add(string.Empty, managerToKeep);
-            managerStore.Remove(typeof(WebServiceDriverManager));
+            managerStore.Remove<WebServiceDriverManager>();
 
             Assert.AreEqual(managerToKeep, managerStore.GetManager(string.Empty));
         }

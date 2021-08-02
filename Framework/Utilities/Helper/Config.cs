@@ -32,17 +32,17 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <summary>
         /// Thread safe collection of configuration overrides
         /// </summary>
-        private static ConcurrentDictionary<string, ConcurrentDictionary<string, string>> configOverrides = new ConcurrentDictionary<string, ConcurrentDictionary<string, string>>();
+        private static readonly ConcurrentDictionary<string, ConcurrentDictionary<string, string>> configOverrides = new ConcurrentDictionary<string, ConcurrentDictionary<string, string>>();
 
         /// <summary>
         /// Thread safe collection of configurations
         /// </summary>
-        private static ConcurrentDictionary<string, ConcurrentDictionary<string, string>> configValues = new ConcurrentDictionary<string, ConcurrentDictionary<string, string>>();
+        private static readonly ConcurrentDictionary<string, ConcurrentDictionary<string, string>> configValues = new ConcurrentDictionary<string, ConcurrentDictionary<string, string>>();
 
         /// <summary>
         /// Configuration mapping for the custom Magenic Maqs section
         /// </summary>
-        private static IConfigurationRoot maqsConfig = new ConfigurationBuilder()
+        private static readonly IConfigurationRoot maqsConfig = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json", true)
             .AddInMemoryCollection(GetXml())
             .Build();
@@ -396,8 +396,7 @@ namespace Magenic.Maqs.Utilities.Helper
         public static bool DoesKeyExist(string key, string section)
         {
             section = section.ToLower();
-
-            return (configOverrides.ContainsKey(section) && TryGetSectionValue(key, configOverrides[section], out string value)) || TryGetDefaultSectionValue(key, section, out string value2);
+            return (configOverrides.ContainsKey(section) && TryGetSectionValue(key, configOverrides[section], out _)) || TryGetDefaultSectionValue(key, section, out _);
         }
 
         /// <summary>

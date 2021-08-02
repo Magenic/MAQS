@@ -22,7 +22,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// Wait collection for the Appium Driver
         /// </summary>
-        private static ConcurrentDictionary<AppiumDriver<IWebElement>, WebDriverWait> waitCollection;
+        private static readonly ConcurrentDictionary<AppiumDriver<IWebElement>, WebDriverWait> waitCollection;
 
 #pragma warning disable S3963 // "static" fields should be initialized inline
         /// <summary>
@@ -82,7 +82,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         {
             if (!WaitUntilAbsentElement(driver, by))
             {
-                throw new TimeoutException(StringProcessor.SafeFormatter($"The element '{by.ToString()}' is still present."));
+                throw new TimeoutException(StringProcessor.SafeFormatter($"The element '{by}' is still present."));
             }
         }
 

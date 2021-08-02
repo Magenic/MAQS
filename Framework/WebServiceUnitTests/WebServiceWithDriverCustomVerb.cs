@@ -25,7 +25,7 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// String to hold the URL
         /// </summary>
-        private static string url = WebServiceConfig.GetWebServiceUri();
+        private static readonly string url = WebServiceConfig.GetWebServiceUri();
 
         /// <summary>
         /// Verify 305 status code is returned

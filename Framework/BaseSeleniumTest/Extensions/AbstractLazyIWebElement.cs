@@ -790,7 +790,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 temp += this.parent.ToString();
             }
 
-            return $"{temp}{this.By.ToString()}{this.userFriendlyName}";
+            return $"{temp}{this.By}{this.userFriendlyName}";
         }
 
         /// <summary>

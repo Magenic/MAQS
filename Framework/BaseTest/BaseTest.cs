@@ -39,7 +39,6 @@ namespace Magenic.Maqs.BaseTest
         /// </summary>
         private VSTestContext testContextInstance;
 
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseTest" /> class
         /// </summary>
@@ -108,6 +107,38 @@ namespace Magenic.Maqs.BaseTest
             set
             {
                 this.TestObject.Log = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the driver store
+        /// </summary>
+        public IManagerStore ManagerStore
+        {
+            get
+            {
+                return this.TestObject.ManagerStore;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the test object
+        /// </summary>
+        public ITestObject TestObject
+        {
+            get
+            {
+                if (!this.BaseTestObjects.ContainsKey(this.GetFullyQualifiedTestClassName()))
+                {
+                    this.SetupTestObject();
+                }
+
+                return this.BaseTestObjects[this.GetFullyQualifiedTestClassName()];
+            }
+
+            set
+            {
+                this.BaseTestObjects.AddOrUpdate(this.GetFullyQualifiedTestClassName(), value, (oldkey, oldvalue) => value);
             }
         }
 
@@ -181,38 +212,6 @@ namespace Magenic.Maqs.BaseTest
                 {
                     Console.WriteLine("Failed to override VSTest configuration settings because: " + e.Message);
                 }
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the test object
-        /// </summary>
-        public ITestObject TestObject
-        {
-            get
-            {
-                if (!this.BaseTestObjects.ContainsKey(this.GetFullyQualifiedTestClassName()))
-                {
-                    this.SetupTestObject();
-                }
-
-                return this.BaseTestObjects[this.GetFullyQualifiedTestClassName()];
-            }
-
-            set
-            {
-                this.BaseTestObjects.AddOrUpdate(this.GetFullyQualifiedTestClassName(), value, (oldkey, oldvalue) => value);
-            }
-        }
-
-        /// <summary>
-        /// Gets the driver store
-        /// </summary>
-        public IManagerStore ManagerStore
-        {
-            get
-            {
-                return this.TestObject.ManagerStore;
             }
         }
 
@@ -301,10 +300,10 @@ namespace Magenic.Maqs.BaseTest
                 // Cleanup log files we don't want
                 try
                 {
-                    if (this.Log is IFileLogger && resultType == TestResultType.PASS
+                    if (this.Log is IFileLogger logger && resultType == TestResultType.PASS
                         && this.LoggingEnabledSetting == LoggingEnabled.ONFAIL)
                     {
-                        File.Delete(((IFileLogger)this.Log).FilePath);
+                        File.Delete(logger.FilePath);
                     }
                 }
                 catch (Exception e)
@@ -343,6 +342,15 @@ namespace Magenic.Maqs.BaseTest
                 this.BaseTestObjects.TryRemove(fullyQualifiedTestName, out ITestObject baseTestObject);
                 baseTestObject.Dispose();
             }
+        }
+
+        /// <summary>
+        /// Create a the test object
+        /// </summary>
+        protected void SetupTestObject()
+        {
+            ILogger newLogger = this.CreateAndSetupLogger(GetFileNameWithoutExtension(), LoggingConfig.GetLogType(), LoggingConfig.GetLoggingEnabledSetting(), LoggingConfig.GetFirstChanceHandler());
+            this.TestObject = CreateTestObject(newLogger);
         }
 
         /// <summary>
@@ -398,15 +406,6 @@ namespace Magenic.Maqs.BaseTest
         }
 
         /// <summary>
-        /// Create a the test object
-        /// </summary>
-        protected void SetupTestObject()
-        {
-            ILogger newLogger = this.CreateAndSetupLogger(GetFileNameWithoutExtension(), LoggingConfig.GetLogType(), LoggingConfig.GetLoggingEnabledSetting(), LoggingConfig.GetFirstChanceHandler());
-            this.TestObject = CreateTestObject(newLogger);
-        }
-
-        /// <summary>
         /// Create test specific test objects
         /// </summary>
         /// <param name="log"></param>
@@ -417,39 +416,10 @@ namespace Magenic.Maqs.BaseTest
         }
 
         /// <summary>
-        /// Get default 
-        /// </summary>
-        /// <param name="logName">The name of the log</param>
-        /// <param name="logType">Type of log</param>
-        /// <param name="loggingLevel">Loggging level</param>
-        /// <param name="enabled">Is logging enabled</param>
-        /// <returns></returns>
-        protected ILogger DefaultLogger(string logName, string logType, MessageType loggingLevel, LoggingEnabled enabled)
-        {
-            try
-            {
-                if (enabled != LoggingEnabled.NO)
-                {
-                    return LoggerFactory.GetLogger(logName, logType, loggingLevel);
-                }
-                else
-                {
-                    return LoggerFactory.GetConsoleLogger();
-                }
-            }
-            catch (Exception e)
-            {
-                ILogger newLogger = LoggerFactory.GetConsoleLogger();
-                newLogger.LogMessage(MessageType.WARNING, StringProcessor.SafeExceptionFormatter(e));
-                return newLogger;
-            }
-        }
-
-        /// <summary>
         /// Get the default file name for the current test
         /// </summary>
         /// <returns>Filename with out the extension</returns>
-        protected virtual  string GetFileNameWithoutExtension()
+        protected virtual string GetFileNameWithoutExtension()
         {
             return $"{this.GetFullyQualifiedTestClassName()} - {DateTime.UtcNow.ToString("yyyy-MM-dd-hh-mm-ss-ffff", CultureInfo.InvariantCulture)}";
         }
@@ -549,9 +519,6 @@ namespace Magenic.Maqs.BaseTest
 
             this.Log.LogMessage(MessageType.VERBOSE, messages.ToString());
         }
-
-
-
 
         /// <summary>
         /// Steps to do before logging teardown results - If not override nothing is done before logging the results
@@ -770,10 +737,10 @@ namespace Magenic.Maqs.BaseTest
             try
             {
                 // See if we can add the log file
-                if (this.Log is IFileLogger && File.Exists(((IFileLogger)this.Log).FilePath))
+                if (this.Log is IFileLogger logger && File.Exists(logger.FilePath))
                 {
                     // Add the log file
-                    AttachAssociatedFile(((IFileLogger)this.Log).FilePath);
+                    AttachAssociatedFile(logger.FilePath);
                 }
 
                 // Attach all existing associated files

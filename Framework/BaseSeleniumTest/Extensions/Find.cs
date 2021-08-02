@@ -150,7 +150,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             }
 
             // if assert is == true and no match was found
-            throw new NotFoundException(StringProcessor.SafeFormatter($"Text did not match any element in collection {list.ToString()}"));
+            throw new NotFoundException(StringProcessor.SafeFormatter($"Text did not match any element in collection {list}"));
         }
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 return elems;
             }
 
-            throw new NotFoundException(StringProcessor.SafeFormatter($"No result found for By {by.ToString()}"));
+            throw new NotFoundException(StringProcessor.SafeFormatter($"No result found for By {by}"));
         }
     }
 }

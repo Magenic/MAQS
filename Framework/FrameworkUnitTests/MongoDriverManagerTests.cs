@@ -71,12 +71,12 @@ namespace FrameworkUnitTests
         [TestMethod]
         public void CanUseMultiple()
         {
-            MongoDriverManager<BsonDocument> newManger = new MongoDriverManager<BsonDocument>(MongoDBConfig.GetConnectionString(), MongoDBConfig.GetDatabaseString(), MongoDBConfig.GetCollectionString(), this.TestObject);
-            this.ManagerStore.Add("test", newManger);
+            MongoDriverManager<BsonDocument> newmanager = new MongoDriverManager<BsonDocument>(MongoDBConfig.GetConnectionString(), MongoDBConfig.GetDatabaseString(), MongoDBConfig.GetCollectionString(), this.TestObject);
+            this.ManagerStore.Add("test", newmanager);
 
             Assert.AreNotEqual(this.TestObject.MongoDBDriver, this.ManagerStore.GetManager<MongoDriverManager<BsonDocument>>("test"));
             Assert.AreNotEqual(this.TestObject.MongoDBManager.Get(), this.ManagerStore.GetManager<MongoDriverManager<BsonDocument>>("test").Get());
-            Assert.AreEqual(newManger.GetMongoDriver(), this.ManagerStore.GetManager<MongoDriverManager<BsonDocument>>("test").GetMongoDriver());
+            Assert.AreEqual(newmanager.GetMongoDriver(), this.ManagerStore.GetManager<MongoDriverManager<BsonDocument>>("test").GetMongoDriver());
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace FrameworkUnitTests
         public void Intialized()
         {
             MongoDriverManager<BsonDocument> driverDriver = this.ManagerStore.GetManager<MongoDriverManager<BsonDocument>>();
-            
+
             Assert.IsNotNull(this.MongoDBDriver.Client, "Should be able to get client");
             Assert.IsTrue(driverDriver.IsDriverIntialized(), "The driver should have been initialized");
         }

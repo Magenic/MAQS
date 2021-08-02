@@ -17,7 +17,6 @@ namespace Magenic.Maqs.BaseTest
     /// </summary>
     public class BaseTestObject : ITestObject
     {
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseTestObject" /> class
         /// </summary>
@@ -105,7 +104,7 @@ namespace Magenic.Maqs.BaseTest
         public Dictionary<string, object> Objects { get; private set; }
 
         /// <summary>
-        /// Gets a dictionary of string key and driver value pairs
+        /// Gets the manager store
         /// </summary>
         public IManagerStore ManagerStore { get; private set; }
 

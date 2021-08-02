@@ -177,6 +177,9 @@ namespace Magenic.Maqs.BaseTest
             }
         }
 
+        /// <summary>
+        /// Check that expceted assertion were run
+        /// </summary>
         public void CheckForExpectedAsserts()
         {
             foreach (var expectedAssert in _expectedAssertNames)
@@ -287,61 +290,6 @@ namespace Magenic.Maqs.BaseTest
             return result;
         }
 
-        /// <summary>
-        /// Executes the assert type passed as parameter and updates the total assert count
-        /// </summary>
-        /// <param name="test">Test method Action </param>
-        /// <param name="expectedText">Expected value of the string </param>
-        /// <param name="actualText">Actual value of the string</param>
-        /// <param name="message">Test Name or Message</param>
-        /// <returns>Boolean if the assert is true</returns>
-        private bool InvokeTest(Action test, string expectedText, string actualText, string message)
-        {
-            // Resetting every time we invoke a test to verify the user checked for failures
-            this.DidUserCheckForFailures = false;
-            bool result = false;
-
-            try
-            {
-                test.Invoke();
-                this.NumberOfPassedAsserts = ++this.NumberOfPassedAsserts;
-                result = true;
-                this.LogMessage(expectedText, actualText, message, result);
-            }
-            catch (Exception ex)
-            {
-                this.NumberOfFailedAsserts = ++this.NumberOfFailedAsserts;
-                result = false;
-
-                this.LogFailedMessage($"Expected '{expectedText}' but got {actualText}", ex, message);
-                this.listOfExceptions.Add(ex);
-            }
-            finally
-            {
-                this.NumberOfAsserts = ++this.NumberOfAsserts;
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Logs the message to the logger
-        /// </summary>
-        /// <param name="expectedText">Expected value of the string </param>
-        /// <param name="actualText">Actual value of the string</param>
-        /// <param name="message">Test Name or Message</param>
-        /// <param name="result">Decides the message type to be logged</param>
-        private void LogMessage(string expectedText, string actualText, string message, bool result)
-        {
-            if (result)
-            {
-                this.Log.LogMessage(MessageType.SUCCESS, StringProcessor.SafeFormatter("Soft Assert '{0}' passed. Expected Value = '{1}', Actual Value = '{2}'.", message, expectedText, actualText));
-            }
-            else
-            {
-                this.Log.LogMessage(MessageType.WARNING, StringProcessor.SafeFormatter("Soft Assert '{0}' failed. Expected Value = '{1}', Actual Value = '{2}'.", message, expectedText, actualText));
-            }
-        }
 
         /// <summary>
         /// Log a failed soft assert message

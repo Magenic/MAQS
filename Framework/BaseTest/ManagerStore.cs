@@ -25,7 +25,7 @@ namespace Magenic.Maqs.BaseTest
         public int Count => managerDictionary.Count;
 
         /// <summary>
-        /// Get the driver for the associated driver manager
+        /// Get the driver for the associated keyed driver manager
         /// </summary>
         /// <typeparam name="T">Type of driver</typeparam>
         /// <param name="key">Key for the manager</param>
@@ -36,7 +36,7 @@ namespace Magenic.Maqs.BaseTest
         }
 
         /// <summary>
-        /// Get a driver
+        /// Get a driver of type 'T' from manager of type 'U'
         /// </summary>
         /// <typeparam name="T">The type of driver</typeparam>
         /// <typeparam name="U">The type of driver manager</typeparam>
@@ -46,21 +46,31 @@ namespace Magenic.Maqs.BaseTest
             return (T)GetManager<U>().Get();
         }
 
-        public IDriverManager GetManager()
-        {
-            return GetManager<IDriverManager>();
-        }
-
+        /// <summary>
+        /// Get keyed manager
+        /// </summary>
+        /// <param name="key">Key for the manager</param>
+        /// <returns>Keyed manager</returns>
         public IDriverManager GetManager(string key)
         {
             return GetManager<IDriverManager>(key);
         }
 
+        /// <summary>
+        /// Get unkeyed manager of type 'T'
+        /// </summary>
+        /// <typeparam name="T">The type of driver manager</typeparam>
+        /// <returns>Unkeyed manager as type 'T'</returns>
         public T GetManager<T>() where T : IDriverManager
         {
             return (T)managerDictionary[typeof(T).FullName];
         }
 
+        /// <summary>
+        /// Get keyed manager of type 'T'
+        /// </summary>
+        /// <typeparam name="T">The type of driver manager</typeparam>
+        /// <returns>Keyed manager as type 'T'</returns>
         public T GetManager<T>(string key) where T : IDriverManager
         {
             return (T)managerDictionary[key];
@@ -101,19 +111,18 @@ namespace Magenic.Maqs.BaseTest
         /// <param name="manager">The manager</param>
         public void AddOrOverride(string key, IDriverManager manager)
         {
-            managerDictionary[key]?.Dispose();
-            managerDictionary.Remove(key);
+            this.Remove(key);
             managerDictionary.Add(key, manager);
         }
 
         /// <summary>
-        /// Remove a driver manager
+        /// Remove keyed manager
         /// </summary>
-        /// <param name="key">Key for the manager you want removed</param>
+        /// <param name="key">Key of the manager to remove</param>
         /// <returns>True if the manager was removed</returns>
         public bool Remove(string key)
         {
-            if (managerDictionary.ContainsKey(key))
+            if (managerDictionary.ContainsKey(key) && managerDictionary[key] != null)
             {
                 managerDictionary[key].Dispose();
             }
@@ -122,20 +131,13 @@ namespace Magenic.Maqs.BaseTest
         }
 
         /// <summary>
-        /// Remove a driver manager
+        /// Remove unkeyed manager
         /// </summary>
-        /// <param name="type">The type of manager</param>
+        /// <typeparam name="T">Type of unkeyed manager</typeparam>
         /// <returns>True if the manager was removed</returns>
-        public bool Remove(Type type)
+        public bool Remove<T>() where T : IDriverManager
         {
-            string key = type.FullName;
-
-            if (managerDictionary.ContainsKey(key))
-            {
-                managerDictionary[key].Dispose();
-            }
-
-            return managerDictionary.Remove(key);
+            return this.Remove(typeof(T).FullName);
         }
 
         /// <summary>
@@ -161,6 +163,26 @@ namespace Magenic.Maqs.BaseTest
         }
 
         /// <summary>
+        /// Check if the managers contains the keyed manager
+        /// </summary>
+        /// <param name="key">Key name</param>
+        /// <returns>True if the store contains the key</returns>
+        public bool Contains(string key)
+        {
+            return managerDictionary.ContainsKey(key);
+        }
+
+        /// <summary>
+        /// Check if the managers contains the unkeyed manager of the the given type
+        /// </summary>
+        /// <typeparam name="T">Manager type</typeparam>
+        /// <returns>True if the store contains the unkeyed type</returns>
+        public bool Contains<T>() where T : IDriverManager
+        {
+            return this.Contains(typeof(T).FullName);
+        }
+
+        /// <summary>
         /// Cleanup the driver
         /// </summary>
         /// <param name="disposing">Dispose managed objects</param>
@@ -177,21 +199,6 @@ namespace Magenic.Maqs.BaseTest
 
                 managerDictionary.Clear();
             }
-        }
-
-        public bool Contains(string key)
-        {
-            return managerDictionary.ContainsKey(key);
-        }
-
-        public bool Contains(Type type)
-        {
-            return this.Contains(type.FullName);
-        }
-
-        public bool Contains<T>() where T : IDriverManager
-        {
-            return this.Contains(typeof(T).FullName);
         }
     }
 }

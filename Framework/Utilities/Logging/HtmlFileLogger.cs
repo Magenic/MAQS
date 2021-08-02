@@ -4,10 +4,9 @@
 // </copyright>
 // <summary>Writes event logs to HTML file</summary>
 //--------------------------------------------------
-using System;
-using System.Globalization;
-using System.IO;
 using Magenic.Maqs.Utilities.Data;
+using System;
+using System.IO;
 using System.Web;
 
 namespace Magenic.Maqs.Utilities.Logging
@@ -144,6 +143,8 @@ namespace Magenic.Maqs.Utilities.Logging
                 writer.Flush();
                 writer.Close();
             }
+
+            base.Dispose(disposing);
         }
 
         /// <summary>

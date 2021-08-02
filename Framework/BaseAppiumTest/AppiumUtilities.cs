@@ -45,7 +45,7 @@ namespace Magenic.Maqs.BaseAppiumTest
             catch (Exception exception)
             {
                 exception = exception.InnerException ?? exception;
-                testObject.Log.LogMessage(MessageType.ERROR, $"Screenshot error: {exception.ToString()}");
+                testObject.Log.LogMessage(MessageType.ERROR, $"Screenshot error: {exception}");
                 return false;
             }
         }
@@ -81,19 +81,19 @@ namespace Magenic.Maqs.BaseAppiumTest
                 string path = string.Empty;
 
                 // Check if we are using a file logger
-                if (!(testObject.Log is IFileLogger))
-                {
-                    // Since this is not a file logger we will need to use a generic file name
-                    path = SavePageSource(appiumDriver, testObject, LoggingConfig.GetLogDirectory(), $"PageSource{appendName}");
-                }
-                else
+                if (testObject.Log is IFileLogger logger)
                 {
                     // Calculate the file name
-                    string fullpath = ((IFileLogger)testObject.Log).FilePath;
+                    string fullpath = logger.FilePath;
                     string directory = Path.GetDirectoryName(fullpath);
                     string fileNameWithoutExtension = $"{Path.GetFileNameWithoutExtension(fullpath)}_PS{appendName}";
 
                     path = SavePageSource(appiumDriver, testObject, directory, fileNameWithoutExtension);
+                }
+                else
+                {
+                    // Since this is not a file logger we will need to use a generic file name
+                    path = SavePageSource(appiumDriver, testObject, LoggingConfig.GetLogDirectory(), $"PageSource{appendName}");
                 }
 
                 testObject.Log.LogMessage(MessageType.INFORMATION, $"Page Source saved: {path}");
@@ -101,7 +101,7 @@ namespace Magenic.Maqs.BaseAppiumTest
             }
             catch (Exception exception)
             {
-                testObject.Log.LogMessage(MessageType.ERROR, $"Page Source error: {exception.ToString()}");
+                testObject.Log.LogMessage(MessageType.ERROR, $"Page Source error: {exception}");
                 return false;
             }
         }

@@ -238,7 +238,7 @@ namespace Magenic.Maqs.BaseEmailTest
         {
             try
             {
-                this.OnActionEvent(StringProcessor.SafeFormatter($"Move message '{message.Subject}' from '{message.From.ToString()}' received '{message.Date.ToString()}' to mailbox '{destinationMailbox}'"));
+                this.OnActionEvent(StringProcessor.SafeFormatter($"Move message '{message.Subject}' from '{message.From}' received '{message.Date}' to mailbox '{destinationMailbox}'"));
                 base.MoveMailMessage(message, destinationMailbox);
             }
             catch (Exception ex)
@@ -423,7 +423,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// <param name="e">The exception</param>
         private void RaiseErrorMessage(Exception e)
         {
-            this.OnErrorEvent(StringProcessor.SafeFormatter($"Failed because: {e.Message}{Environment.NewLine}{e.ToString()}"));
+            this.OnErrorEvent(StringProcessor.SafeFormatter($"Failed because: {e.Message}{Environment.NewLine}{e}"));
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Magenic.Maqs.Utilities.Performance
         /// <summary>
         /// Locker object so the Performance Timer Document save doesn't save at the same time
         /// </summary>
-        private static object writerLocker = new object();
+        private static readonly object writerLocker = new object();
 
         /// <summary>
         /// List object to store Timers 
@@ -58,7 +58,7 @@ namespace Magenic.Maqs.Utilities.Performance
         }
 
         /// <summary>
-        /// Gets and sets the list if response time tests
+        /// Gets or sets the test name
         /// </summary>
         public List<PerfTimer> Timerlist { get; } = new List<PerfTimer>();
 
@@ -105,22 +105,16 @@ namespace Magenic.Maqs.Utilities.Performance
             else
             {
                 this.Log.LogMessage(MessageType.INFORMATION, $"Starting response timer: {timerName}");
-                PerfTimer timer = new PerfTimer();
-                timer.TimerName = timerName;
-                timer.TimerContext = contextName;
-                timer.StartTime = DateTime.UtcNow;
+
+                PerfTimer timer = new PerfTimer
+                {
+                    TimerName = timerName,
+                    TimerContext = contextName,
+                    StartTime = DateTime.UtcNow
+                };
+
                 this.openTimerList.Add(timerName, timer);
             }
-        }
-
-        /// <summary>
-        /// Method to stop an existing timer with a specified name for a test
-        /// </summary>
-        /// <param name="timerName">Name of the timer</param>
-        [Obsolete("PerfTimerCollection.EndTimer will be depercated in MAQS 7.0. Please use PerfTimerCollection.StopTimer")]
-        public void EndTimer(string timerName)
-        {
-            this.StopTimer(timerName);
         }
 
         /// <summary>
@@ -166,9 +160,11 @@ namespace Magenic.Maqs.Utilities.Performance
 
                         log.LogMessage(MessageType.INFORMATION, $"filename: {LoggingConfig.GetLogDirectory()}{Path.DirectorySeparatorChar}{this.FileName}");
 
-                        XmlWriterSettings settings = new XmlWriterSettings();
-                        settings.WriteEndDocumentOnClose = true;
-                        settings.Indent = true;
+                        XmlWriterSettings settings = new XmlWriterSettings
+                        {
+                            WriteEndDocumentOnClose = true,
+                            Indent = true
+                        };
 
                         XmlWriter writer = XmlWriter.Create($"{LoggingConfig.GetLogDirectory()}{Path.DirectorySeparatorChar}{this.FileName}", settings);
 

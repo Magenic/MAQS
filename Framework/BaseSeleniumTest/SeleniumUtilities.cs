@@ -23,38 +23,26 @@ namespace Magenic.Maqs.BaseSeleniumTest
     public static class SeleniumUtilities
     {
         /// <summary>
-        /// Thhis stu
+        /// Capture a screenshot during execution and associate to the testObject
         /// </summary>
-        /// <param name="webDriver"></param>
-        /// <param name="testObject"></param>
-        /// <param name="appendName"></param>
-        /// <returns></returns>
-        public static bool CSScreenshot(this IWebDriver webDriver, ISeleniumTestObject testObject, string appendName = "")
-        { return false; }
-
-            /// <summary>
-            /// Capture a screenshot during execution and associate to the testObject
-            /// </summary>
-            /// <param name="webDriver">The WebDriver</param>
-            /// <param name="testObject">The test object to associate and log to</param>
-            /// <param name="appendName">Appends a name to the end of a filename</param>
-            /// <returns>Boolean if the save of the image was successful</returns>
-            public static bool CaptureScreenshot(this IWebDriver webDriver, ISeleniumTestObject testObject, string appendName = "")
+        /// <param name="webDriver">The WebDriver</param>
+        /// <param name="testObject">The test object to associate and log to</param>
+        /// <param name="appendName">Appends a name to the end of a filename</param>
+        /// <returns>Boolean if the save of the image was successful</returns>
+        public static bool CaptureScreenshot(this IWebDriver webDriver, ISeleniumTestObject testObject, string appendName = "")
         {
             try
             {
                 string path = string.Empty;
-                var htmlLogger = testObject.Log as IHtmlFileLogger;
-                var fileLogger = testObject.Log as IFileLogger;
 
-                if (htmlLogger != null)
+                if (testObject.Log is IHtmlFileLogger htmlLogger)
                 {
                     htmlLogger.EmbedImage(((ITakesScreenshot)webDriver).GetScreenshot().AsBase64EncodedString);
                 }
-                else if (fileLogger != null)
+                else if (testObject.Log is IFileLogger fileLogger)
                 {
                     // Calculate the file name
-                    string fullpath = ((IFileLogger)testObject.Log).FilePath;
+                    string fullpath = fileLogger.FilePath;
                     string directory = Path.GetDirectoryName(fullpath);
                     string fileNameWithoutExtension = $"{Path.GetFileNameWithoutExtension(fullpath)}{appendName}";
                     path = CaptureScreenshot(webDriver, testObject, directory, fileNameWithoutExtension, GetScreenShotFormat());
@@ -118,19 +106,19 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 string path = string.Empty;
 
                 // Check if we are using a file logger
-                if (!(testObject.Log is IFileLogger))
-                {
-                    // Since this is not a file logger we will need to use a generic file name
-                    path = SavePageSource(webDriver, testObject, LoggingConfig.GetLogDirectory(), $"PageSource{appendName}");
-                }
-                else
+                if (testObject.Log is IFileLogger logger)
                 {
                     // Calculate the file name
-                    string fullpath = ((IFileLogger)testObject.Log).FilePath;
+                    string fullpath = logger.FilePath;
                     string directory = Path.GetDirectoryName(fullpath);
                     string fileNameWithoutExtension = $"{Path.GetFileNameWithoutExtension(fullpath)}_PS{ appendName}";
 
                     path = SavePageSource(webDriver, testObject, directory, fileNameWithoutExtension);
+                }
+                else
+                {
+                    // Since this is not a file logger we will need to use a generic file name
+                    path = SavePageSource(webDriver, testObject, LoggingConfig.GetLogDirectory(), $"PageSource{appendName}");
                 }
 
                 testObject.Log.LogMessage(MessageType.INFORMATION, $"Page Source saved: {path}");
@@ -199,11 +187,9 @@ namespace Magenic.Maqs.BaseSeleniumTest
         public static void CreateAccessibilityHtmlReport(this IWebDriver webDriver, ISeleniumTestObject testObject, IWebElement element, bool throwOnViolation = false)
         {
             // If we are using a lazy element go get the raw element instead
-            LazyElement raw = element as LazyElement;
-
-            if (raw != null)
+            if (element is LazyElement lazy)
             {
-                element = ((LazyElement)element).GetRawExistingElement();
+                element = lazy.GetRawExistingElement();
             }
 
             CreateAccessibilityHtmlReport(element, testObject, () => webDriver.Analyze(element), throwOnViolation);
@@ -219,11 +205,9 @@ namespace Magenic.Maqs.BaseSeleniumTest
         public static void CreateAccessibilityHtmlReport(this ISearchContext context, ISeleniumTestObject testObject, Func<AxeResult> getResults, bool throwOnViolation = false)
         {
             // If we are using a lazy element go get the raw element instead
-            LazyElement raw = context as LazyElement;
-
-            if (raw != null)
+            if (context is LazyElement lazy)
             {
-                context = ((LazyElement)context).GetRawExistingElement();
+                context = lazy.GetRawExistingElement();
             }
 
             // Check to see if the logger is not verbose and not already suspended
@@ -247,7 +231,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             finally
             {
                 // Restore logging if we suspended it
-                if(restoreLogging)
+                if (restoreLogging)
                 {
                     testObject.Log.ContinueLogging();
                 }
@@ -258,7 +242,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             testObject.Log.LogMessage(MessageType.INFORMATION, $"Ran accessibility check and created HTML report: {report} ");
 
             // Throw exception if we found violations and we want that to cause an error
-            if (throwOnViolation &&  results.Violations.Length > 0)
+            if (throwOnViolation && results.Violations.Length > 0)
             {
                 throw new InvalidOperationException($"Accessibility violations, see: {report} for more details.");
             }
@@ -447,7 +431,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <returns>The javaScript executor</returns>
         public static IJavaScriptExecutor SearchContextToJavaScriptExecutor(ISearchContext searchContext)
         {
-            return (searchContext is IJavaScriptExecutor) ? (IJavaScriptExecutor)searchContext : (IJavaScriptExecutor)WebElementToWebDriver((IWebElement)searchContext);
+            return (searchContext is IJavaScriptExecutor executor) ? executor : (IJavaScriptExecutor)WebElementToWebDriver((IWebElement)searchContext);
         }
 
         /// <summary>
@@ -457,7 +441,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <returns>The web driver</returns>
         public static IWebDriver SearchContextToWebDriver(ISearchContext searchContext)
         {
-            return (searchContext is IWebDriver) ? (IWebDriver)searchContext : WebElementToWebDriver((IWebElement)searchContext);
+            return (searchContext is IWebDriver driver) ? driver : WebElementToWebDriver((IWebElement)searchContext);
         }
 
         /// <summary>
@@ -564,8 +548,8 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <returns>A unique HTML file name, includes full path</returns>
         private static string GetAccessibilityReportPath(ISeleniumTestObject testObject)
         {
-            string logDirectory = testObject.Log is IFileLogger ? Path.GetDirectoryName(((IFileLogger)testObject.Log).FilePath) : LoggingConfig.GetLogDirectory();
-            string reportBaseName = testObject.Log is IFileLogger ? $"{Path.GetFileNameWithoutExtension(((IFileLogger)testObject.Log).FilePath)}_Axe" : "AxeReport";
+            string logDirectory = testObject.Log is IFileLogger log ? Path.GetDirectoryName(log.FilePath) : LoggingConfig.GetLogDirectory();
+            string reportBaseName = testObject.Log is IFileLogger logger ? $"{Path.GetFileNameWithoutExtension(logger.FilePath)}_Axe" : "AxeReport";
             string reportFile = Path.Combine(logDirectory, $"{reportBaseName}.html");
             int reportNumber = 0;
 

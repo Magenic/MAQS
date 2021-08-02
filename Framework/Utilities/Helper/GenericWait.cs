@@ -20,12 +20,12 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <summary>
         /// Default retry time for the configuration file
         /// </summary>
-        private static TimeSpan retryTimeFromConfig = TimeSpan.FromMilliseconds(Convert.ToInt32(Config.GetGeneralValue("WaitTime", "0")));
+        private static readonly TimeSpan retryTimeFromConfig = TimeSpan.FromMilliseconds(Convert.ToInt32(Config.GetGeneralValue("WaitTime", "0")));
 
         /// <summary>
         /// Default timeout time from the configuration file
         /// </summary>
-        private static TimeSpan timeoutFromConfig = TimeSpan.FromMilliseconds(Convert.ToInt32(Config.GetGeneralValue("Timeout", "0")));
+        private static readonly TimeSpan timeoutFromConfig = TimeSpan.FromMilliseconds(Convert.ToInt32(Config.GetGeneralValue("Timeout", "0")));
 
         /// <summary>
         /// Wait until the wait for true function returns true or times out
@@ -449,7 +449,7 @@ namespace Magenic.Maqs.Utilities.Helper
             }
             while (DateTime.Now < maxWait);
 
-            throw new TimeoutException($"Timed out waiting for {actionName} to return.  Exception log: {sb.ToString()}");
+            throw new TimeoutException($"Timed out waiting for {actionName} to return.  Exception log: {sb}");
         }
 
         /// <summary>
@@ -521,7 +521,7 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <returns>Returns boolean if successful</returns>
         public static bool WaitTryForAnyAction<T>(string actionName, out T result, params Func<T>[] actions)
         {
-            result = default(T);
+            result = default;
 
             try
             {
