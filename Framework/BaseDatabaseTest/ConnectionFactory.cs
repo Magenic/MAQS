@@ -144,7 +144,7 @@ See https://magenic.github.io/MAQS/#/MAQS_6/Database/DatabaseFAQ?id=how-can-to-c
         {
             if (string.IsNullOrWhiteSpace(providerType))
             {
-                throw new ArgumentException(StringProcessor.SafeFormatter($"Provider type is Empty"));
+                throw new ArgumentException($"Provider type is Empty");
             }
 
             IProvider<IDbConnection> provider = null;
@@ -172,12 +172,12 @@ See https://magenic.github.io/MAQS/#/MAQS_6/Database/DatabaseFAQ?id=how-can-to-c
             }
             catch (Exception e)
             {
-                throw new ArgumentException(StringProcessor.SafeFormatter($"Provider type '{providerType}' is not supported or not a fully qualified type name. <Namespace>.<TypeName>. {e.Message}. {e.StackTrace}"));
+                throw new ArgumentException($"Provider type '{providerType}' is not supported or not a fully qualified type name. <Namespace>.<TypeName>. {e.Message}. {e.StackTrace}");
             }
 
             if (provider == null)
             {
-                throw new ArgumentException(StringProcessor.SafeFormatter($"Provider type '{providerType}' is not supported or not a fully qualified type name. <Namespace>.<TypeName>."));
+                throw new ArgumentException($"Provider type '{providerType}' is not supported or not a fully qualified type name. <Namespace>.<TypeName>.");
             }
 
             return provider;

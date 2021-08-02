@@ -70,7 +70,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <returns>True if the wait driver was removed</returns>
         public static bool RemoveWaitDriver(this AppiumDriver<IWebElement> driver)
         {
-            return waitCollection.TryRemove(driver, out WebDriverWait temp);
+            return waitCollection.TryRemove(driver, out WebDriverWait _);
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         {
             if (!WaitUntilAbsentElement(driver, by))
             {
-                throw new TimeoutException(StringProcessor.SafeFormatter($"The element '{by}' is still present."));
+                throw new TimeoutException($"The element '{by}' is still present.");
             }
         }
 

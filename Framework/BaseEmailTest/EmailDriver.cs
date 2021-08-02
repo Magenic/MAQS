@@ -514,14 +514,14 @@ namespace Magenic.Maqs.BaseEmailTest
         {
             List<MimeMessage> messageList = new List<MimeMessage>();
             IMailFolder folder = this.GetCurrentFolder();
-            foreach (UniqueId uid in folder.Search((SearchQuery)args[0], default(CancellationToken)))
+            foreach (UniqueId uid in folder.Search((SearchQuery)args[0], default))
             {
                 if ((bool)args[2])
                 {
                     folder.AddFlags(uid, MessageFlags.Seen, true);
                 }
 
-                MimeMessage message = null;
+                MimeMessage message;
 
                 if ((bool)args[1])
                 {

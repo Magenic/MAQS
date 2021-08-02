@@ -56,7 +56,7 @@ namespace Magenic.Maqs.BaseEmailTest
             {
                 this.Log.LogMessage(
                     MessageType.INFORMATION,
-                    StringProcessor.SafeFormatter($"Connect to email with user '{username}' on host '{host}', port '{port}'"));
+                    $"Connect to email with user '{username}' on host '{host}', port '{port}'");
             }
 
             ImapClient emailConnection = ClientFactory.GetDefaultEmailClient();

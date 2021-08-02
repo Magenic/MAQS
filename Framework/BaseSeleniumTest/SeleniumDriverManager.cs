@@ -127,7 +127,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             }
             catch (Exception e)
             {
-                Log.LogMessage(MessageType.ERROR, StringProcessor.SafeFormatter($"Failed to close web driver because: {e.Message}"));
+                Log.LogMessage(MessageType.ERROR, $"Failed to close web driver because: {e.Message}");
             }
 
             this.BaseDriver = null;
@@ -169,7 +169,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             catch (Exception e)
             {
                 Log.LogMessage(MessageType.ERROR, $"Failed to start driver because: {e.Message}");
-                Console.WriteLine(StringProcessor.SafeFormatter($"Failed to start driver because: {e.Message}"));
+                Console.WriteLine($"Failed to start driver because: {e.Message}");
             }
         }
 

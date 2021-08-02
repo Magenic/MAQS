@@ -4,7 +4,6 @@
 // </copyright>
 // <summary>This is the Appium Configuration class</summary>
 //--------------------------------------------------
-using Magenic.Maqs.Utilities.Data;
 using Magenic.Maqs.Utilities.Helper;
 using System;
 using System.Collections.Generic;
@@ -174,7 +173,7 @@ namespace Magenic.Maqs.BaseAppiumTest
                 case "WINDOWS":
                     return PlatformType.Windows;
                 default:
-                    throw new ArgumentException(StringProcessor.SafeFormatter($"Device type '{platform}' is not supported"));
+                    throw new ArgumentException($"Device type '{platform}' is not supported");
             }
         }
     }

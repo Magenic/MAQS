@@ -262,9 +262,9 @@ namespace Magenic.Maqs.BaseDatabaseTest
         {
             try
             {
-                this.OnActionEvent(StringProcessor.SafeFormatter("Release connection"));
+                this.OnActionEvent("Release connection");
                 base.Dispose(disposing);
-                this.OnEvent(StringProcessor.SafeFormatter("Released connection"));
+                this.OnEvent("Released connection");
             }
             catch (Exception ex)
             {
@@ -309,11 +309,11 @@ namespace Magenic.Maqs.BaseDatabaseTest
         {
             try
             {
-                this.OnActionEvent(StringProcessor.SafeFormatter($"Perform {actionType} with:\r\n{query}"));
+                this.OnActionEvent($"Perform {actionType} with:\r\n{query}");
             }
             catch (Exception e)
             {
-                this.OnErrorEvent(StringProcessor.SafeFormatter($"Failed to log event because: {e}"));
+                this.OnErrorEvent($"Failed to log event because: {e}");
             }
         }
 
@@ -333,11 +333,11 @@ namespace Magenic.Maqs.BaseDatabaseTest
                     builder.AppendLine(item);
                 }
 
-                this.OnActionEvent(StringProcessor.SafeFormatter($"Perform {actionType} with:\r\n{builder}"));
+                this.OnActionEvent($"Perform {actionType} with:\r\n{builder}");
             }
             catch (Exception e)
             {
-                this.OnErrorEvent(StringProcessor.SafeFormatter($"Failed to log event because: {e}"));
+                this.OnErrorEvent($"Failed to log event because: {e}");
             }
         }
 
@@ -347,7 +347,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// <param name="e">The exception</param>
         private void RaiseErrorMessage(Exception e)
         {
-            this.OnErrorEvent(StringProcessor.SafeFormatter($"Failed because: {e.Message}{Environment.NewLine}{e}"));
+            this.OnErrorEvent($"Failed because: {e.Message}{Environment.NewLine}{e}");
         }
     }
 }

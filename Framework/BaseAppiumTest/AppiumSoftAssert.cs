@@ -50,7 +50,7 @@ namespace Magenic.Maqs.BaseAppiumTest
 
                 if (AppiumConfig.GetSavePagesourceOnFail())
                 {
-                    AppiumUtilities.SavePageSource(this.appiumTestObject.AppiumDriver, this.appiumTestObject, StringProcessor.SafeFormatter($" ({ this.NumberOfAsserts})"));
+                    AppiumUtilities.SavePageSource(this.appiumTestObject.AppiumDriver, this.appiumTestObject, $" ({ this.NumberOfAsserts})");
                 }
 
                 return false;
@@ -70,7 +70,7 @@ namespace Magenic.Maqs.BaseAppiumTest
             // If softAssertName name is not provided only append the AssertNumber
             if (softAssertName == string.Empty)
             {
-                appendToFileName = StringProcessor.SafeFormatter($" ({this.NumberOfAsserts})");
+                appendToFileName = $" ({this.NumberOfAsserts})";
             }
             else
             {
@@ -81,7 +81,7 @@ namespace Magenic.Maqs.BaseAppiumTest
                 }
 
                 // If softAssertName is provided, use combination of softAssertName and AssertNumber
-                appendToFileName = " " + softAssertName + StringProcessor.SafeFormatter($" ({this.NumberOfAsserts})");
+                appendToFileName = " " + softAssertName + $" ({this.NumberOfAsserts})";
             }
 
             return appendToFileName;

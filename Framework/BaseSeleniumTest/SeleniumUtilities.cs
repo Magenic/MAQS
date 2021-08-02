@@ -501,7 +501,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 case "TIFF":
                     return ScreenshotImageFormat.Tiff;
                 default:
-                    throw new ArgumentException(StringProcessor.SafeFormatter($"ImageFormat '{SeleniumConfig.GetImageFormat()}' is not a valid option"));
+                    throw new ArgumentException($"ImageFormat '{SeleniumConfig.GetImageFormat()}' is not a valid option");
             }
         }
 

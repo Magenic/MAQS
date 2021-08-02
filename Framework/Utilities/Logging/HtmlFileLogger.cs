@@ -114,7 +114,7 @@ namespace Magenic.Maqs.Utilities.Logging
                 {
                     // Failed to write to the event log, write error to the console instead
                     ConsoleLogger console = new ConsoleLogger();
-                    console.LogMessage(MessageType.ERROR, StringProcessor.SafeFormatter($"Failed to write to event log because: {e}{Environment.NewLine}Content: {html}"));
+                    console.LogMessage(MessageType.ERROR, $"Failed to write to event log because: {e}{Environment.NewLine}Content: {html}");
                 }
             }
         }

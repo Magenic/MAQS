@@ -57,7 +57,7 @@ namespace Magenic.Maqs.Utilities.Helper
         {
             if (!Wait(waitForTrue, retryTimeFromConfig, timeoutFromConfig, true))
             {
-                throw new TimeoutException(StringProcessor.SafeFormatter($"Timed out waiting for '{waitForTrue.Method.Name}' to return true"));
+                throw new TimeoutException($"Timed out waiting for '{waitForTrue.Method.Name}' to return true");
             }
         }
 
@@ -71,7 +71,7 @@ namespace Magenic.Maqs.Utilities.Helper
         {
             if (!Wait(waitForTrue, retryTimeFromConfig, timeoutFromConfig, true, arg))
             {
-                throw new TimeoutException(StringProcessor.SafeFormatter($"Timed out waiting for '{waitForTrue.Method.Name}' to return true"));
+                throw new TimeoutException($"Timed out waiting for '{waitForTrue.Method.Name}' to return true");
             }
         }
 

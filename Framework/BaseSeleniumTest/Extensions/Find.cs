@@ -131,7 +131,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             // if list size was null or empty and assert was true
             if (!list.Any() && assert)
             {
-                throw new NotFoundException(StringProcessor.SafeFormatter($"Empty or null Element Collection passed in {list?.ToString() ?? "NULL list"}"));
+                throw new NotFoundException($"Empty or null Element Collection passed in {list?.ToString() ?? "NULL list"}");
             }
 
             // if assert was true and list size > 0
@@ -150,7 +150,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             }
 
             // if assert is == true and no match was found
-            throw new NotFoundException(StringProcessor.SafeFormatter($"Text did not match any element in collection {list}"));
+            throw new NotFoundException($"Text did not match any element in collection {list}");
         }
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 return elems;
             }
 
-            throw new NotFoundException(StringProcessor.SafeFormatter($"No result found for By {by}"));
+            throw new NotFoundException($"No result found for By {by}");
         }
     }
 }
