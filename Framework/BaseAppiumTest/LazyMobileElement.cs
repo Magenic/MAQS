@@ -26,7 +26,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
         public LazyMobileElement(IAppiumTestObject testObject, By locator, [CallerMemberName] string userFriendlyName = null) : base(testObject, testObject.AppiumDriver, () => testObject.AppiumDriver.GetWaitDriver(), locator, userFriendlyName)
         {
-            
+
         }
 
         /// <summary>

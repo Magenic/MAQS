@@ -31,7 +31,7 @@ namespace AppiumUnitTests
         {
             AppiumDriverFactory.CreateDriver(() => throw new AccessViolationException("Should fail"));
         }
-    
+
         /// <summary>
         /// Verify CaptureScreenshot works - Validating that the screenshot was created
         /// </summary>

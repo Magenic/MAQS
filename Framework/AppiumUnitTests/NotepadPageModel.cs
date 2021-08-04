@@ -9,7 +9,6 @@ using Magenic.Maqs.Utilities.Logging;
 using Magenic.Maqs.Utilities.Performance;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
-using System.Diagnostics.CodeAnalysis;
 
 namespace AppiumUnitTests
 {
@@ -22,7 +21,7 @@ namespace AppiumUnitTests
         /// Initializes a new instance of the <see cref="SeleniumPageModel"/> class
         /// </summary>
         /// <param name="testObject">The base Appium test object</param>
-        public NotepadPageModel(IAppiumTestObject testObject) 
+        public NotepadPageModel(IAppiumTestObject testObject)
             : base(testObject)
         {
         }

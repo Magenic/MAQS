@@ -63,7 +63,7 @@ namespace SeleniumUnitTests
         {
             proxyServer.Stop();
         }
-        
+
         /// <summary>
         /// Test to assert the created web driver uses the proxy if configured
         /// </summary>

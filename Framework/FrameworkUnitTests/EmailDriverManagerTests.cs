@@ -7,14 +7,9 @@
 using Magenic.Maqs.BaseEmailTest;
 using Magenic.Maqs.BaseWebServiceTest;
 using Magenic.Maqs.Utilities.Helper;
-using MailKit;
-using MailKit.Net.Imap;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
-using System.Threading;
 
 namespace FrameworkUnitTests
 {
@@ -32,7 +27,7 @@ namespace FrameworkUnitTests
         [TestInitialize]
         public void SetupMoqDriver()
         {
-            this.TestObject.OverrideEmailClient(() => EmailDriverMocks.GetMoq().Object); 
+            this.TestObject.OverrideEmailClient(() => EmailDriverMocks.GetMoq().Object);
         }
 
         /// <summary>

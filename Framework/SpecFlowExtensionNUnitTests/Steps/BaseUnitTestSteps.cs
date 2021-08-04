@@ -22,7 +22,7 @@ namespace SpecFlowExtensionNUnitTests.Steps
         /// </summary>
         /// <param name="context">The context to pass to the base class</param>
         protected BaseUnitTestSteps(ScenarioContext context) : base(context)
-        {         
+        {
         }
 
         /// <summary>
@@ -33,14 +33,14 @@ namespace SpecFlowExtensionNUnitTests.Steps
         {
             Assert.IsNotNull(this);
         }
-        
+
         /// <summary>
         /// Test object exists
         /// </summary>
         [Then(@"BaseTestSteps TestObject is not null")]
         public void ThenTestObjectIsNotNull()
         {
-            Assert.IsNotNull(this.TestObject, "TestObject for BaseTestSteps class is null.");        
+            Assert.IsNotNull(this.TestObject, "TestObject for BaseTestSteps class is null.");
         }
 
         /// <summary>

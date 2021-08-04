@@ -4,7 +4,6 @@
 // </copyright>
 // <summary>This is the Appium driver wait extensions class</summary>
 //--------------------------------------------------
-using Magenic.Maqs.Utilities.Data;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Support.UI;

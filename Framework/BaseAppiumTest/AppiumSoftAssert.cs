@@ -5,7 +5,6 @@
 // <summary>This is the Appium soft assert class</summary>
 //--------------------------------------------------
 using Magenic.Maqs.BaseTest;
-using Magenic.Maqs.Utilities.Data;
 using System;
 
 namespace Magenic.Maqs.BaseAppiumTest

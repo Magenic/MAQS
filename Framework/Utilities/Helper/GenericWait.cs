@@ -4,7 +4,6 @@
 // </copyright>
 // <summary>Generic wait</summary>
 //--------------------------------------------------
-using Magenic.Maqs.Utilities.Data;
 using System;
 using System.Text;
 using System.Threading;

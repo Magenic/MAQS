@@ -6,7 +6,6 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseTest;
 using Magenic.Maqs.Utilities.Logging;
-using Magenic.Maqs.Utilities.Performance;
 using MongoDB.Driver;
 using System;
 

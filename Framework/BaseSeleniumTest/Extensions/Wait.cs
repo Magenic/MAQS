@@ -4,7 +4,6 @@
 // </copyright>
 // <summary>Wait extension for web drivers and elements</summary>
 //--------------------------------------------------
-using Magenic.Maqs.Utilities.Data;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;

@@ -8,7 +8,6 @@ using Magenic.Maqs.BaseTest;
 using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
 using System.IO;
 
 namespace BaseTestUnitTests
@@ -19,7 +18,7 @@ namespace BaseTestUnitTests
     [TestClass]
     [DoNotParallelize]
     public class BaseTestTests : BaseTest
-    {  
+    {
         /// <summary>
         /// Test duplicate name
         /// </summary>

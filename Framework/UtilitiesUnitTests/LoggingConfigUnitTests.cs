@@ -32,7 +32,7 @@ namespace UtilitiesUnitTesting
         {
             Config.AddTestSettingValues(general, ConfigSection.MagenicMaqs, true);
         }
-        
+
         /// <summary>
         /// Tests that we can use the inner exception
         /// </summary>

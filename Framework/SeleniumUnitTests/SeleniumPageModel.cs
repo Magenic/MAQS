@@ -23,7 +23,7 @@ namespace SeleniumUnitTests
         /// Initializes a new instance of the <see cref="SeleniumPageModel"/> class
         /// </summary>
         /// <param name="testObject">The base Selenium test object</param>
-        public SeleniumPageModel(ISeleniumTestObject testObject) 
+        public SeleniumPageModel(ISeleniumTestObject testObject)
             : base(testObject)
         {
         }

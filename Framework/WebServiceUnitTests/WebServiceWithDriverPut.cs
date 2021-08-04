@@ -197,7 +197,7 @@ namespace WebServiceTesterUnitTesting
             writer.Write("TestStream");
             writer.Flush();
             stream.Position = 0;
-            
+
             StreamContent content = WebServiceUtils.MakeStreamContent(stream, "text/plain");
             var result = this.WebServiceDriver.Put("/api/String/Put/1", "text/plain", content, true);
             Assert.AreEqual(string.Empty, result);

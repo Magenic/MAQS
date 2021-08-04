@@ -40,7 +40,7 @@ namespace AppiumUnitTests
         {
             Assert.AreEqual("Android", AppiumConfig.GetPlatformName());
         }
-        
+
         /// <summary>
         /// Test for getting mobile OS version
         /// </summary>

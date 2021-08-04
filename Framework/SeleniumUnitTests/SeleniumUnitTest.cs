@@ -6,7 +6,6 @@
 //-----------------------------------------------------
 using Magenic.Maqs.BaseSeleniumTest;
 using Magenic.Maqs.BaseSeleniumTest.Extensions;
-using Magenic.Maqs.BaseTest;
 using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

@@ -4,7 +4,6 @@
 // </copyright>
 // <summary>This is the FindElements class</summary>
 //--------------------------------------------------
-using Magenic.Maqs.Utilities.Data;
 using OpenQA.Selenium;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,7 +48,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             IWebElement element = elementList.ElementAt(0);
             return element;
         }
-        
+
         /// <summary>
         /// General Find All Elements
         /// </summary>

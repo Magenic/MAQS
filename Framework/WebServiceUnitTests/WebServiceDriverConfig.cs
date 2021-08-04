@@ -19,7 +19,7 @@ namespace WebServiceTesterUnitTesting
     [ExcludeFromCodeCoverage]
     public class WebServiceDriverConfig : BaseWebServiceTest
     {
-         /// <summary>
+        /// <summary>
         /// Setup test with properties
         /// </summary>
         [TestInitialize]

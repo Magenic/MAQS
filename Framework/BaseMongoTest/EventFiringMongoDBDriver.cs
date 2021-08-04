@@ -4,7 +4,6 @@
 // </copyright>
 // <summary>The event firing mongoDB collection interactions</summary>
 //--------------------------------------------------
-using Magenic.Maqs.Utilities.Data;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;

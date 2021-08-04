@@ -71,7 +71,7 @@ namespace WebServiceTesterUnitTesting
         public void CustomVerbGenericType()
         {
             WebServiceDriver client = new WebServiceDriver(new Uri(url));
-        
+
             var content = WebServiceUtils.MakeStringContent("ZEDTest", Encoding.UTF8, "text/plain");
             var result = client.Custom<string>("ZED", "/api/ZED", "text/plain", content, true);
 

@@ -4,7 +4,6 @@
 // </copyright>
 // <summary>The basic database interactions</summary>
 //--------------------------------------------------
-using Magenic.Maqs.Utilities.Data;
 using MailKit;
 using MailKit.Net.Imap;
 using MailKit.Search;

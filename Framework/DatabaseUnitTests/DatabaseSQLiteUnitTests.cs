@@ -5,16 +5,16 @@
 // <summary>Database base test unit tests</summary>
 //--------------------------------------------------
 
+using Magenic.Maqs.BaseDatabaseTest;
+using Magenic.Maqs.Utilities.Helper;
+using Microsoft.Data.Sqlite;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Magenic.Maqs.BaseDatabaseTest;
-using Magenic.Maqs.Utilities.Helper;
-using Microsoft.Data.Sqlite;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DatabaseUnitTests
 {

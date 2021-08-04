@@ -15,7 +15,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading;
 
 namespace Magenic.Maqs.BaseEmailTest
 {
@@ -479,7 +478,7 @@ namespace Magenic.Maqs.BaseEmailTest
             return string.Empty;
         }
 
-                /// <summary>
+        /// <summary>
         /// Cleanup the driver
         /// </summary>
         /// <param name="disposing">Dispose managed objects</param>
@@ -490,7 +489,7 @@ namespace Magenic.Maqs.BaseEmailTest
             {
                 return;
             }
-   
+
             if (this.EmailConnection == null)
             {
                 return;

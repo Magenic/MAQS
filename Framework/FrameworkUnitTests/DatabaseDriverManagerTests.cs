@@ -54,7 +54,7 @@ namespace FrameworkUnitTests
             this.TestObject.OverrideDatabaseDriver(connection);
             Assert.AreEqual(connection, this.DatabaseDriver.Connection);
         }
-    
+
         /// <summary>
         /// Make sure we can override the driver
         /// </summary>

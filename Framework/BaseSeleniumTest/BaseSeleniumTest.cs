@@ -81,7 +81,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <returns>The Selenium test object</returns>
         protected override ISeleniumTestObject CreateSpecificTestObject(ILogger log)
         {
-           return new SeleniumTestObject(() => this.GetBrowser(), log, this.GetFullyQualifiedTestClassName());
+            return new SeleniumTestObject(() => this.GetBrowser(), log, this.GetFullyQualifiedTestClassName());
         }
     }
 }

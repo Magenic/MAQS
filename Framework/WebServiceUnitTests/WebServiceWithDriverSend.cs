@@ -6,14 +6,11 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseWebServiceTest;
 using Magenic.Maqs.Utilities.Helper;
-using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Text.RegularExpressions;
 using WebServiceTesterUnitTesting.Model;
 
 namespace WebServiceTesterUnitTesting

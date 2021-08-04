@@ -48,7 +48,7 @@ namespace EmailUnitTests
             string host = EmailConfig.GetHost();
             Assert.AreEqual("localhost", host);
         }
-        
+
         /// <summary>
         /// Gets the username from the config
         /// </summary>
@@ -73,7 +73,7 @@ namespace EmailUnitTests
                 Config.AddTestSettingValues(new Dictionary<string, string> { { "EmailUserName", saveName } }, "EmailMaqs", true);
             }
         }
-        
+
         /// <summary>
         /// Gets the password from the config
         /// </summary>
@@ -98,7 +98,7 @@ namespace EmailUnitTests
                 Config.AddTestSettingValues(new Dictionary<string, string> { { "EmailPassword", savePass } }, "EmailMaqs", true);
             }
         }
-        
+
         /// <summary>
         /// Gets the port from the config
         /// </summary>

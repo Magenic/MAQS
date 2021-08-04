@@ -4,7 +4,6 @@
 // </copyright>
 // <summary>Factory for creating mobile drivers</summary>
 //--------------------------------------------------
-using Magenic.Maqs.Utilities.Data;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;

@@ -4,10 +4,9 @@
 // </copyright>
 // <summary>Helper class for getting database specific configuration values</summary>
 //--------------------------------------------------
+using Magenic.Maqs.BaseDatabaseTest.Providers;
 using System;
 using System.Data;
-using Magenic.Maqs.BaseDatabaseTest.Providers;
-using Magenic.Maqs.Utilities.Data;
 
 namespace Magenic.Maqs.BaseDatabaseTest
 {

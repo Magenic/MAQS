@@ -4,7 +4,6 @@
 // </copyright>
 // <summary>Logging related configuration</summary>
 //--------------------------------------------------
-using Magenic.Maqs.Utilities.Data;
 using Magenic.Maqs.Utilities.Helper;
 using System;
 using System.IO;

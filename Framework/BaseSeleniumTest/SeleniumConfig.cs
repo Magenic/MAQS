@@ -4,7 +4,6 @@
 // </copyright>
 // <summary>Helper class for getting selenium specific configuration values</summary>
 //--------------------------------------------------
-using Magenic.Maqs.Utilities.Data;
 using Magenic.Maqs.Utilities.Helper;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;

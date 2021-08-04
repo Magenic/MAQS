@@ -200,7 +200,7 @@ namespace BaseTestUnitTests
             this.SoftAssert.AddExpectedAsserts("two");
             this.SoftAssert.Assert(() => { }, "two");
             this.SoftAssert.Assert(() => { }, "one");
-            
+
             this.SoftAssert.FailTestIfAssertFailed();
         }
 

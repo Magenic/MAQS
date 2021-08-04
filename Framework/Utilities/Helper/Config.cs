@@ -85,7 +85,7 @@ namespace Magenic.Maqs.Utilities.Helper
         public static void Validate(ConfigSection configSection, ConfigValidation configValidation)
         {
             // Don't run the validation if the user has decided to skip the validation
-            if(GetGeneralValue("SkipConfigValidation").Equals("Yes", StringComparison.CurrentCultureIgnoreCase))
+            if (GetGeneralValue("SkipConfigValidation").Equals("Yes", StringComparison.CurrentCultureIgnoreCase))
             {
                 return;
             }
@@ -95,22 +95,22 @@ namespace Magenic.Maqs.Utilities.Helper
                 throw new MaqsConfigException("The value passed in for configValidation (required fields in a config) is null");
             }
             var configSectionPassed = GetSection(configSection);
-            
+
             List<string> exceptions = new List<string>();
-            foreach(var requiredField in configValidation.RequiredFields)
+            foreach (var requiredField in configValidation.RequiredFields)
             {
                 if (!configSectionPassed.ContainsKey(requiredField))
                 {
                     exceptions.Add($"Key missing {requiredField}");
-                } 
+                }
             }
 
-            if(exceptions.Count > 0)
+            if (exceptions.Count > 0)
             {
                 StringBuilder message = new StringBuilder();
-                foreach(var mess in exceptions)
+                foreach (var exception in exceptions)
                 {
-                    message.AppendLine(mess);
+                    message.AppendLine(exception);
                 }
 
                 message.AppendLine("*This check can be skipped by setting the 'SkipConfigValidation' configuration value to 'Yes'.");

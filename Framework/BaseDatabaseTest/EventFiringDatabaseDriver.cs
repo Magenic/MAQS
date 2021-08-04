@@ -4,7 +4,6 @@
 // </copyright>
 // <summary>The event firing database interactions</summary>
 //--------------------------------------------------
-using Magenic.Maqs.Utilities.Data;
 using System;
 using System.Collections.Generic;
 using System.Data;

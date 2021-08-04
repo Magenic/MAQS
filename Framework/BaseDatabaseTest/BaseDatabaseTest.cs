@@ -20,7 +20,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// Initializes a new instance of the <see cref="BaseDatabaseTest"/> class.
         /// Setup the database client for each test class
         /// </summary>
-        public BaseDatabaseTest():base()
+        public BaseDatabaseTest() : base()
         {
         }
 

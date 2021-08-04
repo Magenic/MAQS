@@ -4,12 +4,12 @@
 // </copyright>
 // <summary>Performance Timer Collection Class</summary>
 //--------------------------------------------------
+using Magenic.Maqs.Utilities.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
-using Magenic.Maqs.Utilities.Logging;
 
 namespace Magenic.Maqs.Utilities.Performance
 {

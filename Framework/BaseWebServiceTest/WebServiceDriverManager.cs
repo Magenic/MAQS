@@ -55,7 +55,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="driver">A new http driver</param>
         public void OverrideDriver(WebServiceDriver driver)
         {
-            this.OverrideDriverGet (() => driver.HttpClient);
+            this.OverrideDriverGet(() => driver.HttpClient);
             this.driver = driver;
         }
 

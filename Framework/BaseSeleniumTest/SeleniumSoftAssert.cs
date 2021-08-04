@@ -5,7 +5,6 @@
 // <summary>Selenium override for the soft asserts</summary>
 //--------------------------------------------------
 using Magenic.Maqs.BaseTest;
-using Magenic.Maqs.Utilities.Data;
 using System;
 
 namespace Magenic.Maqs.BaseSeleniumTest

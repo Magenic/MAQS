@@ -5,7 +5,6 @@
 // <summary>Utilities class for generic selenium methods</summary>
 //--------------------------------------------------
 using Magenic.Maqs.BaseSeleniumTest.Extensions;
-using Magenic.Maqs.Utilities.Data;
 using Magenic.Maqs.Utilities.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;

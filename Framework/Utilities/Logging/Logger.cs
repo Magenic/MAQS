@@ -4,7 +4,6 @@
 // </copyright>
 // <summary>Abstract logger</summary>
 //--------------------------------------------------
-using Magenic.Maqs.Utilities.Data;
 using System;
 using System.Globalization;
 
@@ -130,7 +129,7 @@ namespace Magenic.Maqs.Utilities.Logging
         {
             this.Dispose(true);
             GC.SuppressFinalize(this);
-            
+
         }
 
         /// <summary>

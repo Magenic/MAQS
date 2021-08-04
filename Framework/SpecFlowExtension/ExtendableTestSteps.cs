@@ -18,7 +18,7 @@ namespace Magenic.Maqs.SpecFlow
     /// </summary>
     /// <typeparam name="O">The base test object class</typeparam>
     /// <typeparam name="T">The base test class</typeparam>
-    public abstract class ExtendableTestSteps<O, T> : AbstractTestSteps<O> 
+    public abstract class ExtendableTestSteps<O, T> : AbstractTestSteps<O>
         where O : ITestObject where T : BaseExtendableTest<O>, new()
     {
         /// <summary>

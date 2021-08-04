@@ -14,9 +14,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Linq;
 
 namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 {
@@ -387,7 +387,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             {
                 this.TestObject.Log.SuspendLogging();
                 this.ExecuteEvent(() => element.SendKeys(keys), "SendKeys");
-                
+
             }
             catch (Exception e)
             {
@@ -395,7 +395,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 this.TestObject.Log.LogMessage(MessageType.ERROR, $"Exception during sending secret keys: {e.Message}{ Environment.NewLine}{ e.StackTrace}");
                 throw;
             }
-            
+
             this.TestObject.Log.ContinueLogging();
         }
 

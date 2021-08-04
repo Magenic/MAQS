@@ -46,7 +46,7 @@ namespace SeleniumUnitTests
         {
             var firefoxOptions = WebDriverFactory.GetDefaultFirefoxOptions();
             firefoxOptions.AddArgument("--headless");
-            IWebDriver driver =  WebDriverFactory.GetFirefoxDriver(SeleniumConfig.GetCommandTimeout(), firefoxOptions);
+            IWebDriver driver = WebDriverFactory.GetFirefoxDriver(SeleniumConfig.GetCommandTimeout(), firefoxOptions);
 
             driver.Manage().Window.Size = new Size(701, 199);
 
