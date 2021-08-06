@@ -47,7 +47,7 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void DoesKeyExist()
         {
-            bool value = Config.DoesKeyExist("DoesNotExist");
+            bool value = Config.DoesGeneralKeyExist("DoesNotExist");
             Assert.AreEqual(false, value);
         }
 
@@ -212,6 +212,9 @@ namespace UtilitiesUnitTesting
 
             // Make sure the value we didn't override was not affected
             Assert.AreEqual(baseValue2, Config.GetGeneralValue(key2));
+
+
+            Config.ClearOverrides();
         }
 
         /// <summary>

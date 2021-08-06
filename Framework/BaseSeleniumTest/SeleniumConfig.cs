@@ -251,7 +251,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <returns>Dictionary of remote capabilities</returns>
         public static Dictionary<string, string> GetRemoteCapabilitiesAsStrings()
         {
-            return Config.GetSection(ConfigSection.RemoteSeleniumCapsMaqs);
+            return Config.GetSectionDictionary(ConfigSection.RemoteSeleniumCapsMaqs);
         }
 
         /// <summary>

@@ -21,7 +21,7 @@ namespace UtilitiesUnitTesting
         [TestInitialize]
         public void SetUp()
         {
-            general = Config.GetSection(ConfigSection.MagenicMaqs);
+            general = Config.GetSectionDictionary(ConfigSection.MagenicMaqs);
         }
 
         /// <summary>

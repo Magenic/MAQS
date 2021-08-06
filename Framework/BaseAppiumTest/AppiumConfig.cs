@@ -101,7 +101,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <returns>Dictionary of capabilities</returns>
         public static Dictionary<string, string> GetCapabilitiesAsStrings()
         {
-            return Config.GetSection(ConfigSection.AppiumCapsMaqs);
+            return Config.GetSectionDictionary(ConfigSection.AppiumCapsMaqs);
         }
 
         /// <summary>

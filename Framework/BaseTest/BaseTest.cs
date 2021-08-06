@@ -52,7 +52,7 @@ namespace Magenic.Maqs.BaseTest
             {
                 try
                 {
-                    Config.UpdateWithNUnitTestContext(NUnitTestContext.Parameters);
+                    Config.UpdateWithNUnitTestParameters(NUnitTestContext.Parameters);
                 }
                 catch (Exception e)
                 {

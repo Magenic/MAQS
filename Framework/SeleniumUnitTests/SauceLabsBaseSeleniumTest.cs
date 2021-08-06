@@ -27,7 +27,7 @@ namespace SeleniumUnitTests
                     ["name"] = name
                 };
 
-                var remoteCapabilitySection = Config.GetSection(ConfigSection.RemoteSeleniumCapsMaqs);
+                var remoteCapabilitySection = Config.GetSectionDictionary(ConfigSection.RemoteSeleniumCapsMaqs);
                 if (remoteCapabilitySection != null)
                 {
                     foreach (var keyValue in remoteCapabilitySection)

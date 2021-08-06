@@ -5,23 +5,19 @@
 // <summary>Base driver manager interface</summary>
 //--------------------------------------------------
 using Magenic.Maqs.Utilities.Logging;
+using System;
 
 namespace Magenic.Maqs.BaseTest
 {
     /// <summary>
     /// Interface for base driver manager
     /// </summary>
-    public interface IDriverManager
+    public interface IDriverManager : IDisposable
     {
         /// <summary>
         /// Gets the testing object
         /// </summary>
         ILogger Log { get; }
-
-        /// <summary>
-        /// Cleanup the driver
-        /// </summary>
-        void Dispose();
 
         /// <summary>
         /// Get the driver

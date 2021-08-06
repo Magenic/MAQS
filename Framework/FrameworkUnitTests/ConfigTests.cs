@@ -28,10 +28,10 @@ namespace FrameworkUnitTests
         [TestCategory(TestCategories.UtilitiesCore)]
         public void Testconfig()
         {
-            Config.DoesKeyExist("Log");
-            Assert.AreEqual(true, Config.DoesKeyExist("Log"));
-            Assert.AreEqual(false, Config.DoesKeyExist("Browser"));
-            Assert.AreEqual(true, Config.DoesKeyExist("Browser", "SeleniumMaqs"));
+            Config.DoesGeneralKeyExist("Log");
+            Assert.AreEqual(true, Config.DoesGeneralKeyExist("Log"));
+            Assert.AreEqual(false, Config.DoesGeneralKeyExist("Browser"));
+            Assert.AreEqual(true, Config.DoesKeyExist("SeleniumMaqs", "Browser"));
             Assert.AreEqual("OnFail", Config.GetGeneralValue("Log", "NO"));
             Assert.AreEqual("HeadlessChrome", Config.GetValueForSection("SeleniumMaqs", "Browser", "NO"));
         }
@@ -65,7 +65,7 @@ namespace FrameworkUnitTests
         [TestCategory(TestCategories.UtilitiesCore)]
         public void DoesKeyExist()
         {
-            bool value = Config.DoesKeyExist("DoesNotExist");
+            bool value = Config.DoesGeneralKeyExist("DoesNotExist");
             Assert.AreEqual(false, value);
         }
 
@@ -119,7 +119,7 @@ namespace FrameworkUnitTests
         [TestCategory(TestCategories.UtilitiesCore)]
         public void ConfigSection()
         {
-            Dictionary<string, string> remoteCapabilitySection = Config.GetSection("RemoteSeleniumCapsMaqs");
+            Dictionary<string, string> remoteCapabilitySection = Config.GetSectionDictionary("RemoteSeleniumCapsMaqs");
 
             Assert.AreEqual("someName", remoteCapabilitySection["userName2"]);
             Assert.AreEqual("Some_Accesskey", remoteCapabilitySection["accessKey2"]);
