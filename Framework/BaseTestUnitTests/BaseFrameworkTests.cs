@@ -62,7 +62,6 @@ namespace BaseTestUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Framework)]
-        [SuppressMessage("Minor Code Smell", "S3626:Jump statements should not be redundant", Justification = "Testing")]
         public void SoftAssertExceptionWithNoMessage()
         {
             MicroAssert.ThrowsException<SoftAssertException>(() => throw new SoftAssertException(), string.Empty);
@@ -73,7 +72,6 @@ namespace BaseTestUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Framework)]
-        [SuppressMessage("Minor Code Smell", "S3626:Jump statements should not be redundant", Justification = "Testing")]
         public void SoftAssertExceptionWithMessage()
         {
             string error = "ERROR";
@@ -85,7 +83,6 @@ namespace BaseTestUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Framework)]
-        [SuppressMessage("Minor Code Smell", "S3626:Jump statements should not be redundant", Justification = "Testing")]
         public void SoftAssertExceptionWithInnerException()
         {
             string error = "ERROR";

@@ -111,11 +111,9 @@ namespace SeleniumUnitTests
             {
                 fileStream = new FileStream(htmlFileLogger.FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 
-                using (StreamReader textReader = new StreamReader(fileStream))
-                {
-                    fileStream = null;
-                    logContents = textReader.ReadToEnd();
-                }
+                using StreamReader textReader = new StreamReader(fileStream);
+                fileStream = null;
+                logContents = textReader.ReadToEnd();
             }
             finally
             {

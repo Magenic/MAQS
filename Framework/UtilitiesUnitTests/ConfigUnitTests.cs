@@ -64,8 +64,11 @@ namespace UtilitiesUnitTesting
             string overrideValue = baseValue + "_Override";
 
             // Override the configuration
-            Dictionary<string, string> overrides = new Dictionary<string, string>();
-            overrides.Add(key, overrideValue);
+            Dictionary<string, string> overrides = new Dictionary<string, string>
+            {
+                { key, overrideValue }
+            };
+
             Config.AddTestSettingValues(overrides);
 
             // Make sure it worked
@@ -162,8 +165,11 @@ namespace UtilitiesUnitTesting
             Assert.AreEqual(string.Empty, Config.GetGeneralValue(key));
 
             // Set the override
-            Dictionary<string, string> overrides = new Dictionary<string, string>();
-            overrides.Add(key, value);
+            Dictionary<string, string> overrides = new Dictionary<string, string>
+            {
+                { key, value }
+            };
+
             Config.AddTestSettingValues(overrides);
 
             // Make sure the override worked
@@ -189,13 +195,19 @@ namespace UtilitiesUnitTesting
             string overrideValue = baseValue + "_Override";
 
             // Override first key value
-            Dictionary<string, string> overrides = new Dictionary<string, string>();
-            overrides.Add(key, overrideValue);
+            Dictionary<string, string> overrides = new Dictionary<string, string>
+            {
+                { key, overrideValue }
+            };
+
             Config.AddTestSettingValues(overrides);
 
             // Try to override something that has already been overridden
-            overrides = new Dictionary<string, string>();
-            overrides.Add(key, "ValueThatShouldNotOverride");
+            overrides = new Dictionary<string, string>
+            {
+                { key, "ValueThatShouldNotOverride" }
+            };
+
             Config.AddTestSettingValues(overrides);
 
             // The secondary override should fail as we already overrode it once
@@ -203,8 +215,11 @@ namespace UtilitiesUnitTesting
 
             // Try the override again, but this time tell the override to allow itself to be overrode
             overrideValue += "_SecondOverride";
-            overrides = new Dictionary<string, string>();
-            overrides.Add(key, overrideValue);
+            overrides = new Dictionary<string, string>
+            {
+                { key, overrideValue }
+            };
+
             Config.AddGeneralTestSettingValues(overrides, true);
 
             // Make sure the force override worked
