@@ -247,7 +247,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             }
 
             // Throw exception if the accessibility check had any errors
-            if (results.Error.Length > 0)
+            if (results.Error?.Length > 0)
             {
                 throw new InvalidOperationException($"Accessibility check failure, see: {report} for more details.");
             }
