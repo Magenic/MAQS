@@ -63,7 +63,7 @@ namespace AppiumUnitTests
         protected override void BeforeLoggingTeardown(TestResultType resultType)
         {
             // Make sure we get all the logging info
-            base.BeforeLoggingTeardown(resultType);
+            base.BeforeCleanup(resultType);
 
             // Cleanup after the app
             NotepadApplication?.CloseAndDontSave();

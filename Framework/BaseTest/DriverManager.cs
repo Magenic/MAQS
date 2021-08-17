@@ -12,7 +12,7 @@ namespace Magenic.Maqs.BaseTest
     /// <summary>
     /// Base driver manager object
     /// </summary>
-    public abstract class DriverManager : IDisposable, IDriverManager
+    public abstract class DriverManager : IDriverManager
     {
         /// <summary>
         /// The test object associated with the driver

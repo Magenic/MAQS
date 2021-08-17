@@ -295,7 +295,7 @@ namespace Magenic.Maqs.BaseTest
 
                 this.GetResultTextNunit();
                 this.LogVerbose("Test outcome");
-                this.BeforeLoggingTeardown(resultType);
+                this.BeforeCleanup(resultType);
 
                 // Cleanup log files we don't want
                 try
@@ -421,6 +421,11 @@ namespace Magenic.Maqs.BaseTest
         /// <returns>Filename with out the extension</returns>
         protected virtual string GetFileNameWithoutExtension()
         {
+            if (LoggingConfig.GetUseShortFileName())
+            {
+                return $"{this.GetTestName()}{DateTime.UtcNow.ToString("_ffff", CultureInfo.InvariantCulture)}";
+            }
+
             return $"{this.GetFullyQualifiedTestClassName()} - {DateTime.UtcNow.ToString("yyyy-MM-dd-hh-mm-ss-ffff", CultureInfo.InvariantCulture)}";
         }
 
@@ -432,10 +437,24 @@ namespace Magenic.Maqs.BaseTest
         {
             if (this.IsVSTest())
             {
-                return this.GetFullyQualifiedTestClassNameVS();
+                return $"{this.TestContext.FullyQualifiedTestClassName}.{this.TestContext.TestName}";
             }
 
-            return this.GetFullyQualifiedTestClassNameNunit();
+            return NUnitTestContext.CurrentContext.Test.FullName;
+        }
+
+        /// <summary>
+        /// Get the test name
+        /// </summary>
+        /// <returns>The test name</returns>
+        protected string GetTestName()
+        {
+            if (this.IsVSTest())
+            {
+                return this.TestContext.TestName;
+            }
+
+            return NUnitTestContext.CurrentContext.Test.Name;
         }
 
         /// <summary>
@@ -521,10 +540,10 @@ namespace Magenic.Maqs.BaseTest
         }
 
         /// <summary>
-        /// Steps to do before logging teardown results - If not override nothing is done before logging the results
+        /// Steps to do before MAQS starts closing drivers and releasing the logger - If not override nothing is done before logging the results
         /// </summary>
         /// <param name="resultType">The test result</param>
-        protected virtual void BeforeLoggingTeardown(TestResultType resultType)
+        protected virtual void BeforeCleanup(TestResultType resultType)
         {
         }
 
@@ -535,15 +554,6 @@ namespace Magenic.Maqs.BaseTest
         private bool IsVSTest()
         {
             return this.testContextInstance != null;
-        }
-
-        /// <summary>
-        /// Get the fully qualified test name
-        /// </summary>
-        /// <returns>The test name including class</returns>
-        private string GetFullyQualifiedTestClassNameVS()
-        {
-            return StringProcessor.SafeFormatter("{0}.{1}", this.TestContext.FullyQualifiedTestClassName, this.TestContext.TestName);
         }
 
         /// <summary>
@@ -629,15 +639,6 @@ namespace Magenic.Maqs.BaseTest
         private string GetResultTextVS()
         {
             return this.TestContext.CurrentTestOutcome.ToString();
-        }
-
-        /// <summary>
-        /// Get the fully qualified test name
-        /// </summary>
-        /// <returns>The test name including class</returns>
-        private string GetFullyQualifiedTestClassNameNunit()
-        {
-            return NUnitTestContext.CurrentContext.Test.FullName;
         }
 
         /// <summary>

@@ -53,7 +53,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// Take a screen shot if needed and tear down the web driver
         /// </summary>
         /// <param name="resultType">The test result</param>
-        protected override void BeforeLoggingTeardown(TestResultType resultType)
+        protected override void BeforeCleanup(TestResultType resultType)
         {
             // Try to take a screen shot
             try

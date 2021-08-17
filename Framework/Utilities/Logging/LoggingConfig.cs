@@ -93,5 +93,14 @@ namespace Magenic.Maqs.Utilities.Logging
         {
             return Config.GetGeneralValue("UseFirstChanceHandler", "Yes").Equals("Yes", StringComparison.CurrentCultureIgnoreCase);
         }
+
+        /// <summary>
+        /// Gets if we should use short file names
+        /// </summary>
+        /// <returns>Boolean if you want short file names</returns>
+        public static bool GetUseShortFileName()
+        {
+            return Config.GetGeneralValue("UseShortFileName", "No").Equals("Yes", StringComparison.CurrentCultureIgnoreCase);
+        }
     }
 }
