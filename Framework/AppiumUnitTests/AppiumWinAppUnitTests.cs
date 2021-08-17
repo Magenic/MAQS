@@ -60,7 +60,7 @@ namespace AppiumUnitTests
         /// <summary>
         /// Cleanup after application
         /// </summary>
-        protected override void BeforeLoggingTeardown(TestResultType resultType)
+        protected override void BeforeCleanup(TestResultType resultType)
         {
             // Make sure we get all the logging info
             base.BeforeCleanup(resultType);

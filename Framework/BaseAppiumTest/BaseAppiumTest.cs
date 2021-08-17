@@ -54,7 +54,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// Take a screen shot if needed and tear down the appium driver
         /// </summary>
         /// <param name="resultType">The test result</param>
-        protected override void BeforeLoggingTeardown(TestResultType resultType)
+        protected override void BeforeCleanup(TestResultType resultType)
         {
             try
             {
