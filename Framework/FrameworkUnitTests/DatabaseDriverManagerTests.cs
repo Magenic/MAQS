@@ -38,6 +38,29 @@ namespace FrameworkUnitTests
         /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
+        public void InvalidTypeFailure()
+        {
+            this.TestObject.OverrideDatabaseDriver(ConnectionFactory.GetOpenConnection("InvalidType", string.Empty));
+            Assert.Fail("Get open connection should have thrown exception.");
+        }
+
+        /// <summary>
+        /// Override with postgresql
+        /// </summary>
+        [TestMethod]
+        public void OverrideWithPostGreSql()
+        {
+            var connection = ConnectionFactory.GetOpenConnection("POSTGRESQL", "Server=myServerAddress;Database=myDataBase;");
+            this.TestObject.OverrideDatabaseDriver(connection);
+
+            Assert.AreEqual(connection, this.DatabaseDriver.Connection);
+        }
+
+        /// <summary>
+        /// Make sure we get the proper factory failure
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
         public void OverideFactoryFailure()
         {
             this.TestObject.OverrideDatabaseDriver(ConnectionFactory.GetOpenConnection(string.Empty, string.Empty));

@@ -48,16 +48,6 @@ namespace Magenic.Maqs.BaseTest
         /// </summary>
         /// <param name="logger">The test's logger</param>
         /// <param name="softAssert">The test's soft assert</param>
-        /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
-        public BaseTestObject(ILogger logger, ISoftAssert softAssert, string fullyQualifiedTestName) : this(logger, softAssert, new PerfTimerCollection(logger, fullyQualifiedTestName), fullyQualifiedTestName)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BaseTestObject" /> class
-        /// </summary>
-        /// <param name="logger">The test's logger</param>
-        /// <param name="softAssert">The test's soft assert</param>
         /// <param name="collection">The test's performance timer collection</param>
         /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
         public BaseTestObject(ILogger logger, ISoftAssert softAssert, IPerfTimerCollection collection, string fullyQualifiedTestName)

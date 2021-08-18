@@ -105,6 +105,49 @@ namespace BaseTestUnitTests
         }
 
         /// <summary>
+        /// Can test object be used to create other test objects
+        /// </summary>
+        [TestMethod]
+        [Category(TestCategories.Framework)]
+        public void TestObject()
+        {
+            var tester = GetBaseTest();
+
+            var testObject = tester.TestObject;
+            var newTestObject = new BaseTestObject(testObject);
+
+            MicroAssert.AreEqual(testObject.Log, newTestObject.Log);
+            MicroAssert.AreEqual(testObject.SoftAssert, newTestObject.SoftAssert);
+            MicroAssert.AreEqual(testObject.PerfTimerCollection, newTestObject.PerfTimerCollection);
+            MicroAssert.AreEqual(testObject.Values, newTestObject.Values);
+            MicroAssert.AreEqual(testObject.Objects, newTestObject.Objects);
+            MicroAssert.AreEqual(testObject.ManagerStore, newTestObject.ManagerStore);
+            MicroAssert.AreEqual(testObject.AssociatedFiles, newTestObject.AssociatedFiles);
+        }
+
+        /// <summary>
+        /// Can test object be used to create other test objects
+        /// </summary>
+        [TestMethod]
+        [Category(TestCategories.Framework)]
+        public void TestObjectWithLogger()
+        {
+            var tester = GetBaseTest();
+
+            var testObject = tester.TestObject;
+            var newTestObject = new BaseTestObject(testObject.Log, "TEST");
+
+            MicroAssert.AreEqual(testObject.Log, newTestObject.Log);
+            MicroAssert.AreNotEqual(testObject.SoftAssert, newTestObject.SoftAssert);
+            MicroAssert.AreEqual("TEST", newTestObject.PerfTimerCollection.TestName);
+            MicroAssert.AreNotEqual(testObject.PerfTimerCollection, newTestObject.PerfTimerCollection);
+            MicroAssert.AreNotEqual(testObject.Values, newTestObject.Values);
+            MicroAssert.AreNotEqual(testObject.Objects, newTestObject.Objects);
+            MicroAssert.AreNotEqual(testObject.ManagerStore, newTestObject.ManagerStore);
+            MicroAssert.AreNotEqual(testObject.AssociatedFiles, newTestObject.AssociatedFiles);
+        }
+
+        /// <summary>
         /// Soft assert is expect assert with key "one" to be called.
         /// Throws exception on FailTestIfAssertFailed()
         /// </summary>
