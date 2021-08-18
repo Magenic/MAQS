@@ -157,14 +157,6 @@ namespace FrameworkUnitTests
 
             Config.AddTestSettingValues(overrides);
 
-            // Try to override something that has already been overridden
-            overrides = new Dictionary<string, string>
-            {
-                { key, "ValueThatShouldNotOverride" }
-            };
-
-            Config.AddTestSettingValues(overrides);
-
             // The secondary override should fail as we already overrode it once
             Assert.AreEqual(overrideValue, Config.GetGeneralValue(key));
 

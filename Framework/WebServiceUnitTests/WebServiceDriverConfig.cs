@@ -69,18 +69,15 @@ namespace WebServiceTesterUnitTesting
             // Get base key values
             Assert.AreEqual(defaultValue, Config.GetGeneralValue(key));
 
-            // Try to override something that has already been overridden
-            Dictionary<string, string> overrides = new Dictionary<string, string>();
-            overrides.Add(key, "ValueThatShouldNotOverride");
-            Config.AddTestSettingValues(overrides);
-
             // The secondary override should fail as we already overrode it once
             Assert.AreEqual(defaultValue, Config.GetGeneralValue(key));
 
             // Try the override again, but this time tell the override to allow itself to be overrode
             defaultValue += "_SecondOverride";
-            overrides = new Dictionary<string, string>();
-            overrides.Add(key, defaultValue);
+            var overrides = new Dictionary<string, string>
+            {
+                { key, defaultValue }
+            };
             Config.AddGeneralTestSettingValues(overrides);
 
             // Make sure the force override worked
