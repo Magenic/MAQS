@@ -68,7 +68,7 @@ namespace CompositeUnitTests
         public void TestRunSettingOverrideGeneral()
         {
             Assert.AreEqual("YetAnother", Config.GetGeneralValue("Grog"));
-            Config.AddGeneralTestSettingValues("Grog", "ZZZ", true);
+            Config.AddGeneralTestSettingValues("Grog", "ZZZ");
             Assert.AreEqual("ZZZ", Config.GetGeneralValue("Grog"));
         }
 

@@ -37,8 +37,8 @@ namespace BaseTestUnitTests
 #pragma warning restore IDE0060 // Remove unused parameter
         {
             general = Config.GetSectionDictionary(ConfigSection.MagenicMaqs);
-            Config.AddTestSettingValues("Log", "OnFail", "MagenicMaqs", true);
-            Config.AddTestSettingValues("LogType", "txt", "MagenicMaqs", true);
+            Config.AddTestSettingValues("Log", "OnFail", "MagenicMaqs");
+            Config.AddTestSettingValues("LogType", "txt", "MagenicMaqs");
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace BaseTestUnitTests
         [ClassCleanup]
         public static void ClassCleanup()
         {
-            Config.AddTestSettingValues(general, ConfigSection.MagenicMaqs, true);
+            Config.AddTestSettingValues(general, ConfigSection.MagenicMaqs);
         }
 
         /// <summary>

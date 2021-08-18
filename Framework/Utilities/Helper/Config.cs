@@ -54,6 +54,11 @@ namespace Magenic.Maqs.Utilities.Helper
         private static IConfigurationRoot overrideConfig = GetEmptyConfig();
 
         /// <summary>
+        /// Active composite configuration
+        /// </summary>
+        private static IConfigurationRoot compositeConfig = baseConfig;
+
+        /// <summary>
         /// Drop dynamic configuration overrides
         /// </summary>
         public static void ClearOverrides()
@@ -61,6 +66,7 @@ namespace Magenic.Maqs.Utilities.Helper
             lock (ConfigLock)
             {
                 overrideConfig = GetEmptyConfig();
+                UpdateCompositeConfig();
             }
         }
 
@@ -124,28 +130,10 @@ namespace Magenic.Maqs.Utilities.Helper
         {
             lock (ConfigLock)
             {
-                section = section.ToLower();
                 Dictionary<string, string> sectionValues = new Dictionary<string, string>();
-
                 List<string> keyList = new List<string>();
 
-                foreach (IConfigurationSection child in baseConfig.GetSection(section).GetChildren())
-                {
-                    if (!string.IsNullOrEmpty(child.Value))
-                    {
-                        keyList.Add(child.Key);
-                    }
-                }
-
-                foreach (IConfigurationSection child in runContextConfig.GetSection(section).GetChildren())
-                {
-                    if (!string.IsNullOrEmpty(child.Value))
-                    {
-                        keyList.Add(child.Key);
-                    }
-                }
-
-                foreach (IConfigurationSection child in overrideConfig.GetSection(section).GetChildren())
+                foreach (IConfigurationSection child in compositeConfig.GetSection(section).GetChildren())
                 {
                     if (!string.IsNullOrEmpty(child.Value))
                     {
@@ -214,10 +202,9 @@ namespace Magenic.Maqs.Utilities.Helper
         /// Add configuration override values
         /// </summary>
         /// <param name="configurations">Dictionary of configuration overrides</param>
-        /// <param name="overrideExisting">If the override already exists should we override it</param>
-        public static void AddGeneralTestSettingValues(IDictionary<string, string> configurations, bool overrideExisting = false)
+        public static void AddGeneralTestSettingValues(IDictionary<string, string> configurations)
         {
-            AddTestSettingValues(configurations, DEFAULTMAQSSECTION, overrideExisting);
+            AddTestSettingValues(configurations, DEFAULTMAQSSECTION);
         }
 
         /// <summary>
@@ -225,11 +212,10 @@ namespace Magenic.Maqs.Utilities.Helper
         /// </summary>
         /// <param name="key">Key for the value you are adding or overriding</param>
         /// <param name="value">Value being added or overridden</param>
-        /// <param name="overrideExisting">If the override already exists should we override it</param>
-        public static void AddGeneralTestSettingValues(string key, string value, bool overrideExisting = false)
+        public static void AddGeneralTestSettingValues(string key, string value)
         {
             var newKeyValue = new Dictionary<string, string> { { key, value } };
-            AddTestSettingValues(newKeyValue, DEFAULTMAQSSECTION.ToString(), overrideExisting);
+            AddTestSettingValues(newKeyValue, DEFAULTMAQSSECTION.ToString());
         }
 
         /// <summary>
@@ -237,10 +223,9 @@ namespace Magenic.Maqs.Utilities.Helper
         /// </summary>
         /// <param name="configurations">Dictionary of configuration overrides</param>
         /// <param name="section">What section it should be added to</param>
-        /// <param name="overrideExisting">If the override already exists should we override it</param>
-        public static void AddTestSettingValues(IDictionary<string, string> configurations, ConfigSection section = DEFAULTMAQSSECTION, bool overrideExisting = false)
+        public static void AddTestSettingValues(IDictionary<string, string> configurations, ConfigSection section = DEFAULTMAQSSECTION)
         {
-            AddTestSettingValues(configurations, section.ToString(), overrideExisting);
+            AddTestSettingValues(configurations, section.ToString());
         }
 
         /// <summary>
@@ -249,11 +234,10 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <param name="key">Key for the value you are adding or overriding</param>
         /// <param name="value">Value being added or overridden</param>
         /// <param name="section">What section it should be added to</param>
-        /// <param name="overrideExisting">If the override already exists should we override it</param>
-        public static void AddTestSettingValues(string key, string value, ConfigSection section = DEFAULTMAQSSECTION, bool overrideExisting = false)
+        public static void AddTestSettingValues(string key, string value, ConfigSection section = DEFAULTMAQSSECTION)
         {
             var newKeyValue = new Dictionary<string, string> { { key, value } };
-            AddTestSettingValues(newKeyValue, section, overrideExisting);
+            AddTestSettingValues(newKeyValue, section);
         }
 
         /// <summary>
@@ -261,22 +245,16 @@ namespace Magenic.Maqs.Utilities.Helper
         /// </summary>
         /// <param name="configurations">Dictionary of configuration overrides</param>
         /// <param name="section">What section it should be added to</param>
-        /// <param name="overrideExisting">If the override already exists should we override it</param>
-        public static void AddTestSettingValues(IDictionary<string, string> configurations, string section, bool overrideExisting = false)
+        public static void AddTestSettingValues(IDictionary<string, string> configurations, string section)
         {
             lock (ConfigLock)
             {
-                var configSection = overrideConfig.GetSection(section);
+                var configSection = compositeConfig.GetSection(section);
 
                 // Loop over all the configuration overrides
                 foreach (KeyValuePair<string, string> configuration in configurations)
                 {
-                    var subsection = configSection.GetSection(configuration.Key);
-
-                    if (overrideExisting || !subsection.Exists())
-                    {
-                        subsection.Value = configuration.Value;
-                    }
+                    configSection.GetSection(configuration.Key).Value = configuration.Value;
                 }
             }
         }
@@ -287,11 +265,10 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <param name="key">Key for the value you are adding or overriding</param>
         /// <param name="value">Value being added or overridden</param>
         /// <param name="section">What section it should be added to</param>
-        /// <param name="overrideExisting">If the override already exists should we override it</param>
-        public static void AddTestSettingValues(string key, string value, string section, bool overrideExisting = false)
+        public static void AddTestSettingValues(string key, string value, string section)
         {
             var newKeyValue = new Dictionary<string, string> { { key, value } };
-            AddTestSettingValues(newKeyValue, section, overrideExisting);
+            AddTestSettingValues(newKeyValue, section);
         }
 
         /// <summary>
@@ -420,7 +397,16 @@ namespace Magenic.Maqs.Utilities.Helper
             lock (ConfigLock)
             {
                 runContextConfig = new ConfigurationBuilder().AddConfiguration(overrideConfig).AddConfiguration(userProvidedConfiguration).Build();
+                UpdateCompositeConfig();
             }
+        }
+
+        /// <summary>
+        /// Rebuild the composite configuration
+        /// </summary>
+        private static void UpdateCompositeConfig()
+        {
+            compositeConfig = new ConfigurationBuilder().AddConfiguration(baseConfig).AddConfiguration(runContextConfig).AddConfiguration(overrideConfig).Build();
         }
 
         /// <summary>
@@ -444,6 +430,8 @@ namespace Magenic.Maqs.Utilities.Helper
                         // Config was empty so just add new values
                         runContextConfig = new ConfigurationBuilder().AddInMemoryCollection(keyValuePairs).Build();
                     }
+
+                    UpdateCompositeConfig();
                 }
             }
         }
@@ -455,24 +443,8 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <returns>A tuple. Tuple 'found' is if the value was found. Tuple 'value' is the found value or null.</returns>
         public static (bool found, string value) GetValueByPath(params string[] path)
         {
-            // Check for override
-            string value = overrideConfig.GetValue(path);
-
-            if (value != null)
-            {
-                return (true, value);
-            }
-
-            // Check for runtime
-            value = runContextConfig.GetValue(path);
-
-            if (value != null)
-            {
-                return (true, value);
-            }
-
             // Check for base config
-            value = baseConfig.GetValue(path);
+            string value = compositeConfig.GetValue(path);
             return (value != null, value);
         }
 

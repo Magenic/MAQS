@@ -175,7 +175,7 @@ namespace FrameworkUnitTests
                 { key, overrideValue }
             };
 
-            Config.AddGeneralTestSettingValues(overrides, true);
+            Config.AddGeneralTestSettingValues(overrides);
 
             // Make sure the force override worked
             Assert.AreEqual(overrideValue, Config.GetGeneralValue(key));

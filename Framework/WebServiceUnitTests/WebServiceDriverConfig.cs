@@ -26,9 +26,9 @@ namespace WebServiceTesterUnitTesting
         public void ATestSetup()
         {
             // Set property overrides
-            this.TestContext.Properties.Add("SetupTest", "Setup");
-            this.TestContext.Properties.Add("SetupTest2", "Setup2");
-            this.TestContext.Properties.Add("OverrideTest", "Overridden");
+            this.TestContext.Properties.Add("MagenicMaqs:SetupTest", "Setup");
+            this.TestContext.Properties.Add("Magenicmaqs:SetupTest2", "Setup2");
+            this.TestContext.Properties.Add("magenicmaqs:OverrideTest", "Overridden");
 
             Config.UpdateWithVSTestContext(this.TestContext);
         }
@@ -81,7 +81,7 @@ namespace WebServiceTesterUnitTesting
             defaultValue += "_SecondOverride";
             overrides = new Dictionary<string, string>();
             overrides.Add(key, defaultValue);
-            Config.AddGeneralTestSettingValues(overrides, true);
+            Config.AddGeneralTestSettingValues(overrides);
 
             // Make sure the force override worked
             Assert.AreEqual(defaultValue, Config.GetGeneralValue(key));

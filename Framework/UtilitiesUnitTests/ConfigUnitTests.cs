@@ -260,14 +260,6 @@ namespace UtilitiesUnitTesting
 
             Config.AddTestSettingValues(overrides);
 
-            // Try to override something that has already been overridden
-            overrides = new Dictionary<string, string>
-            {
-                { key, "ValueThatShouldNotOverride" }
-            };
-
-            Config.AddTestSettingValues(overrides);
-
             // The secondary override should fail as we already overrode it once
             Assert.AreEqual(overrideValue, Config.GetGeneralValue(key));
 
@@ -278,7 +270,7 @@ namespace UtilitiesUnitTesting
                 { key, overrideValue }
             };
 
-            Config.AddGeneralTestSettingValues(overrides, true);
+            Config.AddGeneralTestSettingValues(overrides);
 
             // Make sure the force override worked
             Assert.AreEqual(overrideValue, Config.GetGeneralValue(key));
@@ -350,7 +342,7 @@ namespace UtilitiesUnitTesting
                     { "SkipConfigValidation", "Yes" }
                 };
 
-                Config.AddGeneralTestSettingValues(overrides, true);
+                Config.AddGeneralTestSettingValues(overrides);
 
                 ConfigValidation configValidation = new ConfigValidation()
                 {
@@ -369,7 +361,7 @@ namespace UtilitiesUnitTesting
                     { "SkipConfigValidation", "No" }
                 };
 
-                Config.AddGeneralTestSettingValues(overrides, true);
+                Config.AddGeneralTestSettingValues(overrides);
             }
         }
 
