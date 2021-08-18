@@ -38,7 +38,7 @@ namespace WebServiceTesterUnitTesting
 #pragma warning restore IDE0060 // Remove unused parameter
         {
             oldLoggingType = Config.GetGeneralValue("LogType");
-            Config.AddGeneralTestSettingValues("LogType", "TXT", true);
+            Config.AddGeneralTestSettingValues("LogType", "TXT");
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace WebServiceTesterUnitTesting
         [ClassCleanup]
         public static void ClassCleanup()
         {
-            Config.AddGeneralTestSettingValues("LogType", oldLoggingType, true);
+            Config.AddGeneralTestSettingValues("LogType", oldLoggingType);
         }
 
         /// <summary>

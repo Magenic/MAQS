@@ -52,7 +52,7 @@ namespace DatabaseUnitTests
                 { "DataBaseConnectionString", $"Data Source={ GetDByPath() }" },
             };
 
-            Config.AddTestSettingValues(overrides, "DatabaseMaqs", true);
+            Config.AddTestSettingValues(overrides, "DatabaseMaqs");
         }
 
         [TestCleanup]
@@ -65,7 +65,7 @@ namespace DatabaseUnitTests
                 { "DataBaseConnectionString", ConnectionStringToReplace },
             };
 
-            Config.AddTestSettingValues(overrides, "DatabaseMaqs", true);
+            Config.AddTestSettingValues(overrides, "DatabaseMaqs");
         }
 
         /// <summary>

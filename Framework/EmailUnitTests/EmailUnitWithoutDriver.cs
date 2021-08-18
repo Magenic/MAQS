@@ -61,7 +61,7 @@ namespace EmailUnitTests
             string saveName = EmailConfig.GetUserName();
             string tempName = "TEMP";
 
-            Config.AddTestSettingValues(new Dictionary<string, string> { { "EmailUserName", tempName } }, "EmailMaqs", true);
+            Config.AddTestSettingValues(new Dictionary<string, string> { { "EmailUserName", tempName } }, "EmailMaqs");
 
             try
             {
@@ -70,7 +70,7 @@ namespace EmailUnitTests
             }
             finally
             {
-                Config.AddTestSettingValues(new Dictionary<string, string> { { "EmailUserName", saveName } }, "EmailMaqs", true);
+                Config.AddTestSettingValues(new Dictionary<string, string> { { "EmailUserName", saveName } }, "EmailMaqs");
             }
         }
 
@@ -86,7 +86,7 @@ namespace EmailUnitTests
             string savePass = EmailConfig.GetPassword();
             string tempPass = "TEMP";
 
-            Config.AddTestSettingValues(new Dictionary<string, string> { { "EmailPassword", tempPass } }, "EmailMaqs", true);
+            Config.AddTestSettingValues(new Dictionary<string, string> { { "EmailPassword", tempPass } }, "EmailMaqs");
 
             try
             {
@@ -95,7 +95,7 @@ namespace EmailUnitTests
             }
             finally
             {
-                Config.AddTestSettingValues(new Dictionary<string, string> { { "EmailPassword", savePass } }, "EmailMaqs", true);
+                Config.AddTestSettingValues(new Dictionary<string, string> { { "EmailPassword", savePass } }, "EmailMaqs");
             }
         }
 
