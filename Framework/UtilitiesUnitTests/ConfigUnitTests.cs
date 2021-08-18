@@ -6,6 +6,7 @@
 //--------------------------------------------------
 using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
@@ -18,6 +19,63 @@ namespace UtilitiesUnitTesting
     [ExcludeFromCodeCoverage]
     public class ConfigUnitTests
     {
+        /// <summary>
+        /// Setup hierarchical configuration
+        /// </summary>
+        /// <param name="context">Test context</param>
+        [AssemblyInitialize()]
+        public static void AssemblyInit(TestContext context)
+        {
+            // Add environment settings
+            Environment.SetEnvironmentVariable("MagenicMaqs:ConfigJsonEnvRunOverride", "ENV");
+            Environment.SetEnvironmentVariable("MagenicMaqs:ConfigJsonEnvRun", "ENV");
+            Environment.SetEnvironmentVariable("MagenicMaqs:ConfigJsonEnv", "ENV");
+            Environment.SetEnvironmentVariable("MagenicMaqs:EnvOnly", "ENV");
+
+            // Add runtime settings
+            Config.UpdateWithVSTestContext(context);
+
+            // Add direct overrides
+            Config.AddGeneralTestSettingValues("ConfigJsonEnvRunOverride", "OVERRIDE");
+            Config.AddGeneralTestSettingValues("OverrideOnly", "OVERRIDE");
+        }
+
+        /// <summary>
+        /// Configuration hierarchy is respected
+        /// </summary>
+        /// <param name="generalKey">Configuration general key</param>
+        /// <param name="expected">Expected value for key</param>
+        [DataTestMethod]
+        [DataRow("ConfigJsonEnvRunOverride", "OVERRIDE")]
+        [DataRow("OverrideOnly", "OVERRIDE")]
+        [DataRow("ConfigJsonEnvRun", "RUN")]
+        [DataRow("RunOnly", "RUN")]
+        [DataRow("ConfigJsonEnv", "ENV")]
+        [DataRow("EnvOnly", "ENV")]
+        [DataRow("ConfigJson", "JSON")]
+        [DataRow("JsonOnly", "JSON")]
+        [DataRow("ConfigOnly", "XML")]
+        public void ConfigHierarchy(string generalKey, string expected)
+        {
+            Assert.AreEqual(expected, Config.GetGeneralValue(generalKey));
+        }
+
+        /// <summary>
+        /// Configuration hierarchy is respected
+        /// </summary>
+        /// <param name="generalKey">Configuration general key</param>
+        /// <param name="expected">Expected value for key</param>
+        [DataTestMethod]
+        [DataRow("TopTest:MidTest:0:LowerTest", "A")]
+        [DataRow("TopTest:MidTest:0:Lower:LowestTest", "Lowest")]
+        [DataRow("TopTest:MidTest:1:LowerTest", "B")]
+        [DataRow("TopTest:AnotherMid:Lowerest", "AnotherLow")]
+        public void AdditionalTiers(string generalKey, string expected)
+        {
+            Assert.AreEqual(expected, Config.GetValueByPath(generalKey).value);
+            Assert.AreEqual(expected, Config.GetValueByPath(generalKey.Split(':')).value);
+        }
+
         /// <summary>
         /// Gets a value from a string
         /// </summary>

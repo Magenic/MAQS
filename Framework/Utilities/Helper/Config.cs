@@ -452,8 +452,8 @@ namespace Magenic.Maqs.Utilities.Helper
         /// Get the config value for a given path
         /// </summary>
         /// <param name="path">Path to the desired key</param>
-        /// <returns>Item 1 is if a value is found and item 2 is what that value is</returns>
-        public static (bool, string) GetValueByPath(params string[] path)
+        /// <returns>A tuple. Tuple 'found' is if the value was found. Tuple 'value' is the found value or null.</returns>
+        public static (bool found, string value) GetValueByPath(params string[] path)
         {
             // Check for override
             string value = overrideConfig.GetValue(path);
@@ -489,10 +489,10 @@ namespace Magenic.Maqs.Utilities.Helper
             var result = GetValueByPath(section, key);
 
             // Set return value, this may be null
-            value = result.Item2;
+            value = result.value;
 
             // Return if the value was found
-            return result.Item1;
+            return result.found;
         }
 
         /// <summary>
