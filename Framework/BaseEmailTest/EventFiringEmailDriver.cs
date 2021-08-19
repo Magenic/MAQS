@@ -31,7 +31,7 @@ namespace Magenic.Maqs.BaseEmailTest
         public EventFiringEmailDriver(string host, string username, string password, int port, int serverTimeout = 10000, bool isSSL = true, bool skipSslCheck = false)
             : base(host, username, password, port, serverTimeout, isSSL, skipSslCheck)
         {
-            OnActionEvent($"Connect to email with user '{username}' on host '{host}', port '{port}'");
+            this.OnActionEvent($"Connect to email with user '{username}' on host '{host}', port '{port}'");
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Magenic.Maqs.BaseEmailTest
         public EventFiringEmailDriver(Func<ImapClient> setupEmailBaseConnectionOverride)
             : base(setupEmailBaseConnectionOverride)
         {
-            OnActionEvent($"Connect to email with function '{setupEmailBaseConnectionOverride.Method.Name}'");
+            this.OnActionEvent($"Connect to email with function '{setupEmailBaseConnectionOverride.Method.Name}'");
         }
 
         /// <summary>
