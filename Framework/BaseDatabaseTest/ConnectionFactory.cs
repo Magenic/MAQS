@@ -143,7 +143,7 @@ See https://magenic.github.io/MAQS/#/MAQS_6/Database/DatabaseFAQ?id=how-can-to-c
         {
             if (string.IsNullOrWhiteSpace(providerType))
             {
-                throw new ArgumentException($"Provider type is Empty");
+                throw new ArgumentException("Provider type is Empty");
             }
 
             IProvider<IDbConnection> provider = null;
