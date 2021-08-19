@@ -75,19 +75,6 @@ namespace AppiumUnitTests
         }
 
         /// <summary>
-        ///  Factory fails correctly
-        /// </summary>
-        [Test]
-        [Category(TestCategories.Framework)]
-        [Category(TestCategories.NUnit)]
-        [TestCase(PlatformType.Android)]
-        [TestCase(PlatformType.iOS)]
-        public void FactoryTriesToCreateDrivers(PlatformType platformType)
-        {
-            Assert.Throws<WebDriverException>(() => AppiumDriverFactory.GetDefaultMobileDriver(platformType));
-        }
-
-        /// <summary>
         /// Override the base test object
         /// </summary>
         /// <returns>The base test as base Appium</returns>
