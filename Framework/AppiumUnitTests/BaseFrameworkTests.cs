@@ -10,7 +10,10 @@ using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
+using OpenQA.Selenium;
 using System.Diagnostics.CodeAnalysis;
+using Assert = NUnit.Framework.Assert;
+using PlatformType = Magenic.Maqs.BaseAppiumTest.PlatformType;
 
 namespace AppiumUnitTests
 {
@@ -69,6 +72,19 @@ namespace AppiumUnitTests
         public new void SoftAssertNUnitWithFailure()
         {
             base.SoftAssertNUnitWithFailure();
+        }
+
+        /// <summary>
+        ///  Factory fails correctly
+        /// </summary>
+        [Test]
+        [Category(TestCategories.Framework)]
+        [Category(TestCategories.NUnit)]
+        [TestCase(PlatformType.Android)]
+        [TestCase(PlatformType.iOS)]
+        public void FactoryTriesToCreateDrivers(PlatformType platformType)
+        {
+            Assert.Throws<WebDriverException>(() => AppiumDriverFactory.GetDefaultMobileDriver(platformType));
         }
 
         /// <summary>

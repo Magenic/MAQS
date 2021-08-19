@@ -11,6 +11,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using System;
+using System.IO;
 
 namespace AppiumUnitTests
 {
@@ -55,6 +56,28 @@ namespace AppiumUnitTests
             NotepadApplication.OverrideDriver(this.AppiumDriver);
 
             this.SoftAssert.FailTestIfAssertFailed();
+        }
+
+        /// <summary>
+        /// Verify SavePageSource works with console logger
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Appium)]
+        public void CapturePageSourceWithConsoleLoggerTest()
+        {
+            string name = Guid.NewGuid().ToString();
+            string path = Path.Combine(Path.GetDirectoryName((this.Log as FileLogger).FilePath), $"PageSource{name}.txt");
+
+            // Create a console logger and calculate the file location
+            ConsoleLogger consoleLogger = new ConsoleLogger();
+            this.TestObject.Log = consoleLogger;
+
+            // Capture page source
+            bool success = AppiumUtilities.SavePageSource(this.TestObject.AppiumDriver, this.TestObject, name);
+
+            // Make sure we can save the page source
+            Assert.IsTrue(success, "Page source file should have been saved");
+            Assert.IsTrue(File.Exists(path));
         }
 
         /// <summary>

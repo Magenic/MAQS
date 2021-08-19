@@ -59,6 +59,24 @@ namespace CompositeUnitTests
         }
 
         /// <summary>
+        /// Check Selenium test object with driver and log maps correctly
+        /// </summary>
+        [TestMethod]
+        public void TestObjectWithExistingDriverAndLog()
+        {
+            SeleniumTestObject newTestObject = new SeleniumTestObject(this.WebDriver, this.Log, "TEST");
+
+            Assert.AreEqual(this.Log, newTestObject.Log);
+            Assert.AreNotEqual(this.SoftAssert, newTestObject.SoftAssert);
+            Assert.AreEqual("TEST", newTestObject.PerfTimerCollection.TestName);
+            Assert.AreNotEqual(this.PerfTimerCollection, newTestObject.PerfTimerCollection);
+            Assert.AreNotEqual(this.TestObject.Values, newTestObject.Values);
+            Assert.AreNotEqual(this.TestObject.Objects, newTestObject.Objects);
+            Assert.AreNotEqual(this.TestObject.ManagerStore, newTestObject.ManagerStore);
+            Assert.AreNotEqual(this.TestObject.AssociatedFiles, newTestObject.AssociatedFiles);
+        }
+
+        /// <summary>
         /// Make sure the test object driver is the same as the one in the driver store
         /// </summary>
         [TestMethod]
