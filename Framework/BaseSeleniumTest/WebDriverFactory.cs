@@ -19,6 +19,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using WebDriverManager;
+using WebDriverManager.DriverConfigs.Impl;
 
 namespace Magenic.Maqs.BaseSeleniumTest
 {
@@ -195,6 +197,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             return CreateDriver(() =>
             {
+                new DriverManager().SetUpDriver(new ChromeConfig());
                 var driver = new ChromeDriver(ChromeDriverService.CreateDefaultService(), chromeOptions, commandTimeout);
                 SetBrowserSize(driver, size);
                 return driver;
@@ -209,7 +212,11 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <returns>A new headless Chrome driver</returns>
         public static IWebDriver GetHeadlessChromeDriver(TimeSpan commandTimeout, ChromeOptions headlessChromeOptions)
         {
-            return CreateDriver(() => new ChromeDriver(ChromeDriverService.CreateDefaultService(), headlessChromeOptions, commandTimeout), SeleniumConfig.GetRetryRefused());
+            return CreateDriver(() =>
+            {
+                new DriverManager().SetUpDriver(new ChromeConfig());
+                return new ChromeDriver(ChromeDriverService.CreateDefaultService(), headlessChromeOptions, commandTimeout);
+            }, SeleniumConfig.GetRetryRefused());
         }
 
         /// <summary>
@@ -223,6 +230,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             return CreateDriver(() =>
             {
+                new DriverManager().SetUpDriver(new FirefoxConfig());
                 // Add support for encoding 437 that was removed in .net core
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
@@ -248,6 +256,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             return CreateDriver(() =>
             {
+                new DriverManager().SetUpDriver(new EdgeConfig());
                 var driver = new EdgeDriver(GetDriverLocation("MicrosoftWebDriver.exe", GetProgramFilesFolder("Microsoft Web Driver", "MicrosoftWebDriver.exe")), edgeOptions, commandTimeout);
                 SetBrowserSize(driver, size);
                 return driver;
@@ -265,6 +274,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             return CreateDriver(() =>
             {
+                new DriverManager().SetUpDriver(new InternetExplorerConfig());
                 var driver = new InternetExplorerDriver(GetDriverLocation("IEDriverServer.exe"), internetExplorerOptions, commandTimeout);
                 SetBrowserSize(driver, size);
 
