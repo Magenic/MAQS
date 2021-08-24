@@ -24,7 +24,7 @@
     <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
     <PackageReference Include="System.Memory" Version="4.5.4" />
     <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
-    <PackageReference Include="Titanium.Web.Proxy" Version="3.1.1344" />
+    <PackageReference Include="Titanium.Web.Proxy" Version="3.1.1397" />
   </ItemGroup>
 
   <ItemGroup>
