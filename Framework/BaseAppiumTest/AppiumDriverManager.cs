@@ -15,14 +15,14 @@ namespace Magenic.Maqs.BaseAppiumTest
     /// <summary>
     /// Mobile driver manager
     /// </summary>
-    public class MobileDriverManager : DriverManager
+    public class AppiumDriverManager : DriverManager
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MobileDriverManager"/> class
+        /// Initializes a new instance of the <see cref="AppiumDriverManager"/> class
         /// </summary>
         /// <param name="getDriver">Function for getting an Appium driver</param>
         /// <param name="testObject">The associated test object</param>
-        public MobileDriverManager(Func<AppiumDriver<IWebElement>> getDriver, ITestObject testObject) : base(getDriver, testObject)
+        public AppiumDriverManager(Func<AppiumDriver<IWebElement>> getDriver, ITestObject testObject) : base(getDriver, testObject)
         {
         }
 
@@ -48,7 +48,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// Get the Appium driver
         /// </summary>
         /// <returns>The Appium driver</returns>
-        public AppiumDriver<IWebElement> GetMobileDriver()
+        public AppiumDriver<IWebElement> GetAppiumDriver()
         {
             return GetBase() as AppiumDriver<IWebElement>;
         }
@@ -59,7 +59,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <returns>The Appium driver</returns>
         public override object Get()
         {
-            return this.GetMobileDriver();
+            return this.GetAppiumDriver();
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Magenic.Maqs.BaseAppiumTest
 
             try
             {
-                AppiumDriver<IWebElement> driver = this.GetMobileDriver();
+                AppiumDriver<IWebElement> driver = this.GetAppiumDriver();
                 driver?.KillDriver();
             }
             catch (Exception e)

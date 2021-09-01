@@ -25,7 +25,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
         public AppiumTestObject(AppiumDriver<IWebElement> appiumDriver, ILogger logger, string fullyQualifiedTestName) : base(logger, fullyQualifiedTestName)
         {
-            this.ManagerStore.Add(typeof(MobileDriverManager).FullName, new MobileDriverManager(() => appiumDriver, this));
+            this.ManagerStore.Add(typeof(AppiumDriverManager).FullName, new AppiumDriverManager(() => appiumDriver, this));
             this.SoftAssert = new AppiumSoftAssert(this);
         }
 
@@ -37,7 +37,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
         public AppiumTestObject(Func<AppiumDriver<IWebElement>> appiumDriver, ILogger logger, string fullyQualifiedTestName) : base(logger, fullyQualifiedTestName)
         {
-            this.ManagerStore.Add(typeof(MobileDriverManager).FullName, new MobileDriverManager(appiumDriver, this));
+            this.ManagerStore.Add(typeof(AppiumDriverManager).FullName, new AppiumDriverManager(appiumDriver, this));
             this.SoftAssert = new AppiumSoftAssert(this);
         }
 
@@ -48,18 +48,18 @@ namespace Magenic.Maqs.BaseAppiumTest
         {
             get
             {
-                return this.AppiumManager.GetMobileDriver();
+                return this.AppiumManager.GetAppiumDriver();
             }
         }
 
         /// <summary>
         /// Gets the Appium driver manager
         /// </summary>
-        public MobileDriverManager AppiumManager
+        public AppiumDriverManager AppiumManager
         {
             get
             {
-                return this.ManagerStore.GetManager<MobileDriverManager>();
+                return this.ManagerStore.GetManager<AppiumDriverManager>();
             }
         }
 
@@ -67,7 +67,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// Override the Appium driver
         /// </summary>
         /// <param name="appiumDriver">New Appium driver</param>
-        public void OverrideWebDriver(AppiumDriver<IWebElement> appiumDriver)
+        public void OverrideAppiumDriver(AppiumDriver<IWebElement> appiumDriver)
         {
             this.AppiumManager.OverrideDriver(appiumDriver);
         }
@@ -76,7 +76,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// Override the Appium driver
         /// </summary>
         /// <param name="appiumDriver">New function for initializing a Appium driver</param>
-        public void OverrideWebDriver(Func<AppiumDriver<IWebElement>> appiumDriver)
+        public void OverrideAppiumDriver(Func<AppiumDriver<IWebElement>> appiumDriver)
         {
             this.AppiumManager.OverrideDriver(appiumDriver);
         }

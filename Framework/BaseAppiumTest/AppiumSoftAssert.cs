@@ -40,7 +40,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         {
             bool didPass = base.Assert(assertFunction, assertName, failureMessage);
 
-            if (!didPass && this.appiumTestObject.GetDriverManager<MobileDriverManager>().IsDriverIntialized())
+            if (!didPass && this.appiumTestObject.GetDriverManager<AppiumDriverManager>().IsDriverIntialized())
             {
                 if (AppiumConfig.GetSoftAssertScreenshot())
                 {

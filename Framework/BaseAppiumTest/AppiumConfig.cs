@@ -78,6 +78,40 @@ namespace Magenic.Maqs.BaseAppiumTest
         }
 
         /// <summary>
+        /// Get the wait timespan
+        /// </summary>
+        /// <returns>The wait time span</returns>
+        public static TimeSpan GetMobileWaitTime()
+        {
+            return TimeSpan.FromMilliseconds(Convert.ToInt32(Config.GetValueForSection(ConfigSection.AppiumMaqs, "MobileWaitTime", "0")));
+        }
+
+        /// <summary>
+        /// Get the timeout timespan
+        /// </summary>
+        /// <returns>The timeout time span</returns>
+        public static TimeSpan GetMobileTimeout()
+        {
+            return TimeSpan.FromMilliseconds(Convert.ToInt32(Config.GetValueForSection(ConfigSection.AppiumMaqs, "MobileTimeout", "0")));
+        }
+
+        /// <summary>
+        /// Get the initialize Appium timeout timespan
+        /// </summary>
+        /// <returns>The initialize timeout</returns>
+        public static TimeSpan GetMobileCommandTimeout()
+        {
+            string value = Config.GetValueForSection(ConfigSection.AppiumMaqs, "MobileCommandTimeout", "60000");
+
+            if (!int.TryParse(value, out int timeout))
+            {
+                throw new ArgumentException($"MobileCommandTimeout in {ConfigSection.AppiumMaqs} should be a number but the current value is: {value}");
+            }
+
+            return TimeSpan.FromMilliseconds(timeout);
+        }
+
+        /// <summary>
         /// Get if we should save page source on fail
         /// </summary>
         /// <returns>True if we want to save page source on fail</returns>
@@ -111,40 +145,6 @@ namespace Magenic.Maqs.BaseAppiumTest
         public static Dictionary<string, object> GetCapabilitiesAsObjects()
         {
             return GetCapabilitiesAsStrings().ToDictionary(pair => pair.Key, pair => (object)pair.Value);
-        }
-
-        /// <summary>
-        /// Get the wait timespan
-        /// </summary>
-        /// <returns>The wait time span</returns>
-        public static TimeSpan GetMobileWaitTime()
-        {
-            return TimeSpan.FromMilliseconds(Convert.ToInt32(Config.GetValueForSection(ConfigSection.AppiumMaqs, "MobileWaitTime", "0")));
-        }
-
-        /// <summary>
-        /// Get the timeout timespan
-        /// </summary>
-        /// <returns>The timeout time span</returns>
-        public static TimeSpan GetMobileTimeout()
-        {
-            return TimeSpan.FromMilliseconds(Convert.ToInt32(Config.GetValueForSection(ConfigSection.AppiumMaqs, "MobileTimeout", "0")));
-        }
-
-        /// <summary>
-        /// Get the initialize Appium timeout timespan
-        /// </summary>
-        /// <returns>The initialize timeout</returns>
-        public static TimeSpan GetCommandTimeout()
-        {
-            string value = Config.GetValueForSection(ConfigSection.AppiumMaqs, "MobileCommandTimeout", "60000");
-
-            if (!int.TryParse(value, out int timeout))
-            {
-                throw new ArgumentException($"MobileCommandTimeout in {ConfigSection.AppiumMaqs} should be a number but the current value is: {value}");
-            }
-
-            return TimeSpan.FromMilliseconds(timeout);
         }
 
         /// <summary>

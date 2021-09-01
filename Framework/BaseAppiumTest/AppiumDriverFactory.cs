@@ -40,7 +40,7 @@ namespace Magenic.Maqs.BaseAppiumTest
             AppiumDriver<IWebElement> appiumDriver;
 
             Uri mobileHub = AppiumConfig.GetMobileHubUrl();
-            TimeSpan timeout = AppiumConfig.GetCommandTimeout();
+            TimeSpan timeout = AppiumConfig.GetMobileCommandTimeout();
             AppiumOptions options = GetDefaultMobileOptions();
 
             switch (deviceType)

@@ -37,7 +37,7 @@ namespace Magenic.Maqs.BaseAppiumTest
 
             set
             {
-                this.TestObject.OverrideWebDriver(value);
+                this.TestObject.OverrideAppiumDriver(value);
             }
         }
 
@@ -59,7 +59,7 @@ namespace Magenic.Maqs.BaseAppiumTest
             try
             {
                 // Captures screenshot if test result is not a pass and logging is enabled
-                if (this.TestObject.GetDriverManager<MobileDriverManager>().IsDriverIntialized() && this.Log is IFileLogger && resultType != TestResultType.PASS &&
+                if (this.TestObject.GetDriverManager<AppiumDriverManager>().IsDriverIntialized() && this.Log is IFileLogger && resultType != TestResultType.PASS &&
                     this.LoggingEnabledSetting != LoggingEnabled.NO)
                 {
                     AppiumUtilities.CaptureScreenshot(this.AppiumDriver, this.TestObject, " Final");

@@ -152,7 +152,7 @@ namespace Magenic.Maqs.BaseTest
         {
             if (overrideIfExists)
             {
-                this.OverrideDriverManager(typeof(T).FullName, manager);
+                this.OverrideDriverManager(manager);
             }
             else
             {
@@ -217,13 +217,12 @@ namespace Magenic.Maqs.BaseTest
         }
 
         /// <summary>
-        /// Override a specific driver
+        /// Override a driver manager
         /// </summary>
-        /// <param name="key">The driver key</param>
         /// <param name="manager">The new driver manager</param>
-        public void OverrideDriverManager(string key, IDriverManager manager)
+        public void OverrideDriverManager<T>(T manager) where T : IDriverManager
         {
-            this.ManagerStore.AddOrOverride(key, manager);
+            this.AddDriverManager(manager, true);
         }
 
         /// <summary>

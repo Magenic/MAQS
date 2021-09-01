@@ -96,9 +96,9 @@ namespace Magenic.Maqs.BaseTest
         /// <summary>
         /// Override a specific driver
         /// </summary>
-        /// <param name="key">The driver key</param>
+        /// <typeparam name="T">The driver type</typeparam>
         /// <param name="manager">The new driver manager</param>
-        void OverrideDriverManager(string key, IDriverManager manager);
+        void OverrideDriverManager<T>(T manager) where T : IDriverManager;
 
         /// <summary>
         /// Removes the file path from the associated file set
