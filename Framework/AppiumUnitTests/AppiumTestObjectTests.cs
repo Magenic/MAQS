@@ -94,7 +94,7 @@ namespace AppiumUnitTests
         public void OverrideDriverFuncRespected()
         {
             var driver = AppiumDriverFactory.GetDefaultMobileDriver();
-            this.TestObject.OverrideAppiumDriver(() => AppiumDriverFactory.GetDefaultMobileDriver());
+            this.TestObject.OverrideAppiumDriver(() => driver);
 
             Assert.AreEqual(driver, this.AppiumDriver);
         }
