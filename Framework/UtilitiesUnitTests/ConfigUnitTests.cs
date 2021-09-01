@@ -17,6 +17,7 @@ namespace UtilitiesUnitTesting
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
+    [DoNotParallelize]
     public class ConfigUnitTests
     {
         /// <summary>
