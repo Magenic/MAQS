@@ -323,7 +323,7 @@ jobs:
       - name: Build the docker-compose email stack
         run: docker-compose -f Docker/MAQSEmail/docker-compose.yml -p Magenic/MAQS up -d
         
-      - run: dotnet test Framework/CompositeUnitTests/CompositeUnitTests.csproj --settings Framework/Parallel.RunSettings --logger trx --results-directory "${{github.workspace}}/artifactTests/composite/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/composite/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -o "${{github.workspace}}/artifactTests/${{ inputs.artifact-name }}"
+      - run: dotnet test Framework/CompositeUnitTests/CompositeUnitTests.csproj --settings Framework/Parallel.RunSettings --logger trx --results-directory "${{github.workspace}}/artifactTests/composite/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/composite/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -o "${{github.workspace}}/artifactTests"
         shell: pwsh  
         env:
           MagenicMaqs:LogType: CONSOLE
