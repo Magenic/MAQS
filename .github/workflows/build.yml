@@ -327,12 +327,7 @@ jobs:
         shell: pwsh  
         env:
           MagenicMaqs:LogType: CONSOLE
-          
-      - run: dotnet test Framework/CompositeUnitTests/CompositeUnitTests.csproj --filter "(FullyQualifiedName~Base)"  --settings Framework/Parallel.RunSettings --logger trx --results-directory "${{github.workspace}}/artifactTests/composite/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/composite/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -o "${{github.workspace}}/artifactTests"
-        shell: pwsh  
-        env:
-          MagenicMaqs:LogType: CONSOLE
-          
+             
       - run: dotnet test Framework/CompositeUnitTests/CompositeUnitTests.csproj --filter "(FullyQualifiedName~DatabaseDriverManagerTests)"  --settings Framework/Parallel.RunSettings --logger trx --results-directory "${{github.workspace}}/artifactTests/composite/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/composite/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -o "${{github.workspace}}/artifactTests"
         shell: pwsh  
         env:
@@ -354,6 +349,11 @@ jobs:
           MagenicMaqs:LogType: CONSOLE
           
       - run: dotnet test Framework/CompositeUnitTests/CompositeUnitTests.csproj --filter "(FullyQualifiedName~WebServiceDriverManagerTests)"  --settings Framework/Parallel.RunSettings --logger trx --results-directory "${{github.workspace}}/artifactTests/composite/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/composite/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -o "${{github.workspace}}/artifactTests"
+        shell: pwsh  
+        env:
+          MagenicMaqs:LogType: CONSOLE
+          
+      - run: dotnet test Framework/CompositeUnitTests/CompositeUnitTests.csproj --filter "(FullyQualifiedName~Base)"  --settings Framework/Parallel.RunSettings --logger trx --results-directory "${{github.workspace}}/artifactTests/composite/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/composite/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -o "${{github.workspace}}/artifactTests"
         shell: pwsh  
         env:
           MagenicMaqs:LogType: CONSOLE
