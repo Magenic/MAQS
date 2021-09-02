@@ -322,10 +322,16 @@ jobs:
         run: docker-compose -f Docker/MAQSMongoDB/docker-compose.yml -p Magenic/MAQS up -d
       - name: Build the docker-compose email stack
         run: docker-compose -f Docker/MAQSEmail/docker-compose.yml -p Magenic/MAQS up -d
-      - id: builder
-        uses: ./.github/workflows/buildtest-action
-        with:
-          bt-param: 'Framework/CompositeUnitTests/CompositeUnitTests.csproj --settings Framework/Parallel.RunSettings --logger trx --results-directory "${{github.workspace}}/artifactTests/composite/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/composite/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+        
+      - run: dotnet test Framework/CompositeUnitTests/CompositeUnitTests.csproj --settings Framework/Parallel.RunSettings --logger trx --results-directory "${{github.workspace}}/artifactTests/composite/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/composite/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -o "${{github.workspace}}/artifactTests/${{ inputs.artifact-name }}"
+        shell: pwsh  
+        env:
+          MagenicMaqs:LogType: CONSOLE
+        
+      #- id: builder
+      #  uses: ./.github/workflows/buildtest-action
+      #  with:
+      #    bt-param: 'Framework/CompositeUnitTests/CompositeUnitTests.csproj --settings Framework/Parallel.RunSettings --logger trx --results-directory "${{github.workspace}}/artifactTests/composite/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/composite/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
         if: always()
         name: "Upload test artifact"
