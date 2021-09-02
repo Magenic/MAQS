@@ -152,7 +152,7 @@ namespace Magenic.Maqs.BaseTest
         {
             if (overrideIfExists)
             {
-                this.OverrideDriverManager(manager);
+               this.OverrideDriverManager(manager);
             }
             else
             {
@@ -222,7 +222,7 @@ namespace Magenic.Maqs.BaseTest
         /// <param name="manager">The new driver manager</param>
         public void OverrideDriverManager<T>(T manager) where T : IDriverManager
         {
-            this.AddDriverManager(manager, true);
+            this.ManagerStore.AddOrOverride(manager);
         }
 
         /// <summary>
