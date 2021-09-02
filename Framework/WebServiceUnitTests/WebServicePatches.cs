@@ -26,7 +26,7 @@ namespace WebServiceTesterUnitTesting
         /// String to hold the URL
         /// </summary>
         private static readonly string url = WebServiceConfig.GetWebServiceUri();
-        
+
         /// <summary>
         /// Verify the string status code
         /// </summary>

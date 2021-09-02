@@ -54,7 +54,7 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void GetAndCloseDriverTestFromManager()
         {
-            this.TestObject.GetDriverManager<MobileDriverManager>().Dispose();
+            this.TestObject.GetDriverManager<AppiumDriverManager>().Dispose();
         }
 
         /// <summary>
@@ -65,9 +65,7 @@ namespace AppiumUnitTests
         public void OverrideDriverRespected()
         {
             var driver = AppiumDriverFactory.GetDefaultMobileDriver();
-            this.TestObject.OverrideWebDriver(driver);
-
-            Assert.AreEqual(driver, this.AppiumDriver);
+            this.TestObject.OverrideAppiumDriver(driver);
         }
 
         /// <summary>
@@ -76,13 +74,13 @@ namespace AppiumUnitTests
         [TestMethod]
         public void SeparateLazyElementInteractions()
         {
-            MobileDriverManager newDriver = new MobileDriverManager(() => AppiumDriverFactory.GetDefaultMobileDriver(), this.TestObject);
-            newDriver.GetMobileDriver().Navigate().GoToUrl("https://magenicautomation.azurewebsites.net/");
+            AppiumDriverManager newDriver = new AppiumDriverManager(() => AppiumDriverFactory.GetDefaultMobileDriver(), this.TestObject);
+            newDriver.GetAppiumDriver().Navigate().GoToUrl("https://magenicautomation.azurewebsites.net/");
             this.ManagerStore.Add("test", newDriver);
 
             this.TestObject.AppiumDriver.Navigate().GoToUrl("https://magenicautomation.azurewebsites.net/Automation");
 
-            LazyMobileElement topNew = new LazyMobileElement(this.TestObject, newDriver.GetMobileDriver(), By.CssSelector("*"));
+            LazyMobileElement topNew = new LazyMobileElement(this.TestObject, newDriver.GetAppiumDriver(), By.CssSelector("*"));
             LazyMobileElement topDefault = new LazyMobileElement(this.TestObject, By.CssSelector("*"));
 
             Assert.AreNotEqual(topNew.Text, topDefault.Text);
@@ -96,7 +94,7 @@ namespace AppiumUnitTests
         public void OverrideDriverFuncRespected()
         {
             var driver = AppiumDriverFactory.GetDefaultMobileDriver();
-            this.TestObject.OverrideWebDriver(() => driver);
+            this.TestObject.OverrideAppiumDriver(() => driver);
 
             Assert.AreEqual(driver, this.AppiumDriver);
         }
@@ -108,7 +106,7 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void GetRespected()
         {
-            Assert.AreEqual(this.TestObject.GetDriverManager<MobileDriverManager>().Get(), this.AppiumDriver);
+            Assert.AreEqual(this.TestObject.GetDriverManager<AppiumDriverManager>().Get(), this.AppiumDriver);
         }
     }
 }

@@ -36,7 +36,7 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void PerfStartStop2Timers()
         {
-            PerfTimerCollection p = this.PerfTimerCollection;
+            IPerfTimerCollection p = this.PerfTimerCollection;
 
             // build an object to store in the payloadstring of the PerfTimerCollection
             this.tc = new Tconfig
@@ -67,7 +67,7 @@ namespace UtilitiesUnitTesting
             // Otherwise record the assertion as true and continue...
             SoftAssert.Assert(() => Assert.IsTrue(true), "File Check : Expected File exists.");
 
-            PerfTimerCollection r = PerfTimerCollection.LoadPerfTimerCollection(filepath);
+            IPerfTimerCollection r = PerfTimerCollection.LoadPerfTimerCollection(filepath);
 
             // Payload check
             SoftAssert.Assert(() => Assert.AreEqual(json_string, r.PerfPayloadString), "Payload", "Validated Payload (json)");
@@ -115,8 +115,8 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void PerfDontStopTimer()
         {
-            PerfTimerCollection r;
-            PerfTimerCollection p = this.PerfTimerCollection;
+            IPerfTimerCollection r;
+            IPerfTimerCollection p = this.PerfTimerCollection;
             string filepath;
 
             p.StartTimer("StoppedOuter", "test1");
@@ -185,7 +185,7 @@ namespace UtilitiesUnitTesting
         [ExpectedException(typeof(ArgumentException))]
         public void PerfStartTimerThrowException()
         {
-            PerfTimerCollection p = this.PerfTimerCollection;
+            IPerfTimerCollection p = this.PerfTimerCollection;
             p.StartTimer("alreadyStarted");
             p.StartTimer("alreadyStarted");
         }
@@ -198,7 +198,7 @@ namespace UtilitiesUnitTesting
         [ExpectedException(typeof(ArgumentException))]
         public void PerfEndTimerThrowException()
         {
-            PerfTimerCollection p = this.PerfTimerCollection;
+            IPerfTimerCollection p = this.PerfTimerCollection;
             p.StopTimer("notStarted");
         }
 
@@ -209,7 +209,7 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void PerfTimerConstructorTest()
         {
-            PerfTimerCollection p = new PerfTimerCollection("testTimer");
+            IPerfTimerCollection p = new PerfTimerCollection("testTimer");
             Assert.AreEqual("testTimer", p.TestName);
         }
 
@@ -221,7 +221,7 @@ namespace UtilitiesUnitTesting
         public void PerfTimerWriteException()
         {
             // Create an invalid testName using characters not allowed on host OS
-            PerfTimerCollection p = new PerfTimerCollection("<>" + Path.GetInvalidFileNameChars().Aggregate("", (curr, next) => curr + next));
+            IPerfTimerCollection p = new PerfTimerCollection("<>" + Path.GetInvalidFileNameChars().Aggregate("", (curr, next) => curr + next));
             p.StartTimer("testTimer");
             p.StopTimer("testTimer");
             FileLogger log = new FileLogger("PerfTimerWriteException", "PerfTimerWriteException", MessageType.GENERIC, true);

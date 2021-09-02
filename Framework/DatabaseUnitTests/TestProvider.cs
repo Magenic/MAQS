@@ -7,8 +7,8 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System.Data.SqlClient;
 using Magenic.Maqs.BaseDatabaseTest.Providers;
+using System.Data.SqlClient;
 
 namespace DatabaseUnitTests
 {

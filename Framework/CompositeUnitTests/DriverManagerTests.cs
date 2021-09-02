@@ -28,10 +28,10 @@ namespace CompositeUnitTests
         [TestCategory(TestCategories.Framework)]
         public void AddManagerByType()
         {
-            ManagerDictionary dictionary = GetDictionary();
-            dictionary.Add(GetManager());
+            IManagerStore managerStore = GetManagerStore();
+            managerStore.Add(GetManager());
 
-            Assert.IsTrue(dictionary.ContainsKey(typeof(WebServiceDriverManager).FullName));
+            Assert.IsTrue(managerStore.Contains<WebServiceDriverManager>());
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace CompositeUnitTests
         [TestCategory(TestCategories.Framework)]
         public void AddIncrementCount()
         {
-            ManagerDictionary dictionary = GetDictionary();
+            IManagerStore dictionary = GetManagerStore();
             dictionary.Add(GetManager());
 
             Assert.AreEqual(1, dictionary.Count);
@@ -54,7 +54,7 @@ namespace CompositeUnitTests
         [TestCategory(TestCategories.Framework)]
         public void EmptyCountZero()
         {
-            ManagerDictionary dictionary = GetDictionary();
+            IManagerStore dictionary = GetManagerStore();
 
             Assert.AreEqual(0, dictionary.Count);
         }
@@ -66,7 +66,7 @@ namespace CompositeUnitTests
         [TestCategory(TestCategories.Framework)]
         public void ClearRemovesAll()
         {
-            ManagerDictionary dictionary = GetDictionary();
+            IManagerStore dictionary = GetManagerStore();
             dictionary.Add(GetManager());
             dictionary.Add(string.Empty, GetManager());
             dictionary.Clear();
@@ -83,7 +83,7 @@ namespace CompositeUnitTests
 
         public void ThrowDriverAlreadyExist()
         {
-            ManagerDictionary dictionary = GetDictionary();
+            IManagerStore dictionary = GetManagerStore();
             dictionary.Add(GetManager());
             dictionary.Add(GetManager());
 
@@ -99,7 +99,7 @@ namespace CompositeUnitTests
 
         public void ThrowNamedDriverAlreadyExist()
         {
-            ManagerDictionary dictionary = GetDictionary();
+            IManagerStore dictionary = GetManagerStore();
             dictionary.Add(string.Empty, GetManager());
             dictionary.Add(string.Empty, GetManager());
 
@@ -113,7 +113,7 @@ namespace CompositeUnitTests
         [TestCategory(TestCategories.Framework)]
         public void CanOverrideExisting()
         {
-            ManagerDictionary dictionary = GetDictionary();
+            IManagerStore dictionary = GetManagerStore();
             dictionary.Add(GetManager());
             dictionary.AddOrOverride(GetManager());
 
@@ -127,7 +127,7 @@ namespace CompositeUnitTests
         [TestCategory(TestCategories.Framework)]
         public void CanOverrideNonExisting()
         {
-            ManagerDictionary dictionary = GetDictionary();
+            IManagerStore dictionary = GetManagerStore();
             dictionary.AddOrOverride(GetManager());
 
             Assert.AreEqual(1, dictionary.Count);
@@ -140,7 +140,7 @@ namespace CompositeUnitTests
         [TestCategory(TestCategories.Framework)]
         public void AddNamedAndUnnamed()
         {
-            ManagerDictionary dictionary = GetDictionary();
+            IManagerStore dictionary = GetManagerStore();
             dictionary.Add(string.Empty, GetManager());
             dictionary.Add(GetManager());
 
@@ -154,14 +154,14 @@ namespace CompositeUnitTests
         [TestCategory(TestCategories.Framework)]
         public void RemoveByType()
         {
-            ManagerDictionary dictionary = GetDictionary();
+            IManagerStore managerStore = GetManagerStore();
             DriverManager managerToKeep = GetManager();
 
-            dictionary.Add(GetManager());
-            dictionary.Add(string.Empty, managerToKeep);
-            dictionary.Remove(typeof(WebServiceDriverManager));
+            managerStore.Add(GetManager());
+            managerStore.Add(string.Empty, managerToKeep);
+            managerStore.Remove<WebServiceDriverManager>();
 
-            Assert.AreEqual(managerToKeep, dictionary[string.Empty]);
+            Assert.AreEqual(managerToKeep, managerStore.GetManager(string.Empty));
         }
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace CompositeUnitTests
         [TestCategory(TestCategories.Framework)]
         public void RemoveByName()
         {
-            ManagerDictionary dictionary = GetDictionary();
+            IManagerStore dictionary = GetManagerStore();
             DriverManager managerToKeep = GetManager();
 
             dictionary.Add(managerToKeep);
@@ -188,15 +188,15 @@ namespace CompositeUnitTests
         [TestCategory(TestCategories.Framework)]
         public void ManagersMap()
         {
-            ManagerDictionary dictionary = GetDictionary();
+            IManagerStore managerStore = GetManagerStore();
             DriverManager managerToKeep = GetManager();
             DriverManager managerToKeep2 = GetManager();
 
-            dictionary.Add(managerToKeep);
-            dictionary.Add(string.Empty, managerToKeep2);
+            managerStore.Add(managerToKeep);
+            managerStore.Add(string.Empty, managerToKeep2);
 
-            Assert.AreEqual(((WebServiceDriverManager)managerToKeep).Get(), dictionary.GetDriver<EventFiringWebServiceDriver, WebServiceDriverManager>());
-            Assert.AreEqual(managerToKeep2, dictionary[string.Empty]);
+            Assert.AreEqual(((WebServiceDriverManager)managerToKeep).Get(), managerStore.GetDriver<EventFiringWebServiceDriver, WebServiceDriverManager>());
+            Assert.AreEqual(managerToKeep2, managerStore.GetManager(string.Empty));
         }
 
         /// <summary>
@@ -206,16 +206,16 @@ namespace CompositeUnitTests
         [TestCategory(TestCategories.Framework)]
         public void ManagerDispose()
         {
-            ManagerDictionary manager = new ManagerDictionary();
+            IManagerStore manager = new ManagerStore();
             manager.Dispose();
             Assert.IsNotNull(manager);
         }
 
         /// <summary>
-        /// Get a manager dictionary 
+        /// Get a manager store 
         /// </summary>
         /// <returns>The manager dictionary</returns>
-        private static ManagerDictionary GetDictionary()
+        private static IManagerStore GetManagerStore()
         {
             BaseTestObject baseTestObject = new BaseTestObject(new ConsoleLogger(), string.Empty);
             return baseTestObject.ManagerStore;

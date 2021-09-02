@@ -7,14 +7,9 @@
 using Magenic.Maqs.BaseEmailTest;
 using Magenic.Maqs.BaseWebServiceTest;
 using Magenic.Maqs.Utilities.Helper;
-using MailKit;
-using MailKit.Net.Imap;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
-using System.Threading;
 
 namespace FrameworkUnitTests
 {
@@ -32,7 +27,7 @@ namespace FrameworkUnitTests
         [TestInitialize]
         public void SetupMoqDriver()
         {
-            this.TestObject.OverrideEmailClient(() => EmailDriverMocks.GetMoq().Object); 
+            this.TestObject.OverrideEmailClient(() => EmailDriverMocks.GetMoq().Object);
         }
 
         /// <summary>
@@ -66,8 +61,8 @@ namespace FrameworkUnitTests
             EmailDriverManager newDriver = new EmailDriverManager(() => EmailDriverMocks.GetMoq().Object, this.TestObject);
             this.ManagerStore.Add("test", newDriver);
 
-            Assert.AreNotEqual(this.TestObject.EmailManager, (EmailDriverManager)this.ManagerStore["test"]);
-            Assert.AreNotEqual(this.TestObject.EmailManager.Get(), ((EmailDriverManager)this.ManagerStore["test"]).Get());
+            Assert.AreNotEqual(this.TestObject.EmailManager, this.ManagerStore.GetManager<EmailDriverManager>("test"));
+            Assert.AreNotEqual(this.TestObject.EmailManager.Get(), (this.ManagerStore.GetManager<EmailDriverManager>("test")).Get());
         }
 
         /// <summary>
@@ -100,7 +95,7 @@ namespace FrameworkUnitTests
             // Do something so we initialize the driver
             this.EmailDriver.CanAccessEmailAccount();
 
-            EmailDriverManager driverDriver = this.ManagerStore[typeof(EmailDriverManager).FullName] as EmailDriverManager;
+            EmailDriverManager driverDriver = this.ManagerStore.GetManager<EmailDriverManager>();
             Assert.IsTrue(driverDriver.IsDriverIntialized(), "The driver should have been initialized");
         }
 
@@ -110,7 +105,7 @@ namespace FrameworkUnitTests
         [TestMethod]
         public void NotIntialized()
         {
-            EmailDriverManager driverDriver = this.ManagerStore[typeof(EmailDriverManager).FullName] as EmailDriverManager;
+            EmailDriverManager driverDriver = this.ManagerStore.GetManager<EmailDriverManager>();
             Assert.IsFalse(driverDriver.IsDriverIntialized(), "The driver should not be initialized until it gets used");
         }
     }

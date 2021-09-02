@@ -567,7 +567,7 @@ namespace SeleniumUnitTests
             this.InputBox.Clear();
             this.InputBox.SendKeys("continueTest");
 
-            FileLogger logger = (FileLogger)TestObject.Log;
+            IFileLogger logger = (IFileLogger)TestObject.Log;
             string filepath = logger.FilePath;
 
             Assert.IsTrue(File.ReadAllText(filepath).Contains("beforeSuspendTest"));
@@ -596,7 +596,7 @@ namespace SeleniumUnitTests
 
             this.InputBox.SendKeys(checkLogged);
 
-            FileLogger logger = (FileLogger)TestObject.Log;
+            IFileLogger logger = (IFileLogger)TestObject.Log;
             string filepath = logger.FilePath;
 
             Assert.IsTrue(File.ReadAllText(filepath).Contains(checkLogged));

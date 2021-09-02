@@ -28,10 +28,10 @@ namespace FrameworkUnitTests
         [TestCategory(TestCategories.UtilitiesCore)]
         public void Testconfig()
         {
-            Config.DoesKeyExist("Log");
-            Assert.AreEqual(true, Config.DoesKeyExist("Log"));
-            Assert.AreEqual(false, Config.DoesKeyExist("Browser"));
-            Assert.AreEqual(true, Config.DoesKeyExist("Browser", "SeleniumMaqs"));
+            Config.DoesGeneralKeyExist("Log");
+            Assert.AreEqual(true, Config.DoesGeneralKeyExist("Log"));
+            Assert.AreEqual(false, Config.DoesGeneralKeyExist("Browser"));
+            Assert.AreEqual(true, Config.DoesKeyExist("SeleniumMaqs", "Browser"));
             Assert.AreEqual("OnFail", Config.GetGeneralValue("Log", "NO"));
             Assert.AreEqual("HeadlessChrome", Config.GetValueForSection("SeleniumMaqs", "Browser", "NO"));
         }
@@ -65,7 +65,7 @@ namespace FrameworkUnitTests
         [TestCategory(TestCategories.UtilitiesCore)]
         public void DoesKeyExist()
         {
-            bool value = Config.DoesKeyExist("DoesNotExist");
+            bool value = Config.DoesGeneralKeyExist("DoesNotExist");
             Assert.AreEqual(false, value);
         }
 
@@ -82,8 +82,11 @@ namespace FrameworkUnitTests
             string overrideValue = baseValue + "_Override";
 
             // Override the configuration
-            var overrides = new Dictionary<string, string>();
-            overrides.Add(key, overrideValue);
+            var overrides = new Dictionary<string, string>
+            {
+                { key, overrideValue }
+            };
+
             Config.AddTestSettingValues(overrides);
 
             // Make sure it worked
@@ -104,8 +107,11 @@ namespace FrameworkUnitTests
             Assert.AreEqual(string.Empty, Config.GetGeneralValue(key));
 
             // Set the override
-            var overrides = new Dictionary<string, string>();
-            overrides.Add(key, value);
+            var overrides = new Dictionary<string, string>
+            {
+                { key, value }
+            };
+
             Config.AddTestSettingValues(overrides);
 
             // Make sure the override worked
@@ -119,7 +125,7 @@ namespace FrameworkUnitTests
         [TestCategory(TestCategories.UtilitiesCore)]
         public void ConfigSection()
         {
-            Dictionary<string, string> remoteCapabilitySection = Config.GetSection("RemoteSeleniumCapsMaqs");
+            Dictionary<string, string> remoteCapabilitySection = Config.GetSectionDictionary("RemoteSeleniumCapsMaqs");
 
             Assert.AreEqual("someName", remoteCapabilitySection["userName2"]);
             Assert.AreEqual("Some_Accesskey", remoteCapabilitySection["accessKey2"]);
@@ -144,13 +150,11 @@ namespace FrameworkUnitTests
             string overrideValue = baseValue + "_Override";
 
             // Override first key value
-            var overrides = new Dictionary<string, string>();
-            overrides.Add(key, overrideValue);
-            Config.AddTestSettingValues(overrides);
+            var overrides = new Dictionary<string, string>
+            {
+                { key, overrideValue }
+            };
 
-            // Try to override something that has already been overridden
-            overrides = new Dictionary<string, string>();
-            overrides.Add(key, "ValueThatShouldNotOverride");
             Config.AddTestSettingValues(overrides);
 
             // The secondary override should fail as we already overrode it once
@@ -158,9 +162,12 @@ namespace FrameworkUnitTests
 
             // Try the override again, but this time tell the override to allow itself to be overrode
             overrideValue += "_SecondOverride";
-            overrides = new Dictionary<string, string>();
-            overrides.Add(key, overrideValue);
-            Config.AddGeneralTestSettingValues(overrides, true);
+            overrides = new Dictionary<string, string>
+            {
+                { key, overrideValue }
+            };
+
+            Config.AddGeneralTestSettingValues(overrides);
 
             // Make sure the force override worked
             Assert.AreEqual(overrideValue, Config.GetGeneralValue(key));

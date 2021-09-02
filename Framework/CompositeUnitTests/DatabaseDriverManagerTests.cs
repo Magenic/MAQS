@@ -77,8 +77,8 @@ namespace CompositeUnitTests
             DatabaseDriverManager newDriver = new DatabaseDriverManager(() => DatabaseConfig.GetOpenConnection(), this.TestObject);
             this.ManagerStore.Add("test", newDriver);
 
-            Assert.AreNotEqual(this.TestObject.DatabaseManager, (DatabaseDriverManager)this.ManagerStore["test"]);
-            Assert.AreNotEqual(this.TestObject.DatabaseManager.Get(), ((DatabaseDriverManager)this.ManagerStore["test"]).Get());
+            Assert.AreNotEqual(this.TestObject.DatabaseManager, this.ManagerStore.GetManager<DatabaseDriverManager>("test"));
+            Assert.AreNotEqual(this.TestObject.DatabaseManager.Get(), this.ManagerStore.GetManager<DatabaseDriverManager>("test").Get());
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace CompositeUnitTests
             // Do something so we initialize the driver
             this.DatabaseDriver.Execute("Select * from Sys.Databases");
 
-            DatabaseDriverManager driverDriver = this.ManagerStore[typeof(DatabaseDriverManager).FullName] as DatabaseDriverManager;
+            DatabaseDriverManager driverDriver = this.ManagerStore.GetManager<DatabaseDriverManager>();
             Assert.IsTrue(driverDriver.IsDriverIntialized(), "The driver should have been initialized");
         }
 
@@ -121,7 +121,7 @@ namespace CompositeUnitTests
         [TestMethod]
         public void NotIntialized()
         {
-            DatabaseDriverManager driverDriver = this.ManagerStore[typeof(DatabaseDriverManager).FullName] as DatabaseDriverManager;
+            DatabaseDriverManager driverDriver = this.ManagerStore.GetManager<DatabaseDriverManager>();
             Assert.IsFalse(driverDriver.IsDriverIntialized(), "The driver should not be initialized until it gets used");
         }
     }

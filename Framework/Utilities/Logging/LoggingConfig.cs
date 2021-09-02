@@ -4,7 +4,6 @@
 // </copyright>
 // <summary>Logging related configuration</summary>
 //--------------------------------------------------
-using Magenic.Maqs.Utilities.Data;
 using Magenic.Maqs.Utilities.Helper;
 using System;
 using System.IO;
@@ -17,6 +16,15 @@ namespace Magenic.Maqs.Utilities.Logging
     /// </summary>
     public static class LoggingConfig
     {
+        /// <summary>
+        /// Get our logging type
+        /// </summary>
+        /// <returns>The log type as a string</returns>
+        public static string GetLogType()
+        {
+            return Config.GetGeneralValue("LogType", "TXT").ToUpper();
+        }
+
         /// <summary>
         /// Get our logging state - Yes, no or on failure
         /// </summary>
@@ -32,7 +40,7 @@ namespace Magenic.Maqs.Utilities.Logging
                 case "NO":
                     return LoggingEnabled.NO;
                 default:
-                    throw new MaqsLoggingConfigException(StringProcessor.SafeFormatter($"Log value '{Config.GetGeneralValue("Log", "NO")}' is not a valid option"));
+                    throw new MaqsLoggingConfigException($"Log value '{Config.GetGeneralValue("Log", "NO")}' is not a valid option");
             }
         }
 
@@ -63,36 +71,7 @@ namespace Magenic.Maqs.Utilities.Logging
                 case "SUSPENDED":
                     return MessageType.SUSPENDED;       // All logging is suspended
                 default:
-                    throw new MaqsLoggingConfigException(StringProcessor.SafeFormatter($"Logging level value '{Config.GetGeneralValue("LogLevel")}' is not a valid option"));
-            }
-        }
-
-        /// <summary>
-        /// Get the logger
-        /// </summary>
-        /// <param name="fileName">File name to use for the log</param>
-        /// <returns>The logger</returns>
-        public static Logger GetLogger(string fileName)
-        {
-            // Disable logging means we just send any logged messages to the console
-            if (GetLoggingEnabledSetting() == LoggingEnabled.NO)
-            {
-                return new ConsoleLogger();
-            }
-
-            string logDirectory = GetLogDirectory();
-
-            switch (Config.GetGeneralValue("LogType", "CONSOLE").ToUpper())
-            {
-                case "CONSOLE":
-                    return new ConsoleLogger(GetLoggingLevelSetting());
-                case "TXT":
-                    return new FileLogger(logDirectory, fileName, GetLoggingLevelSetting());
-                case "HTML":
-                case "HTM":
-                    return new HtmlFileLogger(logDirectory, fileName, GetLoggingLevelSetting());
-                default:
-                    throw new MaqsLoggingConfigException(StringProcessor.SafeFormatter($"Log type '{Config.GetGeneralValue("LogType", "CONSOLE")}' is not a valid option"));
+                    throw new MaqsLoggingConfigException($"Logging level value '{Config.GetGeneralValue("LogLevel")}' is not a valid option");
             }
         }
 
@@ -113,6 +92,15 @@ namespace Magenic.Maqs.Utilities.Logging
         public static bool GetFirstChanceHandler()
         {
             return Config.GetGeneralValue("UseFirstChanceHandler", "Yes").Equals("Yes", StringComparison.CurrentCultureIgnoreCase);
+        }
+
+        /// <summary>
+        /// Gets if we should use short file names
+        /// </summary>
+        /// <returns>Boolean if you want short file names</returns>
+        public static bool GetUseShortFileName()
+        {
+            return Config.GetGeneralValue("UseShortFileName", "No").Equals("Yes", StringComparison.CurrentCultureIgnoreCase);
         }
     }
 }

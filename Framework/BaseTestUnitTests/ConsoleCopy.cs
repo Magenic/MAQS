@@ -21,7 +21,7 @@ namespace BaseTestUnitTests
         /// used to write to both the console and the log
         /// </summary>
         private readonly TextWriter doubleWriter;
-        
+
         /// <summary>
         /// stores the original Console output
         /// </summary>

@@ -48,7 +48,7 @@ namespace EmailUnitTests
             string host = EmailConfig.GetHost();
             Assert.AreEqual("localhost", host);
         }
-        
+
         /// <summary>
         /// Gets the username from the config
         /// </summary>
@@ -61,7 +61,7 @@ namespace EmailUnitTests
             string saveName = EmailConfig.GetUserName();
             string tempName = "TEMP";
 
-            Config.AddTestSettingValues(new Dictionary<string, string> { { "EmailUserName", tempName } }, "EmailMaqs", true);
+            Config.AddTestSettingValues(new Dictionary<string, string> { { "EmailUserName", tempName } }, "EmailMaqs");
 
             try
             {
@@ -70,10 +70,10 @@ namespace EmailUnitTests
             }
             finally
             {
-                Config.AddTestSettingValues(new Dictionary<string, string> { { "EmailUserName", saveName } }, "EmailMaqs", true);
+                Config.AddTestSettingValues(new Dictionary<string, string> { { "EmailUserName", saveName } }, "EmailMaqs");
             }
         }
-        
+
         /// <summary>
         /// Gets the password from the config
         /// </summary>
@@ -86,7 +86,7 @@ namespace EmailUnitTests
             string savePass = EmailConfig.GetPassword();
             string tempPass = "TEMP";
 
-            Config.AddTestSettingValues(new Dictionary<string, string> { { "EmailPassword", tempPass } }, "EmailMaqs", true);
+            Config.AddTestSettingValues(new Dictionary<string, string> { { "EmailPassword", tempPass } }, "EmailMaqs");
 
             try
             {
@@ -95,10 +95,10 @@ namespace EmailUnitTests
             }
             finally
             {
-                Config.AddTestSettingValues(new Dictionary<string, string> { { "EmailPassword", savePass } }, "EmailMaqs", true);
+                Config.AddTestSettingValues(new Dictionary<string, string> { { "EmailPassword", savePass } }, "EmailMaqs");
             }
         }
-        
+
         /// <summary>
         /// Gets the port from the config
         /// </summary>

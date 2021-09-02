@@ -19,16 +19,16 @@ namespace WebServiceTesterUnitTesting
     [ExcludeFromCodeCoverage]
     public class WebServiceDriverConfig : BaseWebServiceTest
     {
-         /// <summary>
+        /// <summary>
         /// Setup test with properties
         /// </summary>
         [TestInitialize]
         public void ATestSetup()
         {
             // Set property overrides
-            this.TestContext.Properties.Add("SetupTest", "Setup");
-            this.TestContext.Properties.Add("SetupTest2", "Setup2");
-            this.TestContext.Properties.Add("OverrideTest", "Overridden");
+            this.TestContext.Properties.Add("MagenicMaqs:SetupTest", "Setup");
+            this.TestContext.Properties.Add("Magenicmaqs:SetupTest2", "Setup2");
+            this.TestContext.Properties.Add("magenicmaqs:OverrideTest", "Overridden");
 
             Config.UpdateWithVSTestContext(this.TestContext);
         }
@@ -69,19 +69,16 @@ namespace WebServiceTesterUnitTesting
             // Get base key values
             Assert.AreEqual(defaultValue, Config.GetGeneralValue(key));
 
-            // Try to override something that has already been overridden
-            Dictionary<string, string> overrides = new Dictionary<string, string>();
-            overrides.Add(key, "ValueThatShouldNotOverride");
-            Config.AddTestSettingValues(overrides);
-
             // The secondary override should fail as we already overrode it once
             Assert.AreEqual(defaultValue, Config.GetGeneralValue(key));
 
             // Try the override again, but this time tell the override to allow itself to be overrode
             defaultValue += "_SecondOverride";
-            overrides = new Dictionary<string, string>();
-            overrides.Add(key, defaultValue);
-            Config.AddGeneralTestSettingValues(overrides, true);
+            var overrides = new Dictionary<string, string>
+            {
+                { key, defaultValue }
+            };
+            Config.AddGeneralTestSettingValues(overrides);
 
             // Make sure the force override worked
             Assert.AreEqual(defaultValue, Config.GetGeneralValue(key));

@@ -84,8 +84,7 @@ namespace SeleniumUnitTests
                    {
                         { "BrowserSize", "MAXIMIZE" }
                    },
-                   "SeleniumMaqs",
-                   true);
+                   "SeleniumMaqs");
 
                 var driverConfigSize = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Firefox);
 
@@ -141,8 +140,7 @@ namespace SeleniumUnitTests
                     {
                         { "BrowserSize", "DEFAULT" }
                     },
-                   "SeleniumMaqs",
-                    true);
+                   "SeleniumMaqs");
 
             var driverChangeSize = WebDriverFactory.GetDefaultBrowser();
 
@@ -189,8 +187,7 @@ namespace SeleniumUnitTests
                     {
                         { "BrowserSize", $"{expectedWidth}x{expectedHeight}" }
                     },
-                   "SeleniumMaqs",
-                    true);
+                   "SeleniumMaqs");
 
             var driver = WebDriverFactory.GetDefaultBrowser();
 
@@ -276,7 +273,7 @@ namespace SeleniumUnitTests
             var username = Config.GetValueForSection(ConfigSection.RemoteSeleniumCapsMaqs, "username");
             try
             {
-                Config.AddTestSettingValues(new Dictionary<string, string> { ["username"] = "Sauce_Labs_Username" }, ConfigSection.RemoteSeleniumCapsMaqs, true);
+                Config.AddTestSettingValues(new Dictionary<string, string> { ["username"] = "Sauce_Labs_Username" }, ConfigSection.RemoteSeleniumCapsMaqs);
                 driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Remote);
                 driver.Navigate().GoToUrl("https://magenic.com/");
             }
@@ -292,7 +289,7 @@ namespace SeleniumUnitTests
                 {
                     driver.Quit();
                 }
-                Config.AddTestSettingValues(new Dictionary<string, string> { ["username"] = username }, ConfigSection.RemoteSeleniumCapsMaqs, true);
+                Config.AddTestSettingValues(new Dictionary<string, string> { ["username"] = username }, ConfigSection.RemoteSeleniumCapsMaqs);
             }
             Assert.IsTrue(checkedAssertion, "Did not receive the error message on inner exception");
         }
@@ -360,8 +357,7 @@ namespace SeleniumUnitTests
                         { "HubUrl", "http://localhost:4444/wd/hub" },
                         { "RemoteBrowser", "NoBrowser" }
                     },
-                   "SeleniumMaqs",
-                    true);
+                   "SeleniumMaqs");
 
                 WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Remote);
             }
@@ -373,8 +369,7 @@ namespace SeleniumUnitTests
                         { "HubUrl", hubUrl },
                         { "RemoteBrowser", remoteBrowser }
                     },
-                   "SeleniumMaqs",
-                    true);
+                   "SeleniumMaqs");
             }
         }
 

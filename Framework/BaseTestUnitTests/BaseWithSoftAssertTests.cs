@@ -36,9 +36,9 @@ namespace BaseTestUnitTests
         public static void ClassInit(TestContext context)
 #pragma warning restore IDE0060 // Remove unused parameter
         {
-            general = Config.GetSection(ConfigSection.MagenicMaqs);
-            Config.AddTestSettingValues("Log", "OnFail", "MagenicMaqs", true);
-            Config.AddTestSettingValues("LogType", "txt", "MagenicMaqs", true);
+            general = Config.GetSectionDictionary(ConfigSection.MagenicMaqs);
+            Config.AddTestSettingValues("Log", "OnFail", "MagenicMaqs");
+            Config.AddTestSettingValues("LogType", "txt", "MagenicMaqs");
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace BaseTestUnitTests
         [ClassCleanup]
         public static void ClassCleanup()
         {
-            Config.AddTestSettingValues(general, ConfigSection.MagenicMaqs, true);
+            Config.AddTestSettingValues(general, ConfigSection.MagenicMaqs);
         }
 
         /// <summary>
@@ -200,7 +200,7 @@ namespace BaseTestUnitTests
             this.SoftAssert.AddExpectedAsserts("two");
             this.SoftAssert.Assert(() => { }, "two");
             this.SoftAssert.Assert(() => { }, "one");
-            
+
             this.SoftAssert.FailTestIfAssertFailed();
         }
 

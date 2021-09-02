@@ -4,7 +4,6 @@
 // </copyright>
 // <summary>Web driver factory</summary>
 //--------------------------------------------------
-using Magenic.Maqs.Utilities.Data;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
@@ -74,7 +73,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                         break;
 
                     default:
-                        throw new ArgumentException(StringProcessor.SafeFormatter($"Browser type '{browser}' is not supported"));
+                        throw new ArgumentException($"Browser type '{browser}' is not supported");
                 }
 
                 return webDriver;
@@ -342,7 +341,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <returns>The remote driver options</returns>
         public static DriverOptions GetRemoteOptions(RemoteBrowserType remoteBrowser, string remotePlatform, string remoteBrowserVersion, Dictionary<string, object> remoteCapabilities)
         {
-            DriverOptions options = null;
+            DriverOptions options;
 
             switch (remoteBrowser)
             {
@@ -367,7 +366,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                     break;
 
                 default:
-                    throw new ArgumentException(StringProcessor.SafeFormatter($"Remote browser type '{remoteBrowser}' is not supported"));
+                    throw new ArgumentException($"Remote browser type '{remoteBrowser}' is not supported");
             }
 
             // Make sure the remote capabilities dictionary exists
@@ -608,7 +607,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             // We didn't find the web driver so throw an error if we need to know where it is
             if (mustExist)
             {
-                throw new FileNotFoundException(StringProcessor.SafeFormatter($"Unable to find driver for '{driverFile}'"));
+                throw new FileNotFoundException($"Unable to find driver for '{driverFile}'");
             }
 
             return string.Empty;

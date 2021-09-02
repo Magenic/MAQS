@@ -10,7 +10,6 @@ using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Appium.iOS;
 using System.IO;
 
 namespace AppiumUnitTests
@@ -58,7 +57,7 @@ namespace AppiumUnitTests
 
             Log = new FileLogger(string.Empty, "AssertFuncFailPath.txt", MessageType.GENERIC, true);
             AppiumSoftAssert appiumSoftAssert = new AppiumSoftAssert(TestObject);
-            string logLocation = ((FileLogger)Log).FilePath;
+            string logLocation = ((IFileLogger)Log).FilePath;
             string screenShotLocation = $"{logLocation.Substring(0, logLocation.LastIndexOf('.'))} assertName (1).Png";
 
             bool isFalse = appiumSoftAssert.Assert(() => Assert.IsTrue(false), "assertName");
@@ -85,8 +84,8 @@ namespace AppiumUnitTests
             options.AddAdditionalCapability("browserName", "Safari");
             options.AddAdditionalCapability("username", Config.GetValueForSection(ConfigSection.AppiumCapsMaqs, "userName"));
             options.AddAdditionalCapability("accessKey", Config.GetValueForSection(ConfigSection.AppiumCapsMaqs, "accessKey"));
-            
-            return AppiumDriverFactory.GetIOSDriver(AppiumConfig.GetMobileHubUrl(), options, AppiumConfig.GetCommandTimeout());
+
+            return AppiumDriverFactory.GetIOSDriver(AppiumConfig.GetMobileHubUrl(), options, AppiumConfig.GetMobileCommandTimeout());
         }
     }
 }

@@ -67,7 +67,7 @@ namespace FrameworkUnitTests
         public void TeardownIgnoresNonExistantFiles()
         {
             // get log path
-            string logFilePath = ((FileLogger)this.Log).FilePath;
+            string logFilePath = ((IFileLogger)this.Log).FilePath;
 
             // add non existent associated files
             this.TestObject.AddAssociatedFile(@"TeardownTest/FakeFileToAttach1.txt");
@@ -97,7 +97,7 @@ namespace FrameworkUnitTests
         public void PerfTimerCollectionFilesAreAddedToAssociatedFiles()
         {
             // get log path
-            string logFilePath = ((FileLogger)this.Log).FilePath;
+            string logFilePath = ((IFileLogger)this.Log).FilePath;
 
             this.PerfTimerCollection.StartTimer("testTimer");
             this.PerfTimerCollection.StopTimer("testTimer");

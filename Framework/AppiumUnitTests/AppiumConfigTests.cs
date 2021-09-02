@@ -40,7 +40,7 @@ namespace AppiumUnitTests
         {
             Assert.AreEqual("Android", AppiumConfig.GetPlatformName());
         }
-        
+
         /// <summary>
         /// Test for getting mobile OS version
         /// </summary>
@@ -68,7 +68,7 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void GetCommandTimeout()
         {
-            TimeSpan initTimeout = AppiumConfig.GetCommandTimeout();
+            TimeSpan initTimeout = AppiumConfig.GetMobileCommandTimeout();
 
             Assert.AreEqual(200, initTimeout.TotalSeconds);
         }

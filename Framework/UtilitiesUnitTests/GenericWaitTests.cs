@@ -20,7 +20,6 @@ namespace UtilitiesUnitTesting
     [TestClass]
     [ExcludeFromCodeCoverage]
     [DoNotParallelize]
-    [SuppressMessage("Minor Code Smell", "S3626:Jump statements should not be redundant", Justification = "GenericWait tests are testing throwing a statement")]
     public class GenericWaitTests
     {
         /// <summary>
@@ -151,9 +150,11 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void PassObjectArrayUntilTest()
         {
-            List<object> objects = new List<object>();
-            objects.Add((object)"one");
-            objects.Add((object)new Dictionary<int, Guid>());
+            List<object> objects = new List<object>
+            {
+                (object)"one",
+                (object)new Dictionary<int, Guid>()
+            };
 
             Assert.IsTrue(GenericWait.WaitUntil<object[]>(this.IsTwoParameters, objects.ToArray()), "Failed parameter array test");
         }
@@ -165,9 +166,11 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void PassObjectArrayForTest()
         {
-            List<object> objects = new List<object>();
-            objects.Add((object)"one");
-            objects.Add((object)new Dictionary<int, Guid>());
+            List<object> objects = new List<object>
+            {
+                (object)"one",
+                (object)new Dictionary<int, Guid>()
+            };
 
             GenericWait.WaitFor<object[]>(this.IsTwoParameters, objects.ToArray());
         }

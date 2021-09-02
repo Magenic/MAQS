@@ -15,7 +15,7 @@ namespace Magenic.Maqs.Utilities.Logging
     /// <summary>
     ///  Helper class for adding logs to a plain text file. Allows configurable file path.
     /// </summary>
-    public class FileLogger : Logger
+    public class FileLogger : Logger, IFileLogger
     {
         /// <summary>
         /// The default log file save location
@@ -117,8 +117,8 @@ namespace Magenic.Maqs.Utilities.Logging
                         using (StreamWriter writer = new StreamWriter(this.FilePath, true))
                         {
                             string date = DateTime.UtcNow.ToString(Logger.DEFAULTDATEFORMAT, CultureInfo.InvariantCulture);
-                            writer.WriteLine(StringProcessor.SafeFormatter($"{Environment.NewLine}{date}"));
-                            writer.Write(StringProcessor.SafeFormatter($"{messageType.ToString()}:\t"));
+                            writer.WriteLine($"{Environment.NewLine}{date}");
+                            writer.Write($"{messageType}:\t");
 
                             writer.WriteLine(StringProcessor.SafeFormatter(message, args));
                         }
@@ -127,7 +127,7 @@ namespace Magenic.Maqs.Utilities.Logging
                     {
                         // Failed to write to the event log, write error to the console instead
                         ConsoleLogger console = new ConsoleLogger();
-                        console.LogMessage(MessageType.ERROR, StringProcessor.SafeFormatter($"Failed to write to event log because: {e.Message}"));
+                        console.LogMessage(MessageType.ERROR, $"Failed to write to event log because: {e.Message}");
                         console.LogMessage(messageType, message, args);
                     }
                 }

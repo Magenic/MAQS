@@ -18,7 +18,7 @@ namespace WebServiceTesterUnitTesting
     /// </summary>
     [TestFixture]
     [ExcludeFromCodeCoverage]
-    public class WebServiceNUnit :BaseWebServiceTest
+    public class WebServiceNUnit : BaseWebServiceTest
     {
         /// <summary>
         /// Test XML get
