@@ -312,8 +312,10 @@ jobs:
 
   test-composite:
     name: Composite
-    needs: waitOld
+    # needs: waitOld
     runs-on: ubuntu-latest
+    env:
+      MagenicMaqs:LogType: CONSOLE
     steps:
       - uses: actions/checkout@v2
       - id: browserupdate
@@ -322,10 +324,23 @@ jobs:
         run: docker-compose -f Docker/MAQSMongoDB/docker-compose.yml -p Magenic/MAQS up -d
       - name: Build the docker-compose email stack
         run: docker-compose -f Docker/MAQSEmail/docker-compose.yml -p Magenic/MAQS up -d
-      - id: builder
-        uses: ./.github/workflows/buildtest-action
-        with:
-          bt-param: 'Framework/CompositeUnitTests/CompositeUnitTests.csproj --settings Framework/Parallel.RunSettings --logger trx --results-directory "${{github.workspace}}/artifactTests/composite/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/composite/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+          
+      - run: dotnet test Framework/CompositeUnitTests/CompositeUnitTests.csproj --filter "(FullyQualifiedName~MongoDBManagerTests)"  --settings Framework/Parallel.RunSettings --logger trx --results-directory "${{github.workspace}}/artifactTests/composite/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/composite/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -o "${{github.workspace}}/artifactTests"
+        shell: pwsh  
+          
+      - run: dotnet test Framework/CompositeUnitTests/CompositeUnitTests.csproj --filter "(FullyQualifiedName~WebServiceDriverManagerTests)"  --settings Framework/Parallel.RunSettings --logger trx --results-directory "${{github.workspace}}/artifactTests/composite/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/composite/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -o "${{github.workspace}}/artifactTests"
+        shell: pwsh  
+      
+      - run: dotnet test Framework/CompositeUnitTests/CompositeUnitTests.csproj --filter "(FullyQualifiedName~DriverManagerTests)"  --settings Framework/Parallel.RunSettings --logger trx --results-directory "${{github.workspace}}/artifactTests/composite/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/composite/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -o "${{github.workspace}}/artifactTests"
+        shell: pwsh  
+          
+      - run: dotnet test Framework/CompositeUnitTests/CompositeUnitTests.csproj --filter "(FullyQualifiedName~Base)"  --settings Framework/Parallel.RunSettings --logger trx --results-directory "${{github.workspace}}/artifactTests/composite/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/composite/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -o "${{github.workspace}}/artifactTests"
+        shell: pwsh  
+        
+      #- id: builder
+      #  uses: ./.github/workflows/buildtest-action
+      #  with:
+      #    bt-param: 'Framework/CompositeUnitTests/CompositeUnitTests.csproj --settings Framework/Parallel.RunSettings --logger trx --results-directory "${{github.workspace}}/artifactTests/composite/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/composite/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
         if: always()
         name: "Upload test artifact"
