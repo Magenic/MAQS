@@ -59,7 +59,7 @@ namespace SeleniumUnitTests
                 return;
             }
 
-            Assert.Fail("Test should not have found bad selector: " +  badSelector);
+            Assert.Fail("Test should not have found bad selector: " + badSelector);
         }
     }
 }

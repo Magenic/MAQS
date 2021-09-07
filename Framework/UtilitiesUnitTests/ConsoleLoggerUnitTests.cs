@@ -47,8 +47,8 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void ConsoleLoggerWriteMessageSelectType()
         {
-           ConsoleLogger testConsole = new ConsoleLogger();
-           testConsole.Write(MessageType.GENERIC, "TestString {0}", "args1");
+            ConsoleLogger testConsole = new ConsoleLogger();
+            testConsole.Write(MessageType.GENERIC, "TestString {0}", "args1");
         }
     }
 }

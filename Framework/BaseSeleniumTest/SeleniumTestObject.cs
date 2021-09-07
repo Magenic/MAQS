@@ -14,7 +14,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
     /// <summary>
     /// Selenium test context data
     /// </summary>
-    public class SeleniumTestObject : BaseTestObject
+    public class SeleniumTestObject : BaseTestObject, ISeleniumTestObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SeleniumTestObject" /> class
@@ -22,7 +22,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="webDriver">The test's Selenium web driver</param>
         /// <param name="logger">The test's logger</param>
         /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
-        public SeleniumTestObject(IWebDriver webDriver, Logger logger, string fullyQualifiedTestName) : base(logger, fullyQualifiedTestName)
+        public SeleniumTestObject(IWebDriver webDriver, ILogger logger, string fullyQualifiedTestName) : base(logger, fullyQualifiedTestName)
         {
             this.ManagerStore.Add(typeof(SeleniumDriverManager).FullName, new SeleniumDriverManager(() => webDriver, this));
             this.SoftAssert = new SeleniumSoftAssert(this);
@@ -34,7 +34,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="getDriver">Function for getting a Selenium web driver</param>
         /// <param name="logger">The test's logger</param>
         /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
-        public SeleniumTestObject(Func<IWebDriver> getDriver, Logger logger, string fullyQualifiedTestName) : base(logger, fullyQualifiedTestName)
+        public SeleniumTestObject(Func<IWebDriver> getDriver, ILogger logger, string fullyQualifiedTestName) : base(logger, fullyQualifiedTestName)
         {
             this.ManagerStore.Add(typeof(SeleniumDriverManager).FullName, new SeleniumDriverManager(getDriver, this));
             this.SoftAssert = new SeleniumSoftAssert(this);
@@ -47,7 +47,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             get
             {
-                return this.ManagerStore[typeof(SeleniumDriverManager).FullName] as SeleniumDriverManager;
+                return this.ManagerStore.GetManager<SeleniumDriverManager>(typeof(SeleniumDriverManager).FullName);
             }
         }
 

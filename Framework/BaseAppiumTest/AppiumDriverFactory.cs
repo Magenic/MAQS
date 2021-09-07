@@ -4,7 +4,6 @@
 // </copyright>
 // <summary>Factory for creating mobile drivers</summary>
 //--------------------------------------------------
-using Magenic.Maqs.Utilities.Data;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
@@ -41,7 +40,7 @@ namespace Magenic.Maqs.BaseAppiumTest
             AppiumDriver<IWebElement> appiumDriver;
 
             Uri mobileHub = AppiumConfig.GetMobileHubUrl();
-            TimeSpan timeout = AppiumConfig.GetCommandTimeout();
+            TimeSpan timeout = AppiumConfig.GetMobileCommandTimeout();
             AppiumOptions options = GetDefaultMobileOptions();
 
             switch (deviceType)
@@ -59,7 +58,7 @@ namespace Magenic.Maqs.BaseAppiumTest
                     break;
 
                 default:
-                    throw new ArgumentException(StringProcessor.SafeFormatter($"Mobile OS type '{deviceType}' is not supported"));
+                    throw new ArgumentException($"Mobile OS type '{deviceType}' is not supported");
             }
 
             // Check options to see if we are doing browser or app tests

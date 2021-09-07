@@ -26,7 +26,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// </summary>
         /// <param name="getDriver">Function for creating an http client</param>
         /// <param name="testObject">The associated test object</param>
-        public WebServiceDriverManager(Func<HttpClient> getDriver, BaseTestObject testObject) : base(getDriver, testObject)
+        public WebServiceDriverManager(Func<HttpClient> getDriver, ITestObject testObject) : base(getDriver, testObject)
         {
         }
 
@@ -35,7 +35,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// </summary>
         /// <param name="httpClient">Http client to use with the driver</param>
         /// <param name="testObject">The associated test object</param>
-        public WebServiceDriverManager(HttpClient httpClient, BaseTestObject testObject) : base(() => httpClient, testObject)
+        public WebServiceDriverManager(HttpClient httpClient, ITestObject testObject) : base(() => httpClient, testObject)
         {
         }
 
@@ -44,7 +44,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// </summary>
         /// <param name="getDriver">Function for creating an http client</param>
         /// <param name="testObject">The associated test object</param>
-        public WebServiceDriverManager(WebServiceDriver getDriver, BaseTestObject testObject) : base(() => getDriver.HttpClient, testObject)
+        public WebServiceDriverManager(WebServiceDriver getDriver, ITestObject testObject) : base(() => getDriver.HttpClient, testObject)
         {
             this.driver = getDriver;
         }
@@ -55,7 +55,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <param name="driver">A new http driver</param>
         public void OverrideDriver(WebServiceDriver driver)
         {
-            this.OverrideDriverGet (() => driver.HttpClient);
+            this.OverrideDriverGet(() => driver.HttpClient);
             this.driver = driver;
         }
 

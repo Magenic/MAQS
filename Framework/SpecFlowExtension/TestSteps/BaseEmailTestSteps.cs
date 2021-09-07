@@ -14,7 +14,7 @@ namespace Magenic.Maqs.SpecFlow.TestSteps
     /// Base for email TestSteps classes
     /// </summary>
     [Binding, Scope(Tag = "MAQS_Email")]
-    public class BaseEmailTestSteps : ExtendableTestSteps<EmailTestObject, MaqsEmail>
+    public class BaseEmailTestSteps : ExtendableTestSteps<IEmailTestObject, MaqsEmail>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseEmailTestSteps" /> class

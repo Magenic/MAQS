@@ -69,7 +69,7 @@ namespace UtilitiesUnitTesting
                     }
                 }));
             }
-            
+
             Task.WaitAll(loggingTasks.ToArray());
         }
     }

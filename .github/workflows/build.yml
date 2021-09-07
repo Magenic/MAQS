@@ -93,6 +93,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - id: builder
+        env:
+          MagenicMaqs:ConfigJsonEnvRunOverride: ENV
+          MagenicMaqs:ConfigJsonEnvRun: ENV
+          MagenicMaqs:ConfigJsonEnv: ENV
+          MagenicMaqs:EnvOnly: ENV
         uses: ./.github/workflows/buildtest-action
         with:
           bt-param: 'Framework/UtilitiesUnitTests/UtilitiesUnitTests.csproj --settings Framework/Parallel.RunSettings  --logger trx --results-directory "${{github.workspace}}/artifactTests/untils/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/untils/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
@@ -303,7 +308,6 @@ jobs:
           path: |
             artifactTests/specflow/**/*.xml
             artifactTests/specflow/testResults/
-
 
   test-composite:
     name: Composite
@@ -596,6 +600,3 @@ jobs:
               }
           }
           console.error("Failed to find related draft release");
-
-
-

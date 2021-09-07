@@ -28,7 +28,7 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// Expected updated url
         /// </summary>
-        private const string UpdatedUrl  = "https://github.com/Magenic/MAQS";
+        private const string UpdatedUrl = "https://github.com/Magenic/MAQS";
 
         /// <summary>
         /// Timeout override

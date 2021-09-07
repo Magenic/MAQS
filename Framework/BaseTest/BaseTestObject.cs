@@ -15,50 +15,13 @@ namespace Magenic.Maqs.BaseTest
     /// <summary>
     /// Base test context data
     /// </summary>
-    public class BaseTestObject : IDisposable
+    public class BaseTestObject : ITestObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseTestObject" /> class
         /// </summary>
-        /// <param name="logger">The test's logger</param>
-        /// <param name="softAssert">The test's soft assert</param>
-        /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
-        public BaseTestObject(Logger logger, SoftAssert softAssert, string fullyQualifiedTestName)
-        {
-            this.Log = logger;
-            this.SoftAssert = softAssert;
-            this.PerfTimerCollection = new PerfTimerCollection(logger, fullyQualifiedTestName);
-            this.Values = new Dictionary<string, string>();
-            this.Objects = new Dictionary<string, object>();
-            this.ManagerStore = new ManagerDictionary();
-            this.AssociatedFiles = new HashSet<string>();
-
-            logger.LogMessage(MessageType.INFORMATION, "Setup test object for " + fullyQualifiedTestName);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BaseTestObject" /> class
-        /// </summary>
-        /// <param name="logger">The test's logger</param>
-        /// <param name="fullyQualifiedTestName">The test's fully qualified name</param>
-        public BaseTestObject(Logger logger, string fullyQualifiedTestName)
-        {
-            this.Log = logger;
-            this.SoftAssert = new SoftAssert(this.Log);
-            this.PerfTimerCollection = new PerfTimerCollection(logger, fullyQualifiedTestName);
-            this.Values = new Dictionary<string, string>();
-            this.Objects = new Dictionary<string, object>();
-            this.ManagerStore = new ManagerDictionary();
-            this.AssociatedFiles = new HashSet<string>();
-
-            logger.LogMessage(MessageType.INFORMATION, "Setup test object for " + fullyQualifiedTestName);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BaseTestObject" /> class
-        /// </summary>
         /// <param name="baseTestObject">An existing base test object</param>
-        public BaseTestObject(BaseTestObject baseTestObject)
+        public BaseTestObject(ITestObject baseTestObject)
         {
             this.Log = baseTestObject.Log;
             this.SoftAssert = baseTestObject.SoftAssert;
@@ -68,23 +31,52 @@ namespace Magenic.Maqs.BaseTest
             this.ManagerStore = baseTestObject.ManagerStore;
             this.AssociatedFiles = baseTestObject.AssociatedFiles;
 
-            baseTestObject.Log.LogMessage(MessageType.INFORMATION, "Setup test object");
+            baseTestObject.Log.LogMessage(MessageType.INFORMATION, "Setup test object " + this.PerfTimerCollection.TestName);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseTestObject" /> class
+        /// </summary>
+        /// <param name="logger">The test's logger</param>
+        /// <param name="fullyQualifiedTestName">The test's fully qualified name</param>
+        public BaseTestObject(ILogger logger, string fullyQualifiedTestName) : this(logger, new SoftAssert(logger), new PerfTimerCollection(logger, fullyQualifiedTestName), fullyQualifiedTestName)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseTestObject" /> class
+        /// </summary>
+        /// <param name="logger">The test's logger</param>
+        /// <param name="softAssert">The test's soft assert</param>
+        /// <param name="collection">The test's performance timer collection</param>
+        /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
+        public BaseTestObject(ILogger logger, ISoftAssert softAssert, IPerfTimerCollection collection, string fullyQualifiedTestName)
+        {
+            this.Log = logger;
+            this.SoftAssert = softAssert;
+            this.PerfTimerCollection = collection;
+            this.Values = new Dictionary<string, string>();
+            this.Objects = new Dictionary<string, object>();
+            this.ManagerStore = new ManagerStore();
+            this.AssociatedFiles = new HashSet<string>();
+
+            logger.LogMessage(MessageType.INFORMATION, "Setup test object for " + fullyQualifiedTestName);
         }
 
         /// <summary>
         /// Gets or sets the logger
         /// </summary>
-        public Logger Log { get; set; }
+        public ILogger Log { get; set; }
 
         /// <summary>
         /// Gets or sets the performance timer collection
         /// </summary>
-        public PerfTimerCollection PerfTimerCollection { get; set; }
+        public IPerfTimerCollection PerfTimerCollection { get; set; }
 
         /// <summary>
         /// Gets or sets soft assert
         /// </summary>
-        public SoftAssert SoftAssert { get; set; }
+        public ISoftAssert SoftAssert { get; set; }
 
         /// <summary>
         /// Gets a dictionary of string key value pairs
@@ -92,19 +84,19 @@ namespace Magenic.Maqs.BaseTest
         public Dictionary<string, string> Values { get; private set; }
 
         /// <summary>
+        /// Gets assocated files
+        /// </summary>
+        public HashSet<string> AssociatedFiles { get; private set; }
+
+        /// <summary>
         /// Gets a dictionary of string key and object value pairs
         /// </summary>
         public Dictionary<string, object> Objects { get; private set; }
 
         /// <summary>
-        /// Gets a dictionary of string key and driver value pairs
+        /// Gets the manager store
         /// </summary>
-        public ManagerDictionary ManagerStore { get; private set; }
-
-        /// <summary>
-        /// Gets a hash set of unique associated files to attach to the test context
-        /// </summary>
-        protected HashSet<string> AssociatedFiles { get; private set; }
+        public IManagerStore ManagerStore { get; private set; }
 
         /// <summary>
         /// Sets a string value, will replace if the key already exists
@@ -145,26 +137,26 @@ namespace Magenic.Maqs.BaseTest
         /// </summary>
         /// <typeparam name="T">The type of driver manager</typeparam>
         /// <returns>The driver manager</returns>
-        public T GetDriverManager<T>() where T : DriverManager
+        public T GetDriverManager<T>() where T : IDriverManager
         {
-            return this.ManagerStore[typeof(T).FullName] as T;
+            return this.ManagerStore.GetManager<T>();
         }
 
         /// <summary>
         /// Add a new driver
         /// </summary>
         /// <typeparam name="T">The driver type</typeparam>
-        /// <param name="driver">The new driver</param>
+        /// <param name="manager">The new driver manager</param>
         /// <param name="overrideIfExists">Should we override if this driver exists.  If it exists and we don't override than an error will be thrown.</param>
-        public void AddDriverManager<T>(T driver, bool overrideIfExists = false) where T : DriverManager
+        public void AddDriverManager<T>(T manager, bool overrideIfExists = false) where T : IDriverManager
         {
             if (overrideIfExists)
             {
-                this.OverrideDriverManager(typeof(T).FullName, driver);
+               this.OverrideDriverManager(manager);
             }
             else
             {
-                this.AddDriverManager(typeof(T).FullName, driver);
+                this.AddDriverManager(typeof(T).FullName, manager);
             }
         }
 
@@ -172,10 +164,10 @@ namespace Magenic.Maqs.BaseTest
         /// Add a new driver
         /// </summary>
         /// <param name="key">Key for the new driver</param>
-        /// <param name="driver">The new driver</param>
-        public void AddDriverManager(string key, DriverManager driver)
+        /// <param name="manager">The new driver manager</param>
+        public void AddDriverManager(string key, IDriverManager manager)
         {
-            this.ManagerStore.Add(key, driver);
+            this.ManagerStore.Add(key, manager);
         }
 
         /// <summary>
@@ -225,21 +217,12 @@ namespace Magenic.Maqs.BaseTest
         }
 
         /// <summary>
-        /// Override a specific driver
+        /// Override a driver manager
         /// </summary>
-        /// <param name="key">The driver key</param>
-        /// <param name="driver">The new driver</param>
-        public void OverrideDriverManager(string key, DriverManager driver)
+        /// <param name="manager">The new driver manager</param>
+        public void OverrideDriverManager<T>(T manager) where T : IDriverManager
         {
-            if (this.ManagerStore.ContainsKey(key))
-            {
-                this.ManagerStore[key].Dispose();
-                this.ManagerStore[key] = driver;
-            }
-            else
-            {
-                this.ManagerStore.Add(key, driver);
-            }
+            this.ManagerStore.AddOrOverride(manager);
         }
 
         /// <summary>
@@ -264,16 +247,7 @@ namespace Magenic.Maqs.BaseTest
 
             this.Log.LogMessage(MessageType.VERBOSE, "Start dispose");
 
-            // Make sure all of the individual drivers are disposed
-            foreach (DriverManager singleDrive in this.ManagerStore.Values)
-            {
-                if (singleDrive != null)
-                {
-                    singleDrive.Dispose();
-                }
-            }
-
-            this.ManagerStore = null;
+            this.ManagerStore.Dispose();
 
             this.Log.LogMessage(MessageType.VERBOSE, "End dispose");
         }

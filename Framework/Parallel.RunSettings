@@ -13,7 +13,7 @@
   <TestRunParameters>
     <Parameter name="SeleniumMaqs:Adding" value="SAMPLE" />
     <Parameter name="MagenicMaqs:SectionOverrideCore" value="ANOTHERSAMPLE" />
-    <Parameter name="Grog" value="YetAnother" />
+    <Parameter name="Magenicmaqs:Grog" value="YetAnother" />
     <Parameter name="Magenicmaqs:SectionOverride" value="SAMPLEGen" />
     <Parameter name="Appiummaqs:SectionOverride" value="SAMPLEApp" />
     <Parameter name="AppiumCaPsMaqs:SectionOverride" value="SAMPLEAppCap" />
@@ -31,6 +31,9 @@
     <Parameter name="RemoteseleniumCapsMaqs:SectionAdd" value="SAMPLESelCapz" />
     <Parameter name="webServiceMaqs:SectionAdd" value="SAMPLEWebz" />
     <Parameter name="SeleniumMaqs:RetryRefused" value="Yes" />
+    <Parameter name="Magenicmaqs:ConfigJsonEnvRunOverride" value="RUN" />
+    <Parameter name="Magenicmaqs:ConfigJsonEnvRun" value="RUN" />
+    <Parameter name="Magenicmaqs:RunOnly" value="RUN" />
   </TestRunParameters>
   <DataCollectionRunSettings>
     <DataCollectors>

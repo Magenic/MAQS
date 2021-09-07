@@ -25,7 +25,7 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// String to hold the URL
         /// </summary>
-        private static string url = WebServiceConfig.GetWebServiceUri();
+        private static readonly string url = WebServiceConfig.GetWebServiceUri();
 
         /// <summary>
         /// Verify 305 status code is returned
@@ -71,7 +71,7 @@ namespace WebServiceTesterUnitTesting
         public void CustomVerbGenericType()
         {
             WebServiceDriver client = new WebServiceDriver(new Uri(url));
-        
+
             var content = WebServiceUtils.MakeStringContent("ZEDTest", Encoding.UTF8, "text/plain");
             var result = client.Custom<string>("ZED", "/api/ZED", "text/plain", content, true);
 

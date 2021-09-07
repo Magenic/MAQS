@@ -6,14 +6,11 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseWebServiceTest;
 using Magenic.Maqs.Utilities.Helper;
-using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Text.RegularExpressions;
 using WebServiceTesterUnitTesting.Model;
 
 namespace WebServiceTesterUnitTesting
@@ -41,7 +38,7 @@ namespace WebServiceTesterUnitTesting
 #pragma warning restore IDE0060 // Remove unused parameter
         {
             oldLoggingType = Config.GetGeneralValue("LogType");
-            Config.AddGeneralTestSettingValues("LogType", "TXT", true);
+            Config.AddGeneralTestSettingValues("LogType", "TXT");
         }
 
         /// <summary>
@@ -50,7 +47,7 @@ namespace WebServiceTesterUnitTesting
         [ClassCleanup]
         public static void ClassCleanup()
         {
-            Config.AddGeneralTestSettingValues("LogType", oldLoggingType, true);
+            Config.AddGeneralTestSettingValues("LogType", oldLoggingType);
         }
 
         /// <summary>

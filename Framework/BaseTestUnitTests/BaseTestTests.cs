@@ -8,7 +8,6 @@ using Magenic.Maqs.BaseTest;
 using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
 using System.IO;
 
 namespace BaseTestUnitTests
@@ -20,28 +19,6 @@ namespace BaseTestUnitTests
     [DoNotParallelize]
     public class BaseTestTests : BaseTest
     {
-        // Cached config settings
-        Dictionary<string, string> general;
-
-        /// <summary>
-        /// Cache config settings
-        /// </summary>
-        [TestInitialize]
-        public void SetUp()
-        {
-            general = Config.GetSection(ConfigSection.MagenicMaqs);
-            Config.AddTestSettingValues("Log", "Default", "MagenicMaqs", true);
-        }
-
-        /// <summary>
-        /// Restore config settings
-        /// </summary>
-        [TestCleanup]
-        public void CleanUp()
-        {
-            Config.AddTestSettingValues(general, ConfigSection.MagenicMaqs, true);
-        }
-        
         /// <summary>
         /// Test duplicate name
         /// </summary>
@@ -69,7 +46,7 @@ namespace BaseTestUnitTests
         [TestCategory(TestCategories.Utilities)]
         public void InvalidCreateLoggerMakesConsoleLogger()
         {
-            Assert.IsInstanceOfType(CreateLogger(), typeof(ConsoleLogger));
+            Assert.IsInstanceOfType(CreateLogger("test", "test", MessageType.INFORMATION, LoggingEnabled.YES), typeof(ConsoleLogger));
         }
 
         /// <summary>

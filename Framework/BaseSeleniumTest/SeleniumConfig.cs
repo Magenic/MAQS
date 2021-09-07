@@ -4,7 +4,6 @@
 // </copyright>
 // <summary>Helper class for getting selenium specific configuration values</summary>
 //--------------------------------------------------
-using Magenic.Maqs.Utilities.Data;
 using Magenic.Maqs.Utilities.Helper;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
@@ -82,7 +81,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 case "REMOTE":
                     return BrowserType.Remote;
                 default:
-                    throw new ArgumentException(StringProcessor.SafeFormatter($"Browser type '{browserName}' is not supported"));
+                    throw new ArgumentException($"Browser type '{browserName}' is not supported");
             }
         }
 
@@ -117,7 +116,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 case "EDGE":
                     return RemoteBrowserType.Edge;
                 default:
-                    throw new ArgumentException(StringProcessor.SafeFormatter($"Remote browser type '{remoteBrowser}' is not supported"));
+                    throw new ArgumentException($"Remote browser type '{remoteBrowser}' is not supported");
             }
         }
 
@@ -252,7 +251,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <returns>Dictionary of remote capabilities</returns>
         public static Dictionary<string, string> GetRemoteCapabilitiesAsStrings()
         {
-            return Config.GetSection(ConfigSection.RemoteSeleniumCapsMaqs);
+            return Config.GetSectionDictionary(ConfigSection.RemoteSeleniumCapsMaqs);
         }
 
         /// <summary>

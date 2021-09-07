@@ -31,7 +31,7 @@ namespace AppiumUnitTests
         {
             AppiumDriverFactory.CreateDriver(() => throw new AccessViolationException("Should fail"));
         }
-    
+
         /// <summary>
         /// Verify CaptureScreenshot works - Validating that the screenshot was created
         /// </summary>
@@ -40,7 +40,7 @@ namespace AppiumUnitTests
         public void CaptureScreenshotTest()
         {
             AppiumUtilities.CaptureScreenshot(this.TestObject.AppiumDriver, this.TestObject);
-            string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, ".Png");
+            string filePath = Path.ChangeExtension(((IFileLogger)this.Log).FilePath, ".Png");
             Assert.IsTrue(File.Exists(filePath), "Fail to find screenshot");
             File.Delete(filePath);
         }
@@ -88,7 +88,7 @@ namespace AppiumUnitTests
         public void CaptureScreenshotTestObjectAssociation()
         {
             AppiumUtilities.CaptureScreenshot(this.TestObject.AppiumDriver, this.TestObject);
-            string filePath = Path.ChangeExtension(((FileLogger)this.Log).FilePath, ".Png");
+            string filePath = Path.ChangeExtension(((IFileLogger)this.Log).FilePath, ".Png");
             Assert.IsTrue(this.TestObject.ContainsAssociatedFile(filePath), "Failed to find screenshot");
             File.Delete(filePath);
         }
@@ -101,7 +101,7 @@ namespace AppiumUnitTests
         public void SavePageSourceTest()
         {
             AppiumUtilities.SavePageSource(this.TestObject.AppiumDriver, this.TestObject);
-            string logLocation = ((FileLogger)this.Log).FilePath;
+            string logLocation = ((IFileLogger)this.Log).FilePath;
             string pageSourceFilelocation = $"{logLocation.Substring(0, logLocation.LastIndexOf('.'))}_PS.txt";
 
             Assert.IsTrue(File.Exists(pageSourceFilelocation), "Failed to find page source");

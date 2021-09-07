@@ -40,6 +40,7 @@ namespace BaseTestUnitTests
             BaseTest tester = this.GetBaseTest();
             tester.TestContext = this.TestContext;
             tester.Setup();
+
             tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
             tester.SoftAssert.Assert(() => Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(string.Empty, string.Empty));
             tester.Teardown();
@@ -61,7 +62,6 @@ namespace BaseTestUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Framework)]
-        [SuppressMessage("Minor Code Smell", "S3626:Jump statements should not be redundant", Justification = "<Pending>")]
         public void SoftAssertExceptionWithNoMessage()
         {
             MicroAssert.ThrowsException<SoftAssertException>(() => throw new SoftAssertException(), string.Empty);
@@ -72,7 +72,6 @@ namespace BaseTestUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Framework)]
-        [SuppressMessage("Minor Code Smell", "S3626:Jump statements should not be redundant", Justification = "<Pending>")]
         public void SoftAssertExceptionWithMessage()
         {
             string error = "ERROR";
@@ -84,7 +83,6 @@ namespace BaseTestUnitTests
         /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Framework)]
-        [SuppressMessage("Minor Code Smell", "S3626:Jump statements should not be redundant", Justification = "<Pending>")]
         public void SoftAssertExceptionWithInnerException()
         {
             string error = "ERROR";
@@ -107,6 +105,49 @@ namespace BaseTestUnitTests
         }
 
         /// <summary>
+        /// Can test object be used to create other test objects
+        /// </summary>
+        [TestMethod]
+        [Category(TestCategories.Framework)]
+        public void TestObject()
+        {
+            var tester = GetBaseTest();
+
+            var testObject = tester.TestObject;
+            var newTestObject = new BaseTestObject(testObject);
+
+            MicroAssert.AreEqual(testObject.Log, newTestObject.Log);
+            MicroAssert.AreEqual(testObject.SoftAssert, newTestObject.SoftAssert);
+            MicroAssert.AreEqual(testObject.PerfTimerCollection, newTestObject.PerfTimerCollection);
+            MicroAssert.AreEqual(testObject.Values, newTestObject.Values);
+            MicroAssert.AreEqual(testObject.Objects, newTestObject.Objects);
+            MicroAssert.AreEqual(testObject.ManagerStore, newTestObject.ManagerStore);
+            MicroAssert.AreEqual(testObject.AssociatedFiles, newTestObject.AssociatedFiles);
+        }
+
+        /// <summary>
+        /// Can test object be used to create other test objects
+        /// </summary>
+        [TestMethod]
+        [Category(TestCategories.Framework)]
+        public void TestObjectWithLogger()
+        {
+            var tester = GetBaseTest();
+
+            var testObject = tester.TestObject;
+            var newTestObject = new BaseTestObject(testObject.Log, "TEST");
+
+            MicroAssert.AreEqual(testObject.Log, newTestObject.Log);
+            MicroAssert.AreNotEqual(testObject.SoftAssert, newTestObject.SoftAssert);
+            MicroAssert.AreEqual("TEST", newTestObject.PerfTimerCollection.TestName);
+            MicroAssert.AreNotEqual(testObject.PerfTimerCollection, newTestObject.PerfTimerCollection);
+            MicroAssert.AreNotEqual(testObject.Values, newTestObject.Values);
+            MicroAssert.AreNotEqual(testObject.Objects, newTestObject.Objects);
+            MicroAssert.AreNotEqual(testObject.ManagerStore, newTestObject.ManagerStore);
+            MicroAssert.AreNotEqual(testObject.AssociatedFiles, newTestObject.AssociatedFiles);
+        }
+
+        /// <summary>
         /// Soft assert is expect assert with key "one" to be called.
         /// Throws exception on FailTestIfAssertFailed()
         /// </summary>
@@ -119,6 +160,7 @@ namespace BaseTestUnitTests
             var tester = GetBaseTest();
             tester.TestContext = this.TestContext;
             tester.Setup();
+
             tester.SoftAssert.FailTestIfAssertFailed();
         }
 
@@ -131,8 +173,8 @@ namespace BaseTestUnitTests
         public void SoftAssertNUnitWithNoFailure()
         {
             BaseTest tester = this.GetBaseTest();
-
             tester.Setup();
+
             tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
             tester.SoftAssert.Assert(() => MicroAssert.AreEqual(string.Empty, string.Empty));
             tester.Teardown();
@@ -150,6 +192,7 @@ namespace BaseTestUnitTests
             {
                 BaseTest tester = this.GetBaseTest();
                 tester.Setup();
+
                 tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
                 tester.SoftAssert.Assert(() => MicroAssert.AreEqual("d", string.Empty));
                 tester.Teardown();
@@ -171,12 +214,12 @@ namespace BaseTestUnitTests
         public void TeardownDoesNotWriteAssociatedFiles()
         {
             BaseTest tester = this.GetBaseTest();
-            tester.TestContext = this.TestContext;
             tester.Setup();
+
             tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
 
             // get log path
-            string logFilePath = ((FileLogger)tester.Log).FilePath;
+            string logFilePath = ((IFileLogger)tester.Log).FilePath;
 
             // create test files
             Directory.CreateDirectory("TeardownTest");
@@ -225,8 +268,8 @@ namespace BaseTestUnitTests
         public void SoftAssertAssertSuccess()
         {
             var tester = GetBaseTest();
-
             tester.Setup();
+
             tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
             tester.SoftAssert.Assert(() => { }, "one");
             tester.Teardown();
@@ -240,8 +283,8 @@ namespace BaseTestUnitTests
         public void SoftAssertAssertFailed()
         {
             var tester = GetBaseTest();
-
             tester.Setup();
+
             tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
             tester.SoftAssert.Assert(() => throw new Exception("broke"), "Name1");
             tester.SoftAssert.Assert(() => throw new Exception("broke again"), "Name2");
@@ -270,8 +313,8 @@ namespace BaseTestUnitTests
         public void SoftAssertAssertFails()
         {
             var tester = GetBaseTest();
-
             tester.Setup();
+
             tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
             tester.SoftAssert.AssertFails(() => throw new Exception("broke"), typeof(Exception), "one");
             tester.Teardown();
@@ -283,8 +326,8 @@ namespace BaseTestUnitTests
         public void SoftAssertAssertFailsFailed()
         {
             var tester = GetBaseTest();
-
             tester.Setup();
+
             tester.Log = new FileLogger(string.Empty, $"{Guid.NewGuid()}.txt");
             tester.SoftAssert.AssertFails(() => throw new Exception("broke"), typeof(AggregateException), "one");
             try

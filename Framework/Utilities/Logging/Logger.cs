@@ -2,17 +2,17 @@
 // <copyright file="Logger.cs" company="Magenic">
 //  Copyright 2021 Magenic, All rights Reserved
 // </copyright>
-// <summary>Abstract logging interface</summary>
+// <summary>Abstract logger</summary>
 //--------------------------------------------------
-using Magenic.Maqs.Utilities.Data;
 using System;
+using System.Globalization;
 
 namespace Magenic.Maqs.Utilities.Logging
 {
     /// <summary>
-    /// Abstract logging interface base class
+    /// Abstract logger base class
     /// </summary>
-    public abstract class Logger
+    public abstract class Logger : ILogger
     {
         /// <summary>
         /// Default date format
@@ -119,7 +119,38 @@ namespace Magenic.Maqs.Utilities.Logging
         /// <returns>The unknown message type message</returns>
         protected string UnknownMessageTypeMessage(MessageType type)
         {
-            return StringProcessor.SafeFormatter($"Unknown MessageType: {Enum.GetName(typeof(MessageType), type)}{Environment.NewLine}Message will be displayed with the MessageType of: {Enum.GetName(typeof(MessageType), MessageType.GENERIC)}");
+            return $"Unknown MessageType: {Enum.GetName(typeof(MessageType), type)}{Environment.NewLine}Message will be displayed with the MessageType of: {Enum.GetName(typeof(MessageType), MessageType.GENERIC)}";
+        }
+
+        /// <summary>
+        /// Dispose of the logger
+        /// </summary>
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+
+        }
+
+        /// <summary>
+        /// Dispose the class
+        /// </summary>
+        /// <param name="disposing">True if you want to release managed resources</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this.LogMessage(MessageType.VERBOSE, "Disposing logger");
+            }
+        }
+
+        /// <summary>
+        /// Get current date time for logging purposes
+        /// </summary>
+        /// <returns>Current data time in UTC format</returns>
+        public string CurrentDateTime()
+        {
+            return DateTime.UtcNow.ToString(Logger.DEFAULTDATEFORMAT, CultureInfo.InvariantCulture);
         }
     }
 }

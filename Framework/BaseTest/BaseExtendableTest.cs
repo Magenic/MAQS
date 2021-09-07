@@ -4,6 +4,7 @@
 // </copyright>
 // <summary>Base code for test classes that setup test objects like web drivers or database connections</summary>
 //--------------------------------------------------
+using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 
@@ -14,18 +15,18 @@ namespace Magenic.Maqs.BaseTest
     /// </summary>
     /// <typeparam name="T">Test object type</typeparam>
     [TestClass]
-    public abstract class BaseExtendableTest<T> : BaseTest where T : BaseTestObject
+    public abstract class BaseExtendableTest<T> : BaseTest where T : ITestObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseExtendableTest{T}" /> class
         /// </summary>
-        protected BaseExtendableTest()
+        protected BaseExtendableTest() : base()
         {
         }
 
         /// <summary>
         /// Gets or sets the test object 
-        /// </summary>
+        /// </summary>void CreateNewTestObject
         protected new T TestObject
         {
             get
@@ -51,8 +52,29 @@ namespace Magenic.Maqs.BaseTest
         }
 
         /// <summary>
+        /// Create a Selenium test object
+        /// </summary>
+        protected new void SetupTestObject()
+        {
+            ILogger newLogger = this.CreateAndSetupLogger(GetFileNameWithoutExtension(), LoggingConfig.GetLogType(), LoggingConfig.GetLoggingEnabledSetting(), LoggingConfig.GetFirstChanceHandler());
+            this.TestObject = CreateSpecificTestObject(newLogger);
+        }
+
+        /// <summary>
         /// Create a test object
         /// </summary>
-        protected override abstract void CreateNewTestObject();
+        /// <param name="log">Assocatied logger</param>
+        /// <returns>The Selenium test object</returns>
+        protected override ITestObject CreateTestObject(ILogger log)
+        {
+            return this.CreateSpecificTestObject(log);
+        }
+
+        /// <summary>
+        /// Create the test object
+        /// </summary>
+        /// <param name="log">Log to assoicate with the test object</param>
+        /// <returns>Specific test object type</returns>
+        protected abstract T CreateSpecificTestObject(ILogger log);
     }
 }

@@ -19,7 +19,7 @@ namespace FrameworkUnitTests
     /// Email driver mocks
     /// </summary>
     [ExcludeFromCodeCoverage]
-    internal static class EmailDriverMocks 
+    internal static class EmailDriverMocks
     {
         /// <summary>
         /// Get mime mock

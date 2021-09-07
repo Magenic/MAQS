@@ -6,15 +6,10 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseEmailTest;
 using Magenic.Maqs.Utilities.Helper;
-using MailKit;
-using MailKit.Net.Imap;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MimeKit;
-using Moq;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Threading;
 
 namespace FrameworkUnitTests
 {

@@ -6,6 +6,7 @@
 //--------------------------------------------------
 using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
@@ -16,8 +17,66 @@ namespace UtilitiesUnitTesting
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
+    [DoNotParallelize]
     public class ConfigUnitTests
     {
+        /// <summary>
+        /// Setup hierarchical configuration
+        /// </summary>
+        /// <param name="context">Test context</param>
+        [AssemblyInitialize()]
+        public static void AssemblyInit(TestContext context)
+        {
+            // Add environment settings
+            Environment.SetEnvironmentVariable("MagenicMaqs:ConfigJsonEnvRunOverride", "ENV");
+            Environment.SetEnvironmentVariable("MagenicMaqs:ConfigJsonEnvRun", "ENV");
+            Environment.SetEnvironmentVariable("MagenicMaqs:ConfigJsonEnv", "ENV");
+            Environment.SetEnvironmentVariable("MagenicMaqs:EnvOnly", "ENV");
+
+            // Add runtime settings
+            Config.UpdateWithVSTestContext(context);
+
+            // Add direct overrides
+            Config.AddGeneralTestSettingValues("ConfigJsonEnvRunOverride", "OVERRIDE");
+            Config.AddGeneralTestSettingValues("OverrideOnly", "OVERRIDE");
+        }
+
+        /// <summary>
+        /// Configuration hierarchy is respected
+        /// </summary>
+        /// <param name="generalKey">Configuration general key</param>
+        /// <param name="expected">Expected value for key</param>
+        [DataTestMethod]
+        [DataRow("ConfigJsonEnvRunOverride", "OVERRIDE")]
+        [DataRow("OverrideOnly", "OVERRIDE")]
+        [DataRow("ConfigJsonEnvRun", "RUN")]
+        [DataRow("RunOnly", "RUN")]
+        [DataRow("ConfigJsonEnv", "ENV")]
+        [DataRow("EnvOnly", "ENV")]
+        [DataRow("ConfigJson", "JSON")]
+        [DataRow("JsonOnly", "JSON")]
+        [DataRow("ConfigOnly", "XML")]
+        public void ConfigHierarchy(string generalKey, string expected)
+        {
+            Assert.AreEqual(expected, Config.GetGeneralValue(generalKey));
+        }
+
+        /// <summary>
+        /// Configuration hierarchy is respected
+        /// </summary>
+        /// <param name="generalKey">Configuration general key</param>
+        /// <param name="expected">Expected value for key</param>
+        [DataTestMethod]
+        [DataRow("TopTest:MidTest:0:LowerTest", "A")]
+        [DataRow("TopTest:MidTest:0:Lower:LowestTest", "Lowest")]
+        [DataRow("TopTest:MidTest:1:LowerTest", "B")]
+        [DataRow("TopTest:AnotherMid:Lowerest", "AnotherLow")]
+        public void AdditionalTiers(string generalKey, string expected)
+        {
+            Assert.AreEqual(expected, Config.GetValueByPath(generalKey).value);
+            Assert.AreEqual(expected, Config.GetValueByPath(generalKey.Split(':')).value);
+        }
+
         /// <summary>
         /// Gets a value from a string
         /// </summary>
@@ -47,7 +106,7 @@ namespace UtilitiesUnitTesting
         [TestCategory(TestCategories.Utilities)]
         public void DoesKeyExist()
         {
-            bool value = Config.DoesKeyExist("DoesNotExist");
+            bool value = Config.DoesGeneralKeyExist("DoesNotExist");
             Assert.AreEqual(false, value);
         }
 
@@ -64,8 +123,11 @@ namespace UtilitiesUnitTesting
             string overrideValue = baseValue + "_Override";
 
             // Override the configuration
-            Dictionary<string, string> overrides = new Dictionary<string, string>();
-            overrides.Add(key, overrideValue);
+            Dictionary<string, string> overrides = new Dictionary<string, string>
+            {
+                { key, overrideValue }
+            };
+
             Config.AddTestSettingValues(overrides);
 
             // Make sure it worked
@@ -162,8 +224,11 @@ namespace UtilitiesUnitTesting
             Assert.AreEqual(string.Empty, Config.GetGeneralValue(key));
 
             // Set the override
-            Dictionary<string, string> overrides = new Dictionary<string, string>();
-            overrides.Add(key, value);
+            Dictionary<string, string> overrides = new Dictionary<string, string>
+            {
+                { key, value }
+            };
+
             Config.AddTestSettingValues(overrides);
 
             // Make sure the override worked
@@ -189,13 +254,11 @@ namespace UtilitiesUnitTesting
             string overrideValue = baseValue + "_Override";
 
             // Override first key value
-            Dictionary<string, string> overrides = new Dictionary<string, string>();
-            overrides.Add(key, overrideValue);
-            Config.AddTestSettingValues(overrides);
+            Dictionary<string, string> overrides = new Dictionary<string, string>
+            {
+                { key, overrideValue }
+            };
 
-            // Try to override something that has already been overridden
-            overrides = new Dictionary<string, string>();
-            overrides.Add(key, "ValueThatShouldNotOverride");
             Config.AddTestSettingValues(overrides);
 
             // The secondary override should fail as we already overrode it once
@@ -203,15 +266,21 @@ namespace UtilitiesUnitTesting
 
             // Try the override again, but this time tell the override to allow itself to be overrode
             overrideValue += "_SecondOverride";
-            overrides = new Dictionary<string, string>();
-            overrides.Add(key, overrideValue);
-            Config.AddGeneralTestSettingValues(overrides, true);
+            overrides = new Dictionary<string, string>
+            {
+                { key, overrideValue }
+            };
+
+            Config.AddGeneralTestSettingValues(overrides);
 
             // Make sure the force override worked
             Assert.AreEqual(overrideValue, Config.GetGeneralValue(key));
 
             // Make sure the value we didn't override was not affected
             Assert.AreEqual(baseValue2, Config.GetGeneralValue(key2));
+
+
+            Config.ClearOverrides();
         }
 
         /// <summary>
@@ -274,7 +343,7 @@ namespace UtilitiesUnitTesting
                     { "SkipConfigValidation", "Yes" }
                 };
 
-                Config.AddGeneralTestSettingValues(overrides, true);
+                Config.AddGeneralTestSettingValues(overrides);
 
                 ConfigValidation configValidation = new ConfigValidation()
                 {
@@ -293,7 +362,7 @@ namespace UtilitiesUnitTesting
                     { "SkipConfigValidation", "No" }
                 };
 
-                Config.AddGeneralTestSettingValues(overrides, true);
+                Config.AddGeneralTestSettingValues(overrides);
             }
         }
 

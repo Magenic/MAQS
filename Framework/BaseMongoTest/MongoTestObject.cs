@@ -15,7 +15,7 @@ namespace Magenic.Maqs.BaseMongoTest
     /// Mongo test context data
     /// </summary>
     /// <typeparam name="T">The Mongo collection type</typeparam>
-    public class MongoTestObject<T> : BaseTestObject
+    public class MongoTestObject<T> : BaseTestObject, IMongoTestObject<T>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MongoTestObject{T}" /> class
@@ -24,9 +24,8 @@ namespace Magenic.Maqs.BaseMongoTest
         /// <param name="databaseString">Database connection string</param>
         /// <param name="collectionString">Mongo collection string</param>
         /// <param name="logger">The test's logger</param>
-        /// <param name="softAssert">The test's soft assert</param>
         /// <param name="fullyQualifiedTestName">The test's fully qualified test name</param>
-        public MongoTestObject(string connectionString, string databaseString, string collectionString, Logger logger, SoftAssert softAssert, string fullyQualifiedTestName) : base(logger, softAssert, fullyQualifiedTestName)
+        public MongoTestObject(string connectionString, string databaseString, string collectionString, ILogger logger, string fullyQualifiedTestName) : base(logger, fullyQualifiedTestName)
         {
             this.ManagerStore.Add(typeof(MongoDriverManager<T>).FullName, new MongoDriverManager<T>(connectionString, databaseString, collectionString, this));
         }
@@ -38,7 +37,7 @@ namespace Magenic.Maqs.BaseMongoTest
         {
             get
             {
-                return this.ManagerStore[typeof(MongoDriverManager<T>).FullName] as MongoDriverManager<T>;
+                return this.ManagerStore.GetManager<MongoDriverManager<T>>();
             }
         }
 

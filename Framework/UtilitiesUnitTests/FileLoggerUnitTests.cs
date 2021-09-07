@@ -314,11 +314,9 @@ namespace UtilitiesUnitTesting
             {
                 fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 
-                using (StreamReader textReader = new StreamReader(fileStream))
-                {
-                    fileStream = null;
-                    returnValue = textReader.ReadToEnd();
-                }
+                using StreamReader textReader = new StreamReader(fileStream);
+                fileStream = null;
+                returnValue = textReader.ReadToEnd();
             }
             finally
             {

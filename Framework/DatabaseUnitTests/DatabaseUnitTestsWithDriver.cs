@@ -5,15 +5,14 @@
 // <summary>Database base test unit tests</summary>
 //--------------------------------------------------
 
-using System;
-using System.Data;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
 using DatabaseUnitTests.Models;
 using Magenic.Maqs.BaseDatabaseTest;
 using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Data;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Text;
 
 namespace DatabaseUnitTests
 {
@@ -95,10 +94,10 @@ namespace DatabaseUnitTests
         public void VerifyProceduresActionWithAnUpdate()
         {
             var result = this.DatabaseDriver.Execute("setStateAbbrevToSelf", new { StateAbbreviation = "MN" }, commandType: CommandType.StoredProcedure);
-            
+
             Assert.AreEqual(1, result, "Expected 1 state abbreviation to be updated.");
         }
-        
+
         /// <summary>
         /// Verify that a non query SQL call works
         /// </summary>
@@ -131,7 +130,7 @@ namespace DatabaseUnitTests
         public void VerifyProceduresQueryWithResult()
         {
             var result = this.DatabaseDriver.Execute("setStateAbbrevToSelf", new { StateAbbreviation = "MN" }, commandType: CommandType.StoredProcedure);
-            
+
             Assert.AreEqual(1, result, "Expected 1 state abbreviation to be returned.");
         }
 
@@ -143,7 +142,7 @@ namespace DatabaseUnitTests
         public void VerifyProceduresQueryWithoutResult()
         {
             var result = this.DatabaseDriver.Execute("setStateAbbrevToSelf", new { StateAbbreviation = "ZZ" }, commandType: CommandType.StoredProcedure);
-            
+
             Assert.AreEqual(0, result, "Expected 0 state abbreviation to be returned.");
         }
 

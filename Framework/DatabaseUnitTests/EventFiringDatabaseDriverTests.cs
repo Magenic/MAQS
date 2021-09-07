@@ -5,21 +5,19 @@
 // <summary>Database base Eventfiring driver test unit tests</summary>
 //--------------------------------------------------
 
+using Magenic.Maqs.BaseDatabaseTest;
+using Magenic.Maqs.Utilities.Helper;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics.CodeAnalysis;
-using Magenic.Maqs.BaseDatabaseTest;
-using Magenic.Maqs.Utilities.Helper;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DatabaseUnitTests
 {
-    using System.Linq;
-
     using global::DatabaseUnitTests.Models;
-
     using Magenic.Maqs.Utilities.Data;
+    using System.Linq;
 
     /// <summary>
     /// Unit tests for the event firing database driver.
@@ -32,7 +30,7 @@ namespace DatabaseUnitTests
         /// Database Event will modify this
         /// </summary>
         private string eventString = string.Empty;
-        
+
         /// <summary>
         /// Test the execute code path
         /// </summary>
@@ -55,7 +53,7 @@ namespace DatabaseUnitTests
             this.DatabaseActionEvent += this.DatabaseUnitTestEvent;
 
             this.Execute("setStateAbbrevToSelf", new { StateAbbreviation = "MN" }, commandType: CommandType.StoredProcedure);
-            
+
             Assert.AreEqual("Perform execute with:\r\nsetStateAbbrevToSelf", this.eventString);
         }
 
@@ -115,7 +113,7 @@ namespace DatabaseUnitTests
             this.DatabaseActionEvent += this.DatabaseUnitTestEvent;
 
             this.Query("SELECT * FROM States");
-            
+
             Assert.AreEqual("Perform query with:\r\nSELECT * FROM States", this.eventString);
         }
 
@@ -175,7 +173,7 @@ namespace DatabaseUnitTests
             this.DatabaseActionEvent += this.DatabaseUnitTestEvent;
 
             this.Query<States>("SELECT * FROM States");
-            
+
             Assert.AreEqual("Perform query with:\r\nSELECT * FROM States", this.eventString);
         }
 

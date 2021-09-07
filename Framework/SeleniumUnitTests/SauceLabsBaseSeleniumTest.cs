@@ -17,7 +17,7 @@ namespace SeleniumUnitTests
 
         protected override IWebDriver GetBrowser()
         {
-            if(string.Equals(Config.GetValueForSection(ConfigSection.RemoteSeleniumCapsMaqs, "RunOnSauceLabs"), "YES", System.StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(Config.GetValueForSection(ConfigSection.RemoteSeleniumCapsMaqs, "RunOnSauceLabs"), "YES", System.StringComparison.OrdinalIgnoreCase))
             {
                 var name = this.TestContext.FullyQualifiedTestClassName + "." + this.TestContext.TestName;
                 var sauceOptions = new Dictionary<string, object>
@@ -27,7 +27,7 @@ namespace SeleniumUnitTests
                     ["name"] = name
                 };
 
-                var remoteCapabilitySection = Config.GetSection(ConfigSection.RemoteSeleniumCapsMaqs);
+                var remoteCapabilitySection = Config.GetSectionDictionary(ConfigSection.RemoteSeleniumCapsMaqs);
                 if (remoteCapabilitySection != null)
                 {
                     foreach (var keyValue in remoteCapabilitySection)
@@ -66,7 +66,7 @@ namespace SeleniumUnitTests
                 {
                     ((IJavaScriptExecutor)this.WebDriver).ExecuteScript("sauce:job-result=" + (passed ? "passed" : "failed"));
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     this.Log.LogMessage(Magenic.Maqs.Utilities.Logging.MessageType.WARNING, "Failed to set Sauce Result because: " + e.Message);
                 }

@@ -23,57 +23,57 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Url for the site
         /// </summary>
-        private static string siteUrl = SeleniumConfig.GetWebSiteBase();
+        private static readonly string siteUrl = SeleniumConfig.GetWebSiteBase();
 
         /// <summary>
         /// Url for the automation page
         /// </summary>
-        private static string siteAutomationUrl = siteUrl + "Automation/";
+        private static readonly string siteAutomationUrl = siteUrl + "Automation/";
 
         /// <summary>
         /// Manage dropdown selector
         /// </summary>
-        private static By manageDropdown = By.CssSelector("body > div.navbar.navbar-inverse.navbar-fixed-top > div > div.navbar-collapse.collapse > ul > li:nth-child(2) > a");
+        private static readonly By manageDropdown = By.CssSelector("body > div.navbar.navbar-inverse.navbar-fixed-top > div > div.navbar-collapse.collapse > ul > li:nth-child(2) > a");
 
         /// <summary>
         /// Employee link
         /// </summary>
-        private static By employeeButton = By.CssSelector("#EmployeeButton > a");
+        private static readonly By employeeButton = By.CssSelector("#EmployeeButton > a");
 
         /// <summary>
         /// Automation page header
         /// </summary>
-        private static By automationPageHeader = By.CssSelector("body > div.container.body-content > h2");
+        private static readonly By automationPageHeader = By.CssSelector("body > div.container.body-content > h2");
 
         /// <summary>
         /// Dialog button on automation page
         /// </summary>
-        private static By dialogButton2 = By.CssSelector("#showDialog2");
+        private static readonly By dialogButton2 = By.CssSelector("#showDialog2");
 
         /// <summary>
         /// Employee page title
         /// </summary>
-        private static By employeePageTitle = By.CssSelector("body > div.container.body-content > h2");
+        private static readonly By employeePageTitle = By.CssSelector("body > div.container.body-content > h2");
 
         /// <summary>
         /// Slider object
         /// </summary>
-        private static By slider = By.CssSelector("#slider > span");
+        private static readonly By slider = By.CssSelector("#slider > span");
 
         /// <summary>
         /// Label for the text
         /// </summary>
-        private static By sliderLabelNumber = By.CssSelector("#sliderNumber");
+        private static readonly By sliderLabelNumber = By.CssSelector("#sliderNumber");
 
         /// <summary>
         /// Element with context menu for testing right click
         /// </summary>
-        private static By rightClickableElementWithContextMenu = By.CssSelector("#rightclickspace");
+        private static readonly By rightClickableElementWithContextMenu = By.CssSelector("#rightclickspace");
 
         /// <summary>
         /// Text within context menu triggered by right click on specific element
         /// </summary>
-        private static By rightClickContextSaveText = By.CssSelector("#RightClickSaveText");
+        private static readonly By rightClickContextSaveText = By.CssSelector("#RightClickSaveText");
 
         /// <summary>
         /// Unit test for the Hover Over function

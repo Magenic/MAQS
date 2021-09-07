@@ -27,7 +27,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// </summary>
         /// <param name="getDriver">Function for getting an Selenium web driver</param>
         /// <param name="testObject">The associated test object</param>
-        public SeleniumDriverManager(Func<IWebDriver> getDriver, BaseTestObject testObject) : base(getDriver, testObject)
+        public SeleniumDriverManager(Func<IWebDriver> getDriver, ITestObject testObject) : base(getDriver, testObject)
         {
         }
 
@@ -127,7 +127,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             }
             catch (Exception e)
             {
-                Log.LogMessage(MessageType.ERROR, StringProcessor.SafeFormatter($"Failed to close web driver because: {e.Message}"));
+                Log.LogMessage(MessageType.ERROR, $"Failed to close web driver because: {e.Message}");
             }
 
             this.BaseDriver = null;
@@ -146,9 +146,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 string browserType;
 
                 // Get info on what type of browser we are using
-                RemoteWebDriver remoteDrive = driver as RemoteWebDriver;
-
-                if (remoteDrive != null)
+                if (driver is RemoteWebDriver remoteDrive)
                 {
                     browserType = remoteDrive.Capabilities.ToString();
                 }
@@ -171,7 +169,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             catch (Exception e)
             {
                 Log.LogMessage(MessageType.ERROR, $"Failed to start driver because: {e.Message}");
-                Console.WriteLine(StringProcessor.SafeFormatter($"Failed to start driver because: {e.Message}"));
+                Console.WriteLine($"Failed to start driver because: {e.Message}");
             }
         }
 

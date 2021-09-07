@@ -42,7 +42,7 @@ namespace FrameworkUnitTests
             WebServiceDriverManager newDriver = new WebServiceDriverManager(() => new HttpClient(), this.TestObject);
             this.ManagerStore.Add("test", newDriver);
 
-            Assert.AreNotEqual(this.TestObject.WebServiceDriver, (WebServiceDriverManager)this.ManagerStore["test"]);
+            Assert.AreNotEqual(this.TestObject.WebServiceDriver, this.ManagerStore.GetManager<WebServiceDriverManager>("test"));
             Assert.AreNotEqual(this.TestObject.WebServiceManager.Get(), this.ManagerStore.GetDriver<WebServiceDriver>("test"));
         }
 
@@ -55,8 +55,8 @@ namespace FrameworkUnitTests
             WebServiceDriverManager newDriver = new WebServiceDriverManager(new WebServiceDriver(new HttpClient()), this.TestObject);
             this.ManagerStore.Add("test", newDriver);
 
-            Assert.AreNotEqual(this.TestObject.WebServiceDriver, (WebServiceDriverManager)this.ManagerStore["test"]);
-            Assert.AreNotEqual(this.TestObject.WebServiceManager.Get(), this.ManagerStore.GetDriver<WebServiceDriver>("test"));
+            Assert.AreNotEqual(this.TestObject.WebServiceDriver, this.ManagerStore.GetManager<WebServiceDriverManager>("test"));
+            Assert.AreNotEqual(this.TestObject.WebServiceManager.Get(), this.ManagerStore.GetManager<WebServiceDriverManager>("test").Get());
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace FrameworkUnitTests
             // Do something so we initialize the web driver
             this.WebServiceDriver.ToString();
 
-            WebServiceDriverManager driverDriver = this.ManagerStore[typeof(WebServiceDriverManager).FullName] as WebServiceDriverManager;
+            WebServiceDriverManager driverDriver = this.ManagerStore.GetManager<WebServiceDriverManager>();
             Assert.IsTrue(driverDriver.IsDriverIntialized(), "The driver should have been initialized");
         }
 
@@ -99,7 +99,7 @@ namespace FrameworkUnitTests
         [TestMethod]
         public void NotIntialized()
         {
-            WebServiceDriverManager driverDriver = this.ManagerStore[typeof(WebServiceDriverManager).FullName] as WebServiceDriverManager;
+            WebServiceDriverManager driverDriver = this.ManagerStore.GetManager<WebServiceDriverManager>();
             Assert.IsFalse(driverDriver.IsDriverIntialized(), "The driver should not be initialized until it gets used");
         }
     }
