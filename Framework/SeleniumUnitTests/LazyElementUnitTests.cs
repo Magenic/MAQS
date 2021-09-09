@@ -764,6 +764,26 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Verify Lazy Element DOM property
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementDomProperty()
+        {
+            Assert.AreEqual("Show dialog", this.DialogOneButton.GetDomProperty("innerText"), "Expected inner text to be 'Show dialog'");
+        }
+
+        /// <summary>
+        /// Verify Lazy Element DOM property
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementDomAttribute()
+        {
+            Assert.AreEqual("showDialog1", this.DialogOneButton.GetDomAttribute("id"), "Expected ID to be 'showDialog1'");
+        }
+
+        /// <summary>
         /// Verify Lazy Element Enabled test
         /// </summary>
         [TestMethod]

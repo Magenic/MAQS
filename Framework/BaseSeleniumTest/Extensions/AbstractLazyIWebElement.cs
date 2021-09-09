@@ -387,7 +387,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             {
                 this.TestObject.Log.SuspendLogging();
                 this.ExecuteEvent(() => element.SendKeys(keys), "SendKeys");
-                
+
             }
             catch (Exception e)
             {
@@ -395,7 +395,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 this.TestObject.Log.LogMessage(MessageType.ERROR, $"Exception during sending secret keys: {e.Message}{ Environment.NewLine}{ e.StackTrace}");
                 throw;
             }
-            
+
             this.TestObject.Log.ContinueLogging();
         }
 
@@ -435,6 +435,58 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             this.TimeoutTime());
         }
 
+        /// <summary>
+        /// Gets the value of a declared HTML attribute of this element.
+        /// </summary>
+        /// <param name="attributeName">The name of the HTML attribute to get the value of.</param>
+        /// <returns>The HTML attribute's current value. Returns a <see langword="null"/> if the value is not set or the declared attribute does not exist.</returns>
+        public string GetDomAttribute(string attributeName)
+        {
+            this.Log.LogMessage(MessageType.INFORMATION, $"Getting DOM attribute '{attributeName}' for lazy element '{this.userFriendlyName}'");
+
+            return GenericWait.Wait(
+                () =>
+                {
+                    return this.GetElement(this.GetRawExistingElement).GetDomAttribute(attributeName);
+                },
+            this.WaitTime(),
+            this.TimeoutTime());
+        }
+
+        /// <summary>
+        /// Gets the value of a JavaScript property of this element.
+        /// </summary>
+        /// <param name="propertyName">The name of the JavaScript property to get the value of.</param>
+        /// <returns>The JavaScript property's current value. Returns a <see langword="null"/> if the value is not set or the property does not exist.</returns>
+        public string GetDomProperty(string propertyName)
+        {
+            this.Log.LogMessage(MessageType.INFORMATION, $"Getting DOM proprty '{propertyName}' for lazy element '{this.userFriendlyName}'");
+
+            return GenericWait.Wait(
+                () =>
+                {
+                    return this.GetElement(this.GetRawExistingElement).GetDomProperty(propertyName);
+                },
+            this.WaitTime(),
+            this.TimeoutTime());
+        }
+
+        /// <summary>
+        /// Gets the representation of an element's shadow root for accessing the shadow DOM of a web component.
+        /// </summary>
+        /// <returns>A shadow root representation.</returns>
+        public ISearchContext GetShadowRoot()
+        {
+            this.Log.LogMessage(MessageType.INFORMATION, $"Getting shadow root for lazy element '{this.userFriendlyName}'");
+
+            return GenericWait.Wait(
+                () =>
+                {
+                    return this.GetElement(this.GetRawExistingElement).GetShadowRoot();
+                },
+            this.WaitTime(),
+            this.TimeoutTime());
+        }
 
         /// <summary>
         /// Deselect all dropdown options from the lazy element
@@ -714,6 +766,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </summary>
         /// <param name="propertyName">The name JavaScript the JavaScript property to get the value of</param>
         /// <returns> The JavaScript property's current value. Returns a null if the value is not set or the property does not exist</returns>
+        [Obsolete("Use the GetDomProperty method instead.")]
         public string GetProperty(string propertyName)
         {
             return this.GetRawExistingElement().GetProperty(propertyName);

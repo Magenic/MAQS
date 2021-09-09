@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using WebDriverManager.Helpers;
 
 namespace Magenic.Maqs.BaseSeleniumTest
 {
@@ -84,6 +85,42 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 default:
                     throw new ArgumentException(StringProcessor.SafeFormatter($"Browser type '{browserName}' is not supported"));
             }
+        }
+
+        /// <summary>
+        /// Get the Chrome browser version
+        /// </summary>
+        /// <returns>The Chrome browser version, default is "MatchingBrowser"</returns>
+        public static string GetChromeVersion()
+        {
+            return Config.GetValueForSection(SELENIUMSECTION, "ChromeVersion", VersionResolveStrategy.MatchingBrowser);
+        }
+
+        /// <summary>
+        /// Get the Edge browser version
+        /// </summary>
+        /// <returns>The Chrome browser version, default is "MatchingBrowser"</returns>
+        public static string GetEdgeVersion()
+        {
+            return Config.GetValueForSection(SELENIUMSECTION, "EdgeVersion", VersionResolveStrategy.MatchingBrowser);
+        }
+
+        /// <summary>
+        /// Get the Firefox browser version
+        /// </summary>
+        /// <returns>The Firefox browser version, default is "Latest"</returns>
+        public static string GetFirefoxVersion()
+        {
+            return Config.GetValueForSection(SELENIUMSECTION, "FirefoxVersion", VersionResolveStrategy.Latest);
+        }
+
+        /// <summary>
+        /// Get the IE browser version
+        /// </summary>
+        /// <returns>The IE browser version, default is "Latest"</returns>
+        public static string GetIEVersion()
+        {
+            return Config.GetValueForSection(SELENIUMSECTION, "IEVersion", VersionResolveStrategy.Latest);
         }
 
         /// <summary>

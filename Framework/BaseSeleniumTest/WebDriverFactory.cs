@@ -19,8 +19,10 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
+using WebDriverManager.Helpers;
 
 namespace Magenic.Maqs.BaseSeleniumTest
 {
@@ -29,6 +31,26 @@ namespace Magenic.Maqs.BaseSeleniumTest
     /// </summary>
     public static class WebDriverFactory
     {
+        /// <summary>
+        /// Path to Chrome web driver
+        /// </summary>
+        private static String ChromeDriverPath = null;
+
+        /// <summary>
+        /// Path to Edge web driver
+        /// </summary>
+        private static string EdgeDriverPath = null;
+
+        /// <summary>
+        /// Path to Firefox web driver
+        /// </summary>
+        private static String FirefoxDriverPath = null;
+
+        /// <summary>
+        /// Path to IE web driver
+        /// </summary>
+        private static String IEDriverPath = null;
+
         /// <summary>
         /// Get the default web driver based on the test run configuration
         /// </summary>
@@ -197,7 +219,8 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             return CreateDriver(() =>
             {
-                new DriverManager().SetUpDriver(new ChromeConfig());
+                LazyInitializer.EnsureInitialized(ref ChromeDriverPath, () => new DriverManager().SetUpDriver(new ChromeConfig(), SeleniumConfig.GetChromeVersion()));
+                
                 var driver = new ChromeDriver(ChromeDriverService.CreateDefaultService(), chromeOptions, commandTimeout);
                 SetBrowserSize(driver, size);
                 return driver;
@@ -214,7 +237,8 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             return CreateDriver(() =>
             {
-                new DriverManager().SetUpDriver(new ChromeConfig());
+                LazyInitializer.EnsureInitialized(ref ChromeDriverPath, () => new DriverManager().SetUpDriver(new ChromeConfig(), SeleniumConfig.GetChromeVersion()));
+                
                 return new ChromeDriver(ChromeDriverService.CreateDefaultService(), headlessChromeOptions, commandTimeout);
             }, SeleniumConfig.GetRetryRefused());
         }
@@ -230,6 +254,8 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             return CreateDriver(() =>
             {
+                LazyInitializer.EnsureInitialized(ref FirefoxDriverPath, () => new DriverManager().SetUpDriver(new FirefoxConfig(), SeleniumConfig.GetFirefoxVersion()));
+
                 new DriverManager().SetUpDriver(new FirefoxConfig());
                 // Add support for encoding 437 that was removed in .net core
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -256,8 +282,9 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             return CreateDriver(() =>
             {
-                new DriverManager().SetUpDriver(new EdgeConfig());
-                var driver = new EdgeDriver(GetDriverLocation("MicrosoftWebDriver.exe", GetProgramFilesFolder("Microsoft Web Driver", "MicrosoftWebDriver.exe")), edgeOptions, commandTimeout);
+                LazyInitializer.EnsureInitialized(ref EdgeDriverPath, () => new DriverManager().SetUpDriver(new EdgeConfig(), VersionResolveStrategy.MatchingBrowser));
+                
+                var driver = new EdgeDriver(Path.GetDirectoryName(EdgeDriverPath), edgeOptions, commandTimeout);
                 SetBrowserSize(driver, size);
                 return driver;
             }, SeleniumConfig.GetRetryRefused());
@@ -274,6 +301,8 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             return CreateDriver(() =>
             {
+                LazyInitializer.EnsureInitialized(ref IEDriverPath, () => new DriverManager().SetUpDriver(new InternetExplorerConfig(), SeleniumConfig.GetIEVersion()));
+                
                 new DriverManager().SetUpDriver(new InternetExplorerConfig());
                 var driver = new InternetExplorerDriver(GetDriverLocation("IEDriverServer.exe"), internetExplorerOptions, commandTimeout);
                 SetBrowserSize(driver, size);
@@ -425,17 +454,20 @@ namespace Magenic.Maqs.BaseSeleniumTest
                     switch (driverOptions)
                     {
                         case ChromeOptions chromeOptions:
-                            chromeOptions.AddAdditionalCapability(keyValue.Key, keyValue.Value, true);
+                            chromeOptions.AddAdditionalChromeOption(keyValue.Key, keyValue.Value);
                             break;
                         case FirefoxOptions firefoxOptions:
-                            firefoxOptions.AddAdditionalCapability(keyValue.Key, keyValue.Value, true);
+                            firefoxOptions.AddAdditionalFirefoxOption(keyValue.Key, keyValue.Value);
                             break;
                         case InternetExplorerOptions ieOptions:
-                            ieOptions.AddAdditionalCapability(keyValue.Key, keyValue.Value, true);
+                            ieOptions.AddAdditionalInternetExplorerOption(keyValue.Key, keyValue.Value);
+                            break;
+                        case EdgeOptions ieOptions:
+                            ieOptions.AddAdditionalChromeOption(keyValue.Key, keyValue.Value);
                             break;
                         default:
-                            // Edge and Safari do not support marking capabilities as global  - AKA the third parameter
-                            driverOptions.AddAdditionalCapability(keyValue.Key, keyValue.Value);
+                            // Not one of our 4 main types
+                            driverOptions.AddAdditionalOption(keyValue.Key, keyValue.Value);
                             break;
                     }
                 }
