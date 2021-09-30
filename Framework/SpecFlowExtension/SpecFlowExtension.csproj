@@ -43,14 +43,14 @@
   <ItemGroup>
     <PackageReference Include="Appium.WebDriver" version="4.3.1" />
     <PackageReference Include="Dapper" version="2.0.90" />
-    <PackageReference Include="Gherkin" version="20.0.1" />
+    <PackageReference Include="Gherkin" version="22.0.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="MSTest.TestFramework" version="2.1.2" />
     <PackageReference Include="NUnit" version="3.13.2" />
-    <PackageReference Include="SpecFlow" version="3.9.8" />
+    <PackageReference Include="SpecFlow" version="3.9.22" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
     <PackageReference Include="System.Reflection.Emit" version="4.7.0" />
     <PackageReference Include="System.Reflection.Emit.Lightweight" version="4.7.0" />
