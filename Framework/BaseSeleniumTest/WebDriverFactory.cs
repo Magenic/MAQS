@@ -229,9 +229,9 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             return CreateDriver(() =>
             {
-                new DriverManager().SetUpDriver(new FirefoxConfig(), SeleniumConfig.GetFirefoxVersion());
                 // Add support for encoding 437 that was removed in .net core
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                new DriverManager().SetUpDriver(new FirefoxConfig(), SeleniumConfig.GetFirefoxVersion());
 
                 // Create service and set host.  Setting host directly greatly improves speed.
                 var service = FirefoxDriverService.CreateDefaultService();
