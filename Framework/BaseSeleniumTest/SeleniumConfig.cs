@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using WebDriverManager.Helpers;
 
 namespace Magenic.Maqs.BaseSeleniumTest
 {
@@ -310,5 +311,42 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             return Config.GetValueForSection(SELENIUMSECTION, "ProxyAddress");
         }
+
+        /// <summary>
+        /// Gets the chrome version to use with WebDriverManager
+        /// </summary>
+        /// <returns></returns>
+        public static string GetChromeVersion()
+        {
+            return Config.GetValueForSection(SELENIUMSECTION, "ChromeVersion", VersionResolveStrategy.MatchingBrowser);
+        }
+
+        /// <summary>
+        /// Gets the edge version to use with WebDriverManager
+        /// </summary>
+        /// <returns></returns>
+        public static string GetEdgeVersion()
+        {
+            return Config.GetValueForSection(SELENIUMSECTION, "EdgeVersion", VersionResolveStrategy.MatchingBrowser);
+        }
+
+        /// <summary>
+        /// Gets the Firefox version to use with WebDriverManager
+        /// </summary>
+        /// <returns></returns>
+        public static string GetFirefoxVersion()
+        {
+            return Config.GetValueForSection(SELENIUMSECTION, "FirefoxVersion", VersionResolveStrategy.Latest);
+        }
+
+        /// <summary>
+        /// Gets the IE version to use with WebDriverManager
+        /// </summary>
+        /// <returns></returns>
+        public static string GetIEVersion()
+        {
+            return Config.GetValueForSection(SELENIUMSECTION, "IEVersion", VersionResolveStrategy.Latest);
+        }
+
     }
 }
