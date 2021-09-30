@@ -14,7 +14,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
     /// <summary>
     /// Generic base Selenium test class
     /// </summary>
-    public class BaseSeleniumTest : BaseExtendableTest<SeleniumTestObject>
+    public class BaseSeleniumTest : BaseExtendableTest<ISeleniumTestObject>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseSeleniumTest"/> class
@@ -53,12 +53,12 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// Take a screen shot if needed and tear down the web driver
         /// </summary>
         /// <param name="resultType">The test result</param>
-        protected override void BeforeLoggingTeardown(TestResultType resultType)
+        protected override void BeforeCleanup(TestResultType resultType)
         {
             // Try to take a screen shot
             try
             {
-                if (this.TestObject.GetDriverManager<SeleniumDriverManager>().IsDriverIntialized() && this.Log is FileLogger && resultType != TestResultType.PASS && this.LoggingEnabledSetting != LoggingEnabled.NO)
+                if (this.TestObject.GetDriverManager<SeleniumDriverManager>().IsDriverIntialized() && this.Log is IFileLogger && resultType != TestResultType.PASS && this.LoggingEnabledSetting != LoggingEnabled.NO)
                 {
                     SeleniumUtilities.CaptureScreenshot(this.WebDriver, this.TestObject, " Final");
 
@@ -75,12 +75,13 @@ namespace Magenic.Maqs.BaseSeleniumTest
         }
 
         /// <summary>
-        /// Create a Selenium test object
+        /// Create a test object
         /// </summary>
-        protected override void CreateNewTestObject()
+        /// <param name="log">Assocatied logger</param>
+        /// <returns>The Selenium test object</returns>
+        protected override ISeleniumTestObject CreateSpecificTestObject(ILogger log)
         {
-            Logger newLogger = this.CreateLogger();
-            this.TestObject = new SeleniumTestObject(() => this.GetBrowser(), newLogger, this.GetFullyQualifiedTestClassName());
+            return new SeleniumTestObject(() => this.GetBrowser(), log, this.GetFullyQualifiedTestClassName());
         }
     }
 }

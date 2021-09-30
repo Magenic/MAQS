@@ -40,7 +40,7 @@ namespace Magenic.Maqs.Utilities.Data
                 }
                 else
                 {
-                    commaDelimitedString.Append(StringProcessor.SafeFormatter($", {text}"));
+                    commaDelimitedString.Append($", {text}");
                 }
             }
 
@@ -60,8 +60,7 @@ namespace Magenic.Maqs.Utilities.Data
             if (expectedList.Count != actualList.Count)
             {
                 results.Append(
-                    StringProcessor.SafeFormatter(
-                    $"The following lists are not the same size: Expected {Environment.NewLine} [{CreateCommaDelimitedString(expectedList)}] {Environment.NewLine} and got {Environment.NewLine} [{CreateCommaDelimitedString(actualList)}]"));
+                    $"The following lists are not the same size: Expected {Environment.NewLine} [{CreateCommaDelimitedString(expectedList)}] {Environment.NewLine} and got {Environment.NewLine} [{CreateCommaDelimitedString(actualList)}]");
             }
 
             // Clone the first list 
@@ -78,7 +77,7 @@ namespace Magenic.Maqs.Utilities.Data
                 {
                     if (!clonedList.Contains(expectedValue))
                     {
-                        results.Append(StringProcessor.SafeFormatter($"[{expectedValue}] was not found in the list but was expected{Environment.NewLine}"));
+                        results.Append($"[{expectedValue}] was not found in the list but was expected{Environment.NewLine}");
                     }
                     else
                     {
@@ -88,7 +87,7 @@ namespace Magenic.Maqs.Utilities.Data
                 }
                 else if (clonedList[i] == null || !clonedList[i].Equals(expectedValue))
                 {
-                    results.Append(StringProcessor.SafeFormatter($"Expected [{expectedValue}] but found [{clonedList[i]}]{Environment.NewLine}"));
+                    results.Append($"Expected [{expectedValue}] but found [{clonedList[i]}]{Environment.NewLine}");
                 }
             }
 

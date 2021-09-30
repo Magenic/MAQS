@@ -14,9 +14,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Linq;
 
 namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 {
@@ -71,7 +71,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <param name="waitDriver">The assoicated web driver wait</param>
         /// <param name="locator">The 'by' selector for the element</param>
         /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
-        protected AbstractLazyIWebElement(BaseTestObject testObject, IWebDriver webDriver, Func<WebDriverWait> waitDriver, By locator, [CallerMemberName] string userFriendlyName = null)
+        protected AbstractLazyIWebElement(ITestObject testObject, IWebDriver webDriver, Func<WebDriverWait> waitDriver, By locator, [CallerMemberName] string userFriendlyName = null)
         {
             this.TestObject = testObject;
             this.WebDriver = webDriver;
@@ -116,7 +116,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <summary>
         /// Gets the test object for the element
         /// </summary>
-        public BaseTestObject TestObject { get; private set; }
+        public ITestObject TestObject { get; private set; }
 
         /// <summary>
         /// Gets the web driver
@@ -131,7 +131,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// <summary>
         /// Gets the logger
         /// </summary>
-        public Logger Log { get; private set; }
+        public ILogger Log { get; private set; }
 
         /// <summary>
         /// Gets a cached copy of the element or null if we haven't already found the element
@@ -387,7 +387,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             {
                 this.TestObject.Log.SuspendLogging();
                 this.ExecuteEvent(() => element.SendKeys(keys), "SendKeys");
-                
+
             }
             catch (Exception e)
             {
@@ -395,7 +395,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 this.TestObject.Log.LogMessage(MessageType.ERROR, $"Exception during sending secret keys: {e.Message}{ Environment.NewLine}{ e.StackTrace}");
                 throw;
             }
-            
+
             this.TestObject.Log.ContinueLogging();
         }
 
@@ -790,7 +790,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                 temp += this.parent.ToString();
             }
 
-            return $"{temp}{this.By.ToString()}{this.userFriendlyName}";
+            return $"{temp}{this.By}{this.userFriendlyName}";
         }
 
         /// <summary>

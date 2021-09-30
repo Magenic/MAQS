@@ -14,7 +14,7 @@ namespace Magenic.Maqs.SpecFlow.TestSteps
     /// Base for web service TestSteps classes
     /// </summary>
     [Binding, Scope(Tag = "MAQS_WebService")]
-    public class BaseWebServiceTestSteps : ExtendableTestSteps<WebServiceTestObject, MaqsWeb>
+    public class BaseWebServiceTestSteps : ExtendableTestSteps<IWebServiceTestObject, MaqsWeb>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseWebServiceTestSteps" /> class

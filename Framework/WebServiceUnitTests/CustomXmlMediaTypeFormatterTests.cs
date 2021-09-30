@@ -23,12 +23,12 @@ namespace WebServiceTesterUnitTesting
         /// <summary>
         /// Default xmlMediaType for default constructor
         /// </summary>
-        private static string xmlMediaType = "text/plain";
+        private static readonly string xmlMediaType = "text/plain";
 
         /// <summary>
         /// Default typesArray for default constructor
         /// </summary>
-        private static Type[] types = new Type[] { typeof(string) };
+        private static readonly Type[] types = new Type[] { typeof(string) };
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CustomXmlMediaTypeFormatterTests"/> class

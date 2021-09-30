@@ -34,7 +34,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <summary>
         /// Get a list of the items selected in a drop down
         /// </summary>
-         /// <param name="searchContext">Web driver or element</param>
+        /// <param name="searchContext">Web driver or element</param>
         /// <param name="by">By selector</param>
         /// <returns>List<string> of selected items in dropdown</string></returns>
         public static List<string> GetSelectedOptionsFromDropdown(this ISearchContext searchContext, By by)
@@ -295,7 +295,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="by">By selector</param>
         /// <param name="textToEnter">The string being entered into the text input field</param>
         /// <param name="logger">The Logging object</param>
-        public static void SendSecretKeys(this ISearchContext searchContext, By by, string textToEnter, Logger logger)
+        public static void SendSecretKeys(this ISearchContext searchContext, By by, string textToEnter, ILogger logger)
         {
             try
             {

@@ -23,7 +23,7 @@ namespace SeleniumUnitTests
         /// Initializes a new instance of the <see cref="SeleniumPageModel"/> class
         /// </summary>
         /// <param name="testObject">The base Selenium test object</param>
-        public SeleniumPageModel(SeleniumTestObject testObject) 
+        public SeleniumPageModel(ISeleniumTestObject testObject)
             : base(testObject)
         {
         }
@@ -66,7 +66,7 @@ namespace SeleniumUnitTests
         /// Get logger
         /// </summary>
         /// <returns>The logger</returns>
-        public Logger GetLogger()
+        public ILogger GetLogger()
         {
             return this.Log;
         }
@@ -75,7 +75,7 @@ namespace SeleniumUnitTests
         /// Get test object
         /// </summary>
         /// <returns>The test object</returns>
-        public SeleniumTestObject GetTestObject()
+        public ISeleniumTestObject GetTestObject()
         {
             return this.TestObject;
         }
@@ -84,7 +84,7 @@ namespace SeleniumUnitTests
         /// Get performance timer collection
         /// </summary>
         /// <returns>The performance timer collection</returns>
-        public PerfTimerCollection GetPerfTimerCollection()
+        public IPerfTimerCollection GetPerfTimerCollection()
         {
             return this.PerfTimerCollection;
         }

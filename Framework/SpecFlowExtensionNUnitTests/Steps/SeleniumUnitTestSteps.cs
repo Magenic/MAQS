@@ -47,7 +47,7 @@ namespace SpecFlowExtensionNUnitTests.Steps
         /// <summary>
         /// Test object exists
         /// </summary>
-        [Then(@"TestObject is type SeleniumTestObject")]
+        [Then(@"TestObject is type ISeleniumTestObject")]
         public void AndTestObjectIsTypeSeleniumTestObject()
         {
             Assert.IsTrue(this.TestObject.GetType().Equals(typeof(SeleniumTestObject)), $"TestObject for BaseSeleniumTestSteps class is the wrong type : {this.TestObject.GetType()}.");

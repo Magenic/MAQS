@@ -26,7 +26,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// </summary>
         /// <param name="getEmailClient">Function for getting an email connection</param>
         /// <param name="testObject">The associated test object</param>
-        public EmailDriverManager(Func<ImapClient> getEmailClient, BaseTestObject testObject) : base(getEmailClient, testObject)
+        public EmailDriverManager(Func<ImapClient> getEmailClient, ITestObject testObject) : base(getEmailClient, testObject)
         {
         }
 

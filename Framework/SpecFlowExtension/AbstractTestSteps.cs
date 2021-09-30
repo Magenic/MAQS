@@ -14,7 +14,7 @@ namespace Magenic.Maqs.SpecFlow
     /// The abstract TestSteps class definition
     /// </summary>
     /// <typeparam name="O">The BaseTestObject type for the given TestSteps class</typeparam>
-    public abstract class AbstractTestSteps<O> : Steps where O : BaseTestObject
+    public abstract class AbstractTestSteps<O> : Steps where O : ITestObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractTestSteps{O}" /> class.

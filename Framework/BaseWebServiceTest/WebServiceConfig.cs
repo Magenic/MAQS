@@ -12,7 +12,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
     /// <summary>
     /// Config class
     /// </summary>
-    public static class WebServiceConfig 
+    public static class WebServiceConfig
     {
         /// <summary>
         /// Checks the config file for required values upon class load

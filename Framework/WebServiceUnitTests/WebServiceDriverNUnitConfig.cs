@@ -27,10 +27,10 @@ namespace WebServiceTesterUnitTesting
         {
             // Set overrides
             MethodInfo dynMethod = NUnit.Framework.TestContext.Parameters.GetType().GetMethod("Add", BindingFlags.NonPublic | BindingFlags.Instance);
-            dynMethod.Invoke(NUnit.Framework.TestContext.Parameters, new object[] { "OverrideNUnitTest", "Value" });
-            dynMethod.Invoke(NUnit.Framework.TestContext.Parameters, new object[] { "OverrideNUnitTestNew", "Value2" });
+            dynMethod.Invoke(NUnit.Framework.TestContext.Parameters, new object[] { "MagenicMaqs:OverrideNUnitTest", "Value" });
+            dynMethod.Invoke(NUnit.Framework.TestContext.Parameters, new object[] { "magenicmaqs:OverrideNUnitTestNew", "Value2" });
 
-            Config.UpdateWithNUnitTestContext(NUnit.Framework.TestContext.Parameters);
+            Config.UpdateWithNUnitTestParameters(NUnit.Framework.TestContext.Parameters);
         }
 
         /// <summary>

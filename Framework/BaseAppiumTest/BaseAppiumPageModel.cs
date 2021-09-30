@@ -27,7 +27,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// Initializes a new instance of the <see cref="BaseAppiumPageModel"/> class.
         /// </summary>
         /// <param name="testObject">The Appium test object</param>
-        protected BaseAppiumPageModel(AppiumTestObject testObject)
+        protected BaseAppiumPageModel(IAppiumTestObject testObject)
         {
             this.TestObject = testObject;
             this.AppiumDriver = testObject.AppiumDriver;
@@ -42,7 +42,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// Gets the log from the test object
         /// </summary>
-        protected Logger Log
+        protected ILogger Log
         {
             get { return this.TestObject.Log; }
         }
@@ -50,7 +50,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// Gets the performance timer collection from the test object
         /// </summary>
-        protected PerfTimerCollection PerfTimerCollection
+        protected IPerfTimerCollection PerfTimerCollection
         {
             get { return this.TestObject.PerfTimerCollection; }
         }
@@ -58,7 +58,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// Gets or sets the Appium test object
         /// </summary>
-        protected AppiumTestObject TestObject { get; set; }
+        protected IAppiumTestObject TestObject { get; set; }
 
         /// <summary>
         /// Override the driver 
@@ -105,7 +105,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <returns>The LazyMobileElement</returns>
         protected LazyMobileElement GetLazyElement(LazyMobileElement parent, By locator, [CallerMemberName] string userFriendlyName = null)
         {
-            string lazyElementStoreKey = $"{parent.ToString()}{locator}{userFriendlyName}";
+            string lazyElementStoreKey = $"{parent}{locator}{userFriendlyName}";
 
             if (!this.lazyElementStore.ContainsKey(lazyElementStoreKey))
             {

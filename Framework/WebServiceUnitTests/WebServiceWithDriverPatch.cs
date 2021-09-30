@@ -22,7 +22,7 @@ namespace WebServiceTesterUnitTesting
     [ExcludeFromCodeCoverage]
     public class WebServiceWithDriverPatch : BaseWebServiceTest
     {
-       /// <summary>
+        /// <summary>
         /// Verify the string status code
         /// </summary>
         [TestMethod]
@@ -131,7 +131,7 @@ namespace WebServiceTesterUnitTesting
             Assert.AreEqual(p.Name, result.Name);
             Assert.AreEqual(p.Price, result.Price);
         }
-        
+
         /// <summary>
         /// Patch string without utility
         /// </summary>

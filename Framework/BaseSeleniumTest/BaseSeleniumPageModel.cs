@@ -27,7 +27,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// Initializes a new instance of the <see cref="BaseSeleniumPageModel"/> class.
         /// </summary>
         /// <param name="testObject">The Selenium test object</param>
-        protected BaseSeleniumPageModel(SeleniumTestObject testObject)
+        protected BaseSeleniumPageModel(ISeleniumTestObject testObject)
         {
             this.TestObject = testObject;
             this.WebDriver = testObject.WebDriver;
@@ -42,7 +42,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <summary>
         /// Gets the log from the test object
         /// </summary>
-        protected Logger Log
+        protected ILogger Log
         {
             get { return this.TestObject.Log; }
         }
@@ -50,7 +50,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <summary>
         /// Gets the performance timer collection from the test object
         /// </summary>
-        protected PerfTimerCollection PerfTimerCollection
+        protected IPerfTimerCollection PerfTimerCollection
         {
             get { return this.TestObject.PerfTimerCollection; }
         }
@@ -58,7 +58,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <summary>
         /// Gets or sets the Selenium test object
         /// </summary>
-        protected SeleniumTestObject TestObject { get; set; }
+        protected ISeleniumTestObject TestObject { get; set; }
 
         /// <summary>
         /// Override the webdriver 
@@ -85,7 +85,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <returns>The LazyElement</returns>
         protected LazyElement GetLazyElement(By locator, [CallerMemberName] string userFriendlyName = null)
         {
-            string lazyElementStoreKey = $"{locator.ToString()}{userFriendlyName}";
+            string lazyElementStoreKey = $"{locator}{userFriendlyName}";
 
             if (!this.lazyElementStore.ContainsKey(lazyElementStoreKey))
             {
@@ -105,7 +105,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <returns>The LazyElement</returns>
         protected LazyElement GetLazyElement(LazyElement parent, By locator, [CallerMemberName] string userFriendlyName = null)
         {
-            string lazyElementStoreKey = $"{parent.ToString()}{locator.ToString()}{userFriendlyName}";
+            string lazyElementStoreKey = $"{parent}{locator}{userFriendlyName}";
 
             if (!this.lazyElementStore.ContainsKey(lazyElementStoreKey))
             {

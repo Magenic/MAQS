@@ -5,7 +5,6 @@
 // <summary>This is the base email test class</summary>
 //--------------------------------------------------
 using Magenic.Maqs.BaseTest;
-using Magenic.Maqs.Utilities.Data;
 using Magenic.Maqs.Utilities.Logging;
 using MailKit.Net.Imap;
 
@@ -14,7 +13,7 @@ namespace Magenic.Maqs.BaseEmailTest
     /// <summary>
     /// Generic base email test class
     /// </summary>
-    public class BaseEmailTest : BaseExtendableTest<EmailTestObject>
+    public class BaseEmailTest : BaseExtendableTest<IEmailTestObject>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseEmailTest"/> class.
@@ -56,7 +55,7 @@ namespace Magenic.Maqs.BaseEmailTest
             {
                 this.Log.LogMessage(
                     MessageType.INFORMATION,
-                    StringProcessor.SafeFormatter($"Connect to email with user '{username}' on host '{host}', port '{port}'"));
+                    $"Connect to email with user '{username}' on host '{host}', port '{port}'");
             }
 
             ImapClient emailConnection = ClientFactory.GetDefaultEmailClient();
@@ -71,12 +70,13 @@ namespace Magenic.Maqs.BaseEmailTest
         }
 
         /// <summary>
-        /// Create an email test object
+        /// Create a test object
         /// </summary>
-        protected override void CreateNewTestObject()
+        /// <param name="log">Assocatied logger</param>
+        /// <returns>The email test object</returns>
+        protected override IEmailTestObject CreateSpecificTestObject(ILogger log)
         {
-            Logger newLogger = this.CreateLogger();
-            this.TestObject = new EmailTestObject(() => this.GetEmailConnection(), newLogger, new SoftAssert(newLogger), this.GetFullyQualifiedTestClassName());
+            return new EmailTestObject(() => this.GetEmailConnection(), log, this.GetFullyQualifiedTestClassName());
         }
     }
 }

@@ -42,7 +42,7 @@ namespace CompositeUnitTests
             this.ManagerStore.Add("test", newDriver);
             this.ManagerStore.GetDriver<WebServiceDriver, WebServiceDriverManager>();
 
-            Assert.AreNotEqual(this.TestObject.WebServiceDriver, (WebServiceDriverManager)this.ManagerStore["test"]);
+            Assert.AreNotEqual(this.TestObject.WebServiceDriver, this.ManagerStore.GetManager<WebServiceDriverManager>("test"));
             Assert.AreNotEqual(this.TestObject.WebServiceManager.Get(), this.ManagerStore.GetDriver<WebServiceDriver>("test"));
         }
 
@@ -76,7 +76,7 @@ namespace CompositeUnitTests
             // Do something so we initialize the web driver
             this.WebServiceDriver.HttpClient.Timeout = TimeSpan.FromSeconds(1);
 
-            WebServiceDriverManager driverDriver = this.ManagerStore[typeof(WebServiceDriverManager).FullName] as WebServiceDriverManager;
+            WebServiceDriverManager driverDriver = this.ManagerStore.GetManager<WebServiceDriverManager>();
             Assert.IsTrue(driverDriver.IsDriverIntialized(), "The driver should have been initialized");
         }
 
@@ -86,7 +86,7 @@ namespace CompositeUnitTests
         [TestMethod]
         public void NotIntialized()
         {
-            WebServiceDriverManager driverDriver = this.ManagerStore[typeof(WebServiceDriverManager).FullName] as WebServiceDriverManager;
+            WebServiceDriverManager driverDriver = this.ManagerStore.GetManager<WebServiceDriverManager>();
             Assert.IsFalse(driverDriver.IsDriverIntialized(), "The driver should not be initialized until it gets used");
         }
 

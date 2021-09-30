@@ -4,11 +4,11 @@
 // </copyright>
 // <summary>The basic database interactions</summary>
 //--------------------------------------------------
+using Dapper;
+using Dapper.Contrib.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using Dapper;
-using Dapper.Contrib.Extensions;
 
 namespace Magenic.Maqs.BaseDatabaseTest
 {

@@ -38,6 +38,29 @@ namespace FrameworkUnitTests
         /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
+        public void InvalidTypeFailure()
+        {
+            this.TestObject.OverrideDatabaseDriver(ConnectionFactory.GetOpenConnection("InvalidType", string.Empty));
+            Assert.Fail("Get open connection should have thrown exception.");
+        }
+
+        /// <summary>
+        /// Override with postgresql
+        /// </summary>
+        [TestMethod]
+        public void OverrideWithPostGreSql()
+        {
+            var connection = ConnectionFactory.GetOpenConnection("POSTGRESQL", "Server=myServerAddress;Database=myDataBase;");
+            this.TestObject.OverrideDatabaseDriver(connection);
+
+            Assert.AreEqual(connection, this.DatabaseDriver.Connection);
+        }
+
+        /// <summary>
+        /// Make sure we get the proper factory failure
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
         public void OverideFactoryFailure()
         {
             this.TestObject.OverrideDatabaseDriver(ConnectionFactory.GetOpenConnection(string.Empty, string.Empty));
@@ -54,7 +77,7 @@ namespace FrameworkUnitTests
             this.TestObject.OverrideDatabaseDriver(connection);
             Assert.AreEqual(connection, this.DatabaseDriver.Connection);
         }
-    
+
         /// <summary>
         /// Make sure we can override the driver
         /// </summary>
@@ -76,8 +99,8 @@ namespace FrameworkUnitTests
             DatabaseDriverManager newDriver = new DatabaseDriverManager(() => DatabaseConfig.GetOpenConnection(), this.TestObject);
             this.ManagerStore.Add("test", newDriver);
 
-            Assert.AreNotEqual(this.TestObject.DatabaseManager, (DatabaseDriverManager)this.ManagerStore["test"]);
-            Assert.AreNotEqual(this.TestObject.DatabaseManager.Get(), ((DatabaseDriverManager)this.ManagerStore["test"]).Get());
+            Assert.AreNotEqual(this.TestObject.DatabaseManager, this.ManagerStore.GetManager<DatabaseDriverManager>("test"));
+            Assert.AreNotEqual(this.TestObject.DatabaseManager.Get(), (this.ManagerStore.GetManager<DatabaseDriverManager>("test")).Get());
         }
 
         /// <summary>
@@ -107,7 +130,7 @@ namespace FrameworkUnitTests
         [TestMethod]
         public void Intialized()
         {
-            DatabaseDriverManager driverDriver = this.ManagerStore[typeof(DatabaseDriverManager).FullName] as DatabaseDriverManager;
+            DatabaseDriverManager driverDriver = this.ManagerStore.GetManager<DatabaseDriverManager>();
 
             // Do something so we initialize the driver
             Assert.IsNotNull(this.DatabaseDriver.Connection, "Connection should not be null");
@@ -120,7 +143,7 @@ namespace FrameworkUnitTests
         [TestMethod]
         public void NotIntialized()
         {
-            DatabaseDriverManager driverDriver = this.ManagerStore[typeof(DatabaseDriverManager).FullName] as DatabaseDriverManager;
+            DatabaseDriverManager driverDriver = this.ManagerStore.GetManager<DatabaseDriverManager>();
             Assert.IsFalse(driverDriver.IsDriverIntialized(), "The driver should not be initialized until it gets used");
         }
     }

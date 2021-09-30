@@ -5,18 +5,18 @@
 // <summary>Unit tests for SQLITE provider</summary>
 //--------------------------------------------------
 
-using System;
+using Dapper;
+using DatabaseUnitTests.Models;
 using Magenic.Maqs.BaseDatabaseTest;
 using Magenic.Maqs.Utilities.Helper;
+using Microsoft.Data.Sqlite;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using DatabaseUnitTests.Models;
-using Dapper;
-using Microsoft.Data.Sqlite;
 
 namespace DatabaseUnitTests
 {

@@ -4,7 +4,6 @@
 // </copyright>
 // <summary>The event firing database interactions</summary>
 //--------------------------------------------------
-using Magenic.Maqs.Utilities.Data;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -262,9 +261,9 @@ namespace Magenic.Maqs.BaseDatabaseTest
         {
             try
             {
-                this.OnActionEvent(StringProcessor.SafeFormatter("Release connection"));
+                this.OnActionEvent("Release connection");
                 base.Dispose(disposing);
-                this.OnEvent(StringProcessor.SafeFormatter("Released connection"));
+                this.OnEvent("Released connection");
             }
             catch (Exception ex)
             {
@@ -309,11 +308,11 @@ namespace Magenic.Maqs.BaseDatabaseTest
         {
             try
             {
-                this.OnActionEvent(StringProcessor.SafeFormatter($"Perform {actionType} with:\r\n{query}"));
+                this.OnActionEvent($"Perform {actionType} with:\r\n{query}");
             }
             catch (Exception e)
             {
-                this.OnErrorEvent(StringProcessor.SafeFormatter($"Failed to log event because: {e.ToString()}"));
+                this.OnErrorEvent($"Failed to log event because: {e}");
             }
         }
 
@@ -333,11 +332,11 @@ namespace Magenic.Maqs.BaseDatabaseTest
                     builder.AppendLine(item);
                 }
 
-                this.OnActionEvent(StringProcessor.SafeFormatter($"Perform {actionType} with:\r\n{builder.ToString()}"));
+                this.OnActionEvent($"Perform {actionType} with:\r\n{builder}");
             }
             catch (Exception e)
             {
-                this.OnErrorEvent(StringProcessor.SafeFormatter($"Failed to log event because: {e.ToString()}"));
+                this.OnErrorEvent($"Failed to log event because: {e}");
             }
         }
 
@@ -347,7 +346,7 @@ namespace Magenic.Maqs.BaseDatabaseTest
         /// <param name="e">The exception</param>
         private void RaiseErrorMessage(Exception e)
         {
-            this.OnErrorEvent(StringProcessor.SafeFormatter($"Failed because: {e.Message}{Environment.NewLine}{e.ToString()}"));
+            this.OnErrorEvent($"Failed because: {e.Message}{Environment.NewLine}{e}");
         }
     }
 }

@@ -5,14 +5,13 @@
 // <summary>Unit test database driver without base database test</summary>
 //--------------------------------------------------
 
-using System;
-using System.Data;
+using DatabaseUnitTests.Models;
 using Magenic.Maqs.BaseDatabaseTest;
 using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using DatabaseUnitTests.Models;
 
 namespace DatabaseUnitTests
 {
@@ -92,7 +91,7 @@ namespace DatabaseUnitTests
             DatabaseDriver driver = new DatabaseDriver(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString());
 
             var result = driver.Execute("setStateAbbrevToSelf", new { StateAbbreviation = "ZZ" }, commandType: CommandType.StoredProcedure);
-            
+
             Assert.AreEqual(0, result, "Expected 0 state abbreviation to be updated.");
         }
 
@@ -120,7 +119,7 @@ namespace DatabaseUnitTests
             DatabaseDriver driver = new DatabaseDriver(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString());
 
             var result = driver.Query("getStateAbbrevMatch", new { StateAbbreviation = "ZZ" }, commandType: CommandType.StoredProcedure);
-            
+
             Assert.AreEqual(0, result.Count(), "Expected 0 state abbreviation to be returned.");
         }
     }

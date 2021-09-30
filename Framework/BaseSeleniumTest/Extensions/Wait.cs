@@ -4,7 +4,6 @@
 // </copyright>
 // <summary>Wait extension for web drivers and elements</summary>
 //--------------------------------------------------
-using Magenic.Maqs.Utilities.Data;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
@@ -103,7 +102,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         {
             if (!this.UntilAbsentElement(by))
             {
-                throw new TimeoutException(StringProcessor.SafeFormatter($"The element {by.ToString()} is still present."));
+                throw new TimeoutException($"The element {by} is still present.");
             }
         }
 
@@ -135,7 +134,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             }
             catch
             {
-                throw new NotFoundException(StringProcessor.SafeFormatter($"The element attribute {attribute} inside '{by.ToString()}' with the value of {textValue} was not found"));
+                throw new NotFoundException($"The element attribute {attribute} inside '{by}' with the value of {textValue} was not found");
             }
         }
 
@@ -156,7 +155,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
             }
             catch
             {
-                throw new NotFoundException(StringProcessor.SafeFormatter($"The element attribute {attribute} inside '{by.ToString()}' with the value of {textValue} was not found"));
+                throw new NotFoundException($"The element attribute {attribute} inside '{by}' with the value of {textValue} was not found");
             }
         }
 

@@ -29,72 +29,67 @@ namespace SeleniumUnitTests
         /// <summary>
         /// Url for the site
         /// </summary>
-        private static string siteUrl = SeleniumConfig.GetWebSiteBase();
+        private static readonly string siteUrl = SeleniumConfig.GetWebSiteBase();
 
         /// <summary>
         /// Automation site url
         /// </summary>
-        private static string siteAutomationUrl = siteUrl + "Automation/";
+        private static readonly string siteAutomationUrl = siteUrl + "Automation/";
 
         /// <summary>
         /// Options for computer parts list
         /// </summary>
-        private static By computerPartsListOptions = By.CssSelector("#computerParts > option");
+        private static readonly By computerPartsListOptions = By.CssSelector("#computerParts > option");
 
         /// <summary>
         /// Swagger link
         /// </summary>
-        private static By swaggerLinkBy = By.CssSelector("#SwaggerPageLink > a");
+        private static readonly By swaggerLinkBy = By.CssSelector("#SwaggerPageLink > a");
 
         /// <summary>
         /// First name textbox
         /// </summary>
-        private static By firstNameTextBox = By.CssSelector("#TextFields > p:nth-child(1) > input[type=\"text\"]");
+        private static readonly By firstNameTextBox = By.CssSelector("#TextFields > p:nth-child(1) > input[type=\"text\"]");
 
         /// <summary>
         /// Female radio button
         /// </summary>
-        private static By femaleRadioButton = By.CssSelector("#FemaleRadio");
+        private static readonly By femaleRadioButton = By.CssSelector("#FemaleRadio");
 
         /// <summary>
         /// First checkbox
         /// </summary>
-        private static By checkbox = By.CssSelector("#Checkbox1");
+        private static readonly By checkbox = By.CssSelector("#Checkbox1");
 
         /// <summary>
         /// Name dropdown list
         /// </summary>
-        private static By nameDropdown = By.CssSelector("#namesDropdown");
+        private static readonly By nameDropdown = By.CssSelector("#namesDropdown");
 
         /// <summary>
         /// Computer parts list
         /// </summary>
-        private static By computerPartsList = By.CssSelector("#computerParts");
-
-        /// <summary>
-        /// Manage dropdown selector
-        /// </summary>
-        private static By manageDropdown = By.CssSelector("body > div.navbar.navbar-inverse.navbar-fixed-top > div > div.navbar-collapse.collapse > ul > li:nth-child(2) > a");
+        private static readonly By computerPartsList = By.CssSelector("#computerParts");
 
         /// <summary>
         /// Employee link
         /// </summary>
-        private static By employeeButton = By.CssSelector("#EmployeeButton > a");
+        private static readonly By employeeButton = By.CssSelector("#EmployeeButton > a");
 
         /// <summary>
         /// Employee page title
         /// </summary>
-        private static By employeePageTitle = By.CssSelector("body > div.container.body-content > h2");
+        private static readonly By employeePageTitle = By.CssSelector("body > div.container.body-content > h2");
 
         /// <summary>
         /// Show dialog button
         /// </summary>
-        private static By showDialog = By.CssSelector("#showDialog1");
+        private static readonly By showDialog = By.CssSelector("#showDialog1");
 
         /// <summary>
         /// Close show dialog box button
         /// </summary>
-        private static By closeShowDialog = By.CssSelector("#CloseButtonShowDialog");
+        private static readonly By closeShowDialog = By.CssSelector("#CloseButtonShowDialog");
 
         /// <summary>
         /// Unit Test for creating a sorted comma delimited string
@@ -377,7 +372,7 @@ namespace SeleniumUnitTests
             WebDriver.FindElement(firstNameTextBox).Clear();
             WebDriver.SendSecretKeys(firstNameTextBox, "secretKeys", Log);
 
-            FileLogger logger = (FileLogger)TestObject.Log;
+            IFileLogger logger = (IFileLogger)TestObject.Log;
             string filepath = logger.FilePath;
 
             Assert.IsFalse(File.ReadAllText(filepath).Contains("secretKeys"));
@@ -396,7 +391,7 @@ namespace SeleniumUnitTests
             Assert.ThrowsException<ArgumentNullException>(() => this.WebDriver.SendSecretKeys(firstNameTextBox, null, this.Log));
             this.Log.LogMessage(checkLogged);
 
-            FileLogger logger = (FileLogger)TestObject.Log;
+            IFileLogger logger = (IFileLogger)TestObject.Log;
             string filepath = logger.FilePath;
 
             Assert.IsTrue(File.ReadAllText(filepath).Contains(checkLogged));
@@ -415,7 +410,7 @@ namespace SeleniumUnitTests
             WebDriver.FindElement(firstNameTextBox).Clear();
             WebDriver.FindElement(firstNameTextBox).SendKeys("somethingTest");
 
-            FileLogger logger = (FileLogger)TestObject.Log;
+            IFileLogger logger = (IFileLogger)TestObject.Log;
             string filepath = logger.FilePath;
 
             Assert.IsTrue(File.ReadAllText(filepath).Contains("somethingTest"));

@@ -9,7 +9,6 @@ using Magenic.Maqs.Utilities.Logging;
 using Magenic.Maqs.Utilities.Performance;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
-using System.Diagnostics.CodeAnalysis;
 
 namespace AppiumUnitTests
 {
@@ -22,7 +21,7 @@ namespace AppiumUnitTests
         /// Initializes a new instance of the <see cref="SeleniumPageModel"/> class
         /// </summary>
         /// <param name="testObject">The base Appium test object</param>
-        public NotepadPageModel(AppiumTestObject testObject) 
+        public NotepadPageModel(IAppiumTestObject testObject)
             : base(testObject)
         {
         }
@@ -87,7 +86,7 @@ namespace AppiumUnitTests
         /// Get logger
         /// </summary>
         /// <returns>The logger</returns>
-        public Logger GetLogger()
+        public ILogger GetLogger()
         {
             return this.Log;
         }
@@ -96,7 +95,7 @@ namespace AppiumUnitTests
         /// Get test object
         /// </summary>
         /// <returns>The test object</returns>
-        public AppiumTestObject GetTestObject()
+        public IAppiumTestObject GetTestObject()
         {
             return this.TestObject;
         }
@@ -105,7 +104,7 @@ namespace AppiumUnitTests
         /// Get performance timer collection
         /// </summary>
         /// <returns>The performance timer collection</returns>
-        public PerfTimerCollection GetPerfTimerCollection()
+        public IPerfTimerCollection GetPerfTimerCollection()
         {
             return this.PerfTimerCollection;
         }

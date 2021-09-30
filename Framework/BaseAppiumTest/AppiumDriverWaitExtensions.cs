@@ -4,7 +4,6 @@
 // </copyright>
 // <summary>This is the Appium driver wait extensions class</summary>
 //--------------------------------------------------
-using Magenic.Maqs.Utilities.Data;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Support.UI;
@@ -22,7 +21,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// Wait collection for the Appium Driver
         /// </summary>
-        private static ConcurrentDictionary<AppiumDriver<IWebElement>, WebDriverWait> waitCollection;
+        private static readonly ConcurrentDictionary<AppiumDriver<IWebElement>, WebDriverWait> waitCollection;
 
 #pragma warning disable S3963 // "static" fields should be initialized inline
         /// <summary>
@@ -70,7 +69,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <returns>True if the wait driver was removed</returns>
         public static bool RemoveWaitDriver(this AppiumDriver<IWebElement> driver)
         {
-            return waitCollection.TryRemove(driver, out WebDriverWait temp);
+            return waitCollection.TryRemove(driver, out WebDriverWait _);
         }
 
         /// <summary>
@@ -82,7 +81,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         {
             if (!WaitUntilAbsentElement(driver, by))
             {
-                throw new TimeoutException(StringProcessor.SafeFormatter($"The element '{by.ToString()}' is still present."));
+                throw new TimeoutException($"The element '{by}' is still present.");
             }
         }
 
