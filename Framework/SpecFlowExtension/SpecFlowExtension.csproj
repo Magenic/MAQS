@@ -48,7 +48,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="MSTest.TestFramework" version="2.1.2" />
+    <PackageReference Include="MSTest.TestFramework" version="2.2.7" />
     <PackageReference Include="NUnit" version="3.13.2" />
     <PackageReference Include="SpecFlow" version="3.9.22" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
