@@ -537,12 +537,12 @@ namespace SeleniumUnitTests
             driver?.KillDriver();
         }
 
-        [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
-        public void OpenIEBrowser()
-        {
-            var driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.IE);
-            driver?.KillDriver();
-        }
+        //[TestMethod]
+        //[TestCategory(TestCategories.Selenium)]
+        //public void OpenIEBrowser()
+        //{
+        //    var driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.IE);
+        //    driver?.KillDriver();
+        //}
     }
 }
