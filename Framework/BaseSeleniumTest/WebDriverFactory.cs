@@ -6,7 +6,6 @@
 //--------------------------------------------------
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Remote;
@@ -20,6 +19,7 @@ using System.Reflection;
 using System.Text;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
+using Microsoft.Edge.SeleniumTools;
 
 namespace Magenic.Maqs.BaseSeleniumTest
 {
@@ -178,7 +178,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             EdgeOptions edgeOptions = new EdgeOptions
             {
-                PageLoadStrategy = PageLoadStrategy.Normal
+                UseChromium = true
             };
 
             edgeOptions.SetProxySettings();
@@ -256,7 +256,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             return CreateDriver(() =>
             {
                 new DriverManager().SetUpDriver(new EdgeConfig(), SeleniumConfig.GetEdgeVersion());
-                var driver = new EdgeDriver(GetDriverLocation("MicrosoftWebDriver.exe", GetProgramFilesFolder("Microsoft Web Driver", "MicrosoftWebDriver.exe")), edgeOptions, commandTimeout);
+                var driver = new EdgeDriver(EdgeDriverService.CreateChromiumService(), edgeOptions, commandTimeout);
                 SetBrowserSize(driver, size);
                 return driver;
             }, SeleniumConfig.GetRetryRefused());
@@ -612,6 +612,20 @@ namespace Magenic.Maqs.BaseSeleniumTest
             if (File.Exists(Path.Combine(testLocation, driverFile)))
             {
                 return testLocation;
+            }
+
+            // Since we are using WebDriverManager, check the path for the downloaded file
+            if (driverFile.Contains("IE"))
+            {
+                var startPath = Path.Combine(testLocation, "InternetExplorer");
+                if (Directory.Exists(startPath))
+                {
+                    string[] files = Directory.GetFiles(startPath, driverFile, SearchOption.AllDirectories);
+                    if(files.Length > 0)
+                    {
+                        return Path.GetDirectoryName(files[0]);
+                    }
+                }
             }
 
             // We didn't find the web driver so throw an error if we need to know where it is

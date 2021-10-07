@@ -500,5 +500,43 @@ namespace SeleniumUnitTests
         {
             Assert.AreEqual("http://localhost:8002", SeleniumConfig.GetProxyAddress());
         }
+
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void OpenEdgeBrowser()
+        {
+            var driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Edge);
+            driver.Navigate().GoToUrl(Config.GetValueForSection(ConfigSection.SeleniumMaqs, "WebSiteBase"));
+            driver?.KillDriver();
+
+
+        }
+
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void OpenFirefoxBrowser()
+        {
+            var driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Firefox);
+            driver.Navigate().GoToUrl(Config.GetValueForSection(ConfigSection.SeleniumMaqs, "WebSiteBase"));
+            driver?.KillDriver();
+        }
+
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void OpenChromeBrowser()
+        {
+            var driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Chrome);
+            driver.Navigate().GoToUrl(Config.GetValueForSection(ConfigSection.SeleniumMaqs, "WebSiteBase"));
+            driver?.KillDriver();
+        }
+
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void OpenHeadlessChromeBrowser()
+        {
+            var driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.HeadlessChrome);
+            driver.Navigate().GoToUrl(Config.GetValueForSection(ConfigSection.SeleniumMaqs, "WebSiteBase"));
+            driver?.KillDriver();
+        }
     }
 }
