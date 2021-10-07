@@ -508,8 +508,6 @@ namespace SeleniumUnitTests
             var driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Edge);
             driver.Navigate().GoToUrl(Config.GetValueForSection(ConfigSection.SeleniumMaqs, "WebSiteBase"));
             driver?.KillDriver();
-
-
         }
 
         [TestMethod]
@@ -536,6 +534,14 @@ namespace SeleniumUnitTests
         {
             var driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.HeadlessChrome);
             driver.Navigate().GoToUrl(Config.GetValueForSection(ConfigSection.SeleniumMaqs, "WebSiteBase"));
+            driver?.KillDriver();
+        }
+
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void OpenIEBrowser()
+        {
+            var driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.IE);
             driver?.KillDriver();
         }
     }
