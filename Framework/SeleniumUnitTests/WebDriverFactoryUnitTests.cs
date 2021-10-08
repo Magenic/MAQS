@@ -8,6 +8,7 @@ using Magenic.Maqs.BaseSeleniumTest;
 using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium.Chrome;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace SeleniumUnitTests
@@ -76,6 +77,22 @@ namespace SeleniumUnitTests
         {
             var options = WebDriverFactory.GetRemoteOptions(RemoteBrowserType.Chrome);
             Assert.IsNotNull(options, "Was unable to retrieve remote options");
+        }
+
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void GetRemoteOptionsDictStringString()
+        {
+            var result = WebDriverFactory.GetRemoteOptions(RemoteBrowserType.Edge, new Dictionary<string, string>() { { "OS", "Windows" } });
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void GetRemoteOptionsDictStringObject()
+        {
+            var result = WebDriverFactory.GetRemoteOptions(RemoteBrowserType.Edge, new Dictionary<string, object>() { { "OS", "Windows" } });
+            Assert.IsNotNull(result);
         }
     }
 }

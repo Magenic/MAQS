@@ -537,12 +537,47 @@ namespace SeleniumUnitTests
             driver?.KillDriver();
         }
 
-        //[TestMethod]
-        //[TestCategory(TestCategories.Selenium)]
-        //public void OpenIEBrowser()
-        //{
-        //    var driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.IE);
-        //    driver?.KillDriver();
-        //}
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void OpenIEBrowser()
+        {
+            // We dont navigate here because there is special configuration required to get IE to fully work
+            var driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.IE);
+            driver?.KillDriver();
+        }
+
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        [DoNotParallelize]
+        [ExpectedException(typeof(ArgumentException))]
+        public void CommandTimeoutNotANumberException()
+        {
+            string commandTimeout = Config.GetValueForSection(ConfigSection.SeleniumMaqs, "SeleniumCommandTimeout");
+
+            Config.AddTestSettingValues(
+                    new Dictionary<string, string>
+                    {
+                        { "SeleniumCommandTimeout", "TestString" }
+                    },
+                   "SeleniumMaqs");
+
+            try
+            {
+                var commandTimeoutFromMethod = SeleniumConfig.GetCommandTimeout();
+                Assert.Fail($"We should throw an argument exception before we get to this assert.  Value was {commandTimeoutFromMethod}");
+
+
+            }
+            finally
+            {
+                Config.AddTestSettingValues(
+                    new Dictionary<string, string>
+                    {
+
+                         { "SeleniumCommandTimeout", commandTimeout }
+                    },
+                   "SeleniumMaqs");
+            }
+        }
     }
 }
