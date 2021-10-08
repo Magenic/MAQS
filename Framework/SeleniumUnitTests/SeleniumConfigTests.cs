@@ -279,7 +279,7 @@ namespace SeleniumUnitTests
             }
             catch (Exception e)
             {
-                Assert.IsTrue(e.InnerException.Message.Contains("Sauce_Labs_Username"), "Did not see 'Sauce_Labs_Username' in error message: " + e.Message + " -- " + e.InnerException.Message);
+                Assert.IsTrue(e.InnerException.Message.Contains("Sauce_Labs_Username") || e.InnerException.Message.Contains("Unauthorized"), "Did not see 'Sauce_Labs_Username' in error message: " + e.Message + " -- " + e.InnerException.Message);
                 checkedAssertion = true;
             }
             finally
