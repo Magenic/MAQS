@@ -4,8 +4,10 @@
 // </copyright>
 // <summary>Web driver factory</summary>
 //--------------------------------------------------
+using Magenic.Maqs.Utilities.Data;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Remote;
@@ -17,9 +19,10 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
-using Microsoft.Edge.SeleniumTools;
+using WebDriverManager.Helpers;
 
 namespace Magenic.Maqs.BaseSeleniumTest
 {
@@ -28,6 +31,26 @@ namespace Magenic.Maqs.BaseSeleniumTest
     /// </summary>
     public static class WebDriverFactory
     {
+        /// <summary>
+        /// Path to Chrome web driver
+        /// </summary>
+        private static String ChromeDriverPath = null;
+
+        /// <summary>
+        /// Path to Edge web driver
+        /// </summary>
+        private static string EdgeDriverPath = null;
+
+        /// <summary>
+        /// Path to Firefox web driver
+        /// </summary>
+        private static String FirefoxDriverPath = null;
+
+        /// <summary>
+        /// Path to IE web driver
+        /// </summary>
+        private static String IEDriverPath = null;
+
         /// <summary>
         /// Get the default web driver based on the test run configuration
         /// </summary>
@@ -111,10 +134,6 @@ namespace Magenic.Maqs.BaseSeleniumTest
         public static ChromeOptions GetDefaultChromeOptions()
         {
             ChromeOptions chromeOptions = new ChromeOptions();
-            chromeOptions.AddArgument("test-type");
-            chromeOptions.AddArguments("--disable-web-security");
-            chromeOptions.AddArguments("--allow-running-insecure-content");
-            chromeOptions.AddArguments("--disable-extensions");
 
             chromeOptions.SetProxySettings();
             return chromeOptions;
@@ -128,10 +147,6 @@ namespace Magenic.Maqs.BaseSeleniumTest
         public static ChromeOptions GetDefaultHeadlessChromeOptions(string size = "MAXIMIZE")
         {
             ChromeOptions headlessChromeOptions = new ChromeOptions();
-            headlessChromeOptions.AddArgument("test-type");
-            headlessChromeOptions.AddArguments("--disable-web-security");
-            headlessChromeOptions.AddArguments("--allow-running-insecure-content");
-            headlessChromeOptions.AddArguments("--disable-extensions");
             headlessChromeOptions.AddArgument("--no-sandbox");
             headlessChromeOptions.AddArguments("--headless");
             headlessChromeOptions.AddArguments(GetHeadlessWindowSizeString(size));
@@ -178,7 +193,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             EdgeOptions edgeOptions = new EdgeOptions
             {
-                UseChromium = true
+                PageLoadStrategy = PageLoadStrategy.Normal
             };
 
             edgeOptions.SetProxySettings();
@@ -196,7 +211,8 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             return CreateDriver(() =>
             {
-                new DriverManager().SetUpDriver(new ChromeConfig(),SeleniumConfig.GetChromeVersion());
+                LazyInitializer.EnsureInitialized(ref ChromeDriverPath, () => new DriverManager().SetUpDriver(new ChromeConfig(), SeleniumConfig.GetChromeVersion()));
+
                 var driver = new ChromeDriver(ChromeDriverService.CreateDefaultService(), chromeOptions, commandTimeout);
                 SetBrowserSize(driver, size);
                 return driver;
@@ -213,7 +229,8 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             return CreateDriver(() =>
             {
-                new DriverManager().SetUpDriver(new ChromeConfig(), SeleniumConfig.GetChromeVersion());
+                LazyInitializer.EnsureInitialized(ref ChromeDriverPath, () => new DriverManager().SetUpDriver(new ChromeConfig(), SeleniumConfig.GetChromeVersion()));
+
                 return new ChromeDriver(ChromeDriverService.CreateDefaultService(), headlessChromeOptions, commandTimeout);
             }, SeleniumConfig.GetRetryRefused());
         }
@@ -229,9 +246,11 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             return CreateDriver(() =>
             {
+                LazyInitializer.EnsureInitialized(ref FirefoxDriverPath, () => new DriverManager().SetUpDriver(new FirefoxConfig(), SeleniumConfig.GetFirefoxVersion()));
+
+                new DriverManager().SetUpDriver(new FirefoxConfig());
                 // Add support for encoding 437 that was removed in .net core
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                new DriverManager().SetUpDriver(new FirefoxConfig(), SeleniumConfig.GetFirefoxVersion());
 
                 // Create service and set host.  Setting host directly greatly improves speed.
                 var service = FirefoxDriverService.CreateDefaultService();
@@ -255,8 +274,9 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             return CreateDriver(() =>
             {
-                new DriverManager().SetUpDriver(new EdgeConfig(), SeleniumConfig.GetEdgeVersion());
-                var driver = new EdgeDriver(EdgeDriverService.CreateChromiumService(), edgeOptions, commandTimeout);
+                LazyInitializer.EnsureInitialized(ref EdgeDriverPath, () => new DriverManager().SetUpDriver(new EdgeConfig(), VersionResolveStrategy.MatchingBrowser));
+
+                var driver = new EdgeDriver(Path.GetDirectoryName(EdgeDriverPath), edgeOptions, commandTimeout);
                 SetBrowserSize(driver, size);
                 return driver;
             }, SeleniumConfig.GetRetryRefused());
@@ -273,7 +293,9 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             return CreateDriver(() =>
             {
-                new DriverManager().SetUpDriver(new InternetExplorerConfig(), SeleniumConfig.GetIEVersion());
+                LazyInitializer.EnsureInitialized(ref IEDriverPath, () => new DriverManager().SetUpDriver(new InternetExplorerConfig(), SeleniumConfig.GetIEVersion()));
+
+                new DriverManager().SetUpDriver(new InternetExplorerConfig());
                 var driver = new InternetExplorerDriver(GetDriverLocation("IEDriverServer.exe"), internetExplorerOptions, commandTimeout);
                 SetBrowserSize(driver, size);
 
@@ -376,7 +398,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                     break;
 
                 default:
-                    throw new ArgumentException($"Remote browser type '{remoteBrowser}' is not supported");
+                    throw new ArgumentException(StringProcessor.SafeFormatter($"Remote browser type '{remoteBrowser}' is not supported"));
             }
 
             // Make sure the remote capabilities dictionary exists
@@ -424,17 +446,20 @@ namespace Magenic.Maqs.BaseSeleniumTest
                     switch (driverOptions)
                     {
                         case ChromeOptions chromeOptions:
-                            chromeOptions.AddAdditionalCapability(keyValue.Key, keyValue.Value, true);
+                            chromeOptions.AddAdditionalChromeOption(keyValue.Key, keyValue.Value);
                             break;
                         case FirefoxOptions firefoxOptions:
-                            firefoxOptions.AddAdditionalCapability(keyValue.Key, keyValue.Value, true);
+                            firefoxOptions.AddAdditionalFirefoxOption(keyValue.Key, keyValue.Value);
                             break;
                         case InternetExplorerOptions ieOptions:
-                            ieOptions.AddAdditionalCapability(keyValue.Key, keyValue.Value, true);
+                            ieOptions.AddAdditionalInternetExplorerOption(keyValue.Key, keyValue.Value);
+                            break;
+                        case EdgeOptions ieOptions:
+                            ieOptions.AddAdditionalEdgeOption(keyValue.Key, keyValue.Value);
                             break;
                         default:
-                            // Edge and Safari do not support marking capabilities as global  - AKA the third parameter
-                            driverOptions.AddAdditionalCapability(keyValue.Key, keyValue.Value);
+                            // Not one of our 4 main types
+                            driverOptions.AddAdditionalOption(keyValue.Key, keyValue.Value);
                             break;
                     }
                 }
@@ -614,59 +639,10 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 return testLocation;
             }
 
-            // Since we are using WebDriverManager, check the path for the downloaded file
-            if (driverFile.Contains("IE"))
-            {
-                var startPath = Path.Combine(testLocation, "InternetExplorer");
-                if (Directory.Exists(startPath))
-                {
-                    string[] files = Directory.GetFiles(startPath, driverFile, SearchOption.AllDirectories);
-                    if(files.Length > 0)
-                    {
-                        return Path.GetDirectoryName(files[0]);
-                    }
-                }
-            }
-
             // We didn't find the web driver so throw an error if we need to know where it is
             if (mustExist)
             {
-                throw new FileNotFoundException($"Unable to find driver for '{driverFile}'");
-            }
-
-            return string.Empty;
-        }
-
-        /// <summary>
-        /// Get the programs file folder which contains given file
-        /// </summary>
-        /// <param name="folderName">The programs file sub folder</param>
-        /// <param name="file">The file we are looking for</param>
-        /// <returns>The parent folder of the given file or the empty string if the file is not found</returns>
-        private static string GetProgramFilesFolder(string folderName, string file)
-        {
-            // Handle 64 bit systems first
-            if (IntPtr.Size == 8 || (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("PROCESSOR_ARCHITEW6432"))))
-            {
-                string path = Path.Combine(Environment.GetEnvironmentVariable("ProgramW6432"), folderName, file);
-                if (File.Exists(path))
-                {
-                    return Path.GetDirectoryName(path);
-                }
-
-                path = Path.Combine(Environment.GetEnvironmentVariable("ProgramFiles(x86)"), folderName, file);
-                if (File.Exists(path))
-                {
-                    return Path.GetDirectoryName(path);
-                }
-            }
-            else
-            {
-                string path = Path.Combine(Environment.GetEnvironmentVariable("ProgramFiles"), folderName, file);
-                if (File.Exists(path))
-                {
-                    return Path.GetDirectoryName(path);
-                }
+                throw new FileNotFoundException(StringProcessor.SafeFormatter($"Unable to find driver for '{driverFile}'"));
             }
 
             return string.Empty;
