@@ -299,6 +299,9 @@ namespace SeleniumUnitTests
             // Do the event again and save off the changed element
             footer.GetValue();
 
+            // Make sure the page is reloaded
+            LeaveAndReturnToPage(this.WebDriver);
+
             // Make sure doing a new find returns an element that is not the same as the cached element
             Assert.AreNotEqual(WebDriver.FindElement(footer.By), footerElementBefore);
         }
@@ -378,6 +381,9 @@ namespace SeleniumUnitTests
 
             footer.GetRawVisibleElement();
 
+            // Make sure the page is reloaded
+            LeaveAndReturnToPage(this.WebDriver);
+
             // Make sure get clickable triggers a new find
             Assert.AreNotEqual(footer.CachedElement, footer.GetRawClickableElement());
         }
@@ -394,6 +400,9 @@ namespace SeleniumUnitTests
 
             footer.GetRawVisibleElement();
 
+            // Make sure the page is reloaded
+            LeaveAndReturnToPage(this.WebDriver);
+
             // Make sure get exists triggers a new find
             Assert.AreNotEqual(footer.CachedElement, footer.GetRawExistingElement());
         }
@@ -409,6 +418,9 @@ namespace SeleniumUnitTests
             LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
 
             footer.GetRawVisibleElement();
+
+            // Make sure the page is reloaded
+            LeaveAndReturnToPage(this.WebDriver);
 
             // Make sure get visible triggers a new find
             Assert.AreNotEqual(footer.CachedElement, footer.GetRawVisibleElement());
@@ -1157,6 +1169,17 @@ namespace SeleniumUnitTests
             a1.MoveToElement(rawElement).Build().Perform();
             a1.MoveToElement(rawElement, 0, 0).Build().Perform();
             a1.MoveToElement(rawElement, 0, 0, MoveToElementOffsetOrigin.Center).Build().Perform();
+        }
+
+        /// <summary>
+        /// Make sure the page gets reloaded
+        /// </summary>
+        /// <param name="driver">Current test web driver</param>
+        private static void LeaveAndReturnToPage (IWebDriver driver)
+        {
+            driver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase());
+            driver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Automation");
+            driver.Wait().ForPageLoad();
         }
     }
 }

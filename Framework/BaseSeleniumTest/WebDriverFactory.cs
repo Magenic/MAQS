@@ -248,15 +248,10 @@ namespace Magenic.Maqs.BaseSeleniumTest
             {
                 LazyInitializer.EnsureInitialized(ref FirefoxDriverPath, () => new DriverManager().SetUpDriver(new FirefoxConfig(), SeleniumConfig.GetFirefoxVersion()));
 
-                new DriverManager().SetUpDriver(new FirefoxConfig());
                 // Add support for encoding 437 that was removed in .net core
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-                // Create service and set host.  Setting host directly greatly improves speed.
-                var service = FirefoxDriverService.CreateDefaultService();
-                service.Host = "::1";
-
-                var driver = new FirefoxDriver(service, firefoxOptions, commandTimeout);
+                var driver = new FirefoxDriver(Path.GetDirectoryName(FirefoxDriverPath), firefoxOptions, commandTimeout);
                 SetBrowserSize(driver, size);
 
                 return driver;
@@ -295,8 +290,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
             {
                 LazyInitializer.EnsureInitialized(ref IEDriverPath, () => new DriverManager().SetUpDriver(new InternetExplorerConfig(), SeleniumConfig.GetIEVersion()));
 
-                new DriverManager().SetUpDriver(new InternetExplorerConfig());
-                var driver = new InternetExplorerDriver(GetDriverLocation("IEDriverServer.exe"), internetExplorerOptions, commandTimeout);
+                var driver = new InternetExplorerDriver(Path.GetDirectoryName(IEDriverPath), internetExplorerOptions, commandTimeout);
                 SetBrowserSize(driver, size);
 
                 return driver;
@@ -603,49 +597,6 @@ namespace Magenic.Maqs.BaseSeleniumTest
             {
                 throw new InvalidCastException("Length and Width must be a string that is an integer value: 400x400");
             }
-        }
-
-        /// <summary>
-        /// Get the web driver location
-        /// </summary>
-        /// <param name="driverFile">The web drive file, including extension</param>
-        /// <param name="defaultHintPath">The default location for the specific driver</param>
-        /// <param name="mustExist">Do we need to know where this drive is located, if this is true and the file is not found an error will be thrown</param>
-        /// <returns>The path to the web driver</returns>
-        private static string GetDriverLocation(string driverFile, string defaultHintPath = "", bool mustExist = true)
-        {
-            // Get the hint path from the app.config
-            string hintPath = SeleniumConfig.GetDriverHintPath();
-
-            // Try the hintpath first
-            if (!string.IsNullOrEmpty(hintPath) && File.Exists(Path.Combine(hintPath, driverFile)))
-            {
-                return hintPath;
-            }
-
-            // Try the default hit path next
-            if (!string.IsNullOrEmpty(defaultHintPath) && File.Exists(Path.Combine(defaultHintPath, driverFile)))
-            {
-                return Path.Combine(defaultHintPath);
-            }
-
-            // Get the test dll location
-            UriBuilder uri = new UriBuilder(Assembly.GetExecutingAssembly().Location);
-            string testLocation = Path.GetDirectoryName(Uri.UnescapeDataString(uri.Path));
-
-            // Try the test dll location
-            if (File.Exists(Path.Combine(testLocation, driverFile)))
-            {
-                return testLocation;
-            }
-
-            // We didn't find the web driver so throw an error if we need to know where it is
-            if (mustExist)
-            {
-                throw new FileNotFoundException(StringProcessor.SafeFormatter($"Unable to find driver for '{driverFile}'"));
-            }
-
-            return string.Empty;
         }
     }
 }
