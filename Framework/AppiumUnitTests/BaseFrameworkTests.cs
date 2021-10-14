@@ -10,10 +10,7 @@ using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
-using OpenQA.Selenium;
 using System.Diagnostics.CodeAnalysis;
-using Assert = NUnit.Framework.Assert;
-using PlatformType = Magenic.Maqs.BaseAppiumTest.PlatformType;
 
 namespace AppiumUnitTests
 {

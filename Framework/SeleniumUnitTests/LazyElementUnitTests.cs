@@ -1190,7 +1190,7 @@ namespace SeleniumUnitTests
         /// Make sure the page gets reloaded
         /// </summary>
         /// <param name="driver">Current test web driver</param>
-        private static void LeaveAndReturnToPage (IWebDriver driver)
+        private static void LeaveAndReturnToPage(IWebDriver driver)
         {
             driver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase());
             driver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Automation");

@@ -11,7 +11,6 @@ using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Internal;
 using Selenium.Axe;
 using System;
 using System.Diagnostics.CodeAnalysis;
