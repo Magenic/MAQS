@@ -4,7 +4,6 @@
 // </copyright>
 // <summary>Web driver factory</summary>
 //--------------------------------------------------
-using Magenic.Maqs.Utilities.Data;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
@@ -17,12 +16,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
-using WebDriverManager.Helpers;
 
 namespace Magenic.Maqs.BaseSeleniumTest
 {
@@ -392,7 +389,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                     break;
 
                 default:
-                    throw new ArgumentException(StringProcessor.SafeFormatter($"Remote browser type '{remoteBrowser}' is not supported"));
+                    throw new ArgumentException($"Remote browser type '{remoteBrowser}' is not supported");
             }
 
             // Make sure the remote capabilities dictionary exists

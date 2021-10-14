@@ -94,5 +94,23 @@ namespace SeleniumUnitTests
             var result = WebDriverFactory.GetRemoteOptions(RemoteBrowserType.Edge, new Dictionary<string, object>() { { "OS", "Windows" } });
             Assert.IsNotNull(result);
         }
+
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void GetRemoteOptionsEmptyObjectDictionary()
+        {
+            Dictionary<string, object> test = null;
+            var result = WebDriverFactory.GetRemoteOptions(RemoteBrowserType.Safari, string.Empty, string.Empty, test);
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void GetRemoteOptionsEmptyStringDictionary()
+        {
+            Dictionary<string, string> test = null;
+            var result = WebDriverFactory.GetRemoteOptions(RemoteBrowserType.Safari, string.Empty, string.Empty, test);
+            Assert.IsNotNull(result);
+        }
     }
 }
