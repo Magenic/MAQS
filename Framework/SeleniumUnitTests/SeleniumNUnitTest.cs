@@ -23,7 +23,7 @@ namespace SeleniumUnitTests
     /// </summary>
     [TestFixture]
     [ExcludeFromCodeCoverage]
-    public class SeleniumNUnitTest : SauceLabsBaseSeleniumTest
+    public class SeleniumNUnitTest : BaseSeleniumTest
     {
         /// <summary>
         /// Make sure we can open a browser
