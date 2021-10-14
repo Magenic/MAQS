@@ -339,7 +339,15 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <returns>The remote driver options</returns>
         public static DriverOptions GetRemoteOptions(RemoteBrowserType remoteBrowser, string remotePlatform, string remoteBrowserVersion, Dictionary<string, string> remoteCapabilities)
         {
-            Dictionary<string, object> capabilities = remoteCapabilities.ToDictionary(pair => pair.Key, pair => (object)pair.Value);
+            Dictionary<string, object> capabilities;
+            if (remoteCapabilities != null)
+            {
+                capabilities = remoteCapabilities.ToDictionary(pair => pair.Key, pair => (object)pair.Value);
+            }
+            else
+            {
+                capabilities = new Dictionary<string, object>();
+            }
             return GetRemoteOptions(remoteBrowser, remotePlatform, remoteBrowserVersion, capabilities);
         }
 
