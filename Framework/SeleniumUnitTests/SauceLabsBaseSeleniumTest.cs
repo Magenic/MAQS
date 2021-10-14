@@ -45,7 +45,7 @@ namespace SeleniumUnitTests
                     PlatformName = "Windows 10",
                     BrowserVersion = "latest"
                 };
-                browserOptions.AddAdditionalChromeOption("sauce:options", sauceOptions);
+                browserOptions.AddAdditionalOption("sauce:options", sauceOptions);
 
                 var remoteCapabilities = browserOptions.ToCapabilities();
 
