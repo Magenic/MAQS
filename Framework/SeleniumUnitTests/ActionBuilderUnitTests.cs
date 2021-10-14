@@ -18,7 +18,7 @@ namespace SeleniumUnitTests
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class ActionBuilderUnitTests : BaseSeleniumTest
+    public class ActionBuilderUnitTests : SauceLabsBaseSeleniumTest
     {
         /// <summary>
         /// Url for the site

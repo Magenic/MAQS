@@ -152,7 +152,7 @@ namespace Magenic.Maqs.BaseTest
         {
             if (overrideIfExists)
             {
-               this.OverrideDriverManager(manager);
+                this.OverrideDriverManager(manager);
             }
             else
             {
