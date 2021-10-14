@@ -269,7 +269,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             return CreateDriver(() =>
             {
-                LazyInitializer.EnsureInitialized(ref EdgeDriverPath, () => new DriverManager().SetUpDriver(new EdgeConfig(), VersionResolveStrategy.MatchingBrowser));
+                LazyInitializer.EnsureInitialized(ref EdgeDriverPath, () => new DriverManager().SetUpDriver(new EdgeConfig(), SeleniumConfig.GetEdgeVersion()));
 
                 var driver = new EdgeDriver(Path.GetDirectoryName(EdgeDriverPath), edgeOptions, commandTimeout);
                 SetBrowserSize(driver, size);

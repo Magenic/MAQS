@@ -268,6 +268,21 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Verify Lazy Element will check for shadow root
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        [ExpectedException(typeof(TimeoutException), "Finding shadow root should timeout.")]
+        public void LazyShadowRootTimeout()
+        {
+            // Create the lazy element and use it
+            LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
+
+            // Make sure we don't get a shadow root back
+            Assert.IsNull(footer.GetShadowRoot(), "There is no shadow root so fail");
+        }
+
+        /// <summary>
         /// Verify Lazy Element is cached as expected
         /// </summary>
         [TestMethod]
