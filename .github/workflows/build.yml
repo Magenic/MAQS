@@ -124,7 +124,8 @@ jobs:
       - name: Install dependencies
         run: npm install -g appium
       - name: run Appium
-        run: appium
+        run: invoke-expression 'cmd /c start appium'
+        shell: pwsh
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
