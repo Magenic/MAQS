@@ -113,14 +113,18 @@ jobs:
   test-winapp:
     name: WinApp
      #Disable until we get AppiumUpdate  
-    if: ${{ false }}
+    if: ${{ true }}
     needs: waitOld
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
-      - run:  |
-          Start-Process -FilePath "C:\Program Files (x86)\Windows Application Driver\WinAppDriver.exe"
-        shell: pwsh
+      #- run:  |
+      #    Start-Process -FilePath "C:\Program Files (x86)\Windows Application Driver\WinAppDriver.exe"
+      #  shell: pwsh
+      - name: Install dependencies
+        run: npm install -g appium
+      - name: run Appium
+        run: appium
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
