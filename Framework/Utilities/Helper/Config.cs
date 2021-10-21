@@ -90,11 +90,37 @@ namespace Magenic.Maqs.Utilities.Helper
             var configSectionPassed = GetSectionDictionary(configSection);
 
             List<string> exceptions = new List<string>();
-            foreach (var requiredField in configValidation.RequiredFields)
+
+            // Check if we have any required fields
+            if (configValidation.RequiredFields != null && configValidation.RequiredFields.Count > 0)
             {
-                if (!configSectionPassed.ContainsKey(requiredField))
+                foreach (var requiredField in configValidation.RequiredFields)
                 {
-                    exceptions.Add($"Key missing {requiredField}");
+                    if (!configSectionPassed.ContainsKey(requiredField))
+                    {
+                        exceptions.Add($"Key missing: {requiredField}");
+                    }
+                }
+            }
+
+            // Check if we have any one of required fields
+            if (configValidation.RequiredOneOfFields != null && configValidation.RequiredOneOfFields.Count > 0)
+            {
+                bool foundAtLeastOneOrEmpty = false;
+
+                foreach (var requiredOneOfField in configValidation.RequiredOneOfFields)
+                {
+                    if (configSectionPassed.ContainsKey(requiredOneOfField))
+                    {
+                        foundAtLeastOneOrEmpty = true;
+                        break;
+                    }
+                }
+
+                // We have one of fields and didn't find any of them
+                if (!foundAtLeastOneOrEmpty)
+                {
+                    exceptions.Add($"Need at least one of the following keys: {string.Join(", ", configValidation.RequiredOneOfFields)}");
                 }
             }
 
@@ -135,10 +161,7 @@ namespace Magenic.Maqs.Utilities.Helper
 
                 foreach (IConfigurationSection child in compositeConfig.GetSection(section).GetChildren())
                 {
-                    if (!string.IsNullOrEmpty(child.Value))
-                    {
-                        keyList.Add(child.Key);
-                    }
+                    keyList.AddRange(GetRecursiveKeys(child));
                 }
 
                 // Loop over all the key value pairs
@@ -465,6 +488,33 @@ namespace Magenic.Maqs.Utilities.Helper
 
             // Return if the value was found
             return result.found;
+        }
+
+        /// <summary>
+        /// Recursively get keys with values
+        /// </summary>
+        /// <param name="child">Child node to get keys for</param>
+        /// <returns>List of keys</returns>
+        private static List<string> GetRecursiveKeys(IConfigurationSection child)
+        {
+            List<string> keyList = new List<string>();
+
+            // Add the current child key if it has a value
+            if (!string.IsNullOrEmpty(child.Value))
+            {
+                keyList.Add(child.Key);
+            }
+
+            // Recusively look for lower level children that have values
+            foreach (IConfigurationSection subchild in child.GetChildren())
+            {
+                foreach (string key in GetRecursiveKeys(subchild))
+                {
+                    keyList.Add($"{child.Key}:{key}");
+                }
+            }
+
+            return keyList;
         }
 
         /// <summary>

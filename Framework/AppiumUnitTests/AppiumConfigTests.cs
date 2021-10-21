@@ -13,8 +13,6 @@ using System;
 
 namespace AppiumUnitTests
 {
-    using OpenQA.Selenium;
-
     /// <summary>
     /// Appium Config Unit Tests
     /// </summary>
@@ -58,7 +56,7 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void GetDeviceNameTest()
         {
-            Assert.AreEqual("Android GoogleAPI Emulator", AppiumConfig.GetDeviceName());
+            Assert.AreEqual("Android Emulator", AppiumConfig.GetDeviceName());
         }
 
         /// <summary>
@@ -80,7 +78,7 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void MobileDeviceTest()
         {
-            AppiumDriver<IWebElement> driver = AppiumDriverFactory.GetDefaultMobileDriver();
+            AppiumDriver driver = AppiumDriverFactory.GetDefaultMobileDriver();
 
             try
             {
@@ -110,7 +108,7 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void GetWaitDriverTest()
         {
-            AppiumDriver<IWebElement> driver = AppiumDriverFactory.GetDefaultMobileDriver();
+            AppiumDriver driver = AppiumDriverFactory.GetDefaultMobileDriver();
             WebDriverWait wait = AppiumUtilities.GetDefaultWaitDriver(driver);
             try
             {

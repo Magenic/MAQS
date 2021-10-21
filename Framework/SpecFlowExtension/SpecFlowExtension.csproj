@@ -41,7 +41,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Appium.WebDriver" version="4.3.1" />
+    <PackageReference Include="Appium.WebDriver" version="5.0.0-beta01" />
     <PackageReference Include="Dapper" version="2.0.90" />
     <PackageReference Include="Gherkin" version="22.0.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">

@@ -8,7 +8,6 @@ using Magenic.Maqs.BaseAppiumTest;
 using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using System;
 using System.IO;
@@ -48,7 +47,7 @@ namespace AppiumUnitTests
             this.SoftAssert.Assert(() => Assert.IsTrue(NotepadApplication.TextEditor.Displayed, "Expect displayed"));
             this.SoftAssert.Assert(() => Assert.IsFalse(NotepadApplication.DontSave.ExistsNow, "Expect not to exist now"));
 
-            this.SoftAssert.Assert(() => Assert.AreEqual(testString, this.AppiumDriver.FindElementByName("Text Editor").Text));
+            this.SoftAssert.Assert(() => Assert.AreEqual(testString, this.AppiumDriver.FindElement(MobileBy.Name("Text Editor")).Text));
 
             NotepadApplication.OverrideDriver(null);
             this.SoftAssert.Assert(() => Assert.AreEqual(null, NotepadApplication.GetAppiumDriver()));
@@ -97,11 +96,11 @@ namespace AppiumUnitTests
         /// Sets capabilities for testing the Windows application driver creation
         /// </summary>
         /// <returns>Windows application driver instance of the Appium Driver</returns>
-        protected override AppiumDriver<IWebElement> GetMobileDevice()
+        protected override AppiumDriver GetMobileDevice()
         {
             AppiumOptions options = new AppiumOptions();
-            options.AddAdditionalCapability("app", $"{Environment.SystemDirectory}\\notepad.exe");
-            return AppiumDriverFactory.GetWindowsDriver(new Uri("http://127.0.0.1:4723"), options, TimeSpan.FromSeconds(30));
+            options.App = $"{Environment.SystemDirectory}\\notepad.exe";
+            return AppiumDriverFactory.GetWindowsDriver(new Uri("http://127.0.0.1:4723/wd/hub"), options, TimeSpan.FromSeconds(30));
         }
     }
 }

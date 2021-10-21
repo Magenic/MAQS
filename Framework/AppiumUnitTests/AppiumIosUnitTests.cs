@@ -8,8 +8,10 @@ using Magenic.Maqs.BaseAppiumTest;
 using Magenic.Maqs.Utilities.Helper;
 using Magenic.Maqs.Utilities.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
+using System.Collections.Generic;
 using System.IO;
 
 namespace AppiumUnitTests
@@ -73,17 +75,19 @@ namespace AppiumUnitTests
         /// Sets capabilities for testing the iOS Driver creation
         /// </summary>
         /// <returns>iOS instance of the Appium Driver</returns>
-        protected override AppiumDriver<IWebElement> GetMobileDevice()
+        protected override AppiumDriver GetMobileDevice()
         {
-            AppiumOptions options = new AppiumOptions();
+            AppiumOptions options = new AppiumOptions
+            {
+                DeviceName = "iPhone 8 Simulator",
+                PlatformVersion = "12.2",
+                PlatformName = "iOS",
+                BrowserName = "Safari"
+            };
 
-            options.AddAdditionalCapability("deviceName", "iPhone 8 Simulator");
-            options.AddAdditionalCapability("deviceOrientation", "portrait");
-            options.AddAdditionalCapability("platformVersion", "12.2");
-            options.AddAdditionalCapability("platformName", "iOS");
-            options.AddAdditionalCapability("browserName", "Safari");
-            options.AddAdditionalCapability("username", Config.GetValueForSection(ConfigSection.AppiumCapsMaqs, "userName"));
-            options.AddAdditionalCapability("accessKey", Config.GetValueForSection(ConfigSection.AppiumCapsMaqs, "accessKey"));
+            var sauceCreds = Config.GetValueForSection(ConfigSection.AppiumCapsMaqs, "sauce:options");
+            options.AddAdditionalAppiumOption("sauce:options", JsonConvert.DeserializeObject<Dictionary<string, string>>(sauceCreds));
+            options.AddAdditionalAppiumOption("deviceOrientation", "portrait");
 
             return AppiumDriverFactory.GetIOSDriver(AppiumConfig.GetMobileHubUrl(), options, AppiumConfig.GetMobileCommandTimeout());
         }

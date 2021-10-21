@@ -7,7 +7,6 @@
 using Magenic.Maqs.BaseAppiumTest;
 using Magenic.Maqs.Utilities.Logging;
 using Magenic.Maqs.Utilities.Performance;
-using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 
 namespace AppiumUnitTests
@@ -31,7 +30,7 @@ namespace AppiumUnitTests
         /// </summary>
         private LazyMobileElement Document
         {
-            get { return this.GetLazyElement(By.ClassName("Notepad"), "Document"); }
+            get { return this.GetLazyElement(MobileBy.ClassName("Notepad"), "Document"); }
         }
 
         /// <summary>
@@ -39,7 +38,7 @@ namespace AppiumUnitTests
         /// </summary>
         public LazyMobileElement TextEditor
         {
-            get { return this.GetLazyElement(Document, By.Name("Text Editor"), "Text Editor"); }
+            get { return this.GetLazyElement(Document, MobileBy.Name("Text Editor"), "Text Editor"); }
         }
 
         /// <summary>
@@ -47,7 +46,7 @@ namespace AppiumUnitTests
         /// </summary>
         private LazyMobileElement Close
         {
-            get { return this.GetLazyElement(By.Name("Close"), "Close"); }
+            get { return this.GetLazyElement(MobileBy.Name("Close"), "Close"); }
         }
 
         /// <summary>
@@ -55,7 +54,7 @@ namespace AppiumUnitTests
         /// </summary>
         public LazyMobileElement DontSave
         {
-            get { return this.GetLazyElement(By.Name("Don't Save"), "Don't Save"); }
+            get { return this.GetLazyElement(MobileBy.Name("Don't Save"), "Don't Save"); }
         }
 
         public void CloseAndDontSave()
@@ -77,7 +76,7 @@ namespace AppiumUnitTests
         /// Get web driver
         /// </summary>
         /// <returns>The web driver</returns>
-        public AppiumDriver<IWebElement> GetAppiumDriver()
+        public AppiumDriver GetAppiumDriver()
         {
             return this.AppiumDriver;
         }

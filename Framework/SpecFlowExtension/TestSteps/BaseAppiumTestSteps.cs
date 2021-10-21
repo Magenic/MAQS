@@ -5,7 +5,6 @@
 // <summary>Base teststeps code for tests using appium</summary>
 //--------------------------------------------------
 using Magenic.Maqs.BaseAppiumTest;
-using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using TechTalk.SpecFlow;
 using MaqsAppium = Magenic.Maqs.BaseAppiumTest.BaseAppiumTest;
@@ -29,7 +28,7 @@ namespace Magenic.Maqs.SpecFlow.TestSteps
         /// <summary>
         /// Gets the Appium driver from the test object
         /// </summary>
-        protected AppiumDriver<IWebElement> AppiumDriver
+        protected AppiumDriver AppiumDriver
         {
             get { return this.TestObject.AppiumDriver; }
         }
