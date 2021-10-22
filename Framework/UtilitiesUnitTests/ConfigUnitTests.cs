@@ -147,7 +147,7 @@ namespace UtilitiesUnitTesting
             string overrideValue = baseValue + "_Override";
 
             // Override the configuration
-            Config.AddTestSettingValues(key, overrideValue);
+            Config.AddTestSettingValue(key, overrideValue);
 
             // Make sure it worked
             Assert.AreEqual(overrideValue, Config.GetGeneralValue(key));
@@ -185,7 +185,7 @@ namespace UtilitiesUnitTesting
             string overrideValue = baseValue + "_Override";
 
             // Override the configuration
-            Config.AddTestSettingValues(key, overrideValue, ConfigSection.MagenicMaqs);
+            Config.AddTestSettingValue(key, overrideValue, ConfigSection.MagenicMaqs);
 
             // Make sure it worked
             Assert.AreEqual(overrideValue, Config.GetGeneralValue(key));

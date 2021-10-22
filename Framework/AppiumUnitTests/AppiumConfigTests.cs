@@ -7,6 +7,7 @@
 using Magenic.Maqs.BaseAppiumTest;
 using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Support.UI;
 using System;
@@ -27,6 +28,7 @@ namespace AppiumUnitTests
         public static void Initialize(TestContext testContext)
         {
             Config.UpdateWithVSTestContext(testContext);
+            Config.AddTestSettingValue("sauce:options", JsonConvert.SerializeObject(AppiumConfig.GetCapabilitiesAsStrings()), ConfigSection.AppiumCapsMaqs);
         }
 
         /// <summary>

@@ -257,7 +257,7 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <param name="key">Key for the value you are adding or overriding</param>
         /// <param name="value">Value being added or overridden</param>
         /// <param name="section">What section it should be added to</param>
-        public static void AddTestSettingValues(string key, string value, ConfigSection section = DEFAULTMAQSSECTION)
+        public static void AddTestSettingValue(string key, string value, ConfigSection section = DEFAULTMAQSSECTION)
         {
             var newKeyValue = new Dictionary<string, string> { { key, value } };
             AddTestSettingValues(newKeyValue, section);
