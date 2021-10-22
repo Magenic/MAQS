@@ -79,11 +79,11 @@ namespace AppiumUnitTests
         {
             AppiumOptions options = new AppiumOptions
             {
-                DeviceName = "iPhone 8 Simulator",
-                PlatformVersion = "12.2",
+                DeviceName = "iPhone 13 Simulator",
                 PlatformName = "iOS",
+                PlatformVersion = "15.0",
                 BrowserName = "Safari"
-            };
+        };
 
             var sauceCreds = Config.GetValueForSection(ConfigSection.AppiumCapsMaqs, "sauce:options");
             
