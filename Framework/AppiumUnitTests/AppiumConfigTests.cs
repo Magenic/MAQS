@@ -7,14 +7,13 @@
 using Magenic.Maqs.BaseAppiumTest;
 using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Support.UI;
 using System;
 
 namespace AppiumUnitTests
 {
-    using OpenQA.Selenium;
-
     /// <summary>
     /// Appium Config Unit Tests
     /// </summary>
@@ -29,6 +28,7 @@ namespace AppiumUnitTests
         public static void Initialize(TestContext testContext)
         {
             Config.UpdateWithVSTestContext(testContext);
+            Config.AddTestSettingValue("sauce:options", JsonConvert.SerializeObject(AppiumConfig.GetCapabilitiesAsStrings()), ConfigSection.AppiumCapsMaqs);
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void GetDeviceNameTest()
         {
-            Assert.AreEqual("Android GoogleAPI Emulator", AppiumConfig.GetDeviceName());
+            Assert.AreEqual("Android Emulator", AppiumConfig.GetDeviceName());
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void MobileDeviceTest()
         {
-            AppiumDriver<IWebElement> driver = AppiumDriverFactory.GetDefaultMobileDriver();
+            AppiumDriver driver = AppiumDriverFactory.GetDefaultMobileDriver();
 
             try
             {
@@ -110,7 +110,7 @@ namespace AppiumUnitTests
         [TestCategory(TestCategories.Appium)]
         public void GetWaitDriverTest()
         {
-            AppiumDriver<IWebElement> driver = AppiumDriverFactory.GetDefaultMobileDriver();
+            AppiumDriver driver = AppiumDriverFactory.GetDefaultMobileDriver();
             WebDriverWait wait = AppiumUtilities.GetDefaultWaitDriver(driver);
             try
             {

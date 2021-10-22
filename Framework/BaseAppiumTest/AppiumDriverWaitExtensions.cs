@@ -21,7 +21,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// Wait collection for the Appium Driver
         /// </summary>
-        private static readonly ConcurrentDictionary<AppiumDriver<IWebElement>, WebDriverWait> waitCollection;
+        private static readonly ConcurrentDictionary<AppiumDriver, WebDriverWait> waitCollection;
 
 #pragma warning disable S3963 // "static" fields should be initialized inline
         /// <summary>
@@ -29,7 +29,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// </summary>
         static AppiumDriverWaitExtensions()
         {
-            waitCollection = new ConcurrentDictionary<AppiumDriver<IWebElement>, WebDriverWait>();
+            waitCollection = new ConcurrentDictionary<AppiumDriver, WebDriverWait>();
         }
 #pragma warning restore S3963 // "static" fields should be initialized inline
 
@@ -38,7 +38,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// </summary>
         /// <param name="driver">The appium driver</param>
         /// <returns>The WebDriverWait</returns>
-        public static WebDriverWait GetWaitDriver(this AppiumDriver<IWebElement> driver)
+        public static WebDriverWait GetWaitDriver(this AppiumDriver driver)
         {
             if (waitCollection.ContainsKey(driver))
             {
@@ -57,7 +57,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// </summary>
         /// <param name="driver">The appium driver</param>
         /// <param name="waiter">Web Driver Wait</param>
-        public static void SetWaitDriver(this AppiumDriver<IWebElement> driver, WebDriverWait waiter)
+        public static void SetWaitDriver(this AppiumDriver driver, WebDriverWait waiter)
         {
             waitCollection.AddOrUpdate(driver, waiter, (oldkey, oldvalue) => waiter);
         }
@@ -67,7 +67,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// </summary>
         /// <param name="driver">The appium driver</param>
         /// <returns>True if the wait driver was removed</returns>
-        public static bool RemoveWaitDriver(this AppiumDriver<IWebElement> driver)
+        public static bool RemoveWaitDriver(this AppiumDriver driver)
         {
             return waitCollection.TryRemove(driver, out WebDriverWait _);
         }
@@ -77,7 +77,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// </summary>
         /// <param name="driver">The appium driver</param>
         /// <param name="by">'by' selector for the element</param>
-        public static void WaitForAbsentElement(this AppiumDriver<IWebElement> driver, By by)
+        public static void WaitForAbsentElement(this AppiumDriver driver, By by)
         {
             if (!WaitUntilAbsentElement(driver, by))
             {
@@ -89,7 +89,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// Wait for the page to load
         /// </summary>
         /// <param name="driver">The appium driver</param>
-        public static void WaitForPageLoad(this AppiumDriver<IWebElement> driver)
+        public static void WaitForPageLoad(this AppiumDriver driver)
         {
             if (!WaitUntilPageLoad(driver))
             {
@@ -103,7 +103,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <param name="driver">The appium driver</param>
         /// <param name="by">'by' selector for the element</param>
         /// <returns>True if the element is not visible on the page</returns>
-        public static bool WaitUntilAbsentElement(this AppiumDriver<IWebElement> driver, By by)
+        public static bool WaitUntilAbsentElement(this AppiumDriver driver, By by)
         {
             DateTime start = DateTime.Now;
 
@@ -140,7 +140,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// </summary>
         /// <param name="driver">The appium driver</param>
         /// <returns>True if the page finished loading</returns>
-        public static bool WaitUntilPageLoad(this AppiumDriver<IWebElement> driver)
+        public static bool WaitUntilPageLoad(this AppiumDriver driver)
         {
             DateTime start = DateTime.Now;
             string source = string.Empty;

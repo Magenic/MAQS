@@ -5,7 +5,6 @@
 // <summary>Holds Appium test object interface</summary>
 //--------------------------------------------------
 using Magenic.Maqs.BaseTest;
-using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using System;
 
@@ -19,7 +18,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// Gets the Appium driver
         /// </summary>
-        AppiumDriver<IWebElement> AppiumDriver { get; }
+        AppiumDriver AppiumDriver { get; }
 
         /// <summary>
         /// Gets the Appium driver manager
@@ -30,12 +29,12 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// Override the Appium driver
         /// </summary>
         /// <param name="appiumDriver">New Appium driver</param>
-        void OverrideAppiumDriver(AppiumDriver<IWebElement> appiumDriver);
+        void OverrideAppiumDriver(AppiumDriver appiumDriver);
 
         /// <summary>
         /// Override the Appium driver
         /// </summary>
         /// <param name="appiumDriver">New function for initializing a Appium driver</param>
-        void OverrideAppiumDriver(Func<AppiumDriver<IWebElement>> appiumDriver);
+        void OverrideAppiumDriver(Func<AppiumDriver> appiumDriver);
     }
 }
