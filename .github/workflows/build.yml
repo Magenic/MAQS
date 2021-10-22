@@ -145,7 +145,7 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/AppiumUnitTests/AppiumUnitTests.csproj --settings Framework/SauceLabs.RunSettings --filter FullyQualifiedName!~AppiumWinAppUnitTests --logger trx --results-directory "${{github.workspace}}/artifactTests/appium/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/appium/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -- ''TestRunParameters.Parameter(name=\"AppiumCapsMaqs:sauce:options\",value=\"${{ secrets.SAUCE_OPTIONS }}\")'''
+          bt-param: 'Framework/AppiumUnitTests/AppiumUnitTests.csproj --settings Framework/SauceLabs.RunSettings --filter FullyQualifiedName!~AppiumWinAppUnitTests --logger trx --results-directory "${{github.workspace}}/artifactTests/appium/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/appium/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -- ''TestRunParameters.Parameter(name=\"AppiumCapsMaqs:accessKey\",value=\"${{ secrets.SAUCE }}\")'''
       - uses: actions/upload-artifact@v2
         if: always()
         name: "Upload test artifact"
@@ -420,7 +420,7 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/SeleniumUnitTests/SeleniumUnitTests.csproj --settings Framework/SauceLabs.RunSettings --filter "(FullyQualifiedName!~SeleniumNUnitTest)&(FullyQualifiedName!~Proxy)&(FullyQualifiedName!~SeleniumConfigTests)&(FullyQualifiedName!~SeleniumPageObjectUnitTest)&(FullyQualifiedName!~LazyElementUnitTests)&(FullyQualifiedName!~SeleniumUnitTests.SeleniumUnitTest)&(FullyQualifiedName!~SeleniumWebElementTest)&(FullyQualifiedName!~SeleniumUtilsTest)" --logger trx --results-directory "${{github.workspace}}/artifactTests/selengen/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/selengen/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -- ''TestRunParameters.Parameter(name=\"RemoteSeleniumCapsMaqs:sauce:options\",value=\"${{ secrets.SAUCE_OPTIONS }}\")'' ''TestRunParameters.Parameter(name=\"RemoteSeleniumCapsMaqs:RunOnSauceLabs\",value=\"YES\")'''
+          bt-param: 'Framework/SeleniumUnitTests/SeleniumUnitTests.csproj --settings Framework/SauceLabs.RunSettings --filter "(FullyQualifiedName!~SeleniumNUnitTest)&(FullyQualifiedName!~Proxy)&(FullyQualifiedName!~SeleniumConfigTests)&(FullyQualifiedName!~SeleniumPageObjectUnitTest)&(FullyQualifiedName!~LazyElementUnitTests)&(FullyQualifiedName!~SeleniumUnitTests.SeleniumUnitTest)&(FullyQualifiedName!~SeleniumWebElementTest)&(FullyQualifiedName!~SeleniumUtilsTest)" --logger trx --results-directory "${{github.workspace}}/artifactTests/selengen/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/selengen/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -- ''TestRunParameters.Parameter(name=\"RemoteSeleniumCapsMaqs:accessKey\",value=\"${{ secrets.SAUCE }}\")'' ''TestRunParameters.Parameter(name=\"RemoteSeleniumCapsMaqs:RunOnSauceLabs\",value=\"YES\")'''
       - uses: actions/upload-artifact@v2
         if: always()
         name: "Upload test artifact"
@@ -435,8 +435,7 @@ jobs:
     # Skip when dependabot PR - Dependabot PRs cannot access action secrets
     if: github.actor != 'dependabot[bot]'
     runs-on: windows-latest
-    needs: [test-untils, test-mongo, test-database, test-webservice, test-base, test-email, test-framework, test-specflow, test-specflownunit, test-composite, test-selenpomlazy, test-selenutil, test-selengen, getVersion]
-    #Disable until we get AppiumUpdate       needs: [test-appium, test-winapp, test-untils, test-mongo, test-database, test-webservice, test-base, test-email, test-framework, test-specflow, test-specflownunit, test-composite, test-selenpomlazy, test-selenutil, test-selengen, getVersion]
+    needs: [test-appium, test-winapp, test-untils, test-mongo, test-database, test-webservice, test-base, test-email, test-framework, test-specflow, test-specflownunit, test-composite, test-selenpomlazy, test-selenutil, test-selengen, getVersion]
     steps:
       - name: Set up JDK 11
         uses: actions/setup-java@v1
