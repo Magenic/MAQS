@@ -104,24 +104,10 @@ namespace Magenic.Maqs.Utilities.Helper
             }
 
             // Check if we have any one of required fields
-            if (configValidation.RequiredOneOfFields != null && configValidation.RequiredOneOfFields.Count > 0)
+            if (configValidation.RequiredOneOfFields != null && configValidation.RequiredOneOfFields.Count > 0 && !configValidation.RequiredOneOfFields.Any(x => configSectionPassed.ContainsKey(x)))
             {
-                bool foundAtLeastOneOrEmpty = false;
-
-                foreach (var requiredOneOfField in configValidation.RequiredOneOfFields)
-                {
-                    if (configSectionPassed.ContainsKey(requiredOneOfField))
-                    {
-                        foundAtLeastOneOrEmpty = true;
-                        break;
-                    }
-                }
-
                 // We have one of fields and didn't find any of them
-                if (!foundAtLeastOneOrEmpty)
-                {
-                    exceptions.Add($"Need at least one of the following keys: {string.Join(", ", configValidation.RequiredOneOfFields)}");
-                }
+                exceptions.Add($"Need at least one of the following keys: {string.Join(", ", configValidation.RequiredOneOfFields)}");
             }
 
             if (exceptions.Count > 0)
@@ -254,18 +240,6 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <summary>
         /// Add configuration override values
         /// </summary>
-        /// <param name="key">Key for the value you are adding or overriding</param>
-        /// <param name="value">Value being added or overridden</param>
-        /// <param name="section">What section it should be added to</param>
-        public static void AddTestSettingValue(string key, string value, ConfigSection section = DEFAULTMAQSSECTION)
-        {
-            var newKeyValue = new Dictionary<string, string> { { key, value } };
-            AddTestSettingValues(newKeyValue, section);
-        }
-
-        /// <summary>
-        /// Add configuration override values
-        /// </summary>
         /// <param name="configurations">Dictionary of configuration overrides</param>
         /// <param name="section">What section it should be added to</param>
         public static void AddTestSettingValues(IDictionary<string, string> configurations, string section)
@@ -289,6 +263,18 @@ namespace Magenic.Maqs.Utilities.Helper
         /// <param name="value">Value being added or overridden</param>
         /// <param name="section">What section it should be added to</param>
         public static void AddTestSettingValues(string key, string value, string section)
+        {
+            var newKeyValue = new Dictionary<string, string> { { key, value } };
+            AddTestSettingValues(newKeyValue, section);
+        }
+
+        /// <summary>
+        /// Add configuration override values
+        /// </summary>
+        /// <param name="key">Key for the value you are adding or overriding</param>
+        /// <param name="value">Value being added or overridden</param>
+        /// <param name="section">What section it should be added to</param>
+        public static void AddTestSettingValue(string key, string value, ConfigSection section = DEFAULTMAQSSECTION)
         {
             var newKeyValue = new Dictionary<string, string> { { key, value } };
             AddTestSettingValues(newKeyValue, section);
