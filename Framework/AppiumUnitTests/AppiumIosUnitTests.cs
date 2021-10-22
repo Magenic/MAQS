@@ -86,6 +86,10 @@ namespace AppiumUnitTests
             };
 
             var sauceCreds = Config.GetValueForSection(ConfigSection.AppiumCapsMaqs, "sauce:options");
+            
+            // Use Appium 1.22 for running iOS tests
+            sauceCreds = sauceCreds.Replace("1.20.2", "1.22.0");
+
             options.AddAdditionalAppiumOption("sauce:options", JsonConvert.DeserializeObject<Dictionary<string, string>>(sauceCreds));
             options.AddAdditionalAppiumOption("deviceOrientation", "portrait");
 
