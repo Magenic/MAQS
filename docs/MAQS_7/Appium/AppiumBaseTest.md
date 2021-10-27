@@ -9,9 +9,9 @@ The BaseAppiumTest has methods that sets up the webdriver, gets the mobile drive
 [CreateNewTestObject](#CreateNewTestObject)  
 
 ## GetMobileDevice
-This method gets the defult Appium/Mobile driver. 
+This method gets the default Appium/Mobile driver. 
 ```csharp
-protected virtual AppiumDriver<IWebElement> GetMobileDevice()
+protected virtual AppiumDriver GetMobileDevice()
 {
     return AppiumDriverFactory.GetDefaultMobileDriver();
 }

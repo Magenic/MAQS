@@ -5,7 +5,7 @@ By default, BaseEmailTest will create an email driver for you based on your [con
 
 There are three primary ways to override the web service client.
 
-### Override the base database test get connection function
+### Override the base email test get connection function
 ```csharp
 /// <summary>
 /// Test email functionality

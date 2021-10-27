@@ -108,7 +108,7 @@ Sets an object value, will replace if the key already exists
 ## GetDriverManager
 Get a driver manager of the specific type
 ```csharp
-this.TestObject.GetDriverManager<MobileDriverManager>().Dispose();
+this.TestObject.GetDriverManager<AppiumDriverManager>().Dispose();
 
 public T GetDriverManager<T>() where T : DriverManager
 {

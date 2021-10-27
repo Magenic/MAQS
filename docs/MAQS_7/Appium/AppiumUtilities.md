@@ -35,7 +35,7 @@ string pageSourcePath = AppiumUtilities.SavePageSource(this.AppiumDriver, this.T
 ##  KillDriver
 Make sure an Appium driver gets closed
 ```csharp
-AppiumDriver<IWebElement> driver = this.GetAppiumDriver();
+AppiumDriver driver = this.GetAppiumDriver();
 
 try
 {

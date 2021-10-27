@@ -1,22 +1,22 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> Email Basics
 
 ## Overview
-MAQS provides support for testing Email applictions.  
+MAQS provides support for testing Email.  
 
 ## BaseEmailTest
-BaseAppiumTest is an abstract test class you can extend.  Extending the class allows you to automatically use MAQS's web service testing capabilities.
+BaseEmailTest is an abstract test class you can extend.  Extending the class allows you to automatically use MAQS's email testing capabilities.
 ```csharp
 [TestClass]
-public class MyAppiumTests : BaseEmailTest
+public class MyBaseEmailTest : BaseEmailTest
 ```
 
 ## EmailDriver
-The EmailDriver is an object that allows you to interact with appium services.  
-This driver wraps common web service interactions, making appium testing relatively easy.  
-The driver is also thread safe, which means you can run multiple appium tests in parallel.  
+The EmailDriver is an object that allows you to interact with an email account using and IMAP connection.  
+This driver wraps common email interactions.  
+The driver is also thread safe, which means you can run multiple email tests in parallel.  
 *Information, such as the OS version is pulled from the MAQS configuration.
 ```csharp
-AppiumDriver<IWebElement> driver = AppiumDriverFactory.GetDefaultMobileDriver();
+EmailDriver driver = new EmailDriver(() => ClientFactory.GetDefaultEmailClient());
 ```
 
 ## Log
@@ -28,7 +28,7 @@ this.Log.LogMessage("I am testing with MAQS");
 ## EmailTestObject
 The TestObject can be thought of as your test context.  It holds all the MAQS test execution replated data.  This includes the Email driver, logger, soft asserts, performance timers, plus more.
 ```csharp
-this.TestObject.WebDriver.Navigate().GoToUrl("http://magenicautomation.azurewebsites.net/");
+bool connected = this.EmailDriver.CanAccessEmailAccount();
 this.TestObject.Log.LogMessage("I am testing with MAQS");
 ```
 *Notes:*  
@@ -37,24 +37,30 @@ this.TestObject.Log.LogMessage("I am testing with MAQS");
 
 ## Sample code
 ```csharp
-using Magenic.Maqs.BaseAppiumTest;
+using Magenic.Maqs.BaseEmailTest;
 using Magenic.Maqs.Utilities.Helper;
+using MailKit;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Support.UI;
+using MimeKit;
 using System;
 
-namespace Tests
+namespace EmailUnitTests
 {
     /// <summary>
-    /// Test for creating Mobile Device driver
+    /// Test basic email testing with the base email test
     /// </summary>
-    [TestMethod]
-    [TestCategory(TestCategories.Appium)]
-    public void MobileDeviceTest()
+    [TestClass]
+    public class EmailUnitWithDriver : BaseEmailTest
     {
-		PageModel page = new PageModel(this.TestObject);
-        page.OpenPage();
+        /// <summary>
+        /// Verify the user can access account
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Email)]
+        public void CanAccessEmail()
+        {
+            Assert.IsTrue(this.EmailDriver.CanAccessEmailAccount(), "Email account was not accessible");
+        }
     }
 }
 ```

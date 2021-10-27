@@ -4,7 +4,7 @@
 - Any device that has an Appium driver.  
 If you want to use a browser that MAQS doesn't natively support you can just initialize the driver yourself.
 ```csharp
- this.AppiumDriver = new TizenDriver<AppiumWebElement>(new Uri(DriverConfig.APPIUM_SERVER_URI), option);
+ this.AppiumDriver = new TizenDriver(new Uri(DriverConfig.APPIUM_SERVER_URI), option);
 ```
 - Natively supported devices are:  Android | iOS | Windows. 
 Find the configuration of devices within the app.config file and define one and only one.

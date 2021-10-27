@@ -1,7 +1,7 @@
 - [Introduction to MAQS ](MAQS_7/Introduction.md)
 
 - [Getting Started](MAQS_7/Getting-Started.md)
-- [Upgrading to MAQS 6](MAQS_7/UpgradingFromMAQS6ToMAQS7.md)
+- [Upgrading to MAQS 7](MAQS_7/UpgradingFromMAQS6ToMAQS7.md)
 - [SourceLink](MAQS_7/SourceLink.md)
 - [Debugging Locally](MAQS_7/Debugging-Locally.md)
 - [Release Notes](MAQS_7/ReleaseNotes.md)
@@ -25,7 +25,7 @@
     - [ii. Base Test](MAQS_7/Base/BaseTest.md)
     - [iii. Test Object](MAQS_7/Base/BaseTestObject.md)
     - [iv. Driver Manager](MAQS_7/Base/DriverManager.md)
-    - [v. Manager Dictionary](MAQS_7/Base/ManagerDictionary.md)
+    - [v. Manager Store](MAQS_7/Base/ManagerStore.md)
     - [vi. Extendable Test](MAQS_7/Base/BaseExtendableTest.md)
     - [vii. Soft Assert](MAQS_7/Base/SoftAsserts.md)
     - [viii. FAQ](MAQS_7/Base/BaseFAQ.md)

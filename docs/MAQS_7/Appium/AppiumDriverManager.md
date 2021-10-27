@@ -25,7 +25,7 @@ protected override void DriverDispose()
 
     try
     {
-        AppiumDriver<IWebElement> driver = this.GetAppiumDriver();
+        AppiumDriver driver = this.GetAppiumDriver();
         driver?.KillDriver();
     }
     catch (Exception e)

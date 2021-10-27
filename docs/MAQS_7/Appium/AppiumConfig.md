@@ -138,9 +138,18 @@ Dictionary<string, object> capabilitiesAsObjects= AppiumConfig.GetCapabilitiesAs
   </MagenicMaqs>
   <AppiumMaqs>
     <!-- Device settings -->
+
+
     <add key="PlatformName" value="Android" />
     <add key="PlatformVersion" value="6.0" />
     <add key="DeviceName" value="Android GoogleAPI Emulator" />
+
+    <!-- Application name - if testing an app -->
+    <add key="App" value="sauce-storage:app-name.extension" />
+
+    <!-- Browser information - if testing via the web browser 
+    <add key="BrowserName" value="Chrome" />
+    <add key="BrowserVersion" value="latest" />-->
 
     <!-- Appium or grid connection -->
     <add key="MobileHubUrl" value="http://ondemand.saucelabs.com:80/wd/hub" />
@@ -173,10 +182,7 @@ Dictionary<string, object> capabilitiesAsObjects= AppiumConfig.GetCapabilitiesAs
     <add key="SavePagesourceOnFail" value="NO" />
   </AppiumMaqs>
   <AppiumCapsMaqs>
-    <add key="username" value="Sauce_Labs_Username" />
-    <add key="accessKey" value="Sauce_Labs_Accesskey" />
-    <add key="app" value="sauce-storage:app-name.extension" />
-    <add key="appiumVersion" value="1.7.1" />
+    <add key="sauce:options" value="{username:'S_NAME', accessKey:'S_KEY', appiumVersion:'1.20.2' }"  />
   </AppiumCapsMaqs>
 </configuration>
 ```
@@ -193,6 +199,7 @@ Dictionary<string, object> capabilitiesAsObjects= AppiumConfig.GetCapabilitiesAs
     "UseFirstChanceHandler": "YES"
   },
   "AppiumMaqs": {
+    "App": "sauce-storage:app-name.extension",
     "PlatformName": "Android",
     "PlatformVersion": "6.0",
     "DeviceName": "Android GoogleAPI Emulator",
@@ -204,10 +211,7 @@ Dictionary<string, object> capabilitiesAsObjects= AppiumConfig.GetCapabilitiesAs
     "SavePagesourceOnFail": "NO"
   },
    "AppiumCapsMaqs": {
-    "username": "Sauce_Labs_Username",
-    "accessKey": "Sauce_Labs_Accesskey",
-    "appiumVersion": "1.7.1",
-    "app": "sauce-storage:app-name.extension"
+    "username": "{username:'S_NAME', accessKey:'S_KEY'}"
   }
 }
 ```

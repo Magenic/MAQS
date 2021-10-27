@@ -175,6 +175,13 @@ Primarily uses with the .Net Framework implementation of MAQS.
     <add key="PlatformVersion" value="8.1"/>
     <add key="DeviceName" value="Android GoogleAPI Emulator"/>
 
+        <!-- Application name - if testing an app -->
+    <add key="App" value="sauce-storage:app-name.extension" />
+
+    <!-- Browser information - if testing via the web browser 
+    <add key="BrowserName" value="Chrome" />
+    <add key="BrowserVersion" value="latest" />-->
+
     <!-- Appium or grid connection -->
     <!-- <add key="MobileHubUrl" value="http://ondemand.saucelabs.com:80/wd/hub" /> -->
     <add key="MobileHubUrl" value="http://127.0.0.1:4723/wd/hub" />
@@ -207,14 +214,8 @@ Primarily uses with the .Net Framework implementation of MAQS.
     <add key="SavePagesourceOnFail" value="NO"/>
   </AppiumMaqs>
   <AppiumCapsMaqs>
-    <!-- Local App File Path -->
-    <!-- <add key="app" value="/path/to/app/package"/> -->
-    <!-- Sauce Labs Configuration Settings-->
-    <!--<add key="username" value="Sauce_Labs_Username"/> -->
-    <!--<add key="accessKey" value="Sauce_Labs_Accesskey"/> -->
-    <!--<add key="appiumVersion" value="1.7.1"/> -->
-    <!-- <add key="app" value="sauce-storage:app-name.extension"/> -->
-    <add key="app" value="App_Path" />
+    <!-- Remote settings -->
+    <add key="sauce:options" value="{username:'S_NAME', accessKey:'S_KEY', appiumVersion:'1.20.2' }"  />
     <add key="appActivity" value="com.magenic.appiumtesting.maqsregistrydemo.LoginPage" />
     <add key="appPackage" value="com.magenic.appiumtesting.maqsregistrydemo" /> 
   </AppiumCapsMaqs>
@@ -308,11 +309,7 @@ Primarily uses with the .Net Framework implementation of MAQS.
   </SeleniumMaqs>
   <RemoteSeleniumCapsMaqs>
     <!-- Cloud based Grid settings
-    <add key="username" value="Sauce_Labs_Username"/>
-    <add key="accessKey" value="Sauce_Labs_Accesskey"/>
-    <add key="browserName" value="Chrome"/>
-    <add key="platform" value="OS X 10.11"/>
-    <add key="version" value="54.0"/> -->
+     <add key="sauce:options" value="{username: 'SAUCE_NAME', accessKey:  'SAUCE_KEY' }"  /> -->
   </RemoteSeleniumCapsMaqs>
   <WebServiceMaqs>
     <!-- Web service root -->
@@ -341,6 +338,7 @@ Primarily uses with the .Net Core implementation of MAQS.
     "SkipConfigValidation": "NO",
   },
   "AppiumMaqs": {
+    "App": "sauce-storage:app-name.extension",
     "PlatformName": "Android",
     "PlatformVersion": "6.0",
     "DeviceName": "Android GoogleAPI Emulator",
@@ -352,10 +350,7 @@ Primarily uses with the .Net Core implementation of MAQS.
     "SavePagesourceOnFail": "NO"
   },
    "AppiumCapsMaqs": {
-    "username": "Sauce_Labs_Username",
-    "accessKey": "Sauce_Labs_Accesskey",
-    "appiumVersion": "1.7.1",
-    "app": "sauce-storage:app-name.extension"
+    "username": "{username:'S_NAME', accessKey:'S_KEY'}"
   },
   "DatabaseMaqs": {
     "DataBaseProviderType": "SQLSERVER",
@@ -387,11 +382,7 @@ Primarily uses with the .Net Core implementation of MAQS.
     "ProxyAddress": "127.0.0.1:8080"
   },
   "RemoteSeleniumCapsMaqs": {
-    "Username": "Sauce_Labs_Username",
-    "AccessKey": "Sauce_Labs_Accesskey",
-    "BrowserName": "Chrome",
-    "Platform": "OS X 10.11",
-    "Version": "54.0"
+     "sauce:options": "{username: 'SAUCE_NAME', accessKey:  'SAUCE_KEY' }"
   },
   "WebServiceMaqs": {
     "WebServiceUri": "http://magenicautomation.azurewebsites.net",

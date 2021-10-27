@@ -16,7 +16,7 @@ This driver wraps common web service interactions, making appium testing relativ
 The driver is also thread safe, which means you can run multiple appium tests in parallel.  
 *Information, such as the OS version is pulled from the MAQS configuration.
 ```csharp
-AppiumDriver<IWebElement> driver = AppiumDriverFactory.GetDefaultMobileDriver();
+AppiumDriver driver = AppiumDriverFactory.GetDefaultMobileDriver();
 ```
 
 ## DriverManager

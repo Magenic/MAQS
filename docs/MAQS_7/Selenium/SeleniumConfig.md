@@ -209,11 +209,7 @@ bool retryRefused = SeleniumConfig.GetRetryRefused();
   </SeleniumMaqs>
   <RemoteSeleniumCapsMaqs>
     <!-- Cloud based Grid settings
-    <add key="username" value="Sauce_Labs_Username"/>
-    <add key="accessKey" value="Sauce_Labs_Accesskey"/>
-    <add key="browserName" value="Chrome"/>
-    <add key="platform" value="OS X 10.11"/>
-    <add key="version" value="54.0"/> -->
+     <add key="sauce:options" value="{username: 'SAUCE_NAME', accessKey:  'SAUCE_KEY' }"  /> -->
   </RemoteSeleniumCapsMaqs>
   <MagenicMaqs>
     <!-- Generic wait time in milliseconds - AKA how long do you wait for rechecking something -->
@@ -268,11 +264,7 @@ bool retryRefused = SeleniumConfig.GetRetryRefused();
     "RetryRefused": "YES"
   },
   "RemoteSeleniumCapsMaqs": {
-    "Username": "Sauce_Labs_Username",
-    "AccessKey": "Sauce_Labs_Accesskey",
-    "BrowserName": "Chrome",
-    "Platform": "OS X 10.11",
-    "Version": "54.0"
+    "sauce:options": "{username: 'SAUCE_NAME', accessKey:  'SAUCE_KEY' }"
   },
   "MagenicMaqs": {
     "WaitTime": "100",
