@@ -6,7 +6,6 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseTest;
 using Magenic.Maqs.Utilities.Logging;
-using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using System;
 
@@ -22,7 +21,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// </summary>
         /// <param name="getDriver">Function for getting an Appium driver</param>
         /// <param name="testObject">The associated test object</param>
-        public AppiumDriverManager(Func<AppiumDriver<IWebElement>> getDriver, ITestObject testObject) : base(getDriver, testObject)
+        public AppiumDriverManager(Func<AppiumDriver> getDriver, ITestObject testObject) : base(getDriver, testObject)
         {
         }
 
@@ -30,7 +29,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// Override the Appium driver
         /// </summary>
         /// <param name="overrideDriver">The new Appium driver</param>
-        public void OverrideDriver(AppiumDriver<IWebElement> overrideDriver)
+        public void OverrideDriver(AppiumDriver overrideDriver)
         {
             this.OverrideDriverGet(() => overrideDriver);
         }
@@ -39,7 +38,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// Override the Appium driver
         /// </summary>
         /// <param name="overrideDriver">The new Appium driver</param>
-        public void OverrideDriver(Func<AppiumDriver<IWebElement>> overrideDriver)
+        public void OverrideDriver(Func<AppiumDriver> overrideDriver)
         {
             this.OverrideDriverGet(overrideDriver);
         }
@@ -48,9 +47,9 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// Get the Appium driver
         /// </summary>
         /// <returns>The Appium driver</returns>
-        public AppiumDriver<IWebElement> GetAppiumDriver()
+        public AppiumDriver GetAppiumDriver()
         {
-            return GetBase() as AppiumDriver<IWebElement>;
+            return GetBase() as AppiumDriver;
         }
 
         /// <summary>
@@ -75,7 +74,7 @@ namespace Magenic.Maqs.BaseAppiumTest
 
             try
             {
-                AppiumDriver<IWebElement> driver = this.GetAppiumDriver();
+                AppiumDriver driver = this.GetAppiumDriver();
                 driver?.KillDriver();
             }
             catch (Exception e)

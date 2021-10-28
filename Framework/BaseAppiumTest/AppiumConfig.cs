@@ -31,11 +31,10 @@ namespace Magenic.Maqs.BaseAppiumTest
         {
             var validator = new ConfigValidation()
             {
-                RequiredFields = new List<string>()
+                RequiredOneOfFields = new List<string>()
                 {
-                    "PlatformName",
-                    "PlatformVersion",
-                    "DeviceName"
+                    "App",
+                    "BrowserName"
                 }
             };
             Config.Validate(ConfigSection.AppiumMaqs, validator);
@@ -60,7 +59,34 @@ namespace Magenic.Maqs.BaseAppiumTest
         }
 
         /// <summary>
-        /// Get the Device Name
+        /// Get the application name or path
+        /// </summary>
+        /// <returns>Application name or path</returns>
+        public static string GetApp()
+        {
+            return Config.GetValueForSection(ConfigSection.AppiumMaqs, "App");
+        }
+
+        /// <summary>
+        /// Get the browser Name
+        /// </summary>
+        /// <returns>Browser Name</returns>
+        public static string GetBrowserName()
+        {
+            return Config.GetValueForSection(ConfigSection.AppiumMaqs, "BrowserName");
+        }
+
+        /// <summary>
+        /// Get the browser version
+        /// </summary>
+        /// <returns>Browser version</returns>
+        public static string GetBrowserVersion()
+        {
+            return Config.GetValueForSection(ConfigSection.AppiumMaqs, "BrowserVersion");
+        }
+
+        /// <summary>
+        /// Get the device Name
         /// </summary>
         /// <returns>Device Name</returns>
         public static string GetDeviceName()

@@ -116,8 +116,10 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
-      - run:  |
-          Start-Process -FilePath "C:\Program Files (x86)\Windows Application Driver\WinAppDriver.exe"
+      - name: Install Appium
+        run: npm install -g appium
+      - name: Run Appium
+        run: invoke-expression 'cmd /c start appium'
         shell: pwsh
       - id: builder
         uses: ./.github/workflows/buildtest-action
@@ -391,7 +393,7 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/SeleniumUnitTests/SeleniumUnitTests.csproj --settings Framework/Parallel.RunSettings --filter "(FullyQualifiedName~SeleniumUnitTests.SeleniumUnitTest)|(FullyQualifiedName~SeleniumUnitTests.SeleniumUtilsTest)|(FullyQualifiedName~SeleniumUnitTests.SeleniumConfigTests)" --logger trx --results-directory "${{github.workspace}}/artifactTests/selenutil/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/selenutil/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+          bt-param: 'Framework/SeleniumUnitTests/SeleniumUnitTests.csproj --settings Framework/Parallel.RunSettings --filter "(FullyQualifiedName~SeleniumUnitTests.SeleniumNUnitTest)|(FullyQualifiedName~SeleniumUnitTests.SeleniumUnitTest)|(FullyQualifiedName~SeleniumUnitTests.SeleniumUtilsTest)|(FullyQualifiedName~SeleniumUnitTests.SeleniumConfigTests)" --logger trx --results-directory "${{github.workspace}}/artifactTests/selenutil/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/selenutil/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
       - uses: actions/upload-artifact@v2
         if: always()
         name: "Upload test artifact"
@@ -418,7 +420,7 @@ jobs:
       - id: builder
         uses: ./.github/workflows/buildtest-action
         with:
-          bt-param: 'Framework/SeleniumUnitTests/SeleniumUnitTests.csproj --settings Framework/SauceLabs.RunSettings --filter "(FullyQualifiedName!~Proxy)&(FullyQualifiedName!~SeleniumConfigTests)&(FullyQualifiedName!~SeleniumPageObjectUnitTest)&(FullyQualifiedName!~LazyElementUnitTests)&(FullyQualifiedName!~SeleniumUnitTests.SeleniumUnitTest)&(FullyQualifiedName!~SeleniumWebElementTest)&(FullyQualifiedName!~SeleniumUtilsTest)" --logger trx --results-directory "${{github.workspace}}/artifactTests/selengen/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/selengen/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -- ''TestRunParameters.Parameter(name=\"RemoteSeleniumCapsMaqs:accessKey\",value=\"${{ secrets.SAUCE }}\")'' ''TestRunParameters.Parameter(name=\"RemoteSeleniumCapsMaqs:RunOnSauceLabs\",value=\"YES\")'''
+          bt-param: 'Framework/SeleniumUnitTests/SeleniumUnitTests.csproj --settings Framework/SauceLabs.RunSettings --filter "(FullyQualifiedName!~SeleniumNUnitTest)&(FullyQualifiedName!~Proxy)&(FullyQualifiedName!~SeleniumConfigTests)&(FullyQualifiedName!~SeleniumPageObjectUnitTest)&(FullyQualifiedName!~LazyElementUnitTests)&(FullyQualifiedName!~SeleniumUnitTests.SeleniumUnitTest)&(FullyQualifiedName!~SeleniumWebElementTest)&(FullyQualifiedName!~SeleniumUtilsTest)" --logger trx --results-directory "${{github.workspace}}/artifactTests/selengen/testResults/" /p:CoverletOutput="${{github.workspace}}/artifactTests/selengen/" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -- ''TestRunParameters.Parameter(name=\"RemoteSeleniumCapsMaqs:accessKey\",value=\"${{ secrets.SAUCE }}\")'' ''TestRunParameters.Parameter(name=\"RemoteSeleniumCapsMaqs:RunOnSauceLabs\",value=\"YES\")'''
       - uses: actions/upload-artifact@v2
         if: always()
         name: "Upload test artifact"
