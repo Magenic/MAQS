@@ -31,7 +31,7 @@ DriverManager managerToKeep = GetManager();
  ```
 
 ## SoftAssert
-SoftAssert class allows tests to continue running after low piority steps fail.
+SoftAssert class allows tests to continue running after low priority steps fail.
 ```csharp
  this.SoftAssert = new SoftAssert(this.Log);
 ```

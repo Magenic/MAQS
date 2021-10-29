@@ -3,13 +3,13 @@
 ## Overview
 The Email Driver Manager has overreach of the Base Driver Manager.
 
-[OverrideDriver](#OverrideDriver)
-[GetEmailDriver](#GetWebSeriveDriver)  
-[Get](#Get)
-[MapEvents](#MapEvents)
-[DriverDispose](#DriverDispose)
-[Email_Event](#Email_Event)
-[Email_Error](#Email_Error)
+[OverrideDriver](#OverrideDriver)  
+[GetEmailDriver](#GetWebSeriveDriver)    
+[Get](#Get)  
+[MapEvents](#MapEvents)  
+[DriverDispose](#DriverDispose)  
+[Email_Event](#Email_Event)  
+[Email_Error](#Email_Error)  
 
 ## OverrideDriver
 Override the http driver

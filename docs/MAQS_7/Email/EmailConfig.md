@@ -5,7 +5,7 @@ The Email Config class is used to get values from the EmailMaqs section of your 
 <br>These values come from your App.config, appsettings.json and/or test run parameters.
 
 ## EmailMaqs
-The EmailMaqs configuation section contains the following Keys:
+The EmailMaqs configuration section contains the following Keys:
 
 * ***EmailHost*** : The email host path.
 * ***EmailUserName*** : The email username.
@@ -13,7 +13,7 @@ The EmailMaqs configuation section contains the following Keys:
 * ***EmailPort*** : The email port.
 * ***ConnectViaSSL*** : If connection via SSL should happen.
 * ***SkipSslValidation*** : If skipping SSL validation should happen.
-* ***AttachmentDownloadPath*** : The attatchment download path.
+* ***AttachmentDownloadPath*** : The attachment download path.
 * ***EmailTimeout*** : How long to wait for something before timing out - Used heavily with the MAQS waits
 
 ## Available methods
@@ -42,7 +42,7 @@ Get if connection via SSL should occur:
 bool ssl = EmailConfig.GetEmailViaSSL();
 ```
 
-Get if connectio should skip SSL validation:
+Get if connection should skip SSL validation:
 ```csharp
 bool skipSsl = EmailConfig.GetEmailSkipSslValidation();
 ```

@@ -1,7 +1,7 @@
 # <img src="resources/maqslogo.ico" height="32" width="32"> BaseEmailTest
 The BaseEmailTest class provides access to the TestObject and EmailDriver.
 
-By default, BaseEmailTest will create an email driver for you based on your [configuration](MAQS_6/Email/EmailConfig.md). Authentication related requirements often require users to override the default web service client.  This is why we provide several different ways for you to provide your own web service driver implementation.
+By default, BaseEmailTest will create an email driver for you based on your [configuration](MAQS_7/Email/EmailConfig.md). Authentication related requirements often require users to override the default web service client.  This is why we provide several different ways for you to provide your own web service driver implementation.
 
 There are three primary ways to override the web service client.
 

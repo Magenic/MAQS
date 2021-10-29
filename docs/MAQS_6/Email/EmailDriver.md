@@ -20,29 +20,29 @@ To use the EmailDriver without the BaseEmailTest, simply create the driver objec
 [CurrentMailBox ](#CurrentMailBox )  
 [CurrentFolder](#CurrentFolder)  
 [Dispose](#Dispose)  
-[CanAccessEmailAccount](#CanAccessEmailAccount)
-[GetMailBoxNames](#GetMailBoxNames)
-[GetMailBoxNamesInNamespace](#GetMailBoxNamesInNamespace)
-[GetMailbox](#GetMailbox)
-[SelectMailbox](#SelectMailbox)
-[CreateMailbox](#CreateMailbox)
-[GetMessage](#GetMessage)
-[GetAllMessageHeaders](#GetAllMessageHeaders)
-[DeleteMessage](#DeleteMessage)
-[MoveMailMessage](#MoveMailMessage)
-[GetAttachments](#GetAttachments)
-[DownloadAttachments](#DownloadAttachments)
-[SearchMessagesSince](#SearchMessagesSince)
-[SearchMessages](#SearchMessages)
-[GetContentTypes](#GetContentTypes)
-[GetBodyByContentTypes](#GetBodyByContentTypes)
-[GetEmailFlags](#GetEmailFlags)
-[GetUniqueIDString](#GetUniqueIDString)
-[Dispose](#Dispose)
-[GetSearchResults](#GetSearchResults)
-[DefaultToInboxIfExists](#DefaultToInboxIfExists)
-[BaseNamespace](#BaseNamespace)
-[GetCurrentFolder](#GetCurrentFolder)
+[CanAccessEmailAccount](#CanAccessEmailAccount)  
+[GetMailBoxNames](#GetMailBoxNames)  
+[GetMailBoxNamesInNamespace](#GetMailBoxNamesInNamespace)  
+[GetMailbox](#GetMailbox)  
+[SelectMailbox](#SelectMailbox)  
+[CreateMailbox](#CreateMailbox)  
+[GetMessage](#GetMessage)  
+[GetAllMessageHeaders](#GetAllMessageHeaders)  
+[DeleteMessage](#DeleteMessage)  
+[MoveMailMessage](#MoveMailMessage)  
+[GetAttachments](#GetAttachments)  
+[DownloadAttachments](#DownloadAttachments)  
+[SearchMessagesSince](#SearchMessagesSince)  
+[SearchMessages](#SearchMessages)  
+[GetContentTypes](#GetContentTypes)  
+[GetBodyByContentTypes](#GetBodyByContentTypes)  
+[GetEmailFlags](#GetEmailFlags)    
+[GetUniqueIDString](#GetUniqueIDString)  
+[Dispose](#Dispose)  
+[GetSearchResults](#GetSearchResults)  
+[DefaultToInboxIfExists](#DefaultToInboxIfExists)  
+[BaseNamespace](#BaseNamespace)  
+[GetCurrentFolder](#GetCurrentFolder)  
 
 ## EmailConnection
 Gets the Imap email connection
@@ -125,13 +125,13 @@ this.EmailDriver.MoveMailMessage(message, "Test");
 ## GetAttachments
 Get the list of attachments for the email with the given unique identifier
 ```csharp
-List<MimeEntity> attchments = this.EmailDriver.GetAttachments(this.EmailDriver.GetUniqueIDString(singleMessage));
+List<MimeEntity> attachments = this.EmailDriver.GetAttachments(this.EmailDriver.GetUniqueIDString(singleMessage));
 ```
 
 ## DownloadAttachments
 Download all the attachments for the given message
 ```csharp
- List<string> attchments = this.EmailDriver.DownloadAttachments(singleMessage, downloadLocation);
+ List<string> attachments = this.EmailDriver.DownloadAttachments(singleMessage, downloadLocation);
 ```
 
 ## SearchMessagesSince

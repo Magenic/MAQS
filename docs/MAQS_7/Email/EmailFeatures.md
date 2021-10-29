@@ -14,7 +14,7 @@ public class MyBaseEmailTest : BaseEmailTest
 The EmailDriver is an object that allows you to interact with an email account using and IMAP connection.  
 This driver wraps common email interactions.  
 The driver is also thread safe, which means you can run multiple email tests in parallel.  
-*Information, such as the OS version is pulled from the MAQS configuration.
+*Information, such as the email host and port is pulled from the [MAQS configuration](MAQS_7/Email/EmailConfig.md). 
 ```csharp
 EmailDriver driver = new EmailDriver(() => ClientFactory.GetDefaultEmailClient());
 ```
