@@ -7,7 +7,6 @@
 using Magenic.Maqs.BaseSeleniumTest.Extensions;
 using Magenic.Maqs.Utilities.Logging;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Internal;
 using Selenium.Axe;
 using System;
 using System.IO;

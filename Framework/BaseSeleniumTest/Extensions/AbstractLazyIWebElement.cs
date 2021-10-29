@@ -149,9 +149,9 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
                 return GenericWait.Wait<bool>(
                     () =>
-                {
-                    return this.GetElement(this.GetRawExistingElement).Enabled;
-                },
+                    {
+                        return this.GetElement(this.GetRawExistingElement).Enabled;
+                    },
                 this.WaitTime(),
                 this.TimeoutTime());
             }
@@ -168,9 +168,9 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
                 return GenericWait.Wait<bool>(
                     () =>
-                {
-                    return this.GetElement(this.GetRawExistingElement).Selected;
-                },
+                    {
+                        return this.GetElement(this.GetRawExistingElement).Selected;
+                    },
                 this.WaitTime(),
                 this.TimeoutTime());
             }
@@ -187,9 +187,9 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
                 return GenericWait.Wait<bool>(
                     () =>
-                {
-                    return this.GetElement(this.GetRawExistingElement).Displayed;
-                },
+                    {
+                        return this.GetElement(this.GetRawExistingElement).Displayed;
+                    },
                 this.WaitTime(),
                 this.TimeoutTime());
             }
@@ -206,10 +206,10 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
                 return GenericWait.Wait(
                     () =>
-                {
-                    this.GetElement(this.GetRawExistingElement);
-                    return true;
-                },
+                    {
+                        this.GetElement(this.GetRawExistingElement);
+                        return true;
+                    },
                 this.WaitTime(),
                 this.TimeoutTime(), false);
             }
@@ -253,9 +253,9 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
                 return GenericWait.Wait<string>(
                     () =>
-                {
-                    return this.GetElement(this.GetRawExistingElement).TagName;
-                },
+                    {
+                        return this.GetElement(this.GetRawExistingElement).TagName;
+                    },
                 this.WaitTime(),
                 this.TimeoutTime());
             }
@@ -272,9 +272,9 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
                 return GenericWait.Wait(
                     () =>
-                {
-                    return this.GetElement(this.GetRawExistingElement).Text;
-                },
+                    {
+                        return this.GetElement(this.GetRawExistingElement).Text;
+                    },
                 this.WaitTime(),
                 this.TimeoutTime());
             }
@@ -291,9 +291,9 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
                 return GenericWait.Wait(
                     () =>
-                {
-                    return this.GetElement(this.GetRawVisibleElement).Location;
-                },
+                    {
+                        return this.GetElement(this.GetRawVisibleElement).Location;
+                    },
                 this.WaitTime(),
                 this.TimeoutTime());
             }
@@ -310,9 +310,9 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
                 return GenericWait.Wait(
                     () =>
-                {
-                    return this.GetElement(this.GetRawVisibleElement).Size;
-                },
+                    {
+                        return this.GetElement(this.GetRawVisibleElement).Size;
+                    },
                 this.WaitTime(),
                 this.TimeoutTime());
             }
@@ -327,11 +327,11 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
             GenericWait.Wait(
                 () =>
-            {
-                IWebElement element = this.GetElement(this.GetRawClickableElement);
-                this.ExecuteEvent(() => element.Click(), "Click");
-                return true;
-            },
+                {
+                    IWebElement element = this.GetElement(this.GetRawClickableElement);
+                    this.ExecuteEvent(() => element.Click(), "Click");
+                    return true;
+                },
             this.WaitTime(),
             this.TimeoutTime());
         }
@@ -408,11 +408,11 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
             GenericWait.Wait(
                 () =>
-            {
-                IWebElement element = this.GetElement(this.GetRawVisibleElement);
-                this.ExecuteEvent(() => element.Clear(), "Clear");
-                return true;
-            },
+                {
+                    IWebElement element = this.GetElement(this.GetRawVisibleElement);
+                    this.ExecuteEvent(() => element.Clear(), "Clear");
+                    return true;
+                },
             this.WaitTime(),
             this.TimeoutTime());
         }
@@ -426,15 +426,67 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
             GenericWait.Wait(
                 () =>
-            {
-                IWebElement element = this.GetElement(this.GetRawExistingElement);
-                this.ExecuteEvent(() => element.Submit(), "Submit");
-                return true;
-            },
+                {
+                    IWebElement element = this.GetElement(this.GetRawExistingElement);
+                    this.ExecuteEvent(() => element.Submit(), "Submit");
+                    return true;
+                },
             this.WaitTime(),
             this.TimeoutTime());
         }
 
+        /// <summary>
+        /// Gets the value of a declared HTML attribute of this element.
+        /// </summary>
+        /// <param name="attributeName">The name of the HTML attribute to get the value of.</param>
+        /// <returns>The HTML attribute's current value. Returns a <see langword="null"/> if the value is not set or the declared attribute does not exist.</returns>
+        public string GetDomAttribute(string attributeName)
+        {
+            this.Log.LogMessage(MessageType.INFORMATION, $"Getting DOM attribute '{attributeName}' for lazy element '{this.userFriendlyName}'");
+
+            return GenericWait.Wait(
+                () =>
+                {
+                    return this.GetElement(this.GetRawExistingElement).GetDomAttribute(attributeName);
+                },
+            this.WaitTime(),
+            this.TimeoutTime());
+        }
+
+        /// <summary>
+        /// Gets the value of a JavaScript property of this element.
+        /// </summary>
+        /// <param name="propertyName">The name of the JavaScript property to get the value of.</param>
+        /// <returns>The JavaScript property's current value. Returns a <see langword="null"/> if the value is not set or the property does not exist.</returns>
+        public string GetDomProperty(string propertyName)
+        {
+            this.Log.LogMessage(MessageType.INFORMATION, $"Getting DOM proprty '{propertyName}' for lazy element '{this.userFriendlyName}'");
+
+            return GenericWait.Wait(
+                () =>
+                {
+                    return this.GetElement(this.GetRawExistingElement).GetDomProperty(propertyName);
+                },
+            this.WaitTime(),
+            this.TimeoutTime());
+        }
+
+        /// <summary>
+        /// Gets the representation of an element's shadow root for accessing the shadow DOM of a web component.
+        /// </summary>
+        /// <returns>A shadow root representation.</returns>
+        public ISearchContext GetShadowRoot()
+        {
+            this.Log.LogMessage(MessageType.INFORMATION, $"Getting shadow root for lazy element '{this.userFriendlyName}'");
+
+            return GenericWait.Wait(
+                () =>
+                {
+                    return this.GetElement(this.GetRawExistingElement).GetShadowRoot();
+                },
+            this.WaitTime(),
+            this.TimeoutTime());
+        }
 
         /// <summary>
         /// Deselect all dropdown options from the lazy element
@@ -502,11 +554,11 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
             GenericWait.Wait(
                 () =>
-            {
-                IWebElement element = this.GetElement(this.GetRawVisibleElement);
-                this.ExecuteEvent(() => new SelectElement(element).SelectByText(option), "Select DropDown Option");
-                return true;
-            },
+                {
+                    IWebElement element = this.GetElement(this.GetRawVisibleElement);
+                    this.ExecuteEvent(() => new SelectElement(element).SelectByText(option), "Select DropDown Option");
+                    return true;
+                },
             this.WaitTime(),
             this.TimeoutTime());
         }
@@ -521,11 +573,11 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
             GenericWait.Wait(
                 () =>
-            {
-                IWebElement element = this.GetElement(this.GetRawVisibleElement);
-                this.ExecuteEvent(() => new SelectElement(element).SelectByValue(value), "Select DropDown Option By Value");
-                return true;
-            },
+                {
+                    IWebElement element = this.GetElement(this.GetRawVisibleElement);
+                    this.ExecuteEvent(() => new SelectElement(element).SelectByValue(value), "Select DropDown Option By Value");
+                    return true;
+                },
             this.WaitTime(),
             this.TimeoutTime());
         }
@@ -540,9 +592,9 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
             return GenericWait.Wait<string>(
                 () =>
-            {
-                return new SelectElement(this.GetElement(this.GetRawExistingElement)).SelectedOption.Text;
-            },
+                {
+                    return new SelectElement(this.GetElement(this.GetRawExistingElement)).SelectedOption.Text;
+                },
             this.WaitTime(),
             this.TimeoutTime());
         }
@@ -586,9 +638,9 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
             return GenericWait.Wait<string>(
                 () =>
-            {
-                return this.GetElement(this.GetRawExistingElement).GetAttribute(attributeName);
-            },
+                {
+                    return this.GetElement(this.GetRawExistingElement).GetAttribute(attributeName);
+                },
             this.WaitTime(),
             this.TimeoutTime());
         }
@@ -603,9 +655,9 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
             return GenericWait.Wait<string>(
                 () =>
-            {
-                return this.GetElement(this.GetRawVisibleElement).GetAttribute("value");
-            },
+                {
+                    return this.GetElement(this.GetRawVisibleElement).GetAttribute("value");
+                },
             this.WaitTime(),
             this.TimeoutTime());
         }
@@ -621,9 +673,9 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
 
             return GenericWait.Wait<string>(
                 () =>
-            {
-                return this.GetElement(this.GetRawExistingElement).GetCssValue(propertyName);
-            },
+                {
+                    return this.GetElement(this.GetRawExistingElement).GetCssValue(propertyName);
+                },
             this.WaitTime(),
             this.TimeoutTime());
         }
@@ -693,18 +745,18 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         {
             return GenericWait.Wait<IWebElement>(
 (Func<IWebElement>)(() =>
-            {
-                ReadOnlyCollection<IWebElement> elements = (this.parent == null) ? this.WebDriver.FindElements(this.By) :
-                this.parent.GetRawExistingElement().FindElements(this.By);
-                IWebElement element = elements[this.elementIndex ?? 0];
+{
+    ReadOnlyCollection<IWebElement> elements = (this.parent == null) ? this.WebDriver.FindElements(this.By) :
+    this.parent.GetRawExistingElement().FindElements(this.By);
+    IWebElement element = elements[this.elementIndex ?? 0];
 
-                if (!matchesState(element))
-                {
-                    throw new InvalidElementStateException($"Expected element to {expectedState}");
-                }
+    if (!matchesState(element))
+    {
+        throw new InvalidElementStateException($"Expected element to {expectedState}");
+    }
 
-                return element;
-            }),
+    return element;
+}),
             this.WaitTime(),
             this.TimeoutTime());
         }
@@ -714,6 +766,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         /// </summary>
         /// <param name="propertyName">The name JavaScript the JavaScript property to get the value of</param>
         /// <returns> The JavaScript property's current value. Returns a null if the value is not set or the property does not exist</returns>
+        [Obsolete("Use the GetDomProperty method instead.")]
         public string GetProperty(string propertyName)
         {
             return this.GetRawExistingElement().GetProperty(propertyName);

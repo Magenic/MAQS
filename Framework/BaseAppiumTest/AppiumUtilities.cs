@@ -25,7 +25,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <param name="testObject">The TestObject to associate the screenshot with</param>
         /// <param name="appendName">Appends a name to the end of a filename</param>
         /// <returns>Boolean if the save of the image was successful</returns>
-        public static bool CaptureScreenshot(this AppiumDriver<IWebElement> appiumDriver, IAppiumTestObject testObject, string appendName = "")
+        public static bool CaptureScreenshot(this AppiumDriver appiumDriver, IAppiumTestObject testObject, string appendName = "")
         {
             try
             {
@@ -57,7 +57,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <param name="testObject">The TestObject to associate the screenshot with</param>
         /// <param name="directory">The directory file path</param>
         /// <param name="fileNameWithoutExtension">Filename without extension</param>
-        public static void CaptureScreenshot(this AppiumDriver<IWebElement> appiumDriver, IAppiumTestObject testObject, string directory, string fileNameWithoutExtension)
+        public static void CaptureScreenshot(this AppiumDriver appiumDriver, IAppiumTestObject testObject, string directory, string fileNameWithoutExtension)
         {
             Screenshot screenshot = ((ITakesScreenshot)appiumDriver).GetScreenshot();
 
@@ -74,7 +74,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <param name="testObject">The TestObject to associate the file and log with</param>
         /// <param name="appendName">Appends a name to the end of a filename</param>
         /// <returns>Boolean if the save of the page source was successful</returns>
-        public static bool SavePageSource(this AppiumDriver<IWebElement> appiumDriver, IAppiumTestObject testObject, string appendName = "")
+        public static bool SavePageSource(this AppiumDriver appiumDriver, IAppiumTestObject testObject, string appendName = "")
         {
             try
             {
@@ -114,7 +114,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <param name="directory">The directory file path</param>
         /// <param name="fileNameWithoutExtension">Filename without extension</param>
         /// <returns>Path to the log file</returns>
-        public static string SavePageSource(this AppiumDriver<IWebElement> appiumDriver, IAppiumTestObject testObject, string directory, string fileNameWithoutExtension)
+        public static string SavePageSource(this AppiumDriver appiumDriver, IAppiumTestObject testObject, string directory, string fileNameWithoutExtension)
         {
             // Save the current page source into a string
             string pageSource = appiumDriver.PageSource;
@@ -146,7 +146,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// Make sure the driver is shut down
         /// </summary>
         /// <param name="driver">The driver</param>
-        public static void KillDriver(this AppiumDriver<IWebElement> driver)
+        public static void KillDriver(this AppiumDriver driver)
         {
             try
             {
@@ -163,7 +163,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// </summary>
         /// <param name="driver">Brings in an AppiumDriver</param>
         /// <returns>An WebDriverWait</returns>
-        public static WebDriverWait GetDefaultWaitDriver(AppiumDriver<IWebElement> driver)
+        public static WebDriverWait GetDefaultWaitDriver(AppiumDriver driver)
         {
             return GetWaitDriver(driver, AppiumConfig.GetMobileTimeout(), AppiumConfig.GetMobileWaitTime());
         }
@@ -175,7 +175,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <param name="timeoutTime">How long is the timeout</param>
         /// <param name="waitTime">How long to wait before rechecking</param>
         /// <returns>A web driver wait</returns>
-        public static WebDriverWait GetWaitDriver(AppiumDriver<IWebElement> driver, TimeSpan timeoutTime, TimeSpan waitTime)
+        public static WebDriverWait GetWaitDriver(AppiumDriver driver, TimeSpan timeoutTime, TimeSpan waitTime)
         {
             return new WebDriverWait(new SystemClock(), driver, timeoutTime, waitTime);
         }

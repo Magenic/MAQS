@@ -19,13 +19,24 @@ namespace AppiumUnitTests
     /// Appium Utilities Unit Tests
     /// </summary>
     [TestClass]
+    [TestCategory(TestCategories.Appium)]
     public class AppiumUtilitiesTests : BaseAppiumTest
     {
+        /// <summary>
+        /// Verify we can create a Appium test object with a Appium driver
+        /// </summary>
+        [TestMethod]
+        public void CreateAppiumTestObjectWithDriver()
+        {
+            AppiumTestObject newObject = new AppiumTestObject(this.AppiumDriver, this.TestObject.Log, "test");
+            Assert.AreEqual(this.AppiumDriver, newObject.AppiumDriver);
+            Assert.AreEqual(this.Log, newObject.Log);
+        }
+
         /// <summary>
         /// Verify a bad create fails in the right way
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Appium)]
         [ExpectedException(typeof(WebDriverException))]
         public void BadCreate()
         {
@@ -36,7 +47,6 @@ namespace AppiumUnitTests
         /// Verify CaptureScreenshot works - Validating that the screenshot was created
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Appium)]
         public void CaptureScreenshotTest()
         {
             AppiumUtilities.CaptureScreenshot(this.TestObject.AppiumDriver, this.TestObject);
@@ -49,7 +59,6 @@ namespace AppiumUnitTests
         /// Verify CaptureScreenshot works with console logger - Validating that the screenshot was not created
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Appium)]
         public void CaptureScreenshotWithConsoleLoggerTest()
         {
             // Create a console logger and calculate the file location
@@ -67,7 +76,6 @@ namespace AppiumUnitTests
         /// Verify that CaptureScreenshot properly handles exceptions and returns false
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Appium)]
         public void CaptureScreenshotThrownException()
         {
             FileLogger tempLogger = new FileLogger
@@ -84,7 +92,6 @@ namespace AppiumUnitTests
         /// Verify when a screenshot is captured it is associated to the test object
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Appium)]
         public void CaptureScreenshotTestObjectAssociation()
         {
             AppiumUtilities.CaptureScreenshot(this.TestObject.AppiumDriver, this.TestObject);
@@ -97,7 +104,6 @@ namespace AppiumUnitTests
         /// Verify SavePageSource works - Validating that the Page Source file was created
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Appium)]
         public void SavePageSourceTest()
         {
             AppiumUtilities.SavePageSource(this.TestObject.AppiumDriver, this.TestObject);
@@ -112,7 +118,6 @@ namespace AppiumUnitTests
         /// Verify that SavePageSource properly handles exceptions and returns false
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Appium)]
         public void SavePageSourceThrownException()
         {
             FileLogger tempLogger = new FileLogger
@@ -129,7 +134,6 @@ namespace AppiumUnitTests
         /// Verify that SavePageSource creates Directory if it does not exist already
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Appium)]
         public void SavePageSourceNoExistingDirectory()
         {
             string pageSourcePath = AppiumUtilities.SavePageSource(this.AppiumDriver, this.TestObject, "TempTestDirectory", "SavePSNoDir");
@@ -141,7 +145,6 @@ namespace AppiumUnitTests
         /// Verify when a page source is saved it is associated to the test object
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Appium)]
         public void SavedPageSourceTestObjectAssociation()
         {
             string pageSourcePath = AppiumUtilities.SavePageSource(this.AppiumDriver, this.TestObject, "TempTestDirectory", "TestObjAssoc");
@@ -153,7 +156,6 @@ namespace AppiumUnitTests
         /// Test lazy element
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Appium)]
         public void AppiumLazyTest()
         {
             Assert.IsNotNull(this.TestObject.AppiumDriver);
@@ -175,7 +177,6 @@ namespace AppiumUnitTests
         /// Test lazy parent element and finds
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Appium)]
         public void AppiumLazyParentTest()
         {
             this.AppiumDriver.Navigate().GoToUrl(Config.GetValueForSection(ConfigSection.AppiumMaqs, "WebSiteBase"));
@@ -198,7 +199,6 @@ namespace AppiumUnitTests
         /// Test lazy element wait overrides
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Appium)]
         public void AppiumLazyWaitOverride()
         {
             TimeSpan overrideTimeSpan = TimeSpan.FromSeconds(10);

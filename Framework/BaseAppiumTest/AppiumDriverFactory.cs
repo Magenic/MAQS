@@ -4,10 +4,10 @@
 // </copyright>
 // <summary>Factory for creating mobile drivers</summary>
 //--------------------------------------------------
+using Newtonsoft.Json;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
-using OpenQA.Selenium.Appium.Enums;
 using OpenQA.Selenium.Appium.iOS;
 using OpenQA.Selenium.Appium.Windows;
 using System;
@@ -25,7 +25,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// Get the default Appium driver based on the test run configuration
         /// </summary>
         /// <returns>An AppiumDriver</returns>
-        public static AppiumDriver<IWebElement> GetDefaultMobileDriver()
+        public static AppiumDriver GetDefaultMobileDriver()
         {
             return GetDefaultMobileDriver(AppiumConfig.GetDeviceType());
         }
@@ -35,9 +35,9 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// </summary>
         /// <param name="deviceType">The platform type we want to use</param>
         /// <returns>An AppiumDriver</returns>
-        public static AppiumDriver<IWebElement> GetDefaultMobileDriver(PlatformType deviceType)
+        public static AppiumDriver GetDefaultMobileDriver(PlatformType deviceType)
         {
-            AppiumDriver<IWebElement> appiumDriver;
+            AppiumDriver appiumDriver;
 
             Uri mobileHub = AppiumConfig.GetMobileHubUrl();
             TimeSpan timeout = AppiumConfig.GetMobileCommandTimeout();
@@ -83,11 +83,11 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <param name="options">Appium options</param>
         /// <param name="timeout">Command timeout</param>
         /// <returns>The Appium driver</returns>
-        public static AppiumDriver<IWebElement> GetAndroidDriver(Uri mobileHub, AppiumOptions options, TimeSpan timeout)
+        public static AppiumDriver GetAndroidDriver(Uri mobileHub, AppiumOptions options, TimeSpan timeout)
         {
             return CreateDriver(() =>
             {
-                var driver = new AndroidDriver<IWebElement>(mobileHub, options, timeout);
+                var driver = new AndroidDriver(mobileHub, options, timeout);
                 return driver;
             });
         }
@@ -99,11 +99,11 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <param name="options">Appium options</param>
         /// <param name="timeout">Command timeout</param>
         /// <returns>The Appium driver</returns>
-        public static AppiumDriver<IWebElement> GetIOSDriver(Uri mobileHub, AppiumOptions options, TimeSpan timeout)
+        public static AppiumDriver GetIOSDriver(Uri mobileHub, AppiumOptions options, TimeSpan timeout)
         {
             return CreateDriver(() =>
             {
-                var driver = new IOSDriver<IWebElement>(mobileHub, options, timeout);
+                var driver = new IOSDriver(mobileHub, options, timeout);
                 return driver;
             });
         }
@@ -115,11 +115,11 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <param name="options">Appium options</param>
         /// <param name="timeout">Command timeout</param>
         /// <returns>The Appium driver</returns>
-        public static AppiumDriver<IWebElement> GetWindowsDriver(Uri mobileHub, AppiumOptions options, TimeSpan timeout)
+        public static AppiumDriver GetWindowsDriver(Uri mobileHub, AppiumOptions options, TimeSpan timeout)
         {
             return CreateDriver(() =>
             {
-                var driver = new WindowsDriver<IWebElement>(mobileHub, options, timeout);
+                var driver = new WindowsDriver(mobileHub, options, timeout);
                 return driver;
             });
         }
@@ -129,9 +129,9 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// </summary>
         /// <param name="createFunction">Function for creating a driver</param>
         /// <returns>An Appium driver</returns>
-        public static AppiumDriver<IWebElement> CreateDriver(Func<AppiumDriver<IWebElement>> createFunction)
+        public static AppiumDriver CreateDriver(Func<AppiumDriver> createFunction)
         {
-            AppiumDriver<IWebElement> appiumDriver = null;
+            AppiumDriver appiumDriver = null;
 
             try
             {
@@ -166,7 +166,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// Set the script and page timeouts
         /// </summary>
         /// <param name="driver">Brings in an AppiumDriver</param>
-        public static void SetDefaultTimeouts(this AppiumDriver<IWebElement> driver)
+        public static void SetDefaultTimeouts(this AppiumDriver driver)
         {
             driver.SetTimeouts(AppiumConfig.GetMobileTimeout());
         }
@@ -176,7 +176,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// </summary>
         /// <param name="driver">Brings in an AppiumDriver</param>
         /// <param name="timeout">The new timeout</param>
-        public static void SetTimeouts(this AppiumDriver<IWebElement> driver, TimeSpan timeout)
+        public static void SetTimeouts(this AppiumDriver driver, TimeSpan timeout)
         {
             driver.Manage().Timeouts().AsynchronousJavaScript = timeout;
             driver.Manage().Timeouts().PageLoad = timeout;
@@ -203,10 +203,12 @@ namespace Magenic.Maqs.BaseAppiumTest
         public static AppiumOptions GetDefaultMobileOptions()
         {
             AppiumOptions options = new AppiumOptions();
-
-            options.AddAdditionalCapability(MobileCapabilityType.DeviceName, AppiumConfig.GetDeviceName());
-            options.AddAdditionalCapability(MobileCapabilityType.PlatformVersion, AppiumConfig.GetPlatformVersion());
-            options.AddAdditionalCapability(MobileCapabilityType.PlatformName, AppiumConfig.GetPlatformName().ToUpper());
+            options.App = AppiumConfig.GetApp();
+            options.BrowserName = AppiumConfig.GetBrowserName();
+            options.BrowserVersion = AppiumConfig.GetBrowserVersion();
+            options.DeviceName = AppiumConfig.GetDeviceName();
+            options.PlatformVersion = AppiumConfig.GetPlatformVersion();
+            options.PlatformName = AppiumConfig.GetPlatformName().ToUpper();
             options.SetMobileOptions(AppiumConfig.GetCapabilitiesAsObjects());
 
             return options;
@@ -229,7 +231,17 @@ namespace Magenic.Maqs.BaseAppiumTest
             {
                 if (keyValue.Value != null && (!(keyValue.Value is string) || !string.IsNullOrEmpty(keyValue.Value as string)))
                 {
-                    appiumOptions.AddAdditionalCapability(keyValue.Key, keyValue.Value);
+                    try
+                    {
+                        // Check if this is a Json string
+                        var jsonDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(keyValue.Value as string);
+                        appiumOptions.AddAdditionalAppiumOption(keyValue.Key, jsonDictionary);
+                    }
+                    catch
+                    { 
+                        // Not Json string so add as a normal string
+                        appiumOptions.AddAdditionalAppiumOption(keyValue.Key, keyValue.Value);
+                    }
                 }
             }
 

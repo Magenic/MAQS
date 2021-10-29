@@ -89,7 +89,7 @@ namespace SpecFlowExtUnitTests.Steps
         [Then(@"AppiumDriver is type AppiumDriver")]
         public void AndAppiumDriverIsTypeEventFiringAppiumDriver()
         {
-            Assert.IsTrue(this.TestObject.AppiumDriver.GetType().Equals(typeof(AppiumDriver<AppiumWebElement>)), $"AppiumDriver for BaseAppiumTestSteps class is the wrong type : {this.TestObject.AppiumDriver.GetType()}.");
+            Assert.IsTrue(this.TestObject.AppiumDriver.GetType().Equals(typeof(AppiumDriver)), $"AppiumDriver for BaseAppiumTestSteps class is the wrong type : {this.TestObject.AppiumDriver.GetType()}.");
         }
 
         /// <summary>
@@ -97,9 +97,9 @@ namespace SpecFlowExtUnitTests.Steps
         /// </summary>
         /// <param name="by">THe by to search with</param>
         /// <returns>The AppiumWebElement found</returns>
-        private AppiumWebElement FindElement(By by)
+        private AppiumElement FindElement(By by)
         {
-            return (AppiumWebElement)this.TestObject.AppiumDriver.FindElement(by);
+            return (AppiumElement)this.TestObject.AppiumDriver.FindElement(by);
         }
     }
 }

@@ -6,7 +6,6 @@
 //--------------------------------------------------
 using Magenic.Maqs.BaseTest;
 using Magenic.Maqs.Utilities.Logging;
-using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using System;
 
@@ -28,7 +27,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// Gets or sets the AppiumDriver
         /// </summary>
-        public AppiumDriver<IWebElement> AppiumDriver
+        public AppiumDriver AppiumDriver
         {
             get
             {
@@ -45,7 +44,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// The default get appium driver function
         /// </summary>
         /// <returns>The appium driver</returns>
-        protected virtual AppiumDriver<IWebElement> GetMobileDevice()
+        protected virtual AppiumDriver GetMobileDevice()
         {
             return AppiumDriverFactory.GetDefaultMobileDriver();
         }

@@ -36,7 +36,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <param name="appiumDriver">The Appium driver</param>
         /// <param name="locator">The 'by' selector for the element</param>
         /// <param name="userFriendlyName">A user friendly name, for logging purposes</param>
-        public LazyMobileElement(IAppiumTestObject testObject, AppiumDriver<IWebElement> appiumDriver, By locator, [CallerMemberName] string userFriendlyName = null) : base(testObject, appiumDriver, () => appiumDriver.GetWaitDriver(), locator, userFriendlyName)
+        public LazyMobileElement(IAppiumTestObject testObject, AppiumDriver appiumDriver, By locator, [CallerMemberName] string userFriendlyName = null) : base(testObject, appiumDriver, () => appiumDriver.GetWaitDriver(), locator, userFriendlyName)
         {
 
         }

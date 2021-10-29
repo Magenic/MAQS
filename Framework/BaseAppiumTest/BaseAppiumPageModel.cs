@@ -37,7 +37,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <summary>
         /// Gets the webdriver from the test object
         /// </summary>
-        protected AppiumDriver<IWebElement> AppiumDriver { get; private set; }
+        protected AppiumDriver AppiumDriver { get; private set; }
 
         /// <summary>
         /// Gets the log from the test object
@@ -65,7 +65,7 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// This allows you to use something other than the default tests object driver.
         /// </summary>
         /// <param name="appiumDriver">The override driver</param>
-        public void OverrideDriver(AppiumDriver<IWebElement> appiumDriver)
+        public void OverrideDriver(AppiumDriver appiumDriver)
         {
             this.AppiumDriver = appiumDriver;
         }

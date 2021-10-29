@@ -147,7 +147,7 @@ namespace UtilitiesUnitTesting
             string overrideValue = baseValue + "_Override";
 
             // Override the configuration
-            Config.AddTestSettingValues(key, overrideValue);
+            Config.AddTestSettingValue(key, overrideValue);
 
             // Make sure it worked
             Assert.AreEqual(overrideValue, Config.GetGeneralValue(key));
@@ -185,7 +185,7 @@ namespace UtilitiesUnitTesting
             string overrideValue = baseValue + "_Override";
 
             // Override the configuration
-            Config.AddTestSettingValues(key, overrideValue, ConfigSection.MagenicMaqs);
+            Config.AddTestSettingValue(key, overrideValue, ConfigSection.MagenicMaqs);
 
             // Make sure it worked
             Assert.AreEqual(overrideValue, Config.GetGeneralValue(key));
@@ -377,5 +377,19 @@ namespace UtilitiesUnitTesting
             Config.Validate(ConfigSection.WebServiceMaqs, null);
         }
 
+        /// <summary>
+        /// Multilevel configuration hierarchy is respected
+        /// </summary>
+        /// <param name="key">Configuration key</param>
+        /// <param name="expected">Expected value for key</param>
+        [DataTestMethod]
+        [DataRow("low:JSON", "lowerJson")]
+        [DataRow("compound:key", "compound")]
+        [DataRow("compound:key:lower", "compoundEvenLower")]
+        public void MultilevelSectionKeys(string key, string expected)
+        {
+            var value = Config.GetSectionDictionary("MagenicMaqs");
+            Assert.AreEqual(expected, value[key]);
+        }
     }
 }

@@ -268,6 +268,21 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Verify Lazy Element will check for shadow root
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        [ExpectedException(typeof(TimeoutException), "Finding shadow root should timeout.")]
+        public void LazyShadowRootTimeout()
+        {
+            // Create the lazy element and use it
+            LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
+
+            // Make sure we don't get a shadow root back
+            Assert.IsNull(footer.GetShadowRoot(), "There is no shadow root so fail");
+        }
+
+        /// <summary>
         /// Verify Lazy Element is cached as expected
         /// </summary>
         [TestMethod]
@@ -298,6 +313,9 @@ namespace SeleniumUnitTests
 
             // Do the event again and save off the changed element
             footer.GetValue();
+
+            // Make sure the page is reloaded
+            LeaveAndReturnToPage(this.WebDriver);
 
             // Make sure doing a new find returns an element that is not the same as the cached element
             Assert.AreNotEqual(WebDriver.FindElement(footer.By), footerElementBefore);
@@ -378,6 +396,9 @@ namespace SeleniumUnitTests
 
             footer.GetRawVisibleElement();
 
+            // Make sure the page is reloaded
+            LeaveAndReturnToPage(this.WebDriver);
+
             // Make sure get clickable triggers a new find
             Assert.AreNotEqual(footer.CachedElement, footer.GetRawClickableElement());
         }
@@ -394,6 +415,9 @@ namespace SeleniumUnitTests
 
             footer.GetRawVisibleElement();
 
+            // Make sure the page is reloaded
+            LeaveAndReturnToPage(this.WebDriver);
+
             // Make sure get exists triggers a new find
             Assert.AreNotEqual(footer.CachedElement, footer.GetRawExistingElement());
         }
@@ -409,6 +433,9 @@ namespace SeleniumUnitTests
             LazyElement footer = new LazyElement(this.TestObject, By.CssSelector("FOOTER P"), "Footer");
 
             footer.GetRawVisibleElement();
+
+            // Make sure the page is reloaded
+            LeaveAndReturnToPage(this.WebDriver);
 
             // Make sure get visible triggers a new find
             Assert.AreNotEqual(footer.CachedElement, footer.GetRawVisibleElement());
@@ -761,6 +788,26 @@ namespace SeleniumUnitTests
         public void LazyElementProperty()
         {
             Assert.AreEqual("showDialog1", this.DialogOneButton.GetProperty("id"), "Expected ID to be 'showDialog1'");
+        }
+
+        /// <summary>
+        /// Verify Lazy Element DOM property
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementDomProperty()
+        {
+            Assert.AreEqual("Show dialog", this.DialogOneButton.GetDomProperty("innerText"), "Expected inner text to be 'Show dialog'");
+        }
+
+        /// <summary>
+        /// Verify Lazy Element DOM property
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyElementDomAttribute()
+        {
+            Assert.AreEqual("showDialog1", this.DialogOneButton.GetDomAttribute("id"), "Expected ID to be 'showDialog1'");
         }
 
         /// <summary>
@@ -1137,6 +1184,17 @@ namespace SeleniumUnitTests
             a1.MoveToElement(rawElement).Build().Perform();
             a1.MoveToElement(rawElement, 0, 0).Build().Perform();
             a1.MoveToElement(rawElement, 0, 0, MoveToElementOffsetOrigin.Center).Build().Perform();
+        }
+
+        /// <summary>
+        /// Make sure the page gets reloaded
+        /// </summary>
+        /// <param name="driver">Current test web driver</param>
+        private static void LeaveAndReturnToPage(IWebDriver driver)
+        {
+            driver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase());
+            driver.Navigate().GoToUrl(SeleniumConfig.GetWebSiteBase() + "Automation");
+            driver.Wait().ForPageLoad();
         }
     }
 }
