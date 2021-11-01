@@ -25,9 +25,8 @@ The main idea behind MAQS is to avoid **reinventing the wheel**. Most automation
 
 ## Help files
 
-- [MAQS 4](https://magenic.github.io/MAQS/#/MAQS_4/Introduction)
-- [MAQS 5](https://magenic.github.io/MAQS/#/MAQS_5/Introduction)
 - [MAQS 6](https://magenic.github.io/MAQS/#/MAQS_6/Introduction)
+- [MAQS 7](https://magenic.github.io/MAQS/#/MAQS_7/Introduction)
 
 ## Powered By
 

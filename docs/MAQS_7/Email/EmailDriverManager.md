@@ -4,7 +4,7 @@
 The Email Driver Manager has overreach of the Base Driver Manager.
 
 [OverrideDriver](#OverrideDriver)  
-[GetEmailDriver](#GetWebSeriveDriver)    
+[GetEmailDriver](#GetWebSeriveDriver)  
 [Get](#Get)  
 [MapEvents](#MapEvents)  
 [DriverDispose](#DriverDispose)  

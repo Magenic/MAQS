@@ -36,7 +36,7 @@ To use the EmailDriver without the BaseEmailTest, simply create the driver objec
 [SearchMessages](#SearchMessages)  
 [GetContentTypes](#GetContentTypes)  
 [GetBodyByContentTypes](#GetBodyByContentTypes)  
-[GetEmailFlags](#GetEmailFlags)    
+[GetEmailFlags](#GetEmailFlags)  
 [GetUniqueIDString](#GetUniqueIDString)  
 [Dispose](#Dispose)  
 [GetSearchResults](#GetSearchResults)  
@@ -125,13 +125,13 @@ this.EmailDriver.MoveMailMessage(message, "Test");
 ## GetAttachments
 Get the list of attachments for the email with the given unique identifier
 ```csharp
-List<MimeEntity> attachments = this.EmailDriver.GetAttachments(this.EmailDriver.GetUniqueIDString(singleMessage));
+List<MimeEntity> attchments = this.EmailDriver.GetAttachments(this.EmailDriver.GetUniqueIDString(singleMessage));
 ```
 
 ## DownloadAttachments
 Download all the attachments for the given message
 ```csharp
- List<string> attachments = this.EmailDriver.DownloadAttachments(singleMessage, downloadLocation);
+ List<string> attchments = this.EmailDriver.DownloadAttachments(singleMessage, downloadLocation);
 ```
 
 ## SearchMessagesSince
