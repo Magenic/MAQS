@@ -7,6 +7,7 @@
 using Magenic.Maqs.BaseSeleniumTest.Extensions;
 using Magenic.Maqs.Utilities.Logging;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.Events;
 using Selenium.Axe;
 using System;
 using System.IO;
@@ -449,6 +450,20 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <returns>The web driver</returns>
         public static IWebDriver WebElementToWebDriver(IWebElement element)
         {
+            if (element is AbstractLazyIWebElement)
+            {
+                var el = element as AbstractLazyIWebElement;
+                EventFiringWebDriver eventfir = el.WebDriver as EventFiringWebDriver;
+                if (eventfir != null)
+                {
+                    return eventfir.WrappedDriver;
+                }
+
+                return el.WebDriver;
+            }
+
+
+
             // Extract the web driver from the element
             IWebDriver driver;
 

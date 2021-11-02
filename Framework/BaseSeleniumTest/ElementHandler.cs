@@ -27,7 +27,17 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <returns>Text of the selected option in drop down</returns>
         public static string GetSelectedOptionFromDropdown(this ISearchContext searchContext, By by)
         {
-            SelectElement select = new SelectElement(searchContext.Wait().ForClickableElement(by));
+            return GetSelectedOptionFromDropdown(searchContext.Wait().ForClickableElement(by));
+        }
+
+        /// <summary>
+        /// Get selected option from dropdown
+        /// </summary>
+        /// <param name="element">Web element</param>
+        /// <returns>Text of the selected option in drop down</returns>
+        public static string GetSelectedOptionFromDropdown(this IWebElement element)
+        {
+            SelectElement select = new SelectElement(element);
             return select.SelectedOption.Text;
         }
 
@@ -39,12 +49,11 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <returns>List<string> of selected items in dropdown</string></returns>
         public static List<string> GetSelectedOptionsFromDropdown(this ISearchContext searchContext, By by)
         {
-            List<IWebElement> elements = null;
             List<string> selectedItems = new List<string>();
             SelectElement select = new SelectElement(searchContext.Wait().ForClickableElement(by));
 
             // Get a list of IWebElement objects for all selected options from the dropdown
-            elements = (List<IWebElement>)select.AllSelectedOptions;
+            List<IWebElement> elements = (List<IWebElement>)select.AllSelectedOptions;
 
             // Add the text of each element that is not null to the selectedItems list
             foreach (IWebElement element in elements)
@@ -67,7 +76,18 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <returns>The text in the textbox</returns>
         public static string GetElementAttribute(this ISearchContext searchContext, By by, string attribute = "value")
         {
-            return searchContext.Wait().ForVisibleElement(by).GetAttribute(attribute);
+            return GetElementAttribute(searchContext.Wait().ForVisibleElement(by), attribute);
+        }
+
+        /// <summary>
+        /// Get the value of a specific attribute for an element
+        /// </summary>
+        /// <param name="element">Web element</param>
+        /// <param name="attribute">The attribute to get the value for</param>
+        /// <returns>The text in the textbox</returns>
+        public static string GetElementAttribute(this IWebElement element, string attribute = "value")
+        {
+            return element.GetAttribute(attribute);
         }
 
         /// <summary>
@@ -79,7 +99,16 @@ namespace Magenic.Maqs.BaseSeleniumTest
         public static void CheckCheckBox(this ISearchContext searchContext, By by, bool check)
         {
             IWebElement element = searchContext.Wait().ForClickableElement(by);
+            CheckCheckBox(element, check);
+        }
 
+        /// <summary>
+        /// Check or Uncheck a checkbox NOTE: If checkbox is already in desired state, this method takes no action
+        /// </summary>
+        /// <param name="element">Web element</param>
+        /// <param name="check">True to check the checkbox. False to uncheck the checkbox</param>
+        public static void CheckCheckBox(this IWebElement element, bool check)
+        {
             if (check && !element.Selected)
             {
                 element.Click();
@@ -133,7 +162,17 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="elementsTextToSelect">List items as strings to select from list box</param>
         public static void SelectMultipleElementsFromListBox(this ISearchContext searchContext, By by, List<string> elementsTextToSelect)
         {
-            SelectElement selectItem = new SelectElement(searchContext.Wait().ForClickableElement(by));
+            SelectMultipleElementsFromListBox(searchContext.Wait().ForClickableElement(by), elementsTextToSelect);
+        }
+
+        /// <summary>
+        /// Select multiple items from a list box
+        /// </summary>
+        /// <param name="element">Web element</param>
+        /// <param name="elementsTextToSelect">List items as strings to select from list box</param>
+        public static void SelectMultipleElementsFromListBox(this IWebElement element, List<string> elementsTextToSelect)
+        {
+            SelectElement selectItem = new SelectElement(element);
 
             // Select all desired items in the listbox
             foreach (string text in elementsTextToSelect)
@@ -237,6 +276,16 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <summary>
         /// JavaScript method to scroll an element into the view
         /// </summary>
+        /// <param name="element">IWebElement</param>
+        public static void ScrollIntoView(this IWebElement element)
+        {
+            var driver = SeleniumUtilities.SearchContextToWebDriver(element);
+            driver.ScrollIntoView(element);
+        }
+
+        /// <summary>
+        /// JavaScript method to scroll an element into the view
+        /// </summary>
         /// <param name="searchContext">Web driver or element</param>
         /// <param name="element">IWebElement</param>
         public static void ScrollIntoView(this ISearchContext searchContext, IWebElement element)
@@ -256,6 +305,19 @@ namespace Magenic.Maqs.BaseSeleniumTest
         {
             ScrollIntoView(searchContext, by);
             ExecuteScrolling(searchContext, x, y);
+        }
+
+        /// <summary>
+        /// JavaScript method to scroll an element into the view
+        /// </summary>
+        /// <param name="element">Web element</param>
+        /// <param name="x">Horizontal direction</param>
+        /// <param name="y">Vertical direction</param>
+        public static void ScrollIntoView(this IWebElement element, int x, int y)
+        {
+            var driver = SeleniumUtilities.SearchContextToWebDriver(element);
+            ScrollIntoView(element);
+            ExecuteScrolling(driver, x, y);
         }
 
         /// <summary>
@@ -281,9 +343,20 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="textToEnter">The string being entered into the text input field</param>
         public static void SlowType(this ISearchContext searchContext, By by, string textToEnter)
         {
+            SlowType(searchContext.Wait().ForClickableElement(by), textToEnter);
+        }
+
+        /// <summary>
+        /// Method to slowly type a string
+        /// Used for scenarios where normal SendKeys types too quickly and causes issues with a website
+        /// </summary>
+        /// <param name="element">Web element</param>
+        /// <param name="textToEnter">The string being entered into the text input field</param>
+        public static void SlowType(this IWebElement element, string textToEnter)
+        {
             foreach (char singleLetter in textToEnter)
             {
-                searchContext.Wait().ForClickableElement(by).SendKeys(singleLetter.ToString());
+                element.SendKeys(singleLetter.ToString());
                 System.Threading.Thread.Sleep(500);
             }
         }
@@ -297,9 +370,19 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="logger">The Logging object</param>
         public static void SendSecretKeys(this ISearchContext searchContext, By by, string textToEnter, ILogger logger)
         {
+            SendSecretKeys(searchContext.Wait().ForClickableElement(by), textToEnter, logger);
+        }
+
+        /// <summary>
+        /// Method used to send secret keys without logging
+        /// </summary>
+        /// <param name="secretElement">Web element</param>
+        /// <param name="textToEnter">The string being entered into the text input field</param>
+        /// <param name="logger">The Logging object</param>
+        public static void SendSecretKeys(this IWebElement secretElement, string textToEnter, ILogger logger)
+        {
             try
             {
-                IWebElement secretElement = searchContext.Wait().ForClickableElement(by);
                 logger.SuspendLogging();
                 secretElement.SendKeys(textToEnter);
                 logger.ContinueLogging();
