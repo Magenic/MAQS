@@ -448,10 +448,12 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <returns>The web driver</returns>
         public static IWebDriver WebElementToWebDriver(IWebElement element)
         {
+            // Handle lazy elements differently 
             if (element is AbstractLazyIWebElement)
             {
                 var el = element as AbstractLazyIWebElement;
                 EventFiringWebDriver eventfir = el.WebDriver as EventFiringWebDriver;
+
                 if (eventfir != null)
                 {
                     return eventfir.WrappedDriver;
@@ -459,8 +461,6 @@ namespace Magenic.Maqs.BaseSeleniumTest
 
                 return el.WebDriver;
             }
-
-
 
             // Extract the web driver from the element
             IWebDriver driver;

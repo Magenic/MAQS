@@ -207,6 +207,9 @@ namespace SeleniumUnitTests
             Assert.AreEqual("4", this.WebDriver.FindElement(sliderLabelNumber).GetAttribute("value"));
         }
 
+        /// <summary>
+        /// Drag and drop
+        /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
         public void DragAndDrop()
@@ -221,9 +224,12 @@ namespace SeleniumUnitTests
             Assert.IsTrue(dropped.ExistsNow);
         }
 
+        /// <summary>
+        /// Drag and drop a lazy element to an offset
+        /// </summary>
         [TestMethod]
         [TestCategory(TestCategories.Selenium)]
-        public void DragAndDropLazy()
+        public void DragAndDropOffsetLazy()
         {
             this.WebDriver.Navigate().GoToUrl(siteAutomationUrl);
             this.WebDriver.Wait().ForPageLoad();
@@ -236,7 +242,7 @@ namespace SeleniumUnitTests
             // Make syure the drag and drop hasn't already happened 
             Assert.IsFalse(firstDropped.ExistsNow);
             Assert.IsFalse(secondDroped.ExistsNow);
-            
+
             // Get where the second drop location is relative to the first
             int horizontalDiff = secondDrop.Location.X - firstDrop.Location.X;
             int verticalDiff = secondDrop.Location.Y - firstDrop.Location.Y;
@@ -245,6 +251,33 @@ namespace SeleniumUnitTests
 
             // Make sure we actually dropped on the second drop location
             Assert.IsFalse(firstDropped.ExistsNow);
+            Assert.IsTrue(secondDroped.ExistsNow);
+        }
+
+        /// <summary>
+        /// Drag and drop to an offset
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void DragAndDropToOffset()
+        {
+            this.WebDriver.Navigate().GoToUrl(siteAutomationUrl);
+            this.WebDriver.Wait().ForPageLoad();
+
+            var draggable = new LazyElement(this.TestObject, By.Id("draggable"));
+            var secondDrop = new LazyElement(this.TestObject, By.Id("droppable2"));
+            var secondDroped = new LazyElement(secondDrop, By.Id("DROPPED"));
+
+            // Make syure the drag and drop hasn't already happened 
+            Assert.IsFalse(secondDroped.ExistsNow);
+
+            // Get where the second drop location is relative to the original location
+            int horizontalDiff = secondDrop.Location.X + (secondDrop.Size.Width / 4) - draggable.Location.X;
+            int verticalDiff = secondDrop.Location.Y + (secondDrop.Size.Height / 4) - draggable.Location.Y;
+
+            this.WebDriver.DragAndDropToOffset(By.Id("draggable"), horizontalDiff, verticalDiff);
+
+            // Make sure we actually dropped on the second drop location
             Assert.IsTrue(secondDroped.ExistsNow);
         }
 

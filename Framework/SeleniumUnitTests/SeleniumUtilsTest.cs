@@ -263,6 +263,21 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Test Lazy WebElementToDriver with an unwrappedDriver
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyWebElementToWebDriverUnwrappedDriver()
+        {
+            WebDriver.Navigate().GoToUrl(TestSiteAutomationUrl);
+            IWebDriver driver = this.WebDriver.GetLowLevelDriver();
+            LazyElement lazy = new LazyElement(this.TestObject, driver, AutomationShowDialog1);
+
+            IWebDriver basedriver = SeleniumUtilities.WebElementToWebDriver(lazy);
+            Assert.AreEqual("OpenQA.Selenium.Chrome.ChromeDriver", basedriver.GetType().ToString());
+        }
+
+        /// <summary>
         /// Test WebElementToDriver with an unwrappedDriver
         /// </summary>
         [TestMethod]
