@@ -206,7 +206,17 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="option">The option to select in drop down</param>
         public static void SelectDropDownOption(this ISearchContext searchContext, By by, string option)
         {
-            SelectElement select = new SelectElement(searchContext.Wait().ForClickableElement(by));
+            SelectDropDownOption(searchContext.Wait().ForClickableElement(by), option);
+        }
+
+        /// <summary>
+        /// Select an option from a drop down using displayed text
+        /// </summary>
+        /// <param name="element">The web element</param>
+        /// <param name="option">The option to select in drop down</param>
+        public static void SelectDropDownOption(this IWebElement element, string option)
+        {
+            SelectElement select = new SelectElement(element);
             select.SelectByText(option);
         }
 
@@ -218,7 +228,17 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="value">The value attribute for the option to select</param>
         public static void SelectDropDownOptionByValue(this ISearchContext searchContext, By by, string value)
         {
-            SelectElement select = new SelectElement(searchContext.Wait().ForClickableElement(by));
+            SelectDropDownOptionByValue(searchContext.Wait().ForClickableElement(by), value);
+        }
+
+        /// <summary>
+        /// Select an option from a drop down using the value attribute
+        /// </summary>
+        /// <param name="element">The web element</param>
+        /// <param name="value">The value attribute for the option to select</param>
+        public static void SelectDropDownOptionByValue(this IWebElement element, string value)
+        {
+            SelectElement select = new SelectElement(element);
             select.SelectByValue(value);
         }
 
@@ -231,6 +251,17 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="tabOff">True to press the Tab key after entering text</param>
         public static void SetTextBox(this ISearchContext searchContext, By by, string textToEnter, bool tabOff = true)
         {
+            SetTextBox(searchContext.Wait().ForVisibleElement(by), textToEnter, tabOff);
+        }
+
+        /// <summary>
+        /// Enter text into a textbox. NOTE: This function clears the textbox before entering text
+        /// </summary>
+        /// <param name="element">Web element</param>
+        /// <param name="textToEnter">Text to enter into the textbox</param>
+        /// <param name="tabOff">True to press the Tab key after entering text</param>
+        public static void SetTextBox(this IWebElement element, string textToEnter, bool tabOff = true)
+        {
             if (textToEnter != string.Empty && textToEnter != null)
             {
                 if (tabOff)
@@ -238,7 +269,6 @@ namespace Magenic.Maqs.BaseSeleniumTest
                     textToEnter += Keys.Tab;
                 }
 
-                IWebElement element = searchContext.Wait().ForVisibleElement(by);
                 element.Clear();
                 element.SendKeys(textToEnter);
             }
@@ -259,6 +289,17 @@ namespace Magenic.Maqs.BaseSeleniumTest
             IWebElement element = searchContext.FindElement(by);
 
             IJavaScriptExecutor executor = SeleniumUtilities.SearchContextToJavaScriptExecutor(searchContext);
+            executor.ExecuteScript("arguments[0].click();", element);
+        }
+
+        /// <summary>
+        /// Method to click an element via JavaScript
+        /// Used for scenarios where normal click can't reach, such as hidden or hover triggered elements.
+        /// </summary>
+        /// <param name="element">Element to click</param>
+        public static void ClickElementByJavaScript(this IWebElement element)
+        {
+            IJavaScriptExecutor executor = SeleniumUtilities.SearchContextToJavaScriptExecutor(element);
             executor.ExecuteScript("arguments[0].click();", element);
         }
 
