@@ -593,6 +593,78 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Driver level accessibility report with no report type filter
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void DriverAccessibilityHtmlWithoutFilter()
+        {
+            WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            WebDriver.Wait().ForPageLoad();
+
+            var report = File.ReadAllText(WebDriver.CreateAccessibilityHtmlReport(this.TestObject));
+
+            Assert.IsTrue(report.Contains("Violation:"), "Expected to have violation check");
+            Assert.IsTrue(report.Contains("Incomplete:"), "Expected to have incomplete check");
+            Assert.IsTrue(report.Contains("Pass:"), "Expected to have pass check");
+            Assert.IsTrue(report.Contains("Inapplicable:"), "Expected to have inapplicable check");
+        }
+
+        /// <summary>
+        /// Element level accessibility report with no report type filter
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void ElementAccessibilityHtmlWithoutFilter()
+        {
+            WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            WebDriver.Wait().ForPageLoad();
+
+            var report = File.ReadAllText(WebDriver.CreateAccessibilityHtmlReport(this.TestObject, WebDriver.FindElement(By.CssSelector("BODY"))));
+
+            Assert.IsTrue(report.Contains("Violation:"), "Expected to have violation check");
+            Assert.IsTrue(report.Contains("Incomplete:"), "Expected to have incomplete check");
+            Assert.IsTrue(report.Contains("Pass:"), "Expected to have pass check");
+            Assert.IsTrue(report.Contains("Inapplicable:"), "Expected to have inapplicable check");
+        }
+
+        /// <summary>
+        /// Driver level accessibility report with report type filter
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void DriverAccessibilityHtmlWithFilter()
+        {
+            WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            WebDriver.Wait().ForPageLoad();
+
+            var report = File.ReadAllText(WebDriver.CreateAccessibilityHtmlReport(this.TestObject, false, ReportTypes.Violations | ReportTypes.Inapplicable));
+
+            Assert.IsTrue(report.Contains("Violation:"), "Expected to have violation check");
+            Assert.IsFalse(report.Contains("Incomplete:"), "Expected not to have incomplete check");
+            Assert.IsFalse(report.Contains("Pass:"), "Expected not to have pass check");
+            Assert.IsTrue(report.Contains("Inapplicable:"), "Expected to have inapplicable check");
+        }
+
+        /// <summary>
+        /// Element level accessibility report with report type filter
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void ElementAccessibilityHtmlWithFilter()
+        {
+            WebDriver.Navigate().GoToUrl(TestSiteUrl);
+            WebDriver.Wait().ForPageLoad();
+
+            var report = File.ReadAllText(WebDriver.CreateAccessibilityHtmlReport(this.TestObject, WebDriver.FindElement(By.CssSelector("BODY")), false, ReportTypes.Incomplete));
+
+            Assert.IsFalse(report.Contains("Violation:"), "Expected not to have violation check");
+            Assert.IsTrue(report.Contains("Incomplete:"), "Expected to have incomplete check");
+            Assert.IsFalse(report.Contains("Pass:"), "Expected not to have pass check");
+            Assert.IsFalse(report.Contains("Inapplicable:"), "Expected not to have inapplicable check");
+        }
+
+        /// <summary>
         /// Verify we can create and associate an accessibility HTML report
         /// </summary>
         [TestMethod]

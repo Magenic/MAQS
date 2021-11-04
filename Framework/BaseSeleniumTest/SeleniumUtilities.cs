@@ -165,15 +165,18 @@ namespace Magenic.Maqs.BaseSeleniumTest
             return path;
         }
 
+
         /// <summary>
         /// Create a HTML accessibility report for an entire web page
         /// </summary>
         /// <param name="webDriver">The WebDriver</param>
         /// <param name="testObject">The TestObject to associate the report with</param>
         /// <param name="throwOnViolation">Should violations cause and exception to be thrown</param>
-        public static void CreateAccessibilityHtmlReport(this IWebDriver webDriver, ISeleniumTestObject testObject, bool throwOnViolation = false)
+        /// <param name="reportTypes">What type of results do you want in the report</param>
+        /// <returns>Path to the HTML report</returns>
+        public static string CreateAccessibilityHtmlReport(this IWebDriver webDriver, ISeleniumTestObject testObject, bool throwOnViolation = false, ReportTypes reportTypes = ReportTypes.All)
         {
-            CreateAccessibilityHtmlReport(webDriver, testObject, () => webDriver.Analyze(), throwOnViolation);
+            return CreateAccessibilityHtmlReport(webDriver, testObject, () => webDriver.Analyze(), throwOnViolation, reportTypes);
         }
 
         /// <summary>
@@ -183,15 +186,11 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="testObject">The TestObject to associate the report with</param>
         /// <param name="element">The WebElement you want to use as the root for your accessibility scan</param>
         /// <param name="throwOnViolation">Should violations cause and exception to be thrown</param>
-        public static void CreateAccessibilityHtmlReport(this IWebDriver webDriver, ISeleniumTestObject testObject, IWebElement element, bool throwOnViolation = false)
+        /// <param name="reportTypes">What type of results do you want in the report</param>
+        /// <returns>Path to the HTML report</returns>
+        public static string CreateAccessibilityHtmlReport(this IWebDriver webDriver, ISeleniumTestObject testObject, IWebElement element, bool throwOnViolation = false, ReportTypes reportTypes = ReportTypes.All)
         {
-            // If we are using a lazy element go get the raw element instead
-            if (element is LazyElement lazy)
-            {
-                element = lazy.GetRawExistingElement();
-            }
-
-            CreateAccessibilityHtmlReport(element, testObject, () => webDriver.Analyze(element), throwOnViolation);
+            return CreateAccessibilityHtmlReport(element, testObject, () => webDriver.Analyze(element), throwOnViolation, reportTypes);
         }
 
         /// <summary>
@@ -201,14 +200,10 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// <param name="testObject">The TestObject to associate the report with</param>
         /// <param name="getResults">Function for getting the accessibility scan results</param>
         /// <param name="throwOnViolation">Should violations cause and exception to be thrown</param>
-        public static void CreateAccessibilityHtmlReport(this ISearchContext context, ISeleniumTestObject testObject, Func<AxeResult> getResults, bool throwOnViolation = false)
+        /// <param name="reportTypes">What type of results do you want in the report</param>
+        /// <returns>Path to the HTML report</returns>
+        public static string CreateAccessibilityHtmlReport(this ISearchContext context, ISeleniumTestObject testObject, Func<AxeResult> getResults, bool throwOnViolation = false, ReportTypes reportTypes = ReportTypes.All)
         {
-            // If we are using a lazy element go get the raw element instead
-            if (context is LazyElement lazy)
-            {
-                context = lazy.GetRawExistingElement();
-            }
-
             // Check to see if the logger is not verbose and not already suspended
             bool restoreLogging = testObject.Log.GetLoggingLevel() != MessageType.VERBOSE && testObject.Log.GetLoggingLevel() != MessageType.SUSPENDED;
 
@@ -225,7 +220,7 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 }
 
                 results = getResults();
-                context.CreateAxeHtmlReport(results, report);
+                context.CreateAxeHtmlReport(results, report, reportTypes);
             }
             finally
             {
@@ -251,6 +246,9 @@ namespace Magenic.Maqs.BaseSeleniumTest
             {
                 throw new InvalidOperationException($"Accessibility check failure, see: {report} for more details.");
             }
+
+            // Return report path
+            return report;
         }
 
         /// <summary>
