@@ -325,14 +325,16 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
         {
             get
             {
+                // Get the actual element
                 var element = this.GetRawExistingElement();
 
+                // If the element is wrapped get the lower level unwrapped version
                 if (element is IWrapsElement argAsWrapsElement)
                 {
                     return argAsWrapsElement.WrappedElement;
-
                 }
 
+                // This element can be used with things like action builders
                 return element;
             }
         }
