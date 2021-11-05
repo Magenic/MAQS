@@ -303,7 +303,7 @@ namespace SeleniumUnitTests
         {
             string platform = SeleniumConfig.GetRemotePlatform();
 
-            Assert.AreEqual(platform, string.Empty);
+            Assert.AreEqual("Windows 10", platform);
         }
 
         /// <summary>
@@ -315,7 +315,7 @@ namespace SeleniumUnitTests
         {
             string version = SeleniumConfig.GetRemoteBrowserVersion();
 
-            Assert.AreEqual(version, string.Empty);
+            Assert.AreEqual(string.Empty, version);
         }
 
         /// <summary>
