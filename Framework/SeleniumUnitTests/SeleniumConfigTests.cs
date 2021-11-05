@@ -579,5 +579,16 @@ namespace SeleniumUnitTests
                    "SeleniumMaqs");
             }
         }
+
+        /// <summary>
+        /// Capablities with colons are included in the top level capabilities 
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void CapablitiesWithColons()
+        {
+            var caps = WebDriverFactory.GetDefaultRemoteOptions().ToCapabilities();
+            Assert.AreEqual("test", caps.GetCapability("test:test"));
+        }
     }
 }
