@@ -130,6 +130,21 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Unit test for entering text into a textbox and getting text from a textbox
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void SetTextBoxAndVerifyValueTestWithLazy()
+        {
+            string expectedValue = "Tester";
+            NavigateToUrl();
+            LazyElement lazy = new LazyElement(this.TestObject, firstNameTextBox);
+            lazy.SetTextBox(expectedValue);
+            string actualValue = WebDriver.GetElementAttribute(firstNameTextBox);
+            VerifyText(actualValue, expectedValue);
+        }
+
+        /// <summary>
         /// Check that SetTextBox throws correct exception with an empty input string
         /// </summary>
         [TestMethod]
@@ -215,6 +230,21 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Unit Test for selecting an item from a dropdown and getting the selected item from a dropdown (By actual value)
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void SelectItemFromDropDownTestWithElement()
+        {
+            string expectedSelection = "Emily";
+            NavigateToUrl();
+            var dropdown = this.WebDriver.FindElement(nameDropdown);
+            dropdown.SelectDropDownOption(expectedSelection);
+            string actualSelection = WebDriver.GetSelectedOptionFromDropdown(nameDropdown);
+            VerifyText(actualSelection, expectedSelection);
+        }
+
+        /// <summary>
         /// Unit Test for selecting an item from a dropdown and getting the selected item from a dropdown (By list value)
         /// </summary>
         [TestMethod]
@@ -223,7 +253,25 @@ namespace SeleniumUnitTests
         {
             string expectedSelection = "Jack";
             NavigateToUrl();
+            this.WebDriver.Wait().ForPageLoad();
             WebDriver.SelectDropDownOptionByValue(nameDropdown, "two");
+            string actualSelection = WebDriver.GetSelectedOptionFromDropdown(nameDropdown);
+            VerifyText(actualSelection, expectedSelection);
+        }
+
+        /// <summary>
+        /// Unit Test for selecting an item from a dropdown and getting the selected item from a dropdown (By list value)
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void SelectItemFromDropDownByValueTestWithElement()
+        {
+            string expectedSelection = "Jack";
+            NavigateToUrl();
+            this.WebDriver.Wait().ForPageLoad();
+            var element = this.WebDriver.FindElement(nameDropdown);
+
+            element.SelectDropDownOptionByValue("two");
             string actualSelection = WebDriver.GetSelectedOptionFromDropdown(nameDropdown);
             VerifyText(actualSelection, expectedSelection);
         }
@@ -246,6 +294,33 @@ namespace SeleniumUnitTests
 
             NavigateToUrl();
             WebDriver.SelectMultipleElementsFromListBox(computerPartsList, itemsToSelect);
+            List<string> selectedItems = WebDriver.GetSelectedOptionsFromDropdown(computerPartsList);
+            ListProcessor.ListOfStringsComparer(itemsToSelect, selectedItems, results);
+            if (results.Length > 0)
+            {
+                Assert.Fail(results.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Unit Test for selecting multiple items from a list box and getting all selected items in a list box(By actual value)
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void SelectMultipleItemsFromListBoxTestWithElement()
+        {
+            StringBuilder results = new StringBuilder();
+
+            List<string> itemsToSelect = new List<string>
+            {
+                "Monitor",
+                "Hard Drive",
+                "Keyboard"
+            };
+
+            NavigateToUrl();
+            var element = this.WebDriver.Wait().ForClickableElement(computerPartsList);
+            element.SelectMultipleElementsFromListBox(itemsToSelect);
             List<string> selectedItems = WebDriver.GetSelectedOptionsFromDropdown(computerPartsList);
             ListProcessor.ListOfStringsComparer(itemsToSelect, selectedItems, results);
             if (results.Length > 0)
@@ -287,6 +362,20 @@ namespace SeleniumUnitTests
         {
             NavigateToUrl();
             WebDriver.ClickElementByJavaScript(employeeButton);
+            WebDriver.Wait().ForPageLoad();
+            WebDriver.Wait().ForExactText(employeePageTitle, "Index");
+        }
+
+        /// <summary>
+        /// Unit test for ClickElementByJavaScript using a hover dropdown, where dropdown is not visible
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void ClickElementByJavascriptFromHoverDropdownWithLazy()
+        {
+            NavigateToUrl();
+            LazyElement button = new LazyElement(this.TestObject, employeeButton);
+            button.ClickElementByJavaScript();
             WebDriver.Wait().ForPageLoad();
             WebDriver.Wait().ForExactText(employeePageTitle, "Index");
         }

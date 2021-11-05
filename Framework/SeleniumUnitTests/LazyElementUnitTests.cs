@@ -1187,6 +1187,29 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Get wrapped element
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyWrapped()
+        {
+            Assert.IsFalse(this.InputBox.WrappedElement is IWrapsElement, "Element should not be wrapped");
+        }
+
+        /// <summary>
+        /// Get wrapped element using non-event firing
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void LazyWrappedWithoutEventFiring()
+        {
+            // Create lazy element without event firing 
+            var lazy = new LazyElement(this.TestObject, this.WebDriver.GetLowLevelDriver(), this.InputBox.By);
+            
+            Assert.IsFalse(lazy.WrappedElement is IWrapsElement, "Element should not be wrapped");
+        }
+
+        /// <summary>
         /// Make sure the page gets reloaded
         /// </summary>
         /// <param name="driver">Current test web driver</param>

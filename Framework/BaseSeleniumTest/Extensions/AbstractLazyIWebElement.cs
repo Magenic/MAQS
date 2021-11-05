@@ -23,7 +23,7 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
     /// <summary>
     /// Abstract structure for dynamically finding and interacting with elements
     /// </summary>
-    public abstract class AbstractLazyIWebElement : IWebElement
+    public abstract class AbstractLazyIWebElement : IWebElement, IWrapsElement
     {
         /// <summary>
         /// The index in cases where the selector finds multiple elements
@@ -315,6 +315,27 @@ namespace Magenic.Maqs.BaseSeleniumTest.Extensions
                     },
                 this.WaitTime(),
                 this.TimeoutTime());
+            }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="IWebElement"/> wrapped by this object.
+        /// </summary>
+        public IWebElement WrappedElement
+        {
+            get
+            {
+                // Get the actual element
+                var element = this.GetRawExistingElement();
+
+                // If the element is wrapped get the lower level unwrapped version
+                if (element is IWrapsElement argAsWrapsElement)
+                {
+                    return argAsWrapsElement.WrappedElement;
+                }
+
+                // This element can be used with things like action builders
+                return element;
             }
         }
 

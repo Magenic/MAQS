@@ -5,6 +5,24 @@ This class provides additional helper methods on top of Selenium's base interact
 
 ## Check a Checkbox
 Checks or unchecks an element. It will check the element if the bool argument is true. It will uncheck the element if the bool argument is false.  If the box is already in state the action wants it to be in upon completing that action, then the action will not do any checking or unchecking.
+
+### Written as
+```csharp
+CheckCheckBox(bool checkBoxState);
+```
+
+### Example
+```csharp
+// Define the checkbox element
+var checkBox = new LazyElement(this.TestObject, By.Id("CheckBox"));
+
+// If the checkbox is unchecked, then the driver will check the checkbox
+checkBox.CheckCheckBox(true);
+
+// If the checkbox is unchecked, then the driver will uncheckcheck the checkbox
+checkBox.CheckCheckBox(false);
+```
+
 ### Written as
 ```csharp
 CheckCheckBox(By bySelector, bool checkBoxState);
@@ -28,6 +46,7 @@ In applications a checkbox will either be checked or unchecked.  Stating "click 
 
 ## Click Button and Wait For Button Disappear
 Clicks an element. If the bool argument is true, it will wait until the button disappears after clicking it, else it will immediately return.  If it waits for the button to disappear, it will throw an exception if it does not.  If it does not wait for the button to disappear, it will continue.
+
 ### Written as
 ```csharp
 ClickButton(By bySelector, bool waitForButton);
@@ -42,6 +61,15 @@ this.webDriver.ClickButton(By.TagName("button"), true);
 
 ## Click Element With JavaScript
 Clicks an element using JavaScript's [click][1] method where using the normal Selenium Click method may not work correctly, such as hidden or hover triggered elements.
+### Written as
+```csharp
+ClickElementByJavaScript();
+```
+### Example
+```csharp
+LazyElement largeButton = new LazyElement(this.TestObject, By.Id("LargeButton"));
+largeButton.ClickElementByJavaScript();
+```
 ### Written as
 ```csharp
 ClickElementByJavaScript(By bySelector);
@@ -140,6 +168,19 @@ List<string> listOfNamesSelected = this.webDriver.GetSelectedOptionsFromDropdown
 
 ## Scroll until Element is in View
 Uses the JavaScript [scrollIntoView][2] method to scroll an element into the view.
+
+### Written as
+```csharp
+ScrollIntoView();
+```
+### Example
+```csharp
+// Page title element
+var pageTitle = new LazyElement(this.TestObject, By.CssSelector(".title"));
+
+// Scrolls until the page title is in view
+pageTitle.ScrollIntoView();
+```
 ### Written as
 ```csharp
 this.webDriver.ScrollIntoView(By bySelector);
@@ -157,6 +198,18 @@ this.webDriver.ScrollIntoView(pageTitle);
 Uses the JavaScript [scrollIntoView][2] and [scroll][3] methods to scroll an element into view and then scroll based on an offset from the location of that element using the x and y arguments.
 ### Written as
 ```csharp
+ScrollIntoView(int xOffset, int yOffset);
+```
+### Example
+```csharp
+// Page title element
+var pageTitle = new LazyElement(this.TestObject, By.CssSelector(".title"));
+
+// Scrolls to the page title and then scrolls by the x and y offsets
+pageTitle.ScrollIntoView(-20, 150);
+```
+### Written as
+```csharp
 ScrollIntoView(By bySelector, int xOffset, int yOffset);
 ```
 ### Example
@@ -170,6 +223,18 @@ this.webDriver.ScrollIntoView(pageTitle , -20, 150);
 
 ## Select Dropdown Option by Option's Text
 Selects an option element from a select element using the option's displayed text.
+### Written as
+```csharp
+SelectDropDownOption(string optionText);
+```
+### Example
+```csharp
+// Computer parts element.
+var computerParts = this.WebDriver.FindElement(By.CssSelector("ul>#options"));
+
+// Selects the element inside the computer parts options where the text matches "Motherboard"
+computerParts.SelectDropDownOption("Motherboard");
+```
 ### Written as
 ```csharp
 SelectDropDownOption(By bySelector, string optionText);
@@ -188,6 +253,19 @@ Selects an option element from a select element using the option's value attribu
 
 ### Written as
 ```csharp
+SelectDropDownOptionByValue(string valueAttributeText);
+```
+### Example
+```csharp
+// Computer parts element.
+var computerParts = this.WebDriver.FindElement(By.CssSelector("ul>#options"));
+
+// Selects the element where the value attribute is equal to "1"
+computerParts.SelectDropDownOptionByValue( "1");
+```
+
+### Written as
+```csharp
 SelectDropDownOptionByValue(By bySelector, string valueAttributeText);
 ```
 ### Example
@@ -199,8 +277,22 @@ private static By computerParts = By.CssSelector("ul>#options");
 this.webDriver.SelectDropDownOptionByValue(computerParts , "1");
 ```
 
+
 ## Select Multiple Dropdown Options by Options Text
 Selects multiple option elements from a list box using a list of strings of the option elements' displayed texts.
+
+### Written as
+```csharp
+SelectMultipleElementsFromListBox(List<string> optionText);
+```
+
+### Example
+```csharp
+// Computer parts element.
+var element = this.WebDriver.Wait().ForClickableElement(By.CssSelector("ul>#options"));
+
+element.SelectMultipleElementsFromListBox(new List<string> { "Motherboard", "CPU", "Flux Capacitor" });
+```
 
 ### Written as
 ```csharp
@@ -231,6 +323,19 @@ this.webDriver.SelectMultipleElementsFromListBoxByValue(computerParts , new List
 
 ## Set Text Box
 Enters text into an element. It also clears the element before entering anything. If the tabOff  is not set or is set to true, then the last key sent will be a tab, else it won't send a tab key at the end of typing the string argument.
+
+### Written as
+```csharp
+SetTextBox(string textToEnter, bool tabOff = true);
+```
+### Example
+```csharp
+// Text field element
+var element = this.WebDriver.Wait().ForClickableElement(By.Id("textBox"));
+
+// Sends the words "hello, world" to the text box, and then sends tab
+element.SetTextBox("hello, world");
+```
 ### Written as
 ```csharp
 SetTextBox(By bySelector, string textToEnter, bool tabOff = true);
@@ -238,7 +343,7 @@ SetTextBox(By bySelector, string textToEnter, bool tabOff = true);
 ### Example
 ```csharp
 // By selector for a textField
-private static By textField = By.Id("textBox);
+private static By textField = By.Id("textBox");
 
 // Sends the words "hello, world" to the text box, and then sends tab
 this.webDriver.SetTextBox(textField , "hello, world");

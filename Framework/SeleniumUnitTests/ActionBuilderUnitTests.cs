@@ -56,6 +56,16 @@ namespace SeleniumUnitTests
         private static readonly By employeePageTitle = By.CssSelector("body > div.container.body-content > h2");
 
         /// <summary>
+        /// Date picker image
+        /// </summary>
+        private static readonly By datePickerImage = By.CssSelector("#datepicker + img");
+
+        /// <summary>
+        /// Date picker calendar
+        /// </summary>
+        private static readonly By datePickerCalendar = By.CssSelector("#ui-datepicker-div");
+
+        /// <summary>
         /// Slider object
         /// </summary>
         private static readonly By slider = By.CssSelector("#slider > span");
@@ -89,6 +99,75 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Unit test for the Hover Over function
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void HoverOverTestLazy()
+        {
+            this.NavigateToUrl(siteUrl);
+            new LazyElement(this.TestObject, manageDropdown).HoverOver();
+            this.WebDriver.Wait().ForClickableElement(employeeButton).Click();
+            this.WebDriver.Wait().ForExactText(employeePageTitle, "Index");
+        }
+
+        /// <summary>
+        /// Check that a double-click triggered successfully
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void DoubleClick()
+        {
+            this.NavigateToUrl(siteAutomationUrl);
+
+            var icon = new LazyElement(this.TestObject, datePickerImage);
+            var calendar = new LazyElement(this.TestObject, datePickerCalendar);
+
+            // Make sure we can see the calendar if we need to take a screenshot
+            icon.ScrollIntoView(0, this.WebDriver.Manage().Window.Size.Height / 2);
+
+            // Make sure another double click results in the calendar not being displayed
+            this.WebDriver.DoubleClick(datePickerImage);
+            this.WebDriver.Wait().ForPageLoad();
+            Assert.IsFalse(calendar.Displayed);
+        }
+
+        /// <summary>
+        /// Check that a double-click triggered successfully with lazy elements
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void DoubleClickWithLazy()
+        {
+            this.NavigateToUrl(siteAutomationUrl);
+
+            // Trigger a right click event
+            var icon = new LazyElement(this.TestObject, datePickerImage);
+            var calendar = new LazyElement(this.TestObject, datePickerCalendar);
+
+            // Make sure we can see the calendar if we need to take a screenshot
+            icon.ScrollIntoView(0, this.WebDriver.Manage().Window.Size.Height / 2);
+
+            Assert.IsFalse(calendar.Displayed);
+
+            // Make sure single click displays the calendar
+            icon.Click();
+            this.WebDriver.Wait().ForPageLoad();
+            Assert.IsTrue(calendar.Displayed);
+
+            // Make sure another click makes the calendar go away
+            icon.Click();
+            this.WebDriver.Wait().ForPageLoad();
+            Assert.IsFalse(calendar.Displayed);
+
+
+            // Make sure another double click results in the calendar not being displayed
+            icon.DoubleClick();
+            this.WebDriver.Wait().ForPageLoad();
+            Assert.IsFalse(calendar.Displayed);
+        }
+
+        /// <summary>
         /// Unit test for the Press Modifier Key function
         /// </summary>
         [TestMethod]
@@ -116,6 +195,93 @@ namespace SeleniumUnitTests
         }
 
         /// <summary>
+        /// Unit test for the slider action
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void MoveSliderTestLazy()
+        {
+            this.WebDriver.Navigate().GoToUrl(siteAutomationUrl);
+            this.WebDriver.Wait().ForPageLoad();
+            new LazyElement(this.TestObject, slider).SlideElement(50);
+            Assert.AreEqual("4", this.WebDriver.FindElement(sliderLabelNumber).GetAttribute("value"));
+        }
+
+        /// <summary>
+        /// Drag and drop
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void DragAndDrop()
+        {
+            this.WebDriver.Navigate().GoToUrl(siteAutomationUrl);
+            this.WebDriver.Wait().ForPageLoad();
+
+            var dropped = new LazyElement(this.TestObject, By.Id("DROPPED"));
+            Assert.IsFalse(dropped.ExistsNow);
+
+            this.WebDriver.DragAndDrop(By.Id("draggable"), By.Id("droppable2"));
+            Assert.IsTrue(dropped.ExistsNow);
+        }
+
+        /// <summary>
+        /// Drag and drop a lazy element to an offset
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void DragAndDropOffsetLazy()
+        {
+            this.WebDriver.Navigate().GoToUrl(siteAutomationUrl);
+            this.WebDriver.Wait().ForPageLoad();
+
+            var firstDrop = new LazyElement(this.TestObject, By.Id("droppable"));
+            var secondDrop = new LazyElement(this.TestObject, By.Id("droppable2"));
+            var firstDropped = new LazyElement(firstDrop, By.Id("DROPPED"));
+            var secondDroped = new LazyElement(secondDrop, By.Id("DROPPED"));
+
+            // Make syure the drag and drop hasn't already happened 
+            Assert.IsFalse(firstDropped.ExistsNow);
+            Assert.IsFalse(secondDroped.ExistsNow);
+
+            // Get where the second drop location is relative to the first
+            int horizontalDiff = secondDrop.Location.X - firstDrop.Location.X;
+            int verticalDiff = secondDrop.Location.Y - firstDrop.Location.Y;
+
+            this.WebDriver.DragAndDropToOffset(By.Id("draggable"), By.Id("droppable"), horizontalDiff, verticalDiff);
+
+            // Make sure we actually dropped on the second drop location
+            Assert.IsFalse(firstDropped.ExistsNow);
+            Assert.IsTrue(secondDroped.ExistsNow);
+        }
+
+        /// <summary>
+        /// Drag and drop to an offset
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void DragAndDropToOffset()
+        {
+            this.WebDriver.Navigate().GoToUrl(siteAutomationUrl);
+            this.WebDriver.Wait().ForPageLoad();
+
+            var draggable = new LazyElement(this.TestObject, By.Id("draggable"));
+            var secondDrop = new LazyElement(this.TestObject, By.Id("droppable2"));
+            var secondDroped = new LazyElement(secondDrop, By.Id("DROPPED"));
+
+            // Make syure the drag and drop hasn't already happened 
+            Assert.IsFalse(secondDroped.ExistsNow);
+
+            // Get where the second drop location is relative to the original location
+            int horizontalDiff = secondDrop.Location.X + (secondDrop.Size.Width / 4) - draggable.Location.X;
+            int verticalDiff = secondDrop.Location.Y + (secondDrop.Size.Height / 4) - draggable.Location.Y;
+
+            this.WebDriver.DragAndDropToOffset(By.Id("draggable"), horizontalDiff, verticalDiff);
+
+            // Make sure we actually dropped on the second drop location
+            Assert.IsTrue(secondDroped.ExistsNow);
+        }
+
+        /// <summary>
         /// Check that a right-click context menu can be triggered successfully
         /// </summary>
         [TestMethod]
@@ -126,6 +292,22 @@ namespace SeleniumUnitTests
 
             // Trigger a right click event
             this.WebDriver.RightClick(rightClickableElementWithContextMenu);
+
+            // Check that context menu appeared
+            Assert.IsTrue(this.WebDriver.FindElement(rightClickContextSaveText).Displayed);
+        }
+
+        /// <summary>
+        /// Check that a right-click context menu can be triggered successfully with lazy elements
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        public void RightClickToTriggerContextMenuLazy()
+        {
+            this.NavigateToUrl(siteAutomationUrl);
+
+            // Trigger a right click event
+            new LazyElement(this.TestObject, rightClickableElementWithContextMenu).RightClick();
 
             // Check that context menu appeared
             Assert.IsTrue(this.WebDriver.FindElement(rightClickContextSaveText).Displayed);
@@ -143,6 +325,20 @@ namespace SeleniumUnitTests
 
             // Trigger a right click event against non-existent element
             this.WebDriver.RightClick(By.CssSelector(".none"));
+        }
+
+        /// <summary>
+        /// Check that a right-click fails on non-existent element
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Selenium)]
+        [ExpectedException(typeof(WebDriverTimeoutException), "Right-Click did not raise appropriate exception on element not being found")]
+        public void RightClickToTriggerContextMenuNotFoundLazy()
+        {
+            this.NavigateToUrl(siteAutomationUrl);
+
+            // Trigger a right click event against non-existent element
+            new LazyElement(this.TestObject, By.CssSelector(".none")).RightClick();
         }
 
         /// <summary>
