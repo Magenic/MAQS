@@ -234,7 +234,7 @@ namespace Magenic.Maqs.BaseAppiumTest
                     try
                     {
                         // Check if this is a Json string
-                        var jsonDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(keyValue.Value as string);
+                        var jsonDictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(keyValue.Value as string);
                         appiumOptions.AddAdditionalAppiumOption(keyValue.Key, jsonDictionary);
                     }
                     catch

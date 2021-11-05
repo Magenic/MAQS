@@ -4,6 +4,7 @@
 // </copyright>
 // <summary>Web driver factory</summary>
 //--------------------------------------------------
+using Newtonsoft.Json;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
@@ -409,13 +410,13 @@ namespace Magenic.Maqs.BaseSeleniumTest
             // Add a platform setting if one was provided
             if (!string.IsNullOrEmpty(remotePlatform) && !remoteCapabilities.ContainsKey("platform"))
             {
-                remoteCapabilities.Add("platform", remotePlatform);
+                options.PlatformName = remotePlatform;
             }
 
             // Add a remote browser setting if one was provided
             if (!string.IsNullOrEmpty(remoteBrowserVersion) && !remoteCapabilities.ContainsKey("version"))
             {
-                remoteCapabilities.Add("version", remoteBrowserVersion);
+                options.BrowserVersion = remoteBrowserVersion;
             }
 
             // Add additional capabilities to the driver options
@@ -442,24 +443,42 @@ namespace Magenic.Maqs.BaseSeleniumTest
                 // Make sure there is a value
                 if (keyValue.Value != null && (!(keyValue.Value is string) || !string.IsNullOrEmpty(keyValue.Value as string)))
                 {
-                    switch (driverOptions)
+                    // Handle W3C complient keys
+                    if (keyValue.Key.Contains(":"))
                     {
-                        case ChromeOptions chromeOptions:
-                            chromeOptions.AddAdditionalChromeOption(keyValue.Key, keyValue.Value);
-                            break;
-                        case FirefoxOptions firefoxOptions:
-                            firefoxOptions.AddAdditionalFirefoxOption(keyValue.Key, keyValue.Value);
-                            break;
-                        case InternetExplorerOptions ieOptions:
-                            ieOptions.AddAdditionalInternetExplorerOption(keyValue.Key, keyValue.Value);
-                            break;
-                        case EdgeOptions ieOptions:
-                            ieOptions.AddAdditionalEdgeOption(keyValue.Key, keyValue.Value);
-                            break;
-                        default:
-                            // Not one of our 4 main types
+                        try
+                        {
+                            // Check if this is a Json string
+                            var jsonDictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(keyValue.Value as string);
+                            driverOptions.AddAdditionalOption(keyValue.Key, jsonDictionary);
+                        }
+                        catch
+                        {
+                            // Not Json string so add as a normal string
                             driverOptions.AddAdditionalOption(keyValue.Key, keyValue.Value);
-                            break;
+                        }
+                    }
+                    else
+                    {
+                        switch (driverOptions)
+                        {
+                            case ChromeOptions chromeOptions:
+                                chromeOptions.AddAdditionalChromeOption(keyValue.Key, keyValue.Value);
+                                break;
+                            case FirefoxOptions firefoxOptions:
+                                firefoxOptions.AddAdditionalFirefoxOption(keyValue.Key, keyValue.Value);
+                                break;
+                            case InternetExplorerOptions ieOptions:
+                                ieOptions.AddAdditionalInternetExplorerOption(keyValue.Key, keyValue.Value);
+                                break;
+                            case EdgeOptions ieOptions:
+                                ieOptions.AddAdditionalEdgeOption(keyValue.Key, keyValue.Value);
+                                break;
+                            default:
+                                // Not one of our 4 main types
+                                driverOptions.AddAdditionalOption(keyValue.Key, keyValue.Value);
+                                break;
+                        }
                     }
                 }
             }
