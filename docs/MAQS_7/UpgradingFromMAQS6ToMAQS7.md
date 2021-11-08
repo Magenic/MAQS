@@ -54,6 +54,9 @@ This means you can/should remove the following references:
 <PackageReference Include="Selenium.WebDriver.IEDriver" Version="#.#.#.#" />
 ```
 
+*___To assure you are using the WebDriverManager provided drivers, it is recommended that you completely delete your bin folder after upgrading.  This is because old web drivers from a previous build may have been left behind.___
+
+
 ## Move to Selenium 4
 Selenium 4 has numerous updates, full details can be found here:
 https://github.com/SeleniumHQ/selenium/blob/trunk/dotnet/CHANGELOG
