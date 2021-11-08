@@ -25,6 +25,19 @@ this.PerfTimerCollection.EndTimer("testTimer");
 this.PerfTimerCollection.StartTimer("testTimer");
 this.PerfTimerCollection.StopTimer("testTimer");
 ```
+
+### ManagerDictionary
+ManagerDictionary has changed to ManagerStore and IManagerStore.  If you were passing the manager store items into a method the casting will change.
+``` csharp
+// Old
+public void ExampleMethod(ManagerDictionary managerStore)
+{ }
+
+// New
+public void ExampleMethod(IManagerStore managerStore)
+{ }
+```
+
 ## Let there be interfaces
 MAQS 7 implements many more interface.  
 This is meant to make MAQS far more extendable.
