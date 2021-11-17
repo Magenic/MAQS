@@ -212,7 +212,37 @@ namespace CompositeUnitTests
         }
 
         /// <summary>
-        /// Get a manager store 
+        /// Tries to get a specific driver based on name
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Framework)]
+        public void TryGetDriver()
+        {
+            IManagerStore managerStore = new ManagerStore();
+            DriverManager managerToKeep = GetManager();
+            managerStore.Add("TestDriver", managerToKeep);
+            var result = managerStore.TryGetDriver<WebServiceDriver>("TestDriver", out var driver);
+            Assert.IsTrue(result, "Could not find driver");
+            Assert.IsNotNull(driver, "Driver was null");
+        }
+
+        /// <summary>
+        /// Tries to get a driver that is expected not to exist
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Framework)]
+        public void TryGetDriverNotFOund()
+        {
+            IManagerStore managerStore = new ManagerStore();
+            DriverManager managerToKeep = GetManager();
+            managerStore.Add("TestDriver", managerToKeep);
+            var result = managerStore.TryGetDriver<WebServiceDriver>("NotFound", out var driver);
+            Assert.IsFalse(result, "Should not find driver");
+            Assert.IsNull(driver, "Driver was not null");
+        }
+
+        /// <summary>
+        /// Get a manager store
         /// </summary>
         /// <returns>The manager dictionary</returns>
         private static IManagerStore GetManagerStore()

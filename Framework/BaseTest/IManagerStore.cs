@@ -40,7 +40,7 @@ namespace Magenic.Maqs.BaseTest
         void AddOrOverride(string key, IDriverManager manager);
 
         /// <summary>
-        /// Cleanup after all drivers and clear out all managers 
+        /// Cleanup after all drivers and clear out all managers
         /// </summary>
         void Clear();
 
@@ -113,5 +113,14 @@ namespace Magenic.Maqs.BaseTest
         /// <typeparam name="T">Type of unkeyed manager</typeparam>
         /// <returns>True if the manager was removed</returns>
         bool Remove<T>() where T : IDriverManager;
+
+        /// <summary>
+        ///  Gets the value associated with the specified key
+        /// </summary>
+        /// <typeparam name="T">Driver type</typeparam>
+        /// <param name="key">Key name</param>
+        /// <param name="driver">Driver to return</param>
+        /// <returns>True if it finds the driver based on key</returns>
+        bool TryGetDriver<T>(string key, out T driver);
     }
 }
