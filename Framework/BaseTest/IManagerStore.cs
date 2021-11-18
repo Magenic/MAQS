@@ -122,5 +122,7 @@ namespace Magenic.Maqs.BaseTest
         /// <param name="driver">Driver to return</param>
         /// <returns>True if it finds the driver based on key</returns>
         bool TryGetDriver<T>(string key, out T driver);
+
+        bool TryGetManager<T>(string key, out T driver) where T : IDriverManager;
     }
 }

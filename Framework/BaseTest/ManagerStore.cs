@@ -201,6 +201,24 @@ namespace Magenic.Maqs.BaseTest
         }
 
         /// <summary>
+        ///  Gets the value associated with the specified key
+        /// </summary>
+        /// <typeparam name="T">Driver type</typeparam>
+        /// <param name="key">Key name</param>
+        /// <param name="driver">Driver to return</param>
+        /// <returns>True if it finds the driver based on key</returns>
+        public bool TryGetManager<T>(string key, out T driver) where T : IDriverManager
+        {
+            if (Contains(key))
+            {
+                driver = GetManager<T>(key);
+                return true;
+            }
+            driver = default;
+            return false;
+        }
+
+        /// <summary>
         /// Cleanup the driver
         /// </summary>
         /// <param name="disposing">Dispose managed objects</param>
