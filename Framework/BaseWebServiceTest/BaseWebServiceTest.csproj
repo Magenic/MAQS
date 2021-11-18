@@ -1,59 +1,65 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <VersionPrefix>7.0.0</VersionPrefix>
-    <VersionSuffix>alpha.1</VersionSuffix>
-  </PropertyGroup>
+	<PropertyGroup>
+		<VersionPrefix>7.0.0</VersionPrefix>
+		<VersionSuffix>alpha.1</VersionSuffix>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <TargetFrameworks>net471;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <PackageId>Magenic.Maqs.WebService</PackageId>
-    <Product>Magenic.Maqs.Base</Product>
-    <AssemblyName>Magenic.Maqs.BaseWebServiceTest</AssemblyName>
-    <RootNamespace>Magenic.Maqs.BaseWebServiceTest</RootNamespace>
-    <ApplicationIcon>MAQS.ico</ApplicationIcon>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Authors>Magenic</Authors>
-    <Company>Magenic</Company>
-    <Description>Web Service extension for Magenic's automation quick start framework</Description>
-    <Copyright>Copyright © Magenic $([System.DateTime]::Now.Year)</Copyright>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageIcon>MAQS.jpg</PackageIcon>
-    <PackageProjectUrl>https://github.com/Magenic/MAQS</PackageProjectUrl>
-    <PackageTags>test Web service http client automation NUnit MSTest TestFramework</PackageTags>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <RepositoryUrl>https://github.com/Magenic/MAQS</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>
-      Release Notes can be found at https://github.com/Magenic/MAQS/releases
-    </PackageReleaseNotes>
-    <DebugSymbols>true</DebugSymbols>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net471;netstandard2.0;netstandard2.1</TargetFrameworks>
+		<PackageId>Magenic.Maqs.WebService</PackageId>
+		<Product>Magenic.Maqs.Base</Product>
+		<AssemblyName>Magenic.Maqs.BaseWebServiceTest</AssemblyName>
+		<RootNamespace>Magenic.Maqs.BaseWebServiceTest</RootNamespace>
+		<ApplicationIcon>MAQS.ico</ApplicationIcon>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<Authors>Magenic</Authors>
+		<Company>Magenic</Company>
+		<Description>Web Service extension for Magenic's automation quick start framework</Description>
+		<Copyright>Copyright © Magenic $([System.DateTime]::Now.Year)</Copyright>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageIcon>MAQS.jpg</PackageIcon>
+		<PackageProjectUrl>https://github.com/Magenic/MAQS</PackageProjectUrl>
+		<PackageTags>test Web service http client automation NUnit MSTest TestFramework</PackageTags>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<RepositoryUrl>https://github.com/Magenic/MAQS</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageReleaseNotes>
+			Release Notes can be found at https://github.com/Magenic/MAQS/releases
+		</PackageReleaseNotes>
+		<DebugSymbols>true</DebugSymbols>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DebugType>full</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-    <SonarQubeTestProject>false</SonarQubeTestProject>
-  </PropertyGroup>
+	<PropertyGroup>
+		<LangVersion>latest</LangVersion>
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<AnalysisLevel>latest</AnalysisLevel>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DebugType>full</DebugType>
+		<DebugSymbols>true</DebugSymbols>
+		<SonarQubeTestProject>false</SonarQubeTestProject>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Include="..\MAQS.jpg" Pack="true" PackagePath="" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\BaseTest\BaseTest.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\MAQS.jpg" Pack="true" PackagePath="" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\BaseTest\BaseTest.csproj" />
+	</ItemGroup>
 
 </Project>

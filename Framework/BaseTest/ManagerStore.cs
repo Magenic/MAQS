@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace Magenic.Maqs.BaseTest
 {
     /// <summary>
-    /// Driver manager dictionary 
+    /// Driver manager dictionary
     /// </summary>
     public class ManagerStore : IManagerStore
     {
@@ -180,6 +180,42 @@ namespace Magenic.Maqs.BaseTest
         public bool Contains<T>() where T : IDriverManager
         {
             return this.Contains(typeof(T).FullName);
+        }
+
+        /// <summary>
+        ///  Gets the value associated with the specified key
+        /// </summary>
+        /// <typeparam name="T">Driver type</typeparam>
+        /// <param name="key">Key name</param>
+        /// <param name="driver">Driver to return</param>
+        /// <returns>True if it finds the driver based on key</returns>
+        public bool TryGetDriver<T>(string key, out T driver)
+        {
+            if (Contains(key))
+            {
+                driver = GetDriver<T>(key);
+                return true;
+            }
+            driver = default;
+            return false;
+        }
+
+        /// <summary>
+        ///  Gets the value associated with the specified key
+        /// </summary>
+        /// <typeparam name="T">Driver type</typeparam>
+        /// <param name="key">Key name</param>
+        /// <param name="driver">Driver to return</param>
+        /// <returns>True if it finds the driver based on key</returns>
+        public bool TryGetManager<T>(string key, out T driver) where T : IDriverManager
+        {
+            if (Contains(key))
+            {
+                driver = GetManager<T>(key);
+                return true;
+            }
+            driver = default;
+            return false;
         }
 
         /// <summary>
