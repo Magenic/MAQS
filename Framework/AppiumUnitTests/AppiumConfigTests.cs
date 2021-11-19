@@ -28,7 +28,7 @@ namespace AppiumUnitTests
         public static void Initialize(TestContext testContext)
         {
             Config.UpdateWithVSTestContext(testContext);
-            Config.AddTestSettingValue("sauce:options", JsonConvert.SerializeObject(AppiumConfig.GetCapabilitiesAsStrings()), ConfigSection.AppiumCapsMaqs);
+            Config.AddTestSettingValue("sauce:options", JsonConvert.SerializeObject(AppiumConfig.GetCapabilitiesAsObjects()), ConfigSection.AppiumCapsMaqs);
         }
 
         /// <summary>

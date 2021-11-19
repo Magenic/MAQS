@@ -83,15 +83,13 @@ namespace AppiumUnitTests
                 PlatformName = "iOS",
                 PlatformVersion = "15.0",
                 BrowserName = "Safari"
-        };
+            };
 
-            var sauceCreds = Config.GetValueForSection(ConfigSection.AppiumCapsMaqs, "sauce:options");
-            
+            var sauceCreds = AppiumConfig.GetCapabilitiesAsObjects();
+
             // Use Appium 1.22 for running iOS tests
-            sauceCreds = sauceCreds.Replace("1.20.2", "1.22.0");
-
-            options.AddAdditionalAppiumOption("sauce:options", JsonConvert.DeserializeObject<Dictionary<string, string>>(sauceCreds));
-            options.AddAdditionalAppiumOption("deviceOrientation", "portrait");
+            (sauceCreds["sauce:options"] as Dictionary<string, object>)["appiumVersion"] = "1.22.0";
+            options.SetMobileOptions(AppiumConfig.GetCapabilitiesAsObjects());
 
             return AppiumDriverFactory.GetIOSDriver(AppiumConfig.GetMobileHubUrl(), options, AppiumConfig.GetMobileCommandTimeout());
         }

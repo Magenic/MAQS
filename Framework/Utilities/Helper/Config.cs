@@ -124,6 +124,62 @@ namespace Magenic.Maqs.Utilities.Helper
         }
 
         /// <summary>
+        /// Get capabilities in a multilevel format
+        /// </summary>
+        /// <param name="section">The configuration section</param>
+        /// <returns>Multilevel dictionary of remote capabilities</returns>
+        public static Dictionary<string, object> GetMultilevelDictionary(ConfigSection section)
+        {
+            Dictionary<string, object> structured = new Dictionary<string, object>();
+
+            foreach (var pair in GetSectionDictionary(section))
+            {
+
+                var keys = pair.Key.Split(':');
+
+                if (keys.Length < 3)
+                {
+                    // Key has one or less colons so just add to the root dictionary directly 
+                    structured[pair.Key] = pair.Value;
+                }
+                else
+                {
+                    string topKey = $"{keys[0]}:{keys[1]}";
+
+                    // Make sure the lower level dictionary exists
+                    if (!structured.ContainsKey(topKey))
+                    {
+                        structured[topKey] = new Dictionary<string, object>();
+                    }
+
+                    Dictionary<string, object> current = structured[topKey] as Dictionary<string, object>;
+
+                    int lastIndex = keys.Length - 1;
+
+                    // Add sub dictionaries
+                    for (int i = 2; i < keys.Length; i++)
+                    {
+                        if (i == lastIndex)
+                        {
+                            current[keys[i]] = pair.Value;
+                        }
+                        else
+                        {
+                            if (!current.ContainsKey(keys[i]))
+                            {
+                                current[keys[i]] = new Dictionary<string, object>();
+                            }
+
+                            current = current[keys[i]] as Dictionary<string, object>;
+                        }
+                    }
+                }
+            }
+
+            return structured;
+        }
+
+        /// <summary>
         /// Get a specific config section
         /// </summary>
         /// <param name="section">The configuration section</param>
@@ -536,7 +592,7 @@ namespace Magenic.Maqs.Utilities.Helper
             }
 
             // create a list of key pairs
-            Dictionary<string, string> keys = new Dictionary<string, string>();
+            Dictionary<string, string> keysAndValues = new Dictionary<string, string>();
 
             // find the values MAQS is looking for
             foreach (XElement node in rootElement.Elements())
@@ -547,18 +603,52 @@ namespace Magenic.Maqs.Utilities.Helper
                     continue;
                 }
 
+                // Get info form nodes
                 foreach (XElement config in node.Elements())
                 {
-                    IEnumerable<XAttribute> attributes = config.Attributes();
-
-                    if (attributes.Any(x => x.Name.LocalName.Equals("key")) && attributes.Any(y => y.Name.LocalName.Equals("value")))
-                    {
-                        keys.Add($"{node.Name.LocalName}:{config.Attribute("key").Value}", config.Attribute("value").Value);
-                    }
+                    RecursiveNodeKeyValues(node.Name.LocalName, config, keysAndValues);
                 }
             }
 
-            return keys;
+            return keysAndValues;
+        }
+
+        /// <summary>
+        /// Recursively get keys with values
+        /// </summary>
+        /// <param name="path">Previous path</param>
+        /// <param name="node">Current XML node</param>
+        /// <param name="keysAndValues">Keys and values</param>
+        private static void RecursiveNodeKeyValues(string path, XElement node, Dictionary<string, string> keysAndValues)
+        {
+            IEnumerable<XAttribute> attributes = node.Attributes();
+
+            string key;
+
+            if (attributes.Any(x => x.Name.LocalName.Equals("key")))
+            {
+                // This node has a key so use it
+                string value = node.Attribute("key").Value;
+                key = path == string.Empty ? value : $"{path}:{value}";
+            }
+            else
+            {
+                // No key was provided so use the element name
+                string value = node.Name.LocalName;
+                key = path == string.Empty ? value : $"{path}:{value}";
+            }
+
+            // This node has a value associated with it so add it to the keys and values dictionary
+            if (attributes.Any(y => y.Name.LocalName.Equals("value")))
+            {
+                keysAndValues.Add(key, node.Attribute("value").Value);
+            }
+
+            // Look at children elements
+            foreach (var element in node.Elements())
+            {
+                RecursiveNodeKeyValues(key, element, keysAndValues);
+            }
         }
     }
 }
