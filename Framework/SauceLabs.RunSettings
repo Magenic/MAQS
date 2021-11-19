@@ -20,7 +20,6 @@
       <Parameter name="DatabasEMaqs:SectionOverride" value="SAMPLEDatabase" />
       <Parameter name="EmailMaqS:SectionOverride" value="SAMPLEEmail" />
       <Parameter name="SeleniumMAqs:SectionOverride" value="SAMPLESel" />
-      <Parameter name="RemoteseleniumCapsMaqs:SectionOverride" value="SAMPLESelCap" />
       <Parameter name="WebServiceMaqs:SectionOverride" value="SAMPLEWeb" />
       <Parameter name="magenicMaqs:SectionAdd" value="SAMPLEGenz" />
       <Parameter name="appiummaqs:SectionAdd" value="SAMPLEAppz" />
@@ -28,13 +27,12 @@
       <Parameter name="Databasemaqs:SectionAdd" value="SAMPLEDatabasez" />
       <Parameter name="Emailmaqs:SectionAdd" value="SAMPLEEmailz" />
       <Parameter name="SeleniumMaqs:SectionAdd" value="SAMPLESelz" />
-      <Parameter name="RemoteseleniumCapsMaqs:SectionAdd" value="SAMPLESelCapz" />
       <Parameter name="webServiceMaqs:SectionAdd" value="SAMPLEWebz" />
       <Parameter name="SeleniumMaqs:Browser" value="Remote" />
       <Parameter name="AppiumCapsMaqs:username" value="magenicMAQSService" />
-      <Parameter name="RemoteSeleniumCapsMaqs:username" value="magenicMAQSService" />
-      <Parameter name="RemoteSeleniumCapsMaqs:accessKey" value="OVERRIDE_ME_ON_COMMANDLINE" />
-      <Parameter name="AppiumCapsMaqs:accessKey" value="OVERRIDE_ME_ON_COMMANDLINE" />
+      <Parameter name="RemoteSeleniumCapsMaqs:sauce:options:username" value="magenicMAQSService" />
+      <Parameter name="RemoteSeleniumCapsMaqs:sauce:options:accessKey" value="OVERRIDE_ME_ON_COMMANDLINE" />
+      <Parameter name="AppiumCapsMaqs:sauce:options:accessKey" value="OVERRIDE_ME_ON_COMMANDLINE" />
       <Parameter name="SeleniumMaqs:RunOnSauceLabs" value="YES" />
     </TestRunParameters>
     <DataCollectionRunSettings>
