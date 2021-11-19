@@ -85,11 +85,11 @@ namespace AppiumUnitTests
                 BrowserName = "Safari"
             };
 
-            var sauceCreds = AppiumConfig.GetCapabilitiesAsObjects();
+            var sauceOptions = AppiumConfig.GetCapabilitiesAsObjects();
 
             // Use Appium 1.22 for running iOS tests
-            (sauceCreds["sauce:options"] as Dictionary<string, object>)["appiumVersion"] = "1.22.0";
-            options.SetMobileOptions(AppiumConfig.GetCapabilitiesAsObjects());
+            (sauceOptions["sauce:options"] as Dictionary<string, object>)["appiumVersion"] = "1.22.0";
+            options.SetMobileOptions(sauceOptions);
 
             return AppiumDriverFactory.GetIOSDriver(AppiumConfig.GetMobileHubUrl(), options, AppiumConfig.GetMobileCommandTimeout());
         }

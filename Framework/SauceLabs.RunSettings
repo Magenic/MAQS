@@ -35,7 +35,7 @@
       <Parameter name="RemoteSeleniumCapsMaqs:username" value="magenicMAQSService" />
       <Parameter name="RemoteSeleniumCapsMaqs:accessKey" value="OVERRIDE_ME_ON_COMMANDLINE" />
       <Parameter name="AppiumCapsMaqs:accessKey" value="OVERRIDE_ME_ON_COMMANDLINE" />
-      <Parameter name="RemoteSeleniumCapsMaqs:RunOnSauceLabs" value="YES" />
+      <Parameter name="SeleniumMaqs:RunOnSauceLabs" value="YES" />
     </TestRunParameters>
     <DataCollectionRunSettings>
     <DataCollectors>

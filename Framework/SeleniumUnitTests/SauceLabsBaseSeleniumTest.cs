@@ -17,12 +17,12 @@ namespace SeleniumUnitTests
 
         protected override IWebDriver GetBrowser()
         {
-            if (string.Equals(Config.GetValueForSection(ConfigSection.RemoteSeleniumCapsMaqs, "RunOnSauceLabs"), "YES", System.StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(Config.GetValueForSection(ConfigSection.SeleniumMaqs, "RunOnSauceLabs"), "YES", StringComparison.OrdinalIgnoreCase))
             {
                 var name = this.TestContext.FullyQualifiedTestClassName + "." + this.TestContext.TestName;
                 var options = SeleniumConfig.GetRemoteCapabilitiesAsObjects();
 
-                var sauceOptions = options["sauce:options"] as Dictionary<string, object>; ;
+                var sauceOptions = options["sauce:options"] as Dictionary<string, object>;
                 sauceOptions.Add("screenResolution", "1280x1024");
                 sauceOptions.Add("build", string.IsNullOrEmpty(Environment.GetEnvironmentVariable("SAUCE_BUILD_NAME")) ? BuildDate : Environment.GetEnvironmentVariable("SAUCE_BUILD_NAME"));
                 sauceOptions.Add("name", name);
@@ -49,7 +49,7 @@ namespace SeleniumUnitTests
         {
             var passed = this.GetResultType() == Magenic.Maqs.Utilities.Logging.TestResultType.PASS;
 
-            if (string.Equals(Config.GetValueForSection(ConfigSection.RemoteSeleniumCapsMaqs, "RunOnSauceLabs"), "YES", System.StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(Config.GetValueForSection(ConfigSection.SeleniumMaqs, "RunOnSauceLabs"), "YES", StringComparison.OrdinalIgnoreCase))
             {
                 try
                 {
