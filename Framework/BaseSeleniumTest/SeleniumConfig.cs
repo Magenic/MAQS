@@ -10,7 +10,6 @@ using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using WebDriverManager.Helpers;
 
@@ -250,18 +249,9 @@ namespace Magenic.Maqs.BaseSeleniumTest
         /// Get the remote capabilities as a dictionary
         /// </summary>
         /// <returns>Dictionary of remote capabilities</returns>
-        public static Dictionary<string, string> GetRemoteCapabilitiesAsStrings()
-        {
-            return Config.GetSectionDictionary(ConfigSection.RemoteSeleniumCapsMaqs);
-        }
-
-        /// <summary>
-        /// Get the remote capabilities as a dictionary
-        /// </summary>
-        /// <returns>Dictionary of remote capabilities</returns>
         public static Dictionary<string, object> GetRemoteCapabilitiesAsObjects()
         {
-            return GetRemoteCapabilitiesAsStrings().ToDictionary(pair => pair.Key, pair => (object)pair.Value);
+            return Config.GetMultilevelDictionary(ConfigSection.RemoteSeleniumCapsMaqs);
         }
 
         /// <summary>

@@ -220,11 +220,11 @@ namespace Magenic.Maqs.BaseAppiumTest
         /// <param name="appiumOptions">The driver options to make this an extension method</param>
         /// <param name="capabilities">The mobile driver capabilities</param>
         /// <returns>The altered <see cref="DriverOptions"/> driver options</returns>
-        private static AppiumOptions SetMobileOptions(this AppiumOptions appiumOptions, Dictionary<string, object> capabilities)
+        public static void SetMobileOptions(this AppiumOptions appiumOptions, Dictionary<string, object> capabilities)
         {
             if (capabilities == null)
             {
-                return appiumOptions;
+                return;
             }
 
             foreach (KeyValuePair<string, object> keyValue in capabilities)
@@ -244,8 +244,6 @@ namespace Magenic.Maqs.BaseAppiumTest
                     }
                 }
             }
-
-            return appiumOptions;
         }
     }
 }

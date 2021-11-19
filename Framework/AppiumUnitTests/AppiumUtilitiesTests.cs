@@ -34,6 +34,22 @@ namespace AppiumUnitTests
         }
 
         /// <summary>
+        /// Verify mobile options work when null capablites
+        /// </summary>
+        [TestMethod]
+        public void SetMobileOptionsWithNullDictionary()
+        {
+            var options = AppiumDriverFactory.GetDefaultMobileOptions();
+            var beforeOptions = options.ToDictionary();
+
+            // Add null
+            options.SetMobileOptions(null);
+
+            // Makes sure we didn't add or remove options
+            Assert.AreEqual(beforeOptions.Count, options.ToDictionary().Count);
+        }
+
+        /// <summary>
         /// Verify a bad create fails in the right way
         /// </summary>
         [TestMethod]
