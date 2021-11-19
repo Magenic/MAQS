@@ -7,7 +7,6 @@
 using Magenic.Maqs.BaseAppiumTest;
 using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Support.UI;
 using System;
@@ -20,17 +19,6 @@ namespace AppiumUnitTests
     [TestClass]
     public class AppiumConfigTests
     {
-        /// <summary>
-        /// Update configuration with context overrides
-        /// </summary>
-        /// <param name="testContext">The test context</param>
-        [AssemblyInitialize]
-        public static void Initialize(TestContext testContext)
-        {
-            Config.UpdateWithVSTestContext(testContext);
-            Config.AddTestSettingValue("sauce:options", JsonConvert.SerializeObject(AppiumConfig.GetCapabilitiesAsObjects()), ConfigSection.AppiumCapsMaqs);
-        }
-
         /// <summary>
         /// Test for getting Mobile Device OS
         /// </summary>
