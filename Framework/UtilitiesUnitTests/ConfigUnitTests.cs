@@ -391,5 +391,26 @@ namespace UtilitiesUnitTesting
             var value = Config.GetSectionDictionary("MagenicMaqs");
             Assert.AreEqual(expected, value[key]);
         }
+
+        /// <summary>
+        /// Multilevel configuration hierarchy is respected
+        /// </summary>
+        /// <param name="key">Configuration key</param>
+        /// <param name="expected">Expected value for key</param>
+        [DataTestMethod]
+        [DataRow("one", "1")]
+        [DataRow("two", "2")]
+        [DataRow("three", "3")]
+        [DataRow("four", "4")]
+        [DataRow("five", "5")]
+        [DataRow("six", "6")]
+        [DataRow("seven", "7")]
+        public void MultilevelSectionStructure(string key, string expected)
+        {
+            var value = Config.GetMultilevelDictionary(ConfigSection.RemoteSeleniumCapsMaqs);
+            Dictionary<string, object> multilevel = (Dictionary<string, object>)value["MuliLevel:MoreLevels"];
+
+            Assert.AreEqual(expected, multilevel[key]);
+        }
     }
 }

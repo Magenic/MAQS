@@ -39,7 +39,8 @@ The SeleniumMaqs configuration section contains the following Keys:
 ## RemoteSeleniumCapsMaqs
 
 Remote Selenium capabilities are used when only when you use a REMOTE browser.  
-These are key value pairs that get added to the remote web driver's desired capabilities.
+These are key value pairs that get added to the remote web driver's desired capabilities.  
+**These values are typically used when you are connecting to services such as Sauce Labs and BrowserStack.*
 
 ## Available methods
 Get the browser name:
@@ -131,6 +132,11 @@ Get the if we retry getting a web driver after the first attempt resulted in a r
 bool retryRefused = SeleniumConfig.GetRetryRefused();
 ```
 
+Get dictionary of Selenium remote capabilities:
+```csharp
+Dictionary<string, object> capabilitiesAsObjects= SeleniumConfig.GetRemoteCapabilitiesAsObjects();
+```
+
 # Sample config files
 ## App.config
 ```xml
@@ -208,8 +214,11 @@ bool retryRefused = SeleniumConfig.GetRetryRefused();
     <add key="RetryRefused" value="Yes" />
   </SeleniumMaqs>
   <RemoteSeleniumCapsMaqs>
-    <!-- Cloud based Grid settings
-     <add key="sauce:options" value="{username: 'SAUCE_NAME', accessKey:  'SAUCE_KEY' }"  /> -->
+    <!-- Cloud based Grid Sauce Labs or BrowserStack settings -->
+    <add key="sauce:options">
+      <add key="username" value="S_NAME" />
+      <add key="accessKey" value="S_KEY" />
+    </add>
   </RemoteSeleniumCapsMaqs>
   <MagenicMaqs>
     <!-- Generic wait time in milliseconds - AKA how long do you wait for rechecking something -->
@@ -264,7 +273,10 @@ bool retryRefused = SeleniumConfig.GetRetryRefused();
     "RetryRefused": "YES"
   },
   "RemoteSeleniumCapsMaqs": {
-    "sauce:options": "{username: 'SAUCE_NAME', accessKey:  'SAUCE_KEY' }"
+    "sauce:options": {
+      "username":'S_NAME',
+      "accessKey":'S_KEY',
+     }
   },
   "MagenicMaqs": {
     "WaitTime": "100",

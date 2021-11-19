@@ -89,11 +89,6 @@ boolean getScreenshot = AppiumConfig.GetSoftAssertScreenshot();
 
 Get dictionary of Appium capabilities:
 ```csharp
-Dictionary<string, string> capabilitiesAsStrings= AppiumConfig.GetCapabilitiesAsStrings();
-```
-
-Get dictionary of Appium capabilities:
-```csharp
 Dictionary<string, object> capabilitiesAsObjects= AppiumConfig.GetCapabilitiesAsObjects();
 ```
 
@@ -182,8 +177,13 @@ Dictionary<string, object> capabilitiesAsObjects= AppiumConfig.GetCapabilitiesAs
     <add key="SavePagesourceOnFail" value="NO" />
   </AppiumMaqs>
   <AppiumCapsMaqs>
-    <add key="sauce:options" value="{username:'S_NAME', accessKey:'S_KEY', appiumVersion:'1.20.2' }"  />
+    <add key="sauce:options">
+      <add key="username" value="S_NAME" />
+      <add key="accessKey" value="S_KEY" />
+      <add key="appiumVersion" value="1.20.2" />
+    </add>
   </AppiumCapsMaqs>
+
 </configuration>
 ```
 
@@ -211,7 +211,11 @@ Dictionary<string, object> capabilitiesAsObjects= AppiumConfig.GetCapabilitiesAs
     "SavePagesourceOnFail": "NO"
   },
    "AppiumCapsMaqs": {
-    "username": "{username:'S_NAME', accessKey:'S_KEY'}"
+    "sauce:options": {
+      "username":'S_NAME',
+      "accessKey":'S_KEY',
+      "appiumVersion": "1.20.2" 
+     }
   }
 }
 ```
