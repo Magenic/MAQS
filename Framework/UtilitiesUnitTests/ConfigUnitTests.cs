@@ -111,6 +111,17 @@ namespace UtilitiesUnitTesting
         }
 
         /// <summary>
+        /// Checks if a key exists in a section
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void DoesKeyExistInSection()
+        {
+            bool value = Config.DoesKeyExist(ConfigSection.MagenicMaqs, "Log");
+            Assert.AreEqual(true, value);
+        }
+
+        /// <summary>
         ///  Verify simple override of an existing configuration
         /// </summary>
         [TestMethod]
@@ -405,12 +416,27 @@ namespace UtilitiesUnitTesting
         [DataRow("five", "5")]
         [DataRow("six", "6")]
         [DataRow("seven", "7")]
+        [DataRow("eight", "8")]
         public void MultilevelSectionStructure(string key, string expected)
         {
             var value = Config.GetMultilevelDictionary(ConfigSection.RemoteSeleniumCapsMaqs);
             Dictionary<string, object> multilevel = (Dictionary<string, object>)value["MuliLevel:MoreLevels"];
 
             Assert.AreEqual(expected, multilevel[key]);
+        }
+
+
+        /// <summary>
+        /// Multilevel configuration hierarchy is respected even if they have deeped then standard layouts
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Utilities)]
+        public void MultilevelSectionStructureBeyondStandard()
+        {
+            var value = Config.GetMultilevelDictionary(ConfigSection.RemoteSeleniumCapsMaqs);
+            Dictionary<string, object> lowestLevel = ((Dictionary<string, object>)value["MuliLevel:MoreLevels"])["lowest"] as Dictionary<string, object>;
+
+            Assert.AreEqual("9", lowestLevel["nine"]);
         }
     }
 }

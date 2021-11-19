@@ -124,62 +124,6 @@ namespace Magenic.Maqs.Utilities.Helper
         }
 
         /// <summary>
-        /// Get capabilities in a multilevel format
-        /// </summary>
-        /// <param name="section">The configuration section</param>
-        /// <returns>Multilevel dictionary of remote capabilities</returns>
-        public static Dictionary<string, object> GetMultilevelDictionary(ConfigSection section)
-        {
-            Dictionary<string, object> structured = new Dictionary<string, object>();
-
-            foreach (var pair in GetSectionDictionary(section))
-            {
-
-                var keys = pair.Key.Split(':');
-
-                if (keys.Length < 3)
-                {
-                    // Key has one or less colons so just add to the root dictionary directly 
-                    structured[pair.Key] = pair.Value;
-                }
-                else
-                {
-                    string topKey = $"{keys[0]}:{keys[1]}";
-
-                    // Make sure the lower level dictionary exists
-                    if (!structured.ContainsKey(topKey))
-                    {
-                        structured[topKey] = new Dictionary<string, object>();
-                    }
-
-                    Dictionary<string, object> current = structured[topKey] as Dictionary<string, object>;
-
-                    int lastIndex = keys.Length - 1;
-
-                    // Add sub dictionaries
-                    for (int i = 2; i < keys.Length; i++)
-                    {
-                        if (i == lastIndex)
-                        {
-                            current[keys[i]] = pair.Value;
-                        }
-                        else
-                        {
-                            if (!current.ContainsKey(keys[i]))
-                            {
-                                current[keys[i]] = new Dictionary<string, object>();
-                            }
-
-                            current = current[keys[i]] as Dictionary<string, object>;
-                        }
-                    }
-                }
-            }
-
-            return structured;
-        }
-
-        /// <summary>
         /// Get a specific config section
         /// </summary>
         /// <param name="section">The configuration section</param>
@@ -465,6 +409,73 @@ namespace Magenic.Maqs.Utilities.Helper
                 UpdateCompositeConfig();
             }
         }
+
+        /// <summary>
+        /// Get capabilities in a multilevel format
+        /// </summary>
+        /// <param name="section">The configuration section</param>
+        /// <returns>Multilevel dictionary of remote capabilities</returns>
+        public static Dictionary<string, object> GetMultilevelDictionary(ConfigSection section)
+        {
+            Dictionary<string, object> structured = new Dictionary<string, object>();
+
+            foreach (var pair in GetSectionDictionary(section))
+            {
+
+                var keys = pair.Key.Split(':');
+                var value = pair.Value;
+
+                if (keys.Length < 3)
+                {
+                    // Key has one or less colons so just add to the root dictionary directly 
+                    structured[pair.Key] = value;
+                }
+                else
+                {
+                    string topKey = $"{keys[0]}:{keys[1]}";
+
+                    // Make sure the lower level dictionary exists
+                    if (!structured.ContainsKey(topKey))
+                    {
+                        structured[topKey] = new Dictionary<string, object>();
+                    }
+
+                    AddSubKeys(structured[topKey] as Dictionary<string, object>, keys, value);
+                }
+            }
+
+            return structured;
+        }
+
+        /// <summary>
+        /// Add sub keys and values
+        /// </summary>
+        /// <param name="current">Current dictorary we are adding to</param>
+        /// <param name="keys">Keys to add</param>
+        /// <param name="value">Value to add for key path</param>
+        private static void AddSubKeys(Dictionary<string, object> current, string[] keys, string value)
+        {
+            int lastIndex = keys.Length - 1;
+
+            // Add sub dictionaries
+            for (int i = 2; i < keys.Length; i++)
+            {
+                if (i == lastIndex)
+                {
+                    current[keys[i]] = value;
+                }
+                else
+                {
+                    if (!current.ContainsKey(keys[i]))
+                    {
+                        current[keys[i]] = new Dictionary<string, object>();
+                    }
+
+                    current = current[keys[i]] as Dictionary<string, object>;
+                }
+            }
+        }
+
 
         /// <summary>
         /// Rebuild the composite configuration
