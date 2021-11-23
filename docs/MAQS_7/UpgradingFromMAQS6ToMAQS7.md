@@ -98,7 +98,10 @@ Old format:
 New format:
 ``` xml
   <RemoteSeleniumCapsMaqs>
-    <add key="sauce:options" value="{username: 'SAUCE_NAME', accessKey:  'SAUCE_KEY' }"  />
+    <add key="sauce:options">
+      <add key="username" value="Sauce_Labs_Username" />
+      <add key="accessKey" value="Sauce_Labs_Accesskey" />
+    </add>
   </RemoteSeleniumCapsMaqs>
 ```
 
@@ -149,8 +152,8 @@ AppiumDriver.FindElement(MobileBy.TagName("TAG_NAME")).Click();
 The Selenium 4 capability changes also affect Appium.
 Here is how it would change use provided driver initialization implementations:
 
+Old:
 ``` csharp 
-// This
 AppiumOptions options = new AppiumOptions();
 
 options.AddAdditionalCapability("deviceName", "iPhone 8 Simulator");
@@ -159,8 +162,10 @@ options.AddAdditionalCapability("platformName", "iOS");
 options.AddAdditionalCapability("browserName", "Safari");
 options.AddAdditionalCapability("username", Config.GetValueForSection(ConfigSection.AppiumCapsMaqs, "userName"));
 options.AddAdditionalCapability("accessKey", Config.GetValueForSection(ConfigSection.AppiumCapsMaqs, "accessKey"));
-
-// Becomes this
+return AppiumDriverFactory.GetIOSDriver(AppiumConfig.GetMobileHubUrl(), options, AppiumConfig.GetMobileCommandTimeout());
+```
+NEW (with configuration based capabilities):
+``` csharp
 AppiumOptions options = new AppiumOptions
 {
     DeviceName = "iPhone 8 Simulator",
@@ -169,10 +174,30 @@ AppiumOptions options = new AppiumOptions
     BrowserName = "Safari"
 };
 
-var sauceCreds = Config.GetValueForSection(ConfigSection.AppiumCapsMaqs, "sauce:options");
-options.AddAdditionalAppiumOption("sauce:options", JsonConvert.DeserializeObject<Dictionary<string, string>>(sauceCreds));
+options.SetMobileOptions(AppiumConfig.GetCapabilitiesAsObjects());
+return AppiumDriverFactory.GetIOSDriver(AppiumConfig.GetMobileHubUrl(), options, AppiumConfig.GetMobileCommandTimeout());
+
 ```
+NEW (with code based capabilities):
+``` csharp
+AppiumOptions options = new AppiumOptions
+{
+    DeviceName = "iPhone 8 Simulator",
+    PlatformVersion = "12.2",
+    PlatformName = "iOS",
+    BrowserName = "Safari"
+};
+
+var sauceOptions = options["sauce:options"] as Dictionary<string, object>;
+sauceOptions.Add("username", "USER_NAME");
+sauceOptions.Add("accessKey", "KEY_VALUE");
+
+options.SetMobileOptions(sauceOptions);
+return AppiumDriverFactory.GetIOSDriver(AppiumConfig.GetMobileHubUrl(), options, AppiumConfig.GetMobileCommandTimeout());
+```
+
 For Sauce Labs and BrowserStack configuration changes would look like this:  
+#### XML
 Old format:
 ``` xml 
   <AppiumMaqs>
@@ -198,7 +223,7 @@ New format:
   <AppiumMaqs>
     <!-- Device settings -->
     <add key="PlatformName" value="Android" />
-    <add key="PlatformVersion" value="6.0" />
+    <add key="PlatformVersion" value="11.0" />
     <add key="DeviceName" value="Android Emulator" />
     <add key="BrowserName" value="Chrome" />
 
@@ -207,6 +232,51 @@ New format:
     -->
   </AppiumMaqs>
   <AppiumCapsMaqs>
-    <add key="sauce:options" value="{username:'S_NAME', accessKey:'S_KEY', appiumVersion:'1.20.2', orientation:'portrait' }"  />
+    <add key="sauce:options">
+      <add key="username" value="SAUCE_NAME" />
+      <add key="accessKey" value="SAUCE_KEY" />
+      <add key="appiumVersion" value="1.20.2" />
+    </add>
   </AppiumCapsMaqs>
 ```
+
+#### JSON
+Old format:
+``` json
+  "AppiumMaqs": {
+    "PlatformName": "Android",
+    "PlatformVersion": "6.0",
+    "DeviceName": "Android GoogleAPI Emulator",
+    "MobileHubUrl": "http://ondemand.saucelabs.com:80/wd/hub",
+    "MobileWaitTime": "1000",
+    "MobileTimeout": "10000",
+    "SoftAssertScreenshot": "NO",
+    "ImageFormat": "Png",
+    "SavePagesourceOnFail": "NO"
+  },
+   "AppiumCapsMaqs": {
+    "username": "SAUCE_NAME",
+    "accessKey": "SAUCE_KEY",
+    "appiumVersion": "1.7.1",
+    "app": "SampleApp.apk"
+  },
+``` 
+
+New format:
+``` json
+  "AppiumMaqs": {
+    "App": "SampleApp.apk",
+    "PlatformName": "Android",
+    "PlatformVersion": "11.0",
+    "DeviceName": "Android GoogleAPI Emulator",
+    "MobileHubUrl": "https://ondemand.saucelabs.com/wd/hub",
+    "MobileWaitTime": "1000",
+    "MobileTimeout": "10000",
+    "SoftAssertScreenshot": "NO",
+    "ImageFormat": "Png",
+    "SavePagesourceOnFail": "NO"
+  },
+  "AppiumCapsMaqs": {
+    "sauce:options": {"username": "SAUCE_NAME", "accessKey": "SAUCE_KEY", "appiumVersion": "1.20.2"}
+  },
+``` 
