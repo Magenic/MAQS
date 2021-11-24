@@ -53,7 +53,7 @@
 		</PackageReference>
 		<PackageReference Include="MongoDB.Bson" Version="2.13.2" />
 		<PackageReference Include="MongoDB.Driver" Version="2.13.2" />
-		<PackageReference Include="MongoDB.Driver.Core" Version="2.13.2" />
+		<PackageReference Include="MongoDB.Driver.Core" Version="2.13.3" />
 		<PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />
 	</ItemGroup>
 
