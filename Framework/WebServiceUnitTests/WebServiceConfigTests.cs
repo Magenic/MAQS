@@ -60,5 +60,15 @@ namespace WebServiceTesterUnitTesting
         {
             Assert.AreEqual("127.0.0.1:8001", WebServiceConfig.GetProxyAddress());
         }
+
+        /// <summary>
+        /// Get expected webservice version
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.WebService)]
+        public void GetWebServiceVersion()
+        {
+            Assert.AreEqual("1.1", WebServiceConfig.GetHttpClientVersion());
+        }
     }
 }

@@ -889,7 +889,10 @@ namespace Magenic.Maqs.BaseWebServiceTest
         {
             // Make sure the Http client accepts the requested media tyoe
             this.AddAcceptIfNotPresent(expectedMediaType);
-
+            if (string.IsNullOrEmpty(WebServiceConfig.GetHttpClientVersion()))
+            {
+                httpRequestMessage.Version = new Version(WebServiceConfig.GetHttpClientVersion());
+            }
             HttpResponseMessage response = SendAsync(httpRequestMessage).GetAwaiter().GetResult();
 
             if (expectSuccess)
