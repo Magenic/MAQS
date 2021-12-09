@@ -33,6 +33,11 @@ Get the proxy address to use
 string proxyAddress = WebServiceConfig.GetProxyAddress();
 ```
 
+Gets the http request version to use
+```csharp
+string clientVersion = WebServiceConfig.GetHttpClientVersion();
+```
+
 # Sample config files
 ## App.config
 ```xml

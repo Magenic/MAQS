@@ -929,9 +929,9 @@ namespace Magenic.Maqs.BaseWebServiceTest
             var cts = new CancellationTokenSource();
             try
             {
-                if (!string.IsNullOrEmpty(WebServiceConfig.GetHttpClientVersion()) && message != null)
+                if (!string.IsNullOrEmpty(WebServiceConfig.GetHttpClientVersion()))
                 {
-                    message.Version = new Version(WebServiceConfig.GetHttpClientVersion());
+                    message?.Version = new Version(WebServiceConfig.GetHttpClientVersion());
                 }
                 return await this.HttpClient.SendAsync(message, cts.Token).ConfigureAwait(false);
             }

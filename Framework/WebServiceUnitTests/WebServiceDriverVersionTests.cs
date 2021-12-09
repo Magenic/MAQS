@@ -12,6 +12,9 @@ namespace WebServiceUnitTests
     [DoNotParallelize]
     public class WebServiceDriverVersionTests : BaseWebServiceTest
     {
+        /// <summary>
+        /// Sets the version of the request to HTTP/2
+        /// </summary>
         [TestMethod]
         public void Version20()
         {
@@ -27,8 +30,6 @@ namespace WebServiceUnitTests
             try
             {
                 this.WebServiceDriver.Get<ArrayOfProduct>("/api/XML_JSON/GetAllProducts", "application/xml");
-
-
             }
             finally
             {
@@ -42,6 +43,9 @@ namespace WebServiceUnitTests
             }
         }
 
+        /// <summary>
+        /// Sets the version of the request to empty
+        /// </summary>
         [TestMethod]
         public void NoVersion()
         {
@@ -57,8 +61,6 @@ namespace WebServiceUnitTests
             try
             {
                 this.WebServiceDriver.Get<ArrayOfProduct>("/api/XML_JSON/GetAllProducts", "application/xml");
-
-
             }
             finally
             {
