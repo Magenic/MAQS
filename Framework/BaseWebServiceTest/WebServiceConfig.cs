@@ -73,5 +73,14 @@ namespace Magenic.Maqs.BaseWebServiceTest
         {
             return Config.GetValueForSection(ConfigSection.WebServiceMaqs, "ProxyAddress");
         }
+
+        /// <summary>
+        /// Gets the HttpClientVersion to use
+        /// </summary>
+        /// <returns>The version to use</returns>
+        public static string GetHttpClientVersion()
+        {
+            return Config.GetValueForSection(ConfigSection.WebServiceMaqs, "HttpClientVersion", string.Empty);
+        }
     }
 }

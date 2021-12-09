@@ -887,7 +887,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
         /// <returns>A reponse message</returns>
         public virtual HttpResponseMessage SendWithResponse(HttpRequestMessage httpRequestMessage, string expectedMediaType, bool expectSuccess = true)
         {
-            // Make sure the Http client accepts the requested media tyoe
+            // Make sure the Http client accepts the requested media type
             this.AddAcceptIfNotPresent(expectedMediaType);
 
             HttpResponseMessage response = SendAsync(httpRequestMessage).GetAwaiter().GetResult();
@@ -929,6 +929,10 @@ namespace Magenic.Maqs.BaseWebServiceTest
             var cts = new CancellationTokenSource();
             try
             {
+                if (!string.IsNullOrEmpty(WebServiceConfig.GetHttpClientVersion()) && message != null)
+                {
+                    message.Version = new Version(WebServiceConfig.GetHttpClientVersion());
+                }
                 return await this.HttpClient.SendAsync(message, cts.Token).ConfigureAwait(false);
             }
             catch (TaskCanceledException ex)
