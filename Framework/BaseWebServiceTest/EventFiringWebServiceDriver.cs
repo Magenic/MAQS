@@ -231,7 +231,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
                 }
                 else
                 {
-                    message.AppendLine($"  **Writting '{mediaType}' content to the log is not supported**");
+                    message.AppendLine($"  **Writing '{mediaType}' content to the log is not supported**");
                 }
             }
         }
