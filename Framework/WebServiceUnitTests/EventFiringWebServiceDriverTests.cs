@@ -9,6 +9,7 @@ using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -118,9 +119,34 @@ namespace WebServiceTesterUnitTesting
                 message.Content.Headers.Remove(headers.Current.Key);
             }
 
+            message.Content.Headers.Add("test", Enumerable.Empty<string>());
+
             // Make sure we can get the expected response
             var result = SendWithResponse(message, MediaType.AppJson, false);
             Assert.AreEqual(HttpStatusCode.UnsupportedMediaType, result.StatusCode);
+
+            // Make sure we didn't log an error event
+            Assert.AreEqual(errors, ErrorEvents);
+        }
+
+        /// <summary>
+        /// Verify that we can handle null content
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.WebService)]
+        [DoNotParallelize]
+        public void HandleNullContent()
+        {
+            // Get the number of logging errors
+            int errors = ErrorEvents;
+
+            var message = GetValidRequestMessage();
+            message.Method = HttpMethod.Head;
+            message.Content = null;
+
+            // Make sure we can get the expected response
+            var result = SendWithResponse(message, MediaType.AppJson, false);
+            Assert.AreEqual(HttpStatusCode.MethodNotAllowed, result.StatusCode);
 
             // Make sure we didn't log an error event
             Assert.AreEqual(errors, ErrorEvents);
