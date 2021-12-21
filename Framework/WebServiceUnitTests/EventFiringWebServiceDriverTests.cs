@@ -98,6 +98,82 @@ namespace WebServiceTesterUnitTesting
         }
 
         /// <summary>
+        /// Verify that we can handle content with no header
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.WebService)]
+        [DoNotParallelize]
+        public void HandleContentWithNoHeader()
+        {
+            // Get the number of logging errors
+            int errors = ErrorEvents;
+
+            // Get message and headers
+            var message = GetValidRequestMessage();
+            var headers = message.Content.Headers.GetEnumerator();
+
+            // Remove all headers
+            while (headers.MoveNext())
+            {
+                message.Content.Headers.Remove(headers.Current.Key);
+            }
+
+            message.Content.Headers.Add("test", string.Empty);
+
+            // Make sure we can get the expected response
+            var result = SendWithResponse(message, MediaType.AppJson, false);
+            Assert.AreEqual(HttpStatusCode.UnsupportedMediaType, result.StatusCode);
+
+            // Make sure we didn't log an error event
+            Assert.AreEqual(errors, ErrorEvents);
+        }
+
+        /// <summary>
+        /// Verify that we can handle null content
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.WebService)]
+        [DoNotParallelize]
+        public void HandleNullContent()
+        {
+            // Get the number of logging errors
+            int errors = ErrorEvents;
+
+            var message = GetValidRequestMessage();
+            message.Method = HttpMethod.Head;
+            message.Content = null;
+
+            // Make sure we can get the expected response
+            var result = SendWithResponse(message, MediaType.AppJson, false);
+            Assert.AreEqual(HttpStatusCode.MethodNotAllowed, result.StatusCode);
+
+            // Make sure we didn't log an error event
+            Assert.AreEqual(errors, ErrorEvents);
+        }
+
+        /// <summary>
+        /// Verify that we can handle non standard content
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.WebService)]
+        [DoNotParallelize]
+        public void HandleNonStandardContent()
+        {
+            // Get the number of logging errors
+            int errors = ErrorEvents;
+
+            var message = GetValidRequestMessage();
+            message.Content.Headers.ContentType.MediaType = "application/xlsx";
+
+            // Make sure we can get the expected response
+            var result = SendWithResponse(message, MediaType.AppJson, false);
+            Assert.AreEqual(HttpStatusCode.UnsupportedMediaType, result.StatusCode);
+
+            // Make sure we didn't log an error event
+            Assert.AreEqual(errors, ErrorEvents);
+        }
+
+        /// <summary>
         /// Verify that we can send with expected
         /// </summary>
         [TestMethod]
