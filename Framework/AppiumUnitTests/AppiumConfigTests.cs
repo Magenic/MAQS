@@ -20,6 +20,16 @@ namespace AppiumUnitTests
     public class AppiumConfigTests
     {
         /// <summary>
+        /// Setup config for test class
+        /// </summary>
+        /// <param name="testContext">The test context</param>
+        [ClassInitialize]
+        public static void SetupTests(TestContext testContext)
+        {
+            Config.UpdateWithVSTestContext(testContext);
+        }
+
+        /// <summary>
         /// Test for getting Mobile Device OS
         /// </summary>
         [TestMethod]
