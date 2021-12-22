@@ -505,7 +505,22 @@ namespace SeleniumUnitTests
         [TestCategory(TestCategories.Selenium)]
         public void OpenEdgeBrowser()
         {
-            var driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Edge);
+            IWebDriver driver;
+
+            try
+            {
+                driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Edge);
+            }
+            catch
+            {
+                // May need to run headless on some systems
+                var headlessEdgeOptions = WebDriverFactory.GetDefaultEdgeOptions();
+                headlessEdgeOptions.AddArgument("--no-sandbox");
+                headlessEdgeOptions.AddArguments("--headless");
+
+                driver = WebDriverFactory.GetEdgeDriver(SeleniumConfig.GetCommandTimeout(), headlessEdgeOptions);
+            }
+
             driver.Navigate().GoToUrl(Config.GetValueForSection(ConfigSection.SeleniumMaqs, "WebSiteBase"));
             driver?.KillDriver();
         }
