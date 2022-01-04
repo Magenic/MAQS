@@ -402,8 +402,7 @@ namespace Magenic.Maqs.BaseEmailTest
         /// <returns>The list of messages that match the search criteria</returns>
         public virtual List<MimeMessage> SearchMessages(SearchQuery condition, bool headersOnly = true, bool markRead = false)
         {
-            object[] args = { condition, headersOnly, markRead };
-            return GenericWait.WaitFor<List<MimeMessage>, object[]>(this.GetSearchResults, args);
+            return GenericWait.WaitFor(() => this.GetSearchResults(condition, headersOnly, markRead));
         }
 
         /// <summary>
@@ -507,25 +506,32 @@ namespace Magenic.Maqs.BaseEmailTest
         /// <summary>
         /// Get the list of emails for a search
         /// </summary>
-        /// <param name="args">The search condition followed by the header only and set as seen booleans</param>
+        /// <param name="condition">The search condition</param>
+        /// <param name="headersOnly">True if you only want header information</param>
+        /// <param name="markRead">True if you want the emails marked as read</param>
         /// <returns>The list of mail message that match the search</returns>
-        private List<MimeMessage> GetSearchResults(params object[] args)
+        private List<MimeMessage> GetSearchResults(SearchQuery condition, bool headersOnly, bool markRead)
         {
             List<MimeMessage> messageList = new List<MimeMessage>();
             IMailFolder folder = this.GetCurrentFolder();
-            foreach (UniqueId uid in folder.Search((SearchQuery)args[0], default))
+            foreach (UniqueId uid in folder.Search(condition, default))
             {
-                if ((bool)args[2])
+                if (markRead)
                 {
                     folder.AddFlags(uid, MessageFlags.Seen, true);
                 }
 
                 MimeMessage message;
 
-                if ((bool)args[1])
+                if (headersOnly)
                 {
                     HeaderList headers = folder.GetHeaders(uid);
-                    message = new MimeMessage(headers);
+                    var messageId = headers[HeaderId.MessageId];
+
+                    message = new MimeMessage(headers)
+                    {
+                        MessageId = messageId
+                    };
                 }
                 else
                 {
