@@ -516,6 +516,7 @@ namespace SeleniumUnitTests
         }
 
         [TestMethod]
+        [DoNotParallelize]
         public void OpenFirefoxBrowser()
         {
             OpenBrowserWithDefaultTest(BrowserType.Firefox);
@@ -534,6 +535,7 @@ namespace SeleniumUnitTests
         }
 
         [TestMethod]
+        [DoNotParallelize]
         public void OpenIEBrowser()
         {
             // We dont navigate here because there is special configuration required to get IE to fully work
