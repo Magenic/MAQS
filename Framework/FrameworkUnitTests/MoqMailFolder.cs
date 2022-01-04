@@ -73,6 +73,10 @@ namespace FrameworkUnitTests
         public int Count => throw new NotImplementedException();
 
         public HashSet<ThreadingAlgorithm> ThreadingAlgorithms => throw new NotImplementedException();
+
+        public System.Collections.Generic.ISet<string> PermanentKeywords => throw new NotImplementedException();
+
+        public ISet<string> AcceptedKeywords => throw new NotImplementedException();
 #pragma warning disable 0067
         public event EventHandler<EventArgs> Opened;
         public event EventHandler<EventArgs> Closed;
@@ -338,6 +342,26 @@ namespace FrameworkUnitTests
             throw new NotImplementedException();
         }
 
+        public UniqueId? Append(IAppendRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public UniqueId? Append(FormatOptions options, IAppendRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<UniqueId> Append(IList<IAppendRequest> requests, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<UniqueId> Append(FormatOptions options, IList<IAppendRequest> requests, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<UniqueId?> AppendAsync(MimeMessage message, MessageFlags flags = MessageFlags.None, CancellationToken cancellationToken = default, ITransferProgress progress = null)
         {
             throw new NotImplementedException();
@@ -384,6 +408,26 @@ namespace FrameworkUnitTests
         }
 
         public Task<IList<UniqueId>> AppendAsync(FormatOptions options, IList<MimeMessage> messages, IList<MessageFlags> flags, IList<DateTimeOffset> dates, CancellationToken cancellationToken = default, ITransferProgress progress = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<UniqueId?> AppendAsync(IAppendRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<UniqueId?> AppendAsync(FormatOptions options, IAppendRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IList<UniqueId>> AppendAsync(IList<IAppendRequest> requests, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IList<UniqueId>> AppendAsync(FormatOptions options, IList<IAppendRequest> requests, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
@@ -598,6 +642,21 @@ namespace FrameworkUnitTests
             throw new NotImplementedException();
         }
 
+        public IList<IMessageSummary> Fetch(IList<UniqueId> uids, IFetchRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<IMessageSummary> Fetch(IList<int> indexes, IFetchRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<IMessageSummary> Fetch(int min, int max, IFetchRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<IList<IMessageSummary>> FetchAsync(IList<UniqueId> uids, MessageSummaryItems items, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
@@ -684,6 +743,21 @@ namespace FrameworkUnitTests
         }
 
         public Task<IList<IMessageSummary>> FetchAsync(int min, int max, ulong modseq, MessageSummaryItems items, IEnumerable<string> headers, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IList<IMessageSummary>> FetchAsync(IList<UniqueId> uids, IFetchRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IList<IMessageSummary>> FetchAsync(IList<int> indexes, IFetchRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IList<IMessageSummary>> FetchAsync(int min, int max, IFetchRequest request, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
@@ -1263,6 +1337,26 @@ namespace FrameworkUnitTests
             throw new NotImplementedException();
         }
 
+        public UniqueId? Replace(UniqueId uid, IReplaceRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public UniqueId? Replace(FormatOptions options, UniqueId uid, IReplaceRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public UniqueId? Replace(int index, IReplaceRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public UniqueId? Replace(FormatOptions options, int index, IReplaceRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<UniqueId?> ReplaceAsync(UniqueId uid, MimeMessage message, MessageFlags flags = MessageFlags.None, CancellationToken cancellationToken = default, ITransferProgress progress = null)
         {
             throw new NotImplementedException();
@@ -1299,6 +1393,26 @@ namespace FrameworkUnitTests
         }
 
         public Task<UniqueId?> ReplaceAsync(FormatOptions options, int index, MimeMessage message, MessageFlags flags, DateTimeOffset date, CancellationToken cancellationToken = default, ITransferProgress progress = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<UniqueId?> ReplaceAsync(UniqueId uid, IReplaceRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<UniqueId?> ReplaceAsync(FormatOptions options, UniqueId uid, IReplaceRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<UniqueId?> ReplaceAsync(int index, IReplaceRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<UniqueId?> ReplaceAsync(FormatOptions options, int index, IReplaceRequest request, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
@@ -1633,6 +1747,46 @@ namespace FrameworkUnitTests
             throw new NotImplementedException();
         }
 
+        public bool Store(UniqueId uid, IStoreFlagsRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<UniqueId> Store(IList<UniqueId> uids, IStoreFlagsRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Store(int index, IStoreFlagsRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<int> Store(IList<int> indexes, IStoreFlagsRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Store(UniqueId uid, IStoreLabelsRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<UniqueId> Store(IList<UniqueId> uids, IStoreLabelsRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Store(int index, IStoreLabelsRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<int> Store(IList<int> indexes, IStoreLabelsRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task StoreAsync(UniqueId uid, IList<Annotation> annotations, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
@@ -1659,6 +1813,46 @@ namespace FrameworkUnitTests
         }
 
         public Task<IList<int>> StoreAsync(IList<int> indexes, ulong modseq, IList<Annotation> annotations, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> StoreAsync(UniqueId uid, IStoreFlagsRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IList<UniqueId>> StoreAsync(IList<UniqueId> uids, IStoreFlagsRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> StoreAsync(int index, IStoreFlagsRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IList<int>> StoreAsync(IList<int> indexes, IStoreFlagsRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> StoreAsync(UniqueId uid, IStoreLabelsRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IList<UniqueId>> StoreAsync(IList<UniqueId> uids, IStoreLabelsRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> StoreAsync(int index, IStoreLabelsRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IList<int>> StoreAsync(IList<int> indexes, IStoreLabelsRequest request, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
