@@ -151,7 +151,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("BaseSeleniumTestSteps TestObject is not null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 14
- testRunner.And("TestObject is type SeleniumTestObject", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("TestObject is type ISeleniumTestObject", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
