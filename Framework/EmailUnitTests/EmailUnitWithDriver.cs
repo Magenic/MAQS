@@ -356,6 +356,39 @@ namespace EmailUnitTests
         }
 
         /// <summary>
+        /// Mark and email as seen with the search
+        /// </summary>
+        [TestMethod]
+        [TestCategory(TestCategories.Email)]
+        public void MarkAsSeenViaSearch()
+        {
+            string uniqueSubject = Guid.NewGuid().ToString();
+            this.SendTestEmail(uniqueSubject);
+
+            if (!GenericWait.Wait<bool, string>(this.IsEmailThere, new TimeSpan(0, 0, 1), new TimeSpan(0, 0, 30), uniqueSubject))
+            {
+                Assert.Fail("Failed to get message " + uniqueSubject);
+            }
+
+            Thread.Sleep(1000);
+
+            // Get the email and mark it as seen
+            MimeMessage message = this.EmailDriver.SearchMessages(SearchQuery.SubjectContains(uniqueSubject), false, true)[0];
+
+            if (!GenericWait.Wait<bool, string>(this.IsEmailThere, new TimeSpan(0, 0, 1), new TimeSpan(0, 0, 30), uniqueSubject))
+            {
+                Assert.Fail("Refresh of " + uniqueSubject + " failed");
+            }
+
+            message = this.EmailDriver.SearchMessages(SearchQuery.SubjectContains(uniqueSubject), false)[0];
+
+            List<IMessageSummary> flags = this.EmailDriver.GetEmailFlags(this.EmailDriver.GetUniqueIDString(message));
+            Assert.IsTrue(flags[0].Flags.Value.HasFlag(MessageFlags.Seen), "Message not marked as read");
+
+            this.EmailDriver.DeleteMessage(message);
+        }
+
+        /// <summary>
         /// Delete a message with a specific unique identifier
         /// </summary>
         [TestMethod]
