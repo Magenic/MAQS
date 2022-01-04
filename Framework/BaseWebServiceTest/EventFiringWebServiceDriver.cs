@@ -215,11 +215,11 @@ namespace Magenic.Maqs.BaseWebServiceTest
                 return;
             }
 
-            string mediaType = content.Headers.ContentType.MediaType;
+            string mediaType = content.Headers?.ContentType?.MediaType;
 
             if (string.IsNullOrEmpty(mediaType))
             {
-                message.AppendLine("  **Content media type is null or empty**");
+                message.AppendLine("  **Writing content with a null or empty media type to the log is not supported**");
             }
             else
             {
@@ -231,7 +231,7 @@ namespace Magenic.Maqs.BaseWebServiceTest
                 }
                 else
                 {
-                    message.AppendLine("  **Writting this kind of content to the log is not supported**");
+                    message.AppendLine($"  **Writing '{mediaType}' content to the log is not supported**");
                 }
             }
         }
