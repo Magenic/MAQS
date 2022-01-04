@@ -11,7 +11,7 @@ Scenario: TestObject Available BaseTestSteps
 Scenario: TestObject Available BaseSeleniumTestSteps
 	Given class BaseSeleniumTestSteps
 	Then BaseSeleniumTestSteps TestObject is not null
-	And TestObject is type SeleniumTestObject
+	And TestObject is type ISeleniumTestObject
 
 @MAQS_WebService
 Scenario: TestObject Available BaseWebServiceTestSteps

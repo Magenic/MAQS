@@ -22,19 +22,20 @@ namespace SeleniumUnitTests
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
+    [TestCategory(TestCategories.Selenium)]
     public class SeleniumConfigTests
     {
         /// <summary>
         /// Browser check
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         public void GetBrowser()
         {
-            IWebDriver driver = WebDriverFactory.GetDefaultBrowser();
+            IWebDriver driver = null;
 
             try
             {
+                driver = WebDriverFactory.GetDefaultBrowser();
                 Assert.IsNotNull(driver);
             }
             finally
@@ -47,7 +48,6 @@ namespace SeleniumUnitTests
         /// Browser name
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         public void GetBrowserName()
         {
             string driverName = SeleniumConfig.GetBrowserName();
@@ -59,7 +59,6 @@ namespace SeleniumUnitTests
         /// Verify resize browser window to Maximum lengths
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         public void ResizeBrowserWindowMaximize()
         {
             /*
@@ -70,10 +69,11 @@ namespace SeleniumUnitTests
              */
 
             // Using FireFox because headless Chrome does not respect Maximize as of 8/24/2018
-            var driverManualSize = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Chrome);
+            IWebDriver driverManualSize = null;
 
             try
             {
+                driverManualSize = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Chrome);
                 driverManualSize.Manage().Window.Maximize();
 
                 var manuallyMaximizedWidth = driverManualSize.Manage().Window.Size.Width;
@@ -86,10 +86,11 @@ namespace SeleniumUnitTests
                    },
                    "SeleniumMaqs");
 
-                var driverConfigSize = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Firefox);
+                IWebDriver driverConfigSize = null;
 
                 try
                 {
+                    driverConfigSize = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Firefox);
                     Assert.AreEqual(manuallyMaximizedWidth, driverConfigSize.Manage().Window.Size.Width);
                     Assert.AreEqual(manuallyMaximizedHidth, driverConfigSize.Manage().Window.Size.Height);
                 }
@@ -126,7 +127,6 @@ namespace SeleniumUnitTests
         /// Verify resize browser window to Default lengths
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         [DoNotParallelize]
         public void ResizeBrowserWindowDefault()
         {
@@ -142,10 +142,11 @@ namespace SeleniumUnitTests
                     },
                    "SeleniumMaqs");
 
-            var driverChangeSize = WebDriverFactory.GetDefaultBrowser();
+            IWebDriver driverChangeSize = null;
 
             try
             {
+                driverChangeSize = WebDriverFactory.GetDefaultBrowser();
                 var defaultWidth = driverChangeSize.Manage().Window.Size.Width;
                 var defaultHidth = driverChangeSize.Manage().Window.Size.Height;
                 var nonDefaultWidth = defaultWidth + 1;
@@ -153,10 +154,11 @@ namespace SeleniumUnitTests
 
                 driverChangeSize.Manage().Window.Size = new System.Drawing.Size(nonDefaultWidth, nonDefaultHidth);
 
-                var driverDefault = WebDriverFactory.GetDefaultBrowser();
+                IWebDriver driverDefault = null;
 
                 try
                 {
+                    driverDefault = WebDriverFactory.GetDefaultBrowser();
                     Assert.AreEqual(defaultWidth, driverDefault.Manage().Window.Size.Width);
                     Assert.AreEqual(defaultHidth, driverDefault.Manage().Window.Size.Height);
                 }
@@ -175,7 +177,6 @@ namespace SeleniumUnitTests
         /// Verify resize browser window to custom lengths 1024x768
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         [DoNotParallelize]
         public void ResizeBrowserWindowCustom()
         {
@@ -189,10 +190,11 @@ namespace SeleniumUnitTests
                     },
                    "SeleniumMaqs");
 
-            var driver = WebDriverFactory.GetDefaultBrowser();
+            IWebDriver driver = null;
 
             try
             {
+                driver = WebDriverFactory.GetDefaultBrowser();
                 Assert.AreEqual(expectedWidth, driver.Manage().Window.Size.Width);
                 Assert.AreEqual(expectedHeight, driver.Manage().Window.Size.Height);
             }
@@ -206,7 +208,6 @@ namespace SeleniumUnitTests
         /// Web site base
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         public void GetWebsiteBase()
         {
             string website = SeleniumConfig.GetWebSiteBase();
@@ -218,7 +219,6 @@ namespace SeleniumUnitTests
         /// Driver hint path
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         public void GetDriverHintPath()
         {
             string path = SeleniumConfig.GetDriverHintPath();
@@ -230,7 +230,6 @@ namespace SeleniumUnitTests
         /// Remote browser name test
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         public void GetRemoteBrowserName()
         {
             string browser = SeleniumConfig.GetRemoteBrowserName();
@@ -242,7 +241,6 @@ namespace SeleniumUnitTests
         /// Get command timeout test
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         public void GetCommandTimeout()
         {
             TimeSpan initTimeout = SeleniumConfig.GetCommandTimeout();
@@ -254,7 +252,6 @@ namespace SeleniumUnitTests
         /// Get command retry refuse
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         public void GetRetryRefused()
         {
             Assert.IsTrue(SeleniumConfig.GetRetryRefused());
@@ -264,7 +261,6 @@ namespace SeleniumUnitTests
         /// Testing of the RemoteCapabilityMaqs section of the app.config file
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         [DoNotParallelize]
         public void RemoteCapabilitySectionRespected()
         {
@@ -298,7 +294,6 @@ namespace SeleniumUnitTests
         /// Remote platform test
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         public void GetRemotePlatform()
         {
             string platform = SeleniumConfig.GetRemotePlatform();
@@ -310,7 +305,6 @@ namespace SeleniumUnitTests
         /// Remote browser version
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         public void GetRemoteBrowserVersion()
         {
             string version = SeleniumConfig.GetRemoteBrowserVersion();
@@ -322,13 +316,13 @@ namespace SeleniumUnitTests
         /// Browser with string
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         public void GetBrowserWithString()
         {
-            IWebDriver driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.HeadlessChrome);
+            IWebDriver driver = null;
 
             try
             {
+                driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.HeadlessChrome);
                 Assert.IsNotNull(driver);
             }
             finally
@@ -341,7 +335,6 @@ namespace SeleniumUnitTests
         /// Verify that correct exception is returned when unrecognizable remote browser is found
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         [ExpectedException(typeof(ArgumentException))]
         [DoNotParallelize]
         public void GetBrowserRemoteThrowException()
@@ -377,13 +370,13 @@ namespace SeleniumUnitTests
         /// Get wait driver test
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         public void GetWaitDriver()
         {
-            IWebDriver driver = WebDriverFactory.GetDefaultBrowser();
+            IWebDriver driver = null;
 
             try
             {
+                driver = WebDriverFactory.GetDefaultBrowser();
                 WebDriverWait wait = SeleniumConfig.GetWaitDriver(driver);
                 Assert.AreEqual(20, wait.Timeout.Seconds);
                 Assert.AreEqual(1, wait.PollingInterval.Seconds);
@@ -398,13 +391,14 @@ namespace SeleniumUnitTests
         /// Verifies that SetTimeouts sets driver timeouts to equal the default values in the Config
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         public void SetTimeoutsGetWaitDriver()
         {
-            var driver = WebDriverFactory.GetDefaultBrowser();
-            var newDriver = WebDriverFactory.GetDefaultBrowser();
+            IWebDriver driver = null;
+            IWebDriver newDriver = null;
             try
             {
+                driver = WebDriverFactory.GetDefaultBrowser();
+                newDriver = WebDriverFactory.GetDefaultBrowser();
                 SeleniumUtilities.SetTimeouts(driver);
                 WebDriverWait wait = SeleniumConfig.GetWaitDriver(newDriver);
                 Assert.AreEqual(wait.Timeout.TotalMilliseconds.ToString(), Config.GetValueForSection("SeleniumMaqs", "BrowserTimeout", "0"));
@@ -426,7 +420,6 @@ namespace SeleniumUnitTests
         /// Get expected browser types
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         public void BrowserTypeMatch()
         {
             Assert.AreEqual(BrowserType.IE, SeleniumConfig.GetBrowserType("INTERNET EXPLORER"));
@@ -443,7 +436,6 @@ namespace SeleniumUnitTests
         /// Expected browser types error check
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         public void BrowserTypeError()
         {
             Assert.ThrowsException<ArgumentException>(() => SeleniumConfig.GetBrowserType("PHANTOMJS"));
@@ -456,7 +448,6 @@ namespace SeleniumUnitTests
         /// Get expected remote browser types
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         public void RemoteBrowserTypeMatch()
         {
             Assert.AreEqual(RemoteBrowserType.IE, SeleniumConfig.GetRemoteBrowserType("INTERNET EXPLORER"));
@@ -472,7 +463,6 @@ namespace SeleniumUnitTests
         /// Expected remote browser types error check
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         public void RemoteBrowserTypeError()
         {
             Assert.ThrowsException<ArgumentException>(() => SeleniumConfig.GetRemoteBrowserType("remote"));
@@ -485,7 +475,6 @@ namespace SeleniumUnitTests
         /// Get expected UseProxy configuration
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         public void GetUseProxy()
         {
             Assert.IsFalse(SeleniumConfig.GetUseProxy());
@@ -495,21 +484,20 @@ namespace SeleniumUnitTests
         /// Get expected proxy address configuration
         /// </summary>
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         public void GetProxyAddress()
         {
             Assert.AreEqual("http://localhost:8002", SeleniumConfig.GetProxyAddress());
         }
 
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         public void OpenEdgeBrowser()
         {
-            IWebDriver driver;
+            IWebDriver driver = null;
 
             try
             {
                 driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Edge);
+                driver.Navigate().GoToUrl(Config.GetValueForSection(ConfigSection.SeleniumMaqs, "WebSiteBase"));
             }
             catch
             {
@@ -519,50 +507,40 @@ namespace SeleniumUnitTests
                 headlessEdgeOptions.AddArguments("--headless");
 
                 driver = WebDriverFactory.GetEdgeDriver(SeleniumConfig.GetCommandTimeout(), headlessEdgeOptions);
+                driver.Navigate().GoToUrl(Config.GetValueForSection(ConfigSection.SeleniumMaqs, "WebSiteBase"));
             }
-
-            driver.Navigate().GoToUrl(Config.GetValueForSection(ConfigSection.SeleniumMaqs, "WebSiteBase"));
-            driver?.KillDriver();
+            finally
+            {
+                driver?.KillDriver();
+            }
         }
 
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         public void OpenFirefoxBrowser()
         {
-            var driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Firefox);
-            driver.Navigate().GoToUrl(Config.GetValueForSection(ConfigSection.SeleniumMaqs, "WebSiteBase"));
-            driver?.KillDriver();
+            OpenBrowserWithDefaultTest(BrowserType.Firefox);
         }
 
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         public void OpenChromeBrowser()
         {
-            var driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.Chrome);
-            driver.Navigate().GoToUrl(Config.GetValueForSection(ConfigSection.SeleniumMaqs, "WebSiteBase"));
-            driver?.KillDriver();
+            OpenBrowserWithDefaultTest(BrowserType.Chrome);
         }
 
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         public void OpenHeadlessChromeBrowser()
         {
-            var driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.HeadlessChrome);
-            driver.Navigate().GoToUrl(Config.GetValueForSection(ConfigSection.SeleniumMaqs, "WebSiteBase"));
-            driver?.KillDriver();
+            OpenBrowserWithDefaultTest(BrowserType.HeadlessChrome);
         }
 
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         public void OpenIEBrowser()
         {
             // We dont navigate here because there is special configuration required to get IE to fully work
-            var driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(BrowserType.IE);
-            driver?.KillDriver();
+            OpenBrowserWithDefaultTest(BrowserType.IE, false);
         }
 
         [TestMethod]
-        [TestCategory(TestCategories.Selenium)]
         [DoNotParallelize]
         [ExpectedException(typeof(ArgumentException))]
         public void CommandTimeoutNotANumberException()
@@ -592,6 +570,28 @@ namespace SeleniumUnitTests
                          { "SeleniumCommandTimeout", commandTimeout }
                     },
                    "SeleniumMaqs");
+            }
+        }
+
+        /// <summary>
+        /// Test that we can create a web driver with the default configuration
+        /// </summary>
+        /// <param name="browserType">Type of browser</param>
+        /// <param name="navigate">Should we make sure we can navigate</param>
+        private void OpenBrowserWithDefaultTest(BrowserType browserType, bool navigate = true)
+        {
+            IWebDriver driver = null;
+            try
+            {
+                driver = WebDriverFactory.GetBrowserWithDefaultConfiguration(browserType);
+                if (navigate)
+                {
+                    driver.Navigate().GoToUrl(Config.GetValueForSection(ConfigSection.SeleniumMaqs, "WebSiteBase"));
+                }
+            }
+            finally
+            {
+                driver?.KillDriver();
             }
         }
     }
