@@ -1,7 +1,5 @@
 name: Build
 on:
-  schedule:
-    - cron: "13 23 * * *"
   push:
     branches:
       - master
