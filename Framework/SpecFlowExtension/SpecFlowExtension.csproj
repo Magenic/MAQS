@@ -50,7 +50,7 @@
     </PackageReference>
     <PackageReference Include="MSTest.TestFramework" version="2.2.8" />
     <PackageReference Include="NUnit" version="3.13.2" />
-    <PackageReference Include="SpecFlow" version="3.9.40" />
+    <PackageReference Include="SpecFlow" version="3.9.58" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
     <PackageReference Include="System.Reflection.Emit" version="4.7.0" />
     <PackageReference Include="System.Reflection.Emit.Lightweight" version="4.7.0" />
