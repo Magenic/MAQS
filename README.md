@@ -1,6 +1,14 @@
-Builds:  
-[![Build Status](https://github.com/Magenic/MAQS/actions/workflows/build.yml/badge.svg?event=schedule)](https://github.com/Magenic/MAQS/actions/workflows/build.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=MAQS&metric=alert_status)](https://sonarcloud.io/dashboard?id=MAQS) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=MAQS&metric=coverage)](https://sonarcloud.io/dashboard?id=MAQS) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=MAQS&metric=bugs)](https://sonarcloud.io/dashboard?id=MAQS) [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=MAQS&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=MAQS)  
+We have moved
+=======
+MAQS has moved to https://github.com/CognizantOpenSource/maqs-dotnet
+
+Archived
+-----------
+Build Status: **NA**  
+Quality Gate Status: **NA**   
+Coverage: **NA**  
+Bugs: **NA**  
+Vulnerabilities: **NA**  
 
 Releases:  
 [![Nuget](https://img.shields.io/nuget/v/Magenic.Maqs.svg?label=Nuget%20Package)](https://www.nuget.org/packages/Magenic.Maqs/)  [![NuGet package download counter](https://img.shields.io/nuget/dt/Magenic.Maqs.svg?label=Downloads)](https://www.nuget.org/packages/Magenic.Maqs/)   
